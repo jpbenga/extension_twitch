@@ -306,3 +306,18 @@ séparées côté serveur, même lorsqu’il change de vue dans son onglet de te
 Statut actuel du Studio : Premier test humain iPhone effectué — refonte ergonomique
 nécessaire. Les mentions d’attente ci-dessus sont historiques. La validation de la
 refonte sur appareil réel, des parcours complets, de Safari iOS et d’OBS reste à faire.
+
+
+20. Gameplay — jalon 5A
+
+Lire docs/OFFICIAL-GAMES-RULES.md et docs/STAGE-5.md avant de changer les jeux.
+Undercover est une variante de démonstration explicite, pas une décision définitive.
+Ses primitives déclaratives v3 appartiennent au moteur commun ; aucun branchement
+sur l’identifiant du jeu ne doit décider des règles. Préserver v1/v2, les reçus,
+SQLite/SSE, les projections privées et le Studio. Les distributions sont aléatoires
+côté serveur et atomiques avec leur reçu. Ne pas exposer les mots, camps cachés ou
+choix de vote individuels dans le journal public. Les opérations de gestion exigent
+une autorité GM serveur. Enchères et Qui est l’espion restent à réaliser en verticales
+complètes ; ne pas les déclarer jouables prématurément. Les règles manquantes peuvent
+être expérimentées dans des variantes explicitement documentées selon l’autorisation
+du jalon 5. Voir docs/TEST-OFFICIAL-GAMES.md pour la validation humaine.

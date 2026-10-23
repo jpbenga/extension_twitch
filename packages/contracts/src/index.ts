@@ -17,7 +17,7 @@ export type ParticipationMode = z.infer<typeof participationModeSchema>;
 export const gameDescriptorSchema = z.strictObject({
   id: gameIdSchema,
   title: z.string().min(1),
-  rulesStatus: z.literal("pending-definition"),
+  rulesStatus: z.enum(["pending-definition", "demo-playable"]),
 });
 export type GameDescriptor = z.infer<typeof gameDescriptorSchema>;
 

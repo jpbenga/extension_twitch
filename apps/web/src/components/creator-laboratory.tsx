@@ -83,7 +83,9 @@ export function CreatorLaboratory({ id }: { id: string }) {
           className="secondary-button"
           href={lab?.returnTo ?? "/creator/library"}
         >
-          Retour à l’édition
+          {lab?.returnTo === "/creator/play"
+            ? "Changer de jeu ou créer une nouvelle partie"
+            : "Retour à l’édition"}
         </Link>
       </div>
       {error && (
@@ -127,27 +129,48 @@ export function CreatorLaboratory({ id }: { id: string }) {
               </button>
             </div>
           )}
-          <nav
-            className="creator-tabs lab-role-tabs"
-            aria-label="Vue du laboratoire"
-          >
-            {[
-              ["gm", "Game Master"],
-              ...lab.players
-                .filter((p) => p.id)
-                .map((p, i) => [`player:${p.id}`, `Joueur ${i + 1}`]),
-              ["public", "Spectateur"],
-            ].map(([value, label]) => (
-              <button
-                key={value}
-                className="secondary-button"
-                aria-pressed={role === value}
-                onClick={() => setRole(value!)}
+          {lab.players.length > 2 ? (
+            <label className="lab-role-tabs">
+              Point de vue
+              <select
+                aria-label="Perspective du laboratoire"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
               >
-                {label}
-              </button>
-            ))}
-          </nav>
+                <option value="gm">Game Master</option>
+                {lab.players
+                  .filter((p) => p.id)
+                  .map((p, i) => (
+                    <option value={`player:${p.id}`} key={p.id}>
+                      Joueur {i + 1}
+                    </option>
+                  ))}
+                <option value="public">Spectateur</option>
+              </select>
+            </label>
+          ) : (
+            <nav
+              className="creator-tabs lab-role-tabs"
+              aria-label="Vue du laboratoire"
+            >
+              {[
+                ["gm", "Game Master"],
+                ...lab.players
+                  .filter((p) => p.id)
+                  .map((p, i) => [`player:${p.id}`, `Joueur ${i + 1}`]),
+                ["public", "Spectateur"],
+              ].map(([value, label]) => (
+                <button
+                  key={value}
+                  className="secondary-button"
+                  aria-pressed={role === value}
+                  onClick={() => setRole(value!)}
+                >
+                  {label}
+                </button>
+              ))}
+            </nav>
+          )}
           <LabView
             key={`${id}:${audience}`}
             id={id}
@@ -188,9 +211,11 @@ export function CreatorLaboratory({ id }: { id: string }) {
           <details className="creator-private">
             <summary>Ouvrir cette vue sur un autre écran</summary>
             <p>
-              Le laboratoire vous permet d’essayer plusieurs rôles. Un vrai
-              joueur doit recevoir uniquement son invitation ou son propre
-              accès.
+              Le sélecteur est recommandé dans un même navigateur. Pour
+              plusieurs vues simultanées, utilisez différents navigateurs ou
+              appareils. Le laboratoire vous permet d’essayer plusieurs rôles.
+              Un vrai joueur doit recevoir uniquement son invitation ou son
+              propre accès.
             </p>
             <a
               className="secondary-button"
@@ -241,7 +266,10 @@ function LabView({
         throw new Error(
           "Au moins un joueur doit rejoindre la partie. Partagez l’invitation ci-dessous.",
         );
-      await labCommand(lab, { type: "game.use-prepared" });
+      await labCommand(lab, {
+        type: "game.use-prepared",
+        configuration: lab.configuration ?? {},
+      });
       lab.ready = true;
       saveLab(lab);
       onPrepared();

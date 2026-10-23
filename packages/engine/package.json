@@ -14,6 +14,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@extension-twitch/contracts": "0.1.0"
+    "@extension-twitch/contracts": "0.1.0",
+    "@extension-twitch/game-undercover": "0.1.0"
   }
 }

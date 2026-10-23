@@ -29,7 +29,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "dev:lan": "node scripts/dev-lan.mjs",
-    "test:lab": "playwright test --config playwright.lab.config.ts"
+    "test:lab": "playwright test --config playwright.lab.config.ts",
+    "test:games": "node scripts/test-e2e.mjs --config=playwright.games.config.ts"
   },
   "devDependencies": {
     "@playwright/test": "1.64.1",

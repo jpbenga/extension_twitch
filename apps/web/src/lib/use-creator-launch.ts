@@ -1,7 +1,10 @@
 "use client";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import type { GameDefinition } from "@extension-twitch/contracts/game-definition";
+import type {
+  GameDefinition,
+  Scalar,
+} from "@extension-twitch/contracts/game-definition";
 import { counterRecipeFor } from "@extension-twitch/contracts/creator";
 import { useStudio } from "../components/creator-context";
 import { requestMessage } from "./session-client";
@@ -18,6 +21,8 @@ export function useCreatorLaunch() {
     definition: GameDefinition,
     mode: "quick" | "invite" = "quick",
     returnTo = `/creator/games/${gameId}`,
+    configuration: Record<string, Scalar> = {},
+    demoPlayers?: number,
   ) {
     if (flight.current) return;
     flight.current = true;
@@ -29,11 +34,33 @@ export function useCreatorLaunch() {
       const template = studio.view?.catalog.find(
         (g) => g.release.definition.id === "collective-pulse",
       )?.release.definition;
+      const m = definition.mechanics,
+        deal = m?.deals[0];
+      const minority = deal
+        ? Number(
+            configuration[deal.minorityCountConfiguration] ??
+              definition.configuration.find(
+                (c) => c.id === deal.minorityCountConfiguration,
+              )?.value.initial ??
+              0,
+          )
+        : 0;
       const lab: CreatorLab = {
         ...access,
         gameId,
         returnTo,
         mode,
+        ...(m
+          ? {
+              demoPlayers:
+                demoPlayers ??
+                Math.min(
+                  m.maxPlayers,
+                  Math.max(4, m.minPlayers, minority * 2 + 1),
+                ),
+            }
+          : {}),
+        configuration,
         players: [],
         ready: false,
         initialPhase: definition.initialPhase,

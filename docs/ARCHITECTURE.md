@@ -1,6 +1,6 @@
 # Architecture — socle technique
 
-Statut : choix techniques validés par le porteur du projet. Étape 3, jalon A implémenté ; B/C/D restent soumis à validation humaine. Voir [le découpage et les décisions ouvertes](STAGE-3.md).
+Statut : choix techniques validés. Les sections initiales décrivent l’historique A ; les évolutions du moteur et du Studio figurent en fin de document. État actuel : Undercover de démonstration jouable, jalon 5A. Voir [le bilan actuel](STAGE-5.md).
 
 ## Choix validés
 
@@ -91,3 +91,35 @@ rôles/actions/phases restent des métadonnées. Le test de brouillon accepte un
 révision attendue facultative, vérifiée avant création pour éviter une course avec
 une édition concurrente. Les deux joueurs fictifs utilisent les inscriptions et
 permissions normales, sans route de privilèges serveur. [Parcours humains](TEST-STUDIO-4B.md).
+
+## Jeux jouables 5A
+
+Le module Undercover expose son descripteur public par l’entrée habituelle, et sa
+définition serveur par `@extension-twitch/game-undercover/definition`. Le catalogue
+du moteur importe cette dernière ; le navigateur n’importe ni le moteur ni une
+définition contenant la configuration privée de la partie. La seule dépendance
+ajoutée est interne au workspace, sans dépendance entre les trois modules de jeux.
+
+Les primitives v3 de distribution, vote, élimination et résultat sont interprétées
+dans `engine/mechanics.ts`, dans la transaction existante du GameRun. Elles ne
+consultent pas l’identifiant Undercover pour prendre une décision. La projection
+publique et chaque projection individuelle sont toujours construites côté serveur.
+Les composants de cartes/vote/résultat utilisent leurs seules données autorisées.
+Voir [les contrats v3](CONFIGURABLE-ENGINE.md#évolution-5a--primitives-de-gameplay-v3).
+
+`/creator/play` orchestre les API normales : création, invitations individuelles,
+préparation puis commandes authentifiées. Le sélecteur de vue du laboratoire
+n’ouvre qu’un contexte de rôle à la fois. Il appartient au GM qui possède déjà les
+informations de gestion ; ce n’est pas un outil privilégié distribué aux spectateurs.
+`/lab` reste exclusivement en développement. Aucun contournement de permissions ou
+endpoint de simulation réservé au développement n’est exposé en production.
+
+En HTTP local, ouvrir de nombreux onglets SSE sous un même contexte de navigateur
+peut épuiser son quota de connexions persistantes. Utiliser le sélecteur du laboratoire
+ou des appareils/profils séparés. Les tests multi-rôles isolent réellement les
+contextes de navigateur comme des appareils distincts ; les protections de débit,
+d’origine et d’idempotence restent actives.
+
+Enchères et Qui est l’espion conservent leurs modules publics et leur place dans la
+V1 ; ils ne sont pas encore jouables. Leurs hypothèses sont documentées, sans moteur
+parallèle ni promesse d’implémentation. L’Overlay Studio et le Store sont reportés.

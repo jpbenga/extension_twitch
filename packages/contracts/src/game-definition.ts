@@ -6,11 +6,13 @@ export {
   type Expression,
 } from "./expressions.js";
 
-export const identifierSchema = z
-  .string()
-  .regex(/^[a-z][a-z0-9-]{0,39}$/)
-  .refine((id) => !["constructor", "prototype"].includes(id));
-const label = z.string().trim().min(1).max(80);
+import { identifierSchema, gameLabelSchema as label } from "./identifiers.js";
+export { identifierSchema } from "./identifiers.js";
+import {
+  mechanicsSchema,
+  operationSchema,
+  playProjectionSchema,
+} from "./mechanics.js";
 export const scalarSchema = z.union([
   z.string().max(240),
   z.number().int().min(-100000).max(100000),
@@ -86,6 +88,7 @@ export const actionDefinitionSchema = z.strictObject({
     .array(z.strictObject({ variable: identifierSchema, equals: scalarSchema }))
     .max(4),
   effects: z.array(effect).max(6),
+  operations: z.array(operationSchema).min(1).max(1).optional(),
   guard: expressionSchema.optional(),
   confirmation: z.boolean().default(false),
   nextPhase: identifierSchema.optional(),
@@ -112,8 +115,8 @@ const widget = z.strictObject({
   phases: z.array(identifierSchema).min(1).max(8),
 });
 const rawDefinition = z.strictObject({
-  schemaVersion: z.union([z.literal(1), z.literal(2)]),
-  engineVersion: z.union([z.literal(1), z.literal(2)]),
+  schemaVersion: z.union([z.literal(1), z.literal(2), z.literal(3)]),
+  engineVersion: z.union([z.literal(1), z.literal(2), z.literal(3)]),
   id: identifierSchema,
   version: z.string().regex(/^\d{1,3}\.\d{1,3}\.\d{1,3}$/),
   title: label,
@@ -149,6 +152,7 @@ const rawDefinition = z.strictObject({
     .min(1)
     .max(8),
   initialPhase: identifierSchema,
+  mechanics: mechanicsSchema.optional(),
   actions: z.array(actionDefinitionSchema).max(8),
   assets: z.array(assetSlot).max(4),
   scenes: z
@@ -215,7 +219,7 @@ export const gameDefinitionSchema = rawDefinition.superRefine((d, ctx) => {
       roles: roles.flatMap((r) => (r ? [r.base] : [])),
     };
     if (a.guard) {
-      if (d.schemaVersion !== 2) fail("Expressions require v2");
+      if (d.schemaVersion < 2) fail("Expressions require v2");
       try {
         if (
           inspectExpression(a.guard, { ...expressionContext, parameters: [] })
@@ -259,7 +263,7 @@ export const gameDefinitionSchema = rawDefinition.superRefine((d, ctx) => {
       if (e.type === "increment" && v.value.type !== "integer")
         fail("Increment requires integer");
       if (e.value.from === "expression") {
-        if (d.schemaVersion !== 2) fail("Expressions require v2");
+        if (d.schemaVersion < 2) fail("Expressions require v2");
         try {
           const info = inspectExpression(e.value.expression, expressionContext);
           if (
@@ -294,6 +298,143 @@ export const gameDefinitionSchema = rawDefinition.superRefine((d, ctx) => {
       }
     }
   }
+  const m = d.mechanics;
+  if (d.schemaVersion !== 3 && (m || d.actions.some((a) => a.operations)))
+    fail("Mechanics require v3");
+  if (m) {
+    unique(m.deals);
+    unique(m.ballots);
+    unique(m.endings);
+    if (m.minPlayers > m.maxPlayers) fail("Invalid player limits");
+    const role = (id: string) =>
+      d.roles.some((r) => r.id === id && r.base === "player");
+    const phase = (id: string) => d.phases.some((p) => p.id === id);
+    const integerConfig = (id: string) =>
+      d.configuration.find((c) => c.id === id && c.value.type === "integer");
+    if (
+      (m.endings.length || m.roundLimitConfiguration) &&
+      (!m.finishedPhase || !phase(m.finishedPhase))
+    )
+      fail("Unknown ending phase");
+    if (m.roundLimitConfiguration) {
+      const round = integerConfig(m.roundLimitConfiguration)?.value;
+      if (
+        round?.type !== "integer" ||
+        round.min < 1 ||
+        round.max > 30 ||
+        !m.drawLabel
+      )
+        fail("Invalid round configuration");
+    }
+    if (m.deals.length && m.minPlayers < 3) fail("Invalid player limits");
+    for (const deal of m.deals) {
+      if (
+        !role(deal.majorityRole) ||
+        !role(deal.minorityRole) ||
+        deal.majorityRole === deal.minorityRole ||
+        d.defaultPlayerRole !== deal.majorityRole
+      )
+        fail("Invalid deal roles");
+      const variable = d.variables.find((v) => v.id === deal.privateVariable);
+      const majority = d.configuration.find(
+        (c) => c.id === deal.majorityValueConfiguration,
+      );
+      const minority = d.configuration.find(
+        (c) => c.id === deal.minorityValueConfiguration,
+      );
+      if (
+        !variable ||
+        variable.scope !== "participant" ||
+        variable.visibility !== "owner" ||
+        variable.value.type !== "text" ||
+        !majority ||
+        !minority ||
+        majority.visibility !== "gm" ||
+        minority.visibility !== "gm" ||
+        majority.value.type !== "text" ||
+        minority.value.type !== "text" ||
+        (majority.value.type === "text" &&
+          variable.value.type === "text" &&
+          majority.value.maxLength > variable.value.maxLength) ||
+        (minority.value.type === "text" &&
+          variable.value.type === "text" &&
+          minority.value.maxLength > variable.value.maxLength)
+      )
+        fail("Invalid private distribution");
+      const count = integerConfig(deal.minorityCountConfiguration)?.value;
+      if (
+        count?.type !== "integer" ||
+        count.min < 1 ||
+        count.max > 11 ||
+        count.initial * 2 >= m.maxPlayers
+      )
+        fail("Invalid distribution count");
+    }
+    for (const ballot of m.ballots)
+      if (!phase(ballot.resultPhase)) fail("Unknown ballot phase");
+    if (
+      m.drawRevealVariables.some((id) => !d.variables.some((v) => v.id === id))
+    )
+      fail("Unknown revealed variable");
+    for (const ending of m.endings) {
+      if (
+        !role(ending.leftRole) ||
+        ("role" in ending.right && !role(ending.right.role))
+      )
+        fail("Unknown ending role");
+      if (
+        ending.revealVariables.some(
+          (id) => !d.variables.some((v) => v.id === id),
+        )
+      )
+        fail("Unknown revealed variable");
+    }
+  }
+  for (const a of d.actions)
+    for (const operation of a.operations ?? []) {
+      if (!m) {
+        fail("Missing mechanics");
+        continue;
+      }
+      const playerOnly = a.roles.every(
+        (id) => d.roles.find((r) => r.id === id)?.base === "player",
+      );
+      const gmOnly = a.roles.every(
+        (id) => d.roles.find((r) => r.id === id)?.base === "gm",
+      );
+      if (operation.type === "ballot.cast") {
+        const p = a.parameters.find((p) => p.id === operation.targetParameter);
+        if (
+          !playerOnly ||
+          !p ||
+          p.value.type !== "text" ||
+          p.value.maxLength < 36
+        )
+          fail("Ballot requires player target");
+      } else if (!gmOnly) fail("Management operation requires GM");
+      if (
+        operation.type === "deal" &&
+        !m.deals.some((x) => x.id === operation.deal)
+      )
+        fail("Unknown distribution");
+      if (
+        "ballot" in operation &&
+        !m.ballots.some((x) => x.id === operation.ballot)
+      )
+        fail("Unknown ballot");
+      if (
+        operation.type === "round.next" &&
+        !d.phases.some((p) => p.id === operation.phase)
+      )
+        fail("Unknown phase");
+      // Primitive operations own these transitions, never a competing nextPhase.
+      if (
+        (operation.type === "ballot.resolve" ||
+          operation.type === "round.next") &&
+        a.nextPhase
+      )
+        fail("Conflicting transition");
+    }
   for (const scene of d.scenes) {
     unique(scene.widgets);
     for (const w of scene.widgets) {
@@ -377,23 +518,26 @@ const projectedValue = z.strictObject({
   participantId: z.uuid().optional(),
   value: scalarSchema,
 });
+const projectedAction = z.strictObject({
+  id: identifierSchema,
+  label,
+  confirmation: z.boolean(),
+  parameters: z
+    .array(field.extend({ choices: z.array(z.uuid()).max(12).optional() }))
+    .max(4),
+});
 export const gameProjectionSchema = z.strictObject({
   runId: z.uuid(),
   definitionId: identifierSchema,
   definitionVersion: z.string(),
   title: label,
-  phase: z.strictObject({ id: identifierSchema, label }),
+  phase: z.strictObject({
+    id: identifierSchema,
+    label,
+    description: z.string().max(240).optional(),
+  }),
   values: z.array(projectedValue).max(264),
-  actions: z
-    .array(
-      z.strictObject({
-        id: identifierSchema,
-        label,
-        confirmation: z.boolean(),
-        parameters: z.array(field).max(4),
-      }),
-    )
-    .max(8),
+  actions: z.array(projectedAction).max(8),
   assets: z
     .array(
       z.strictObject({
@@ -404,11 +548,13 @@ export const gameProjectionSchema = z.strictObject({
       }),
     )
     .max(4),
+  play: playProjectionSchema.optional(),
   role: identifierSchema.optional(),
   management: z
     .strictObject({
       roles: z.array(z.strictObject({ id: identifierSchema, label })).max(8),
       assignments: z.record(z.uuid(), identifierSchema),
+      proxyAction: projectedAction.optional(),
     })
     .optional(),
 });

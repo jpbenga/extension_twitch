@@ -138,6 +138,58 @@ describe("creator library foundations", () => {
     bad.id = "other-id";
     expect(() => save(w, bad)).toThrow("STABLE_ID_REQUIRED");
   });
+  it("keeps v3 official variants, immutable releases and safe export compatibility in the same library", () => {
+    const source = officialCatalog.find(
+      (g) => g.release.definition.id === "undercover",
+    )!;
+    let w = operate(empty(), {
+      type: "draft.fork",
+      source: { gameId: source.identity.id, version: source.release.version },
+      title: "Mon vote privé",
+    });
+    const id = w.games[0]!.identity.id;
+    w = operate(w, {
+      type: "draft.publish",
+      gameId: id,
+      version: "1.0.0",
+      rightsAttested: true,
+    });
+    const changed = structuredClone(w.games[0]!.draft.definition);
+    changed.mechanics!.ballots[0]!.allowSelfVote = true;
+    w = save(w, changed);
+    const game = w.games[0]!;
+    expect(game.draft.definition.mechanics!.ballots[0]!.allowSelfVote).toBe(
+      true,
+    );
+    expect(
+      game.releases[0]!.definition.mechanics!.ballots[0]!.allowSelfVote,
+    ).toBe(false);
+    expect(source.release.definition.mechanics!.ballots[0]!.allowSelfVote).toBe(
+      false,
+    );
+    expect(game.identity.lineage[0]!.gameId).toBe(source.identity.id);
+    const manifest = exportManifest({
+      identity: game.identity,
+      release: game.releases[0]!,
+    });
+    expect(manifest.compatibility).toEqual({
+      schemaVersion: 3,
+      engineVersion: 3,
+    });
+    expect(JSON.stringify(manifest)).not.toMatch(
+      /Phare|Fusée|configuration|assignments/,
+    );
+    expect(
+      storeListingSchema.shape.compatibility.safeParse(manifest.compatibility)
+        .success,
+    ).toBe(true);
+    expect(
+      exportManifestSchema.shape.compatibility.safeParse({
+        schemaVersion: 4,
+        engineVersion: 4,
+      }).success,
+    ).toBe(false);
+  });
   it("copies only redistributable public resources and preserves replacement reasons and attributions", () => {
     let w = fork();
     const g = w.games[0]!;

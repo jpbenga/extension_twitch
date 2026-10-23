@@ -89,12 +89,73 @@ export function decideLobby(
   context: { at: string; nextInvitationCode: string },
 ): LobbyState {
   if (state.phase !== "lobby") throw new SessionError("WRONG_PHASE", 409);
+  if (action.type === "game.player-action") {
+    if (actor.role !== "gm") throw new SessionError("FORBIDDEN", 403);
+    const run = state.gameRun;
+    if (!run) throw new SessionError("NO_GAME", 409);
+    const operation = run.definition.actions
+      .find((a) => a.id === action.actionId)
+      ?.operations?.find((op) => op.type === "ballot.cast");
+    if (
+      operation?.type !== "ballot.cast" ||
+      !run.definition.mechanics?.ballots.find((b) => b.id === operation.ballot)
+        ?.allowGmProxy
+    )
+      throw new SessionError("ACTION_FORBIDDEN", 403);
+    return recordEvent(
+      {
+        ...state,
+        gameRun: executeGameAction(
+          run,
+          { role: "player", participantId: action.participantId },
+          action,
+        ),
+      },
+      "game.action",
+      "Le GM a enregistré un vote pour un joueur sans interface.",
+      context.at,
+    );
+  }
   if (action.type === "game.action") {
     if (!state.gameRun) throw new SessionError("NO_GAME", 409);
+    const nextRun = executeGameAction(state.gameRun, actor, action);
+    const operation = state.gameRun.definition.actions.find(
+      (a) => a.id === action.actionId,
+    )!.operations?.[0]?.type;
+    const name =
+      actor.role === "gm"
+        ? "Le GM"
+        : (state.participants.find((p) => p.id === actor.participantId)?.name ??
+          "Un joueur");
+    const notice = nextRun.play?.outcome
+      ? nextRun.play.outcome.label
+      : nextRun.play?.currentBallot &&
+          nextRun.play.ballots[nextRun.play.currentBallot]?.status === "open" &&
+          nextRun.play.ballots[nextRun.play.currentBallot]!.eligible.every(
+            (id) =>
+              Object.hasOwn(
+                nextRun.play!.ballots[nextRun.play!.currentBallot!]!.votes,
+                id,
+              ),
+          )
+        ? "Tous les joueurs actifs ont voté."
+        : operation === "deal"
+          ? "Le GM a distribué les informations privées et démarré la partie."
+          : operation === "ballot.open"
+            ? "Le GM a ouvert les votes."
+            : operation === "ballot.cast"
+              ? `${name} a voté.`
+              : operation === "ballot.resolve"
+                ? "Le GM a révélé le résultat du vote."
+                : operation === "round.next"
+                  ? "Le GM a commencé le tour suivant."
+                  : `${name} a effectué une action.`;
     return recordEvent(
-      { ...state, gameRun: executeGameAction(state.gameRun, actor, action) },
+      { ...state, gameRun: nextRun },
       action.type,
-      "Une action de jeu a été acceptée.",
+      state.gameRun.definition.mechanics
+        ? notice
+        : "Une action de jeu a été acceptée.",
       context.at,
     );
   }
@@ -127,7 +188,7 @@ export function decideLobby(
           type: "game.configure",
           definition: state.preparedGame.definition,
           assets: state.preparedGame.assets,
-          configuration: {},
+          configuration: action.configuration ?? {},
         },
         context,
       );

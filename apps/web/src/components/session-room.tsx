@@ -186,33 +186,39 @@ export function SessionRoom({
             </section>
           ) : (
             <section className="lobby-panel player-action">
-              <h2>
-                {me?.ready ? "Vous êtes prêt." : "Prêt à rejoindre le show ?"}
-              </h2>
-              <p>
-                Ce statut est envoyé au serveur et visible par le GM et les
-                spectateurs.
-              </p>
-              <button
-                className="primary-button"
-                disabled={locked}
-                onClick={() =>
-                  void session.send({
-                    type: "participant.ready",
-                    ready: !me?.ready,
-                  })
-                }
-              >
-                {busy
-                  ? "Enregistrement…"
-                  : me?.ready
-                    ? "Je ne suis plus prêt"
-                    : "Je suis prêt"}
-              </button>
-              <p className="lobby-hint">
-                Les informations privées de l’expérience apparaissent dans la
-                section Jeu.
-              </p>
+              {!view.publicGame?.play && (
+                <>
+                  <h2>
+                    {me?.ready
+                      ? "Vous êtes prêt."
+                      : "Prêt à rejoindre le show ?"}
+                  </h2>
+                  <p>
+                    Ce statut est envoyé au serveur et visible par le GM et les
+                    spectateurs.
+                  </p>
+                  <button
+                    className="primary-button"
+                    disabled={locked}
+                    onClick={() =>
+                      void session.send({
+                        type: "participant.ready",
+                        ready: !me?.ready,
+                      })
+                    }
+                  >
+                    {busy
+                      ? "Enregistrement…"
+                      : me?.ready
+                        ? "Je ne suis plus prêt"
+                        : "Je suis prêt"}
+                  </button>
+                  <p className="lobby-hint">
+                    Les informations privées de l’expérience apparaissent dans
+                    la section Jeu.
+                  </p>
+                </>
+              )}
               <details>
                 <summary>Conserver mon accès joueur</summary>
                 <CopyLink
@@ -322,9 +328,9 @@ export function SessionRoom({
           <aside className="lobby-scope">
             <strong>Ce qui reste à venir</strong>
             <p>
-              Les jeux officiels, votes, distribution aléatoire et conditions de
-              victoire restent à construire. Les exemples utilisent le moteur
-              réel. Aucun paiement ni connexion Twitch.
+              Undercover dispose d’une variante jouable avec distribution, votes
+              et victoire. Enchères et Qui est l’espion restent à construire.
+              Aucun paiement ni connexion Twitch.
             </p>
           </aside>
           {gm && (
@@ -388,8 +394,15 @@ function ParticipantList({
             <div>
               <strong>{player.name}</strong>
               <span>
-                {player.ready ? "Prêt" : "En préparation"} ·{" "}
-                {player.connected ? "Connecté" : "Hors ligne"}
+                {view.publicGame?.play
+                  ? view.publicGame.play.roster.find((p) => p.id === player.id)
+                      ?.active
+                    ? "En jeu"
+                    : "Éliminé"
+                  : player.ready
+                    ? "Prêt"
+                    : "En préparation"}{" "}
+                · {player.connected ? "Connecté" : "Hors ligne"}
               </span>
             </div>
             {remove && (

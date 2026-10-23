@@ -3,5 +3,5 @@ import type { GameDescriptor } from "@extension-twitch/contracts";
 export const undercover = {
   id: "undercover",
   title: "Undercover",
-  rulesStatus: "pending-definition",
+  rulesStatus: "demo-playable",
 } as const satisfies GameDescriptor;

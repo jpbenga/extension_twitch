@@ -793,3 +793,205 @@
     gap: 10px;
   }
 }
+
+/* Shared play components consume only server projections. */
+.play-summary > p {
+  line-height: 1.6;
+  color: #cbbfdc;
+}
+.play-roster {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+  gap: 10px;
+  margin-block: 16px;
+}
+.play-roster article {
+  display: grid;
+  gap: 6px;
+  padding: 14px;
+  border-radius: 12px;
+  background: #a684d816;
+  border: 1px solid #b898ef38;
+  min-width: 0;
+}
+.play-roster article strong {
+  overflow-wrap: anywhere;
+}
+.play-roster article span,
+.play-roster article small {
+  font-size: 13px;
+  color: #bfb3d0;
+}
+.play-roster .is-eliminated {
+  opacity: 0.7;
+  border-style: dashed;
+}
+.play-outcome {
+  background: #b39bea23;
+  border: 1px solid #c3a2fa70;
+  padding: 18px;
+  border-radius: 14px;
+  margin-block: 16px;
+}
+.play-outcome h2 {
+  font-size: 25px;
+}
+.play-vote-progress {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  padding-left: 18px;
+  font-size: 14px;
+}
+.play-tallies {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+  gap: 10px;
+}
+.play-tallies p {
+  display: grid;
+  gap: 8px;
+  background: #ffffff08;
+  padding: 14px;
+  border-radius: 10px;
+}
+.personal-card {
+  padding: 18px;
+  border: 1px solid #b296ed66;
+  border-radius: 14px;
+  margin: 20px 0;
+  background: #ab7ce90c;
+}
+.personal-card .game-values {
+  margin-block: 12px;
+}
+.vote-choice {
+  border: 0;
+  padding: 0;
+  min-width: 0;
+}
+.vote-choice legend {
+  font-size: 20px;
+  margin-bottom: 14px;
+}
+.vote-candidates {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.vote-candidates label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 56px;
+  padding: 14px;
+  border: 1px solid #b497df45;
+  border-radius: 12px;
+  background: #a785d911;
+  cursor: pointer;
+}
+.vote-candidates label.selected {
+  background: #ac87ef35;
+  border-color: #d1b3ff;
+}
+.vote-candidates input {
+  width: 22px !important;
+  height: 22px !important;
+  accent-color: #b29af0;
+}
+.play-panel .game-actions {
+  margin-block: 20px;
+}
+.play-panel .game-actions > button {
+  min-height: 52px;
+}
+.play-panel .game-phase {
+  font-size: 22px;
+  font-weight: 600;
+}
+.play-panel .play-events {
+  display: grid;
+  gap: 12px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.gm-secrets {
+  border: 1px dashed #b39bdc6b;
+  border-radius: 12px;
+  padding: 14px;
+}
+.gm-secrets summary {
+  color: #e0c9fc;
+}
+.real-stage .play-summary {
+  text-align: left;
+}
+.real-stage .play-roster {
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+.real-stage .play-summary h2 {
+  margin-block: 10px;
+}
+.real-stage .play-vote-result h3 {
+  font-size: 20px;
+}
+@media (min-width: 1000px) {
+  .real-stage .play-roster {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+.play-heading > p {
+  line-height: 1.6;
+  color: #d6c6e7;
+}
+.personal-card .game-values strong {
+  font-size: 26px;
+}
+.play-panel .game-actions {
+  position: relative;
+  z-index: 1;
+}
+@media (min-width: 1000px) {
+  .public-session-page .real-stage .play-summary {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 12px 24px;
+  }
+  .public-session-page .real-stage .play-heading {
+    grid-column: 1/-1;
+  }
+  .public-session-page .real-stage .play-roster {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-content: start;
+    margin: 0;
+  }
+  .public-session-page .real-stage .play-roster article {
+    padding: 10px;
+    gap: 4px;
+  }
+  .public-session-page .real-stage .play-vote-result {
+    margin: 0;
+  }
+  .public-session-page .real-stage .play-tallies {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .public-session-page .real-stage .play-tallies p {
+    padding: 8px;
+    margin: 0;
+    gap: 4px;
+    font-size: 13px;
+  }
+  .public-session-page .real-stage .play-vote-progress {
+    margin-block: 8px;
+    gap: 8px;
+  }
+  .public-session-page .real-stage .play-outcome {
+    padding: 10px;
+    margin-block: 8px;
+  }
+  .public-session-page .real-stage .play-summary h3 {
+    margin-block: 8px;
+  }
+}

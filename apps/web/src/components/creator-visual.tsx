@@ -10,11 +10,13 @@ import {
   VariablesEditor,
   PhasesEditor,
 } from "./creator-collections";
+import { CreatorPlayRules } from "./creator-play-rules";
 import { ActionsEditor } from "./creator-actions";
 export const studioSections = [
   "Général",
   "Participants",
   "Données",
+  "Distribution et vote",
   "Actions",
   "Étapes",
   "Apparence",
@@ -126,6 +128,9 @@ export function CreatorVisual({
             report={setMessage}
           />
         )}{" "}
+        {section === "Distribution et vote" && (
+          <CreatorPlayRules definition={definition} onChange={update} />
+        )}
         {section === "Actions" && (
           <ActionsEditor definition={definition} onChange={update} />
         )}{" "}

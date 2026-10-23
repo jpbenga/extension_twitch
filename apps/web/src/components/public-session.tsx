@@ -1,5 +1,6 @@
 import type { SessionView } from "@extension-twitch/contracts/sessions";
-import { GameValues } from "./game-panel";
+import { PlaySummary } from "./play-panel";
+import { GameValues } from "./game-values";
 import { findGame } from "../lib/demo";
 
 export function PublicSession({
@@ -27,24 +28,32 @@ export function PublicSession({
         <span className="eyebrow">{view.publicGame?.title ?? game.title}</span>
         <Heading>{view.title}</Heading>
         <p>
-          Animé par {view.hostName} · {ready} / {view.participants.length} prêts
+          Animé par {view.hostName} ·{" "}
+          {view.publicGame?.play
+            ? `${view.participants.length} participants`
+            : `${ready} / ${view.participants.length} prêts`}
         </p>
       </div>
-      <div className="real-stage-players">
-        {view.participants.map((player, index) => (
-          <article
-            key={player.id}
-            className={`real-player ${player.ready ? "is-ready" : ""}`}
-          >
-            <span className={`avatar avatar-${index % 6}`}>
-              {[...player.name].slice(0, 2).join("").toLocaleUpperCase("fr")}
-            </span>
-            <strong>{player.name}</strong>
-            <span>{player.ready ? "Prêt" : "En préparation"}</span>
-            <small>{player.connected ? "Connecté" : "Hors ligne"}</small>
-          </article>
-        ))}
-      </div>
+      {!view.publicGame?.play && (
+        <div className="real-stage-players">
+          {view.participants.map((player, index) => (
+            <article
+              key={player.id}
+              className={`real-player ${player.ready ? "is-ready" : ""}`}
+            >
+              <span className={`avatar avatar-${index % 6}`}>
+                {[...player.name].slice(0, 2).join("").toLocaleUpperCase("fr")}
+              </span>
+              <strong>{player.name}</strong>
+              <span>{player.ready ? "Prêt" : "En préparation"}</span>
+              <small>{player.connected ? "Connecté" : "Hors ligne"}</small>
+            </article>
+          ))}
+        </div>
+      )}
+      {view.publicGame?.play && (
+        <PlaySummary game={view.publicGame} view={view} />
+      )}
       {view.participants.length === 0 && (
         <p className="empty-lobby">Le plateau attend ses premiers invités.</p>
       )}

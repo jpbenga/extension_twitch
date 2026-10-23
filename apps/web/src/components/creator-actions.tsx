@@ -27,7 +27,7 @@ export function ActionsEditor({
       );
     onChange({
       ...d,
-      ...(expression
+      ...(expression && d.schemaVersion === 1
         ? { schemaVersion: 2 as const, engineVersion: 2 as const }
         : {}),
       actions: d.actions.map((old, i) => (i === index ? action : old)),
@@ -104,6 +104,13 @@ export function ActionsEditor({
           <p className="creator-rule-preview" aria-label="Résumé de la règle">
             {describeAction(a, d)}
           </p>
+          {a.operations?.length && (
+            <p className="lobby-hint">
+              Cette action utilise les règles de distribution ou de vote. Leurs
+              paramètres sont dans Distribution et vote. Ses opérations sont
+              conservées lors de vos autres modifications.
+            </p>
+          )}
           <details open className="action-question">
             <summary>1. Qui peut effectuer cette action ?</summary>
             <p>

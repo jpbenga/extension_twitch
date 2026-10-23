@@ -50,8 +50,18 @@ export const lobbyActionSchema = z.discriminatedUnion("type", [
     actionId: identifierSchema,
     parameters: scalarRecordSchema,
   }),
+  z.strictObject({
+    type: z.literal("game.player-action"),
+    participantId: z.uuid(),
+    runId: z.uuid(),
+    actionId: identifierSchema,
+    parameters: scalarRecordSchema,
+  }),
   z.strictObject({ type: z.literal("game.restart"), runId: z.uuid() }),
-  z.strictObject({ type: z.literal("game.use-prepared") }),
+  z.strictObject({
+    type: z.literal("game.use-prepared"),
+    configuration: scalarRecordSchema.optional(),
+  }),
   z.strictObject({
     type: z.literal("game.assign-role"),
     participantId: z.uuid(),

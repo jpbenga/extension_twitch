@@ -1,6 +1,6 @@
 # Extension Twitch — Cahier des charges produit
 
-Version : 0.5
+Version : 0.6
 
 Statut : Vision produit et cadrage initial
 
@@ -460,3 +460,20 @@ Ce statut remplace l’attente indiquée pour le Studio dans les historiques pr�
 La refonte 4B.1 et les parcours complets restent à valider humainement. Safari iOS sur
 d’autres appareils, OBS et les jeux officiels complets ne sont pas déclarés validés.
 Voir docs/STAGE-4B1.md et docs/TEST-STUDIO-4B1.md. Ne pas commencer 4C automatiquement.
+
+
+19. Gameplay réel — jalon 5, verticale 5A
+
+Priorité aux parties complètes. Le jalon autorise des variantes de démonstration
+explicites lorsque les règles définitives sont ouvertes. Voir OFFICIAL-GAMES-RULES.md.
+Undercover dispose d’une verticale jouable avec 3 à 12 joueurs, distribution privée,
+votes, égalités, éliminations, victoire et rejeu, sur des primitives déclaratives
+partagées v3. Les définitions et sessions v1/v2 restent prises en charge.
+Les interfaces et le laboratoire utilisent les API, permissions, SQLite et SSE réels.
+
+Enchères et Qui est l’espion restent des verticales à livrer, pas des jeux terminés.
+La règle ferme des enchères (débit uniquement à l’attribution confirmée) est conservée.
+Leur prochaine implémentation réutilisera les primitives adaptées, sans copier
+Undercover ni créer des moteurs indépendants. 4C et le Store sont reportés.
+Les tests moteur, navigateur et la validation humaine iPhone/OBS sont distincts.
+Le plaisir de jeu, le rythme, les variantes et l’ergonomie restent à apprécier.

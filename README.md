@@ -2,7 +2,7 @@
 
 Moteur et studio de création de jeux interactifs pour les émissions Twitch : régie Game Master, overlays OBS, interfaces joueurs et, à terme, extension spectateur.
 
-**État : refonte du Studio Créateur, jalon 4B.1.** Accueil, bibliothèque, éditeur et laboratoire disposent de leurs propres pages. Personnalisez Impulsion collective avec quelques questions, créez un jeu avec le guide ou composez ses règles dans le Studio avancé. « Tester mon jeu » enregistre puis prépare un essai réel avec deux joueurs de démonstration et un plateau synchronisé. Les versions enregistrées restent privées et figées. [Guide iPhone simple](docs/TEST-STUDIO-4B1.md) · [Décisions et bilan technique](docs/STAGE-4B1.md).
+**État : jalon 5A — Undercover jouable dans une variante de démonstration.** Distribution privée, discussions, votes uniques, égalités, éliminations, conditions de victoire et rejeu utilisent le moteur autoritaire commun. Le Laboratoire des jeux (`/creator/play`) prépare quatre identités distinctes ou accueille de vrais invités. Enchères et Qui est l’espion restent à implémenter ; le Studio 4B.1 est conservé. [Tester sur iPhone](docs/TEST-OFFICIAL-GAMES.md) · [Règles et hypothèses](docs/OFFICIAL-GAMES-RULES.md) · [Architecture et bilan 5A](docs/STAGE-5.md).
 
 **Premier test humain iPhone effectué — refonte ergonomique nécessaire.** Ce retour a motivé 4B.1 ; la refonte reste à apprécier sur l’iPhone de l’utilisateur. Les tests Chromium ne valident ni Safari iOS physique, ni OBS, ni l’ensemble des règles des jeux officiels.
 
@@ -42,6 +42,7 @@ Ouvrir l’adresse privée affichée par cette commande. Elle configure les invi
 | `/demo`, `/player`, `/overlay?game=undercover` | Anciennes maquettes fictives ; `auctions`, `spy` et `transparent=1` restent disponibles pour l’overlay fictif |
 | `/creator`                                     | Accueil : lancer, personnaliser ou créer un jeu                                                               |
 | `/creator/library`                             | Exemples disponibles, jeux ajoutés et créations privées                                                       |
+| `/creator/play`                                | Laboratoire des jeux : Undercover réel, configuration, démonstration ou invitations                           |
 | `/creator/new`                                 | Guide de création ou démarrage avancé                                                                         |
 | `/creator/games/<id>`                          | Éditeur dédié, réglages simples et Studio avancé                                                              |
 | `/creator/lab/<id>`                            | Essai privé réel, vues GM / joueurs démo / spectateur                                                         |
@@ -82,9 +83,10 @@ Dans cet environnement cloud, Chromium est déjà installé :
 ```sh
 PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:e2e
 PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:lab
+PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:games
 ```
 
-`test:lab` démarre le développement sur les ports 3100/4100, avec sa propre base temporaire, pour vérifier la page absente en production. La commande `test:e2e` lance successivement chaque format avec deux services neufs et une base temporaire distincte de vos sessions. Cette isolation évite que les séries automatisées cumulent leurs requêtes dans la même fenêtre anti-abus ; les protections du produit restent actives. Les captures et traces restent dans `test-results/e2e/<format>`. Les parcours utilisent un GM, plusieurs identités et un spectateur sur des formats téléphone, tablette et ordinateur, ainsi que les anciennes maquettes. Ils ne remplacent pas un test Safari iOS sur appareil réel. Pour lancer manuellement la version compilée : `npm run build`, puis `npm start`.
+`test:lab` démarre le développement sur les ports 3100/4100, avec sa propre base temporaire, pour vérifier la page absente en production. La commande `test:e2e` lance successivement chaque format avec deux services neufs et une base temporaire distincte de vos sessions. Cette isolation évite que les séries automatisées cumulent leurs requêtes dans la même fenêtre anti-abus ; les protections du produit restent actives. Les captures et traces restent dans `test-results/e2e/<format>`. Les parcours utilisent un GM, plusieurs identités et un spectateur sur des formats téléphone, tablette et ordinateur, ainsi que les anciennes maquettes. Ils ne remplacent pas un test Safari iOS sur appareil réel. `test:games` exécute les parties Undercover et variantes dans des processus séparés pour conserver les protections anti-abus, avec captures dans `test-results/games/<format>`. Pour lancer manuellement la version compilée : `npm run build`, puis `npm start`.
 
 ## Structure
 
@@ -96,7 +98,7 @@ packages/
   contracts/             Schémas Zod et types partagés
   engine/                Salon et interpréteur déclaratif, exemples côté serveur
   games/
-    undercover/          Descripteur ; règles à définir
+    undercover/          Descripteur public et définition déclarative jouable v3
     auctions/            Descripteur ; règles à définir
     spy/                 Descripteur ; règles à définir
 tests/
@@ -104,11 +106,12 @@ tests/
   server.test.ts         Intégration HTTP/SSE et configuration
   sessions.test.ts       Accès, commandes, projections, concurrence et SSE
   persistence.test.ts    Arrêt et redémarrage d’un vrai processus serveur
+  undercover*.test.ts    Règles, confidentialité, HTTP/SSE et redémarrage Undercover
   e2e/                   Parcours multi-identités sur trois tailles d’écran
 scripts/
   dev-lan.mjs            Lancement Wi-Fi avec origine réseau appropriée
 docs/
-  PRODUCT.md             Cahier des charges et Studio hybride, version 0.5
+  PRODUCT.md             Cahier des charges et Studio hybride, version 0.6
   ARCHITECTURE.md         Décisions techniques et limites du socle
   STAGE-3.md              Plan A/B/C/D et hypothèses Undercover non validées
   TEST-IPHONE.md          Lancement et checklists de validation humaine
@@ -116,6 +119,9 @@ docs/
   ASSETS.md              Références BYOS et limites de sécurité
   STAGE-4A.md             Architecture de la bibliothèque et du Studio hybride
   STAGE-4B.md             Studio visuel et réutilisation des contrats
+  STAGE-5.md              Primitives v3 et livraison Undercover
+  OFFICIAL-GAMES-RULES.md Règles décidées, hypothèses et jeux restant à réaliser
+  TEST-OFFICIAL-GAMES.md  Scénarios humains : Undercover, invitations et OBS
   STAGE-4B1.md            Audit, décisions UX, sécurité et vérifications
   TEST-STUDIO-4B1.md      Guide actuel : personnaliser, créer et essayer sur iPhone
   screenshots/4b1/        Captures Chromium mobile et ordinateur
@@ -129,12 +135,12 @@ AGENTS.md                Instructions de développement fournies
 
 Le salon réel permet d’inscrire jusqu’à 32 joueurs (limite technique, pas une règle Undercover), changer leur état prêt, observer leur présence, renommer la session, fermer/rouvrir les invitations, retirer un joueur ou réinitialiser le salon. Les liens privés de récupération doivent être conservés : sans compte, il n’existe pas encore de récupération par e-mail. Les jetons n’expirent pas automatiquement à ce jalon ; un retrait ou une réinitialisation révoque ceux des joueurs. L’accès GM se conserve tant que la base existe.
 
-Un seul processus Node est supporté pour la diffusion. Les reconnexions récupèrent un instantané récent, sans rejouer des commandes. Le langage v1 fournit valeurs bornées, rôles, comparaisons d’égalité, affectation/incrément/révélation et transitions manuelles. V2 ajoute arithmétique entière, comparaisons/logique et gardes bornées, sans code arbitraire. Chaque partie conserve sa définition ; toute version inconnue est refusée. L’effectif est figé à l’installation jusqu’à la réinitialisation. Les assets restent des références validées et des remplacements visuels : aucun fichier n’est récupéré ni rendu.
+Un seul processus Node est supporté pour la diffusion. Les reconnexions récupèrent un instantané récent, sans rejouer des commandes. Le langage v1 fournit valeurs bornées, rôles, comparaisons d’égalité, affectation/incrément/révélation et transitions manuelles. V2 ajoute arithmétique entière, comparaisons/logique et gardes bornées. V3 ajoute distribution privée, votes nominatifs, sélection/élimination et conditions de fin déclaratives, sans code arbitraire. Chaque partie conserve sa définition ; toute version inconnue est refusée. L’effectif est figé à l’installation jusqu’à la réinitialisation. Les assets restent des références validées et des remplacements visuels : aucun fichier n’est récupéré ni rendu.
 
-Pas encore de distribution aléatoire, votes, budgets transactionnels, minuteurs, éliminations ou victoire des jeux officiels. Le Studio visuel édite les primitives existantes et conserve un document JSON secondaire pour les cas techniques. Le guide propose deux modèles exécutables. Pas de Store public, assistant universel, composition graphique des scènes, comptes, connecteur cloud, import de médias, PWA installable ou extension Twitch officielle. Les contrats Bits ne vérifient et n’exécutent aucune transaction. Les anciennes maquettes restent fictives.
+Undercover utilise les nouvelles primitives v3 ; ses règles sont une variante de démonstration à valider humainement. Pas encore d’Enchères ou de Qui est l’espion complets, de budgets transactionnels ou de minuteurs. Le Studio visuel édite les primitives existantes et conserve un document JSON secondaire pour les cas techniques. Le guide propose deux modèles exécutables. Pas de Store public, assistant universel, composition graphique des scènes, comptes, connecteur cloud, import de médias, PWA installable ou extension Twitch officielle. Les contrats Bits ne vérifient et n’exécutent aucune transaction. Les anciennes maquettes restent fictives.
 
 Pour essayer le Studio : lancer `npm run dev:lan`, ouvrir `/creator` à l’adresse affichée et suivre [le guide du Studio](docs/TEST-STUDIO-4B1.md). Conserver le lien privé de bibliothèque. « Enregistrer une version » crée une copie figée privée ; cela ne la rend pas publique sur Internet. Les capacités de bibliothèque sont distinctes de celles des sessions. La migration SQLite v1→v2 est additive ; les sauvegardes restent privées.
 
 Pour les exemples du moteur : lancer `npm run dev:lan`, ouvrir `/lab` à l’adresse affichée, créer une démonstration, puis ouvrir les liens GM, joueurs et plateau. Voir [les scénarios reproductibles](docs/TEST-CONFIGURABLE.md). En production `/lab` retourne 404 ; les panneaux génériques de session restent utilisables.
 
-Avant toute évolution, lire [le produit](docs/PRODUCT.md), [les consignes](AGENTS.md), [l’architecture configurable](docs/CONFIGURABLE-ENGINE.md), [les assets](docs/ASSETS.md) et [le plan de l’étape 3](docs/STAGE-3.md). Prochaines priorités recommandées : validation humaine sur iPhone et corrections ergonomiques, puis choix explicite entre Overlay Studio 4C et primitives de vote/distribution. Cette livraison ne commence pas 4C, Undercover complet ou le Store public.
+Avant toute évolution, lire [le produit](docs/PRODUCT.md), [les consignes](AGENTS.md), [l’architecture configurable](docs/CONFIGURABLE-ENGINE.md), [les assets](docs/ASSETS.md) et [le plan de l’étape 3](docs/STAGE-3.md). Prochaines priorités : retours humains sur Undercover, puis verticales 5B Enchères et 5C Qui est l’espion sur les mêmes fondations. Le laboratoire unifié 5D reste à compléter avec ces jeux. Le Store et 4C sont reportés.

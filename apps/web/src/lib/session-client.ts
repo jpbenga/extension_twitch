@@ -21,6 +21,22 @@ export const accessKey = (id: string, role: string) =>
   `xt:access:${id}:${role}`;
 
 const messages: Record<string, string> = {
+  INVALID_PLAYER_COUNT:
+    "L’effectif ne respecte pas les limites de ce jeu. Vérifiez le nombre de joueurs indiqué dans ses règles avant de préparer la partie.",
+  INVALID_DISTRIBUTION:
+    "Il faut au moins un rôle particulier et davantage de joueurs dans le camp principal. Réduisez les Undercover ou ajoutez des joueurs avant préparation.",
+  INVALID_SECRET_VALUES:
+    "Les deux mots doivent être renseignés et différents. Revenez à la configuration pour les corriger.",
+  INVALID_VOTE_TARGET:
+    "Ce joueur ne peut pas recevoir votre vote. Choisissez un autre joueur encore actif.",
+  VOTES_INCOMPLETE:
+    "Tous les joueurs actifs doivent voter avant la résolution. Vérifiez les votes manquants ou utilisez la délégation GM.",
+  ALREADY_VOTED:
+    "Votre vote a déjà été enregistré. Il ne peut pas être modifié pendant ce tour.",
+  ALREADY_DISTRIBUTED:
+    "Les mots ont déjà été distribués. Recommencez une partie pour les redistribuer.",
+  ROLES_LOCKED:
+    "Les camps sont figés après la distribution. Recommencez une partie pour les modifier.",
   ACCESS_DENIED:
     "Accès privé absent ou révoqué. Ouvrez votre lien privé de récupération.",
   ACCESS_REVOKED:

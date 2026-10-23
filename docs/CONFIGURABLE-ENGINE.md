@@ -1,6 +1,6 @@
 # Studio configurable — décision d’architecture
 
-Statut : architecture adoptée pour ce socle, langage expérimental v1.
+Statut : architecture adoptée. Historique v1/v2 ci-dessous ; évolution v3 au jalon 5A en fin de document.
 Validation technique terminée — Validation humaine iPhone en attente (jalon A).
 La nouvelle livraison doit être vérifiée séparément ; aucun test physique iOS n’est revendiqué.
 
@@ -124,3 +124,46 @@ Les parties de test utilisent le même moteur, API, SQLite et projections que le
 autres sessions ; leur définition est figée avant inscription des joueurs.
 Les cartes d’exemples restent pédagogiques ; les règles officielles ne sont pas
 validées par ces modèles. Aucun second moteur n’est créé pour le guide.
+
+## Évolution 5A — primitives de gameplay v3
+
+Le format v3 garde les expressions v2 et ajoute `mechanics` et les `operations`
+des actions. Les définitions v1/v2 ne changent pas. Voir [le bilan 5A](STAGE-5.md)
+et [les règles expérimentales](OFFICIAL-GAMES-RULES.md).
+
+- Distribution binaire : rôles, nombre minoritaire et références de données privées
+  déclarés, mélange cryptographique serveur, une seule distribution par partie.
+- Vote nominatif : choix d’une identité active, vote unique authentifié, option de
+  vote pour soi, progression publique et choix individuel privé. Résolution après
+  tous les votes : sélection simple ou élimination ; égalité sans vainqueur.
+- Tours et fins : passage de tour explicite, comparaison d’effectifs de rôles,
+  premier résultat correspondant prioritaire, limite de tours facultative.
+
+Ces primitives sont indépendantes : un vote de sélection fonctionne sans distribution,
+camp minoritaire, élimination ou fin automatique. Les tests l’exécutent sur une autre
+définition. Aucun branchement sur `definition.id` ne choisit les règles du moteur.
+Le modèle Undercover n’est qu’une composition de ces mêmes opérations. Une variante
+du Studio peut en changer les options et les conditions de fin.
+
+Les opérations sont bornées : 12 joueurs, une distribution, deux scrutins, quatre
+conditions de fin et une opération par action. Les autres bornes du langage restent
+appliquées. Les votes nominaux ont une cible UUID validée contre la liste réelle
+des actifs ; ils ne donnent pas un droit générique de modifier les données d’autrui.
+La délégation GM passe par une commande normale explicitement autorisée par le
+scrutin et applique les mêmes validations de joueur.
+
+Les camps sont révélés à la fin d’une partie utilisant ces conditions de résultat.
+Une élimination ne révèle le camp que si le scrutin l’autorise. Les autres données
+privées ne sont déclassifiées que par `revealVariables` de la **seule condition de
+fin atteinte**, ou par `drawRevealVariables` explicitement déclaré pour une partie
+nulle. Une condition non atteinte ne peut autoriser aucune fuite d’information.
+Le vote public contient seulement les votants, jamais la table des choix individuels.
+Le journal public utilise des messages d’opérations connus, sans recopier le nom
+d’une action privée ou ses paramètres. Un libellé réservé à un rôle caché ne peut
+ainsi révéler son porteur. Les refus restent dans la réponse privée au demandeur.
+
+`GameRun.play` utilise le même snapshot SQLite et la même transaction avec reçu ;
+aucune nouvelle table ni migration SQL. La version et les références sont validées
+avant installation. Une ancienne partie reste figée sur sa définition v1/v2. Le
+rejeu repart d’un nouvel identifiant avec la même définition/configuration et les
+mêmes capacités d’accès, sans conserver votes, secrets distribués ou éliminations.

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { scalarRecordSchema } from "@extension-twitch/contracts/game-definition";
 import {
   gmSessionSchema,
   playerSessionSchema,
@@ -26,7 +27,9 @@ export const labSchema = z.strictObject({
   gameId: z.uuid(),
   returnTo: z.string().regex(/^\/creator(?:\/[^#?]*)?$/),
   mode: z.enum(["quick", "invite"]),
-  players: z.array(player).max(2),
+  players: z.array(player).max(12),
+  demoPlayers: z.number().int().min(2).max(12).optional(),
+  configuration: scalarRecordSchema.optional(),
   ready: z.boolean(),
   startAction: z.string().optional(),
   initialPhase: z.string(),
@@ -104,7 +107,10 @@ export async function prepareLab(lab: CreatorLab) {
     let gm = await labGm(lab);
     if (!gm.game) {
       if (!lab.players.length) {
-        lab.players = ["Joueur démo 1", "Joueur démo 2"].map((name) => ({
+        lab.players = Array.from(
+          { length: lab.demoPlayers ?? 2 },
+          (_, i) => `Joueur démo ${i + 1}`,
+        ).map((name) => ({
           name,
           token: randomToken(),
           requestId: commandId(),
@@ -129,7 +135,10 @@ export async function prepareLab(lab: CreatorLab) {
     }
     gm = await labGm(lab);
     if (!gm.game || lab.pending)
-      gm = await labCommand(lab, { type: "game.use-prepared" });
+      gm = await labCommand(lab, {
+        type: "game.use-prepared",
+        configuration: lab.configuration ?? {},
+      });
     if (lab.startAction && !lab.started && gm.game) {
       if (gm.game.phase.id === lab.initialPhase || lab.pending)
         gm = await labCommand(lab, {

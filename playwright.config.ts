@@ -5,6 +5,7 @@ import { randomUUID } from "node:crypto";
 
 export default defineConfig({
   testDir: "./tests/e2e",
+  testIgnore: "**/official-games.spec.ts",
   fullyParallel: true,
   workers: 2,
   retries: 0,

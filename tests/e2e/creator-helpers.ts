@@ -51,10 +51,15 @@ export async function quickTest(page: Page) {
   );
 }
 export async function role(page: Page, name: string) {
-  await page
-    .getByRole("navigation", { name: "Vue du laboratoire" })
-    .getByRole("button", { name, exact: true })
-    .click();
+  const selector = page.getByLabel("Perspective du laboratoire", {
+    exact: true,
+  });
+  if (await selector.isVisible()) await selector.selectOption({ label: name });
+  else
+    await page
+      .getByRole("navigation", { name: "Vue du laboratoire" })
+      .getByRole("button", { name, exact: true })
+      .click();
   await expect(page.getByTestId("session-connection")).toHaveText(
     "Synchronisé",
   );

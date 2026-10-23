@@ -40,9 +40,12 @@ export function CreatorHome() {
           ))}
         </div>
         <p className="lobby-hint">
-          Les jeux proposés sont des exemples jouables. Undercover, Enchères et
-          Qui est l’espion sont encore en préparation.
+          Undercover dispose d’une variante de démonstration jouable. Enchères
+          et Qui est l’espion restent en préparation.
         </p>
+        <Link className="primary-button" href="/creator/play">
+          Laboratoire des jeux
+        </Link>
         <Link className="text-link" href="/">
           Rejoindre une partie avec une invitation
         </Link>

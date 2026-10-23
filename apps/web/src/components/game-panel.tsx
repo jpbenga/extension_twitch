@@ -1,5 +1,6 @@
 "use client";
 
+import { PlayPanel } from "./play-panel";
 import { useEffect, useState, type FormEvent } from "react";
 import {
   gameDefinitionSchema,
@@ -13,121 +14,9 @@ import type {
   SessionView,
 } from "@extension-twitch/contracts/sessions";
 
-export function GameValues({
-  game,
-  names,
-}: {
-  game: GameProjection;
-  names: SessionView["participants"];
-}) {
-  return (
-    <div className="game-values" aria-label="Informations de jeu">
-      {game.values.map((v) => (
-        <article key={`${v.id}:${v.participantId ?? "session"}`}>
-          <span>
-            {v.label}
-            {v.participantId
-              ? ` · ${names.find((p) => p.id === v.participantId)?.name ?? "Joueur"}`
-              : ""}
-          </span>
-          <strong>
-            {typeof v.value === "boolean"
-              ? v.value
-                ? "Oui"
-                : "Non"
-              : String(v.value) || "—"}
-          </strong>
-        </article>
-      ))}
-      {game.assets.map((a) => (
-        <p className="asset-fallback" key={a.id}>
-          {a.fallback} ·{" "}
-          {a.availability === "disabled"
-            ? "référence désactivée"
-            : "média indisponible"}
-        </p>
-      ))}
-    </div>
-  );
-}
-
-function ActionForm({
-  action,
-  runId,
-  locked,
-  send,
-}: {
-  action: GameProjection["actions"][number];
-  runId: string;
-  locked: boolean;
-  send: (action: LobbyAction) => Promise<void>;
-}) {
-  const [values, setValues] = useState<Record<string, Scalar>>(() =>
-    Object.fromEntries(action.parameters.map((p) => [p.id, p.value.initial])),
-  );
-  function submit(e: FormEvent) {
-    e.preventDefault();
-    if (
-      action.confirmation &&
-      !window.confirm(
-        "Confirmer cette action et les informations rendues publiques ?",
-      )
-    )
-      return;
-    void send({
-      type: "game.action",
-      runId,
-      actionId: action.id,
-      parameters: values,
-    });
-  }
-  return (
-    <form className="lobby-form game-action" onSubmit={submit}>
-      {action.parameters.map((p) => (
-        <label key={p.id}>
-          {p.label}
-          {p.value.type === "boolean" ? (
-            <select
-              value={String(values[p.id])}
-              disabled={locked}
-              onChange={(e) =>
-                setValues({ ...values, [p.id]: e.target.value === "true" })
-              }
-            >
-              <option value="true">Oui</option>
-              <option value="false">Non</option>
-            </select>
-          ) : (
-            <input
-              type={p.value.type === "integer" ? "number" : "text"}
-              required
-              disabled={locked}
-              value={String(values[p.id] ?? "")}
-              min={p.value.type === "integer" ? p.value.min : undefined}
-              max={p.value.type === "integer" ? p.value.max : undefined}
-              step={p.value.type === "integer" ? 1 : undefined}
-              maxLength={
-                p.value.type === "text" ? p.value.maxLength : undefined
-              }
-              onChange={(e) =>
-                setValues({
-                  ...values,
-                  [p.id]:
-                    p.value.type === "integer"
-                      ? Number(e.target.value)
-                      : e.target.value,
-                })
-              }
-            />
-          )}
-        </label>
-      ))}
-      <button className="primary-button" disabled={locked}>
-        {action.label}
-      </button>
-    </form>
-  );
-}
+export { GameValues } from "./game-values";
+import { GameValues } from "./game-values";
+import { ActionForm } from "./game-action";
 
 export function GamePanel({
   view,
@@ -168,6 +57,16 @@ export function GamePanel({
       configuration: {},
       assets: [],
     });
+  if (game?.play)
+    return (
+      <PlayPanel
+        view={view}
+        game={game}
+        locked={locked}
+        send={send}
+        hideRestart={hideRestart}
+      />
+    );
   return (
     <section className="lobby-panel" id="game">
       <span className="eyebrow">PARTIE · EXEMPLE CONFIGURABLE</span>

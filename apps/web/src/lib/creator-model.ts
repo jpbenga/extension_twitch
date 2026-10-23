@@ -51,9 +51,52 @@ export function references(
       )
     )
       found.push(`Scène « ${scene.id} »`);
+  const m = definition.mechanics;
+  if (
+    m &&
+    ((kind === "variable" &&
+      (m.deals.some((d) => d.privateVariable === id) ||
+        m.drawRevealVariables.includes(id) ||
+        m.endings.some((e) => e.revealVariables.includes(id)))) ||
+      (kind === "role" &&
+        (m.deals.some((d) => d.majorityRole === id || d.minorityRole === id) ||
+          m.endings.some(
+            (e) =>
+              e.leftRole === id || ("role" in e.right && e.right.role === id),
+          ))) ||
+      (kind === "phase" &&
+        (m.finishedPhase === id ||
+          m.ballots.some((b) => b.resultPhase === id) ||
+          definition.actions.some((a) =>
+            a.operations?.some(
+              (op) => op.type === "round.next" && op.phase === id,
+            ),
+          ))))
+  )
+    found.push("Règles de partie");
   return found;
 }
 const messages: Record<string, string> = {
+  "Unknown ending phase":
+    "Choisissez une étape de fin existante dans les règles de partie.",
+  "Mechanics require v3":
+    "La distribution et le vote demandent le format de règles récent. Conservez le format du modèle lorsque vous le personnalisez.",
+  "Invalid player limits":
+    "Le nombre minimal de joueurs doit être inférieur ou égal au maximum (de 3 à 12).",
+  "Invalid deal roles":
+    "Les camps de la distribution doivent être deux rôles joueurs distincts, dont le rôle attribué au départ.",
+  "Invalid private distribution":
+    "La distribution doit relier deux mots privés du GM à une donnée personnelle privée. Vérifiez Distribution et vote.",
+  "Invalid round configuration":
+    "Le nombre de tours doit utiliser un réglage entier compris entre 1 et 30.",
+  "Invalid distribution count":
+    "Le nombre de rôles minoritaires doit utiliser un réglage entier positif compatible avec l’effectif.",
+  "Management operation requires GM":
+    "Cette opération de gestion doit être réservée au Game Master dans Actions.",
+  "Ballot requires player target":
+    "Un vote demande un rôle joueur et un champ de choix de joueur valide.",
+  "Conflicting transition":
+    "La résolution choisit elle-même l’étape suivante. Retirez l’autre changement d’étape dans cette action.",
   "Incompatible engine version":
     "Les versions de schéma et de moteur doivent correspondre.",
   "Exactly one GM and spectator required":
@@ -129,15 +172,28 @@ export function unreachablePhases(d: GameDefinition) {
   let changed = true;
   while (changed) {
     changed = false;
-    for (const a of d.actions)
-      if (
-        a.nextPhase &&
-        a.phases.some((p) => seen.has(p)) &&
-        !seen.has(a.nextPhase)
-      ) {
-        seen.add(a.nextPhase);
-        changed = true;
-      }
+    for (const action of d.actions) {
+      if (!action.phases.some((p) => seen.has(p))) continue;
+      const targets = [
+        ...(action.nextPhase ? [action.nextPhase] : []),
+        ...(action.operations ?? []).flatMap((op) =>
+          op.type === "round.next"
+            ? [op.phase]
+            : op.type === "ballot.resolve"
+              ? [
+                  d.mechanics?.ballots.find((b) => b.id === op.ballot)
+                    ?.resultPhase,
+                  d.mechanics?.finishedPhase,
+                ].filter((p): p is string => !!p)
+              : [],
+        ),
+      ];
+      for (const target of targets)
+        if (!seen.has(target)) {
+          seen.add(target);
+          changed = true;
+        }
+    }
   }
   return d.phases.filter((p) => !seen.has(p.id));
 }

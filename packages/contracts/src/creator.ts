@@ -183,8 +183,8 @@ export const storeListingSchema = z.strictObject({
   metadata: editableMetadataSchema,
   lineage: z.array(attributionSchema).max(8),
   compatibility: z.strictObject({
-    schemaVersion: z.union([z.literal(1), z.literal(2)]),
-    engineVersion: z.union([z.literal(1), z.literal(2)]),
+    schemaVersion: z.union([z.literal(1), z.literal(2), z.literal(3)]),
+    engineVersion: z.union([z.literal(1), z.literal(2), z.literal(3)]),
   }),
   assets: z
     .array(
@@ -225,8 +225,8 @@ export const exportManifestSchema = z.strictObject({
   lineage: z.array(attributionSchema).max(8),
   sharing: sharingTermsSchema,
   compatibility: z.strictObject({
-    schemaVersion: z.union([z.literal(1), z.literal(2)]),
-    engineVersion: z.union([z.literal(1), z.literal(2)]),
+    schemaVersion: z.union([z.literal(1), z.literal(2), z.literal(3)]),
+    engineVersion: z.union([z.literal(1), z.literal(2), z.literal(3)]),
   }),
   assets: z
     .array(

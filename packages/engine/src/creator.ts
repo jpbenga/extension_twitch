@@ -15,6 +15,7 @@ import {
   type StudioWorkspace,
   type CreatorOperation,
 } from "@extension-twitch/contracts/creator";
+import { undercoverDefinition } from "@extension-twitch/game-undercover/definition";
 import { collectivePulse, answerBox } from "./examples.js";
 import { SessionError } from "./session-types.js";
 
@@ -37,6 +38,7 @@ const platformAuthor = "Extension Twitch Studio · exemple";
 export const officialCatalog: readonly PublishedGame[] = [
   collectivePulse,
   answerBox,
+  undercoverDefinition,
 ].map((definition, index) => ({
   identity: {
     id: `10000000-0000-4000-8000-00000000000${index + 1}`,
@@ -52,7 +54,15 @@ export const officialCatalog: readonly PublishedGame[] = [
     definition: structuredClone(definition),
     metadata: {
       ...metadataFor(definition),
-      category: "studio-examples",
+      category: definition.mechanics ? "official-games" : "studio-examples",
+      ...(definition.mechanics
+        ? {
+            recommendedPlayers: {
+              min: definition.mechanics.minPlayers,
+              max: definition.mechanics.maxPlayers,
+            },
+          }
+        : {}),
       sharing: {
         definitionLicense: "Exemple de démonstration — copie autorisée",
         rulesTerms: "Exemple de démonstration — variantes autorisées",

@@ -82,7 +82,18 @@ export function describeAction(a: ActionDefinition, d: GameDefinition) {
       ? `ajouter ${source} à ${target}`
       : `remplacer ${target} par ${source}`;
   });
-  return `${roles || "Aucun rôle"} peut utiliser « ${a.label} » pendant ${phases || "aucune étape"}${conditions.length ? `, si ${conditions.join(" et ")}` : ""}. ${effects.length ? `Ensuite : ${effects.join(", puis ")}.` : "Aucune donnée n’est modifiée."}${a.nextPhase ? ` Passer à ${d.phases.find((p) => p.id === a.nextPhase)?.label ?? "une étape manquante"}.` : ""}`;
+  const operationTexts = (a.operations ?? []).map((op) =>
+    op.type === "deal"
+      ? "distribuer aléatoirement les informations privées"
+      : op.type === "ballot.open"
+        ? "ouvrir un vote des joueurs actifs"
+        : op.type === "ballot.cast"
+          ? "enregistrer le vote personnel une seule fois"
+          : op.type === "ballot.resolve"
+            ? "décompter les voix, appliquer l’élimination et vérifier les conditions de fin"
+            : "commencer le tour suivant",
+  );
+  return `${operationTexts.length ? `Cette action permet de ${operationTexts.join(", puis ")}. ` : ""}${roles || "Aucun rôle"} peut utiliser « ${a.label} » pendant ${phases || "aucune étape"}${conditions.length ? `, si ${conditions.join(" et ")}` : ""}. ${effects.length ? `Ensuite : ${effects.join(", puis ")}.` : "Aucune donnée n’est modifiée."}${a.nextPhase ? ` Passer à ${d.phases.find((p) => p.id === a.nextPhase)?.label ?? "une étape manquante"}.` : ""}`;
 }
 export function expressionReferences(
   e: Expression,

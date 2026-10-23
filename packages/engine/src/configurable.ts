@@ -9,11 +9,20 @@ import {
   type GameProjection,
   type ActionDefinition,
 } from "@extension-twitch/contracts/game-definition";
+import {
+  initializePlay,
+  operationsAllowed,
+  applyOperations,
+  projectPlay,
+  projectedParameters,
+  type PlayState,
+} from "./mechanics.js";
 import { evaluateExpression } from "./expressions.js";
 import { SessionError, type SessionActor } from "./session-types.js";
 
 export interface GameRun {
   stateVersion: 1;
+  play?: PlayState;
   runId: string;
   definition: GameDefinition;
   configuration: Record<string, Scalar>;
@@ -72,7 +81,9 @@ export function createGameRun(
         .filter((v) => v.scope === scope)
         .map((v) => [v.id, v.value.initial]),
     );
+  const play = initializePlay(d, config, participantIds);
   return {
+    ...(play ? { play } : {}),
     stateVersion: 1,
     runId,
     definition: d,
@@ -92,7 +103,7 @@ export function createGameRun(
 function assertVersion(run: GameRun) {
   if (
     run.stateVersion !== 1 ||
-    ![1, 2].includes(run.definition.schemaVersion) ||
+    ![1, 2, 3].includes(run.definition.schemaVersion) ||
     run.definition.engineVersion !== run.definition.schemaVersion
   )
     reject("UNSUPPORTED_GAME_VERSION", 409);
@@ -123,9 +134,13 @@ function allowed(
   const role = roleFor(run, actor);
   return (
     actor !== null &&
+    (actor.role !== "player" ||
+      !run.play ||
+      run.play.active.includes(actor.participantId)) &&
     role !== undefined &&
     action.roles.includes(role) &&
     action.phases.includes(run.phase) &&
+    operationsAllowed(run, action, actor) &&
     action.conditions.every(
       (c) => valueFor(run, c.variable, actor) === c.equals,
     ) &&
@@ -140,6 +155,7 @@ export function executeGameAction(
     actionId: string;
     parameters: Record<string, Scalar>;
   },
+  randomIndex?: (upper: number) => number,
 ): GameRun {
   assertVersion(run);
   if (run.runId !== input.runId) return reject("STALE_GAME", 409);
@@ -197,6 +213,7 @@ export function executeGameAction(
     target[variable.id] = updated;
   }
   if (action.nextPhase) next.phase = action.nextPhase;
+  applyOperations(next, action, actor, input.parameters, randomIndex);
   return next;
 }
 export function assignGameRole(
@@ -207,6 +224,8 @@ export function assignGameRole(
 ): GameRun {
   assertVersion(run);
   if (actor.role !== "gm") return reject("FORBIDDEN", 403);
+  if (run.play?.dealt && run.definition.mechanics?.deals.length)
+    return reject("ROLES_LOCKED", 409);
   if (
     !Object.hasOwn(run.assignments, participantId) ||
     !run.definition.roles.some((r) => r.id === roleId && r.base === "player")
@@ -260,6 +279,9 @@ export function projectGame(
     phase: {
       id: run.phase,
       label: d.phases.find((p) => p.id === run.phase)!.label,
+      ...(d.phases.find((p) => p.id === run.phase)!.description
+        ? { description: d.phases.find((p) => p.id === run.phase)!.description }
+        : {}),
     },
     values,
     actions: d.actions
@@ -268,7 +290,7 @@ export function projectGame(
         id: a.id,
         label: a.label,
         confirmation: a.confirmation,
-        parameters: structuredClone(a.parameters),
+        parameters: projectedParameters(run, a, actor),
       })),
     assets: d.assets
       .filter(
@@ -288,7 +310,10 @@ export function projectGame(
               ? "unavailable"
               : "unbound",
       })),
-    ...(actor && role ? { role } : {}),
+    ...(run.play ? { play: projectPlay(run, actor) } : {}),
+    ...(actor && role && !d.mechanics?.deals.some((deal) => deal.concealRoles)
+      ? { role }
+      : {}),
     ...(gm
       ? {
           management: {
@@ -296,6 +321,29 @@ export function projectGame(
               .filter((r) => r.base === "player")
               .map(({ id, label }) => ({ id, label })),
             assignments: { ...run.assignments },
+            ...(() => {
+              const cast = d.actions.find(
+                (a) =>
+                  a.phases.includes(run.phase) &&
+                  a.operations?.some(
+                    (op) =>
+                      op.type === "ballot.cast" &&
+                      d.mechanics?.ballots.some(
+                        (b) => b.id === op.ballot && b.allowGmProxy,
+                      ),
+                  ),
+              );
+              return cast
+                ? {
+                    proxyAction: {
+                      id: cast.id,
+                      label: cast.label,
+                      confirmation: cast.confirmation,
+                      parameters: projectedParameters(run, cast, null),
+                    },
+                  }
+                : {};
+            })(),
           },
         }
       : {}),

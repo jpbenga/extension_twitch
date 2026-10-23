@@ -85,8 +85,8 @@ export function CreatorLibrary() {
       {filter !== "mine" ? (
         <>
           <p className="lobby-hint">
-            Exemples jouables pour découvrir le Studio. Les jeux officiels
-            Undercover, Enchères et Qui est l’espion sont encore en préparation.
+            Exemples du Studio et variante Undercover jouable. Enchères et Qui
+            est l’espion restent en préparation.
           </p>
           <div className="creator-catalog">
             {shown.map((g) => (
@@ -96,9 +96,11 @@ export function CreatorLibrary() {
               >
                 <div>
                   <span className="eyebrow">
-                    {g.identity.origin === "official"
-                      ? "EXEMPLE JOUABLE"
-                      : "VERSION PERSONNELLE"}
+                    {g.release.definition.mechanics
+                      ? "JEU OFFICIEL · VARIANTE DÉMO"
+                      : g.identity.origin === "official"
+                        ? "EXEMPLE JOUABLE"
+                        : "VERSION PERSONNELLE"}
                   </span>
                   <h2>{g.release.metadata.title}</h2>
                   <p>{g.release.metadata.description}</p>
