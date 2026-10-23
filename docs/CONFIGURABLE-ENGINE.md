@@ -112,3 +112,15 @@ Le plateau public garde le 16:9 à partir de 1 000 px de largeur. Sur les écran
 plus étroits, les cartes de jeu s’empilent sans découpe. Le placement déclaratif
 des scènes n’est pas utilisé dans ce rendu initial ; les grandes quantités de
 participants/valeurs demanderont des scènes ou une pagination de diffusion.
+
+## Évolution 4A — format v2 et bibliothèque
+
+V1 reste inchangé pour ses définitions et sessions. V2 ajoute des arbres bornés
+d’expressions et gardes ; sa version de schéma et de moteur valent 2. Voir
+[la décision du Studio](STAGE-4A.md) et [les tests humains](TEST-CREATOR.md).
+La propriété d’un brouillon appartient à une bibliothèque privée protégée par
+capacité. Les versions publiées restent privées, séparées d’un futur listing Store.
+Les parties de test utilisent le même moteur, API, SQLite et projections que les
+autres sessions ; leur définition est figée avant inscription des joueurs.
+Les cartes d’exemples restent pédagogiques ; les règles officielles ne sont pas
+validées par ces modèles. Aucun second moteur n’est créé pour le guide.

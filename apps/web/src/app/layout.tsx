@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import "./sessions.css";
+import "./creator.css";
 
 export const metadata: Metadata = {
   title: "Extension Twitch Studio — Sessions",

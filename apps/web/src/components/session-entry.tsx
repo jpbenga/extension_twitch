@@ -152,6 +152,11 @@ export function SessionEntry({ invitationCode }: { invitationCode?: string }) {
           Ouvrir le laboratoire de développement ↗
         </Link>
       )}
+      {!joining && (
+        <Link className="text-link creator-home-link" href="/creator">
+          Ouvrir le Studio Créateur ↗
+        </Link>
+      )}
       <header className="session-header">
         <Link className="session-brand" href="/">
           xt

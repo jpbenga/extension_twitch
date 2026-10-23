@@ -6,6 +6,10 @@ import {
   projectGame,
   type GameRun,
 } from "./configurable.js";
+import type {
+  AssetBinding,
+  GameDefinition,
+} from "@extension-twitch/contracts/game-definition";
 import type { GameId } from "@extension-twitch/contracts";
 import type {
   LobbyAction,
@@ -15,7 +19,12 @@ import type {
 
 import { SessionError, type SessionActor } from "./session-types.js";
 export { SessionError, type SessionActor } from "./session-types.js";
+export interface PreparedGame {
+  definition: GameDefinition;
+  assets: AssetBinding[];
+}
 export interface LobbyState {
+  preparedGame?: PreparedGame;
   gameRun?: GameRun;
   id: string;
   title: string;
@@ -109,6 +118,20 @@ export function decideLobby(
   }
   if (actor.role !== "gm") throw new SessionError("FORBIDDEN", 403);
   switch (action.type) {
+    case "game.use-prepared": {
+      if (!state.preparedGame) throw new SessionError("NO_GAME", 409);
+      return decideLobby(
+        state,
+        actor,
+        {
+          type: "game.configure",
+          definition: state.preparedGame.definition,
+          assets: state.preparedGame.assets,
+          configuration: {},
+        },
+        context,
+      );
+    }
     case "game.configure": {
       if (state.gameRun) throw new SessionError("GAME_RUNNING", 409);
       const gameRun = createGameRun(
@@ -118,9 +141,10 @@ export function decideLobby(
         state.participants.map((p) => p.id),
         randomUUID(),
       );
+      const { preparedGame: _prepared, ...base } = state;
       return recordEvent(
         {
-          ...state,
+          ...base,
           admissionOpen: false,
           gameId: gameRun.definition.id,
           gameRun,
@@ -202,7 +226,11 @@ export function decideLobby(
       );
     }
     case "session.reset": {
-      const { gameRun: _removed, ...withoutGame } = state;
+      const {
+        gameRun: _removed,
+        preparedGame: _prepared,
+        ...withoutGame
+      } = state;
       return recordEvent(
         {
           ...withoutGame,

@@ -78,3 +78,6 @@ export type ExternalInteraction =
 
 export * from "./configurable.js";
 export * from "./examples.js";
+
+export * from "./creator.js";
+export * from "./expressions.js";

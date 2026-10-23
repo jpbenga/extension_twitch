@@ -6,6 +6,7 @@ import {
   projectPublicSession,
   recordEvent,
   SessionError,
+  type PreparedGame,
 } from "@extension-twitch/engine";
 import {
   sessionViewSchema,
@@ -40,14 +41,18 @@ export class SessionService {
     readonly publicOrigin: string,
   ) {}
 
-  create(token: string, input: z.infer<typeof createSessionSchema>) {
+  create(
+    token: string,
+    input: z.infer<typeof createSessionSchema>,
+    prepared?: PreparedGame,
+  ) {
     const hash = hashValue(token);
     return this.store.transaction(() => {
       const scope = `create:${hash}`;
       const prior = this.store.receipt(
         scope,
         input.requestId,
-        fingerprint(input),
+        fingerprint(prepared ? { input, prepared } : input),
       );
       if (prior) {
         this.store.authorize(prior.sessionId, hash);
@@ -55,6 +60,7 @@ export class SessionService {
       }
       const state = recordEvent(
         {
+          ...(prepared ? { preparedGame: structuredClone(prepared) } : {}),
           id: randomUUID(),
           title: input.title,
           hostName: input.hostName,
@@ -76,7 +82,7 @@ export class SessionService {
       this.store.acknowledge(
         scope,
         input.requestId,
-        fingerprint(input),
+        fingerprint(prepared ? { input, prepared } : input),
         result,
       );
       return result;
@@ -166,6 +172,15 @@ export class SessionService {
       return sessionViewSchema.parse({
         ...publicView,
         audience: "gm",
+        ...(state.preparedGame
+          ? {
+              preparedGame: {
+                title: state.preparedGame.definition.title,
+                definitionId: state.preparedGame.definition.id,
+                definitionVersion: state.preparedGame.definition.version,
+              },
+            }
+          : {}),
         ...(state.gameRun ? { game: projectGame(state.gameRun, actor) } : {}),
         invitationCode: state.invitationCode,
         joinUrl: `${this.publicOrigin}/join/${state.invitationCode}`,

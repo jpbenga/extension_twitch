@@ -74,3 +74,11 @@ des jeux et les moteurs de règles spécialisés lorsque des primitives communes
 suffisent. Les sessions, SQLite, SSE et capacités de A sont conservés. Les trois
 modules officiels actuels restent des métadonnées, pas des jeux jouables.
 Voir aussi [Assets BYOS](ASSETS.md).
+
+## Studio Créateur 4A
+
+[La décision 4A](STAGE-4A.md) complète le socle : bibliothèque, variantes, versions
+privées et expressions v2 bornées. SQLite passe en version 2 avec deux tables
+additives de bibliothèque/reçus ; les sessions restent inchangées hors définition
+préparée facultative et commande GM d’installation. Aucune création personnelle
+n’est publiée automatiquement. [Guide manuel](TEST-CREATOR.md).

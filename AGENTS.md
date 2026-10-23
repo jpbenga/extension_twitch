@@ -283,3 +283,13 @@ configuration, partie et événements. Ne pas exécuter de scripts utilisateurs.
 Préserver les sessions A et leurs permissions. Ne transférer aucun média ni exposer
 de références privées dans les projections. La validation humaine iPhone reste
 en attente, mais n’empêche plus les itérations autorisées du socle et du laboratoire.
+
+
+18. Studio Créateur hybride (jalon 4A)
+
+Consulter docs/STAGE-4A.md. Variante, guide et Studio avancé produisent un seul
+GameDefinition. Les parties actives et versions publiées sont immuables. Une
+publication privée dans la bibliothèque n’est pas une publication Store. Préserver
+la filiation et les attributions, retirer les références d’assets privées/non
+redistribuables lors d’une copie partageable. Ne pas simuler des comptes sécurisés.
+Conserver V1 et versionner les extensions du langage. Aucun code arbitraire.

@@ -34,3 +34,19 @@ Le stockage externe ne supprime pas les obligations juridiques de la plateforme.
 Avant ouverture publique : signalements, traçabilité, désactivation rapide des
 références, procédure de retrait, conditions d’utilisation et gestion des droits.
 Aucun contournement d’accès tiers ni bibliothèque d’images protégées n’est fourni.
+
+## Variantes et publications 4A
+
+La bibliothèque conserve un manifest distinct de la définition et de l’état de
+session. Publication privée et duplication ne copient les références que si
+l’emplacement est public, la référence HTTPS publique/active et la redistribution
+explicitement autorisée. Les autres références sont retirées avec une raison de
+remplacement ; attribution et droits sont conservés. Le brouillon original peut
+garder ses références privées, sans les exposer dans un manifest d’export.
+Le manifest d’export est une liste blanche sans définition brute, paramètres
+privés ni références de stockage ; il n’est pas un export complet réimportable.
+
+Un futur registre de révocation/modération devra pouvoir désactiver une publication
+ou une dépendance au moment de sa résolution, sans réécrire une version immuable.
+Ce registre et le signalement ne sont pas actifs ; aucun média n’est résolu ici.
+Le stockage externe ne dispense pas du traitement des droits et signalements.

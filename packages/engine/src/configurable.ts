@@ -9,6 +9,7 @@ import {
   type GameProjection,
   type ActionDefinition,
 } from "@extension-twitch/contracts/game-definition";
+import { evaluateExpression } from "./expressions.js";
 import { SessionError, type SessionActor } from "./session-types.js";
 
 export interface GameRun {
@@ -91,8 +92,8 @@ export function createGameRun(
 function assertVersion(run: GameRun) {
   if (
     run.stateVersion !== 1 ||
-    run.definition.schemaVersion !== 1 ||
-    run.definition.engineVersion !== 1
+    ![1, 2].includes(run.definition.schemaVersion) ||
+    run.definition.engineVersion !== run.definition.schemaVersion
   )
     reject("UNSUPPORTED_GAME_VERSION", 409);
 }
@@ -127,7 +128,8 @@ function allowed(
     action.phases.includes(run.phase) &&
     action.conditions.every(
       (c) => valueFor(run, c.variable, actor) === c.equals,
-    )
+    ) &&
+    (!action.guard || guardPasses(action.guard, run, actor))
   );
 }
 export function executeGameAction(
@@ -173,11 +175,16 @@ export function executeGameAction(
           : undefined;
     if (!target) return reject("ACCESS_REVOKED", 403);
     const value =
-      effect.value.from === "literal"
-        ? effect.value.value
-        : effect.value.from === "parameter"
-          ? input.parameters[effect.value.id]
-          : next.configuration[effect.value.id];
+      effect.value.from === "expression"
+        ? evaluateExpression(
+            effect.value.expression,
+            expressionResolver(next, actor, input.parameters),
+          )
+        : effect.value.from === "literal"
+          ? effect.value.value
+          : effect.value.from === "parameter"
+            ? input.parameters[effect.value.id]
+            : next.configuration[effect.value.id];
     const current = target[variable.id];
     const updated =
       effect.type === "increment"
@@ -293,4 +300,36 @@ export function projectGame(
         }
       : {}),
   };
+}
+
+function expressionResolver(
+  run: GameRun,
+  actor: SessionActor | null,
+  parameters: Record<string, Scalar>,
+) {
+  return (
+    kind: "variable" | "parameter" | "configuration",
+    id: string,
+  ): Scalar | undefined =>
+    kind === "variable"
+      ? valueFor(run, id, actor)
+      : kind === "parameter"
+        ? parameters[id]
+        : run.configuration[id];
+}
+
+function guardPasses(
+  expression: import("@extension-twitch/contracts/game-definition").Expression,
+  run: GameRun,
+  actor: SessionActor | null,
+) {
+  try {
+    return (
+      evaluateExpression(expression, expressionResolver(run, actor, {})) ===
+      true
+    );
+  } catch (error) {
+    if (error instanceof SessionError) return false;
+    throw error;
+  }
 }

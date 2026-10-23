@@ -182,6 +182,25 @@ export function GamePanel({
             figé jusqu’à la réinitialisation du salon. Ces exemples ne sont pas
             les jeux officiels.
           </p>
+          {view.preparedGame && (
+            <div className="lobby-notice">
+              <strong>
+                Définition préparée : {view.preparedGame.title} · v
+                {view.preparedGame.definitionVersion}
+              </strong>
+              <p>
+                Invitez tous les joueurs avant l’installation. Cette copie reste
+                indépendante du brouillon.
+              </p>
+              <button
+                className="primary-button"
+                disabled={locked}
+                onClick={() => void send({ type: "game.use-prepared" })}
+              >
+                Installer la définition préparée
+              </button>
+            </div>
+          )}
           <form
             className="lobby-form"
             onSubmit={(e) => {
@@ -214,7 +233,7 @@ export function GamePanel({
           <details>
             <summary>Importer une définition JSON (outil technique)</summary>
             <p>
-              Schéma v1 limité. Aucun code exécuté. Les paramètres utilisent
+              Schémas v1/v2 bornés. Aucun code exécuté. Les paramètres utilisent
               leurs valeurs par défaut.
             </p>
             <form

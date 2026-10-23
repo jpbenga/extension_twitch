@@ -1,4 +1,10 @@
 import { z } from "zod";
+import { expressionSchema, inspectExpression } from "./expressions.js";
+export {
+  expressionSchema,
+  inspectExpression,
+  type Expression,
+} from "./expressions.js";
 
 export const identifierSchema = z
   .string()
@@ -49,6 +55,10 @@ const field = z.strictObject({
 });
 const source = z.discriminatedUnion("from", [
   z.strictObject({ from: z.literal("literal"), value: scalarSchema }),
+  z.strictObject({
+    from: z.literal("expression"),
+    expression: expressionSchema,
+  }),
   z.strictObject({ from: z.literal("parameter"), id: identifierSchema }),
   z.strictObject({ from: z.literal("configuration"), id: identifierSchema }),
 ]);
@@ -75,6 +85,7 @@ export const actionDefinitionSchema = z.strictObject({
     .array(z.strictObject({ variable: identifierSchema, equals: scalarSchema }))
     .max(4),
   effects: z.array(effect).max(6),
+  guard: expressionSchema.optional(),
   confirmation: z.boolean().default(false),
   nextPhase: identifierSchema.optional(),
 });
@@ -100,8 +111,8 @@ const widget = z.strictObject({
   phases: z.array(identifierSchema).min(1).max(8),
 });
 const rawDefinition = z.strictObject({
-  schemaVersion: z.literal(1),
-  engineVersion: z.literal(1),
+  schemaVersion: z.union([z.literal(1), z.literal(2)]),
+  engineVersion: z.union([z.literal(1), z.literal(2)]),
   id: identifierSchema,
   version: z.string().regex(/^\d{1,3}\.\d{1,3}\.\d{1,3}$/),
   title: label,
@@ -145,6 +156,7 @@ const rawDefinition = z.strictObject({
 });
 export const gameDefinitionSchema = rawDefinition.superRefine((d, ctx) => {
   const fail = (message: string) => ctx.addIssue({ code: "custom", message });
+  if (d.schemaVersion !== d.engineVersion) fail("Incompatible engine version");
   if (new TextEncoder().encode(JSON.stringify(d)).length > 6000)
     fail("Definition too large");
   const unique = (items: { id: string }[]) => {
@@ -185,6 +197,24 @@ export const gameDefinitionSchema = rawDefinition.superRefine((d, ctx) => {
     const roles = a.roles.map((id) => d.roles.find((r) => r.id === id));
     if (roles.some((r) => !r || r.base === "spectator"))
       fail("Unknown or read-only action role");
+    const expressionContext = {
+      variables: d.variables,
+      configuration: d.configuration,
+      parameters: a.parameters,
+      roles: roles.flatMap((r) => (r ? [r.base] : [])),
+    };
+    if (a.guard) {
+      if (d.schemaVersion !== 2) fail("Expressions require v2");
+      try {
+        if (
+          inspectExpression(a.guard, { ...expressionContext, parameters: [] })
+            .type !== "boolean"
+        )
+          fail("Guard must be boolean");
+      } catch {
+        fail("Invalid guard expression");
+      }
+    }
     if (
       a.phases.some((id) => !d.phases.some((p) => p.id === id)) ||
       (a.nextPhase && !d.phases.some((p) => p.id === a.nextPhase))
@@ -217,7 +247,19 @@ export const gameDefinitionSchema = rawDefinition.superRefine((d, ctx) => {
         fail("Hidden variable mutation oracle");
       if (e.type === "increment" && v.value.type !== "integer")
         fail("Increment requires integer");
-      if (e.value.from === "literal") {
+      if (e.value.from === "expression") {
+        if (d.schemaVersion !== 2) fail("Expressions require v2");
+        try {
+          const info = inspectExpression(e.value.expression, expressionContext);
+          if (
+            info.type !== v.value.type ||
+            (info.visibility !== "public" && info.visibility !== v.visibility)
+          )
+            fail("Expression type or private flow mismatch");
+        } catch {
+          fail("Invalid effect expression");
+        }
+      } else if (e.value.from === "literal") {
         if (e.type === "set" && !acceptsValue(v.value, e.value.value))
           fail("Invalid literal");
         if (e.type === "increment" && typeof e.value.value !== "number")

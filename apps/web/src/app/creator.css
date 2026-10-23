@@ -1,0 +1,178 @@
+.creator-shell {
+  max-width: 1160px;
+  padding-bottom: max(40px, env(safe-area-inset-bottom));
+}
+.creator-shell .lobby-heading h1 {
+  max-width: 780px;
+}
+.creator-paths {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+.creator-path {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  text-align: left;
+  padding: 22px;
+  border: 1px solid #ffffff20;
+  border-radius: 18px;
+  color: #eeebff;
+  background: linear-gradient(145deg, #211c31, #15121e);
+  cursor: pointer;
+  min-height: 150px;
+}
+.creator-path.selected,
+.creator-game-card.selected {
+  border-color: #b39afa;
+  box-shadow: inset 0 0 0 1px #b39afa44;
+}
+.creator-path > span {
+  color: #bda6ff;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+.creator-path strong {
+  font-size: 18px;
+  font-weight: 500;
+}
+.creator-path small {
+  color: #b0a9c1;
+  line-height: 1.6;
+}
+.creator-game-grid {
+  display: grid;
+  gap: 16px;
+  margin-block: 20px;
+}
+.creator-game-card {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+  padding: 20px;
+  background: #ffffff04;
+  border: 1px solid #ffffff17;
+  border-radius: 16px;
+}
+.creator-game-card h3,
+.creator-game-card p {
+  margin: 0;
+}
+.creator-game-card small {
+  color: #aaa1bc;
+  overflow-wrap: anywhere;
+}
+.creator-game-card .role-badge {
+  align-self: flex-start;
+}
+.creator-library-heading > details {
+  width: 100%;
+}
+.creator-parameter-grid {
+  display: grid;
+  gap: 16px;
+  margin-block: 20px;
+}
+.creator-editor label {
+  display: grid;
+  gap: 8px;
+  color: #c6bed5;
+  font-size: 14px;
+}
+.creator-editor input:not([type="checkbox"]) {
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  background: #181524;
+  color: #fff;
+  border: 1px solid #ffffff24;
+  border-radius: 12px;
+  padding: 12px;
+  font: inherit;
+  font-size: 16px;
+}
+.creator-code {
+  font-family: ui-monospace, monospace !important;
+  font-size: 14px !important;
+  tab-size: 2;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.creator-save-actions {
+  display: grid;
+  gap: 12px;
+  margin-block: 24px;
+  padding: 16px 0;
+  background: #1c1728;
+  border-block: 1px solid #a98bdd33;
+}
+.creator-publication {
+  border-top: 1px solid #ffffff20;
+  padding-top: 20px;
+  margin-top: 24px;
+}
+.creator-check {
+  display: flex !important;
+  align-items: center;
+  gap: 12px !important;
+  min-height: 48px;
+}
+.creator-check input {
+  flex: 0 0 24px;
+  min-height: 24px;
+  width: 24px;
+}
+.creator-installations,
+.creator-assets {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+.creator-installations li,
+.creator-assets li {
+  padding: 14px;
+  display: grid;
+  gap: 10px;
+  border: 1px solid #ffffff20;
+  border-radius: 12px;
+  overflow-wrap: anywhere;
+}
+.creator-lineage-id {
+  display: block;
+  overflow-wrap: anywhere;
+  font-size: 11px;
+  color: #a399b9;
+}
+.creator-home-link {
+  display: inline-block;
+  margin-block: 12px;
+}
+.creator-editor {
+  scroll-margin-top: 20px;
+}
+@media (min-width: 800px) {
+  .creator-paths {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .creator-game-grid,
+  .creator-parameter-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .creator-save-actions {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.creator-save-actions {
+  position: sticky;
+  bottom: env(safe-area-inset-bottom, 0px);
+  z-index: 5;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 -8px 24px #100d1c88;
+}

@@ -51,6 +51,7 @@ export const lobbyActionSchema = z.discriminatedUnion("type", [
     parameters: scalarRecordSchema,
   }),
   z.strictObject({ type: z.literal("game.restart"), runId: z.uuid() }),
+  z.strictObject({ type: z.literal("game.use-prepared") }),
   z.strictObject({
     type: z.literal("game.assign-role"),
     participantId: z.uuid(),
@@ -119,6 +120,13 @@ export const gmSessionSchema = z.strictObject({
   ...viewFields,
   audience: z.literal("gm"),
   game: gameProjectionSchema.optional(),
+  preparedGame: z
+    .strictObject({
+      title: z.string().max(80),
+      definitionId: identifierSchema,
+      definitionVersion: z.string(),
+    })
+    .optional(),
   invitationCode: invitationCodeSchema,
   joinUrl: z.url(),
   publicUrl: z.url(),

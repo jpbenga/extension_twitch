@@ -1,6 +1,5 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 import {
-  accessTokenSchema,
   createSessionSchema,
   invitationCodeSchema,
   joinSessionSchema,
@@ -8,53 +7,21 @@ import {
   sessionIdSchema,
 } from "@extension-twitch/contracts/sessions";
 import { gameExamples, SessionError } from "@extension-twitch/engine";
+import { credential, readJson, json } from "./http-utils.js";
+import { CreatorApi } from "./creator-api.js";
+import { CreatorService } from "./creator-service.js";
 import { ZodError } from "zod";
 import { hashValue, type SessionService } from "./session-service.js";
-
-function credential(request: IncomingMessage) {
-  const header = request.headers.authorization;
-  const token = header?.startsWith("Bearer ") ? header.slice(7) : "";
-  if (!accessTokenSchema.safeParse(token).success)
-    throw new SessionError("ACCESS_DENIED", 401);
-  return token;
-}
-
-async function readJson(request: IncomingMessage): Promise<unknown> {
-  if (
-    request.headers["content-type"]?.split(";")[0]?.trim() !==
-    "application/json"
-  )
-    throw new SessionError("JSON_REQUIRED", 415);
-  if (Number(request.headers["content-length"]) > 8192)
-    throw new SessionError("PAYLOAD_TOO_LARGE", 413);
-  const chunks: Buffer[] = [];
-  let length = 0;
-  for await (const chunk of request.iterator({ destroyOnReturn: false })) {
-    const buffer = Buffer.isBuffer(chunk) ? chunk : Buffer.from(String(chunk));
-    length += buffer.length;
-    if (length > 8192) throw new SessionError("PAYLOAD_TOO_LARGE", 413);
-    chunks.push(buffer);
-  }
-  try {
-    return JSON.parse(Buffer.concat(chunks).toString("utf8")) as unknown;
-  } catch {
-    throw new SessionError("INVALID_JSON");
-  }
-}
-
-function json(response: ServerResponse, value: unknown, status = 200) {
-  response.writeHead(status, {
-    "Content-Type": "application/json; charset=utf-8",
-  });
-  response.end(JSON.stringify(value));
-}
 
 export class SessionApi {
   private readonly buckets = new Map<
     string,
     { count: number; until: number }
   >();
-  constructor(private readonly service: SessionService) {}
+  private readonly creator: CreatorApi;
+  constructor(private readonly service: SessionService) {
+    this.creator = new CreatorApi(new CreatorService(service.store, service));
+  }
 
   private limit(key: string, maximum: number) {
     const now = Date.now();
@@ -81,6 +48,11 @@ export class SessionApi {
         if (origin && origin !== this.service.publicOrigin)
           throw new SessionError("ORIGIN_DENIED", 403);
         this.limit(`network:${request.socket.remoteAddress ?? "local"}`, 240);
+      }
+      if (path.startsWith("/studio/")) {
+        this.limit(`studio:${hashValue(credential(request))}`, 90);
+        if (await this.creator.handle(path, request, response)) return;
+        throw new SessionError("NOT_FOUND", 404);
       }
       if (method === "POST" && path === "/sessions") {
         const token = credential(request);

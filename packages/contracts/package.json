@@ -15,6 +15,10 @@
     "./game-definition": {
       "types": "./dist/game-definition.d.ts",
       "import": "./dist/game-definition.js"
+    },
+    "./creator": {
+      "types": "./dist/creator.d.ts",
+      "import": "./dist/creator.js"
     }
   },
   "scripts": {

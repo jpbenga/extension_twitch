@@ -25,6 +25,19 @@ const messages: Record<string, string> = {
     "Accès privé absent ou révoqué. Ouvrez votre lien privé de récupération.",
   ACCESS_REVOKED:
     "Votre accès a été retiré. Demandez une nouvelle invitation au GM.",
+  RELEASE_NOT_FOUND:
+    "Cette version publiée est introuvable dans votre bibliothèque.",
+  GAME_NOT_FOUND: "Ce jeu n’est pas accessible dans votre bibliothèque.",
+  STABLE_ID_REQUIRED: "L’identifiant stable du jeu ne peut pas être modifié.",
+  VERSION_ALREADY_PUBLISHED:
+    "Ce numéro de version est déjà publié. Choisissez-en un nouveau.",
+  GUIDE_NOT_REPRESENTABLE:
+    "Ces choix avancés ne peuvent plus être modifiés avec le guide. Votre définition est conservée.",
+  LIBRARY_FULL: "La bibliothèque a atteint sa limite technique de ce jalon.",
+  RELEASE_LIMIT: "Ce jeu a atteint sa limite technique de versions publiées.",
+  INVALID_EXPRESSION:
+    "L’expression ne peut pas être évaluée dans les bornes autorisées. Aucun effet appliqué.",
+  ALREADY_INSTALLED: "Cette version est déjà installée.",
   GAME_RUNNING:
     "L’effectif est figé pour cette expérience. Réinitialisez le salon pour modifier les invités ou la définition.",
   NO_GAME: "Aucune définition n’est installée.",

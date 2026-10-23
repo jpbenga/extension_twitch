@@ -1,6 +1,6 @@
 # Extension Twitch — Cahier des charges produit
 
-Version : 0.2
+Version : 0.3
 
 Statut : Vision produit et cadrage initial
 
@@ -406,3 +406,23 @@ doivent être respectés. Voir docs/CONFIGURABLE-ENGINE.md et docs/ASSETS.md.
 Le socle générique et le laboratoire peuvent progresser avant validation physique
 sur iPhone. Statut du jalon A : Validation technique terminée — Validation humaine
 iPhone en attente. Les règles détaillées des jeux officiels restent à définir.
+
+
+16. Studio Créateur hybride — addendum validé
+
+Trois parcours complémentaires : utiliser/personnaliser un jeu existant, créer
+avec un guide, créer librement dans le Studio avancé. Même format de définition,
+bibliothèque et moteur. Le guide ne doit pas supprimer les choix avancés qu’il ne
+sait pas représenter. Les variantes sont indépendantes et conservent origine,
+version, auteur et attributions. Distinguer installation, duplication, modification
+de brouillon et publication immuable. Une partie active conserve sa version.
+
+Préparer un Store communautaire avec jeux officiels/personnels/communautaires,
+propriété, licences, filiation, métadonnées, manifest de dépendances et modération.
+La découverte depuis Twitch sera explicite et optionnelle, sans exposer les jeux
+privés. Les droits sur définitions, règles, graphismes, audio/vidéo et références
+privées sont distincts ; partager un jeu ne rend pas tous ses assets partageables.
+
+Le jalon 4A implémente les fondations et un parcours humain minimal ; il ne construit
+pas le Store public, l’assistant complet ou Twitch. Voir docs/STAGE-4A.md.
+Validation humaine iPhone en attente.
