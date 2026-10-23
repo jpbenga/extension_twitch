@@ -26,30 +26,31 @@ const messages: Record<string, string> = {
   ACCESS_REVOKED:
     "Votre accès a été retiré. Demandez une nouvelle invitation au GM.",
   RELEASE_NOT_FOUND:
-    "Cette version publiée est introuvable dans votre bibliothèque.",
+    "Cette version enregistrée est introuvable dans votre bibliothèque.",
   GAME_NOT_FOUND: "Ce jeu n’est pas accessible dans votre bibliothèque.",
   STABLE_ID_REQUIRED: "L’identifiant stable du jeu ne peut pas être modifié.",
   VERSION_ALREADY_PUBLISHED:
-    "Ce numéro de version est déjà publié. Choisissez-en un nouveau.",
+    "Ce numéro de version est déjà utilisé. Choisissez le numéro proposé dans Versions.",
   GUIDE_NOT_REPRESENTABLE:
     "Ces choix avancés ne peuvent plus être modifiés avec le guide. Votre définition est conservée.",
   LIBRARY_FULL: "La bibliothèque a atteint sa limite technique de ce jalon.",
   RELEASE_LIMIT: "Ce jeu a atteint sa limite technique de versions publiées.",
   INVALID_EXPRESSION:
-    "L’expression ne peut pas être évaluée dans les bornes autorisées. Aucun effet appliqué.",
-  ALREADY_INSTALLED: "Cette version est déjà installée.",
+    "Cette règle ne peut pas être appliquée à ces valeurs. Rien n’a changé ; vérifiez la condition ou le calcul.",
+  ALREADY_INSTALLED: "Ce jeu est déjà dans votre bibliothèque.",
   GAME_RUNNING:
     "L’effectif est figé pour cette expérience. Réinitialisez le salon pour modifier les invités ou la définition.",
-  NO_GAME: "Aucune définition n’est installée.",
+  NO_GAME: "La partie n’est pas encore préparée.",
   STALE_GAME:
     "Cette action appartient à une ancienne partie. Utilisez les commandes affichées actuellement.",
   ACTION_FORBIDDEN:
     "Cette action n’est plus autorisée pour votre rôle ou cette phase.",
   INVALID_PARAMETERS: "Les paramètres de l’action sont invalides.",
   INVALID_CONFIGURATION: "La configuration ne respecte pas la définition.",
-  INVALID_DEFINITION: "La définition n’est pas compatible avec le schéma v1.",
+  INVALID_DEFINITION:
+    "Les règles de ce jeu ne sont pas valides. Ouvrez le jeu et corrigez les points signalés.",
   VALUE_OUT_OF_BOUNDS:
-    "Cette action dépasserait une limite de la définition. Aucun effet appliqué.",
+    "Cette action dépasserait une limite prévue par le jeu. Rien n’a changé ; choisissez une autre valeur.",
   INVALID_ROLE: "Ce rôle ne peut pas être attribué à ce joueur.",
   FORBIDDEN: "Cette action n’est pas autorisée pour votre accès.",
   ORIGIN_DENIED:
@@ -70,6 +71,9 @@ const messages: Record<string, string> = {
   INTERNAL_ERROR:
     "Le serveur ne peut pas enregistrer l’action. Réessayez avec la même commande.",
 };
+export function requestMessage(error: unknown, fallback: string) {
+  return error instanceof RequestFailure ? error.message : fallback;
+}
 export class RequestFailure extends Error {
   constructor(
     readonly code: string,

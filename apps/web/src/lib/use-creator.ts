@@ -20,6 +20,7 @@ import {
   randomToken,
   commandId,
   RequestFailure,
+  requestMessage,
 } from "./session-client";
 
 type Access = ReturnType<typeof creatorAccessSchema.parse>;
@@ -33,6 +34,8 @@ export function useCreator() {
     [notice, setNotice] = useState("");
   const [retryAvailable, setRetryAvailable] = useState(false);
   const [testLink, setTestLink] = useState("");
+  const [ready, setReady] = useState(false);
+  const currentAccess = useRef<Access | null>(null);
   const latestView = useRef<StudioView | null>(null);
   const pending = useRef<CreatorCommand | null>(null),
     inFlight = useRef(false);
@@ -64,8 +67,12 @@ export function useCreator() {
         sessionStorage.removeItem(pendingKey);
       }
       const saved = sessionStorage.getItem(accessKey);
-      if (!saved) return;
+      if (!saved) {
+        setReady(true);
+        return;
+      }
       const a = creatorAccessSchema.parse(JSON.parse(saved) as unknown);
+      currentAccess.current = a;
       setAccess(a);
       const savedCommand = sessionStorage.getItem(pendingKey);
       if (savedCommand) {
@@ -74,13 +81,21 @@ export function useCreator() {
         );
         setRetryAvailable(true);
       }
-      void load(a).catch((e) =>
-        setError(e instanceof Error ? e.message : "Bibliothèque indisponible."),
-      );
+      void load(a)
+        .catch((e) =>
+          setError(
+            requestMessage(
+              e,
+              "Votre bibliothèque est indisponible. Vérifiez la connexion puis réessayez.",
+            ),
+          ),
+        )
+        .finally(() => setReady(true));
     } catch {
       setError(
-        "Accès ou stockage privé indisponible. Ouvrez votre lien de récupération.",
+        "Votre accès ne peut pas être chargé. Ouvrez votre lien privé pour retrouver vos jeux.",
       );
+      setReady(true);
     }
   }, []);
   async function create(name: string) {
@@ -107,16 +122,21 @@ export function useCreator() {
       const a = { id: next.workspace.id, token };
       sessionStorage.setItem(accessKey, JSON.stringify(a));
       sessionStorage.removeItem(key);
+      currentAccess.current = a;
       setAccess(a);
       latestView.current = next;
       setView(next);
-      setNotice(
-        "Bibliothèque privée créée. Conservez votre lien de récupération.",
-      );
+      setNotice("Votre bibliothèque est prête.");
+      return next;
     } catch (e) {
       if (e instanceof RequestFailure && e.status >= 400 && e.status < 500)
         sessionStorage.removeItem("xt:creator:bootstrap");
-      setError(e instanceof Error ? e.message : "Création impossible.");
+      setError(
+        requestMessage(
+          e,
+          "La bibliothèque n’a pas pu être créée. Vérifiez la connexion puis réessayez.",
+        ),
+      );
     } finally {
       inFlight.current = false;
       setBusy(false);
@@ -125,6 +145,8 @@ export function useCreator() {
   async function send(
     operation?: CreatorOperation,
   ): Promise<StudioView | null> {
+    const access = currentAccess.current,
+      view = latestView.current;
     if (!access || !view || inFlight.current || (operation && pending.current))
       return null;
     inFlight.current = true;
@@ -157,7 +179,7 @@ export function useCreator() {
       pending.current = null;
       sessionStorage.removeItem(pendingKey);
       setRetryAvailable(false);
-      setNotice("Modification enregistrée.");
+      setNotice("Enregistré.");
       return next;
     } catch (e) {
       if (e instanceof RequestFailure && e.status >= 400 && e.status < 500) {
@@ -167,10 +189,11 @@ export function useCreator() {
       }
       setError(
         e instanceof RequestFailure && e.code === "VERSION_CONFLICT"
-          ? "La bibliothèque a changé. Actualisez-la, puis comparez votre copie locale avec le brouillon serveur."
-          : e instanceof Error
-            ? e.message
-            : "Le résultat est incertain. Réessayez la même commande.",
+          ? "Ce jeu a été modifié dans un autre onglet. Vos changements sont conservés. Actualisez pour comparer les deux copies."
+          : requestMessage(
+              e,
+              "La confirmation n’est pas arrivée. Vérifiez la connexion puis reprenez l’enregistrement ; votre saisie est conservée.",
+            ),
       );
       return null;
     } finally {
@@ -189,13 +212,19 @@ export function useCreator() {
         "Bibliothèque actualisée. Les modifications locales de l’éditeur sont conservées.",
       );
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Actualisation impossible.");
+      setError(
+        requestMessage(
+          e,
+          "Vos jeux ne peuvent pas être actualisés. Vérifiez la connexion puis réessayez.",
+        ),
+      );
     } finally {
       inFlight.current = false;
       setBusy(false);
     }
   }
   async function prepare(gameId: string, version: string) {
+    const access = currentAccess.current;
     if (!access || inFlight.current || retryAvailable) return;
     inFlight.current = true;
     setBusy(true);
@@ -231,16 +260,16 @@ export function useCreator() {
       setTestLink(
         `${window.location.origin}/sessions/${result.sessionId}/gm#access=${input.sessionToken}`,
       );
-      setNotice(
-        "Session réelle préparée. Ouvrez la régie, invitez les joueurs puis installez la définition préparée.",
-      );
+      setNotice("La partie est créée.");
+      return { sessionId: result.sessionId, token: input.sessionToken };
     } catch (e) {
       if (e instanceof RequestFailure && e.status >= 400 && e.status < 500)
         sessionStorage.removeItem(key);
       setError(
-        e instanceof Error
-          ? e.message
-          : "Test non préparé. Réessayez le même bouton.",
+        requestMessage(
+          e,
+          "La confirmation du test n’est pas arrivée. Vérifiez la connexion puis touchez à nouveau Tester mon jeu pour reprendre ce même essai.",
+        ),
       );
     } finally {
       inFlight.current = false;
@@ -249,6 +278,7 @@ export function useCreator() {
   }
   return {
     access,
+    ready,
     view,
     busy,
     error,

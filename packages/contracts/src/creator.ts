@@ -3,6 +3,7 @@ import {
   gameDefinitionSchema,
   assetBindingSchema,
   identifierSchema,
+  type GameDefinition,
 } from "./game-definition.js";
 import { accessTokenSchema } from "./sessions.js";
 const name = z
@@ -271,3 +272,127 @@ export const moderationDecisionSchema = z.strictObject({
   reason: z.enum(["rights", "abuse", "policy", "other"]),
   at: z.iso.datetime(),
 });
+
+/** Authoring compiler only: creates a definition, never executes a game. */
+export function compileCounterDefinition(
+  template: GameDefinition,
+  id: string,
+  title: string,
+  recipe: GuideRecipe,
+  description?: string,
+): GameDefinition {
+  const r = guideRecipeSchema.parse(recipe);
+  const d = structuredClone(template);
+  d.schemaVersion = 2;
+  d.engineVersion = 2;
+  d.id = id;
+  d.title = title;
+  d.variables.find((v) => v.id === "total")!.value = {
+    type: "integer",
+    min: 0,
+    max: 100000,
+    initial: 0,
+  };
+  const action = d.actions.find((a) => a.id === "contribute")!;
+  action.parameters[0]!.value = {
+    type: "integer",
+    min: 1,
+    max: r.pointsMax,
+    initial: 1,
+  };
+  action.parameters[0]!.label = `Points (1 à ${r.pointsMax})`;
+  action.conditions = r.oncePerPlayer
+    ? [{ variable: "used", equals: false }]
+    : [];
+  action.effects[0] = {
+    type: "increment",
+    variable: "total",
+    value: {
+      from: "expression",
+      expression: {
+        kind: "operator",
+        operator: "multiply",
+        args: [
+          { kind: "parameter", id: "amount" },
+          { kind: "literal", value: r.multiplier },
+        ],
+      },
+    },
+  };
+  d.actions.find((a) => a.id === "finish")!.guard = {
+    kind: "operator",
+    operator: "gte",
+    args: [
+      { kind: "variable", id: "total" },
+      { kind: "literal", value: r.goal },
+    ],
+  };
+  d.description =
+    description ??
+    `Atteindre ${r.goal} points ensemble. Chaque contribution est multipliée par ${r.multiplier}.`;
+  return gameDefinitionSchema.parse(d);
+}
+function rulesFingerprint(d: GameDefinition) {
+  const {
+    id: _id,
+    title: _title,
+    description: _description,
+    version: _version,
+    ...rules
+  } = d;
+  const sort = (value: unknown): unknown =>
+    Array.isArray(value)
+      ? value.map(sort)
+      : value && typeof value === "object"
+        ? Object.fromEntries(
+            Object.entries(value)
+              .sort(([a], [b]) => a.localeCompare(b))
+              .map(([key, v]) => [key, sort(v)]),
+          )
+        : value;
+  return JSON.stringify(sort(rules));
+}
+/** Conservative recognition: unfamiliar rules, labels, scenes and private fields are never replaced. */
+export function counterRecipeFor(
+  d: GameDefinition,
+  template: GameDefinition,
+): GuideRecipe | null {
+  const defaults: GuideRecipe = {
+    kind: "collective-counter",
+    goal: 4,
+    pointsMax: 3,
+    multiplier: 1,
+    oncePerPlayer: true,
+  };
+  if (rulesFingerprint(d) === rulesFingerprint(template)) return defaults;
+  try {
+    const action = d.actions.find((a) => a.id === "contribute"),
+      finish = d.actions.find((a) => a.id === "finish");
+    const parameter = action?.parameters[0]?.value,
+      effect = action?.effects[0];
+    const expr =
+      effect && effect.type !== "reveal" && effect.value.from === "expression"
+        ? effect.value.expression
+        : null;
+    const goal =
+      finish?.guard?.kind === "operator" ? finish.guard.args[1] : null;
+    const multiplier = expr?.kind === "operator" ? expr.args[1] : null;
+    const r = guideRecipeSchema.parse({
+      ...defaults,
+      goal: goal?.kind === "literal" ? goal.value : undefined,
+      pointsMax: parameter?.type === "integer" ? parameter.max : undefined,
+      multiplier: multiplier?.kind === "literal" ? multiplier.value : undefined,
+      oncePerPlayer: !!action?.conditions.length,
+    });
+    const candidate = compileCounterDefinition(
+      template,
+      d.id,
+      d.title,
+      r,
+      d.description,
+    );
+    return rulesFingerprint(candidate) === rulesFingerprint(d) ? r : null;
+  } catch {
+    return null;
+  }
+}

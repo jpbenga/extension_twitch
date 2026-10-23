@@ -1,4 +1,4 @@
-import { CreatorStudio } from "../../components/creator-studio";
+import { CreatorHome } from "../../components/creator-home";
 export default function CreatorPage() {
-  return <CreatorStudio />;
+  return <CreatorHome />;
 }

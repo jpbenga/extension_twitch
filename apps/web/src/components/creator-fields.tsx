@@ -1,5 +1,11 @@
 "use client";
-import { cloneElement, isValidElement, type ReactNode } from "react";
+import {
+  cloneElement,
+  isValidElement,
+  useEffect,
+  useRef,
+  type ReactNode,
+} from "react";
 import type {
   Scalar,
   ValueSpec,
@@ -47,6 +53,42 @@ export function TextField({
     </Field>
   );
 }
+/** Keep incomplete numeric typing in the native control, without turning an empty field into zero. */
+export function NumberInput({
+  value,
+  onChange,
+  label,
+  min,
+  max,
+}: {
+  value: number;
+  onChange: (value: number) => void;
+  label: string;
+  min?: number;
+  max?: number;
+}) {
+  const input = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (input.current && document.activeElement !== input.current)
+      input.current.value = String(value);
+  }, [value]);
+  return (
+    <input
+      ref={input}
+      aria-label={label}
+      type="number"
+      required
+      step={1}
+      min={min}
+      max={max}
+      defaultValue={value}
+      onChange={(e) => {
+        const raw = e.target.value;
+        if (raw !== "" && Number.isFinite(Number(raw))) onChange(Number(raw));
+      }}
+    />
+  );
+}
 export function ScalarField({
   label,
   value,
@@ -67,19 +109,15 @@ export function ScalarField({
           <option value="true">Vrai</option>
           <option value="false">Faux</option>
         </select>
+      ) : typeof value === "number" ? (
+        <NumberInput label={label} value={value} onChange={onChange} />
       ) : (
         <input
           aria-label={label}
-          type={typeof value === "number" ? "number" : "text"}
+          type="text"
           value={value}
           maxLength={240}
-          onChange={(e) =>
-            onChange(
-              typeof value === "number"
-                ? Number(e.target.value)
-                : e.target.value,
-            )
-          }
+          onChange={(e) => onChange(e.target.value)}
         />
       )}
     </Field>
@@ -102,9 +140,9 @@ export function ValueFields({
 }) {
   return (
     <div className="studio-grid">
-      <Field label={`Type · ${prefix}`}>
+      <Field label={`Type de ${prefix}`}>
         <select
-          aria-label={`Type · ${prefix}`}
+          aria-label={`Type de ${prefix}`}
           value={value.type}
           onChange={(e) =>
             onChange(defaultSpec(e.target.value as ValueSpec["type"]))
@@ -116,19 +154,19 @@ export function ValueFields({
         </select>
       </Field>
       <ScalarField
-        label={`Valeur initiale · ${prefix}`}
+        label={`Valeur de départ de ${prefix}`}
         value={value.initial}
         onChange={(initial) => onChange({ ...value, initial } as ValueSpec)}
       />
       {value.type === "integer" && (
         <>
           <ScalarField
-            label={`Minimum · ${prefix}`}
+            label={`Minimum pour ${prefix}`}
             value={value.min}
             onChange={(min) => onChange({ ...value, min: Number(min) })}
           />
           <ScalarField
-            label={`Maximum · ${prefix}`}
+            label={`Maximum pour ${prefix}`}
             value={value.max}
             onChange={(max) => onChange({ ...value, max: Number(max) })}
           />
@@ -136,7 +174,7 @@ export function ValueFields({
       )}
       {value.type === "text" && (
         <ScalarField
-          label={`Longueur maximum · ${prefix}`}
+          label={`Longueur maximale pour ${prefix}`}
           value={value.maxLength}
           onChange={(maxLength) =>
             onChange({ ...value, maxLength: Number(maxLength) })

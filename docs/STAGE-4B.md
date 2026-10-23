@@ -1,5 +1,8 @@
 # Studio Créateur visuel — 4B
 
+> Document historique du jalon 4B. Pour l’interface actuelle, consulter
+> [le bilan 4B.1](STAGE-4B1.md) et [le guide de test actuel](TEST-STUDIO-4B1.md).
+
 Base vérifiée : `80cc82f`, branche de travail `feat/creator-studio-4b`.
 
 ## Architecture retenue

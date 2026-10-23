@@ -4,7 +4,7 @@ import {
 } from "@extension-twitch/contracts/game-definition";
 import {
   assetDependencyStatus as dependencyStatus,
-  guideRecipeSchema,
+  compileCounterDefinition,
   exportManifestSchema,
   creatorOperationSchema,
   type AssetDependency,
@@ -95,54 +95,7 @@ export function compileGuide(
   title: string,
   recipe: GuideRecipe,
 ): GameDefinition {
-  const r = guideRecipeSchema.parse(recipe);
-  const definition = structuredClone(collectivePulse);
-  definition.schemaVersion = 2;
-  definition.engineVersion = 2;
-  definition.id = id;
-  definition.title = title;
-  definition.variables[0]!.value = {
-    type: "integer",
-    min: 0,
-    max: 100000,
-    initial: 0,
-  };
-  const contribute = definition.actions.find((a) => a.id === "contribute")!;
-  contribute.parameters[0]!.value = {
-    type: "integer",
-    min: 1,
-    max: r.pointsMax,
-    initial: 1,
-  };
-  contribute.parameters[0]!.label = `Points (1 à ${r.pointsMax})`;
-  contribute.conditions = r.oncePerPlayer
-    ? [{ variable: "used", equals: false }]
-    : [];
-  contribute.effects[0] = {
-    type: "increment",
-    variable: "total",
-    value: {
-      from: "expression",
-      expression: {
-        kind: "operator",
-        operator: "multiply",
-        args: [
-          { kind: "parameter", id: "amount" },
-          { kind: "literal", value: r.multiplier },
-        ],
-      },
-    },
-  };
-  definition.actions.find((a) => a.id === "finish")!.guard = {
-    kind: "operator",
-    operator: "gte",
-    args: [
-      { kind: "variable", id: "total" },
-      { kind: "literal", value: r.goal },
-    ],
-  };
-  definition.description = `Atteindre ${r.goal} points ensemble. Chaque contribution est multipliée par ${r.multiplier}.`;
-  return gameDefinitionSchema.parse(definition);
+  return compileCounterDefinition(collectivePulse, id, title, recipe);
 }
 export function guideRepresentable(game: CreatorGame): boolean {
   if (!game.draft.guide) return false;

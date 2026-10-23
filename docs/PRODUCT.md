@@ -1,6 +1,6 @@
 # Extension Twitch — Cahier des charges produit
 
-Version : 0.4
+Version : 0.5
 
 Statut : Vision produit et cadrage initial
 
@@ -439,3 +439,24 @@ joueurs et plateau public. La publication demeure privée et immuable. Aucun Sto
 public, nouveau moteur, paiement ou stockage de médias. L’Overlay Studio graphique
 appartient à 4C et n’est pas commencé automatiquement. Voir docs/STAGE-4B.md et
 docs/TEST-STUDIO-4B.md. Validation humaine iPhone en attente.
+
+
+18. Refonte ergonomique du Studio — jalon 4B.1
+
+Un jeu définit des règles réutilisables ; une partie les exécute avec des participants ;
+une émission peut contenir plusieurs parties. Séparer accueil, bibliothèque,
+éditeur et laboratoire. Distinguer Lancer, Personnaliser, Enregistrer, Tester et
+Enregistrer une version. Les copies figées restent privées.
+
+Les parcours ordinaires posent des questions en langage courant. Les références,
+JSON, manifests et versions du langage restent secondaires. Les saisies, conditions
+et conséquences d’une action sont regroupées dans son éditeur. Les réglages simples
+ne remplacent jamais des règles avancées non représentables. Aucun moteur parallèle.
+Le test rapide utilise les API, les permissions et les projections réelles avec
+identités de démonstration distinctes. Le test avec invitations reste séparé.
+
+Retour reçu : Premier test humain iPhone effectué — refonte ergonomique nécessaire.
+Ce statut remplace l’attente indiquée pour le Studio dans les historiques précédents.
+La refonte 4B.1 et les parcours complets restent à valider humainement. Safari iOS sur
+d’autres appareils, OBS et les jeux officiels complets ne sont pas déclarés validés.
+Voir docs/STAGE-4B1.md et docs/TEST-STUDIO-4B1.md. Ne pas commencer 4C automatiquement.

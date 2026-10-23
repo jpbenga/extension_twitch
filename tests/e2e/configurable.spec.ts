@@ -60,6 +60,7 @@ test("the shared interpreter drives actual private answers, roles, reveal and re
     await page
       .getByLabel("Rôle de Atlas", { exact: true })
       .selectOption("reviewer");
+    await reviewer.getByText("Détails du jeu", { exact: true }).click();
     await expect(reviewer.locator("#game")).toContainText(
       "Votre rôle : reviewer",
     );

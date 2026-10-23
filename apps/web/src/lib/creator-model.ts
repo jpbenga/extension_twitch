@@ -72,7 +72,7 @@ const messages: Record<string, string> = {
   "Unknown widget source":
     "Un widget référence une variable ou un asset absent.",
   "Invalid default or bounds":
-    "La valeur initiale doit respecter le type et les bornes.",
+    "Dans Données ou dans un champ d’action, la valeur de départ doit respecter le type, le minimum et le maximum choisis.",
   "Duplicate identifier":
     "Chaque identifiant doit être unique dans sa catégorie.",
   "Invalid guard expression":
@@ -86,25 +86,27 @@ const messages: Record<string, string> = {
     "Un rôle joueur ne peut pas lire une variable réservée au GM.",
   "Unknown or read-only action role":
     "Choisissez des rôles existants, hors spectateur (lecture seule).",
-  "Unknown phase": "Une action référence une phase inexistante.",
-  "Unknown effect variable": "Un effet référence une variable inexistante.",
+  "Unknown phase":
+    "Une action utilise une étape qui n’existe plus. Ouvrez Actions et choisissez une étape existante.",
+  "Unknown effect variable":
+    "Une règle utilise une donnée qui n’existe plus. Ouvrez Actions pour choisir une autre donnée dans les conséquences.",
   "Invalid literal":
     "La valeur de l’effet doit respecter les bornes de la variable.",
   "Unknown or incompatible value source":
     "La source de l’effet doit exister et avoir le type attendu.",
   "Participant effect requires self":
-    "Une variable individuelle peut être modifiée uniquement par une action joueur, pour lui-même.",
+    "Une donnée individuelle peut être modifiée par un joueur pour lui-même. Dans Actions, réservez cette conséquence aux rôles joueurs.",
   "Participant condition requires self":
-    "Une condition individuelle doit être réservée aux rôles joueurs.",
+    "Une condition sur la donnée personnelle d’un joueur doit être réservée aux rôles joueurs dans Actions.",
   "Hidden variable mutation oracle":
-    "Une variable GM peut être modifiée uniquement par une action GM.",
+    "Cette information est réservée au Game Master. Dans Actions, réservez sa modification au Game Master.",
   "Reveal requires GM": "La révélation doit être réservée au GM.",
   "Owner variable must belong to participant":
-    "La visibilité personnelle nécessite une portée par participant.",
+    "Dans Données, choisissez Chaque participant pour une information visible uniquement par ce joueur et le Game Master.",
   "Increment requires integer":
-    "Seules les variables numériques peuvent être augmentées.",
+    "Pour ajouter ou retirer une quantité, choisissez une donnée de type Nombre entier dans les conséquences de l’action.",
   "Definition too large":
-    "La définition dépasse la limite de 6 000 octets. Réduisez ses éléments.",
+    "Ce jeu contient trop de règles ou de textes pour cette version du Studio. Raccourcissez des descriptions ou simplifiez une action.",
   "Expressions require v2":
     "Activez explicitement le langage v2 pour utiliser des expressions.",
 };

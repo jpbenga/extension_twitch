@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import {
-  gameDefinitionSchema,
+  gameDefinitionStructureSchema,
   type GameDefinition,
 } from "@extension-twitch/contracts/game-definition";
 import { definitionErrors } from "../lib/creator-model";
@@ -13,14 +13,16 @@ import {
 import { ActionsEditor } from "./creator-actions";
 export const studioSections = [
   "Général",
-  "Participants et rôles",
-  "Variables",
+  "Participants",
+  "Données",
   "Actions",
-  "Conditions et effets",
-  "Phases et transitions",
+  "Étapes",
   "Apparence",
+  "Ressources",
+  "Versions",
+  "Partage",
   "Tester",
-  "Publier",
+  "Outils avancés",
 ] as const;
 export type StudioSection = (typeof studioSections)[number];
 export function CreatorVisual({
@@ -43,7 +45,7 @@ export function CreatorVisual({
   }, [section]);
   useEffect(() => {
     try {
-      const parsed = gameDefinitionSchema.safeParse(
+      const parsed = gameDefinitionStructureSchema.safeParse(
         JSON.parse(json) as unknown,
       );
       if (parsed.success) setDefinition(parsed.data);
@@ -62,7 +64,7 @@ export function CreatorVisual({
   // Invalid intermediate visual values stay editable. Invalid external JSON must be repaired explicitly.
   let inputValid = false;
   try {
-    inputValid = gameDefinitionSchema.safeParse(
+    inputValid = gameDefinitionStructureSchema.safeParse(
       JSON.parse(json) as unknown,
     ).success;
   } catch {
@@ -104,51 +106,30 @@ export function CreatorVisual({
       )}
       {divergent && (
         <p className="lobby-warning">
-          Le document technique comporte des changements non interprétables.
-          Corrigez-le avant de reprendre les formulaires ; votre texte est
-          préservé.
+          Le document complet contient une saisie que les formulaires ne peuvent
+          pas lire. Votre travail est conservé. Ouvrez Outils avancés pour le
+          corriger.
         </p>
       )}
-      {definition.schemaVersion === 1 && (
-        <div className="lobby-warning">
-          <p>
-            Ce jeu utilise le langage v1. Les conditions composées et calculs
-            nécessitent v2 ; la conversion conserve les règles existantes.
-          </p>
-          <button
-            className="secondary-button"
-            disabled={locked || divergent}
-            onClick={() =>
-              update({ ...definition, schemaVersion: 2, engineVersion: 2 })
-            }
-          >
-            Activer les expressions v2
-          </button>
-        </div>
-      )}
       <fieldset className="studio-unboxed" disabled={locked || divergent}>
-        {section === "Participants et rôles" && (
+        {section === "Participants" && (
           <RolesEditor
             definition={definition}
             onChange={update}
             report={setMessage}
           />
         )}{" "}
-        {section === "Variables" && (
+        {section === "Données" && (
           <VariablesEditor
             definition={definition}
             onChange={update}
             report={setMessage}
           />
         )}{" "}
-        {(section === "Actions" || section === "Conditions et effets") && (
-          <ActionsEditor
-            definition={definition}
-            onChange={update}
-            focusRules={section === "Conditions et effets"}
-          />
+        {section === "Actions" && (
+          <ActionsEditor definition={definition} onChange={update} />
         )}{" "}
-        {section === "Phases et transitions" && (
+        {section === "Étapes" && (
           <PhasesEditor
             definition={definition}
             onChange={update}

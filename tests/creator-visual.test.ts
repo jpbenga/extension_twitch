@@ -51,9 +51,9 @@ describe("visual studio primitives use the existing contracts and interpreter", 
     d.phases.push({ id: "orphan", label: "Isolée" });
     expect(unreachablePhases(d).map((p) => p.id)).toEqual(["orphan"]);
     d.actions[0]!.nextPhase = "missing";
-    expect(definitionErrors(d).join(" ")).toMatch(/phase inexistante/);
+    expect(definitionErrors(d).join(" ")).toMatch(/étape qui n’existe plus/);
     d.variables[0]!.value = { type: "integer", min: 10, max: 1, initial: 0 };
-    expect(definitionErrors(d).join(" ")).toMatch(/bornes/);
+    expect(definitionErrors(d).join(" ")).toMatch(/minimum et le maximum/);
     d.actions[0]!.effects = [
       {
         type: "set",
@@ -61,7 +61,7 @@ describe("visual studio primitives use the existing contracts and interpreter", 
         value: { from: "literal", value: 1 },
       },
     ];
-    expect(definitionErrors(d).join(" ")).toMatch(/variable inexistante/);
+    expect(definitionErrors(d).join(" ")).toMatch(/donnée qui n’existe plus/);
   });
   for (const [operator, expected] of [
     ["eq", false],

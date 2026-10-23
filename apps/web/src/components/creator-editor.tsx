@@ -1,590 +1,485 @@
 "use client";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import {
   gameDefinitionSchema,
   type GameDefinition,
 } from "@extension-twitch/contracts/game-definition";
 import {
-  assetDependencySchema,
-  editableMetadataSchema,
-  type AssetDependency,
+  counterRecipeFor,
   type CreatorGame,
-  type CreatorOperation,
-  type EditableMetadata,
-  type StudioView,
-  type GuideRecipe,
 } from "@extension-twitch/contracts/creator";
-import { GuideFields, initialRecipe } from "./guide-fields";
-import { CreatorParameters } from "./creator-parameters";
-import { CreatorVersions } from "./creator-versions";
-import { CreatorAssets } from "./creator-assets";
+import { useStudio } from "./creator-context";
+import { CreatorFrame } from "./creator-frame";
+import { useCreatorDraft } from "../lib/use-creator-draft";
+import { useCreatorLaunch } from "../lib/use-creator-launch";
+import { CreatorSimple } from "./creator-simple";
 import {
   CreatorVisual,
   studioSections,
   type StudioSection,
 } from "./creator-visual";
-import { definitionErrors } from "../lib/creator-model";
-interface LocalEdit {
-  json: string;
-  metadata: EditableMetadata;
-  assets: AssetDependency[];
-  assetJson: string;
-  baseRevision: number;
-  dirty: boolean;
-}
-function initialEdit(game: CreatorGame, key: string): LocalEdit {
-  const clean = {
-    json: JSON.stringify(game.draft.definition, null, 2),
-    metadata: structuredClone(game.draft.metadata),
-    assets: structuredClone(game.draft.assets),
-    assetJson: JSON.stringify(game.draft.assets, null, 2),
-    baseRevision: game.draft.revision,
-    dirty: false,
-  };
-  try {
-    const saved = sessionStorage.getItem(key);
-    if (!saved) return clean;
-    const data = JSON.parse(saved) as Record<string, unknown>;
-    if (
-      typeof data.json !== "string" ||
-      data.json.length > 32768 ||
-      typeof data.baseRevision !== "number"
-    )
-      return clean;
-    return {
-      json: data.json,
-      metadata: editableMetadataSchema.parse(data.metadata),
-      assets: assetDependencySchema.array().max(4).parse(data.assets),
-      assetJson:
-        typeof data.assetJson === "string"
-          ? data.assetJson
-          : JSON.stringify(data.assets, null, 2),
-      baseRevision: data.baseRevision,
-      dirty: true,
-    };
-  } catch {
-    return clean;
-  }
-}
-function parseDefinition(text: string) {
-  try {
-    return gameDefinitionSchema.safeParse(JSON.parse(text) as unknown);
-  } catch {
-    return null;
-  }
-}
-export function CreatorEditor({
-  workspaceId,
-  game,
-  compatible,
-  locked,
-  send,
-  prepare,
-  ownerToken,
-  onDirty,
-  fork,
-}: {
-  workspaceId: string;
-  game: CreatorGame;
-  compatible: boolean;
-  locked: boolean;
-  send: (operation: CreatorOperation) => Promise<StudioView | null>;
-  prepare: (id: string, version: string) => Promise<void>;
-  ownerToken: string;
-  onDirty: (dirty: boolean) => void;
-  fork: (id: string, version: string, title: string) => Promise<void>;
-}) {
-  const key = `xt:creator:editor:${workspaceId}:${game.identity.id}`;
-  const [local, setLocal] = useState<LocalEdit>(() => initialEdit(game, key));
-  const [error, setError] = useState("");
-  const [section, setSection] = useState<StudioSection>("Général");
-  const [backup, setBackup] = useState(() => {
-    try {
-      return sessionStorage.getItem(`${key}:backup`) ?? "";
-    } catch {
-      return "";
-    }
-  });
-  const [guide, setGuide] = useState<GuideRecipe>(
-    game.draft.guide ?? initialRecipe,
+import { ruleDifferences } from "../lib/creator-readable";
+import { NumberInput } from "./creator-fields";
+import { CreatorAssets } from "./creator-assets";
+import { CreatorVersions } from "./creator-versions";
+export function CreatorEditorPage({ id }: { id: string }) {
+  const studio = useStudio(),
+    game = studio.view?.workspace.games.find((g) => g.identity.id === id);
+  return (
+    <CreatorFrame workspace>
+      {game && studio.view ? (
+        <Editor
+          key={game.identity.id}
+          game={game}
+          workspaceId={studio.view.workspace.id}
+        />
+      ) : studio.view ? (
+        <p>
+          Ce jeu ne se trouve pas dans votre bibliothèque.{" "}
+          <Link href="/creator/library">Retrouver mes jeux</Link>
+        </p>
+      ) : null}
+    </CreatorFrame>
   );
-  const assetJson = local.assetJson;
-  const setAssetJson = (assetJson: string) => change({ assetJson });
-  const parsed = parseDefinition(local.json);
-  const stale = local.baseRevision !== game.draft.revision;
-  const change = (patch: Partial<LocalEdit>) =>
-    setLocal((current) => ({ ...current, ...patch, dirty: true }));
-  useEffect(() => {
-    onDirty(local.dirty);
+}
+function Editor({
+  game,
+  workspaceId,
+}: {
+  game: CreatorGame;
+  workspaceId: string;
+}) {
+  const studio = useStudio(),
+    draft = useCreatorDraft(game, workspaceId),
+    { local } = draft,
+    launcher = useCreatorLaunch();
+  const [section, setSection] = useState<StudioSection>("Général"),
+    [advanced, setAdvanced] = useState(false),
+    [compare, setCompare] = useState(false);
+  const parsed = (() => {
     try {
-      if (local.dirty) sessionStorage.setItem(key, JSON.stringify(local));
-      else sessionStorage.removeItem(key);
+      return gameDefinitionSchema.safeParse(JSON.parse(local.json) as unknown);
     } catch {
-      setError(
-        "Stockage local indisponible : enregistrez avant de quitter l’éditeur.",
-      );
+      return null;
     }
-  }, [local, key, onDirty]);
+  })();
+  const template = studio.view?.catalog.find(
+    (g) => g.release.definition.id === "collective-pulse",
+  )?.release.definition;
+  const canSimplify = !!(
+    template &&
+    parsed?.success &&
+    counterRecipeFor(parsed.data, template)
+  );
+  const locked = studio.busy || studio.retryAvailable || launcher.launching;
   useEffect(() => {
-    const warn = (event: BeforeUnloadEvent) => {
-      if (local.dirty) event.preventDefault();
+    const viewport = window.visualViewport;
+    const update = () => {
+      const delta = viewport
+        ? window.innerHeight - viewport.height - viewport.offsetTop
+        : 0;
+      document.documentElement.style.setProperty(
+        "--creator-keyboard-offset",
+        delta > 120 ? `${delta}px` : "0px",
+      );
     };
-    window.addEventListener("beforeunload", warn);
-    return () => window.removeEventListener("beforeunload", warn);
-  }, [local.dirty]);
-  function loadRemote() {
-    if (
-      local.dirty &&
-      !window.confirm(
-        "Charger le brouillon serveur ? Votre copie locale sera conservée en sauvegarde dans cet onglet.",
-      )
-    )
-      return;
-    if (local.dirty) {
-      const copy = JSON.stringify(local, null, 2);
-      sessionStorage.setItem(`${key}:backup`, copy);
-      setBackup(copy);
-    }
-    setLocal({
-      json: JSON.stringify(game.draft.definition, null, 2),
-      metadata: structuredClone(game.draft.metadata),
-      assets: structuredClone(game.draft.assets),
-      assetJson: JSON.stringify(game.draft.assets, null, 2),
-      baseRevision: game.draft.revision,
-      dirty: false,
-    });
-    setGuide(game.draft.guide ?? initialRecipe);
-    setError("");
-  }
-  function setDefinition(definition: GameDefinition) {
-    change({
-      json: JSON.stringify(definition, null, 2),
-      metadata: {
-        ...local.metadata,
-        title: definition.title,
-        description: definition.description,
-      },
-    });
-  }
-  function editText(field: "title" | "description", value: string) {
-    let json = local.json;
-    try {
-      const raw: unknown = JSON.parse(json);
-      if (raw && typeof raw === "object" && !Array.isArray(raw))
-        json = JSON.stringify({ ...raw, [field]: value }, null, 2);
-    } catch {
-      /* Preserve incomplete advanced text until the creator fixes it. */
-    }
-    change({ json, metadata: { ...local.metadata, [field]: value } });
-  }
-  async function save(): Promise<boolean> {
-    setError("");
-    if (stale) {
-      setError(
-        "Le serveur possède une autre révision. Votre copie reste intacte : comparez-la avant de charger la version serveur.",
+    viewport?.addEventListener("resize", update);
+    viewport?.addEventListener("scroll", update);
+    return () => {
+      viewport?.removeEventListener("resize", update);
+      viewport?.removeEventListener("scroll", update);
+      document.documentElement.style.removeProperty(
+        "--creator-keyboard-offset",
       );
-      return false;
-    }
-    try {
-      const definition = gameDefinitionSchema.parse({
-        ...(JSON.parse(local.json) as Record<string, unknown>),
-        title: local.metadata.title,
-        description: local.metadata.description,
-      });
-      const metadata = editableMetadataSchema.parse(local.metadata);
-      const assets = assetDependencySchema
-        .array()
-        .max(4)
-        .parse(JSON.parse(local.assetJson) as unknown);
-      const next = await send({
-        type: "draft.save",
-        gameId: game.identity.id,
-        definition,
-        metadata,
-        assets,
-      });
-      const saved = next?.workspace.games.find(
-        (g) => g.identity.id === game.identity.id,
-      )?.draft;
-      if (saved) {
-        setLocal({
-          json: JSON.stringify(saved.definition, null, 2),
-          metadata: saved.metadata,
-          assets: saved.assets,
-          assetJson: JSON.stringify(saved.assets, null, 2),
-          baseRevision: saved.revision,
-          dirty: false,
-        });
-        return true;
-      }
-      return false;
-    } catch {
-      let issues: string[] = [];
-      try {
-        issues = definitionErrors(JSON.parse(local.json) as unknown);
-      } catch {
-        /* Show a readable JSON error below. */
-      }
-      setError(
-        issues.length
-          ? issues.join(" ")
-          : "Brouillon invalide : vérifiez le document avancé, les métadonnées et les droits des assets. Votre travail est conservé.",
-      );
-      return false;
-    }
-  }
-  async function saveGuide() {
-    const next = await send({
-      type: "draft.guide",
-      gameId: game.identity.id,
-      guide,
-    });
-    const saved = next?.workspace.games.find(
-      (g) => g.identity.id === game.identity.id,
-    )?.draft;
+    };
+  }, []);
+  async function test(mode: "quick" | "invite" = "quick") {
+    const saved = await draft.save(!advanced && canSimplify);
     if (saved)
-      setLocal({
-        json: JSON.stringify(saved.definition, null, 2),
-        metadata: saved.metadata,
-        assets: saved.assets,
-        assetJson: JSON.stringify(saved.assets, null, 2),
-        baseRevision: saved.revision,
-        dirty: false,
-      });
+      await launcher.launch(game.identity.id, "draft", saved.definition, mode);
   }
+  async function fork(id: string, version: string, title: string) {
+    const next = await studio.send({
+      type: "draft.fork",
+      source: { gameId: id, version },
+      title: `${title.slice(0, 62)} · personnalisé`,
+    });
+    if (next)
+      window.location.assign(
+        `/creator/games/${next.workspace.games.at(-1)!.identity.id}`,
+      );
+  }
+  const select = (name: StudioSection) => {
+    setAdvanced(true);
+    setSection(name);
+    window.scrollTo({ top: 0, behavior: "instant" });
+  };
   return (
     <section
-      className="lobby-panel creator-editor"
+      className="creator-editor dedicated-editor"
+      aria-label="Éditeur de jeu"
       id="creator-editor"
-      aria-label="Éditeur de brouillon"
     >
-      <span className="eyebrow">
-        BROUILLON INDÉPENDANT · r{local.baseRevision}
-      </span>
-      <h2>Personnaliser votre jeu</h2>
-      <p className="lobby-hint">
-        {local.dirty
-          ? "Modifications locales non enregistrées"
-          : "Brouillon enregistré"}{" "}
-        · {game.identity.origin} · auteur déclaratif : {game.identity.author}
-      </p>
-      {error && (
+      <header className="editor-heading">
+        <Link className="text-link" href="/creator/library?tab=mine">
+          ← Mes jeux
+        </Link>
+        <h1>{local.metadata.title || "Votre jeu"}</h1>
+        <p className="save-state" role="status">
+          {locked
+            ? "En cours…"
+            : local.dirty
+              ? "Modifications à enregistrer"
+              : "Tout est enregistré"}
+        </p>
+        {game.identity.lineage.length > 0 && (
+          <details>
+            <summary>Jeu personnalisé · origine et attributions</summary>
+            <p>Votre jeu est indépendant. L’original reste inchangé.</p>
+            <ul>
+              {game.identity.lineage.map((a, i) => (
+                <li key={i}>
+                  {a.author} · version {a.version}
+                  <small>
+                    {a.definitionLicense} · {a.rulesTerms}
+                  </small>
+                </li>
+              ))}
+            </ul>
+          </details>
+        )}
+      </header>
+      {(draft.error || launcher.failure) && (
         <p role="alert" className="lobby-error">
-          {error}
+          {draft.error || launcher.failure}
         </p>
       )}
-      {stale && (
-        <div className="lobby-warning">
+      {(draft.stale || compare) && (
+        <section className="lobby-warning">
+          <h2>Deux copies de ce jeu</h2>
           <p>
-            Le brouillon serveur est maintenant en révision{" "}
-            {game.draft.revision}. Vos modifications locales sont conservées.
+            Ce jeu a été modifié dans un autre onglet. Vos changements sont
+            conservés. Comparez avant de choisir la copie à garder.
           </p>
           <button
             className="secondary-button"
             disabled={locked}
-            onClick={loadRemote}
+            onClick={async () => {
+              await studio.refresh();
+              setCompare(true);
+            }}
           >
-            Charger le brouillon serveur
+            Comparer les changements
           </button>
-        </div>
-      )}
-      {backup && (
-        <details>
-          <summary>Copie locale conservée avant actualisation</summary>
-          <label>
-            Sauvegarde locale du brouillon
-            <textarea
-              aria-label="Sauvegarde locale du brouillon"
-              rows={10}
-              readOnly
-              value={backup}
-            />
-          </label>
-          <p>
-            Copiez les champs à réconcilier dans l’éditeur ; aucune fusion ni
-            suppression silencieuse.
-          </p>
-        </details>
-      )}
-      {game.identity.lineage.length > 0 && (
-        <details open>
-          <summary>Origine et attributions</summary>
-          <ul>
-            {game.identity.lineage.map((a, index) => (
-              <li key={`${a.gameId}:${index}`}>
-                {a.author} · v{a.version}
-                <small className="creator-lineage-id">{a.gameId}</small>
-                <small>
-                  {a.definitionLicense} · {a.rulesTerms}
-                </small>
-              </li>
-            ))}
-          </ul>
-          <p>
-            Cette filiation est conservée par le serveur. Les droits des médias
-            sont distincts.
-          </p>
-        </details>
-      )}
-      <div className="studio-layout">
-        <nav className="studio-navigation" aria-label="Sections du Studio">
-          {studioSections.map((name) => (
-            <button
-              className={section === name ? "selected" : ""}
-              key={name}
-              aria-pressed={section === name}
-              onClick={() => {
-                setSection(name);
-                document
-                  .getElementById("studio-workbench")
-                  ?.scrollIntoView({ block: "start" });
-              }}
-            >
-              {name}
-            </button>
-          ))}
-        </nav>
-        <div className="studio-workbench" id="studio-workbench">
-          <label className="studio-mobile-menu">
-            Section du Studio
-            <select
-              aria-label="Section du Studio"
-              value={section}
-              onChange={(e) => setSection(e.target.value as StudioSection)}
-            >
-              {studioSections.map((name) => (
-                <option key={name} value={name}>
-                  {name}
-                </option>
-              ))}
-            </select>
-          </label>
-          <div hidden={section !== "Général"}>
-            <div className="lobby-form">
-              <label>
-                Titre du brouillon
-                <input
-                  value={local.metadata.title}
-                  maxLength={80}
-                  disabled={locked}
-                  onChange={(e) => editText("title", e.target.value)}
-                />
-              </label>
-              <label>
-                Description du jeu
-                <textarea
-                  aria-label="Description du jeu"
-                  rows={3}
-                  maxLength={240}
-                  value={local.metadata.description}
-                  disabled={locked}
-                  onChange={(e) => editText("description", e.target.value)}
-                />
-              </label>
-              <label>
-                Catégorie
-                <input
-                  value={local.metadata.category}
-                  maxLength={40}
-                  disabled={locked}
-                  onChange={(e) =>
-                    change({
-                      metadata: { ...local.metadata, category: e.target.value },
-                    })
-                  }
-                />
-              </label>
-              <label>
-                Tags (séparés par des virgules)
-                <input
-                  value={local.metadata.tags.join(", ")}
-                  disabled={locked}
-                  onChange={(e) =>
-                    change({
-                      metadata: {
-                        ...local.metadata,
-                        tags: e.target.value.trim()
-                          ? e.target.value.split(",").map((v) => v.trim())
-                          : [],
-                      },
-                    })
-                  }
-                />
-              </label>
-            </div>
-            {parsed?.success && (
-              <CreatorParameters
-                key={`parameters-${local.baseRevision}`}
-                definition={parsed.data}
-                locked={locked}
-                onChange={setDefinition}
-              />
-            )}
-          </div>
-          <CreatorVisual
-            json={local.json}
-            initial={game.draft.definition}
-            onChange={setDefinition}
-            locked={locked}
-            section={section}
-          />
-          {section === "Apparence" && (
-            <section>
-              <h3>Apparence</h3>
+          {compare && (
+            <>
+              <div className="creator-compare">
+                <section>
+                  <h3>Sur cet appareil</h3>
+                  <p>{local.metadata.title}</p>
+                  <p>{local.metadata.description}</p>
+                  <p>
+                    {parsed?.success
+                      ? `${parsed.data.actions.length} actions, ${parsed.data.variables.length} données`
+                      : "Saisie à corriger"}
+                  </p>
+                </section>
+                <section>
+                  <h3>Copie enregistrée</h3>
+                  <p>{game.draft.metadata.title}</p>
+                  <p>{game.draft.metadata.description}</p>
+                  <p>
+                    {game.draft.definition.actions.length} actions,{" "}
+                    {game.draft.definition.variables.length} données
+                  </p>
+                </section>
+              </div>
+              {parsed?.success && (
+                <ul>
+                  {ruleDifferences(parsed.data, game.draft.definition).map(
+                    (text, i) => (
+                      <li key={i}>{text}</li>
+                    ),
+                  )}
+                </ul>
+              )}
               <p>
-                Le plateau actuel affiche les valeurs publiques. Les scènes et
-                références logiques sont conservées ; la composition visuelle
-                des widgets sera disponible en 4C. Aucun contrôle ici ne modifie
-                OBS.
+                Les outils techniques ci-dessous permettent de comparer les
+                règles complètes.
               </p>
-            </section>
-          )}
-          {section === "Tester" && (
-            <section>
-              <h3>Tester mon jeu</h3>
-              <p>
-                Enregistrez et figez votre brouillon dans une session
-                indépendante. Ses actions utilisent le véritable moteur. Les
-                nouvelles modifications ne changeront pas cet essai.
-              </p>
-              <button
-                className="primary-button"
-                disabled={locked || stale}
-                onClick={async () => {
-                  if (!local.dirty || (await save()))
-                    await prepare(game.identity.id, "draft");
-                }}
-              >
-                Enregistrer et tester mon jeu
-              </button>
-              <p>
-                Les liens GM, joueurs et plateau apparaissent dans « Votre test
-                est prêt ». Vous pourrez continuer à éditer ici.
-              </p>
-            </section>
-          )}
-          <details>
-            <summary>Studio avancé — définition complète</summary>
-            <p>
-              Option technique secondaire. Arbres d’expressions bornés en v2,
-              aucun JavaScript. Les champs non représentés par le guide sont
-              conservés.
-            </p>
-            <label>
-              Définition avancée JSON
-              <textarea
-                aria-label="Définition avancée JSON"
-                className="creator-code"
-                rows={18}
-                maxLength={12000}
-                spellCheck={false}
-                value={local.json}
-                disabled={locked}
-                onChange={(e) => {
-                  const json = e.target.value;
-                  let metadata = local.metadata;
-                  try {
-                    const d: unknown = JSON.parse(json);
-                    if (
-                      d &&
-                      typeof d === "object" &&
-                      "title" in d &&
-                      typeof d.title === "string" &&
-                      "description" in d &&
-                      typeof d.description === "string"
-                    )
-                      metadata = {
-                        ...metadata,
-                        title: d.title,
-                        description: d.description,
-                      };
-                  } catch {
-                    /* Keep partial input. */
-                  }
-                  change({ json, metadata });
-                }}
-              />
-            </label>
-            <p className="lobby-hint">
-              {parsed?.success
-                ? `Schéma v${parsed.data.schemaVersion} valide · ${parsed.data.actions.length} actions`
-                : "Définition incomplète ou invalide. La sauvegarde serveur sera refusée."}
-            </p>
-            {parsed?.success && parsed.data.schemaVersion === 1 && (
+              <details>
+                <summary>Comparer les règles en détail</summary>
+                <label>
+                  Ma copie
+                  <textarea rows={10} readOnly value={local.json} />
+                </label>
+                <label>
+                  Copie enregistrée
+                  <textarea
+                    rows={10}
+                    readOnly
+                    value={JSON.stringify(game.draft.definition, null, 2)}
+                  />
+                </label>
+              </details>
               <button
                 className="secondary-button"
-                disabled={locked}
-                onClick={() =>
-                  setDefinition({
-                    ...parsed.data,
-                    schemaVersion: 2,
-                    engineVersion: 2,
-                  })
-                }
+                onClick={() => {
+                  draft.keepLocal();
+                  setCompare(false);
+                }}
               >
-                Activer explicitement le langage v2
+                Continuer avec ma copie
               </button>
-            )}
-          </details>
-          {game.draft.guide && (
-            <details>
-              <summary>Revenir aux choix du guide</summary>
-              {!compatible ? (
-                <p className="lobby-warning">
-                  Cette configuration avancée ne peut plus être représentée par
-                  le guide. Rien n’est supprimé ; poursuivez dans le Studio
-                  avancé.
-                </p>
-              ) : (
-                <form
-                  className="lobby-form"
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    void saveGuide();
-                  }}
+            </>
+          )}
+          <button
+            className="secondary-button"
+            disabled={locked}
+            onClick={() => {
+              draft.loadRemote();
+              setCompare(false);
+            }}
+          >
+            Charger la copie enregistrée
+          </button>
+        </section>
+      )}
+      <div className="editor-mode">
+        <button
+          className="secondary-button"
+          aria-pressed={!advanced}
+          onClick={() => {
+            setAdvanced(false);
+            setSection("Général");
+          }}
+        >
+          Réglages simples
+        </button>
+        <button
+          className="secondary-button"
+          aria-pressed={advanced}
+          onClick={() => setAdvanced(true)}
+        >
+          Studio avancé
+        </button>
+      </div>
+      <div className={advanced ? "studio-layout" : "simple-layout"}>
+        {advanced && (
+          <>
+            <nav className="studio-navigation" aria-label="Sections du Studio">
+              {studioSections.map((name) => (
+                <button
+                  key={name}
+                  className={section === name ? "selected" : ""}
+                  onClick={() => select(name)}
                 >
-                  <GuideFields
-                    value={guide}
-                    onChange={setGuide}
-                    disabled={locked || local.dirty || stale}
+                  {name}
+                </button>
+              ))}
+            </nav>
+            <label className="studio-mobile-menu">
+              Modifier
+              <select
+                aria-label="Section du Studio"
+                value={section}
+                onChange={(e) => select(e.target.value as StudioSection)}
+              >
+                {studioSections.map((name) => (
+                  <option key={name} value={name}>
+                    {name}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </>
+        )}
+        <div className="studio-workbench" id="studio-workbench">
+          <fieldset className="studio-unboxed" disabled={locked}>
+            {(!advanced || section === "Général") && (
+              <section className="lobby-form">
+                <h2>Présentez votre jeu</h2>
+                <label>
+                  Nom du jeu
+                  <input
+                    value={local.metadata.title}
+                    maxLength={80}
+                    onChange={(e) => draft.text("title", e.target.value)}
                   />
+                </label>
+                <label>
+                  Description
+                  <textarea
+                    aria-label="Description"
+                    value={local.metadata.description}
+                    maxLength={240}
+                    rows={3}
+                    onChange={(e) => draft.text("description", e.target.value)}
+                  />
+                </label>
+                {advanced && (
+                  <details>
+                    <summary>Joueurs conseillés et classement</summary>
+                    <p>
+                      Ces nombres indiquent le public conseillé pour ce jeu ;
+                      ils ne changent pas les règles de la partie.
+                    </p>
+                    <label>
+                      Nombre minimum conseillé
+                      <NumberInput
+                        label="Nombre minimum conseillé"
+                        value={local.metadata.recommendedPlayers.min}
+                        min={1}
+                        max={32}
+                        onChange={(min) =>
+                          draft.change({
+                            metadata: {
+                              ...local.metadata,
+                              recommendedPlayers: {
+                                ...local.metadata.recommendedPlayers,
+                                min,
+                              },
+                            },
+                          })
+                        }
+                      />
+                    </label>
+                    <label>
+                      Nombre maximum conseillé
+                      <NumberInput
+                        label="Nombre maximum conseillé"
+                        value={local.metadata.recommendedPlayers.max}
+                        min={1}
+                        max={32}
+                        onChange={(max) =>
+                          draft.change({
+                            metadata: {
+                              ...local.metadata,
+                              recommendedPlayers: {
+                                ...local.metadata.recommendedPlayers,
+                                max,
+                              },
+                            },
+                          })
+                        }
+                      />
+                    </label>
+                    <label>
+                      Catégorie
+                      <input
+                        value={local.metadata.category}
+                        onChange={(e) =>
+                          draft.change({
+                            metadata: {
+                              ...local.metadata,
+                              category: e.target.value,
+                            },
+                          })
+                        }
+                      />
+                    </label>
+                    <label>
+                      Mots-clés, séparés par des virgules
+                      <input
+                        value={local.metadata.tags.join(", ")}
+                        onChange={(e) =>
+                          draft.change({
+                            metadata: {
+                              ...local.metadata,
+                              tags: e.target.value
+                                ? e.target.value.split(",").map((t) => t.trim())
+                                : [],
+                            },
+                          })
+                        }
+                      />
+                    </label>
+                  </details>
+                )}
+              </section>
+            )}
+            {!advanced &&
+              (canSimplify && template && parsed?.success ? (
+                <CreatorSimple
+                  definition={parsed.data}
+                  template={template}
+                  onChange={draft.definition}
+                />
+              ) : (
+                <section>
+                  <h2>Des règles personnalisées</h2>
                   <p>
-                    Enregistrez les changements avancés avant d’appliquer le
-                    guide.
+                    Ce jeu utilise des règles que les réglages simples ne
+                    peuvent pas représenter. Elles restent intactes. Ouvrez le
+                    Studio avancé pour les modifier.
                   </p>
                   <button
-                    className="secondary-button"
-                    disabled={locked || local.dirty || stale}
+                    className="primary-button"
+                    onClick={() => setAdvanced(true)}
                   >
-                    Appliquer les choix du guide
+                    Modifier les règles dans le Studio
                   </button>
-                </form>
-              )}
-            </details>
-          )}
-          <div hidden={section !== "Apparence" && section !== "Général"}>
-            <CreatorAssets
-              assets={local.assets}
-              definition={parsed?.success ? parsed.data : game.draft.definition}
-              assetJson={assetJson}
-              setAssetJson={setAssetJson}
-              onAssets={(assets) =>
-                change({ assets, assetJson: JSON.stringify(assets, null, 2) })
-              }
-              locked={locked}
-              setError={setError}
-            />
-            <details>
-              <summary>Droits de la définition et des règles</summary>
-              <div className="lobby-form">
+                </section>
+              ))}
+            {advanced && (
+              <CreatorVisual
+                json={local.json}
+                initial={game.draft.definition}
+                onChange={draft.definition}
+                locked={locked}
+                section={section}
+              />
+            )}
+            {advanced && section === "Apparence" && (
+              <section>
+                <h2>Le plateau de votre jeu</h2>
+                <p>
+                  Le plateau affiche les informations publiques de la partie.
+                  Vous pouvez le vérifier dans le laboratoire. Le placement des
+                  éléments et la personnalisation graphique ne sont pas encore
+                  disponibles.
+                </p>
+                <button
+                  className="secondary-button"
+                  onClick={() => void test()}
+                >
+                  Voir le plateau en test
+                </button>
+              </section>
+            )}
+            {advanced && section === "Ressources" && (
+              <CreatorAssets
+                assets={local.assets}
+                definition={
+                  parsed?.success ? parsed.data : game.draft.definition
+                }
+                assetJson={local.assetJson}
+                setAssetJson={(assetJson) => draft.change({ assetJson })}
+                onAssets={(assets) =>
+                  draft.change({
+                    assets,
+                    assetJson: JSON.stringify(assets, null, 2),
+                  })
+                }
+                locked={locked}
+                setError={draft.setError}
+              />
+            )}
+            {advanced && section === "Partage" && (
+              <section className="lobby-form">
+                <h2>Autorisations de partage</h2>
+                <p>
+                  Votre jeu reste privé. Le partage public n’est pas encore
+                  disponible. Ces choix conservent les droits et attributions
+                  pour la suite.
+                </p>
                 <label>
                   Licence de ma contribution
                   <input
                     value={local.metadata.sharing.definitionLicense}
-                    maxLength={80}
-                    disabled={locked}
                     onChange={(e) =>
-                      change({
+                      draft.change({
                         metadata: {
                           ...local.metadata,
                           sharing: {
@@ -597,13 +492,11 @@ export function CreatorEditor({
                   />
                 </label>
                 <label>
-                  Conditions des règles
+                  Conditions d’utilisation des règles
                   <input
                     value={local.metadata.sharing.rulesTerms}
-                    maxLength={80}
-                    disabled={locked}
                     onChange={(e) =>
-                      change({
+                      draft.change({
                         metadata: {
                           ...local.metadata,
                           sharing: {
@@ -615,13 +508,30 @@ export function CreatorEditor({
                     }
                   />
                 </label>
+                <label className="creator-check">
+                  <input
+                    type="checkbox"
+                    checked={local.metadata.sharing.attributionRequired}
+                    onChange={(e) =>
+                      draft.change({
+                        metadata: {
+                          ...local.metadata,
+                          sharing: {
+                            ...local.metadata.sharing,
+                            attributionRequired: e.target.checked,
+                          },
+                        },
+                      })
+                    }
+                  />
+                  Demander l’attribution de ma contribution
+                </label>
                 <label>
-                  Création de variantes
+                  Autoriser de futurs jeux personnalisés à partir du mien
                   <select
                     value={String(local.metadata.sharing.allowVariants)}
-                    disabled={locked}
                     onChange={(e) =>
-                      change({
+                      draft.change({
                         metadata: {
                           ...local.metadata,
                           sharing: {
@@ -632,51 +542,132 @@ export function CreatorEditor({
                       })
                     }
                   >
-                    <option value="false">
-                      Non autorisée pour le partage futur
-                    </option>
-                    <option value="true">Autorisée selon ces conditions</option>
+                    <option value="false">Pas pour le moment</option>
+                    <option value="true">Oui, selon ces conditions</option>
                   </select>
                 </label>
-              </div>
-              <p>
-                Les conditions et attributions des œuvres d’origine restent
-                applicables. Les déclarations ne constituent pas une
-                vérification juridique.
-              </p>
-            </details>
-          </div>
-          <div className="creator-save-actions">
-            <button
-              className="primary-button"
-              disabled={locked || stale}
-              onClick={() => void save()}
-            >
-              Enregistrer le brouillon
-            </button>
-            <button
-              className="secondary-button"
-              disabled={locked || local.dirty || stale}
-              onClick={() => void prepare(game.identity.id, "draft")}
-            >
-              Préparer un test du brouillon
-            </button>
-          </div>
-          <div hidden={section !== "Publier" && section !== "Général"}>
-            <CreatorVersions
-              game={game}
-              workspaceId={workspaceId}
-              ownerToken={ownerToken}
-              locked={locked}
-              dirty={local.dirty || stale}
-              send={send}
-              prepare={prepare}
-              fork={fork}
-              setError={setError}
-            />
-          </div>
+              </section>
+            )}
+            {advanced && section === "Tester" && (
+              <section>
+                <h2>Comment voulez-vous essayer ce jeu ?</h2>
+                <p>
+                  Le test rapide prépare deux joueurs de démonstration. Vous
+                  pourrez passer d’un rôle à l’autre et vérifier le plateau dans
+                  le laboratoire.
+                </p>
+                <button className="primary-button" onClick={() => void test()}>
+                  Tester mon jeu
+                </button>
+                <h3>Avec de vraies personnes</h3>
+                <p>
+                  Créez une partie séparée, envoyez l’invitation, puis préparez
+                  la partie quand tout le monde a rejoint.
+                </p>
+                <button
+                  className="secondary-button"
+                  onClick={() => void test("invite")}
+                >
+                  Tester avec mes invités
+                </button>
+              </section>
+            )}
+            {advanced && section === "Versions" && (
+              <CreatorVersions
+                game={game}
+                workspaceId={workspaceId}
+                ownerToken={studio.access!.token}
+                locked={locked}
+                dirty={local.dirty || draft.stale}
+                send={studio.send}
+                prepare={async (id, version) => {
+                  const release = game.releases.find(
+                    (r) => r.version === version,
+                  );
+                  if (release)
+                    await launcher.launch(id, version, release.definition);
+                }}
+                fork={fork}
+                setError={draft.setError}
+              />
+            )}
+            {advanced && section === "Outils avancés" && (
+              <section>
+                <h2>Outils techniques</h2>
+                <p>
+                  Ces outils donnent accès au document complet du jeu. Les
+                  règles existantes sont conservées quand vous utilisez les
+                  formulaires.
+                </p>
+                <details>
+                  <summary>Définition complète du jeu (JSON)</summary>
+                  <label>
+                    Définition du jeu
+                    <textarea
+                      className="creator-code"
+                      aria-label="Définition du jeu"
+                      rows={18}
+                      value={local.json}
+                      onChange={(e) => {
+                        const json = e.target.value;
+                        let metadata = local.metadata;
+                        try {
+                          const d = JSON.parse(json) as GameDefinition;
+                          if (
+                            typeof d.title === "string" &&
+                            typeof d.description === "string"
+                          )
+                            metadata = {
+                              ...metadata,
+                              title: d.title,
+                              description: d.description,
+                            };
+                        } catch {
+                          /* Preserve incomplete text. */
+                        }
+                        draft.change({ json, metadata });
+                      }}
+                    />
+                  </label>
+                </details>
+                {parsed?.success && (
+                  <p>
+                    Format de règles : {parsed.data.schemaVersion}. Référence :{" "}
+                    {parsed.data.id}.
+                  </p>
+                )}
+                {backupBlock(draft.backup)}
+              </section>
+            )}
+          </fieldset>
         </div>
+      </div>
+      <div className="creator-save-actions" aria-label="Commandes de création">
+        <button
+          className="secondary-button"
+          disabled={locked || draft.stale}
+          aria-busy={studio.busy}
+          onClick={() => void draft.save(!advanced && canSimplify)}
+        >
+          {studio.busy ? "Enregistrement…" : "Enregistrer"}
+        </button>
+        <button
+          className="primary-button"
+          disabled={locked || draft.stale}
+          aria-busy={launcher.launching}
+          onClick={() => void test()}
+        >
+          {launcher.launching ? "Préparation du test…" : "Tester mon jeu"}
+        </button>
       </div>
     </section>
   );
+}
+function backupBlock(text: string) {
+  return text ? (
+    <details>
+      <summary>Copie de secours conservée</summary>
+      <textarea aria-label="Copie de secours" rows={10} readOnly value={text} />
+    </details>
+  ) : null;
 }

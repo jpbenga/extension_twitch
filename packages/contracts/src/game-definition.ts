@@ -162,6 +162,9 @@ const rawDefinition = z.strictObject({
     )
     .max(4),
 });
+// Authoring only: permits correcting semantic errors in forms. Never use this
+// structural schema to accept or execute a definition on the server.
+export const gameDefinitionStructureSchema = rawDefinition;
 export const gameDefinitionSchema = rawDefinition.superRefine((d, ctx) => {
   const fail = (message: string) => ctx.addIssue({ code: "custom", message });
   if (d.schemaVersion !== d.engineVersion) fail("Incompatible engine version");

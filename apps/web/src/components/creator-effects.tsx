@@ -21,17 +21,17 @@ export function EffectsEditor({
   }
   return (
     <section>
-      <h4>Effets, dans l’ordre</h4>
+      <h4>Les conséquences de cette action</h4>
       <p className="lobby-hint">
-        Tous les effets réussissent ensemble ou la commande entière est annulée.
-        Pour soustraire, utilisez un incrément négatif. Révéler est réservé au
-        GM.
+        Les conséquences sont appliquées dans cet ordre. Si l’une échoue, aucun
+        changement n’est conservé. Pour retirer des points, utilisez un nombre
+        négatif. Seul le Game Master peut révéler une information privée.
       </p>
       {effects.map((effect, i) => (
         <article className="studio-card" key={i}>
-          <h4>Effet {i + 1}</h4>
+          <h4>Conséquence {i + 1}</h4>
           <div className="studio-grid">
-            <Field label={`Opération de l’effet ${i + 1}`}>
+            <Field label={`Que faut-il faire ? Conséquence ${i + 1}`}>
               <select
                 value={effect.type}
                 onChange={(e) => {
@@ -55,12 +55,14 @@ export function EffectsEditor({
                   );
                 }}
               >
-                <option value="set">Définir une variable</option>
-                <option value="increment">Ajouter / soustraire</option>
+                <option value="set">Remplacer une valeur</option>
+                <option value="increment">
+                  Ajouter ou retirer une quantité
+                </option>
                 <option value="reveal">Révéler publiquement</option>
               </select>
             </Field>
-            <Field label={`Variable de l’effet ${i + 1}`}>
+            <Field label={`Quelle donnée modifier ? Conséquence ${i + 1}`}>
               <select
                 value={effect.variable}
                 onChange={(e) =>
@@ -69,7 +71,7 @@ export function EffectsEditor({
               >
                 {definition.variables.map((v) => (
                   <option key={v.id} value={v.id}>
-                    {v.label} ({v.id})
+                    {v.label}
                   </option>
                 ))}
               </select>
@@ -77,7 +79,7 @@ export function EffectsEditor({
           </div>
           {effect.type !== "reveal" && (
             <>
-              <Field label={`Source de l’effet ${i + 1}`}>
+              <Field label={`D’où vient la valeur ? Conséquence ${i + 1}`}>
                 <select
                   value={effect.value.from}
                   onChange={(e) => {
@@ -119,25 +121,20 @@ export function EffectsEditor({
                     value="parameter"
                     disabled={!action.parameters.length}
                   >
-                    Entrée de l’action
+                    La saisie du joueur
                   </option>
                   <option
                     value="configuration"
                     disabled={!definition.configuration.length}
                   >
-                    Paramètre d’émission
+                    Un réglage de la partie
                   </option>
-                  <option
-                    value="expression"
-                    disabled={definition.schemaVersion !== 2}
-                  >
-                    Expression calculée (v2)
-                  </option>
+                  <option value="expression">Un calcul</option>
                 </select>
               </Field>
               {effect.value.from === "literal" ? (
                 <ScalarField
-                  label={`Valeur de l’effet ${i + 1}`}
+                  label={`Quantité ou valeur, conséquence ${i + 1}`}
                   value={effect.value.value}
                   onChange={(value) =>
                     update(i, { ...effect, value: { from: "literal", value } })
@@ -155,10 +152,12 @@ export function EffectsEditor({
                   definition={definition}
                   action={action}
                   parameters
-                  label={`Calcul de l’effet ${i + 1}`}
+                  label={`Calcul de la conséquence ${i + 1}`}
                 />
               ) : (
-                <Field label={`Référence de l’effet ${i + 1}`}>
+                <Field
+                  label={`Quelle saisie ou quel réglage ? Conséquence ${i + 1}`}
+                >
                   <select
                     value={effect.value.id}
                     onChange={(e) =>
@@ -197,7 +196,7 @@ export function EffectsEditor({
                 onChange(copy);
               }}
             >
-              Monter l’effet {i + 1}
+              Monter la conséquence {i + 1}
             </button>
             <button
               className="secondary-button"
@@ -208,20 +207,29 @@ export function EffectsEditor({
                 onChange(copy);
               }}
             >
-              Descendre l’effet {i + 1}
+              Descendre la conséquence {i + 1}
             </button>
             <button
               className="secondary-button"
               onClick={() => {
-                if (window.confirm(`Supprimer l’effet ${i + 1} ?`))
+                if (window.confirm(`Supprimer la conséquence ${i + 1} ?`))
                   onChange(effects.filter((_, j) => j !== i));
               }}
             >
-              Supprimer l’effet {i + 1}
+              Supprimer la conséquence {i + 1}
             </button>
           </div>
         </article>
       ))}
+      {!definition.variables.length && (
+        <p>Ajoutez d’abord une donnée dans Données pour pouvoir la modifier.</p>
+      )}
+      {effects.length >= 6 && (
+        <p>
+          Cette action contient déjà 6 conséquences. Modifiez-les ou regroupez
+          vos règles.
+        </p>
+      )}
       <button
         className="secondary-button"
         disabled={!definition.variables.length || effects.length >= 6}
@@ -236,7 +244,7 @@ export function EffectsEditor({
           ])
         }
       >
-        Ajouter un effet
+        Ajouter une conséquence
       </button>
     </section>
   );

@@ -133,8 +133,10 @@ export function GamePanel({
   view,
   locked,
   send,
+  hideRestart = false,
 }: {
   view: SessionView;
+  hideRestart?: boolean;
   locked: boolean;
   send: (action: LobbyAction) => Promise<void>;
 }) {
@@ -168,7 +170,7 @@ export function GamePanel({
     });
   return (
     <section className="lobby-panel" id="game">
-      <span className="eyebrow">STUDIO CONFIGURABLE · SOCLE EXPÉRIMENTAL</span>
+      <span className="eyebrow">PARTIE · EXEMPLE CONFIGURABLE</span>
       <h2>{game?.title ?? "Installer une expérience"}</h2>
       {failure && (
         <p role="alert" className="lobby-error">
@@ -277,12 +279,15 @@ export function GamePanel({
       {game && (
         <>
           <p className="game-phase" role="status">
-            Phase : <strong>{game.phase.label}</strong>
+            Étape : <strong>{game.phase.label}</strong>
           </p>
-          <p className="lobby-hint">
-            Définition {game.definitionId} · v{game.definitionVersion}
-            {game.role ? ` · Votre rôle : ${game.role}` : ""}
-          </p>
+          <details className="game-technical">
+            <summary>Détails du jeu</summary>
+            <p className="lobby-hint">
+              Définition {game.definitionId} · v{game.definitionVersion}
+              {game.role ? ` · Votre rôle : ${game.role}` : ""}
+            </p>
+          </details>
           <div className="game-actions">
             {game.actions.map((a) => (
               <ActionForm
@@ -296,7 +301,7 @@ export function GamePanel({
           </div>
           <GameValues game={game} names={view.participants} />
           {!game.actions.length && (
-            <p>Aucune action disponible pour vous dans cette phase.</p>
+            <p>Aucune action disponible pour vous à cette étape.</p>
           )}
           {view.audience === "gm" && game.management && (
             <>
@@ -326,20 +331,22 @@ export function GamePanel({
                   </label>
                 ))}
               </details>
-              <button
-                className="secondary-button"
-                disabled={locked}
-                onClick={() => {
-                  if (
-                    window.confirm(
-                      "Relancer cette définition ? Les valeurs, les phases et les rôles affectés seront réinitialisés ; les accès joueurs seront conservés.",
+              {!hideRestart && (
+                <button
+                  className="secondary-button"
+                  disabled={locked}
+                  onClick={() => {
+                    if (
+                      window.confirm(
+                        "Relancer cette définition ? Les valeurs, les phases et les rôles affectés seront réinitialisés ; les accès joueurs seront conservés.",
+                      )
                     )
-                  )
-                    void send({ type: "game.restart", runId: game.runId });
-                }}
-              >
-                Rejouer cette expérience
-              </button>
+                      void send({ type: "game.restart", runId: game.runId });
+                  }}
+                >
+                  Rejouer cette expérience
+                </button>
+              )}
             </>
           )}
         </>

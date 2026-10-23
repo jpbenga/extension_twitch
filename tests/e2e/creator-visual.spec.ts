@@ -1,177 +1,127 @@
-import { test, expect, type Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import type { GameDefinition } from "@extension-twitch/contracts/game-definition";
-async function bootstrap(page: Page) {
-  await page.goto("/creator");
-  await page
-    .getByRole("button", { name: "Créer ma bibliothèque privée", exact: true })
-    .click();
-  await expect(
-    page.getByRole("button", {
-      name: "Actualiser la bibliothèque",
-      exact: true,
-    }),
-  ).toBeVisible();
+import {
+  advanced,
+  customize,
+  guided,
+  section,
+  save,
+  quickTest,
+  role,
+  externalView,
+  json,
+  publish,
+  refreshEditor,
+} from "./creator-helpers.js";
+async function question(page: import("@playwright/test").Page, prefix: string) {
+  const summary = page
+    .locator(".action-question > summary")
+    .filter({ hasText: prefix });
+  if ((await summary.locator("..").getAttribute("open")) === null)
+    await summary.click();
 }
-async function section(page: Page, name: string) {
-  if ((page.viewportSize()?.width ?? 1440) < 1000)
-    await page
-      .getByLabel("Section du Studio", { exact: true })
-      .selectOption(name);
-  else
-    await page
-      .getByRole("navigation", { name: "Sections du Studio" })
-      .getByRole("button", { name, exact: true })
-      .click();
-}
-async function save(page: Page) {
-  await page
-    .getByRole("button", { name: "Enregistrer le brouillon", exact: true })
-    .click();
-  await expect(page.locator(".creator-editor > .lobby-hint")).toContainText(
-    "Brouillon enregistré",
-  );
-}
-async function popup(page: Page, name: string) {
-  const [next] = await Promise.all([
-    page.waitForEvent("popup"),
-    page.getByRole("link", { name, exact: true }).click(),
-  ]);
-  await expect(next.getByTestId("session-connection")).toHaveText(
-    "Synchronisé",
-  );
-  return next;
-}
+
 test("visual creation without JSON executes real actions across GM, isolated players and public stage", async ({
   page,
 }, info) => {
-  await bootstrap(page);
-  await page
-    .getByRole("button", { name: /Créer librement dans le Studio avancé/ })
-    .click();
-  await page
-    .getByLabel("Titre du nouveau jeu", { exact: true })
-    .fill("Le studio des points");
-  await page
-    .getByRole("button", { name: "Créer le brouillon avancé", exact: true })
-    .click();
-  await section(page, "Participants et rôles");
+  await advanced(page, "Le studio des points");
+  await section(page, "Participants");
   await page
     .getByRole("button", { name: "Ajouter un rôle", exact: true })
     .click();
   await page.getByLabel("Nom du rôle 4", { exact: true }).fill("Invité VIP");
   await page
     .getByLabel("Description du rôle 4", { exact: true })
-    .fill("Un rôle de jeu sans autorité administrative");
-  await section(page, "Variables");
+    .fill("Un rôle sans autorité administrative");
+  await section(page, "Données");
   await page
-    .getByRole("button", { name: "Ajouter une variable", exact: true })
+    .getByRole("button", { name: "Ajouter une donnée", exact: true })
     .click();
   await page
-    .getByLabel("Nom de la variable 2", { exact: true })
+    .getByLabel("Nom de cette donnée", { exact: true })
     .fill("Secret personnel");
   await page
-    .getByLabel("Type · variable-1", { exact: true })
+    .getByLabel("Type de Secret personnel", { exact: true })
     .selectOption("text");
   await page
-    .getByLabel("Portée · variable-1", { exact: true })
+    .getByLabel("À qui appartient cette donnée ?", { exact: true })
     .selectOption("participant");
   await page
-    .getByLabel("Visibilité · variable-1", { exact: true })
+    .getByLabel("Qui peut voir cette information ?", { exact: true })
     .selectOption("owner");
   await page
-    .getByLabel("Valeur initiale · variable-1", { exact: true })
+    .getByLabel("Valeur de départ de Secret personnel", { exact: true })
     .fill("Visible uniquement à moi");
-  await page.getByLabel("Maximum · score", { exact: true }).fill("-1");
+  await page.getByRole("button", { name: "Score", exact: true }).click();
+  await page.getByLabel("Maximum pour Score", { exact: true }).fill("-1");
   await expect(
-    page.getByText(/La valeur initiale doit respecter/),
+    page.getByText(/la valeur de départ doit respecter/),
   ).toBeVisible();
-  await page
-    .getByRole("button", { name: "Enregistrer le brouillon", exact: true })
-    .click();
-  await expect(page.locator(".creator-editor > .lobby-hint")).toContainText(
-    "Modifications locales",
+  await page.getByRole("button", { name: "Enregistrer", exact: true }).click();
+  await expect(page.locator(".save-state")).toHaveText(
+    "Modifications à enregistrer",
   );
-  await page.getByLabel("Maximum · score", { exact: true }).fill("100000");
-  await section(page, "Phases et transitions");
+  await page.getByLabel("Maximum pour Score", { exact: true }).fill("100000");
+  await section(page, "Étapes");
   await page
-    .getByRole("button", { name: "Ajouter une phase", exact: true })
+    .getByRole("button", { name: "Ajouter une étape", exact: true })
     .click();
-  await page.getByLabel("Nom de la phase 2", { exact: true }).fill("Résultat");
-  await expect(page.getByText(/Phases sans chemin/)).toBeVisible();
+  await page.getByLabel("Nom de l’étape 2", { exact: true }).fill("Résultat");
+  await expect(page.getByText(/Ces étapes ne sont reliées/)).toBeVisible();
   await section(page, "Actions");
   await page
     .getByRole("button", { name: "Ajouter une action", exact: true })
     .click();
   await page
-    .getByLabel("Nom de l’action", { exact: true })
+    .getByLabel("Nom du bouton", { exact: true })
     .fill("Gagner un point");
+  await question(page, "5.");
   await page
-    .getByRole("button", { name: "Ajouter un effet", exact: true })
+    .getByRole("button", { name: "Ajouter une conséquence", exact: true })
     .click();
+  await question(page, "4.");
   await page
-    .getByRole("button", {
-      name: "Ajouter une condition composée",
-      exact: true,
-    })
+    .getByRole("button", { name: "Ajouter une règle composée", exact: true })
     .click();
-  await page
-    .getByLabel("Source · Condition d’autorisation", { exact: true })
+  const root = page.locator(".expression-node").first();
+  await root
+    .getByLabel("Comparer ou calculer", { exact: true })
+    .first()
     .selectOption("and");
-  await page
-    .getByLabel("Source · Condition d’autorisation · 1", { exact: true })
+  const child = root
+    .locator(":scope > .condition-branches > .expression-node")
+    .first();
+  await child
+    .getByLabel(/Comparer ou calculer|Choisir une information/)
+    .first()
     .selectOption("lt");
-  await page
-    .getByLabel("Source · Condition d’autorisation · 1 · 1", { exact: true })
-    .selectOption("variable");
-  await page
-    .getByLabel("Référence · Condition d’autorisation · 1 · 1", { exact: true })
-    .selectOption("score");
-  await page
-    .getByLabel("Valeur · Condition d’autorisation · 1 · 2", { exact: true })
-    .fill("2");
+  await child.getByLabel("Valeur", { exact: true }).fill("2");
   await page
     .getByRole("button", { name: "Ajouter un point", exact: true })
     .click();
-  await page.getByLabel("Nom de l’action", { exact: true }).fill("Terminer");
+  await page.getByLabel("Nom du bouton", { exact: true }).fill("Terminer");
+  await question(page, "5.");
   page.once("dialog", (d) => d.accept());
   await page
-    .getByRole("button", { name: "Supprimer l’effet 1", exact: true })
+    .getByRole("button", { name: "Supprimer la conséquence 1", exact: true })
     .click();
+  await question(page, "6.");
   await page
     .getByLabel("Après cette action", { exact: true })
     .selectOption("phase-1");
   await save(page);
-  await section(page, "Variables");
+  await section(page, "Données");
   await page
-    .getByRole("button", { name: "Supprimer la variable Score", exact: true })
+    .getByRole("button", { name: "Supprimer cette donnée", exact: true })
     .click();
   await expect(page.getByText(/Suppression impossible/)).toBeVisible();
   await section(page, "Tester");
   await expect(page.getByText(/Suppression impossible/)).toHaveCount(0);
-  await page
-    .getByRole("button", { name: "Enregistrer et tester mon jeu", exact: true })
-    .click();
-  await page
-    .getByRole("button", { name: "Ajouter deux joueurs fictifs", exact: true })
-    .click();
-  await expect(
-    page.getByRole("link", { name: "Fictif · Atlas ↗", exact: true }),
-  ).toBeVisible();
-  await page
-    .getByRole("button", {
-      name: "Installer le jeu pour cet essai",
-      exact: true,
-    })
-    .click();
-  const gm = await popup(page, "Ouvrir la régie du test ↗");
-  const player = await popup(page, "Fictif · Nova ↗");
-  const second = await popup(page, "Fictif · Atlas ↗");
-  const publicPage = await page.context().newPage();
-  await publicPage.goto(
-    (await page
-      .getByRole("link", { name: "Plateau du test ↗", exact: true })
-      .getAttribute("href")) ?? "",
-  );
+  await quickTest(page);
+  const gm = await externalView(page, "Game Master"),
+    player = await externalView(page, "Joueur 1"),
+    second = await externalView(page, "Joueur 2"),
+    publicPage = await externalView(page, "Spectateur");
   await expect(player.locator("#game")).toContainText(
     "Visible uniquement à moi",
   );
@@ -194,19 +144,24 @@ test("visual creation without JSON executes real actions across GM, isolated pla
     player.getByRole("button", { name: "Gagner un point", exact: true }),
   ).toHaveCount(0);
   await page
+    .getByText("Vérifier les permissions (avancé)", { exact: true })
+    .click();
+  await page
     .getByRole("button", {
-      name: "Vérifier le refus d’une action GM",
+      name: "Vérifier le refus d’une action de gestion",
       exact: true,
     })
     .click();
-  await expect(page.getByText(/Refus attendu \(403\)/)).toBeVisible();
+  await expect(
+    page.getByRole("status").filter({ hasText: /Accès correctement protégé/ }),
+  ).toBeVisible();
   await gm.getByRole("button", { name: "Terminer", exact: true }).click();
   await expect(player.locator("#game .game-phase")).toContainText("Résultat");
   await expect(publicPage.locator(".real-stage-header")).toContainText(
     "Résultat",
   );
   await page
-    .getByRole("button", { name: "Revenir à l’éditeur", exact: true })
+    .getByRole("link", { name: "Retour à l’édition", exact: true })
     .click();
   await section(page, "Actions");
   await expect(
@@ -217,15 +172,6 @@ test("visual creation without JSON executes real actions across GM, isolated pla
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBe(true);
-  await page.screenshot({
-    path: info.outputPath("studio-visual.png"),
-    fullPage: true,
-  });
-  await page
-    .locator("#studio-workbench")
-    .evaluate((el) =>
-      el.scrollIntoView({ block: "start", behavior: "instant" }),
-    );
   await page.screenshot({ path: info.outputPath("studio-viewport.png") });
   await Promise.all([gm, player, second, publicPage].map((p) => p.close()));
 });
@@ -233,198 +179,106 @@ test("visual creation without JSON executes real actions across GM, isolated pla
 test("a complex existing expression survives unrelated visual edits and private publication", async ({
   page,
 }) => {
-  await bootstrap(page);
-  await page
-    .getByRole("button", { name: /Créer un jeu avec un guide/ })
-    .click();
-  await page
-    .getByRole("button", { name: "Étape suivante", exact: true })
-    .click();
-  await page.getByLabel("Multiplicateur des points", { exact: true }).fill("3");
-  await page
-    .getByRole("button", { name: "Étape précédente", exact: true })
-    .click();
-  await page
-    .getByRole("button", { name: "Étape suivante", exact: true })
-    .click();
-  await expect(
-    page.getByLabel("Multiplicateur des points", { exact: true }),
-  ).toHaveValue("3");
-  await page
-    .getByRole("button", { name: "Étape suivante", exact: true })
-    .click();
-  await page
-    .getByRole("button", { name: "Créer le brouillon guidé", exact: true })
-    .click();
-  await page
-    .getByText("Studio avancé — définition complète", { exact: true })
-    .click();
-  const editor = page.getByLabel("Définition avancée JSON", { exact: true });
-  // Seed a previously authored deep expression through the normal owner API.
-  // The UI must preserve this exact tree while changing an unrelated role.
-  await page.evaluate(async () => {
-    const access = JSON.parse(sessionStorage.getItem("xt:creator:access")!) as {
-      id: string;
-      token: string;
-    };
-    const path = `/api/server/studio/workspaces/${access.id}`;
-    const headers = {
-      Authorization: `Bearer ${access.token}`,
-      "Content-Type": "application/json",
-    };
-    const view = (await (await fetch(path, { headers })).json()) as {
-      workspace: {
-        version: number;
-        games: {
-          identity: { id: string };
-          draft: {
-            definition: GameDefinition;
-            metadata: unknown;
-            assets: unknown;
-          };
-        }[];
-      };
-    };
-    const game = view.workspace.games[0]!;
-    game.draft.definition.actions.find((a) => a.id === "contribute")!.guard = {
-      kind: "operator",
-      operator: "and",
-      args: [
-        {
-          kind: "operator",
-          operator: "not",
-          args: [
-            {
-              kind: "operator",
-              operator: "eq",
-              args: [
-                { kind: "variable", id: "total" },
-                { kind: "literal", value: -1 },
-              ],
-            },
-          ],
-        },
-        {
-          kind: "operator",
-          operator: "gte",
-          args: [
-            { kind: "variable", id: "total" },
-            { kind: "literal", value: 0 },
-          ],
-        },
-      ],
-    };
-    const result = await fetch(`${path}/commands`, {
-      method: "POST",
-      headers,
-      body: JSON.stringify({
-        commandId: crypto.randomUUID(),
-        expectedVersion: view.workspace.version,
-        operation: {
-          type: "draft.save",
-          gameId: game.identity.id,
-          definition: game.draft.definition,
-          metadata: game.draft.metadata,
-          assets: game.draft.assets,
-        },
-      }),
-    });
-    if (!result.ok) throw new Error("Could not seed the existing expression");
-  });
-  await page
-    .getByRole("button", { name: "Actualiser la bibliothèque", exact: true })
-    .click();
-  await page
-    .getByRole("button", { name: "Charger le brouillon serveur", exact: true })
-    .click();
-  const before = JSON.parse(await editor.inputValue()) as GameDefinition;
-  await section(page, "Participants et rôles");
+  await guided(page, "Mon nouveau jeu");
+  const textarea = await json(page),
+    d = JSON.parse(await textarea.inputValue()) as GameDefinition;
+  d.actions.find((a) => a.id === "contribute")!.guard = {
+    kind: "operator",
+    operator: "and",
+    args: [
+      {
+        kind: "operator",
+        operator: "not",
+        args: [
+          {
+            kind: "operator",
+            operator: "eq",
+            args: [
+              { kind: "variable", id: "total" },
+              { kind: "literal", value: -1 },
+            ],
+          },
+        ],
+      },
+      {
+        kind: "operator",
+        operator: "gte",
+        args: [
+          { kind: "variable", id: "total" },
+          { kind: "literal", value: 0 },
+        ],
+      },
+    ],
+  };
+  d.actions.find((a) => a.id === "contribute")!.effects[0] = {
+    type: "increment",
+    variable: "total",
+    value: {
+      from: "expression",
+      expression: {
+        kind: "operator",
+        operator: "multiply",
+        args: [
+          { kind: "parameter", id: "amount" },
+          { kind: "literal", value: 3 },
+        ],
+      },
+    },
+  };
+  await textarea.fill(JSON.stringify(d));
+  await save(page);
+  const before = JSON.parse(await textarea.inputValue()) as GameDefinition;
+  await section(page, "Participants");
   await page.getByLabel("Nom du rôle 1", { exact: true }).fill("Présentateur");
   await save(page);
-  const after = JSON.parse(await editor.inputValue()) as GameDefinition;
+  const after = JSON.parse(
+    await (await json(page)).inputValue(),
+  ) as GameDefinition;
   expect(after.actions).toEqual(before.actions);
-  await page.getByText("Revenir aux choix du guide", { exact: true }).click();
-  await expect(
-    page.getByText(/Cette configuration avancée ne peut plus être représentée/),
-  ).toBeVisible();
-  await section(page, "Publier");
-  await page.getByLabel(/Je déclare disposer des droits/).check();
-  page.once("dialog", (d) => d.accept());
   await page
-    .getByRole("button", { name: "Publier cette version privée", exact: true })
+    .getByRole("button", { name: "Réglages simples", exact: true })
     .click();
   await expect(
-    page.getByText("Mon nouveau jeu · v1.0.0", { exact: true }),
+    page.getByText(/Ce jeu utilise des règles que les réglages simples/),
   ).toBeVisible();
-  await section(page, "Participants et rôles");
+  await publish(page);
+  await expect(
+    page.getByText("Mon nouveau jeu · version 1.0.0", { exact: true }),
+  ).toBeVisible();
+  await section(page, "Participants");
   await page
     .getByLabel("Nom du rôle 1", { exact: true })
     .fill("Autre présentateur");
   await save(page);
-  await section(page, "Publier");
+  await section(page, "Versions");
   await expect(
-    page.getByText("Mon nouveau jeu · v1.0.0", { exact: true }),
+    page.getByText("Mon nouveau jeu · version 1.0.0", { exact: true }),
   ).toBeVisible();
 });
 
 test("the second guided model keeps ancestry and runs edited private answers without exposing them", async ({
   page,
 }) => {
-  await bootstrap(page);
-  await page
-    .getByRole("button", { name: /Créer un jeu avec un guide/ })
-    .click();
-  await page
-    .getByLabel("Modèle de départ", { exact: true })
-    .selectOption("answer-box");
-  await page
-    .getByRole("button", { name: "Étape suivante", exact: true })
-    .click();
-  await page
-    .getByRole("button", { name: "Étape suivante", exact: true })
-    .click();
-  await page
-    .getByLabel("Titre du nouveau jeu", { exact: true })
-    .fill("Les propositions privées");
-  await page
-    .getByRole("button", { name: "Créer le brouillon guidé", exact: true })
-    .click();
+  await guided(page, "Les propositions privées", "answers");
   await expect(
-    page.getByText("Origine et attributions", { exact: true }),
+    page.getByText("Jeu personnalisé · origine et attributions", {
+      exact: true,
+    }),
   ).toBeVisible();
   await section(page, "Actions");
   await page
     .getByRole("button", { name: "Envoyer ma réponse", exact: true })
     .click();
+  await question(page, "3.");
   await page
-    .getByLabel("Nom du paramètre 1", { exact: true })
+    .getByLabel("Question affichée au joueur 1", { exact: true })
     .fill("Votre proposition");
   await save(page);
-  await section(page, "Tester");
-  await page
-    .getByRole("button", { name: "Enregistrer et tester mon jeu", exact: true })
-    .click();
-  await page
-    .getByRole("button", { name: "Ajouter deux joueurs fictifs", exact: true })
-    .click();
-  await expect(
-    page.getByRole("link", { name: "Fictif · Atlas ↗", exact: true }),
-  ).toBeVisible();
-  await page
-    .getByRole("button", {
-      name: "Installer le jeu pour cet essai",
-      exact: true,
-    })
-    .click();
-  const gm = await popup(page, "Ouvrir la régie du test ↗");
-  const player = await popup(page, "Fictif · Nova ↗");
-  const other = await popup(page, "Fictif · Atlas ↗");
-  const publicPage = await page.context().newPage();
-  await publicPage.goto(
-    (await page
-      .getByRole("link", { name: "Plateau du test ↗", exact: true })
-      .getAttribute("href")) ?? "",
-  );
+  await quickTest(page);
+  const gm = await externalView(page, "Game Master"),
+    player = await externalView(page, "Joueur 1"),
+    other = await externalView(page, "Joueur 2"),
+    publicPage = await externalView(page, "Spectateur");
   await gm
     .getByRole("button", { name: "Demander un souvenir de live", exact: true })
     .click();
@@ -446,84 +300,88 @@ test("the second guided model keeps ancestry and runs edited private answers wit
   await expect(
     player.getByRole("button", { name: "Envoyer ma réponse", exact: true }),
   ).toHaveCount(0);
+  await role(page, "Joueur 1");
+  await expect(page.locator(".lab-role-view")).toContainText(
+    "La proposition privée de Nova",
+  );
+  await role(page, "Joueur 2");
+  await expect(page.locator(".lab-role-view")).not.toContainText(
+    "La proposition privée de Nova",
+  );
+  // Inspect the actual HTTP projections as well as rendered elements.
+  const projections = await page.evaluate(async () => {
+    const lab = JSON.parse(
+      sessionStorage.getItem(
+        `xt:creator:lab:${location.pathname.split("/").at(-1)}`,
+      )!,
+    );
+    return Promise.all([
+      fetch(`/api/server/sessions/${lab.sessionId}/private`, {
+        headers: { Authorization: `Bearer ${lab.players[1].token}` },
+      }).then(async (r) => ({ status: r.status, body: await r.text() })),
+      fetch(`/api/server/sessions/${lab.sessionId}/public`).then((r) =>
+        r
+          .json()
+          .then((body) => ({ status: r.status, body: JSON.stringify(body) })),
+      ),
+    ]);
+  });
+  for (const projection of projections) expect(projection.status).toBe(200);
+  expect(JSON.stringify(projections)).not.toContain(
+    "La proposition privée de Nova",
+  );
   await Promise.all([gm, player, other, publicPage].map((p) => p.close()));
 });
 
 test("an installed v1 game becomes an independent variant with editable v2 rules and a real test", async ({
   page,
 }) => {
-  await bootstrap(page);
-  await page
-    .getByRole("button", {
-      name: "Installer Impulsion collective",
-      exact: true,
-    })
+  await page.goto("/creator/library");
+  const first = page.locator(".creator-list-card").first();
+  await first.getByText("Autres choix", { exact: true }).click();
+  await first
+    .getByRole("button", { name: "Ajouter à ma bibliothèque", exact: true })
     .click();
+  await page.getByRole("button", { name: "Jeux ajoutés", exact: true }).click();
+  await expect(page.locator(".creator-list-card")).toHaveCount(1);
   await page
-    .getByRole("button", {
-      name: "Créer une variante du jeu installé",
-      exact: true,
-    })
+    .getByRole("button", { name: "Personnaliser ce jeu", exact: true })
     .click();
   await expect(
-    page.getByText("Origine et attributions", { exact: true }),
+    page.getByText("Jeu personnalisé · origine et attributions", {
+      exact: true,
+    }),
   ).toBeVisible();
-  await page
-    .getByRole("button", { name: "Activer les expressions v2", exact: true })
-    .click();
   await section(page, "Actions");
   await page.getByRole("button", { name: "Contribuer", exact: true }).click();
+  await question(page, "5.");
   await page
-    .getByLabel("Source de l’effet 1", { exact: true })
+    .getByLabel("D’où vient la valeur ? Conséquence 1", { exact: true })
     .selectOption("literal");
-  await page.getByLabel("Valeur de l’effet 1", { exact: true }).fill("2");
   await page
-    .getByRole("button", {
-      name: "Ajouter une condition composée",
-      exact: true,
-    })
-    .click();
-  await page
-    .getByLabel("Source · Condition d’autorisation", { exact: true })
-    .selectOption("lt");
-  await page
-    .getByLabel("Source · Condition d’autorisation · 1", { exact: true })
-    .selectOption("variable");
-  await page
-    .getByLabel("Référence · Condition d’autorisation · 1", { exact: true })
-    .selectOption("total");
-  await page
-    .getByLabel("Valeur · Condition d’autorisation · 2", { exact: true })
+    .getByLabel("Quantité ou valeur, conséquence 1", { exact: true })
     .fill("2");
+  await question(page, "4.");
+  await page
+    .getByRole("button", { name: "Ajouter une règle composée", exact: true })
+    .click();
+  const root = page.locator(".expression-node").first();
+  await root
+    .getByLabel("Comparer ou calculer", { exact: true })
+    .selectOption("lt");
+  await root.getByLabel("Valeur", { exact: true }).fill("2");
   await save(page);
-  await section(page, "Tester");
+  await quickTest(page);
   await page
-    .getByRole("button", { name: "Enregistrer et tester mon jeu", exact: true })
-    .click();
-  await page
-    .getByRole("button", { name: "Ajouter deux joueurs fictifs", exact: true })
-    .click();
-  await expect(
-    page.getByRole("link", { name: "Fictif · Atlas ↗", exact: true }),
-  ).toBeVisible();
-  await page
-    .getByRole("button", {
-      name: "Installer le jeu pour cet essai",
-      exact: true,
-    })
-    .click();
-  const gm = await popup(page, "Ouvrir la régie du test ↗");
-  const player = await popup(page, "Fictif · Nova ↗");
-  await gm
     .getByRole("button", { name: "Ouvrir la collecte", exact: true })
     .click();
-  await player.getByRole("button", { name: "Contribuer", exact: true }).click();
+  await role(page, "Joueur 1");
+  await page.getByRole("button", { name: "Contribuer", exact: true }).click();
   await expect(
-    gm.locator("#game .game-values").getByText("2", { exact: true }),
-  ).toBeVisible();
-  await expect(
-    player.getByRole("button", { name: "Contribuer", exact: true }),
+    page.getByRole("button", { name: "Contribuer", exact: true }),
   ).toHaveCount(0);
-  await gm.close();
-  await player.close();
+  await role(page, "Spectateur");
+  await expect(
+    page.locator(".game-values").getByText("2", { exact: true }),
+  ).toBeVisible();
 });

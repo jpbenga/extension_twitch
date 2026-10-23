@@ -1,5 +1,8 @@
 # Tester le Studio Créateur visuel 4B
 
+> Document historique du jalon 4B. Pour l’interface actuelle, consulter
+> [le bilan 4B.1](STAGE-4B1.md) et [le guide de test actuel](TEST-STUDIO-4B1.md).
+
 Validation technique terminée — Validation humaine iPhone en attente.
 Les formats Chromium téléphone, tablette et ordinateur ne constituent pas une
 validation physique de Safari iOS, d’OBS ou du réseau Wi-Fi de votre domicile.

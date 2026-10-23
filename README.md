@@ -2,9 +2,9 @@
 
 Moteur et studio de création de jeux interactifs pour les émissions Twitch : régie Game Master, overlays OBS, interfaces joueurs et, à terme, extension spectateur.
 
-**État : Studio Créateur visuel, jalon 4B.** Bibliothèque privée, variantes avec filiation, brouillons et versions publiées immuables. Trois parcours partagent le même moteur : personnaliser un jeu, suivre un guide (compteur collectif ou réponses privées), composer rôles, variables, actions, expressions, effets et phases dans le Studio visuel. Le JSON est secondaire. « Tester mon jeu » fige un instantané et fournit les accès GM, joueurs fictifs isolés, invitation réseau et plateau public. [Guide de test 4B](docs/TEST-STUDIO-4B.md).
+**État : refonte du Studio Créateur, jalon 4B.1.** Accueil, bibliothèque, éditeur et laboratoire disposent de leurs propres pages. Personnalisez Impulsion collective avec quelques questions, créez un jeu avec le guide ou composez ses règles dans le Studio avancé. « Tester mon jeu » enregistre puis prépare un essai réel avec deux joueurs de démonstration et un plateau synchronisé. Les versions enregistrées restent privées et figées. [Guide iPhone simple](docs/TEST-STUDIO-4B1.md) · [Décisions et bilan technique](docs/STAGE-4B1.md).
 
-**Validation technique terminée — Validation humaine iPhone en attente.** Les tests Chromium sur formats mobiles ne valident pas Safari iOS sur appareil réel.
+**Premier test humain iPhone effectué — refonte ergonomique nécessaire.** Ce retour a motivé 4B.1 ; la refonte reste à apprécier sur l’iPhone de l’utilisateur. Les tests Chromium ne valident ni Safari iOS physique, ni OBS, ni l’ensemble des règles des jeux officiels.
 
 ## Démarrer
 
@@ -40,7 +40,11 @@ Ouvrir l’adresse privée affichée par cette commande. Elle configure les invi
 | `/sessions/<id>/player/<participantId>`        | Compagnon individuel, accès privé requis                                                                      |
 | `/sessions/<id>/public`                        | Plateau synchronisé, pour OBS ou un navigateur                                                                |
 | `/demo`, `/player`, `/overlay?game=undercover` | Anciennes maquettes fictives ; `auctions`, `spy` et `transparent=1` restent disponibles pour l’overlay fictif |
-| `/creator`                                     | Studio Créateur et bibliothèque privée, accès propriétaire distinct du GM                                     |
+| `/creator`                                     | Accueil : lancer, personnaliser ou créer un jeu                                                               |
+| `/creator/library`                             | Exemples disponibles, jeux ajoutés et créations privées                                                       |
+| `/creator/new`                                 | Guide de création ou démarrage avancé                                                                         |
+| `/creator/games/<id>`                          | Éditeur dédié, réglages simples et Studio avancé                                                              |
+| `/creator/lab/<id>`                            | Essai privé réel, vues GM / joueurs démo / spectateur                                                         |
 | `/lab`                                         | Laboratoire réel, exclusivement en développement (`npm run dev` ou `dev:lan`)                                 |
 | Port 4000, `/health`                           | Contrôle de disponibilité du serveur                                                                          |
 | Port 4000, `/events`                           | Sonde SSE de transport, sans état de jeu                                                                      |
@@ -80,7 +84,7 @@ PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:e2e
 PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:lab
 ```
 
-`test:lab` démarre le développement sur les ports 3100/4100, avec sa propre base temporaire, pour vérifier la page absente en production. Les autres tests Playwright démarrent et arrêtent les deux services compilés avec une base temporaire distincte de vos sessions. Les parcours utilisent un GM, plusieurs identités et un spectateur sur des formats téléphone, tablette et ordinateur, ainsi que les anciennes maquettes. Ils ne remplacent pas un test Safari iOS sur appareil réel. Pour lancer manuellement la version compilée : `npm run build`, puis `npm start`.
+`test:lab` démarre le développement sur les ports 3100/4100, avec sa propre base temporaire, pour vérifier la page absente en production. La commande `test:e2e` lance successivement chaque format avec deux services neufs et une base temporaire distincte de vos sessions. Cette isolation évite que les séries automatisées cumulent leurs requêtes dans la même fenêtre anti-abus ; les protections du produit restent actives. Les captures et traces restent dans `test-results/e2e/<format>`. Les parcours utilisent un GM, plusieurs identités et un spectateur sur des formats téléphone, tablette et ordinateur, ainsi que les anciennes maquettes. Ils ne remplacent pas un test Safari iOS sur appareil réel. Pour lancer manuellement la version compilée : `npm run build`, puis `npm start`.
 
 ## Structure
 
@@ -104,7 +108,7 @@ tests/
 scripts/
   dev-lan.mjs            Lancement Wi-Fi avec origine réseau appropriée
 docs/
-  PRODUCT.md             Cahier des charges et Studio hybride, version 0.4
+  PRODUCT.md             Cahier des charges et Studio hybride, version 0.5
   ARCHITECTURE.md         Décisions techniques et limites du socle
   STAGE-3.md              Plan A/B/C/D et hypothèses Undercover non validées
   TEST-IPHONE.md          Lancement et checklists de validation humaine
@@ -112,7 +116,10 @@ docs/
   ASSETS.md              Références BYOS et limites de sécurité
   STAGE-4A.md             Architecture de la bibliothèque et du Studio hybride
   STAGE-4B.md             Studio visuel et réutilisation des contrats
-  TEST-STUDIO-4B.md       Parcours sans JSON et essais multijoueurs
+  STAGE-4B1.md            Audit, décisions UX, sécurité et vérifications
+  TEST-STUDIO-4B1.md      Guide actuel : personnaliser, créer et essayer sur iPhone
+  screenshots/4b1/        Captures Chromium mobile et ordinateur
+  TEST-STUDIO-4B.md       Guide historique du Studio 4B
   TEST-CREATOR.md         Checklists variantes, guide, publication et tests réels
   TEST-CONFIGURABLE.md    Exemples et laboratoire, validation manuelle
 AGENTS.md                Instructions de développement fournies
@@ -126,7 +133,7 @@ Un seul processus Node est supporté pour la diffusion. Les reconnexions récup�
 
 Pas encore de distribution aléatoire, votes, budgets transactionnels, minuteurs, éliminations ou victoire des jeux officiels. Le Studio visuel édite les primitives existantes et conserve un document JSON secondaire pour les cas techniques. Le guide propose deux modèles exécutables. Pas de Store public, assistant universel, composition graphique des scènes, comptes, connecteur cloud, import de médias, PWA installable ou extension Twitch officielle. Les contrats Bits ne vérifient et n’exécutent aucune transaction. Les anciennes maquettes restent fictives.
 
-Pour essayer le Studio : lancer `npm run dev:lan`, ouvrir `/creator` à l’adresse affichée et suivre [le guide du Studio visuel](docs/TEST-STUDIO-4B.md). Conserver le lien privé de bibliothèque. « Publier » fige une version privée ; cela ne la rend pas publique sur Internet. Les capacités de bibliothèque sont distinctes de celles des sessions. La migration SQLite v1→v2 est additive ; les sauvegardes restent privées.
+Pour essayer le Studio : lancer `npm run dev:lan`, ouvrir `/creator` à l’adresse affichée et suivre [le guide du Studio](docs/TEST-STUDIO-4B1.md). Conserver le lien privé de bibliothèque. « Enregistrer une version » crée une copie figée privée ; cela ne la rend pas publique sur Internet. Les capacités de bibliothèque sont distinctes de celles des sessions. La migration SQLite v1→v2 est additive ; les sauvegardes restent privées.
 
 Pour les exemples du moteur : lancer `npm run dev:lan`, ouvrir `/lab` à l’adresse affichée, créer une démonstration, puis ouvrir les liens GM, joueurs et plateau. Voir [les scénarios reproductibles](docs/TEST-CONFIGURABLE.md). En production `/lab` retourne 404 ; les panneaux génériques de session restent utilisables.
 

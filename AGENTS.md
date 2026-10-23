@@ -293,3 +293,16 @@ publication privée dans la bibliothèque n’est pas une publication Store. Pr�
 la filiation et les attributions, retirer les références d’assets privées/non
 redistribuables lors d’une copie partageable. Ne pas simuler des comptes sécurisés.
 Conserver V1 et versionner les extensions du langage. Aucun code arbitraire.
+
+
+19. Refonte ergonomique du Studio (4B.1)
+
+Consulter docs/STAGE-4B1.md et docs/TEST-STUDIO-4B1.md. Préserver les parcours dédiés
+accueil/bibliothèque/éditeur/laboratoire, le moteur et les capacités d’accès existantes.
+Utiliser un vocabulaire humain ; réserver JSON et références aux outils techniques.
+Les réglages simples ne doivent jamais remplacer une règle avancée inconnue.
+Le laboratoire appartient au GM ; les projections publiques et individuelles restent
+séparées côté serveur, même lorsqu’il change de vue dans son onglet de test.
+Statut actuel du Studio : Premier test humain iPhone effectué — refonte ergonomique
+nécessaire. Les mentions d’attente ci-dessus sont historiques. La validation de la
+refonte sur appareil réel, des parcours complets, de Safari iOS et d’OBS reste à faire.
