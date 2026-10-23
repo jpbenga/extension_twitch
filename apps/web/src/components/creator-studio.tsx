@@ -8,8 +8,10 @@ import type {
 } from "@extension-twitch/contracts/creator";
 import { useCreator } from "../lib/use-creator";
 import { CreatorEditor } from "./creator-editor";
+import { CreatorTest } from "./creator-test";
+import { CreatorGuide } from "./creator-guide";
 import { CopyLink } from "./copy-link";
-import { GuideFields, initialRecipe } from "./guide-fields";
+import { initialRecipe } from "./guide-fields";
 
 export function CreatorStudio() {
   const studio = useCreator();
@@ -33,7 +35,10 @@ export function CreatorStudio() {
     setDirty(false);
     setSelected(id);
   }
-  async function create(mode: "guided" | "advanced") {
+  async function create(
+    mode: "guided" | "advanced",
+    template: "counter" | "answer-box" = "counter",
+  ) {
     if (
       dirty &&
       !window.confirm(
@@ -41,12 +46,23 @@ export function CreatorStudio() {
       )
     )
       return;
-    const next = await studio.send({
-      type: "draft.create",
-      mode,
-      title,
-      ...(mode === "guided" ? { guide: recipe } : {}),
-    });
+    const next = await studio.send(
+      mode === "guided" && template === "answer-box"
+        ? {
+            type: "draft.fork",
+            source: {
+              gameId: studio.view!.catalog[1]!.identity.id,
+              version: studio.view!.catalog[1]!.release.version,
+            },
+            title,
+          }
+        : {
+            type: "draft.create",
+            mode,
+            title,
+            ...(mode === "guided" ? { guide: recipe } : {}),
+          },
+    );
     if (next) {
       setDirty(false);
       setSelected(next.workspace.games.at(-1)!.identity.id);
@@ -117,13 +133,13 @@ export function CreatorStudio() {
               "guided",
               "02",
               "Créer un jeu avec un guide",
-              "Un premier guide pour un objectif collectif réellement jouable.",
+              "Choisir un modèle, ses règles et sa présentation, étape par étape.",
             ],
             [
               "advanced",
               "03",
               "Créer librement dans le Studio avancé",
-              "Accéder au document complet et aux expressions typées.",
+              "Composer rôles, règles, actions et phases avec des formulaires.",
             ],
           ] as const
         ).map(([id, number, label, description]) => (
@@ -169,22 +185,7 @@ export function CreatorStudio() {
         </section>
       )}
       {studio.testLink && (
-        <section className="lobby-panel" id="creator-test">
-          <h2>Votre test est prêt</h2>
-          <a
-            className="primary-button"
-            href={studio.testLink}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Ouvrir la régie du test ↗
-          </a>
-          <p>
-            Invitez de vrais joueurs depuis la régie, puis touchez « Installer
-            la définition préparée ». Pour jouer seul en développement, ouvrez
-            les invitations dans deux onglets et choisissez des noms fictifs.
-          </p>
-        </section>
+        <CreatorTest key={studio.testLink} link={studio.testLink} />
       )}
       <div id="creator-workspace">
         {!studio.view ? (
@@ -261,23 +262,29 @@ export function CreatorStudio() {
                 />
               </details>
             </section>
-            {path !== "library" && (
+            {path === "guided" && (
+              <CreatorGuide
+                title={title}
+                onTitle={setTitle}
+                recipe={recipe}
+                onRecipe={setRecipe}
+                locked={locked}
+                onCreate={(template) => create("guided", template)}
+              />
+            )}
+            {path === "advanced" && (
               <section className="lobby-panel">
-                <h2>
-                  {path === "guided"
-                    ? "Un premier jeu, pas à pas"
-                    : "Votre terrain de création"}
-                </h2>
+                <h2>Votre terrain de création</h2>
                 <p>
-                  {path === "guided"
-                    ? "Ce guide initial crée un compteur collectif : choisissez l’objectif, les points et la participation. Les équipes et autres familles de jeux viendront ensuite."
-                    : "Le premier Studio avancé propose des champs simples et un document JSON validé. L’éditeur visuel complet reste à venir."}
+                  Composez rôles, variables, actions et phases avec les
+                  formulaires. Les expressions avancées utilisent le même
+                  moteur.
                 </p>
                 <form
                   className="lobby-form"
                   onSubmit={(e) => {
                     e.preventDefault();
-                    void create(path);
+                    void create("advanced");
                   }}
                 >
                   <label>
@@ -290,15 +297,8 @@ export function CreatorStudio() {
                       onChange={(e) => setTitle(e.target.value)}
                     />
                   </label>
-                  {path === "guided" && (
-                    <GuideFields
-                      value={recipe}
-                      onChange={setRecipe}
-                      disabled={locked}
-                    />
-                  )}
                   <button className="primary-button" disabled={locked}>
-                    Créer le brouillon {path === "guided" ? "guidé" : "avancé"}
+                    Créer le brouillon avancé
                   </button>
                 </form>
               </section>
@@ -385,6 +385,7 @@ export function CreatorStudio() {
               select={select}
               prepare={studio.prepare}
               locked={locked}
+              fork={fork}
             />
             {game && (
               <CreatorEditor
@@ -422,12 +423,14 @@ function Library({
   select,
   prepare,
   locked,
+  fork,
 }: {
   view: StudioView;
   selected: string | null;
   select: (id: string | null) => void;
   prepare: (id: string, version: string) => Promise<void>;
   locked: boolean;
+  fork: (id: string, version: string, title: string) => Promise<void>;
 }) {
   return (
     <section className="lobby-panel">
@@ -491,6 +494,23 @@ function Library({
                     onClick={() => void prepare(i.gameId, i.version)}
                   >
                     Préparer un test
+                  </button>
+                  <button
+                    className="secondary-button"
+                    disabled={locked}
+                    onClick={() =>
+                      void fork(
+                        i.gameId,
+                        i.version,
+                        source?.release.metadata.title ??
+                          personal?.releases.find(
+                            (r) => r.version === i.version,
+                          )?.metadata.title ??
+                          "Jeu installé",
+                      )
+                    }
+                  >
+                    Créer une variante du jeu installé
                   </button>
                 </li>
               );

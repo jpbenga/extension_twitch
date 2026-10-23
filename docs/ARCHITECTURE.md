@@ -82,3 +82,12 @@ privées et expressions v2 bornées. SQLite passe en version 2 avec deux tables
 additives de bibliothèque/reçus ; les sessions restent inchangées hors définition
 préparée facultative et commande GM d’installation. Aucune création personnelle
 n’est publiée automatiquement. [Guide manuel](TEST-CREATOR.md).
+
+## Studio visuel 4B
+
+[La décision 4B](STAGE-4B.md) ajoute des formulaires sur le même GameDefinition,
+sans nouvel interpréteur ni nouvelle table. Les descriptions facultatives de
+rôles/actions/phases restent des métadonnées. Le test de brouillon accepte une
+révision attendue facultative, vérifiée avant création pour éviter une course avec
+une édition concurrente. Les deux joueurs fictifs utilisent les inscriptions et
+permissions normales, sans route de privilèges serveur. [Parcours humains](TEST-STUDIO-4B.md).

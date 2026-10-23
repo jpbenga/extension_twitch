@@ -203,11 +203,17 @@ test("guided choices execute through expressions and advanced edits survive a bl
       .getByRole("button", { name: /Créer un jeu avec un guide/ })
       .click();
     await page
-      .getByLabel("Titre du nouveau jeu", { exact: true })
-      .fill("Objectif violet");
+      .getByRole("button", { name: "Étape suivante", exact: true })
+      .click();
     await page
       .getByLabel("Multiplicateur des points", { exact: true })
       .fill("2");
+    await page
+      .getByRole("button", { name: "Étape suivante", exact: true })
+      .click();
+    await page
+      .getByLabel("Titre du nouveau jeu", { exact: true })
+      .fill("Objectif violet");
     await page
       .getByRole("button", { name: "Créer le brouillon guidé", exact: true })
       .click();

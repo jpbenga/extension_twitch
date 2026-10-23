@@ -440,4 +440,41 @@ describe("private creator workspaces over real HTTP and SQLite", () => {
       "a" + "🎮".repeat(15),
     );
   });
+  it("refuses preparing a different draft revision after a concurrent edit", async () => {
+    const game = await createDraft();
+    const revision = game.draft.revision;
+    await accepted({
+      type: "draft.save",
+      gameId: game.identity.id,
+      definition: game.draft.definition,
+      metadata: { ...game.draft.metadata, title: "Autre édition" },
+      assets: game.draft.assets,
+    });
+    const request = {
+      requestId: randomUUID(),
+      sessionToken: token(),
+      gameId: game.identity.id,
+      version: "draft",
+      draftRevision: revision,
+    };
+    const rejected = await post(
+      `${workspacePath()}/test-sessions`,
+      owner,
+      request,
+    );
+    expect(rejected.status).toBe(409);
+    const acceptedTest = await post(`${workspacePath()}/test-sessions`, owner, {
+      ...request,
+      draftRevision: revision + 1,
+    });
+    expect(acceptedTest.status).toBe(201);
+    const access = sessionAccessSchema.parse(await acceptedTest.json());
+    const response = await fetch(
+      `${origin}/sessions/${access.sessionId}/private`,
+      { headers: { Authorization: `Bearer ${request.sessionToken}` } },
+    );
+    expect(
+      gmSessionSchema.parse(await response.json()).preparedGame?.title,
+    ).toBe("Autre édition");
+  });
 });

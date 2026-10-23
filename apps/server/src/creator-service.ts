@@ -82,6 +82,11 @@ export class CreatorService {
         (g) => g.identity.id === input.gameId,
       )?.draft;
       if (!draft) throw new SessionError("GAME_NOT_FOUND", 404);
+      if (
+        input.draftRevision !== undefined &&
+        input.draftRevision !== draft.revision
+      )
+        throw new SessionError("VERSION_CONFLICT", 409);
       prepared = {
         definition: draft.definition,
         assets: draft.assets.flatMap((a) => (a.binding ? [a.binding] : [])),

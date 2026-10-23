@@ -165,6 +165,7 @@ export const creatorTestSchema = z.strictObject({
   sessionToken: accessTokenSchema,
   gameId: z.uuid(),
   version: z.union([version, z.literal("draft")]),
+  draftRevision: z.number().int().positive().optional(),
 });
 
 // Future public Store DTO: deliberately excludes definitions, bindings, workspace capabilities and sessions.

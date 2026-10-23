@@ -33,6 +33,7 @@ export function useCreator() {
     [notice, setNotice] = useState("");
   const [retryAvailable, setRetryAvailable] = useState(false);
   const [testLink, setTestLink] = useState("");
+  const latestView = useRef<StudioView | null>(null);
   const pending = useRef<CreatorCommand | null>(null),
     inFlight = useRef(false);
   async function load(a: Access) {
@@ -41,6 +42,7 @@ export function useCreator() {
       cache: "no-store",
     });
     const next = studioViewSchema.parse(await readResponse(response));
+    latestView.current = next;
     setView(next);
     return next;
   }
@@ -106,6 +108,7 @@ export function useCreator() {
       sessionStorage.setItem(accessKey, JSON.stringify(a));
       sessionStorage.removeItem(key);
       setAccess(a);
+      latestView.current = next;
       setView(next);
       setNotice(
         "Bibliothèque privée créée. Conservez votre lien de récupération.",
@@ -149,6 +152,7 @@ export function useCreator() {
           envelope,
         ),
       );
+      latestView.current = next;
       setView(next);
       pending.current = null;
       sessionStorage.removeItem(pendingKey);
@@ -207,6 +211,13 @@ export function useCreator() {
             sessionToken: randomToken(),
             gameId,
             version,
+            ...(version === "draft"
+              ? {
+                  draftRevision: latestView.current?.workspace.games.find(
+                    (g) => g.identity.id === gameId,
+                  )?.draft.revision,
+                }
+              : {}),
           };
       sessionStorage.setItem(key, JSON.stringify(input));
       const result = sessionAccessSchema.parse(

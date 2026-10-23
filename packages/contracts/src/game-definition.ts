@@ -78,6 +78,7 @@ const effect = z.discriminatedUnion("type", [
 export const actionDefinitionSchema = z.strictObject({
   id: identifierSchema,
   label,
+  description: z.string().max(240).optional(),
   roles: z.array(identifierSchema).min(1).max(8),
   phases: z.array(identifierSchema).min(1).max(8),
   parameters: z.array(field).max(4),
@@ -125,6 +126,7 @@ const rawDefinition = z.strictObject({
       z.strictObject({
         id: identifierSchema,
         label,
+        description: z.string().max(240).optional(),
         base: z.enum(["gm", "player", "spectator"]),
       }),
     )
@@ -137,7 +139,13 @@ const rawDefinition = z.strictObject({
     )
     .max(8),
   phases: z
-    .array(z.strictObject({ id: identifierSchema, label }))
+    .array(
+      z.strictObject({
+        id: identifierSchema,
+        label,
+        description: z.string().max(240).optional(),
+      }),
+    )
     .min(1)
     .max(8),
   initialPhase: identifierSchema,

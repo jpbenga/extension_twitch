@@ -2,7 +2,7 @@
 
 Moteur et studio de création de jeux interactifs pour les émissions Twitch : régie Game Master, overlays OBS, interfaces joueurs et, à terme, extension spectateur.
 
-**État : Studio Créateur, jalon 4A.** Bibliothèque privée sans compte, variantes avec filiation, brouillons et versions publiées immuables. Trois entrées utilisent le même moteur : personnaliser un exemple, guide initial de compteur collectif, Studio avancé technique. Les expressions v2 sont typées et bornées ; les jeux v1 et sessions précédentes restent utilisables. Aucun Store public, assistant complet ou paiement n’est intégré.
+**État : Studio Créateur visuel, jalon 4B.** Bibliothèque privée, variantes avec filiation, brouillons et versions publiées immuables. Trois parcours partagent le même moteur : personnaliser un jeu, suivre un guide (compteur collectif ou réponses privées), composer rôles, variables, actions, expressions, effets et phases dans le Studio visuel. Le JSON est secondaire. « Tester mon jeu » fige un instantané et fournit les accès GM, joueurs fictifs isolés, invitation réseau et plateau public. [Guide de test 4B](docs/TEST-STUDIO-4B.md).
 
 **Validation technique terminée — Validation humaine iPhone en attente.** Les tests Chromium sur formats mobiles ne valident pas Safari iOS sur appareil réel.
 
@@ -104,13 +104,15 @@ tests/
 scripts/
   dev-lan.mjs            Lancement Wi-Fi avec origine réseau appropriée
 docs/
-  PRODUCT.md             Cahier des charges et Studio hybride, version 0.3
+  PRODUCT.md             Cahier des charges et Studio hybride, version 0.4
   ARCHITECTURE.md         Décisions techniques et limites du socle
   STAGE-3.md              Plan A/B/C/D et hypothèses Undercover non validées
   TEST-IPHONE.md          Lancement et checklists de validation humaine
   CONFIGURABLE-ENGINE.md  Langage, projections, versions et migration
   ASSETS.md              Références BYOS et limites de sécurité
   STAGE-4A.md             Architecture de la bibliothèque et du Studio hybride
+  STAGE-4B.md             Studio visuel et réutilisation des contrats
+  TEST-STUDIO-4B.md       Parcours sans JSON et essais multijoueurs
   TEST-CREATOR.md         Checklists variantes, guide, publication et tests réels
   TEST-CONFIGURABLE.md    Exemples et laboratoire, validation manuelle
 AGENTS.md                Instructions de développement fournies
@@ -122,10 +124,10 @@ Le salon réel permet d’inscrire jusqu’à 32 joueurs (limite technique, pas 
 
 Un seul processus Node est supporté pour la diffusion. Les reconnexions récupèrent un instantané récent, sans rejouer des commandes. Le langage v1 fournit valeurs bornées, rôles, comparaisons d’égalité, affectation/incrément/révélation et transitions manuelles. V2 ajoute arithmétique entière, comparaisons/logique et gardes bornées, sans code arbitraire. Chaque partie conserve sa définition ; toute version inconnue est refusée. L’effectif est figé à l’installation jusqu’à la réinitialisation. Les assets restent des références validées et des remplacements visuels : aucun fichier n’est récupéré ni rendu.
 
-Pas encore de distribution aléatoire, votes, budgets transactionnels, minuteurs, éliminations ou victoire des jeux officiels. Le guide initial produit un compteur collectif ; le Studio avancé utilise encore un document JSON et des champs simples. Pas de Store public, assistant complet, composition graphique des scènes, comptes, connecteur cloud, import de médias, PWA installable ou extension Twitch officielle. Les contrats Bits ne vérifient et n’exécutent aucune transaction. Les anciennes maquettes restent fictives.
+Pas encore de distribution aléatoire, votes, budgets transactionnels, minuteurs, éliminations ou victoire des jeux officiels. Le Studio visuel édite les primitives existantes et conserve un document JSON secondaire pour les cas techniques. Le guide propose deux modèles exécutables. Pas de Store public, assistant universel, composition graphique des scènes, comptes, connecteur cloud, import de médias, PWA installable ou extension Twitch officielle. Les contrats Bits ne vérifient et n’exécutent aucune transaction. Les anciennes maquettes restent fictives.
 
-Pour essayer le Studio : lancer `npm run dev:lan`, ouvrir `/creator` à l’adresse affichée et suivre [le guide du créateur](docs/TEST-CREATOR.md). Conserver le lien privé de bibliothèque. « Publier » fige une version privée ; cela ne la rend pas publique sur Internet. Les capacités de bibliothèque sont distinctes de celles des sessions. La migration SQLite v1→v2 est additive ; les sauvegardes restent privées.
+Pour essayer le Studio : lancer `npm run dev:lan`, ouvrir `/creator` à l’adresse affichée et suivre [le guide du Studio visuel](docs/TEST-STUDIO-4B.md). Conserver le lien privé de bibliothèque. « Publier » fige une version privée ; cela ne la rend pas publique sur Internet. Les capacités de bibliothèque sont distinctes de celles des sessions. La migration SQLite v1→v2 est additive ; les sauvegardes restent privées.
 
 Pour les exemples du moteur : lancer `npm run dev:lan`, ouvrir `/lab` à l’adresse affichée, créer une démonstration, puis ouvrir les liens GM, joueurs et plateau. Voir [les scénarios reproductibles](docs/TEST-CONFIGURABLE.md). En production `/lab` retourne 404 ; les panneaux génériques de session restent utilisables.
 
-Avant toute évolution, lire [le produit](docs/PRODUCT.md), [les consignes](AGENTS.md), [l’architecture configurable](docs/CONFIGURABLE-ENGINE.md), [les assets](docs/ASSETS.md) et [le plan de l’étape 3](docs/STAGE-3.md). Prochaine priorité recommandée : validation ergonomique, puis primitives de votes/distribution et règles Undercover à valider. Les retours ergonomiques, l’extension du guide et l’éditeur visuel restent à planifier ; cette livraison ne démarre pas Undercover complet ni le Store public.
+Avant toute évolution, lire [le produit](docs/PRODUCT.md), [les consignes](AGENTS.md), [l’architecture configurable](docs/CONFIGURABLE-ENGINE.md), [les assets](docs/ASSETS.md) et [le plan de l’étape 3](docs/STAGE-3.md). Prochaines priorités recommandées : validation humaine sur iPhone et corrections ergonomiques, puis choix explicite entre Overlay Studio 4C et primitives de vote/distribution. Cette livraison ne commence pas 4C, Undercover complet ou le Store public.

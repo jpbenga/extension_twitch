@@ -29,8 +29,8 @@ export function CreatorParameters({
       </div>
       <p className="lobby-hint">
         Les libellés sont libres : ajustez-les lorsque vous changez une borne.
-        Les variables, rôles, conditions, effets, phases et scènes sont
-        éditables dans le document avancé.
+        Retrouvez les variables, rôles, conditions, effets et phases dans les
+        sections du Studio. Les scènes graphiques restent prévues pour 4C.
       </p>
     </details>
   );

@@ -1,5 +1,8 @@
 # Validation humaine — Studio Créateur 4A
 
+> Guide historique 4A. Le Studio dispose maintenant d’éditeurs visuels et d’un
+> assistant en étapes : suivre [le guide 4B](TEST-STUDIO-4B.md) pour les parcours actuels.
+
 **Validation humaine iPhone en attente.** Chromium aux formats téléphone, tablette
 et ordinateur ne constitue pas un test Safari iOS ni un essai OBS physique.
 

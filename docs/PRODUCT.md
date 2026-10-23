@@ -1,6 +1,6 @@
 # Extension Twitch — Cahier des charges produit
 
-Version : 0.3
+Version : 0.4
 
 Statut : Vision produit et cadrage initial
 
@@ -426,3 +426,16 @@ privées sont distincts ; partager un jeu ne rend pas tous ses assets partageabl
 Le jalon 4A implémente les fondations et un parcours humain minimal ; il ne construit
 pas le Store public, l’assistant complet ou Twitch. Voir docs/STAGE-4A.md.
 Validation humaine iPhone en attente.
+
+
+17. Studio Créateur visuel hybride — périmètre 4B
+
+Les trois parcours produisent le même format : variante indépendante, guide
+progressif, Studio avancé visuel. L’édition principale utilise des formulaires de
+rôles, variables typées, actions, expressions, effets et phases. Le JSON reste
+secondaire et les configurations avancées ne sont jamais supprimées par le guide.
+Les essais figent une définition dans une session réelle isolée, avec accès GM,
+joueurs et plateau public. La publication demeure privée et immuable. Aucun Store
+public, nouveau moteur, paiement ou stockage de médias. L’Overlay Studio graphique
+appartient à 4C et n’est pas commencé automatiquement. Voir docs/STAGE-4B.md et
+docs/TEST-STUDIO-4B.md. Validation humaine iPhone en attente.
