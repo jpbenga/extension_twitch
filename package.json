@@ -27,7 +27,8 @@
     "test:e2e": "playwright test",
     "check": "npm run format:check && npm run test && npm run typecheck && npm run build",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "dev:lan": "node scripts/dev-lan.mjs"
   },
   "devDependencies": {
     "@playwright/test": "1.64.1",

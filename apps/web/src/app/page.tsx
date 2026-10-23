@@ -1,5 +1,5 @@
-import { Studio } from "../components/studio";
+import { SessionEntry } from "../components/session-entry";
 
 export default function Home() {
-  return <Studio />;
+  return <SessionEntry />;
 }

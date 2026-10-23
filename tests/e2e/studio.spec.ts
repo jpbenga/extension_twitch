@@ -5,7 +5,7 @@ test("the same studio works on each viewport and connects to the Node server", a
 }) => {
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
-  await page.goto("/");
+  await page.goto("/demo");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "À vous de jouer.",
   );
@@ -94,7 +94,7 @@ test("server disconnection is reported and reconnection recovers", async ({
   page,
 }) => {
   await page.route("**/api/server/events", (route) => route.abort());
-  await page.goto("/");
+  await page.goto("/demo");
   await expect(page.getByRole("status")).toHaveText("Reconnexion au serveur…");
   await page.unroute("**/api/server/events");
   await expect(page.getByRole("status")).toHaveText("Serveur disponible", {

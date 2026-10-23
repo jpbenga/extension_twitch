@@ -1,4 +1,7 @@
 import { defineConfig } from "@playwright/test";
+import { join } from "node:path";
+import { tmpdir } from "node:os";
+import { randomUUID } from "node:crypto";
 
 export default defineConfig({
   testDir: "./tests/e2e",
@@ -33,5 +36,10 @@ export default defineConfig({
     url: "http://127.0.0.1:3000",
     timeout: 60_000,
     reuseExistingServer: false,
+    env: {
+      DATABASE_PATH: join(tmpdir(), `xt-e2e-${randomUUID()}.sqlite`),
+      PUBLIC_ORIGIN: "http://127.0.0.1:3000",
+      WEB_HOST: "127.0.0.1",
+    },
   },
 });

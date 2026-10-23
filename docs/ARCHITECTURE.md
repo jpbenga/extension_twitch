@@ -1,6 +1,6 @@
 # Architecture — socle technique
 
-Statut : choix techniques validés par le porteur du projet. Implémentation limitée aux étapes 1 et 2 du plan initial.
+Statut : choix techniques validés par le porteur du projet. Étape 3, jalon A implémenté ; B/C/D restent soumis à validation humaine. Voir [le découpage et les décisions ouvertes](STAGE-3.md).
 
 ## Choix validés
 
@@ -19,43 +19,49 @@ web ────────────────> contracts + descripteurs p
   │ HTTP / SSE (via un relais Next.js de même origine)
   ▼
 server ─────────────> contracts
-  │ à connecter en étape 3
+  │ commandes identifiées et validées
   ▼
-engine <──────────── modules de règles indépendants (à implémenter)
-  │ contrat SessionRepository
+engine (salon actif ; modules de règles à implémenter)
+  │ décisions sans accès aux interfaces ni à la base
   ▼
-adaptateur SQLite (à implémenter)
+SqliteStore : transaction état + événement + reçu de commande
 ```
 
-`contracts` contient Zod pour valider les données aux frontières. Le transport utilise les primitives HTTP Node.js : pas de framework serveur supplémentaire pour deux routes de sonde. SSE prépare la diffusion serveur → interfaces ; les futures commandes emprunteront HTTP. Le protocole de synchronisation des sessions reste à implémenter. SSE ne remplace pas le futur contrôle d’accès.
+`contracts` contient Zod pour valider les données aux frontières. Le transport conserve les primitives HTTP Node.js sans framework supplémentaire. Les commandes passent par HTTP et SSE diffuse des instantanés de session projetés selon l’accès. Chaque connexion reçoit immédiatement l’état récent ; après une coupure, le client se reconnecte sans rejouer de mutations. Le lecteur SSE utilise `fetch` pour envoyer le jeton en en-tête, sans secret dans une URL de requête. Les tailles de message, corps de requête, fréquence des écritures et connexions par session sont limitées.
+
+SQLite utilise le module `node:sqlite` de Node.js 24, WAL, des transactions `BEGIN IMMEDIATE` et une migration versionnée. Le serveur lit et vérifie la version dans la même transaction que l’écriture de l’état, de l’événement et du reçu d’idempotence. Une erreur annule l’ensemble. Les identifiants répétés avec le même contenu ne reproduisent pas leur effet ; un contenu différent sous le même identifiant est refusé. Les clients sont informés après validation de l’écriture. Le code SQL est isolé dans `apps/server/src/sqlite-store.ts` pour permettre un autre adaptateur ultérieurement. Un seul processus Node diffuse les événements à ce stade.
+
+Les accès sans compte sont des capacités individuelles : le navigateur génère 32 octets cryptographiquement aléatoires pour une inscription, conserve ce secret dans son onglet et le transmet en en-tête d’autorisation. Le serveur attribue le rôle et l’identifiant selon l’opération autorisée et stocke uniquement un condensat SHA-256 du jeton. Le nom affiché est déclaratif et ne prouve pas l’identité civile. Les reprises de création/inscription réutilisent le même secret et identifiant pour éviter les doubles inscriptions. Aucun rôle de cookie ou de corps JSON n’est accepté. Un lien privé de récupération importe son fragment dans `sessionStorage` puis efface ce fragment de l’adresse ; un changement de fragment dans une page déjà ouverte est aussi pris en charge. Les accès sont indexés par session, rôle et participant afin d’isoler plusieurs identités du même navigateur.
+
+Les invitations et liens publics sont distincts des accès privés. Les cookies d’un éventuel proxy d’accès sont envoyés sur la même origine, mais le moteur ne les utilise pas pour identifier les rôles. Les mutations avec une origine navigateur différente de `PUBLIC_ORIGIN` sont rejetées. Les réponses privées ne sont pas mises en cache, les données d’accès ne sont pas journalisées, les liens ne transmettent pas de référent et les secrets ne sont jamais renvoyés dans les vues publiques. Une réinitialisation renouvelle l’invitation et révoque les accès joueurs tout en conservant l’accès GM et le lien public. Le journal est conservé.
 
 Les packages de jeu n’exposent aujourd’hui que leurs descripteurs. Lorsque des règles et états privés y seront ajoutés, conserver une entrée publique séparée pour les métadonnées ; ne pas importer de code contenant des secrets dans les composants clients. `engine` est destiné au serveur uniquement et n’est pas une dépendance de l’application web.
 
 Le compilateur produit les packages et le serveur dans `dist`. Next.js compile ensuite l’application. `npm run dev` reconstruit les packages avant le lancement et surveille leurs sources. Une modification des contrats peut nécessiter une reconnexion ou un redémarrage du serveur pendant le développement.
 
-## Contrats préparés, sans moteur exécuté
+## Moteur de salon actif et contrats des futurs jeux
 
 - `CommandEnvelope` : identifiant de commande, session, version attendue et jeu. L’enveloppe n’attribue aucun rôle ; l’identité viendra de l’authentification serveur.
 - `GameModule` : configuration, décision, réduction des événements et projections. Aucun module concret ne l’implémente tant que les règles ne sont pas définies.
-- `SessionRepository` : chargement et validation atomique d’une écriture avec détection des conflits et doublons. Aucun fichier SQLite n’est créé en étapes 1 et 2.
-- DTO de démonstration public strict : participants fictifs uniquement. Le serveur devra construire chaque projection autorisée ; l’interface ne filtrera pas un état privé reçu par erreur.
+- `SessionRepository` : contrat générique préparatoire pour les futurs états de jeu. Le salon A dispose déjà de son adaptateur transactionnel `SqliteStore` et de son coordinateur `SessionService` ; le contrat générique ne doit pas être présenté comme une implémentation de règles de jeu.
+- DTO de démonstration public strict pour les maquettes historiques ; schémas distincts `publicSessionSchema`, `playerSessionSchema`, `gmSessionSchema` pour les sessions réelles. Le serveur construit chaque projection explicitement ; l’interface ne filtre pas un état privé reçu par erreur.
 - `SpectatorRequest` : simulation et interactions gratuites. Ce contrat ne reçoit aucune preuve d’achat.
 - `InteractionPolicy` : activation GM, effet cosmétique ou gameplay, limites, délai, approbation et référence produit Twitch pour un futur tarif Bits. Aucun catalogue ni prix n’est validé.
 - `VerifiedBitsReceipt` : frontière typée serveur, sans constructeur ni adaptateur actif. Le typage ne constitue pas une preuve cryptographique. La vérification réelle devra authentifier le reçu et vérifier canal, produit, validité et unicité.
 
-L’étape 3 devra traiter les commandes séquentiellement par session, sauvegarder état et événements atomiquement et diffuser uniquement après validation. Une transaction externe devra être enregistrée avec son effet dans la même transaction de base de données. Ces garanties ne sont pas annoncées comme opérationnelles dans ce socle.
+Les commandes de salon sont sérialisées dans le processus et protégées par leur transaction SQLite et leur version attendue. La présence est calculée à partir de toutes les connexions actives d’un joueur ; elle n’est pas restaurée artificiellement depuis le disque. La fermeture du serveur nettoie les abonnements avant fermeture de la base. Les futurs jeux devront réutiliser ces garanties. Une transaction Twitch devra être enregistrée avec son effet dans la même transaction de base ; aucune transaction Twitch n’est implémentée aujourd’hui.
 
 ## Démonstration et identité visuelle
 
-Une seule régie pour les trois tailles d’écran : navigation latérale sur ordinateur et tablette, en-tête compact sur téléphone. Palette sombre, accents violet, ambre et menthe, motifs de plateau et illustrations SVG originales. Aucune image protégée, police distante ou ressource payante.
+Une seule régie pour les trois tailles d’écran : navigation compacte entre session, joueurs et plateau, commandes tactiles et barre d’action GM inférieure. La maquette historique conserve sa navigation latérale. Palette sombre, accents violet, ambre et menthe, motifs de plateau et illustrations SVG originales. Aucune image protégée, police distante ou ressource payante.
 
-Les interactions actuelles sont limitées au choix local d’un aperçu. Les fonctions non disponibles sont indiquées comme futures ; aucun démarrage de partie fictivement réussi. L’overlay ne contient pas de contrôles interactifs ni d’informations secrètes. Il conserve le ratio 16:9 et dispose d’une variante transparente. Les participants affichés sont des fixtures publiques, sans rôles.
+Les anciennes maquettes sont conservées sous `/demo`, `/player` et `/overlay`. Leur sélection reste locale et leurs participants fictifs. Le nouvel accueil crée des sessions réelles ; la régie, le compagnon et le plateau utilisent les API et flux autorisés. Le salon public n’a aucun contrôle interactif. Les démarrages de partie et règles absentes ne sont pas représentés comme fonctionnels. Le plateau réel est adapté à OBS et à une lecture mobile ; la variante transparente reste pour l’instant celle de l’ancien overlay fictif.
 
 La régie affiche l’état réel du transport SSE et sa reconnexion automatique. `Cache-Control: no-transform` évite que la compression d’un relais retarde les événements. Un futur déploiement devra aussi désactiver la mise en tampon SSE et adapter les délais de connexion.
 
 ## Hors périmètre et décisions ouvertes
 
-L’étape 3 n’est pas commencée : aucune session autoritaire, commande métier, reprise de partie ou persistance SQLite effective. La PWA, les comptes, l’import de contenus et la véritable extension Twitch sont ultérieurs.
+Le jalon A gère les sessions et leur persistance, pas une partie jouable. La distribution des rôles, les phases de jeu, votes, scores, budgets et victoires restent à implémenter après validation des règles. Le laboratoire connecté et les privilèges de simulation sont absents. La PWA, les comptes, l’import de contenus et la véritable extension Twitch sont ultérieurs. Les accès ne disposent pas encore d’expiration automatique ou de récupération de compte ; conserver les liens privés et réserver cette livraison aux tests locaux ou à un hébergement HTTPS protégé.
 
 Avant les règles : définir les phases, égalités, victoires, modalités de vote, différences entre Undercover et espion, clôture et annulation des enchères. La règle déjà validée demeure : une enchère proposée ne débite rien, l’attribution confirmée seule déclenche le débit.
 

@@ -1,8 +1,13 @@
 import { createApp } from "./app.js";
 import { readConfiguration } from "./config.js";
+import { SqliteStore } from "./sqlite-store.js";
+import { SessionService } from "./session-service.js";
 
 const configuration = readConfiguration(process.env);
-const server = createApp();
+const store = new SqliteStore(configuration.databasePath);
+const server = createApp(new SessionService(store, configuration.publicOrigin));
+server.requestTimeout = 30_000;
+server.headersTimeout = 15_000;
 
 server.on("error", (error: NodeJS.ErrnoException) => {
   console.error(
@@ -13,12 +18,15 @@ server.on("error", (error: NodeJS.ErrnoException) => {
 
 server.listen(configuration.port, configuration.host, () => {
   console.log(
-    `Foundation server listening on ${configuration.host}:${configuration.port}`,
+    `Session server listening on ${configuration.host}:${configuration.port}`,
   );
 });
 
 function shutdown() {
-  server.close(() => process.exit(0));
+  server.close(() => {
+    store.close();
+    process.exit(0);
+  });
   // Close SSE connections too; an idle stream must not prevent clean shutdown.
   setTimeout(() => server.closeAllConnections(), 100).unref();
 }

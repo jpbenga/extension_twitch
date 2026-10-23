@@ -35,7 +35,7 @@ export type PublicDemo = z.infer<typeof publicDemoSchema>;
 export const healthSchema = z.strictObject({
   status: z.literal("ok"),
   service: z.literal("extension-twitch-server"),
-  mode: z.literal("foundation"),
+  mode: z.enum(["foundation", "sessions"]),
 });
 
 export const transportEventSchema = z.strictObject({

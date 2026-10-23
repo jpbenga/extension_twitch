@@ -17,15 +17,36 @@ if (
 
 const config: NextConfig = {
   poweredByHeader: false,
+  // Invitation URLs are capabilities too; keep them out of development logs.
+  logging: {
+    incomingRequests: false,
+    browserToTerminal: false,
+    serverFunctions: false,
+  },
   // Keep the user-authored repository instructions as the single source.
   agentRules: false,
   allowedDevOrigins: [
     "127.0.0.1",
+    ...(process.env.PUBLIC_ORIGIN
+      ? [new URL(process.env.PUBLIC_ORIGIN).hostname]
+      : []),
     ...(process.env.DEV_ALLOWED_ORIGINS ?? "")
       .split(",")
       .map((hostname) => hostname.trim())
       .filter(Boolean),
   ],
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "Referrer-Policy", value: "no-referrer" },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "X-Frame-Options", value: "DENY" },
+        ],
+      },
+    ];
+  },
   // Keep API transport same-origin; no browser token or permissive CORS needed.
   async rewrites() {
     return [

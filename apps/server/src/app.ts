@@ -3,8 +3,11 @@ import {
   healthSchema,
   transportEventSchema,
 } from "@extension-twitch/contracts";
+import { SessionApi } from "./session-api.js";
+import type { SessionService } from "./session-service.js";
 
-export function createApp() {
+export function createApp(service?: SessionService) {
+  const sessions = service ? new SessionApi(service) : null;
   return createServer((request, response) => {
     response.setHeader("Cache-Control", "no-store");
     response.setHeader("X-Content-Type-Options", "nosniff");
@@ -39,15 +42,18 @@ export function createApp() {
           healthSchema.parse({
             status: "ok",
             service: "extension-twitch-server",
-            mode: "foundation",
+            mode: service ? "sessions" : "foundation",
           }),
         ),
       );
       return;
     }
 
-    // No command, payment or private data endpoint is exposed before step 3.
+    if (sessions) {
+      void sessions.handle(request, response);
+      return;
+    }
     response.statusCode = 404;
     response.end(JSON.stringify({ error: "NOT_FOUND" }));
-  });
+  }).on("close", () => service?.shutdown());
 }

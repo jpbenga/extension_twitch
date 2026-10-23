@@ -77,10 +77,20 @@ describe("foundation HTTP and realtime transport", () => {
 
 describe("server configuration validation", () => {
   it("uses local defaults and supports explicit cloud overrides", () => {
-    expect(readConfiguration({})).toEqual({ host: "127.0.0.1", port: 4000 });
+    expect(readConfiguration({})).toEqual({
+      host: "127.0.0.1",
+      port: 4000,
+      databasePath: expect.stringMatching(/\.data\/sessions\.sqlite$/),
+      publicOrigin: "http://127.0.0.1:3000",
+    });
     expect(
       readConfiguration({ SERVER_HOST: "0.0.0.0", SERVER_PORT: "4010" }),
-    ).toEqual({ host: "0.0.0.0", port: 4010 });
+    ).toEqual({
+      host: "0.0.0.0",
+      port: 4010,
+      databasePath: expect.stringMatching(/\.data\/sessions\.sqlite$/),
+      publicOrigin: "http://127.0.0.1:3000",
+    });
   });
   it.each(["0", "65536", "abc", "4000.5"])(
     "rejects invalid port %s",

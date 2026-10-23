@@ -1,11 +1,19 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import "./sessions.css";
 
 export const metadata: Metadata = {
-  title: "Extension Twitch — Studio de démonstration",
+  title: "Extension Twitch Studio — Sessions",
   description:
-    "Votre régie de jeux interactifs. Démonstration technique sans connexion Twitch.",
+    "Votre plateau synchronisé et votre régie mobile, sans connexion Twitch.",
   robots: { index: false, follow: false },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#111117",
 };
 
 export default function RootLayout({

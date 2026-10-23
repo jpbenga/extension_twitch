@@ -1,6 +1,8 @@
 import type { GameId } from "@extension-twitch/contracts";
 
-// Interfaces only. Command execution, projections and persistence are step 3.
+export * from "./lobby.js";
+
+// Future game contracts; the implemented lobby engine is exported from lobby.js.
 export interface GameModule<
   Configuration,
   State,

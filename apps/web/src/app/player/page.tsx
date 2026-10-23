@@ -21,7 +21,7 @@ export default function PlayerPreview() {
           Aucune information secrète distribuée. Les invitations et les actions
           de jeu seront ajoutées après validation du moteur.
         </p>
-        <Link className="primary-button" href="/">
+        <Link className="primary-button" href="/demo">
           Retour à la régie
           <Icon name="arrow" />
         </Link>
