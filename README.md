@@ -4,7 +4,9 @@ Moteur et studio de création de jeux interactifs pour les émissions Twitch : r
 
 **État : jalon 5A — Undercover jouable dans une variante de démonstration.** Distribution privée, discussions, votes uniques, égalités, éliminations, conditions de victoire et rejeu utilisent le moteur autoritaire commun. Le Laboratoire des jeux (`/creator/play`) prépare quatre identités distinctes ou accueille de vrais invités. Enchères et Qui est l’espion restent à implémenter ; le Studio 4B.1 est conservé. [Tester sur iPhone](docs/TEST-OFFICIAL-GAMES.md) · [Règles et hypothèses](docs/OFFICIAL-GAMES-RULES.md) · [Architecture et bilan 5A](docs/STAGE-5.md).
 
-**Premier test humain iPhone effectué — refonte ergonomique nécessaire.** Ce retour a motivé 4B.1 ; la refonte reste à apprécier sur l’iPhone de l’utilisateur. Les tests Chromium ne valident ni Safari iOS physique, ni OBS, ni l’ensemble des règles des jeux officiels.
+**Broadcast Neon** harmonise désormais les couleurs, les contrôles et les confirmations personnalisées. La régie mobile sépare les sections pendant une partie. [Design system](docs/DESIGN-SYSTEM.md) · [Tester la nouvelle interface sur iPhone](docs/TEST-BROADCAST-NEON.md).
+
+**Validation humaine : premières observations iPhone reçues sur le Studio et la régie.** Ces retours ont motivé les refontes. Cette version Broadcast Neon, les parcours complets sur Safari iOS et OBS réel restent à apprécier sur les appareils de l’utilisateur. Les tests Chromium ne valident pas le plaisir ni le rythme du gameplay.
 
 ## Démarrer
 
@@ -46,6 +48,7 @@ Ouvrir l’adresse privée affichée par cette commande. Elle configure les invi
 | `/creator/new`                                 | Guide de création ou démarrage avancé                                                                         |
 | `/creator/games/<id>`                          | Éditeur dédié, réglages simples et Studio avancé                                                              |
 | `/creator/lab/<id>`                            | Essai privé réel, vues GM / joueurs démo / spectateur                                                         |
+| `/design-system`                               | Catalogue visuel des composants, uniquement en développement                                                  |
 | `/lab`                                         | Laboratoire réel, exclusivement en développement (`npm run dev` ou `dev:lan`)                                 |
 | Port 4000, `/health`                           | Contrôle de disponibilité du serveur                                                                          |
 | Port 4000, `/events`                           | Sonde SSE de transport, sans état de jeu                                                                      |
@@ -84,6 +87,7 @@ Dans cet environnement cloud, Chromium est déjà installé :
 PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:e2e
 PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:lab
 PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:games
+PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:design
 ```
 
 `test:lab` démarre le développement sur les ports 3100/4100, avec sa propre base temporaire, pour vérifier la page absente en production. La commande `test:e2e` lance successivement chaque format avec deux services neufs et une base temporaire distincte de vos sessions. Cette isolation évite que les séries automatisées cumulent leurs requêtes dans la même fenêtre anti-abus ; les protections du produit restent actives. Les captures et traces restent dans `test-results/e2e/<format>`. Les parcours utilisent un GM, plusieurs identités et un spectateur sur des formats téléphone, tablette et ordinateur, ainsi que les anciennes maquettes. Ils ne remplacent pas un test Safari iOS sur appareil réel. `test:games` exécute les parties Undercover et variantes dans des processus séparés pour conserver les protections anti-abus, avec captures dans `test-results/games/<format>`. Pour lancer manuellement la version compilée : `npm run build`, puis `npm start`.
@@ -111,7 +115,7 @@ tests/
 scripts/
   dev-lan.mjs            Lancement Wi-Fi avec origine réseau appropriée
 docs/
-  PRODUCT.md             Cahier des charges et Studio hybride, version 0.6
+  PRODUCT.md             Cahier des charges, Studio hybride et Broadcast Neon, version 0.7
   ARCHITECTURE.md         Décisions techniques et limites du socle
   STAGE-3.md              Plan A/B/C/D et hypothèses Undercover non validées
   TEST-IPHONE.md          Lancement et checklists de validation humaine

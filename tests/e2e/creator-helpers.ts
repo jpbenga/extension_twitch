@@ -1,3 +1,4 @@
+import { acceptConfirmation } from "./dialog-helpers.js";
 import { expect, type Page } from "@playwright/test";
 import type { GameDefinition } from "@extension-twitch/contracts/game-definition";
 export async function bootstrap(page: Page) {
@@ -142,10 +143,10 @@ export async function definition(page: Page) {
 export async function publish(page: Page) {
   await section(page, "Versions");
   await page.getByLabel(/Je dispose des droits/).check();
-  page.once("dialog", (d) => d.accept());
   await page
     .getByRole("button", { name: "Enregistrer une version", exact: true })
     .click();
+  await acceptConfirmation(page);
   await expect(
     page.getByRole("heading", { name: /· version 1.0.0/ }),
   ).toBeVisible();

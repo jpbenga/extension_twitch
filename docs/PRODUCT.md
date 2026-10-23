@@ -1,6 +1,6 @@
 # Extension Twitch — Cahier des charges produit
 
-Version : 0.6
+Version : 0.7
 
 Statut : Vision produit et cadrage initial
 
@@ -477,3 +477,20 @@ Leur prochaine implémentation réutilisera les primitives adaptées, sans copie
 Undercover ni créer des moteurs indépendants. 4C et le Store sont reportés.
 Les tests moteur, navigateur et la validation humaine iPhone/OBS sont distincts.
 Le plaisir de jeu, le rythme, les variantes et l’ergonomie restent à apprécier.
+
+
+20. Direction artistique validée — Broadcast Neon équilibré
+
+Un design system commun à l’accueil, au Studio, à la régie, aux joueurs, au
+laboratoire et au plateau. Violet pour la création, menthe pour la participation
+et la réussite, ambre pour l’attention/enchères, corail pour votes et destruction
+avec des libellés distincts, bleu pour informations publiques et plateau. Surfaces
+sombres sobres, contrastes accessibles, focus visible, cibles tactiles confortables
+et respect du mouvement réduit. Les confirmations applicatives sont personnalisées,
+expliquent leurs conséquences et empêchent les doubles soumissions. Les alertes
+de sécurité et de sortie non enregistrée du navigateur restent sous son contrôle.
+La régie en portrait donne priorité au jeu, à sa phase et aux commandes, avec
+safe areas et détails secondaires repliables. Les couleurs ne remplacent pas
+permissions, projections ou règles. Aucun changement de gameplay, Store ou 4C.
+Voir docs/DESIGN-SYSTEM.md et docs/TEST-BROADCAST-NEON.md. Les observations iPhone
+antérieures motivent cette livraison ; la refonte reste à valider sur appareil réel.

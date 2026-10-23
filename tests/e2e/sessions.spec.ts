@@ -1,3 +1,4 @@
+import { acceptConfirmation } from "./dialog-helpers.js";
 import { expect, test, type BrowserContext, type Page } from "@playwright/test";
 
 async function create(page: Page) {
@@ -198,10 +199,10 @@ test("a confirmed reset revokes player access and updates the existing public bo
     const observer = await context.newPage();
     await observer.goto(publicUrl);
     await expect(observer.locator(".real-player")).toHaveCount(1);
-    page.once("dialog", (dialog) => dialog.accept());
     await page
       .getByRole("button", { name: "Réinitialiser le salon", exact: true })
       .click();
+    await acceptConfirmation(page);
     await expect(page.locator(".lobby-players li")).toHaveCount(0);
     await expect(observer.locator(".real-player")).toHaveCount(0);
     await expect(player.locator(".lobby-error[role=alert]")).toContainText(

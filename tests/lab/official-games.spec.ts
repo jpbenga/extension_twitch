@@ -1,3 +1,4 @@
+import { acceptConfirmation } from "../e2e/dialog-helpers.js";
 import { test, expect } from "@playwright/test";
 import { role } from "../e2e/creator-helpers.js";
 test("Undercover's real mobile lab has no development, hydration or browser errors", async ({
@@ -29,10 +30,10 @@ test("Undercover's real mobile lab has no development, hydration or browser erro
     .click();
   await role(page, "Joueur 1");
   await page.getByRole("radio").first().check();
-  page.once("dialog", (d) => d.accept());
   await page
     .getByRole("button", { name: "Confirmer mon vote", exact: true })
     .click();
+  await acceptConfirmation(page);
   await expect(
     page.getByRole("status").filter({ hasText: /Votre vote pour/ }),
   ).toBeVisible();

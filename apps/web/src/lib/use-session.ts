@@ -1,4 +1,5 @@
 "use client";
+import { useToast } from "../components/ui/feedback";
 
 import { useEffect, useRef, useState } from "react";
 import {
@@ -36,6 +37,7 @@ function pause(ms: number, signal: AbortSignal) {
 }
 
 export function useSession(id: string, audience: SessionAudience) {
+  const notify = useToast();
   const key = accessKey(id, audience);
   const [token, setToken] = useState<string | null | undefined>(undefined);
   const [accessRevision, setAccessRevision] = useState(0);
@@ -189,10 +191,10 @@ export function useSession(id: string, audience: SessionAudience) {
 
   async function send(action?: LobbyAction) {
     if (!view || !token || inFlight.current || connection !== "connected")
-      return;
+      return false;
     if (pending.current && action) {
       setError("Confirmez d’abord la commande en attente avec Réessayer.");
-      return;
+      return false;
     }
     const request =
       pending.current ??
@@ -203,7 +205,7 @@ export function useSession(id: string, audience: SessionAudience) {
             command: action,
           }
         : null);
-    if (!request) return;
+    if (!request) return false;
     const submittedAt = performance.now();
     inFlight.current = true;
     setBusy(true);
@@ -217,6 +219,8 @@ export function useSession(id: string, audience: SessionAudience) {
       sessionStorage.removeItem(`${key}:pending`);
       setRetryAvailable(false);
       setNotice("Commande enregistrée.");
+      notify("Action enregistrée.");
+      return true;
     } catch (failure) {
       const definite =
         failure instanceof RequestFailure && failure.status < 500;
@@ -230,6 +234,7 @@ export function useSession(id: string, audience: SessionAudience) {
           ? failure.message
           : "Confirmation indisponible. Réessayez la même commande pour éviter une double exécution.",
       );
+      return false;
     } finally {
       // Keep a rapid second mobile tap from reversing an already acknowledged action.
       await new Promise<void>((resolve) =>

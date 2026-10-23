@@ -1,3 +1,4 @@
+import { acceptConfirmation } from "./dialog-helpers.js";
 import { test, expect } from "@playwright/test";
 import {
   customize,
@@ -133,10 +134,10 @@ test("guided choices execute through expressions and advanced edits survive a bl
   await expect(
     page.locator("#game .game-values").getByText("4", { exact: true }),
   ).toBeVisible();
-  page.once("dialog", (d) => d.accept());
   await page
     .getByRole("button", { name: "Terminer la collecte", exact: true })
     .click();
+  await acceptConfirmation(page);
   await role(page, "Joueur 1");
   await expect(page.locator(".game-phase")).toContainText("Terminé");
   await page
@@ -192,10 +193,10 @@ test("concurrent authors cannot silently overwrite drafts and private recovery d
   await expect(
     page.getByRole("button", { name: "Enregistrer", exact: true }),
   ).toBeDisabled();
-  page.once("dialog", (d) => d.accept());
   await page
     .getByRole("button", { name: "Charger la copie enregistrée", exact: true })
     .click();
+  await acceptConfirmation(page);
   await section(page, "Outils avancés");
   await page.getByText("Copie de secours conservée", { exact: true }).click();
   await expect(

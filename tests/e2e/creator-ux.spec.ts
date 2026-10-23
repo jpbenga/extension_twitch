@@ -1,3 +1,4 @@
+import { acceptConfirmation } from "./dialog-helpers.js";
 import { test, expect } from "@playwright/test";
 import {
   customize,
@@ -82,6 +83,7 @@ test("simple personalization, repeat contributions, reload and restart use the a
   await page
     .getByRole("button", { name: "Recommencer le test", exact: true })
     .click();
+  await acceptConfirmation(page);
   await role(page, "Spectateur");
   await expect(
     page.locator(".game-values").getByText("0", { exact: true }),
@@ -259,6 +261,7 @@ test("restarting after a lost opening receipt never resets the game a second tim
   await page
     .getByRole("button", { name: "Recommencer le test", exact: true })
     .click();
+  await acceptConfirmation(page, false);
   await expect(
     page.getByRole("alert").filter({ hasText: /connexion|réseau/i }),
   ).toBeVisible();
@@ -281,6 +284,7 @@ test("restarting after a lost opening receipt never resets the game a second tim
   await page
     .getByRole("button", { name: "Recommencer le test", exact: true })
     .click();
+  await acceptConfirmation(page);
   await role(page, "Joueur 1");
   await expect(
     page.getByRole("button", { name: "Contribuer", exact: true }),

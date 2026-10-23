@@ -1,4 +1,5 @@
 "use client";
+import { useConfirm } from "./ui/feedback";
 import { useState } from "react";
 import type { GameDefinition } from "@extension-twitch/contracts/game-definition";
 import { nextId, references, unreachablePhases } from "../lib/creator-model";
@@ -9,6 +10,7 @@ type Props = {
   report: (message: string) => void;
 };
 export function RolesEditor({ definition: d, onChange, report }: Props) {
+  const confirm = useConfirm();
   const [selected, setSelected] = useState(0);
   return (
     <section>
@@ -114,13 +116,21 @@ export function RolesEditor({ definition: d, onChange, report }: Props) {
               {r.base === "player" && (
                 <button
                   className="secondary-button"
-                  onClick={() => {
+                  onClick={async () => {
                     const refs = references(d, "role", r.id);
                     if (refs.length) {
                       report(`Suppression impossible : ${refs.join(", ")}.`);
                       return;
                     }
-                    if (window.confirm(`Supprimer le rôle « ${r.label} » ?`)) {
+                    if (
+                      await confirm({
+                        title: "Supprimer ce rôle ?",
+                        description: `Le rôle « ${r.label} » sera retiré de votre création.`,
+                        confirmLabel: "Supprimer",
+                        cancelLabel: "Conserver",
+                        tone: "danger",
+                      })
+                    ) {
                       setSelected(0);
                       onChange({
                         ...d,
@@ -165,6 +175,7 @@ export function RolesEditor({ definition: d, onChange, report }: Props) {
   );
 }
 export function VariablesEditor({ definition: d, onChange, report }: Props) {
+  const confirm = useConfirm();
   const [selected, setSelected] = useState(0);
   return (
     <section>
@@ -249,13 +260,21 @@ export function VariablesEditor({ definition: d, onChange, report }: Props) {
             />
             <button
               className="secondary-button"
-              onClick={() => {
+              onClick={async () => {
                 const refs = references(d, "variable", v.id);
                 if (refs.length) {
                   report(`Suppression impossible : ${refs.join(", ")}.`);
                   return;
                 }
-                if (window.confirm(`Supprimer la donnée « ${v.label} » ?`)) {
+                if (
+                  await confirm({
+                    title: "Supprimer cette donnée ?",
+                    description: `La donnée « ${v.label} » sera retirée de votre création.`,
+                    confirmLabel: "Supprimer",
+                    cancelLabel: "Conserver",
+                    tone: "danger",
+                  })
+                ) {
                   setSelected(0);
                   onChange({
                     ...d,
@@ -301,6 +320,7 @@ export function VariablesEditor({ definition: d, onChange, report }: Props) {
   );
 }
 export function PhasesEditor({ definition: d, onChange, report }: Props) {
+  const confirm = useConfirm();
   const unreachable = unreachablePhases(d);
   return (
     <section>
@@ -399,13 +419,21 @@ export function PhasesEditor({ definition: d, onChange, report }: Props) {
               </ul>
               <button
                 className="secondary-button"
-                onClick={() => {
+                onClick={async () => {
                   const refs = references(d, "phase", p.id);
                   if (refs.length) {
                     report(`Suppression impossible : ${refs.join(", ")}.`);
                     return;
                   }
-                  if (window.confirm(`Supprimer l’étape « ${p.label} » ?`))
+                  if (
+                    await confirm({
+                      title: "Supprimer cette étape ?",
+                      description: `L’étape « ${p.label} » sera retirée de votre création.`,
+                      confirmLabel: "Supprimer",
+                      cancelLabel: "Conserver",
+                      tone: "danger",
+                    })
+                  )
                     onChange({
                       ...d,
                       phases: d.phases.filter((_, j) => j !== i),

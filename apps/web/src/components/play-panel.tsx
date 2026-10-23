@@ -1,4 +1,6 @@
 "use client";
+import { useConfirm } from "./ui/feedback";
+import { Badge } from "./ui/primitives";
 import { useEffect, useState, type FormEvent } from "react";
 import type {
   GameProjection,
@@ -10,18 +12,31 @@ import type {
 } from "@extension-twitch/contracts/sessions";
 import { ActionForm } from "./game-action";
 import { GameValues } from "./game-values";
-type Send = (action: LobbyAction) => Promise<void>;
+type Send = (action: LobbyAction) => Promise<void | boolean>;
 const nameFor = (view: SessionView, id: string) =>
   view.participants.find((p) => p.id === id)?.name ?? "Joueur";
 function PlayHeading({ game }: { game: GameProjection }) {
   const play = game.play!;
   return (
     <div className="play-heading">
-      {" "}
       <p className="game-phase" role="status">
         {game.phase.label} {play.round > 0 && <span>· Tour {play.round}</span>}
       </p>
       {game.phase.description && <p>{game.phase.description}</p>}
+      <div className="phase-meta">
+        <Badge
+          tone={play.outcome ? "info" : !play.dealt ? "primary" : "success"}
+        >
+          {play.outcome
+            ? "Terminé"
+            : !play.dealt
+              ? "En préparation"
+              : "En cours"}
+        </Badge>
+        <Badge>
+          {play.roster.filter((p) => p.active).length} joueurs actifs
+        </Badge>
+      </div>
       {play.outcome && (
         <div className="play-outcome" role="status">
           <span className="eyebrow">RÉSULTAT FINAL</span>
@@ -47,8 +62,28 @@ export function PlaySummary({
       <div className="play-roster">
         {play.roster.map((p) => (
           <article className={p.active ? "" : "is-eliminated"} key={p.id}>
+            <span className="player-initial" aria-hidden="true">
+              {nameFor(view, p.id).slice(0, 2).toLocaleUpperCase("fr")}
+            </span>
             <strong>{nameFor(view, p.id)}</strong>
-            <span>{p.active ? "En jeu" : "Éliminé"}</span>
+            <span>
+              {p.active ? (play.dealt ? "En jeu" : "En attente") : "Éliminé"}
+            </span>
+            {play.ballot?.status === "open" && p.active && (
+              <Badge
+                tone={play.ballot.voted.includes(p.id) ? "success" : "warning"}
+              >
+                {play.ballot.voted.includes(p.id) ? "A voté" : "Vote attendu"}
+              </Badge>
+            )}
+            {
+              <span className="player-presence">
+                {view.participants.find((person) => person.id === p.id)
+                  ?.connected
+                  ? "Connecté"
+                  : "Hors ligne"}
+              </span>
+            }
             {p.role && <small>{p.role}</small>}
           </article>
         ))}
@@ -118,6 +153,7 @@ function ChoiceAction({
   send: Send;
   proxy?: string;
 }) {
+  const confirm = useConfirm();
   const field = action.parameters.find((p) => p.choices),
     [target, setTarget] = useState("");
   const choices = (
@@ -126,7 +162,7 @@ function ChoiceAction({
     []
   ).filter((id) => game.play?.ballot?.allowSelfVote || id !== proxy);
   const valid = choices.includes(target);
-  function submit(e: FormEvent) {
+  async function submit(e: FormEvent) {
     e.preventDefault();
     if (!field || !valid) return;
     const parameters: Record<string, Scalar> = Object.fromEntries(
@@ -135,27 +171,29 @@ function ChoiceAction({
         p.id === field.id ? target : p.value.initial,
       ]),
     );
-    if (
-      window.confirm(
-        `Confirmer le vote ${proxy ? `de ${nameFor(view, proxy)} ` : ""}pour ${nameFor(view, target)} ? Ce vote ne pourra plus être modifié.`,
-      )
-    )
-      void send(
-        proxy
-          ? {
-              type: "game.player-action",
-              participantId: proxy,
-              runId: game.runId,
-              actionId: action.id,
-              parameters,
-            }
-          : {
-              type: "game.action",
-              runId: game.runId,
-              actionId: action.id,
-              parameters,
-            },
-      );
+    await confirm({
+      title: "Confirmer ce vote ?",
+      description: `Vous votez ${proxy ? `pour ${nameFor(view, proxy)} ` : ""}contre ${nameFor(view, target)}. Ce choix ne pourra plus être modifié.`,
+      confirmLabel: "Confirmer mon vote",
+      tone: "vote",
+      onConfirm: () =>
+        send(
+          proxy
+            ? {
+                type: "game.player-action",
+                participantId: proxy,
+                runId: game.runId,
+                actionId: action.id,
+                parameters,
+              }
+            : {
+                type: "game.action",
+                runId: game.runId,
+                actionId: action.id,
+                parameters,
+              },
+        ),
+    });
   }
   return (
     <form className="lobby-form" onSubmit={submit}>
@@ -194,6 +232,7 @@ export function PlayPanel({
   locked: boolean;
   send: Send;
 }) {
+  const confirm = useConfirm();
   const [proxy, setProxy] = useState("");
   const play = game.play!,
     gm = view.audience === "gm",
@@ -202,7 +241,22 @@ export function PlayPanel({
   const ballot = play.ballot;
   useEffect(() => setProxy(""), [play.round]);
   return (
-    <section className="lobby-panel play-panel" id="game">
+    <section
+      className="lobby-panel play-panel"
+      id="game"
+      data-audience={view.audience}
+      data-state={
+        play.outcome
+          ? "finished"
+          : !play.dealt
+            ? "preparation"
+            : ballot?.status === "open"
+              ? "vote"
+              : ballot?.status === "resolved"
+                ? "result"
+                : "active"
+      }
+    >
       <span className="eyebrow">PARTIE RÉELLE · VARIANTE DE DÉMONSTRATION</span>
       <h2>{game.title}</h2>
       <PlayHeading game={game} />
@@ -221,7 +275,8 @@ export function PlayPanel({
           )}
           {ballot?.status === "open" && active && !ballot.myVote && (
             <p>
-              Votre vote est attendu. Choisissez un autre joueur ci-dessous.
+              Votre vote est attendu. Choisissez un joueur dans la liste
+              ci-dessous.
             </p>
           )}
           {ballot?.myVote && (
@@ -332,14 +387,21 @@ export function PlayPanel({
         <button
           className="secondary-button"
           disabled={locked}
-          onClick={() => {
-            if (
-              window.confirm(
-                "Recommencer avec les mêmes joueurs ? Les votes et résultats seront effacés ; les accès sont conservés.",
-              )
-            )
-              void send({ type: "game.restart", runId: game.runId });
-          }}
+          onClick={() =>
+            void confirm({
+              title: "Recommencer la partie ?",
+              description:
+                "Les votes et résultats seront effacés. Les joueurs conserveront leur accès à cette partie.",
+              consequences: [
+                "Les joueurs et leurs accès sont conservés.",
+                "Les votes, éliminations et résultats seront effacés.",
+              ],
+              confirmLabel: "Recommencer",
+              tone: "warning",
+              onConfirm: () =>
+                send({ type: "game.restart", runId: game.runId }),
+            })
+          }
         >
           Rejouer cette partie
         </button>

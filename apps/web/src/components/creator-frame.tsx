@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { LoadingState } from "./ui/primitives";
 import { useEffect } from "react";
 import { useStudio } from "./creator-context";
 export function CreatorFrame({
@@ -62,7 +63,7 @@ export function CreatorFrame({
         </div>
       )}
       {workspace && !studio.view ? (
-        <p role="status">Ouverture de votre bibliothèque…</p>
+        <LoadingState>Ouverture de votre bibliothèque…</LoadingState>
       ) : (
         children
       )}

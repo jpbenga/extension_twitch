@@ -1,5 +1,7 @@
 "use client";
 import Link from "next/link";
+import { SegmentedControl } from "./ui/primitives";
+import { useConfirm } from "./ui/feedback";
 import { useEffect, useRef, useState } from "react";
 import { CreatorFrame } from "./creator-frame";
 import {
@@ -18,6 +20,7 @@ import { PublicSession } from "./public-session";
 import { requestMessage } from "../lib/session-client";
 import { CopyLink } from "./copy-link";
 export function CreatorLaboratory({ id }: { id: string }) {
+  const confirm = useConfirm();
   const [lab, setLab] = useState<CreatorLab | null>(null),
     [loaded, setLoaded] = useState(false),
     [role, setRole] = useState("gm"),
@@ -36,7 +39,7 @@ export function CreatorLaboratory({ id }: { id: string }) {
     setLoaded(true);
   }, [id]);
   async function run(task: (d: CreatorLab) => Promise<CreatorLab>) {
-    if (!lab || flight.current) return;
+    if (!lab || flight.current) return false;
     flight.current = true;
     setBusy(true);
     setError("");
@@ -45,6 +48,7 @@ export function CreatorLaboratory({ id }: { id: string }) {
       const next = await task(structuredClone(lab));
       saveLab(next);
       setLab(next);
+      return true;
     } catch (e) {
       // Keep the persisted receipt after an uncertain result, including restart.
       try {
@@ -58,6 +62,7 @@ export function CreatorLaboratory({ id }: { id: string }) {
           "La préparation a été interrompue. Vérifiez la connexion puis réessayez : ce même essai sera repris.",
         ),
       );
+      return false;
     } finally {
       flight.current = false;
       setBusy(false);
@@ -106,7 +111,16 @@ export function CreatorLaboratory({ id }: { id: string }) {
             <button
               className="secondary-button"
               disabled={busy || !lab.ready}
-              onClick={() => void run(restartLab)}
+              onClick={() =>
+                void confirm({
+                  title: "Recommencer la partie ?",
+                  description:
+                    "Les votes et résultats seront effacés. Les joueurs conserveront leur accès à cette partie.",
+                  confirmLabel: "Recommencer",
+                  tone: "warning",
+                  onConfirm: () => run(restartLab),
+                })
+              }
             >
               Recommencer le test
             </button>
@@ -149,27 +163,21 @@ export function CreatorLaboratory({ id }: { id: string }) {
               </select>
             </label>
           ) : (
-            <nav
-              className="creator-tabs lab-role-tabs"
-              aria-label="Vue du laboratoire"
-            >
-              {[
-                ["gm", "Game Master"],
+            <SegmentedControl
+              label="Vue du laboratoire"
+              value={role}
+              onChange={setRole}
+              options={[
+                { value: "gm", label: "Game Master" },
                 ...lab.players
                   .filter((p) => p.id)
-                  .map((p, i) => [`player:${p.id}`, `Joueur ${i + 1}`]),
-                ["public", "Spectateur"],
-              ].map(([value, label]) => (
-                <button
-                  key={value}
-                  className="secondary-button"
-                  aria-pressed={role === value}
-                  onClick={() => setRole(value!)}
-                >
-                  {label}
-                </button>
-              ))}
-            </nav>
+                  .map((p, i) => ({
+                    value: `player:${p.id}`,
+                    label: `Joueur ${i + 1}`,
+                  })),
+                { value: "public", label: "Spectateur" },
+              ]}
+            />
           )}
           <LabView
             key={`${id}:${audience}`}
@@ -295,7 +303,10 @@ function LabView({
             : "Vue joueur"
       }
     >
-      <p className="connection-badge" data-testid="session-connection">
+      <p
+        className={`connection-badge ${session.connection}`}
+        data-testid="session-connection"
+      >
         {session.connection === "connected"
           ? "Synchronisé"
           : session.connection === "reconnecting"

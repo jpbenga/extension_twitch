@@ -1,0 +1,65 @@
+/* Broadcast Neon: the only application palette. Semantic roles stay stable. */
+:root {
+  color-scheme: dark;
+  --color-background: #101017;
+  --color-surface: #191722;
+  --color-surface-secondary: #24202f;
+  --color-surface-raised: #2d273a;
+  --color-input: #14121d;
+  --color-text-primary: #f6f3ff;
+  --color-text-secondary: #b7b0c7;
+  --color-text-muted: #a49bb4;
+  --color-on-accent: #101017;
+  --color-action-primary: #b396ff;
+  --color-success: #38dcc8;
+  --color-warning: #f4b85d;
+  --color-danger: #f179a4;
+  --color-vote: var(--color-danger);
+  --color-info: #6c9bff;
+  --color-border: #494155;
+  --color-border-control: #82758f;
+  --color-focus: var(--color-action-primary);
+  --color-backdrop: #08070dc9;
+  --color-primary-subtle: #292139;
+  --color-success-subtle: #16352f;
+  --color-warning-subtle: #382d1f;
+  --color-danger-subtle: #382331;
+  --color-info-subtle: #1c2a45;
+  --font-body: Arial, Helvetica, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Consolas, monospace;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-body: 1rem;
+  --font-size-heading: clamp(1.45rem, 5vw, 2rem);
+  --line-height-body: 1.55;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.875rem;
+  --radius-lg: 1.25rem;
+  --radius-pill: 999px;
+  --shadow-panel: 0 12px 36px
+    color-mix(in srgb, var(--color-background) 45%, transparent);
+  --shadow-dialog: 0 24px 100px
+    color-mix(in srgb, var(--color-background) 80%, transparent);
+  --control-height: 48px;
+  --control-height-compact: 44px;
+  --duration-fast: 140ms;
+  --duration-enter: 180ms;
+  --ease-ui: cubic-bezier(0.2, 0.8, 0.2, 1);
+  /* Compatibility aliases for existing layouts and original SVG artwork. */
+  --bg: var(--color-background);
+  --panel: var(--color-surface);
+  --border: var(--color-border);
+  --text: var(--color-text-primary);
+  --muted: var(--color-text-secondary);
+  --violet: var(--color-action-primary);
+  --mint: var(--color-success);
+  --amber: var(--color-warning);
+  --lime: var(--color-success);
+}

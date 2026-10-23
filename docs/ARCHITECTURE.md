@@ -123,3 +123,20 @@ d’origine et d’idempotence restent actives.
 Enchères et Qui est l’espion conservent leurs modules publics et leur place dans la
 V1 ; ils ne sont pas encore jouables. Leurs hypothèses sont documentées, sans moteur
 parallèle ni promesse d’implémentation. L’Overlay Studio et le Store sont reportés.
+
+## Broadcast Neon — couche d’interface
+
+Le [design system](DESIGN-SYSTEM.md) complète le socle 5A sans modifier le moteur,
+le serveur ou les contrats métier. `tokens.css` centralise la palette ; les layouts
+existants emploient ses variables et `design-system.css` harmonise les contrôles.
+Les primitives React restent légères, avec HTML natif pour les formulaires et un
+`dialog` stylé ouvert par `showModal()` pour le plan modal et l’inertie. Un provider
+racine gère choix, opérations asynchrones, verrou d’envoi, erreurs et notifications.
+Une fermeture de dialogue ne remplace jamais l’acquittement et le reçu serveur.
+Le hook client de commande renvoie aussi un résultat booléen pour conserver la
+confirmation ouverte en cas de refus ; les payloads et protections HTTP sont inchangés.
+
+Les sections mobiles de régie conservent leurs champs montés et leurs liens/fragments,
+mais n’affichent qu’un espace de pilotage à la fois pendant une partie. Le plateau
+continue d’utiliser les projections publiques uniquement. Le catalogue `/design-system`
+est réservé au développement et absent en production. Voir [la validation iPhone](TEST-BROADCAST-NEON.md).

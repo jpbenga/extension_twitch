@@ -39,7 +39,7 @@ for (const project of projects) {
         cli,
         "test",
         `--project=${project}`,
-        `--output=test-results/${forwarded.some((a) => a.includes("playwright.games.config")) ? "games" : "e2e"}/${project}`,
+        `--output=test-results/${forwarded.some((a) => a.includes("playwright.games.config")) ? "games" : forwarded.some((a) => a.includes("playwright.design.config")) ? "design" : "e2e"}/${project}`,
         ...forwarded,
       ],
       { stdio: "inherit" },

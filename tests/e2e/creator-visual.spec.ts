@@ -1,3 +1,4 @@
+import { acceptConfirmation } from "./dialog-helpers.js";
 import { test, expect } from "@playwright/test";
 import type { GameDefinition } from "@extension-twitch/contracts/game-definition";
 import {
@@ -101,10 +102,10 @@ test("visual creation without JSON executes real actions across GM, isolated pla
     .click();
   await page.getByLabel("Nom du bouton", { exact: true }).fill("Terminer");
   await question(page, "5.");
-  page.once("dialog", (d) => d.accept());
   await page
     .getByRole("button", { name: "Supprimer la conséquence 1", exact: true })
     .click();
+  await acceptConfirmation(page);
   await question(page, "6.");
   await page
     .getByLabel("Après cette action", { exact: true })

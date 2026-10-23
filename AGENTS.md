@@ -321,3 +321,15 @@ une autorité GM serveur. Enchères et Qui est l’espion restent à réaliser e
 complètes ; ne pas les déclarer jouables prématurément. Les règles manquantes peuvent
 être expérimentées dans des variantes explicitement documentées selon l’autorisation
 du jalon 5. Voir docs/TEST-OFFICIAL-GAMES.md pour la validation humaine.
+
+
+21. Broadcast Neon — système visuel
+
+Lire docs/DESIGN-SYSTEM.md et docs/TEST-BROADCAST-NEON.md. Centraliser les couleurs
+dans tokens.css et utiliser les primitives/contrôles partagés. Ne pas réintroduire
+window.confirm, window.alert ou window.prompt pour les interactions applicatives.
+Conserver les protections natives de navigation beforeunload. Les confirmations
+asynchrones ne remplacent pas les reçus et validations serveur. Une refonte visuelle
+ne doit exposer aucune donnée privée, changer les règles ou supprimer un parcours.
+Le catalogue de composants reste absent en production. La validation humaine de
+Broadcast Neon sur iPhone, VoiceOver et OBS n’est pas acquise par les tests Chromium.

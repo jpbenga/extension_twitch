@@ -1,7 +1,10 @@
 import type { Metadata, Viewport } from "next";
+import "./tokens.css";
 import "./globals.css";
 import "./sessions.css";
 import "./creator.css";
+import "./design-system.css";
+import { FeedbackProvider } from "../components/ui/feedback";
 
 export const metadata: Metadata = {
   title: "Extension Twitch Studio — Sessions",
@@ -14,7 +17,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#111117",
+  themeColor: "#101017",
 };
 
 export default function RootLayout({
@@ -22,7 +25,9 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="fr" data-scroll-behavior="smooth">
-      <body>{children}</body>
+      <body>
+        <FeedbackProvider>{children}</FeedbackProvider>
+      </body>
     </html>
   );
 }

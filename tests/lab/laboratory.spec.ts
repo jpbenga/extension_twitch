@@ -1,3 +1,4 @@
+import { acceptConfirmation } from "../e2e/dialog-helpers.js";
 import { test, expect } from "@playwright/test";
 
 test("development lab creates real isolated identities, exercises engine actions and verifies a denial", async ({
@@ -56,17 +57,21 @@ test("development lab creates real isolated identities, exercises engine actions
     path: "test-results/lab-mobile-gm.png",
     fullPage: true,
   });
-  gm.once("dialog", (d) => d.accept());
   await gm
     .getByRole("button", { name: "Rejouer cette expérience", exact: true })
     .click();
+  await acceptConfirmation(gm);
   await expect(observer.locator(".real-stage-header")).toContainText(
     "Préparation",
   );
-  gm.once("dialog", (d) => d.accept());
+  await gm
+    .getByRole("navigation", { name: "Navigation de la session" })
+    .getByRole("link", { name: "Session", exact: true })
+    .click();
   await gm
     .getByRole("button", { name: "Réinitialiser le salon", exact: true })
     .click();
+  await acceptConfirmation(gm);
   await expect(player.getByTestId("session-connection")).toContainText(
     "Accès indisponible",
   );

@@ -1,4 +1,5 @@
 "use client";
+import { useConfirm, useToast } from "../components/ui/feedback";
 import { useEffect, useRef, useState } from "react";
 import {
   gameDefinitionSchema,
@@ -32,6 +33,8 @@ const clean = (game: CreatorGame): LocalCreation => ({
   dirty: false,
 });
 export function useCreatorDraft(game: CreatorGame, workspaceId: string) {
+  const confirm = useConfirm(),
+    notify = useToast();
   const studio = useStudio(),
     key = `xt:creator:editor:${workspaceId}:${game.identity.id}`;
   const [local, setLocal] = useState<LocalCreation>(() => {
@@ -206,6 +209,7 @@ export function useCreatorDraft(game: CreatorGame, workspaceId: string) {
           baseRevision: saved.draft.revision,
           dirty: true,
         });
+      notify("Modifications enregistrées.");
       return saved.draft;
     } catch {
       let issues: string[] = [];
@@ -221,12 +225,16 @@ export function useCreatorDraft(game: CreatorGame, workspaceId: string) {
       return null;
     }
   }
-  function loadRemote() {
+  async function loadRemote() {
     if (
       current.current.dirty &&
-      !window.confirm(
-        "Remplacer l’affichage par la copie enregistrée ? Votre saisie sera conservée dans une copie de secours.",
-      )
+      !(await confirm({
+        title: "Afficher la copie enregistrée ?",
+        description:
+          "Votre saisie sera conservée dans une copie de secours sur cet appareil.",
+        confirmLabel: "Afficher la copie",
+        tone: "warning",
+      }))
     )
       return;
     const copy = JSON.stringify(current.current, null, 2);

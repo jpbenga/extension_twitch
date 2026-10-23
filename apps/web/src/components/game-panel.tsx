@@ -1,4 +1,5 @@
 "use client";
+import { useConfirm } from "./ui/feedback";
 
 import { PlayPanel } from "./play-panel";
 import { useEffect, useState, type FormEvent } from "react";
@@ -27,8 +28,9 @@ export function GamePanel({
   view: SessionView;
   hideRestart?: boolean;
   locked: boolean;
-  send: (action: LobbyAction) => Promise<void>;
+  send: (action: LobbyAction) => Promise<void | boolean>;
 }) {
+  const confirm = useConfirm();
   const [examples, setExamples] = useState<GameDefinition[]>([]);
   const [exampleId, setExampleId] = useState("collective-pulse");
   const [failure, setFailure] = useState("");
@@ -68,7 +70,7 @@ export function GamePanel({
       />
     );
   return (
-    <section className="lobby-panel" id="game">
+    <section className="lobby-panel" id="game" data-audience={view.audience}>
       <span className="eyebrow">PARTIE · EXEMPLE CONFIGURABLE</span>
       <h2>{game?.title ?? "Installer une expérience"}</h2>
       {failure && (
@@ -234,14 +236,21 @@ export function GamePanel({
                 <button
                   className="secondary-button"
                   disabled={locked}
-                  onClick={() => {
-                    if (
-                      window.confirm(
-                        "Relancer cette définition ? Les valeurs, les phases et les rôles affectés seront réinitialisés ; les accès joueurs seront conservés.",
-                      )
-                    )
-                      void send({ type: "game.restart", runId: game.runId });
-                  }}
+                  onClick={() =>
+                    void confirm({
+                      title: "Recommencer la partie ?",
+                      description:
+                        "Les votes et résultats seront effacés. Les joueurs conserveront leur accès à cette partie.",
+                      consequences: [
+                        "Les valeurs, étapes et rôles sont remis à leur état initial.",
+                        "Les joueurs et leurs accès sont conservés.",
+                      ],
+                      confirmLabel: "Recommencer",
+                      tone: "warning",
+                      onConfirm: () =>
+                        send({ type: "game.restart", runId: game.runId }),
+                    })
+                  }
                 >
                   Rejouer cette expérience
                 </button>

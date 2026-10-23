@@ -1,0 +1,746 @@
+/* Shared controls; legacy selectors deliberately use the same tokens. */
+body {
+  font-family: var(--font-body);
+  line-height: var(--line-height-body);
+}
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+button,
+a,
+input,
+select,
+textarea,
+summary {
+  scroll-margin-block: 100px;
+}
+:is(button, a, input, select, textarea, summary):focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 4px;
+}
+:where(button, a) {
+  transition:
+    background var(--duration-fast),
+    border-color var(--duration-fast),
+    transform var(--duration-fast);
+}
+:where(button, a)[aria-disabled="true"],
+button:disabled {
+  cursor: not-allowed;
+}
+:where(button):active:not(:disabled) {
+  transform: translateY(1px);
+}
+.ui-button,
+.primary-button,
+.secondary-button,
+.danger-button {
+  --button-color: var(--color-action-primary);
+  display: inline-flex;
+  gap: var(--space-2);
+  justify-content: center;
+  align-items: center;
+  min-height: var(--control-height);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  line-height: 1.3;
+  border: 1px solid transparent;
+  background: var(--button-color);
+  color: var(--color-on-accent);
+  text-align: center;
+  text-decoration: none;
+}
+.session-shell .primary-button,
+.session-shell .secondary-button,
+.session-shell .danger-button {
+  border-radius: var(--radius-md);
+}
+.ui-button-secondary,
+.secondary-button {
+  background: var(--color-surface-raised);
+  border-color: var(--color-border-control);
+  color: var(--color-text-primary);
+}
+.ui-button-neutral {
+  background: var(--color-surface-secondary);
+  border-color: var(--color-border-control);
+  color: var(--color-text-primary);
+}
+.ui-button-success,
+.player-action .primary-button {
+  --button-color: var(--color-success);
+}
+.ui-button-warning {
+  --button-color: var(--color-warning);
+}
+.ui-button-danger,
+.danger-button {
+  --button-color: var(--color-danger);
+  background: var(--button-color);
+  color: var(--color-on-accent);
+  border-color: transparent;
+}
+.ui-button-vote,
+.vote-choice .primary-button {
+  --button-color: var(--color-vote);
+}
+.ui-button-info {
+  --button-color: var(--color-info);
+}
+.ui-button-quiet {
+  background: transparent;
+  color: var(--color-text-secondary);
+  border-color: transparent;
+}
+.ui-button:disabled,
+.session-shell button:disabled,
+button:disabled {
+  opacity: 1;
+  background: var(--color-surface-secondary);
+  color: var(--color-text-muted);
+  border-color: var(--color-border);
+  transform: none;
+  box-shadow: none;
+}
+@media (hover: hover) {
+  .primary-button:hover:not(:disabled),
+  .ui-button:hover:not(:disabled),
+  .danger-button:hover:not(:disabled) {
+    filter: brightness(1.08);
+  }
+  .secondary-button:hover:not(:disabled) {
+    background: var(--color-surface-raised);
+    border-color: var(--color-action-primary);
+  }
+}
+.ui-icon-button {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.5rem;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: inherit;
+  flex-shrink: 0;
+}
+.ui-card,
+.ui-panel,
+.lobby-panel,
+.studio-card,
+.creator-list-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+.ui-card,
+.ui-panel {
+  padding: var(--space-5);
+}
+:is(.session-shell, .creator-shell) label {
+  color: var(--color-text-secondary);
+}
+.ui-input,
+.session-shell input:not([type="checkbox"]):not([type="radio"]),
+.session-shell select,
+.session-shell textarea,
+.creator-editor input:not([type="checkbox"]),
+.creator-editor select,
+.creator-editor textarea {
+  background: var(--color-input);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-control);
+  border-radius: var(--radius-sm);
+  font-size: 16px;
+  min-height: var(--control-height);
+  padding: 0.75rem;
+  width: 100%;
+  min-width: 0;
+}
+input::placeholder,
+textarea::placeholder {
+  color: var(--color-text-muted);
+  opacity: 1;
+}
+:is(input, select, textarea):disabled {
+  color: var(--color-text-muted);
+  opacity: 1;
+  cursor: not-allowed;
+}
+:is(input[type="checkbox"], input[type="radio"]) {
+  accent-color: var(--color-action-primary);
+  min-width: 20px;
+  min-height: 20px;
+}
+.creator-check {
+  min-height: 44px;
+  padding-block: 0.5rem;
+}
+.tone-primary,
+.tone-neutral {
+  --tone: var(--color-action-primary);
+  --tone-surface: var(--color-primary-subtle);
+}
+.tone-success {
+  --tone: var(--color-success);
+  --tone-surface: var(--color-success-subtle);
+}
+.tone-warning {
+  --tone: var(--color-warning);
+  --tone-surface: var(--color-warning-subtle);
+}
+.tone-danger,
+.tone-vote {
+  --tone: var(--color-danger);
+  --tone-surface: var(--color-danger-subtle);
+}
+.tone-info {
+  --tone: var(--color-info);
+  --tone-surface: var(--color-info-subtle);
+}
+.ui-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  border-radius: var(--radius-pill);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  padding: 0.3rem 0.65rem;
+  color: var(--tone, var(--color-text-secondary));
+  background: var(--tone-surface, var(--color-surface-secondary));
+  border: 1px solid currentColor;
+  line-height: 1.3;
+}
+.ui-alert,
+.lobby-error,
+.lobby-warning,
+.lobby-notice {
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--tone);
+  background: var(--tone-surface);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-body);
+  overflow-wrap: anywhere;
+}
+.lobby-error {
+  --tone: var(--color-danger);
+  --tone-surface: var(--color-danger-subtle);
+}
+.lobby-warning {
+  --tone: var(--color-warning);
+  --tone-surface: var(--color-warning-subtle);
+}
+.lobby-notice {
+  --tone: var(--color-success);
+  --tone-surface: var(--color-success-subtle);
+}
+.ui-empty {
+  text-align: center;
+  padding: var(--space-8);
+  color: var(--color-text-secondary);
+}
+.ui-empty h3 {
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-2);
+}
+.ui-loading {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  color: var(--color-text-secondary);
+}
+.ui-spinner {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: ui-spin 0.7s linear infinite;
+}
+@keyframes ui-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.ui-accordion,
+.session-shell details {
+  border-radius: var(--radius-md);
+}
+:is(.ui-accordion, .session-shell details) > summary {
+  min-height: 44px;
+  padding-block: 0.65rem;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+:is(.ui-accordion, .session-shell details)[open] > summary {
+  color: var(--color-text-primary);
+}
+.ui-segmented {
+  display: flex;
+  gap: 0.375rem;
+  padding: 0.375rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  flex-wrap: wrap;
+}
+:is(.ui-segmented, .creator-tabs, .studio-action-tabs)
+  button[aria-pressed="true"] {
+  color: var(--color-action-primary);
+  background: var(--color-primary-subtle);
+  border-color: var(--color-action-primary);
+}
+.confirm-dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: min(520px, calc(100% - 32px));
+  max-height: min(
+    calc(100dvh - 32px),
+    calc(var(--visual-viewport-height, 100dvh) - 32px)
+  );
+  padding: clamp(20px, 4vw, 32px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid var(--color-border-control);
+  border-radius: 24px;
+  color: var(--color-text-primary);
+  background: var(--color-surface-secondary);
+  box-shadow: var(--shadow-dialog);
+}
+.confirm-dialog[open] {
+  animation: dialog-enter var(--duration-enter) var(--ease-ui);
+}
+.confirm-dialog::backdrop {
+  background: var(--color-backdrop);
+}
+.confirm-dialog h2 {
+  font-size: clamp(1.4rem, 5vw, 1.85rem);
+  line-height: 1.2;
+  margin: 16px 0;
+  overflow-wrap: anywhere;
+}
+.confirm-dialog > p {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+.dialog-symbol {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  color: var(--tone);
+  background: var(--tone-surface);
+  font-size: 26px;
+  font-weight: 700;
+}
+.dialog-consequences {
+  padding: 16px 16px 16px 32px;
+  margin: 0 0 20px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-raised);
+  color: var(--color-text-primary);
+}
+.dialog-consequences li + li {
+  margin-top: 8px;
+}
+.dialog-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 24px;
+}
+.dialog-actions button {
+  width: 100%;
+  min-height: 52px;
+}
+.dialog-pending {
+  margin-top: 12px;
+}
+.toast-region {
+  position: fixed;
+  bottom: max(96px, calc(80px + env(safe-area-inset-bottom)));
+  left: max(16px, env(safe-area-inset-left));
+  right: max(16px, env(safe-area-inset-right));
+  z-index: 100;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+}
+.ui-toast {
+  pointer-events: auto;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  max-width: 520px;
+  padding: 8px 12px 8px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-success);
+  color: var(--color-text-primary);
+  background: var(--color-success-subtle);
+  box-shadow: var(--shadow-panel);
+  font-size: 14px;
+}
+.ui-toast > span {
+  color: var(--color-success);
+}
+@keyframes dialog-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.session-connection.connected,
+.connection-badge {
+  color: var(--color-success);
+}
+.session-connection.reconnecting {
+  color: var(--color-warning);
+}
+.session-connection.denied {
+  color: var(--color-danger);
+}
+.creator-path {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  min-height: 136px;
+}
+.creator-path > span,
+.creator-path.selected {
+  color: var(--color-action-primary);
+}
+.creator-rule-preview {
+  background: var(--color-info-subtle);
+  color: var(--color-text-primary);
+  border-color: var(--color-info);
+}
+.creator-top,
+.session-header {
+  gap: 12px;
+}
+.play-panel {
+  --phase-color: var(--color-action-primary);
+}
+.play-panel[data-state="active"] {
+  --phase-color: var(--color-success);
+}
+.play-panel[data-state="vote"] {
+  --phase-color: var(--color-vote);
+}
+.play-panel[data-state="result"],
+.play-panel[data-state="finished"] {
+  --phase-color: var(--color-info);
+}
+.play-heading {
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--phase-color, var(--color-info));
+  border-radius: var(--radius-md);
+  background: var(--color-surface-secondary);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.play-panel .game-phase {
+  color: var(--phase-color);
+  font-size: clamp(1.35rem, 5vw, 1.8rem);
+  line-height: 1.25;
+  margin: 0 0 8px;
+}
+.play-heading .game-phase > span {
+  font-size: 0.8em;
+  white-space: nowrap;
+}
+.play-heading > p {
+  color: var(--color-text-secondary);
+}
+.play-heading .phase-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+.play-roster article {
+  background: var(--color-surface-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  gap: 5px;
+}
+.play-roster .is-eliminated {
+  opacity: 1;
+  border-style: dashed;
+  color: var(--color-text-secondary);
+}
+.play-roster .is-eliminated strong {
+  text-decoration: line-through;
+}
+.play-roster article small {
+  color: var(--color-text-secondary);
+}
+.play-roster .player-initial {
+  background: var(--color-primary-subtle);
+  color: var(--color-action-primary);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+}
+.play-roster article:nth-child(3n + 2) .player-initial {
+  background: var(--color-success-subtle);
+  color: var(--color-success);
+}
+.play-roster article:nth-child(3n) .player-initial {
+  background: var(--color-warning-subtle);
+  color: var(--color-warning);
+}
+.play-roster .player-presence {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+.play-panel .game-actions {
+  margin-top: 0;
+  border-top: 0;
+  padding-top: 0;
+}
+.personal-card {
+  background: var(--color-primary-subtle);
+  border: 1px solid var(--color-action-primary);
+}
+.vote-choice input {
+  accent-color: var(--color-vote);
+}
+.vote-candidates label.selected {
+  border-color: var(--color-vote);
+  background: var(--color-danger-subtle);
+  color: var(--color-text-primary);
+}
+.play-outcome {
+  background: var(--color-info-subtle);
+  border-color: var(--color-info);
+}
+.real-stage {
+  border-color: var(--color-border);
+}
+.real-stage-header > span:last-child {
+  color: var(--color-info);
+}
+.game-undercover {
+  --game-accent: var(--color-action-primary);
+}
+.game-auctions {
+  --game-accent: var(--color-warning);
+}
+.game-spy {
+  --game-accent: var(--color-success);
+}
+.official-game-card {
+  border-top: 3px solid var(--game-accent, var(--color-action-primary));
+}
+body[data-keyboard-open="true"] :is(.room-actions, .creator-save-actions) {
+  position: static;
+}
+@media (max-width: 599px) {
+  .confirm-dialog {
+    margin: auto auto max(12px, env(safe-area-inset-bottom));
+    border-radius: 24px;
+    padding: 20px;
+    width: calc(100% - 24px);
+  }
+  .lobby-panel {
+    padding: 18px;
+  }
+  .play-panel > h2 {
+    font-size: 1.25rem;
+    margin-bottom: 16px;
+  }
+  .session-shell {
+    padding-inline: max(16px, env(safe-area-inset-left));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .ui-spinner {
+    animation: none;
+    border-style: dotted;
+  }
+}
+.room-navigation {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  gap: 4px;
+  padding: 4px;
+}
+.room-navigation a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 44px;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  padding: 8px;
+}
+.room-navigation a[aria-current="page"] {
+  color: var(--color-action-primary);
+  background: var(--color-primary-subtle);
+  box-shadow: inset 0 -2px var(--color-action-primary);
+}
+.room-context {
+  padding-bottom: 16px;
+}
+.room-context h1 {
+  font-size: clamp(1.4rem, 6vw, 2rem);
+  line-height: 1.2;
+  margin: 8px 0 12px;
+}
+.room-context-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.room-session-details {
+  margin-top: 8px;
+}
+.room-actions {
+  background: var(--color-surface);
+  box-shadow: var(--shadow-panel);
+  border-color: var(--color-border);
+}
+.room-actions .board-button {
+  background: var(--color-info-subtle);
+  color: var(--color-info);
+  border-color: var(--color-info);
+}
+@media (max-width: 999px) {
+  .session-room[data-playing="true"] .room-pane[data-active="false"] {
+    display: none;
+  }
+  .session-room .room-navigation {
+    top: max(8px, env(safe-area-inset-top));
+    z-index: 10;
+  }
+  .session-room .room-actions {
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+  }
+  .session-room .session-header {
+    margin-bottom: 16px;
+  }
+  .session-room .session-connection {
+    margin-block: 12px;
+  }
+  .room-session-details summary {
+    font-size: 12px;
+    min-height: 36px;
+  }
+}
+[data-audience="player"] .game-actions .primary-button {
+  --button-color: var(--color-success);
+}
+[data-audience="player"] .game-actions .vote-choice .primary-button {
+  --button-color: var(--color-vote);
+}
+.creator-save-actions .primary-button:last-child {
+  background: var(--color-info);
+  color: var(--color-on-accent);
+}
+.real-stage .play-roster .player-initial,
+.real-stage .play-roster .player-presence {
+  display: none;
+}
+.real-stage .phase-meta {
+  display: none;
+}
+.play-roster article .ui-badge {
+  align-self: flex-start;
+  width: fit-content;
+  font-size: 11px;
+}
+.ui-button-vote {
+  --button-color: var(--color-vote);
+}
+.design-catalog {
+  max-width: 1000px;
+  margin: auto;
+  padding: 24px 16px;
+}
+.design-catalog > section {
+  margin-block: 24px;
+}
+.design-samples {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-block: 16px;
+}
+.design-catalog h1 {
+  font-size: clamp(1.8rem, 6vw, 3rem);
+}
+/* Original broadcast previews retain their compact typesetting inside a 16:9 canvas. */
+.stage {
+  line-height: 1.2;
+}
+@media (max-width: 600px) {
+  .studio-shell .stage-center {
+    top: 38%;
+  }
+}
+/* The standalone room already names its game above the controls. Avoid repeating it. */
+.session-room[data-playing="true"] .play-panel > :is(h2, .eyebrow) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.play-panel .game-action {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+.session-room[data-playing="true"] .room-context {
+  padding-top: 0;
+}
+.connection-badge.loading {
+  color: var(--color-text-secondary);
+}
+.connection-badge.reconnecting {
+  color: var(--color-warning);
+}
+.connection-badge.denied {
+  color: var(--color-danger);
+}
+.play-heading > p:not(.game-phase) {
+  font-size: var(--font-size-body);
+}
+.room-actions .game-shortcut {
+  flex: 1;
+}
+::selection {
+  background: var(--color-action-primary);
+  color: var(--color-on-accent);
+}

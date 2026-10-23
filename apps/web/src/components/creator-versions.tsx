@@ -1,4 +1,5 @@
 "use client";
+import { useConfirm } from "./ui/feedback";
 import { useEffect, useState } from "react";
 import {
   assetDependencyStatus,
@@ -38,6 +39,7 @@ export function CreatorVersions({
   fork: (id: string, version: string, title: string) => Promise<void>;
   setError: (e: string) => void;
 }) {
+  const confirm = useConfirm();
   const suggestion = nextVersion(game.releases.map((r) => r.version));
   const [version, setVersion] = useState(suggestion),
     [manual, setManual] = useState(false),
@@ -63,22 +65,25 @@ export function CreatorVersions({
   }
   async function saveVersion() {
     if (!attested || dirty || locked) return;
-    if (
-      !window.confirm(
-        "Enregistrer cette version dans votre bibliothèque ? Vos prochaines modifications ne changeront pas cette copie.",
-      )
-    )
-      return;
-    const result = await send({
-      type: "draft.publish",
-      gameId: game.identity.id,
-      version,
-      rightsAttested: true,
+    await confirm({
+      title: "Enregistrer cette version ?",
+      description:
+        "Cette copie restera privée et ne changera plus. Votre création en cours restera modifiable.",
+      confirmLabel: "Enregistrer la version",
+      onConfirm: async () => {
+        const result = await send({
+          type: "draft.publish",
+          gameId: game.identity.id,
+          version,
+          rightsAttested: true,
+        });
+        if (result) {
+          setAttested(false);
+          setManual(false);
+        }
+        return !!result;
+      },
     });
-    if (result) {
-      setAttested(false);
-      setManual(false);
-    }
   }
   return (
     <section>

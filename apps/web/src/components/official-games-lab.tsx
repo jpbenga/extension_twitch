@@ -88,7 +88,7 @@ export function OfficialGamesLab() {
           Retour au Studio
         </Link>
       </div>
-      <section className="lobby-panel">
+      <section className="lobby-panel official-game-card game-undercover">
         <span className="eyebrow">5A · VARIANTE DE DÉMONSTRATION</span>
         <h2>Tester Undercover</h2>
         <p>
@@ -162,7 +162,7 @@ export function OfficialGamesLab() {
         )}
       </section>
       <div className="creator-catalog">
-        <article className="creator-list-card">
+        <article className="creator-list-card official-game-card game-auctions">
           <div>
             <span className="eyebrow">5B · NON JOUABLE POUR LE MOMENT</span>
             <h2>Enchères</h2>
@@ -172,7 +172,7 @@ export function OfficialGamesLab() {
             </p>
           </div>
         </article>
-        <article className="creator-list-card">
+        <article className="creator-list-card official-game-card game-spy">
           <div>
             <span className="eyebrow">5C · NON JOUABLE POUR LE MOMENT</span>
             <h2>Qui est l’espion ?</h2>

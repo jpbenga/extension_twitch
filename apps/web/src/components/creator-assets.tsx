@@ -1,4 +1,5 @@
 "use client";
+import { useConfirm } from "./ui/feedback";
 import {
   assetDependencySchema,
   assetDependencyStatus,
@@ -29,6 +30,7 @@ export function CreatorAssets({
   locked: boolean;
   setError: (text: string) => void;
 }) {
+  const confirm = useConfirm();
   return (
     <section>
       <h2>Ressources du jeu</h2>
@@ -70,11 +72,15 @@ export function CreatorAssets({
                 <button
                   className="secondary-button"
                   disabled={locked}
-                  onClick={() => {
+                  onClick={async () => {
                     if (
-                      !window.confirm(
-                        "Retirer cette référence ? Le fichier d’origine ne sera pas supprimé.",
-                      )
+                      !(await confirm({
+                        title: "Retirer cette référence ?",
+                        description:
+                          "Le fichier d’origine ne sera pas supprimé. Vous pourrez choisir une autre ressource.",
+                        confirmLabel: "Retirer la référence",
+                        tone: "warning",
+                      }))
                     )
                       return;
                     const next = assets.map((dep) => {
@@ -112,7 +118,7 @@ export function CreatorAssets({
         <button
           className="secondary-button"
           disabled={locked}
-          onClick={() => {
+          onClick={async () => {
             try {
               onAssets(
                 assetDependencySchema

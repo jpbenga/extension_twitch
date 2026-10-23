@@ -1,4 +1,5 @@
 "use client";
+import { useConfirm } from "./ui/feedback";
 import type {
   ActionDefinition,
   GameDefinition,
@@ -15,6 +16,7 @@ export function EffectsEditor({
   definition: GameDefinition;
   onChange: (effects: Effect[]) => void;
 }) {
+  const confirm = useConfirm();
   const effects = action.effects;
   function update(index: number, effect: Effect) {
     onChange(effects.map((old, i) => (i === index ? effect : old)));
@@ -190,7 +192,7 @@ export function EffectsEditor({
             <button
               className="secondary-button"
               disabled={i === 0}
-              onClick={() => {
+              onClick={async () => {
                 const copy = [...effects];
                 [copy[i - 1], copy[i]] = [copy[i]!, copy[i - 1]!];
                 onChange(copy);
@@ -201,7 +203,7 @@ export function EffectsEditor({
             <button
               className="secondary-button"
               disabled={i === effects.length - 1}
-              onClick={() => {
+              onClick={async () => {
                 const copy = [...effects];
                 [copy[i], copy[i + 1]] = [copy[i + 1]!, copy[i]!];
                 onChange(copy);
@@ -211,8 +213,16 @@ export function EffectsEditor({
             </button>
             <button
               className="secondary-button"
-              onClick={() => {
-                if (window.confirm(`Supprimer la conséquence ${i + 1} ?`))
+              onClick={async () => {
+                if (
+                  await confirm({
+                    title: "Supprimer cette conséquence ?",
+                    description: `La conséquence ${i + 1} sera retirée de cette règle.`,
+                    confirmLabel: "Supprimer",
+                    cancelLabel: "Conserver",
+                    tone: "danger",
+                  })
+                )
                   onChange(effects.filter((_, j) => j !== i));
               }}
             >

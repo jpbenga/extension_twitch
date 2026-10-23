@@ -1,3 +1,4 @@
+import { acceptConfirmation } from "./dialog-helpers.js";
 import {
   test as base,
   expect,
@@ -73,19 +74,19 @@ async function demo(page: Page) {
 }
 async function vote(page: Page, target: string) {
   await page.getByRole("radio", { name: target, exact: true }).check();
-  page.once("dialog", (d) => d.accept());
   await page
     .getByRole("button", { name: "Confirmer mon vote", exact: true })
     .click();
+  await acceptConfirmation(page);
   await expect(
     page.getByRole("status").filter({ hasText: /Votre vote pour/ }),
   ).toBeVisible();
 }
 async function resolve(gm: Page) {
-  gm.once("dialog", (d) => d.accept());
   await gm
     .getByRole("button", { name: "Révéler le résultat du vote", exact: true })
     .click();
+  await acceptConfirmation(gm);
 }
 
 test("Undercover plays several real rounds to a final victory, with private cards, elimination, public tally and replay", async ({
@@ -212,6 +213,7 @@ test("Undercover plays several real rounds to a final victory, with private card
   await page
     .getByRole("button", { name: "Recommencer le test", exact: true })
     .click();
+  await acceptConfirmation(page);
   await role(page, "Joueur 1");
   await expect(page.locator(".personal-card")).toContainText(
     "Le GM va vous distribuer",
@@ -266,10 +268,10 @@ test("ties, a disconnected player's return and GM delegation use the same privat
       .getByLabel("Joueur représenté", { exact: true })
       .selectOption({ label: from });
     await gm.getByRole("radio", { name: to, exact: true }).check();
-    gm.once("dialog", (d) => d.accept());
     await gm
       .getByRole("button", { name: "Enregistrer ce vote délégué", exact: true })
       .click();
+    await acceptConfirmation(gm);
     await expect(
       gm.getByRole("button", {
         name: "Enregistrer ce vote délégué",
@@ -315,10 +317,10 @@ test("ties, a disconnected player's return and GM delegation use the same privat
   await expect(gm.locator("#game .game-phase")).toContainText(
     "Partie terminée",
   );
-  gm.once("dialog", (d) => d.accept());
   await gm
     .getByRole("button", { name: "Rejouer cette partie", exact: true })
     .click();
+  await acceptConfirmation(gm);
   await expect(one.locator(".personal-card")).toContainText(
     "Le GM va vous distribuer",
   );

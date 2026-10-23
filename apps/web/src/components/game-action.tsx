@@ -1,4 +1,5 @@
 "use client";
+import { useConfirm } from "./ui/feedback";
 import { useState, type FormEvent } from "react";
 import type {
   GameProjection,
@@ -14,26 +15,31 @@ export function ActionForm({
   action: GameProjection["actions"][number];
   runId: string;
   locked: boolean;
-  send: (action: LobbyAction) => Promise<void>;
+  send: (action: LobbyAction) => Promise<void | boolean>;
 }) {
+  const confirm = useConfirm();
   const [values, setValues] = useState<Record<string, Scalar>>(() =>
     Object.fromEntries(action.parameters.map((p) => [p.id, p.value.initial])),
   );
-  function submit(e: FormEvent) {
+  async function submit(e: FormEvent) {
     e.preventDefault();
-    if (
-      action.confirmation &&
-      !window.confirm(
-        "Confirmer cette action et les informations rendues publiques ?",
-      )
-    )
-      return;
-    void send({
-      type: "game.action",
-      runId,
-      actionId: action.id,
-      parameters: values,
-    });
+    const execute = () =>
+      send({
+        type: "game.action",
+        runId,
+        actionId: action.id,
+        parameters: values,
+      });
+    if (action.confirmation)
+      await confirm({
+        title: action.label + " ?",
+        description:
+          "Les effets de cette action seront appliqués à la partie et les informations prévues pourront être révélées.",
+        confirmLabel: action.label,
+        tone: "warning",
+        onConfirm: execute,
+      });
+    else await execute();
   }
   return (
     <form className="lobby-form game-action" onSubmit={submit}>

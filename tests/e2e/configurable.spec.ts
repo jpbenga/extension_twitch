@@ -1,3 +1,4 @@
+import { acceptConfirmation } from "./dialog-helpers.js";
 import { test, expect, type BrowserContext, type Page } from "@playwright/test";
 
 async function create(page: Page) {
@@ -89,8 +90,8 @@ test("the shared interpreter drives actual private answers, roles, reveal and re
       page.getByRole("button", { name: "Révéler les réponses", exact: true }),
     ).toHaveCount(0);
     await click(reviewer, "Confirmer la relecture");
-    page.once("dialog", (d) => d.accept());
     await click(page, "Révéler les réponses");
+    await acceptConfirmation(page);
     await expect(observer.locator(".game-values")).toContainText(
       "Un dragon violet confidentiel",
     );
@@ -112,8 +113,8 @@ test("the shared interpreter drives actual private answers, roles, reveal and re
       .getByRole("button", { name: "Rejouer cette expérience", exact: true })
       .boundingBox();
     expect(button!.height).toBeGreaterThanOrEqual(44);
-    page.once("dialog", (d) => d.accept());
     await click(page, "Rejouer cette expérience");
+    await acceptConfirmation(page);
     await expect(player.locator("#game")).toContainText("Préparation");
     await expect(observer.locator(".game-values")).not.toContainText(
       "Un dragon violet confidentiel",
@@ -162,8 +163,8 @@ test("the counter uses the same generic forms and laboratory privileges are abse
       path: `test-results/generic-public-${page.viewportSize()!.width}.png`,
       fullPage: true,
     });
-    page.once("dialog", (d) => d.accept());
     await click(page, "Terminer la collecte");
+    await acceptConfirmation(page);
     await expect(publicPage.locator(".real-stage-header")).toContainText(
       "Terminé",
     );

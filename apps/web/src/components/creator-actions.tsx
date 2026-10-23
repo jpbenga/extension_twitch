@@ -1,4 +1,6 @@
 "use client";
+import { useConfirm } from "./ui/feedback";
+import { Alert } from "./ui/primitives";
 import { useState } from "react";
 import type {
   ActionDefinition,
@@ -16,6 +18,8 @@ export function ActionsEditor({
   definition: GameDefinition;
   onChange: (d: GameDefinition) => void;
 }) {
+  const confirm = useConfirm();
+  const [actionError, setActionError] = useState("");
   const [selected, setSelected] = useState(d.actions[0]?.id ?? "");
   const index = d.actions.findIndex((a) => a.id === selected),
     a = d.actions[index];
@@ -44,6 +48,18 @@ export function ActionsEditor({
         Chaque action devient un bouton pour les personnes autorisées.
         Choisissez qui peut l’utiliser, à quel moment, et ce que cela change.
       </p>
+      {actionError && (
+        <Alert tone="danger">
+          {actionError}
+          <button
+            className="ui-icon-button"
+            aria-label="Fermer le message"
+            onClick={() => setActionError("")}
+          >
+            ×
+          </button>
+        </Alert>
+      )}
       <nav className="studio-action-tabs" aria-label="Actions du jeu">
         {d.actions.map((action) => (
           <button
@@ -59,7 +75,7 @@ export function ActionsEditor({
       <button
         className="secondary-button"
         disabled={d.actions.length >= 8}
-        onClick={() => {
+        onClick={async () => {
           const id = nextId("action", d.actions);
           onChange({
             ...d,
@@ -194,7 +210,7 @@ export function ActionsEditor({
                   </details>
                   <button
                     className="secondary-button"
-                    onClick={() => {
+                    onClick={async () => {
                       if (
                         a.effects.some(
                           (e) =>
@@ -209,12 +225,20 @@ export function ActionsEditor({
                                 ))),
                         )
                       ) {
-                        window.alert(
+                        setActionError(
                           "Une conséquence utilise cette saisie. Modifiez-la avant de supprimer le champ.",
                         );
                         return;
                       }
-                      if (window.confirm("Supprimer ce champ de saisie ?"))
+                      if (
+                        await confirm({
+                          title: "Supprimer ce champ ?",
+                          description: "Cette saisie sera retirée de l’action.",
+                          confirmLabel: "Supprimer",
+                          cancelLabel: "Conserver",
+                          tone: "danger",
+                        })
+                      )
                         update({
                           parameters: a.parameters.filter((_, j) => i !== j),
                         });
@@ -321,8 +345,17 @@ export function ActionsEditor({
                 />
                 <button
                   className="secondary-button"
-                  onClick={() => {
-                    if (window.confirm("Retirer cette condition ?")) {
+                  onClick={async () => {
+                    if (
+                      await confirm({
+                        title: "Supprimer cette règle ?",
+                        description:
+                          "Cette règle sera retirée de votre création.",
+                        confirmLabel: "Supprimer",
+                        cancelLabel: "Conserver",
+                        tone: "danger",
+                      })
+                    ) {
                       const { guard: _removed, ...next } = a;
                       replace(next);
                     }
@@ -433,11 +466,15 @@ export function ActionsEditor({
           </details>
           <button
             className="secondary-button"
-            onClick={() => {
+            onClick={async () => {
               if (
-                window.confirm(
-                  `Supprimer « ${a.label} » et toutes ses conséquences ?`,
-                )
+                await confirm({
+                  title: "Supprimer cette règle ?",
+                  description: `L’action « ${a.label} » et ses conséquences seront retirées de votre création.`,
+                  confirmLabel: "Supprimer",
+                  cancelLabel: "Conserver",
+                  tone: "danger",
+                })
               ) {
                 onChange({
                   ...d,
