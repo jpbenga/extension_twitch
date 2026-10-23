@@ -5,6 +5,7 @@ import { useState } from "react";
 import type { SessionView } from "@extension-twitch/contracts/sessions";
 import { useSession, type SessionAudience } from "../lib/use-session";
 import { findGame } from "../lib/demo";
+import { GamePanel } from "./game-panel";
 import { CopyLink } from "./copy-link";
 import { PublicSession } from "./public-session";
 
@@ -74,6 +75,7 @@ export function SessionRoom({
       <nav className="room-navigation" aria-label="Navigation de la session">
         <a href="#session">Session</a>
         <a href="#players">Joueurs</a>
+        <a href="#game">Jeu</a>
         <a href="#board">Plateau</a>
       </nav>
       <div
@@ -129,7 +131,8 @@ export function SessionRoom({
         <>
           <section className="lobby-heading" id="session">
             <span className="eyebrow">
-              {findGame(view.gameId).title} · SALON D’ATTENTE
+              {view.publicGame?.title ?? findGame(view.gameId).title} ·{" "}
+              {view.publicGame?.phase.label ?? "SALON D’ATTENTE"}
             </span>
             <h1>{view.title}</h1>
             <p>
@@ -139,11 +142,16 @@ export function SessionRoom({
             </p>
             <span className="lobby-hint">
               Version {view.version} ·{" "}
-              {view.admissionOpen
-                ? "Invitations ouvertes"
-                : "Invitations fermées"}
+              {view.publicGame
+                ? "Effectif figé pour cette expérience"
+                : view.admissionOpen
+                  ? "Invitations ouvertes"
+                  : "Invitations fermées"}
             </span>
           </section>
+          {view.publicGame && (
+            <GamePanel view={view} locked={locked} send={session.send} />
+          )}
           {gm ? (
             <section className="lobby-panel">
               <h2>Inviter et observer</h2>
@@ -202,7 +210,8 @@ export function SessionRoom({
                     : "Je suis prêt"}
               </button>
               <p className="lobby-hint">
-                Aucun mot ou rôle distribué au jalon A.
+                Les informations privées de l’expérience apparaissent dans la
+                section Jeu.
               </p>
               <details>
                 <summary>Conserver mon accès joueur</summary>
@@ -214,6 +223,9 @@ export function SessionRoom({
               </details>
             </section>
           )}
+          {!view.publicGame && (
+            <GamePanel view={view} locked={locked} send={session.send} />
+          )}
           <section className="lobby-panel" id="players">
             <h2>
               Les invités{" "}
@@ -223,7 +235,7 @@ export function SessionRoom({
               view={view}
               disabled={locked}
               remove={
-                gm
+                gm && !view.publicGame
                   ? (participantId) => {
                       if (
                         window.confirm(
@@ -310,16 +322,16 @@ export function SessionRoom({
           <aside className="lobby-scope">
             <strong>Ce qui reste à venir</strong>
             <p>
-              Les manches, mots secrets, votes et conditions de victoire ne sont
-              pas actifs. Aucun paiement ni privilège de laboratoire n’est
-              disponible.
+              Les jeux officiels, votes, distribution aléatoire et conditions de
+              victoire restent à construire. Les exemples utilisent le moteur
+              réel. Aucun paiement ni connexion Twitch.
             </p>
           </aside>
           {gm && (
             <div className="room-actions">
               <button
                 className="primary-button"
-                disabled={locked}
+                disabled={locked || !!view.publicGame}
                 onClick={() =>
                   void session.send({
                     type: "session.admission",
@@ -329,17 +341,19 @@ export function SessionRoom({
               >
                 {busy
                   ? "Enregistrement…"
-                  : gm.admissionOpen
-                    ? "Fermer les invitations"
-                    : "Ouvrir les invitations"}
+                  : view.publicGame
+                    ? "Effectif figé pour la partie"
+                    : gm.admissionOpen
+                      ? "Fermer les invitations"
+                      : "Ouvrir les invitations"}
               </button>
               <a
                 className="secondary-button"
-                href={gm.joinUrl}
-                target="_blank"
+                href={view.publicGame ? "#game" : gm.joinUrl}
+                target={view.publicGame ? undefined : "_blank"}
                 rel="noreferrer"
               >
-                Invitation ↗
+                {view.publicGame ? "Commandes du jeu" : "Invitation ↗"}
               </a>
             </div>
           )}

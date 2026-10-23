@@ -271,3 +271,15 @@ Privilégier :
 Éviter de sacrifier la fiabilité du moteur de jeu au profit d’effets visuels ou d’intégrations prématurées.
 
 En cas de conflit entre une implémentation existante et une décision produit explicitement validée, signaler le conflit avant de modifier le comportement.
+
+
+17. Évolution validée — moteur configurable
+
+Consulter docs/CONFIGURABLE-ENGINE.md et docs/ASSETS.md. Les jeux officiels utilisent
+les mêmes primitives déclaratives que les créations utilisateurs. La séparation
+par jeu concerne leurs définitions, configurations et tests ; elle ne demande pas
+de dupliquer les validations et transitions génériques. Distinguer définition,
+configuration, partie et événements. Ne pas exécuter de scripts utilisateurs.
+Préserver les sessions A et leurs permissions. Ne transférer aucun média ni exposer
+de références privées dans les projections. La validation humaine iPhone reste
+en attente, mais n’empêche plus les itérations autorisées du socle et du laboratoire.

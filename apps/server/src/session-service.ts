@@ -1,5 +1,6 @@
 import { createHash, randomBytes, randomUUID } from "node:crypto";
 import {
+  projectGame,
   addParticipant,
   decideLobby,
   projectPublicSession,
@@ -165,6 +166,7 @@ export class SessionService {
       return sessionViewSchema.parse({
         ...publicView,
         audience: "gm",
+        ...(state.gameRun ? { game: projectGame(state.gameRun, actor) } : {}),
         invitationCode: state.invitationCode,
         joinUrl: `${this.publicOrigin}/join/${state.invitationCode}`,
         publicUrl: `${this.publicOrigin}/sessions/${id}/public`,
@@ -173,6 +175,7 @@ export class SessionService {
       return sessionViewSchema.parse({
         ...publicView,
         audience: "player",
+        ...(state.gameRun ? { game: projectGame(state.gameRun, actor) } : {}),
         participantId: actor.participantId,
       });
     return sessionViewSchema.parse(publicView);

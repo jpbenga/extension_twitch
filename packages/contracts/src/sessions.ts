@@ -1,4 +1,11 @@
 import { z } from "zod";
+import {
+  gameDefinitionSchema,
+  assetBindingSchema,
+  scalarRecordSchema,
+  identifierSchema,
+  gameProjectionSchema,
+} from "./game-definition.js";
 import { gameIdSchema } from "./index.js";
 
 const displayName = z
@@ -31,6 +38,24 @@ export const lobbyActionSchema = z.discriminatedUnion("type", [
     participantId: z.uuid(),
   }),
   z.strictObject({ type: z.literal("session.reset") }),
+  z.strictObject({
+    type: z.literal("game.configure"),
+    definition: gameDefinitionSchema,
+    configuration: scalarRecordSchema,
+    assets: z.array(assetBindingSchema).max(4),
+  }),
+  z.strictObject({
+    type: z.literal("game.action"),
+    runId: z.uuid(),
+    actionId: identifierSchema,
+    parameters: scalarRecordSchema,
+  }),
+  z.strictObject({ type: z.literal("game.restart"), runId: z.uuid() }),
+  z.strictObject({
+    type: z.literal("game.assign-role"),
+    participantId: z.uuid(),
+    roleId: identifierSchema,
+  }),
 ]);
 export const lobbyCommandSchema = z.strictObject({
   commandId: z.uuid(),
@@ -51,6 +76,10 @@ export const lobbyEventSchema = z.strictObject({
     "session.admission",
     "participant.remove",
     "session.reset",
+    "game.configure",
+    "game.action",
+    "game.restart",
+    "game.assign-role",
   ]),
   message: z.string(),
 });
@@ -63,6 +92,15 @@ export const publicParticipantSchema = z.strictObject({
   connected: z.boolean(),
 });
 const viewFields = {
+  publicGame: gameProjectionSchema
+    .refine(
+      (game) =>
+        game.actions.length === 0 &&
+        game.role === undefined &&
+        game.management === undefined,
+      "Public game must be read-only",
+    )
+    .optional(),
   sessionId: sessionIdSchema,
   title: displayName,
   hostName: displayName,
@@ -80,6 +118,7 @@ export const publicSessionSchema = z.strictObject({
 export const gmSessionSchema = z.strictObject({
   ...viewFields,
   audience: z.literal("gm"),
+  game: gameProjectionSchema.optional(),
   invitationCode: invitationCodeSchema,
   joinUrl: z.url(),
   publicUrl: z.url(),
@@ -87,6 +126,7 @@ export const gmSessionSchema = z.strictObject({
 export const playerSessionSchema = z.strictObject({
   ...viewFields,
   audience: z.literal("player"),
+  game: gameProjectionSchema.optional(),
   participantId: z.uuid(),
 });
 export const sessionViewSchema = z.discriminatedUnion("audience", [

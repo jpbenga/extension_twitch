@@ -1,14 +1,17 @@
-# Tester le jalon A depuis un iPhone
+# Tester les sessions depuis un iPhone
+
+Validation technique terminée — Validation humaine iPhone en attente.
+Pour les nouveaux exemples et le laboratoire : [guide configurable](TEST-CONFIGURABLE.md).
 
 ## Préconditions et lancement sur le réseau local
 
-Utiliser un ordinateur macOS/Linux avec Node.js 24.x, npm 11.x et ce dépôt sur `feat/stage-3-sessions`. L’iPhone et l’ordinateur doivent être connectés au même réseau Wi-Fi de confiance. Les réseaux invités peuvent interdire les communications entre appareils ; un VPN peut sélectionner une mauvaise interface.
+Utiliser un ordinateur macOS/Linux avec Node.js 24.x, npm 11.x et ce dépôt sur `feat/configurable-game-foundation`. L’iPhone et l’ordinateur doivent être connectés au même réseau Wi-Fi de confiance. Les réseaux invités peuvent interdire les communications entre appareils ; un VPN peut sélectionner une mauvaise interface.
 
 Depuis la racine du dépôt :
 
 ```sh
 git fetch origin
-git switch feat/stage-3-sessions
+git switch feat/configurable-game-foundation
 npm ci
 npm run dev:lan
 ```
@@ -87,6 +90,6 @@ Sauvegarde technique : arrêter le serveur puis copier **tout le dossier `.data`
 
 ## Ce que cette livraison ne teste pas encore
 
-Pas de distribution de mots/rôles, discussion structurée, votes, élimination, victoire ou partie Undercover jouable. Pas de participants simulés connectés au moteur ni de laboratoire de développement. Pas de Bits, connexion Twitch, import d’images ou PWA installable. Les anciennes maquettes sont accessibles séparément sous `/demo`, `/player` et `/overlay?game=undercover`.
+Pas de distribution de mots/rôles, discussion structurée, votes, élimination, victoire ou partie Undercover jouable. Le laboratoire et ses participants fictifs utilisent désormais les vrais mécanismes : voir le guide configurable. Pas de Bits, connexion Twitch, import d’images ou PWA installable. Les anciennes maquettes sont accessibles séparément sous `/demo`, `/player` et `/overlay?game=undercover`.
 
-Les tests automatisés utilisent Chromium sur trois formats d’écran ; ils ne certifient ni Safari iOS ni un iPhone physique. Retour attendu avant B : résultats des checklists, problèmes ergonomiques, ambiguïtés et appréciation du parcours. Les règles proposées pour C restent à valider.
+Les tests automatisés utilisent Chromium sur trois formats d’écran ; ils ne certifient ni Safari iOS ni un iPhone physique. La poursuite du socle et du laboratoire est autorisée sans attendre le test physique. Retour attendu : résultats des checklists, problèmes ergonomiques, ambiguïtés et appréciation du parcours. Les règles proposées pour C restent à valider.

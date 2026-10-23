@@ -1,6 +1,6 @@
 # Extension Twitch — Cahier des charges produit
 
-Version : 0.1
+Version : 0.2
 
 Statut : Vision produit et cadrage initial
 
@@ -382,3 +382,27 @@ Les sujets suivants nécessitent des décisions complémentaires :
 Ces points ne doivent pas être considérés comme déjà validés.
 
 Ce document constitue la référence fonctionnelle initiale du projet. Il doit être mis à jour à mesure que les décisions produit sont prises.
+
+
+15. Évolution validée — Studio configurable
+
+Extension Twitch Studio est un moteur et un studio de création de jeux interactifs
+pour des créateurs sans compétences en programmation. Undercover, Enchères et Qui
+est l’espion restent les trois jeux officiels de la V1 ; ils utiliseront les mêmes
+primitives configurables que les créations utilisateurs. La liste officielle pourra
+s’agrandir. Les mécanismes communs ne doivent pas être recodés pour chaque jeu.
+
+Le modèle distingue définition réutilisable et versionnée, configuration d’émission,
+état d’une partie et événements. Le langage déclaratif est limité et validé ; aucun
+JavaScript utilisateur n’est exécuté. Les sessions commencées gardent leur définition.
+La personnalisation des rôles, permissions, actions, phases, scènes et overlays sera
+progressive. Le studio et la régie restent mobile-first, avec priorité à l’iPhone.
+
+Les assets utilisent des identifiants logiques indépendants du stockage. Priorité
+aux références externes ou locales (Bring Your Own Storage), sans transfert de
+média implicite ni stockage de fichiers en SQLite. Les accès privés et les droits
+doivent être respectés. Voir docs/CONFIGURABLE-ENGINE.md et docs/ASSETS.md.
+
+Le socle générique et le laboratoire peuvent progresser avant validation physique
+sur iPhone. Statut du jalon A : Validation technique terminée — Validation humaine
+iPhone en attente. Les règles détaillées des jeux officiels restent à définir.

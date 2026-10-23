@@ -75,3 +75,6 @@ export type ExternalInteraction =
 
 // Transaction IDs must be recorded atomically with effects before acknowledgement.
 // No adapter, receipt factory or payment execution exists in this foundation.
+
+export * from "./configurable.js";
+export * from "./examples.js";

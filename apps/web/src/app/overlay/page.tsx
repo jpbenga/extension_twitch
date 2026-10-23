@@ -1,4 +1,4 @@
-import { gameIdSchema } from "@extension-twitch/contracts";
+import { officialGameIdSchema } from "@extension-twitch/contracts";
 import { StagePreview } from "../../components/stage-preview";
 
 export default async function Overlay({
@@ -7,7 +7,7 @@ export default async function Overlay({
   searchParams: Promise<{ game?: string; transparent?: string }>;
 }) {
   const parameters = await searchParams;
-  const result = gameIdSchema.safeParse(parameters.game);
+  const result = officialGameIdSchema.safeParse(parameters.game);
   const gameId = result.success ? result.data : "undercover";
   return (
     <main

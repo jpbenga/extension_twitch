@@ -25,6 +25,19 @@ const messages: Record<string, string> = {
     "Accès privé absent ou révoqué. Ouvrez votre lien privé de récupération.",
   ACCESS_REVOKED:
     "Votre accès a été retiré. Demandez une nouvelle invitation au GM.",
+  GAME_RUNNING:
+    "L’effectif est figé pour cette expérience. Réinitialisez le salon pour modifier les invités ou la définition.",
+  NO_GAME: "Aucune définition n’est installée.",
+  STALE_GAME:
+    "Cette action appartient à une ancienne partie. Utilisez les commandes affichées actuellement.",
+  ACTION_FORBIDDEN:
+    "Cette action n’est plus autorisée pour votre rôle ou cette phase.",
+  INVALID_PARAMETERS: "Les paramètres de l’action sont invalides.",
+  INVALID_CONFIGURATION: "La configuration ne respecte pas la définition.",
+  INVALID_DEFINITION: "La définition n’est pas compatible avec le schéma v1.",
+  VALUE_OUT_OF_BOUNDS:
+    "Cette action dépasserait une limite de la définition. Aucun effet appliqué.",
+  INVALID_ROLE: "Ce rôle ne peut pas être attribué à ce joueur.",
   FORBIDDEN: "Cette action n’est pas autorisée pour votre accès.",
   ORIGIN_DENIED:
     "L’adresse réseau ne correspond pas à PUBLIC_ORIGIN. Relancez avec npm run dev:lan ou consultez le guide iPhone.",

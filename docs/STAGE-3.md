@@ -1,4 +1,8 @@
-# Étape 3 — plan et livraison du jalon A
+# Étape 3 — jalon A et évolution configurable
+
+Les sections A ci-dessous conservent le bilan historique. La décision « Évolution
+validée après A » et la livraison du socle générique en fin de document décrivent
+le lot actuel et remplacent les anciens blocages de progression de B.
 
 ## Base vérifiée et périmètre
 
@@ -64,10 +68,54 @@ Aucune règle Undercover n’est implémentée dans A. Pour rendre C testable sa
 6. Proposition de victoire : civils si aucun Undercover ne reste ; Undercover s’ils atteignent la parité avec les civils. Puis révélation finale autorisée. Conditions et ordre d’évaluation à confirmer.
 7. Rejouer redistribue les informations. Les conditions d’annulation et les actions GM pour des joueurs non connectés restent à définir.
 
-Les participants, phases, conditions de victoire et projections privées appartiendront au module Undercover. Enchères et espion conserveront leurs propres contrats et règles. La règle déjà validée des enchères demeure : aucun débit au dépôt d’une offre, débit à l’attribution confirmée uniquement.
+Les définitions officielles décriront leurs paramètres et règles en utilisant prioritairement les primitives du moteur configurable partagé. Les propositions ci-dessus restent non validées. La règle déjà validée des enchères demeure : aucun débit au dépôt d’une offre, débit à l’attribution confirmée uniquement.
 
 ## Parcours humains disponibles
 
 Voir [le guide de test iPhone](TEST-IPHONE.md) : création et inscription multi-appareils, préparation synchronisée, refus d’accès, récupération, retrait, réinitialisation et redémarrage. Les votes, rôles, mots, éliminations, chronomètres et victoires ne font pas partie des scénarios A.
 
 Les hypothèses de la variante C, le laboratoire B et les futures décisions produit attendent le retour de l’utilisateur. Aucun jalon suivant ne doit commencer automatiquement.
+
+## Évolution validée après A
+
+Validation technique terminée — Validation humaine iPhone en attente.
+L’utilisateur autorise la poursuite sans attendre le test physique iPhone.
+La nouvelle priorité est le socle générique et un laboratoire compact : voir
+[architecture configurable](CONFIGURABLE-ENGINE.md). Les anciens passages demandant
+d’attendre la validation humaine avant toute progression de B sont remplacés par
+cette décision. C (Undercover complet) et D complet ne sont pas entrepris ici.
+
+## Livraison du socle générique et laboratoire
+
+Base vérifiée : `5957b1f`, dépôt propre, 46 tests existants passants. Branche dédiée
+`feat/configurable-game-foundation`. Les identifiants de jeu s’ouvrent aux créations ;
+la sélection des anciennes maquettes conserve ses trois choix et son secours.
+Le service de sessions n’est pas remplacé : même stockage, capacités, reçus et SSE.
+
+Le périmètre B autorisé comprend un petit laboratoire réel et le panneau générique
+mobile. L’éditeur visuel, la distribution et Undercover complet restent hors lot.
+Les exemples et les limites livrées sont décrits dans [le guide](TEST-CONFIGURABLE.md).
+Les schémas scènes/assets sont validés, mais aucun moteur de composition ou rendu
+de médias n’est encore actif. La validation physique iPhone reste en attente.
+
+### Vérification de la livraison configurable
+
+- `npm test` : 60 tests passants, dont les 46 précédents. Le scénario de
+  redémarrage réel du serveur restaure également une définition figée et une
+  réponse privée, sans publication de celle-ci.
+- `npm run typecheck`, `npm run format:check`, `npm run build` : réussis.
+- Chromium système : `npm run test:e2e` avec
+  `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium` : 33 parcours passants,
+  formats 390×844, 768×1024 et 1440×1000.
+- Même variable pour `npm run test:lab` : 1 parcours réel en développement,
+  identités isolées, refus 403, action, relance et réinitialisation.
+- Captures inspectées : régie mobile et aperçu public tablette ; correction
+  d’une découpe des valeurs sur tablette. Aucun iPhone, Safari iOS ou OBS physique
+  testé. Statut : Validation technique terminée — Validation humaine iPhone en attente.
+
+Aucune dépendance, clé ou prestation externe payante ajoutée. Aucun fichier média
+transféré. Le cloud ne fournit toujours pas de prévisualisation accessible à
+l’iPhone ; suivre le lancement Wi-Fi du guide ou provisionner ultérieurement
+un hébergement HTTPS protégé. Les suites fonctionnelles restent à décider avec
+l’utilisateur ; aucun développement d’Undercover complet ou d’éditeur graphique
+n’est lancé automatiquement.

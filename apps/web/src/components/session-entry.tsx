@@ -147,6 +147,11 @@ export function SessionEntry({ invitationCode }: { invitationCode?: string }) {
 
   return (
     <main className="session-home session-shell">
+      {process.env.NODE_ENV !== "production" && (
+        <Link className="text-link" href="/lab">
+          Ouvrir le laboratoire de développement ↗
+        </Link>
+      )}
       <header className="session-header">
         <Link className="session-brand" href="/">
           xt

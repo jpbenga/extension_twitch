@@ -1,8 +1,10 @@
 # Extension Twitch
 
-Socle d’une plateforme de jeux interactifs pour les émissions Twitch : régie Game Master, overlays OBS, interfaces joueurs et, à terme, extension spectateur.
+Moteur et studio de création de jeux interactifs pour les émissions Twitch : régie Game Master, overlays OBS, interfaces joueurs et, à terme, extension spectateur.
 
-**État : étape 3, jalon A.** Sessions réelles persistées dans SQLite, accès privés GM/joueurs et plateau public synchronisé. Les trois jeux sont structurés mais ne sont pas encore jouables. Aucun compte Twitch, paiement ou service payant n’est requis. Le laboratoire, les règles Undercover et les jalons B/C/D attendent une nouvelle validation.
+**État : socle configurable et premier laboratoire de développement.** Le moteur interprète des définitions versionnées (rôles, actions, phases, valeurs et références d’assets). Deux exemples réellement jouables utilisent les sessions SQLite et SSE de A. Undercover, Enchères et Qui est l’espion restent les jeux officiels prévus : leurs règles complètes ne sont pas implémentées. Aucun compte Twitch, paiement ou service payant requis.
+
+**Validation technique terminée — Validation humaine iPhone en attente.** Les tests Chromium sur formats mobiles ne valident pas Safari iOS sur appareil réel.
 
 ## Démarrer
 
@@ -38,6 +40,7 @@ Ouvrir l’adresse privée affichée par cette commande. Elle configure les invi
 | `/sessions/<id>/player/<participantId>`        | Compagnon individuel, accès privé requis                                                                      |
 | `/sessions/<id>/public`                        | Plateau synchronisé, pour OBS ou un navigateur                                                                |
 | `/demo`, `/player`, `/overlay?game=undercover` | Anciennes maquettes fictives ; `auctions`, `spy` et `transparent=1` restent disponibles pour l’overlay fictif |
+| `/lab`                                         | Laboratoire réel, exclusivement en développement (`npm run dev` ou `dev:lan`)                                 |
 | Port 4000, `/health`                           | Contrôle de disponibilité du serveur                                                                          |
 | Port 4000, `/events`                           | Sonde SSE de transport, sans état de jeu                                                                      |
 
@@ -73,9 +76,10 @@ Dans cet environnement cloud, Chromium est déjà installé :
 
 ```sh
 PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:e2e
+PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:lab
 ```
 
-Playwright démarre et arrête les deux services compilés avec une base temporaire distincte de vos sessions. Les parcours utilisent un GM, plusieurs identités et un spectateur sur des formats téléphone, tablette et ordinateur, ainsi que les anciennes maquettes. Ils ne remplacent pas un test Safari iOS sur appareil réel. Pour lancer manuellement la version compilée : `npm run build`, puis `npm start`.
+`test:lab` démarre le développement sur les ports 3100/4100, avec sa propre base temporaire, pour vérifier la page absente en production. Les autres tests Playwright démarrent et arrêtent les deux services compilés avec une base temporaire distincte de vos sessions. Les parcours utilisent un GM, plusieurs identités et un spectateur sur des formats téléphone, tablette et ordinateur, ainsi que les anciennes maquettes. Ils ne remplacent pas un test Safari iOS sur appareil réel. Pour lancer manuellement la version compilée : `npm run build`, puis `npm start`.
 
 ## Structure
 
@@ -85,7 +89,7 @@ apps/
   server/                API HTTP/SSE, identification, transactions SQLite
 packages/
   contracts/             Schémas Zod et types partagés
-  engine/                Moteur de salon indépendant et contrats des futurs jeux
+  engine/                Salon et interpréteur déclaratif, exemples côté serveur
   games/
     undercover/          Descripteur ; règles à définir
     auctions/            Descripteur ; règles à définir
@@ -99,10 +103,13 @@ tests/
 scripts/
   dev-lan.mjs            Lancement Wi-Fi avec origine réseau appropriée
 docs/
-  PRODUCT.md             Cahier des charges fourni, version 0.1
+  PRODUCT.md             Cahier des charges et évolution studio, version 0.2
   ARCHITECTURE.md         Décisions techniques et limites du socle
   STAGE-3.md              Plan A/B/C/D et hypothèses Undercover non validées
   TEST-IPHONE.md          Lancement et checklists de validation humaine
+  CONFIGURABLE-ENGINE.md  Langage, projections, versions et migration
+  ASSETS.md              Références BYOS et limites de sécurité
+  TEST-CONFIGURABLE.md    Exemples et laboratoire, validation manuelle
 AGENTS.md                Instructions de développement fournies
 ```
 
@@ -110,6 +117,10 @@ AGENTS.md                Instructions de développement fournies
 
 Le salon réel permet d’inscrire jusqu’à 32 joueurs (limite technique, pas une règle Undercover), changer leur état prêt, observer leur présence, renommer la session, fermer/rouvrir les invitations, retirer un joueur ou réinitialiser le salon. Les liens privés de récupération doivent être conservés : sans compte, il n’existe pas encore de récupération par e-mail. Les jetons n’expirent pas automatiquement à ce jalon ; un retrait ou une réinitialisation révoque ceux des joueurs. L’accès GM se conserve tant que la base existe.
 
-Un seul processus Node est supporté pour la diffusion. Les reconnexions récupèrent un instantané récent, sans rejouer des commandes. Aucun rôle secret, mot, vote, budget, minuteur ou victoire n’est implémenté. Pas encore de comptes, laboratoire connecté, import d’images, PWA installable ou extension Twitch officielle. Les contrats Bits ne vérifient et n’exécutent aucune transaction. Les anciennes maquettes restent locales et fictives.
+Un seul processus Node est supporté pour la diffusion. Les reconnexions récupèrent un instantané récent, sans rejouer des commandes. Le langage expérimental v1 fournit valeurs bornées, rôles, comparaisons d’égalité, affectation/incrément/révélation et transitions manuelles. Chaque partie conserve sa définition ; toute version inconnue est refusée. L’effectif est figé à l’installation jusqu’à la réinitialisation. Les assets restent des références validées et des remplacements visuels : aucun fichier n’est récupéré ni rendu.
 
-Avant toute évolution, lire [le produit](docs/PRODUCT.md), [les consignes](AGENTS.md), [l’architecture](docs/ARCHITECTURE.md) et [le plan de l’étape 3](docs/STAGE-3.md). Les jalons B, C et D nécessitent une nouvelle validation après essai humain de A.
+Pas encore de distribution aléatoire, votes, budgets transactionnels, minuteurs, éliminations ou victoire des jeux officiels. Pas de studio sans code complet, composition graphique des scènes, comptes, connecteur cloud, import de médias, PWA installable ou extension Twitch officielle. Les contrats Bits ne vérifient et n’exécutent aucune transaction. Les anciennes maquettes restent fictives.
+
+Pour un essai concret : lancer `npm run dev:lan`, ouvrir `/lab` à l’adresse affichée, créer une démonstration, puis ouvrir les liens GM, joueurs et plateau. Voir [les scénarios reproductibles](docs/TEST-CONFIGURABLE.md). En production `/lab` retourne 404 ; les panneaux génériques de session restent utilisables.
+
+Avant toute évolution, lire [le produit](docs/PRODUCT.md), [les consignes](AGENTS.md), [l’architecture configurable](docs/CONFIGURABLE-ENGINE.md), [les assets](docs/ASSETS.md) et [le plan de l’étape 3](docs/STAGE-3.md). Prochaine priorité recommandée : validation ergonomique, puis primitives de votes/distribution et règles Undercover à valider. Cette livraison ne démarre pas Undercover complet ni un éditeur visuel.

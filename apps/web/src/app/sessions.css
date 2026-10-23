@@ -546,3 +546,87 @@
     margin: 15px 0;
   }
 }
+
+/* Generic projections keep controls usable without a game-specific layout. */
+.game-values {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+  margin-block: 1rem;
+}
+.game-values article {
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: #ffffff08;
+}
+.game-values span {
+  display: block;
+  color: #a9a6bd;
+  font-size: 0.85rem;
+}
+.game-values strong {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 1.25rem;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+.game-actions {
+  display: grid;
+  gap: 1rem;
+}
+.game-action {
+  padding-block: 0.5rem;
+  border-top: 1px solid #ffffff12;
+}
+.game-phase {
+  font-size: 1.1rem;
+}
+.role-assignment {
+  display: grid;
+  gap: 0.5rem;
+  margin-block: 1rem;
+}
+.session-shell select,
+.session-shell textarea {
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  padding: 0.75rem;
+  border: 1px solid #ffffff24;
+  border-radius: 12px;
+  background: #181524;
+  color: #fff;
+  font: inherit;
+  font-size: 16px;
+}
+.session-shell textarea {
+  resize: vertical;
+}
+.lab-links {
+  display: grid;
+  gap: 1rem;
+}
+.asset-fallback {
+  color: #aaa6bf;
+  font-size: 0.85rem;
+  overflow-wrap: anywhere;
+}
+.real-stage .game-values {
+  margin-inline: 4%;
+  text-align: left;
+}
+.room-navigation a {
+  min-height: 44px;
+  display: grid;
+  place-items: center;
+}
+
+/* A portrait tablet previews all cards; broadcast-width viewports retain 16:9. */
+@media (min-width: 700px) and (max-width: 999px) {
+  .public-session-page .real-stage.has-game {
+    aspect-ratio: auto;
+  }
+}

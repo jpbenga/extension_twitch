@@ -5,6 +5,7 @@ import { mkdtempSync, readFileSync, rmSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { setTimeout as pause } from "node:timers/promises";
+import { answerBox } from "@extension-twitch/engine";
 import { expect, it } from "vitest";
 import {
   gmSessionSchema,
@@ -181,6 +182,65 @@ it("restores sessions, credentials, journal and command receipts after an actual
         })
       ).status,
     ).toBe(200);
+    // Upgrade the restored A session in place, then restart the real process again.
+    const commandPath = `/sessions/${created.sessionId}/commands`;
+    const sendGame = async (
+      token: string,
+      command: unknown,
+      expectedVersion: number,
+    ) => {
+      const envelope = { commandId: randomUUID(), expectedVersion, command };
+      const response = await post(commandPath, token, envelope);
+      expect(response.status).toBe(200);
+      return { view: sessionViewSchema.parse(await response.json()), envelope };
+    };
+    const configured = await sendGame(
+      gmToken,
+      {
+        type: "game.configure",
+        definition: answerBox,
+        configuration: {},
+        assets: [],
+      },
+      4,
+    );
+    const runId = configured.view.publicGame!.runId;
+    await sendGame(
+      gmToken,
+      { type: "game.action", runId, actionId: "open", parameters: {} },
+      5,
+    );
+    const answered = await sendGame(
+      playerToken,
+      {
+        type: "game.action",
+        runId,
+        actionId: "answer",
+        parameters: { text: "Réponse persistée privée" },
+      },
+      6,
+    );
+    await stop();
+    await start();
+    const resumed = sessionViewSchema.parse(
+      await (
+        await fetch(`${origin}/sessions/${created.sessionId}/private`, {
+          headers: headers(playerToken),
+        })
+      ).json(),
+    );
+    expect(resumed.version).toBe(7);
+    expect(resumed.publicGame?.runId).toBe(runId);
+    expect(JSON.stringify(resumed)).toContain("Réponse persistée privée");
+    const observer = sessionViewSchema.parse(
+      await (
+        await fetch(`${origin}/sessions/${created.sessionId}/public`)
+      ).json(),
+    );
+    expect(JSON.stringify(observer)).not.toContain("Réponse persistée privée");
+    const repeated = await post(commandPath, playerToken, answered.envelope);
+    expect(repeated.status).toBe(200);
+    expect(sessionViewSchema.parse(await repeated.json()).version).toBe(7);
   } finally {
     await stop();
     rmSync(directory, { recursive: true, force: true });

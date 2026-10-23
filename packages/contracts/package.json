@@ -11,6 +11,10 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
+    },
+    "./game-definition": {
+      "types": "./dist/game-definition.d.ts",
+      "import": "./dist/game-definition.js"
     }
   },
   "scripts": {

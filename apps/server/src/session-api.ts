@@ -7,7 +7,7 @@ import {
   lobbyCommandSchema,
   sessionIdSchema,
 } from "@extension-twitch/contracts/sessions";
-import { SessionError } from "@extension-twitch/engine";
+import { gameExamples, SessionError } from "@extension-twitch/engine";
 import { ZodError } from "zod";
 import { hashValue, type SessionService } from "./session-service.js";
 
@@ -72,6 +72,10 @@ export class SessionApi {
     try {
       const path = new URL(request.url ?? "/", "http://internal").pathname;
       const method = request.method;
+      if (method === "GET" && path === "/game-examples") {
+        json(response, gameExamples);
+        return;
+      }
       if (method === "POST") {
         const origin = request.headers.origin;
         if (origin && origin !== this.service.publicOrigin)

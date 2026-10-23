@@ -31,7 +31,14 @@ export const games = [
 ] as const;
 
 export function findGame(id: GameId) {
-  return games.find((game) => game.id === id) ?? games[0];
+  return (
+    games.find((game) => game.id === id) ?? {
+      ...games[0],
+      id,
+      title: "Expérience personnalisée",
+      shortTitle: "Studio",
+    }
+  );
 }
 
 // Deliberately public fixture, shared by visual previews only. No game state.

@@ -1,3 +1,11 @@
+import { randomUUID } from "node:crypto";
+import {
+  createGameRun,
+  executeGameAction,
+  assignGameRole,
+  projectGame,
+  type GameRun,
+} from "./configurable.js";
 import type { GameId } from "@extension-twitch/contracts";
 import type {
   LobbyAction,
@@ -5,17 +13,10 @@ import type {
   PublicSessionView,
 } from "@extension-twitch/contracts/sessions";
 
-export class SessionError extends Error {
-  constructor(
-    readonly code: string,
-    readonly status = 400,
-  ) {
-    super(code);
-  }
-}
-export type SessionActor =
-  { role: "gm" } | { role: "player"; participantId: string };
+import { SessionError, type SessionActor } from "./session-types.js";
+export { SessionError, type SessionActor } from "./session-types.js";
 export interface LobbyState {
+  gameRun?: GameRun;
   id: string;
   title: string;
   hostName: string;
@@ -49,6 +50,7 @@ export function addParticipant(
   at: string,
 ): LobbyState {
   if (state.phase !== "lobby") throw new SessionError("WRONG_PHASE", 409);
+  if (state.gameRun) throw new SessionError("GAME_RUNNING", 409);
   if (!state.admissionOpen) throw new SessionError("ADMISSION_CLOSED", 409);
   if (state.participants.length >= 32)
     throw new SessionError("LOBBY_FULL", 409);
@@ -78,6 +80,15 @@ export function decideLobby(
   context: { at: string; nextInvitationCode: string },
 ): LobbyState {
   if (state.phase !== "lobby") throw new SessionError("WRONG_PHASE", 409);
+  if (action.type === "game.action") {
+    if (!state.gameRun) throw new SessionError("NO_GAME", 409);
+    return recordEvent(
+      { ...state, gameRun: executeGameAction(state.gameRun, actor, action) },
+      action.type,
+      "Une action de jeu a été acceptée.",
+      context.at,
+    );
+  }
   if (action.type === "participant.ready") {
     if (actor.role !== "player") throw new SessionError("FORBIDDEN", 403);
     const player = state.participants.find(
@@ -98,6 +109,64 @@ export function decideLobby(
   }
   if (actor.role !== "gm") throw new SessionError("FORBIDDEN", 403);
   switch (action.type) {
+    case "game.configure": {
+      if (state.gameRun) throw new SessionError("GAME_RUNNING", 409);
+      const gameRun = createGameRun(
+        action.definition,
+        action.configuration,
+        action.assets,
+        state.participants.map((p) => p.id),
+        randomUUID(),
+      );
+      return recordEvent(
+        {
+          ...state,
+          admissionOpen: false,
+          gameId: gameRun.definition.id,
+          gameRun,
+        },
+        action.type,
+        "Le GM a installé une définition de jeu.",
+        context.at,
+      );
+    }
+    case "game.assign-role": {
+      if (!state.gameRun) throw new SessionError("NO_GAME", 409);
+      return recordEvent(
+        {
+          ...state,
+          gameRun: assignGameRole(
+            state.gameRun,
+            actor,
+            action.participantId,
+            action.roleId,
+          ),
+        },
+        action.type,
+        "Le GM a modifié une affectation de rôle.",
+        context.at,
+      );
+    }
+    case "game.restart": {
+      const run = state.gameRun;
+      if (!run) throw new SessionError("NO_GAME", 409);
+      if (run.runId !== action.runId) throw new SessionError("STALE_GAME", 409);
+      return recordEvent(
+        {
+          ...state,
+          gameRun: createGameRun(
+            run.definition,
+            run.configuration,
+            run.assets,
+            state.participants.map((p) => p.id),
+            randomUUID(),
+          ),
+        },
+        action.type,
+        "Le GM a relancé la partie avec la même définition.",
+        context.at,
+      );
+    }
     case "session.rename":
       return recordEvent(
         { ...state, title: action.title },
@@ -106,6 +175,8 @@ export function decideLobby(
         context.at,
       );
     case "session.admission":
+      if (state.gameRun && action.open)
+        throw new SessionError("GAME_RUNNING", 409);
       return recordEvent(
         { ...state, admissionOpen: action.open },
         action.type,
@@ -113,6 +184,7 @@ export function decideLobby(
         context.at,
       );
     case "participant.remove": {
+      if (state.gameRun) throw new SessionError("GAME_RUNNING", 409);
       const player = state.participants.find(
         (item) => item.id === action.participantId,
       );
@@ -129,10 +201,11 @@ export function decideLobby(
         context.at,
       );
     }
-    case "session.reset":
+    case "session.reset": {
+      const { gameRun: _removed, ...withoutGame } = state;
       return recordEvent(
         {
-          ...state,
+          ...withoutGame,
           participants: [],
           admissionOpen: true,
           invitationCode: context.nextInvitationCode,
@@ -141,6 +214,7 @@ export function decideLobby(
         "Le GM a réinitialisé le salon et renouvelé l’invitation.",
         context.at,
       );
+    }
   }
 }
 
@@ -150,6 +224,7 @@ export function projectPublicSession(
   connected: ReadonlySet<string>,
 ): PublicSessionView {
   return {
+    ...(state.gameRun ? { publicGame: projectGame(state.gameRun, null) } : {}),
     audience: "public",
     sessionId: state.id,
     title: state.title,

@@ -1,4 +1,5 @@
 import type { SessionView } from "@extension-twitch/contracts/sessions";
+import { GameValues } from "./game-panel";
 import { findGame } from "../lib/demo";
 
 export function PublicSession({
@@ -13,17 +14,17 @@ export function PublicSession({
   const ready = view.participants.filter((player) => player.ready).length;
   return (
     <section
-      className={`real-stage ${game.theme}`}
+      className={`real-stage ${game.theme} ${view.publicGame ? "has-game" : ""}`}
       aria-label="Plateau public synchronisé"
     >
       <div className="real-stage-header">
         <span className="stage-brand">
           XT<span>SHOWTIME</span>
         </span>
-        <span>SALON D’ATTENTE</span>
+        <span>{view.publicGame?.phase.label ?? "SALON D’ATTENTE"}</span>
       </div>
       <div className="real-stage-title">
-        <span className="eyebrow">{game.title}</span>
+        <span className="eyebrow">{view.publicGame?.title ?? game.title}</span>
         <Heading>{view.title}</Heading>
         <p>
           Animé par {view.hostName} · {ready} / {view.participants.length} prêts
@@ -47,8 +48,13 @@ export function PublicSession({
       {view.participants.length === 0 && (
         <p className="empty-lobby">Le plateau attend ses premiers invités.</p>
       )}
+      {view.publicGame && (
+        <GameValues game={view.publicGame} names={view.participants} />
+      )}
       <p className="real-stage-caption">
-        Session réelle · aucun jeu en cours · v{view.version}
+        Session réelle ·{" "}
+        {view.publicGame ? "expérience synchronisée" : "aucun jeu en cours"} · v
+        {view.version}
       </p>
     </section>
   );

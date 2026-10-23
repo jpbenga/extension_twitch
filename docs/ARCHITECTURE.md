@@ -66,3 +66,11 @@ Le jalon A gère les sessions et leur persistance, pas une partie jouable. La di
 Avant les règles : définir les phases, égalités, victoires, modalités de vote, différences entre Undercover et espion, clôture et annulation des enchères. La règle déjà validée demeure : une enchère proposée ne débite rien, l’attribution confirmée seule déclenche le débit.
 
 Avant les intégrations : définir les permissions GM/streamer, invitations, remise confidentielle des informations en mode animé, actions annulables, catalogue d’interactions, règles Twitch applicables et équilibrage. Les paiements réels nécessitent une demande explicite et une validation de conception.
+
+## Évolution : studio configurable
+
+La décision [Moteur configurable](CONFIGURABLE-ENGINE.md) remplace la liste fermée
+des jeux et les moteurs de règles spécialisés lorsque des primitives communes
+suffisent. Les sessions, SQLite, SSE et capacités de A sont conservés. Les trois
+modules officiels actuels restent des métadonnées, pas des jeux jouables.
+Voir aussi [Assets BYOS](ASSETS.md).

@@ -28,7 +28,8 @@
     "check": "npm run format:check && npm run test && npm run typecheck && npm run build",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "dev:lan": "node scripts/dev-lan.mjs"
+    "dev:lan": "node scripts/dev-lan.mjs",
+    "test:lab": "playwright test --config playwright.lab.config.ts"
   },
   "devDependencies": {
     "@playwright/test": "1.64.1",

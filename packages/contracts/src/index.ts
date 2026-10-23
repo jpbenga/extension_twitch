@@ -1,6 +1,10 @@
 import { z } from "zod";
 
-export const gameIdSchema = z.enum(["undercover", "auctions", "spy"]);
+export const officialGameIdSchema = z.enum(["undercover", "auctions", "spy"]);
+export const gameIdSchema = z
+  .string()
+  .regex(/^[a-z][a-z0-9-]{0,39}$/)
+  .refine((id) => !["constructor", "prototype"].includes(id));
 export type GameId = z.infer<typeof gameIdSchema>;
 
 export const participationModeSchema = z.enum([
