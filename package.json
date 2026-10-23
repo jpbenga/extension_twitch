@@ -1,0 +1,42 @@
+{
+  "name": "extension-twitch",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=24 <25",
+    "npm": ">=11 <12"
+  },
+  "packageManager": "npm@11.9.0",
+  "workspaces": [
+    "packages/contracts",
+    "packages/engine",
+    "packages/games/undercover",
+    "packages/games/auctions",
+    "packages/games/spy",
+    "apps/server",
+    "apps/web"
+  ],
+  "scripts": {
+    "build:packages": "tsc -b packages/contracts packages/engine packages/games/undercover packages/games/auctions packages/games/spy",
+    "dev": "npm run build:packages && concurrently --kill-others --names types,server,web \"npm run dev:packages\" \"npm run dev --workspace @extension-twitch/server\" \"npm run dev --workspace @extension-twitch/web\"",
+    "dev:packages": "npm run build:packages -- --watch --preserveWatchOutput",
+    "build": "npm run build --workspaces --if-present",
+    "start": "concurrently --kill-others --names server,web \"npm run start --workspace @extension-twitch/server\" \"npm run start --workspace @extension-twitch/web\"",
+    "typecheck": "npm run build:packages && npm run typecheck --workspaces --if-present && tsc -p tsconfig.tools.json",
+    "test": "npm run build:packages && vitest run",
+    "test:e2e": "playwright test",
+    "check": "npm run format:check && npm run test && npm run typecheck && npm run build",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "@types/node": "24.19.2",
+    "concurrently": "10.0.6",
+    "prettier": "3.9.10",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "vitest": "5.0.5"
+  },
+  "type": "module"
+}
