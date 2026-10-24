@@ -140,3 +140,59 @@ Les sections mobiles de régie conservent leurs champs montés et leurs liens/fr
 mais n’affichent qu’un espace de pilotage à la fois pendant une partie. Le plateau
 continue d’utiliser les projections publiques uniquement. Le catalogue `/design-system`
 est réservé au développement et absent en production. Voir [la validation iPhone](TEST-BROADCAST-NEON.md).
+
+## Refonte globale — Jouer, Créer, Régie, test multi-appareils
+
+Base vérifiée : `b277c56`, descendante de `512d936` (Undercover) et `26b0202`
+(Studio 4B.1). Aucun retour à une branche ancienne. Les tokens et dialogues Broadcast
+Neon sont conservés, ainsi que les droits, brouillons, variantes et SQLite/SSE.
+
+- `/` présente Jouer et Créer, plus un accès secondaire aux invitations.
+- `/play` choisit le jeu ; `/play/undercover` règle la partie et choisit démonstration
+  ou vrais invités. Le launcher réutilise l’accès propriétaire et les API de
+  préparation existantes, sans présenter le Studio à l’utilisateur qui veut jouer.
+- `/play/lab/[id]` garde les capacités des joueurs fictifs dans l’onglet qui l’a
+  préparé. Il propose copie du lien GM pour un autre appareil et vues individuelles.
+- `/creator` et ses routes restent l’espace de création. Les anciens liens
+  `/creator/play` et `/creator/lab/[id]` fonctionnent avec les composants communs.
+- `/sessions/[id]/gm` est la régie, avec Partie / Joueurs / Plateau pendant le jeu.
+  Les réglages sont repliés dans Partie. Les anciens fragments `#session`, `#game`,
+  `#players`, `#board` restent reconnus. Le logo n’envoie aucune commande d’arrêt.
+- `/join` accepte un code ; `/join/[code]` inscrit le participant. `/sessions/new`
+  conserve l’ancien formulaire de salon pour les tests du moteur et les usages
+  préparatoires. Ce salon seul ne promet pas un jeu terminé.
+
+Le laboratoire monte une seule projection privée à la fois, avec une clé React
+session + identité. La perspective sélectionnée est persistée par session dans le
+stockage de l’onglet et vérifiée contre les participants connus. Le panneau public
+comparatif optionnel lit une **projection publique indépendante**, jamais un sous-
+ensemble calculé depuis les données GM. Chaque onglet individuel importe sa propre
+capacité ; `noopener noreferrer` évite la relation d’ouverture et la transmission
+de référent. Aucun endpoint d’usurpation, de simulation ou de collecte des secrets
+n’est ajouté. Un laboratoire sans ses capacités locales n’affiche aucun sélecteur.
+
+Le contexte de test multirôle est privé au GM. Il n’est pas accessible depuis les
+invitations ou vues publiques. Le laboratoire Créateur/Jouer utilise uniquement les
+opérations normales et reste disponible au propriétaire en mode compilé ; `/lab`
+et `/design-system`, qui sont des outils de développement, restent absents en
+production. Ce sont des restrictions différentes, explicitement conservées.
+
+Les tours d’indices sont une extension additive v3 : `mechanics.turns` lie un nombre
+public de répétitions et une étape. `turn.advance` est une action GM, `requireTurns`
+bloque l’ouverture d’un scrutin. L’entrée dans cette étape initialise la séquence
+sur les actifs et une nouvelle manche la recommence. Ni identifiant Undercover,
+ni compte local React ne détermine ces règles. Le suivi, les votes et les reçus
+partagent le même snapshot transactionnel SQLite. L’absence du champ conserve le
+comportement historique. Undercover 0.1.0 reste résoluble, 0.2.0 est le modèle courant.
+
+L’audit [de configurabilité](OFFICIAL-GAMES-CONFIGURABILITY.md) distingue exécution,
+édition et reconstruction sans JSON. La création visuelle de toutes les structures
+natives depuis zéro reste à faire. Le [guide multi-appareils](TEST-MULTI-DEVICE-GAMES.md)
+explique les limites HTTP/SSE, la copie privée et le parcours iPhone GM + ordinateur.
+
+Les installations officielles historiques disposent d’une liste privée facultative
+`StudioView.archivedInstallations`, distincte du catalogue courant. Le serveur la
+résout à partir des seules installations du propriétaire ; la bibliothèque l’utilise
+uniquement dans « Jeux ajoutés », avec la version et la mention de règles conservées.
+Cela évite de faire disparaître une installation 0.1.0 lors de la sortie 0.2.0,
+sans la dupliquer dans le catalogue ni migrer son contenu. Aucun changement SQL.

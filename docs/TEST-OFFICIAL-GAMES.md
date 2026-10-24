@@ -1,5 +1,10 @@
 # Tester les jeux officiels depuis votre iPhone
 
+> Parcours actualisé : [tests iPhone + ordinateur](TEST-MULTI-DEVICE-GAMES.md).
+> Undercover 0.2.0 exige deux tours d’indices complets (configurables) avant chaque
+> vote. Les commandes de discussion décrites ci-dessous sont historiques : confirmer
+> chaque passage avant « Ouvrir les votes ».
+
 **Livraison actuelle : Undercover, variante de démonstration jouable.**
 Enchères et Qui est l’espion ne sont pas encore jouables. Leurs règles proposées
 sont dans [OFFICIAL-GAMES-RULES.md](OFFICIAL-GAMES-RULES.md).

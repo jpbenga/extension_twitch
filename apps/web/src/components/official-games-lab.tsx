@@ -10,12 +10,17 @@ import { useStudio } from "./creator-context";
 import { useCreatorLaunch } from "../lib/use-creator-launch";
 import { PlayConfiguration } from "./play-configuration";
 import { NumberInput } from "./creator-fields";
-export function OfficialGamesLab() {
+export function OfficialGamesLab({
+  context = "creator",
+}: {
+  context?: "creator" | "play";
+}) {
   const studio = useStudio(),
     launcher = useCreatorLaunch();
   const source = studio.view?.catalog.find(
     (g) => g.release.definition.id === "undercover",
   );
+  const [mode, setMode] = useState<"quick" | "invite">("quick");
   const [values, setValues] = useState<Record<string, Scalar>>({}),
     [count, setCount] = useState(4),
     [error, setError] = useState("");
@@ -68,28 +73,35 @@ export function OfficialGamesLab() {
       source.release.version,
       d,
       mode,
-      "/creator/play",
+      context === "play" ? "/play/undercover" : "/creator/play",
       values,
       count,
     );
   }
   return (
-    <CreatorFrame workspace>
+    <CreatorFrame workspace context={context}>
       <div className="creator-page-title">
         <div>
-          <span className="eyebrow">SIMULATEUR D’ÉMISSION</span>
-          <h1>Laboratoire des jeux</h1>
+          <span className="eyebrow">JOUER · PRÉPARER UNE PARTIE</span>
+          <h1>
+            {context === "play"
+              ? "Préparer Undercover"
+              : "Laboratoire des jeux"}
+          </h1>
           <p>
             Une vraie partie, plusieurs points de vue. Choisissez vos réglages
             puis animez depuis votre téléphone.
           </p>
         </div>
-        <Link href="/creator" className="secondary-button">
-          Retour au Studio
+        <Link
+          href={context === "play" ? "/play" : "/creator"}
+          className="secondary-button"
+        >
+          {context === "play" ? "Changer de jeu" : "Retour au Studio"}
         </Link>
       </div>
       <section className="lobby-panel official-game-card game-undercover">
-        <span className="eyebrow">5A · VARIANTE DE DÉMONSTRATION</span>
+        <span className="eyebrow">VARIANTE DE DÉMONSTRATION</span>
         <h2>Tester Undercover</h2>
         <p>
           Découvrez votre mot, discutez et votez pour démasquer les Undercover.
@@ -98,11 +110,12 @@ export function OfficialGamesLab() {
         <details>
           <summary>Comment se déroule cette variante ?</summary>
           <p>
-            Distribution secrète → discussion → vote unique → résultat. Pas de
-            vote pour soi. En cas d’égalité, personne ne sort. Les civils
-            gagnent après l’élimination de tous les Undercover ; les Undercover
-            gagnent à la parité. Les camps sont révélés après élimination, les
-            mots seulement à la fin. Le nombre de tours est borné.
+            Distribution secrète → tours d’indices oraux (2 par défaut) → vote
+            unique → résultat. Pas de vote pour soi. En cas d’égalité, personne
+            ne sort. Les civils gagnent après l’élimination de tous les
+            Undercover ; les Undercover gagnent à la parité. Les camps sont
+            révélés après élimination, les mots seulement à la fin. Le nombre de
+            manches est borné.
           </p>
         </details>
         {(error || launcher.failure) && (
@@ -115,19 +128,40 @@ export function OfficialGamesLab() {
             className="lobby-form"
             onSubmit={(e) => {
               e.preventDefault();
-              void start("quick");
+              void start(mode);
             }}
           >
             <label>
-              Joueurs de démonstration
-              <NumberInput
-                label="Joueurs de démonstration"
-                value={count}
-                min={3}
-                max={12}
-                onChange={setCount}
-              />
+              Comment souhaitez-vous jouer ?
+              <select
+                aria-label="Comment souhaitez-vous jouer ?"
+                value={mode}
+                onChange={(e) => setMode(e.target.value as "quick" | "invite")}
+              >
+                <option value="quick">
+                  Tester seul avec des joueurs de démonstration
+                </option>
+                <option value="invite">Inviter de vrais participants</option>
+              </select>
             </label>
+            {mode === "quick" && (
+              <label>
+                Joueurs de démonstration
+                <NumberInput
+                  label="Joueurs de démonstration"
+                  value={count}
+                  min={3}
+                  max={12}
+                  onChange={setCount}
+                />
+              </label>
+            )}
+            {mode === "invite" && (
+              <p>
+                Chacun reçoit une invitation. Vous préparez la partie quand tous
+                les joueurs sont présents.
+              </p>
+            )}
             <PlayConfiguration
               definition={source.release.definition}
               values={values}
@@ -140,31 +174,17 @@ export function OfficialGamesLab() {
             >
               {launcher.launching
                 ? "Préparation de la partie…"
-                : "Lancer une partie de démonstration"}
+                : mode === "quick"
+                  ? "Lancer une partie de démonstration"
+                  : "Créer une partie avec mes invités"}
             </button>
-            <details>
-              <summary>Jouer avec de vraies personnes</summary>
-              <p>
-                Créez une partie sans joueurs fictifs. Chacun rejoint avec son
-                invitation ; préparez la partie quand tout le monde est là. Les
-                mêmes règles s’appliquent.
-              </p>
-              <button
-                type="button"
-                className="secondary-button"
-                disabled={launcher.launching || studio.busy}
-                onClick={() => void start("invite")}
-              >
-                Créer une partie avec mes invités
-              </button>
-            </details>
           </form>
         )}
       </section>
       <div className="creator-catalog">
         <article className="creator-list-card official-game-card game-auctions">
           <div>
-            <span className="eyebrow">5B · NON JOUABLE POUR LE MOMENT</span>
+            <span className="eyebrow">NON JOUABLE POUR LE MOMENT</span>
             <h2>Enchères</h2>
             <p>
               La verticale devra ajouter les offres et l’attribution confirmée.
@@ -174,7 +194,7 @@ export function OfficialGamesLab() {
         </article>
         <article className="creator-list-card official-game-card game-spy">
           <div>
-            <span className="eyebrow">5C · NON JOUABLE POUR LE MOMENT</span>
+            <span className="eyebrow">NON JOUABLE POUR LE MOMENT</span>
             <h2>Qui est l’espion ?</h2>
             <p>
               Une expérience de questions et de déduction distincte d’Undercover

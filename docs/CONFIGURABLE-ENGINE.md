@@ -167,3 +167,33 @@ aucune nouvelle table ni migration SQL. La version et les références sont vali
 avant installation. Une ancienne partie reste figée sur sa définition v1/v2. Le
 rejeu repart d’un nouvel identifiant avec la même définition/configuration et les
 mêmes capacités d’accès, sans conserver votes, secrets distribués ou éliminations.
+
+## Refonte globale — suivi générique de tours de parole
+
+Extension additive du schéma v3 :
+
+```text
+mechanics.turns = { phase, roundsConfiguration }
+action.operations = [{ type: "turn.advance" }]
+ballot.requireTurns = true  (facultatif)
+```
+
+La configuration du nombre de répétitions doit être un entier **public**, borné
+entre 1 et 5. Le validateur contrôle les références et exige une action de passage
+dans la bonne étape. Cette action est réservée aux rôles base GM et ne peut avoir
+une transition concurrente. À l’entrée dans l’étape (ou à une nouvelle manche), le
+moteur capture l’ordre des actifs. Chaque confirmation avance une position ; le
+passage du dernier joueur incrémente le tour jusqu’au total configuré. Aucun texte
+oral n’est stocké et aucune interface ne confirme automatiquement un joueur absent.
+
+La projection contient ordre, tour/total, passages confirmés et prochain participant,
+jamais les mots. Le scrutin marqué `requireTurns` n’est ni proposé au GM ni accepté
+par l’interpréteur avant la fin de la séquence. Les passages validés sont liés à la manche courante : une transition vers une autre
+étape ne peut réutiliser les indices d’une manche précédente. Le suivi est optionnel, sans mutation
+rétroactive des définitions. Rejeu et reprise utilisent les mêmes reçus et snapshots.
+Les tests couvrent aussi reprise après un vrai redémarrage au milieu des passages.
+
+Le modèle Undercover 0.2.0 configure deux tours ; une autre définition peut employer
+la même primitive pour un tour de table oral. L’éditeur existant permet de changer
+le nombre du modèle et conserve les opérations ; il ne sait pas encore créer ces
+structures depuis zéro sans JSON. Voir l’audit de reproductibilité.

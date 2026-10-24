@@ -141,15 +141,17 @@ export function decideLobby(
         ? "Tous les joueurs actifs ont voté."
         : operation === "deal"
           ? "Le GM a distribué les informations privées et démarré la partie."
-          : operation === "ballot.open"
-            ? "Le GM a ouvert les votes."
-            : operation === "ballot.cast"
-              ? `${name} a voté.`
-              : operation === "ballot.resolve"
-                ? "Le GM a révélé le résultat du vote."
-                : operation === "round.next"
-                  ? "Le GM a commencé le tour suivant."
-                  : `${name} a effectué une action.`;
+          : operation === "turn.advance"
+            ? "Le GM a confirmé un passage de parole."
+            : operation === "ballot.open"
+              ? "Le GM a ouvert les votes."
+              : operation === "ballot.cast"
+                ? `${name} a voté.`
+                : operation === "ballot.resolve"
+                  ? "Le GM a révélé le résultat du vote."
+                  : operation === "round.next"
+                    ? "Le GM a commencé la manche suivante."
+                    : `${name} a effectué une action.`;
     return recordEvent(
       { ...state, gameRun: nextRun },
       action.type,

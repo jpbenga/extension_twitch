@@ -2,7 +2,7 @@
 
 Moteur et studio de création de jeux interactifs pour les émissions Twitch : régie Game Master, overlays OBS, interfaces joueurs et, à terme, extension spectateur.
 
-**État : jalon 5A — Undercover jouable dans une variante de démonstration.** Distribution privée, discussions, votes uniques, égalités, éliminations, conditions de victoire et rejeu utilisent le moteur autoritaire commun. Le Laboratoire des jeux (`/creator/play`) prépare quatre identités distinctes ou accueille de vrais invités. Enchères et Qui est l’espion restent à implémenter ; le Studio 4B.1 est conservé. [Tester sur iPhone](docs/TEST-OFFICIAL-GAMES.md) · [Règles et hypothèses](docs/OFFICIAL-GAMES-RULES.md) · [Architecture et bilan 5A](docs/STAGE-5.md).
+**État : jalon 5A — Undercover jouable dans une variante de démonstration.** Distribution privée, discussions, votes uniques, égalités, éliminations, conditions de victoire et rejeu utilisent le moteur autoritaire commun. L’accueil sépare **Jouer** (`/play`) et **Créer** (`/creator`). Undercover prépare des identités distinctes ou accueille de vrais invités, avec **deux tours d’indices oraux avant chaque vote**, configurables. [Tester seul avec iPhone + ordinateur](docs/TEST-MULTI-DEVICE-GAMES.md). Enchères et Qui est l’espion restent à implémenter ; le Studio 4B.1 est conservé. [Tester sur iPhone](docs/TEST-OFFICIAL-GAMES.md) · [Règles et hypothèses](docs/OFFICIAL-GAMES-RULES.md) · [Architecture et bilan 5A](docs/STAGE-5.md).
 
 **Broadcast Neon** harmonise désormais les couleurs, les contrôles et les confirmations personnalisées. La régie mobile sépare les sections pendant une partie. [Design system](docs/DESIGN-SYSTEM.md) · [Tester la nouvelle interface sur iPhone](docs/TEST-BROADCAST-NEON.md).
 
@@ -36,13 +36,18 @@ Ouvrir l’adresse privée affichée par cette commande. Elle configure les invi
 
 | Adresse locale                                 | Usage                                                                                                         |
 | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| Port 3000, `/`                                 | Création d’une session ou saisie d’une invitation                                                             |
+| Port 3000, `/`                                 | Accueil Jouer / Créer, invitation et récupération                                                             |
+| `/play`                                        | Choisir un jeu, sans ouvrir le Studio                                                                         |
+| `/play/undercover`                             | Préparer Undercover : démonstration ou invités réels                                                          |
+| `/play/lab/<id>`                               | Laboratoire privé, lien GM pour iPhone, sélecteur des joueurs et spectateur                                   |
+| `/join`                                        | Saisir un code d’invitation                                                                                   |
+| `/sessions/new`                                | Ancien formulaire de salon, sans jeu automatiquement préparé                                                  |
 | `/sessions/<id>/gm`                            | Régie réelle, accès privé requis                                                                              |
 | `/join/<code>`                                 | Inscription sans compte, avec nom individuel                                                                  |
 | `/sessions/<id>/player/<participantId>`        | Compagnon individuel, accès privé requis                                                                      |
 | `/sessions/<id>/public`                        | Plateau synchronisé, pour OBS ou un navigateur                                                                |
 | `/demo`, `/player`, `/overlay?game=undercover` | Anciennes maquettes fictives ; `auctions`, `spy` et `transparent=1` restent disponibles pour l’overlay fictif |
-| `/creator`                                     | Accueil : lancer, personnaliser ou créer un jeu                                                               |
+| `/creator`                                     | Studio : bibliothèque, personnaliser ou créer                                                                 |
 | `/creator/library`                             | Exemples disponibles, jeux ajoutés et créations privées                                                       |
 | `/creator/play`                                | Laboratoire des jeux : Undercover réel, configuration, démonstration ou invitations                           |
 | `/creator/new`                                 | Guide de création ou démarrage avancé                                                                         |
@@ -115,7 +120,7 @@ tests/
 scripts/
   dev-lan.mjs            Lancement Wi-Fi avec origine réseau appropriée
 docs/
-  PRODUCT.md             Cahier des charges, Studio hybride et Broadcast Neon, version 0.7
+  PRODUCT.md             Cahier des charges, parcours et tours d’indices, version 0.8
   ARCHITECTURE.md         Décisions techniques et limites du socle
   STAGE-3.md              Plan A/B/C/D et hypothèses Undercover non validées
   TEST-IPHONE.md          Lancement et checklists de validation humaine
@@ -148,3 +153,20 @@ Pour essayer le Studio : lancer `npm run dev:lan`, ouvrir `/creator` à l’adre
 Pour les exemples du moteur : lancer `npm run dev:lan`, ouvrir `/lab` à l’adresse affichée, créer une démonstration, puis ouvrir les liens GM, joueurs et plateau. Voir [les scénarios reproductibles](docs/TEST-CONFIGURABLE.md). En production `/lab` retourne 404 ; les panneaux génériques de session restent utilisables.
 
 Avant toute évolution, lire [le produit](docs/PRODUCT.md), [les consignes](AGENTS.md), [l’architecture configurable](docs/CONFIGURABLE-ENGINE.md), [les assets](docs/ASSETS.md) et [le plan de l’étape 3](docs/STAGE-3.md). Prochaines priorités : retours humains sur Undercover, puis verticales 5B Enchères et 5C Qui est l’espion sur les mêmes fondations. Le laboratoire unifié 5D reste à compléter avec ces jeux. Le Store et 4C sont reportés.
+
+## Refonte globale — tests iPhone + ordinateur
+
+Sur l’ordinateur, ouvrez l’adresse réseau affichée par `dev:lan`, puis **Jouer →
+Préparer Undercover → Lancer une partie de démonstration**. Copiez le lien privé
+GM pour l’iPhone et gardez le laboratoire sur l’ordinateur : sélectionnez chaque
+joueur pour consulter sa carte et voter. Le plateau possède sa vue publique propre.
+Deux tours d’indices doivent être confirmés par le GM avant chaque scrutin.
+Les versions Undercover 0.1.0 existantes restent inchangées ; le modèle courant est
+0.2.0. Les accès restent distincts et ne sont jamais des comptes publics simulés.
+
+[Guide pas à pas et résultats attendus](docs/TEST-MULTI-DEVICE-GAMES.md) ·
+[Audit de reproductibilité des trois jeux](docs/OFFICIAL-GAMES-CONFIGURABILITY.md).
+La reconstruction visuelle complète d’Undercover depuis zéro reste une limite
+explicite, même si son exécution est entièrement déclarée dans le moteur commun.
+
+Bilan de cette livraison : [refonte globale](docs/GLOBAL-REFRESH.md), parcours, sécurité, tests et limites.

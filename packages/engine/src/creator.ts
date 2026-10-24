@@ -15,7 +15,10 @@ import {
   type StudioWorkspace,
   type CreatorOperation,
 } from "@extension-twitch/contracts/creator";
-import { undercoverDefinition } from "@extension-twitch/game-undercover/definition";
+import {
+  undercoverDefinition,
+  undercoverLegacyDefinition,
+} from "@extension-twitch/game-undercover/definition";
 import { collectivePulse, answerBox } from "./examples.js";
 import { SessionError } from "./session-types.js";
 
@@ -81,6 +84,34 @@ export const officialCatalog: readonly PublishedGame[] = [
     rightsAttested: true,
   },
 }));
+// Installed historical official releases remain resolvable; the catalogue shows
+// only the current release. This does not migrate running sessions or variants.
+const officialHistory: readonly PublishedGame[] = [
+  {
+    identity: structuredClone(officialCatalog[2]!.identity),
+    release: {
+      ...structuredClone(officialCatalog[2]!.release),
+      version: undercoverLegacyDefinition.version,
+      definition: structuredClone(undercoverLegacyDefinition),
+      metadata: {
+        ...structuredClone(officialCatalog[2]!.release.metadata),
+        title: undercoverLegacyDefinition.title,
+        description: undercoverLegacyDefinition.description,
+      },
+    },
+  },
+];
+export function archivedInstallations(
+  workspace: StudioWorkspace,
+): PublishedGame[] {
+  return officialHistory
+    .filter((g) =>
+      workspace.installations.some(
+        (i) => i.gameId === g.identity.id && i.version === g.release.version,
+      ),
+    )
+    .map((g) => structuredClone(g));
+}
 export { dependencyStatus };
 export function shareableAssets(
   assets: AssetDependency[],
@@ -150,7 +181,7 @@ export function findRelease(
   gameId: string,
   version: string,
 ): PublishedGame {
-  const official = officialCatalog.find(
+  const official = [...officialCatalog, ...officialHistory].find(
     (g) => g.identity.id === gameId && g.release.version === version,
   );
   if (official) return structuredClone(official);

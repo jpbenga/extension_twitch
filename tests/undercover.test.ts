@@ -46,6 +46,13 @@ const act = (
     { runId: run.runId, actionId, parameters },
     () => 0,
   );
+function completeClues(run: GameRun) {
+  let r = run;
+  while (r.play?.turns && r.play.turns.index < r.play.turns.order.length)
+    r = act(r, "confirm-clue");
+  return r;
+}
+const openVote = (run: GameRun) => act(completeClues(run), "open-vote");
 function votesFor(run: GameRun, target: string) {
   let r = run;
   for (const id of r.play!.active)
@@ -162,7 +169,7 @@ describe("Undercover's demonstrator executes shared declared primitives", () => 
       act(run, "vote", player(ids[0]!), { target: ids[1]! }),
     ).toThrow("ACTION_FORBIDDEN");
     const discussion = act(run, "deal"),
-      voting = act(discussion, "open-vote");
+      voting = openVote(discussion);
     expect(() => act(voting, "resolve")).toThrow("ACTION_FORBIDDEN");
     expect(() =>
       act(voting, "vote", player(ids[0]!), { target: ids[0]! }),
@@ -191,7 +198,7 @@ describe("Undercover's demonstrator executes shared declared primitives", () => 
   });
   it("aggregates ties without elimination, progresses rounds and reaches an explicit bounded draw", () => {
     const { ids, run } = setup(4, { "round-limit": 2 });
-    let r = act(act(run, "deal"), "open-vote");
+    let r = openVote(act(run, "deal"));
     for (let round = 0; round < 2; round++) {
       for (let i = 0; i < ids.length; i++)
         r = act(r, "vote", player(ids[i]!), {
@@ -202,7 +209,7 @@ describe("Undercover's demonstrator executes shared declared primitives", () => 
       expect(r.play!.ballots.elimination!.tied).toBe(true);
       if (round === 0) {
         expect(r.phase).toBe("result");
-        r = act(act(r, "next"), "open-vote");
+        r = openVote(act(r, "next"));
       }
     }
     expect(r.phase).toBe("finished");
@@ -215,7 +222,7 @@ describe("Undercover's demonstrator executes shared declared primitives", () => 
     const { run, ids } = setup(4, {}, gameDefinitionSchema.parse(d));
     let r = act(run, "deal");
     const target = ids.find((id) => r.assignments[id] === "undercover")!;
-    r = act(votesFor(act(r, "open-vote"), target), "resolve");
+    r = act(votesFor(openVote(r), target), "resolve");
     expect(r.play!.outcome!.id).toBe("civils-win");
     expect(r.revealed).toEqual([]);
     expect(projectGame(r, null).values).toEqual([]);
@@ -227,7 +234,7 @@ describe("Undercover's demonstrator executes shared declared primitives", () => 
     const civils = Object.keys(r.assignments).filter(
       (id) => r.assignments[id] === "civil",
     );
-    r = act(votesFor(act(r, "open-vote"), civils[0]!), "resolve");
+    r = act(votesFor(openVote(r), civils[0]!), "resolve");
     expect(r.phase).toBe("result");
     expect(r.play!.active).toHaveLength(5);
     const pub = projectGame(r, null);
@@ -235,7 +242,7 @@ describe("Undercover's demonstrator executes shared declared primitives", () => 
       "Civil",
     );
     expect(pub.values).toEqual([]);
-    r = act(act(r, "next"), "open-vote");
+    r = openVote(act(r, "next"));
     expect(() =>
       act(r, "vote", player(civils[0]!), { target: civils[1]! }),
     ).toThrow("ACTION_FORBIDDEN");
@@ -252,7 +259,7 @@ describe("Undercover's demonstrator executes shared declared primitives", () => 
     const { run, ids } = setup();
     let r = act(run, "deal");
     const target = ids.find((id) => r.assignments[id] === "undercover")!;
-    r = act(votesFor(act(r, "open-vote"), target), "resolve");
+    r = act(votesFor(openVote(r), target), "resolve");
     expect(r.play!.outcome!.id).toBe("civils-win");
     expect(projectGame(r, gm).actions).toEqual([]);
     const replay = createGameRun(
@@ -282,7 +289,7 @@ describe("Undercover's demonstrator executes shared declared primitives", () => 
     d.mechanics!.ballots[0]!.allowSelfVote = true;
     d.mechanics!.endings[0]!.label = "Le conseil a découvert l’intrus";
     const { run, ids } = setup(3, {}, gameDefinitionSchema.parse(d));
-    let r = act(act(run, "deal"), "open-vote");
+    let r = openVote(act(run, "deal"));
     const target = ids.find((id) => r.assignments[id] === "undercover")!;
     for (const id of ids) r = act(r, "vote", player(id), { target });
     r = act(r, "resolve");
@@ -319,6 +326,9 @@ it("reuses a named ballot without distribution, minority roles, elimination or a
   const d = structuredClone(undercoverDefinition);
   d.id = "player-choice";
   d.title = "Choisir un porte-parole";
+  delete d.mechanics!.turns;
+  delete d.mechanics!.ballots[0]!.requireTurns;
+  d.actions = d.actions.filter((a) => a.id !== "confirm-clue");
   d.configuration = [];
   d.variables = [];
   d.roles = d.roles.filter((r) => r.id !== "undercover");
@@ -348,4 +358,138 @@ it("reuses a named ballot without distribution, minority roles, elimination or a
   expect(r.play!.ballots.elimination!.eliminated).toBeUndefined();
   expect(r.play!.outcome).toBeUndefined();
   expect(projectGame(r, null).values).toEqual([]);
+});
+
+it("requires every active player's oral turn twice by default and exposes only safe progression", () => {
+  const { run, ids } = setup();
+  let r = act(run, "deal");
+  expect(r.play!.turns!.total).toBe(2);
+  for (let round = 1; round <= 2; round++) {
+    for (let i = 0; i < ids.length; i++) {
+      const t = projectGame(r, null).play!.turns!;
+      expect(t.round).toBe(round);
+      expect(t.current).toBe(ids[i]);
+      expect(t.completed).toEqual(ids.slice(0, i));
+      expect(t.complete).toBe(false);
+      expect(projectGame(r, gm).actions.map((a) => a.id)).toEqual([
+        "confirm-clue",
+      ]);
+      expect(() => act(r, "open-vote")).toThrow("ACTION_FORBIDDEN");
+      expect(() => act(r, "confirm-clue", player(ids[i]!))).toThrow(
+        "ACTION_FORBIDDEN",
+      );
+      const next = act(r, "confirm-clue");
+      expect(r.play!.turns!.index).toBe(i); // immutable transaction input
+      r = next;
+    }
+  }
+  expect(projectGame(r, null).play!.turns!.complete).toBe(true);
+  expect(projectGame(r, gm).actions.map((a) => a.id)).toEqual(["open-vote"]);
+  expect(() => act(r, "confirm-clue")).toThrow("ACTION_FORBIDDEN");
+  expect(act(r, "open-vote").phase).toBe("vote");
+});
+it("restarts clue rounds with surviving players only, and supports configurable bounds without changing old definitions", () => {
+  const { run } = setup(6, { "undercover-count": 2, "clue-rounds": 3 });
+  let r = act(run, "deal");
+  expect(r.play!.turns!.total).toBe(3);
+  const civil = r.play!.active.find((id) => r.assignments[id] === "civil")!;
+  r = act(votesFor(openVote(r), civil), "resolve");
+  r = act(r, "next");
+  expect(r.play!.turns!.order).toEqual(r.play!.active);
+  expect(r.play!.turns!.order).not.toContain(civil);
+  expect(r.play!.turns!.round).toBe(1);
+  expect(r.play!.turns!.index).toBe(0);
+  expect(() => act(r, "open-vote")).toThrow("ACTION_FORBIDDEN");
+  for (const value of [0, 6])
+    expect(() => setup(4, { "clue-rounds": value })).toThrow(
+      "INVALID_CONFIGURATION",
+    );
+  const d = structuredClone(undercoverDefinition);
+  d.version = "0.1.0";
+  delete d.mechanics!.turns;
+  delete d.mechanics!.ballots[0]!.requireTurns;
+  d.configuration = d.configuration.filter((f) => f.id !== "clue-rounds");
+  d.actions = d.actions.filter((a) => a.id !== "confirm-clue");
+  const old = setup(4, {}, gameDefinitionSchema.parse(d)).run;
+  expect(act(act(old, "deal"), "open-vote").phase).toBe("vote");
+  expect(old.definition.version).toBe("0.1.0");
+});
+it("validates turn references, bounds, mandatory confirmation and GM-only management", () => {
+  for (const edit of [
+    (d: GameDefinition) => {
+      d.mechanics!.turns!.phase = "missing";
+    },
+    (d: GameDefinition) => {
+      d.mechanics!.turns!.roundsConfiguration = "missing";
+    },
+    (d: GameDefinition) => {
+      d.mechanics!.turns!.roundsConfiguration = "civil-word";
+    },
+    (d: GameDefinition) => {
+      delete d.mechanics!.turns;
+    },
+    (d: GameDefinition) => {
+      d.actions.find((a) => a.id === "confirm-clue")!.roles = ["civil"];
+    },
+    (d: GameDefinition) => {
+      d.actions = d.actions.filter((a) => a.id !== "confirm-clue");
+    },
+  ]) {
+    const d = structuredClone(undercoverDefinition);
+    edit(d);
+    expect(gameDefinitionSchema.safeParse(d).success).toBe(false);
+  }
+});
+
+it("runs reusable oral turns in a different definition without hidden roles, private words or eliminations", () => {
+  const d = structuredClone(undercoverDefinition);
+  d.id = "round-table";
+  d.title = "Tour de table";
+  d.configuration = d.configuration.filter((c) => c.id === "clue-rounds");
+  d.variables = [];
+  d.roles = d.roles.filter((r) => r.id !== "undercover");
+  d.initialPhase = "discussion";
+  d.actions = d.actions.filter((a) => a.id !== "deal");
+  d.actions.find((a) => a.id === "vote")!.roles = ["civil"];
+  d.mechanics!.deals = [];
+  d.mechanics!.endings = [];
+  d.mechanics!.drawRevealVariables = [];
+  delete d.mechanics!.roundLimitConfiguration;
+  delete d.mechanics!.finishedPhase;
+  delete d.mechanics!.drawLabel;
+  d.mechanics!.minPlayers = 2;
+  d.mechanics!.ballots[0]!.resolution = "select";
+  const { run, ids } = setup(
+    3,
+    { "clue-rounds": 1 },
+    gameDefinitionSchema.parse(d),
+  );
+  expect(run.play!.dealt).toBe(true);
+  expect(run.play!.turns!.order).toEqual(ids);
+  expect(() => act(run, "open-vote")).toThrow("ACTION_FORBIDDEN");
+  const completed = completeClues(run);
+  const r = act(votesFor(act(completed, "open-vote"), ids[0]!), "resolve");
+  expect(r.play!.active).toEqual(ids);
+  expect(r.play!.ballots.elimination!.selected).toBe(ids[0]);
+  expect(r.play!.outcome).toBeUndefined();
+  expect(projectGame(r, null).values).toEqual([]);
+});
+
+it("cannot reuse completed oral turns from a previous game round by editing the next phase", () => {
+  const d = structuredClone(undercoverDefinition);
+  const next = d.actions.find((a) => a.id === "next")!;
+  next.operations = [{ type: "round.next", phase: "preparation" }];
+  d.actions.find((a) => a.id === "open-vote")!.phases.push("preparation");
+  const { run } = setup(
+    6,
+    { "undercover-count": 2 },
+    gameDefinitionSchema.parse(d),
+  );
+  let r = act(run, "deal");
+  const civil = r.play!.active.find((id) => r.assignments[id] === "civil")!;
+  r = act(votesFor(openVote(r), civil), "resolve");
+  r = act(r, "next");
+  expect(r.phase).toBe("preparation");
+  expect(r.play!.round).toBe(2);
+  expect(() => act(r, "open-vote")).toThrow("ACTION_FORBIDDEN");
 });

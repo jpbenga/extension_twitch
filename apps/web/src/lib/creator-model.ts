@@ -66,6 +66,7 @@ export function references(
           ))) ||
       (kind === "phase" &&
         (m.finishedPhase === id ||
+          m.turns?.phase === id ||
           m.ballots.some((b) => b.resultPhase === id) ||
           definition.actions.some((a) =>
             a.operations?.some(
@@ -77,6 +78,14 @@ export function references(
   return found;
 }
 const messages: Record<string, string> = {
+  "Invalid turn sequence":
+    "Choisissez une étape existante et un nombre public de tours d’indices entre 1 et 5.",
+  "Missing turn advance action":
+    "Ajoutez une action GM pour confirmer le passage de parole dans l’étape d’indices.",
+  "Missing turn sequence":
+    "Ce vote attend des tours de parole qui ne sont pas configurés.",
+  "Invalid turn action":
+    "La confirmation d’un indice doit rester une action GM dans l’étape des tours de parole.",
   "Unknown ending phase":
     "Choisissez une étape de fin existante dans les règles de partie.",
   "Mechanics require v3":

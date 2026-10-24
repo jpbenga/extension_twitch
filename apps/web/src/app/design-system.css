@@ -744,3 +744,154 @@ body[data-keyboard-open="true"] :is(.room-actions, .creator-save-actions) {
   background: var(--color-action-primary);
   color: var(--color-on-accent);
 }
+
+/* Jouer, Créer and the operational room share tokens, not competing controls. */
+.intent-home {
+  max-width: 1100px;
+}
+.home-intents {
+  margin: var(--space-5) 0;
+}
+.home-intents .creator-intent {
+  min-height: 140px;
+}
+.home-intents .creator-intent:first-child {
+  border-left: 3px solid var(--color-success);
+}
+.home-secondary {
+  padding: var(--space-5) 0;
+  border-top: 1px solid var(--color-border);
+}
+.home-secondary details {
+  margin-top: var(--space-5);
+}
+.turn-progress {
+  margin-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-3);
+}
+.turn-progress p {
+  margin-bottom: 0;
+}
+.turn-current {
+  border-left: 3px solid var(--color-warning);
+  background: var(--color-warning-subtle);
+  padding: var(--space-3);
+  border-radius: var(--radius-sm);
+}
+.lab-device-access {
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-info-subtle);
+}
+.lab-device-access .copy-block {
+  display: block;
+}
+.lab-access-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-top: var(--space-3);
+}
+.lab-access-links a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+.lab-identity {
+  font-weight: 600;
+  color: var(--color-success);
+  border-left: 3px solid var(--color-success);
+  padding-left: var(--space-3);
+}
+.lab-person-access {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-3) 0;
+}
+.lab-person-access .copy-block {
+  margin: 0;
+}
+.lab-perspectives {
+  min-width: 0;
+}
+.lab-public-mirror {
+  min-width: 0;
+  border: 1px solid var(--color-info);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+}
+.room-settings {
+  margin-top: var(--space-4);
+}
+.session-room[data-playing="true"] .room-navigation {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.session-room[data-playing="true"] .room-context {
+  padding-bottom: var(--space-3);
+}
+.session-room[data-playing="true"] .room-context h1 {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  margin: var(--space-2) 0;
+}
+.session-room[data-playing="true"] .room-context > .eyebrow {
+  font-size: clamp(1.15rem, 5vw, 1.6rem);
+  color: var(--color-text-primary);
+  letter-spacing: normal;
+}
+@media (min-width: 1000px) {
+  .lab-perspectives.is-comparing {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-5);
+    align-items: start;
+  }
+  .lab-public-mirror .real-stage {
+    width: 100%;
+  }
+}
+@media (max-width: 999px) {
+  .lab-public-mirror,
+  .lab-compare-control {
+    display: none;
+  }
+  .home-intents .creator-intent {
+    min-height: 110px;
+    padding: var(--space-4);
+  }
+  .lab-device-access {
+    padding: var(--space-3);
+  }
+  .lab-device-access button {
+    width: 100%;
+    white-space: normal;
+  }
+  .session-room[data-playing="true"] {
+    padding-bottom: max(24px, env(safe-area-inset-bottom));
+  }
+  .session-room[data-playing="true"] .play-heading {
+    padding: var(--space-3);
+  }
+  .session-room[data-playing="true"] .phase-meta {
+    margin-top: var(--space-3);
+  }
+  .session-room[data-playing="true"] .play-panel {
+    padding: var(--space-4);
+  }
+  .session-room[data-playing="true"] .room-context-meta {
+    gap: var(--space-2);
+  }
+}
+.session-room[data-playing="true"] .room-context h1 {
+  font-size: clamp(1.2rem, 5vw, 1.6rem);
+  color: var(--color-text-primary);
+}
+.lab-public-mirror .real-stage-title :is(h1, h3) {
+  font-size: 1.5rem;
+  line-height: 1.25;
+}

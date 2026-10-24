@@ -4,7 +4,7 @@ export const undercoverDefinition = gameDefinitionSchema.parse({
   schemaVersion: 3,
   engineVersion: 3,
   id: "undercover",
-  version: "0.1.0",
+  version: "0.2.0",
   title: "Undercover · variante démo",
   description:
     "Mots privés, discussion, vote unique et élimination. Règles de démonstration à valider ensemble.",
@@ -28,8 +28,14 @@ export const undercoverDefinition = gameDefinitionSchema.parse({
       value: { type: "text", maxLength: 80, initial: "Fusée" },
     },
     {
+      id: "clue-rounds",
+      label: "Tours d’indices avant chaque vote",
+      visibility: "public",
+      value: { type: "integer", min: 1, max: 5, initial: 2 },
+    },
+    {
       id: "round-limit",
-      label: "Maximum de tours",
+      label: "Maximum de manches",
       visibility: "public",
       value: { type: "integer", min: 1, max: 30, initial: 10 },
     },
@@ -60,7 +66,7 @@ export const undercoverDefinition = gameDefinitionSchema.parse({
       id: "discussion",
       label: "Discussion",
       description:
-        "Décrivez votre mot sans le prononcer, puis cherchez les intrus.",
+        "Chacun donne un indice oral à son tour. Le GM confirme chaque passage, puis ouvre le vote après les tours prévus.",
     },
     {
       id: "vote",
@@ -139,8 +145,18 @@ export const undercoverDefinition = gameDefinitionSchema.parse({
       confirmation: true,
     },
     {
+      id: "confirm-clue",
+      label: "Confirmer l’indice et passer au suivant",
+      roles: ["host"],
+      phases: ["discussion"],
+      parameters: [],
+      conditions: [],
+      effects: [],
+      operations: [{ type: "turn.advance" }],
+    },
+    {
       id: "next",
-      label: "Commencer le tour suivant",
+      label: "Commencer la manche suivante",
       roles: ["host"],
       phases: ["result"],
       parameters: [],
@@ -150,6 +166,7 @@ export const undercoverDefinition = gameDefinitionSchema.parse({
     },
   ],
   mechanics: {
+    turns: { phase: "discussion", roundsConfiguration: "clue-rounds" },
     minPlayers: 3,
     maxPlayers: 12,
     roundLimitConfiguration: "round-limit",
@@ -177,6 +194,7 @@ export const undercoverDefinition = gameDefinitionSchema.parse({
         allowGmProxy: true,
         revealEliminatedRole: true,
         resultPhase: "result",
+        requireTurns: true,
       },
     ],
     endings: [
@@ -201,3 +219,5 @@ export const undercoverDefinition = gameDefinitionSchema.parse({
   assets: [],
   scenes: [],
 });
+
+export { undercoverLegacyDefinition } from "./definition-v0.1.js";

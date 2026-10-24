@@ -477,4 +477,30 @@ describe("private creator workspaces over real HTTP and SQLite", () => {
       gmSessionSchema.parse(await response.json()).preparedGame?.title,
     ).toBe("Autre édition");
   });
+  it("keeps archived official installations visible privately without migrating their rules", async () => {
+    const current = view.catalog.find(
+      (g) => g.release.definition.id === "undercover",
+    )!;
+    expect(current.release.version).toBe("0.2.0");
+    expect(view.archivedInstallations).toEqual([]);
+    await accepted({
+      type: "library.install",
+      source: { gameId: current.identity.id, version: "0.1.0" },
+    });
+    expect(view.archivedInstallations).toHaveLength(1);
+    expect(view.archivedInstallations![0]!.release.version).toBe("0.1.0");
+    expect(
+      view.archivedInstallations![0]!.release.definition.mechanics!.turns,
+    ).toBeUndefined();
+    expect(
+      view.catalog.filter((g) => g.release.definition.id === "undercover"),
+    ).toHaveLength(1);
+    expect(
+      (
+        await fetch(`${origin}${workspacePath()}`, {
+          headers: { Authorization: `Bearer ${other}` },
+        })
+      ).status,
+    ).toBe(401);
+  });
 });

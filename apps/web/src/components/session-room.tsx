@@ -99,19 +99,26 @@ export function SessionRoom({
         </Badge>
       </header>
       <nav className="room-navigation" aria-label="Navigation de la session">
-        {sections.map((s) => (
-          <a
-            key={s.id}
-            href={`#${s.id}`}
-            aria-current={pane === s.id ? "page" : undefined}
-            onClick={(e) => {
-              e.preventDefault();
-              navigate(s.id);
-            }}
-          >
-            {s.label}
-          </a>
-        ))}
+        {(playing ? [sections[2]!, sections[1]!, sections[3]!] : sections).map(
+          (s) => (
+            <a
+              key={s.id}
+              href={`#${s.id}`}
+              aria-current={
+                pane === s.id ||
+                (playing && pane === "session" && s.id === "game")
+                  ? "page"
+                  : undefined
+              }
+              onClick={(e) => {
+                e.preventDefault();
+                navigate(s.id);
+              }}
+            >
+              {playing && s.id === "game" ? "Partie" : s.label}
+            </a>
+          ),
+        )}
       </nav>
       <div
         className={`session-connection ${connection}`}
@@ -160,10 +167,19 @@ export function SessionRoom({
       {view && (
         <>
           <section className="lobby-heading room-context" id="session">
-            <span className="eyebrow">
-              {view.publicGame?.title ?? findGame(view.gameId).title}
-            </span>
-            <h1>{view.title}</h1>
+            {playing ? (
+              <>
+                <h1>{view.publicGame!.title}</h1>
+                {view.title !== view.publicGame!.title && (
+                  <p className="lobby-hint">{view.title}</p>
+                )}
+              </>
+            ) : (
+              <>
+                <span className="eyebrow">{findGame(view.gameId).title}</span>
+                <h1>{view.title}</h1>
+              </>
+            )}
             <div className="room-context-meta">
               <Badge
                 tone={
@@ -201,184 +217,194 @@ export function SessionRoom({
           )}
           <div
             className="room-pane"
-            data-active={pane === "session"}
+            data-active={pane === "session" || (playing && pane === "game")}
             data-room-pane="session"
           >
-            {gm ? (
-              <section className="lobby-panel">
-                <h2>Inviter et observer</h2>
-                <details className="room-session-details">
-                  <summary>Informations de la session</summary>
-                  <span className="lobby-hint">
-                    Version {view.version} ·{" "}
-                    {playing
-                      ? "Effectif figé pour cette expérience"
-                      : view.admissionOpen
-                        ? "Invitations ouvertes"
-                        : "Invitations fermées"}
-                  </span>
-                </details>
-                {playing && (
-                  <p>
-                    La partie est préparée : les inscriptions sont fermées
-                    jusqu’à la réinitialisation du salon.
-                  </p>
-                )}
-                <CopyLink label="Invitation des joueurs" value={gm.joinUrl} />
-                <p className="invitation-code">
-                  Code : <strong>{gm.invitationCode}</strong>
-                </p>
-                <a
-                  className="secondary-button"
-                  href={gm.publicUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Ouvrir le plateau public ↗
-                </a>
-                <CopyLink
-                  label="Lien du plateau pour OBS ou un navigateur"
-                  value={gm.publicUrl}
-                />
-                <details>
-                  <summary>Conserver mon accès Game Master</summary>
-                  <p>
-                    Ce lien donne le contrôle de la session. Gardez-le pour vous
-                    ; il permet de retrouver la régie sur un autre appareil.
-                  </p>
-                  <CopyLink
-                    label="Accès privé GM — ne pas partager avec les joueurs"
-                    value={privateUrl}
-                    privateLink
-                  />
-                </details>
-              </section>
-            ) : (
-              <section className="lobby-panel player-action">
-                {!view.publicGame?.play && (
-                  <>
-                    <h2>
-                      {me?.ready
-                        ? "Vous êtes prêt."
-                        : "Prêt à rejoindre le show ?"}
-                    </h2>
+            <details
+              className="room-settings"
+              open={!playing || pane === "session" ? true : undefined}
+            >
+              <summary hidden={!playing}>
+                Accès et réglages de la partie
+              </summary>
+              {gm ? (
+                <section className="lobby-panel">
+                  <h2>Inviter et observer</h2>
+                  <details className="room-session-details">
+                    <summary>Informations de la session</summary>
+                    <span className="lobby-hint">
+                      Mise à jour {view.version} ·{" "}
+                      {playing
+                        ? "Joueurs inscrits pour cette partie"
+                        : view.admissionOpen
+                          ? "Invitations ouvertes"
+                          : "Invitations fermées"}
+                    </span>
+                  </details>
+                  {playing && (
                     <p>
-                      Ce statut est envoyé au serveur et visible par le GM et
-                      les spectateurs.
+                      La partie est préparée : les inscriptions sont fermées
+                      pour cette partie. Rejouer conserve les joueurs.
                     </p>
-                    <button
-                      className="primary-button"
-                      disabled={locked}
-                      onClick={() =>
-                        void session.send({
-                          type: "participant.ready",
-                          ready: !me?.ready,
-                        })
-                      }
-                    >
-                      {busy
-                        ? "Enregistrement…"
-                        : me?.ready
-                          ? "Je ne suis plus prêt"
-                          : "Je suis prêt"}
-                    </button>
-                    <p className="lobby-hint">
-                      Les informations privées de l’expérience apparaissent dans
-                      la section Jeu.
-                    </p>
-                  </>
-                )}
-                <details>
-                  <summary>Conserver mon accès joueur</summary>
-                  <CopyLink
-                    label="Lien privé joueur — ne pas partager"
-                    value={privateUrl}
-                    privateLink
-                  />
-                </details>
-              </section>
-            )}
-            {!playing && (
-              <GamePanel view={view} locked={locked} send={session.send} />
-            )}
-            {gm && (
-              <section className="lobby-panel">
-                <h2>Préparation de la session</h2>
-                <form
-                  className="lobby-form"
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    void session.send({ type: "session.rename", title });
-                  }}
-                >
-                  <label>
-                    Nouveau nom de l’émission
-                    <input
-                      value={title}
-                      onChange={(e) => setTitle(e.target.value)}
-                      required
-                      maxLength={32}
-                      disabled={locked}
-                    />
-                  </label>
-                  <button
+                  )}
+                  <CopyLink label="Invitation des joueurs" value={gm.joinUrl} />
+                  <p className="invitation-code">
+                    Code : <strong>{gm.invitationCode}</strong>
+                  </p>
+                  <a
                     className="secondary-button"
-                    disabled={locked || !title.trim()}
+                    href={gm.publicUrl}
+                    target="_blank"
+                    rel="noreferrer"
                   >
-                    Renommer la session
+                    Ouvrir le plateau public ↗
+                  </a>
+                  <CopyLink
+                    label="Lien du plateau pour OBS ou un navigateur"
+                    value={gm.publicUrl}
+                  />
+                  <details>
+                    <summary>Conserver mon accès Game Master</summary>
+                    <p>
+                      Ce lien donne le contrôle de la session. Gardez-le pour
+                      vous ; il permet de retrouver la régie sur un autre
+                      appareil.
+                    </p>
+                    <CopyLink
+                      label="Accès privé GM — ne pas partager avec les joueurs"
+                      value={privateUrl}
+                      privateLink
+                    />
+                  </details>
+                </section>
+              ) : (
+                <section className="lobby-panel player-action">
+                  {!view.publicGame?.play && (
+                    <>
+                      <h2>
+                        {me?.ready
+                          ? "Vous êtes prêt."
+                          : "Prêt à rejoindre le show ?"}
+                      </h2>
+                      <p>
+                        Ce statut est envoyé au serveur et visible par le GM et
+                        les spectateurs.
+                      </p>
+                      <button
+                        className="primary-button"
+                        disabled={locked}
+                        onClick={() =>
+                          void session.send({
+                            type: "participant.ready",
+                            ready: !me?.ready,
+                          })
+                        }
+                      >
+                        {busy
+                          ? "Enregistrement…"
+                          : me?.ready
+                            ? "Je ne suis plus prêt"
+                            : "Je suis prêt"}
+                      </button>
+                      <p className="lobby-hint">
+                        Les informations privées de l’expérience apparaissent
+                        dans la section Jeu.
+                      </p>
+                    </>
+                  )}
+                  <details>
+                    <summary>Conserver mon accès joueur</summary>
+                    <CopyLink
+                      label="Lien privé joueur — ne pas partager"
+                      value={privateUrl}
+                      privateLink
+                    />
+                  </details>
+                </section>
+              )}
+              {!playing && (
+                <GamePanel view={view} locked={locked} send={session.send} />
+              )}
+              {gm && (
+                <section className="lobby-panel">
+                  <h2>Préparation de la session</h2>
+                  <form
+                    className="lobby-form"
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      void session.send({ type: "session.rename", title });
+                    }}
+                  >
+                    <label>
+                      Nouveau nom de l’émission
+                      <input
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        required
+                        maxLength={32}
+                        disabled={locked}
+                      />
+                    </label>
+                    <button
+                      className="secondary-button"
+                      disabled={locked || !title.trim()}
+                    >
+                      Renommer la session
+                    </button>
+                  </form>
+                  <button
+                    className="danger-button"
+                    disabled={locked}
+                    onClick={() =>
+                      void confirm({
+                        title: "Réinitialiser le salon ?",
+                        description:
+                          "Les joueurs seront retirés et leurs accès révoqués. Cette action est irréversible.",
+                        consequences: [
+                          "L’invitation sera renouvelée.",
+                          "Votre accès GM et le lien public seront conservés.",
+                        ],
+                        confirmLabel: "Réinitialiser le salon",
+                        tone: "danger",
+                        onConfirm: () =>
+                          session.send({ type: "session.reset" }),
+                      })
+                    }
+                  >
+                    Réinitialiser le salon
                   </button>
-                </form>
-                <button
-                  className="danger-button"
-                  disabled={locked}
-                  onClick={() =>
-                    void confirm({
-                      title: "Réinitialiser le salon ?",
-                      description:
-                        "Les joueurs seront retirés et leurs accès révoqués. Cette action est irréversible.",
-                      consequences: [
-                        "L’invitation sera renouvelée.",
-                        "Votre accès GM et le lien public seront conservés.",
-                      ],
-                      confirmLabel: "Réinitialiser le salon",
-                      tone: "danger",
-                      onConfirm: () => session.send({ type: "session.reset" }),
-                    })
-                  }
-                >
-                  Réinitialiser le salon
-                </button>
+                </section>
+              )}
+              <section className="lobby-panel">
+                <h2>Journal de la session</h2>
+                <ol className="session-events">
+                  {[...view.events].reverse().map((e) => (
+                    <li key={e.version}>
+                      <span>#{e.version}</span>
+                      <p>{e.message}</p>
+                      <time dateTime={e.at}>
+                        {new Date(e.at).toLocaleTimeString("fr", {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </time>
+                    </li>
+                  ))}
+                </ol>
+                <p className="lobby-hint">
+                  Les 20 derniers événements. La présence réseau est éphémère ;
+                  elle ne modifie pas la version persistée.
+                </p>
               </section>
-            )}
-            <section className="lobby-panel">
-              <h2>Journal de la session</h2>
-              <ol className="session-events">
-                {[...view.events].reverse().map((e) => (
-                  <li key={e.version}>
-                    <span>#{e.version}</span>
-                    <p>{e.message}</p>
-                    <time dateTime={e.at}>
-                      {new Date(e.at).toLocaleTimeString("fr", {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
-                    </time>
-                  </li>
-                ))}
-              </ol>
-              <p className="lobby-hint">
-                Les 20 derniers événements. La présence réseau est éphémère ;
-                elle ne modifie pas la version persistée.
-              </p>
-            </section>
-            <aside className="lobby-scope">
-              <strong>Ce qui reste à venir</strong>
-              <p>
-                Undercover dispose d’une variante jouable avec distribution,
-                votes et victoire. Enchères et Qui est l’espion restent à
-                construire. Aucun paiement ni connexion Twitch.
-              </p>
-            </aside>
+              <aside className="lobby-scope">
+                <strong>Ce qui reste à venir</strong>
+                <p>
+                  Undercover dispose d’une variante jouable avec distribution,
+                  votes et victoire. Enchères et Qui est l’espion restent à
+                  construire. Aucun paiement ni connexion Twitch.
+                </p>
+              </aside>
+            </details>
           </div>
           <section
             className="lobby-panel room-pane"
@@ -422,59 +448,34 @@ export function SessionRoom({
             <h2>Le plateau public</h2>
             <PublicSession view={view} />
           </section>
-          {gm && (
+          {gm && !playing && (
             <div className="room-actions">
-              {playing ? (
-                <>
-                  <a
-                    className="secondary-button game-shortcut"
-                    href="#game"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      navigate("game");
-                    }}
-                  >
-                    Commandes du jeu
-                  </a>
-                  <a
-                    className="secondary-button board-button"
-                    href="#board"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      navigate("board");
-                    }}
-                  >
-                    Plateau
-                  </a>
-                </>
-              ) : (
-                <>
-                  <button
-                    className="primary-button"
-                    disabled={locked}
-                    onClick={() =>
-                      void session.send({
-                        type: "session.admission",
-                        open: !gm.admissionOpen,
-                      })
-                    }
-                  >
-                    {busy
-                      ? "Enregistrement…"
-                      : gm.admissionOpen
-                        ? "Fermer les invitations"
-                        : "Ouvrir les invitations"}
-                  </button>
-                  <a
-                    className="secondary-button"
-                    href={gm.joinUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Invitation ↗
-                  </a>
-                </>
-              )}
+              <>
+                <button
+                  className="primary-button"
+                  disabled={locked}
+                  onClick={() =>
+                    void session.send({
+                      type: "session.admission",
+                      open: !gm.admissionOpen,
+                    })
+                  }
+                >
+                  {busy
+                    ? "Enregistrement…"
+                    : gm.admissionOpen
+                      ? "Fermer les invitations"
+                      : "Ouvrir les invitations"}
+                </button>
+                <a
+                  className="secondary-button"
+                  href={gm.joinUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Invitation ↗
+                </a>
+              </>
             </div>
           )}
         </>

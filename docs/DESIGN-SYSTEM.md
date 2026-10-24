@@ -205,3 +205,28 @@ de création, de jeu et de laboratoire gardent leurs API réelles. Enchères et 
 l’espion restent non jouables. Pas de 4C, Store, paiement ou nouvelle dépendance.
 Les tests Chromium sont distingués d’un appareil physique ; VoiceOver, clavier Safari,
 OBS réel, ergonomie et plaisir du gameplay demandent encore une validation humaine.
+
+## Complément — refonte globale et multi-appareils
+
+Broadcast Neon et ses tokens ci-dessus sont conservés sur la base `b277c56`.
+Aucune nouvelle couleur littérale ni dépendance UI. La nouvelle page d’accueil
+emploie deux intentions Jouer / Créer ; les accents menthe et violet les distinguent
+avec des libellés, pas seulement de la couleur. Le suivi de parole met en évidence
+le joueur attendu avec une consigne, un badge et l’ambre d’attention.
+
+La régie mobile passe à **Partie / Joueurs / Plateau** pendant une partie. Les
+réglages, récupération et réinitialisation sont repliés dans Partie ; les anciens
+fragments restent utilisables. La barre inférieure redondante est retirée pendant
+le jeu. La navigation supérieure conserve ses cibles tactiles et sa position stable.
+Le laboratoire distingue l’identité active, les accès privés et la projection publique
+comparative. Les liens privés ne sont plus affichés en clair dans des champs texte :
+les champs de récupération sont masqués, les commandes compactes ne montrent que
+leur libellé. La copie tient compte de l’absence de Clipboard API sur HTTP local.
+
+L’audit des usages `confirm`, `alert`, `prompt` retrouve les hooks de dialogue
+personnalisé ; aucune confirmation applicative native n’est réintroduite. Le
+remplacement des 17 confirmations et d’une alerte appartient à la livraison
+Broadcast Neon précédente, préservée ici. Les tests de focus, refus asynchrone,
+annulation et réinitialisation ne sont pas remplacés par des mocks natifs.
+Le suivi oral emploie les commandes serveur existantes avec un reçu ; son bouton
+n’est pas une animation qui ferait avancer localement la partie.

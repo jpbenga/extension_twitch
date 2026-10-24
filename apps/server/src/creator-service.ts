@@ -4,6 +4,7 @@ import {
   guideRepresentable,
   findRelease,
   officialCatalog,
+  archivedInstallations,
   exportManifest,
   type PreparedGame,
 } from "@extension-twitch/engine";
@@ -45,6 +46,7 @@ export class CreatorService {
     return studioViewSchema.parse({
       workspace,
       catalog: officialCatalog,
+      archivedInstallations: archivedInstallations(workspace),
       guideCompatibility: Object.fromEntries(
         workspace.games.map((g) => [g.identity.id, guideRepresentable(g)]),
       ),

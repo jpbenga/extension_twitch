@@ -5,16 +5,19 @@ export function CreatorHome() {
   return (
     <CreatorFrame>
       <section className="creator-welcome">
-        <span className="eyebrow">À VOUS DE JOUER</span>
+        <span className="eyebrow">STUDIO CRÉATEUR</span>
         <h1>Que souhaitez-vous faire ?</h1>
-        <p>Un jeu pour votre prochain direct, à votre façon.</p>
+        <p>
+          Personnalisez un jeu ou inventez le vôtre. Pour animer une partie,
+          ouvrez l’espace Jouer.
+        </p>
         <div className="creator-intents">
           {[
             [
-              "/creator/library?intent=play",
+              "/creator/library",
               "01",
-              "Lancer un jeu",
-              "Choisir un jeu disponible et inviter mes joueurs.",
+              "Ma bibliothèque",
+              "Retrouver mes créations et mes versions enregistrées.",
             ],
             [
               "/creator/library?intent=customize",
@@ -43,11 +46,11 @@ export function CreatorHome() {
           Undercover dispose d’une variante de démonstration jouable. Enchères
           et Qui est l’espion restent en préparation.
         </p>
-        <Link className="primary-button" href="/creator/play">
-          Laboratoire des jeux
+        <Link className="primary-button" href="/play">
+          Jouer ou tester Undercover
         </Link>
         <Link className="text-link" href="/">
-          Rejoindre une partie avec une invitation
+          Retour à l’accueil
         </Link>
       </section>
     </CreatorFrame>

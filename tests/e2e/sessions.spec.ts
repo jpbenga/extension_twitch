@@ -2,7 +2,7 @@ import { acceptConfirmation } from "./dialog-helpers.js";
 import { expect, test, type BrowserContext, type Page } from "@playwright/test";
 
 async function create(page: Page) {
-  await page.goto("/");
+  await page.goto("/sessions/new");
   await page
     .getByLabel("Nom de l’émission", { exact: true })
     .fill("Le plateau humain");

@@ -20,7 +20,8 @@ function PlayHeading({ game }: { game: GameProjection }) {
   return (
     <div className="play-heading">
       <p className="game-phase" role="status">
-        {game.phase.label} {play.round > 0 && <span>· Tour {play.round}</span>}
+        {game.phase.label}{" "}
+        {play.round > 0 && <span>· Manche {play.round}</span>}
       </p>
       {game.phase.description && <p>{game.phase.description}</p>}
       <div className="phase-meta">
@@ -37,6 +38,27 @@ function PlayHeading({ game }: { game: GameProjection }) {
           {play.roster.filter((p) => p.active).length} joueurs actifs
         </Badge>
       </div>
+      {play.turns && (
+        <section
+          className="turn-progress"
+          data-round={play.turns.round}
+          data-completed={play.turns.completed.length}
+          data-complete={String(play.turns.complete)}
+          data-count={play.turns.order.length}
+          data-total={play.turns.total}
+          aria-label="Tours de parole"
+          aria-live="polite"
+        >
+          <strong>
+            Tour d’indices {play.turns.round} / {play.turns.total}
+          </strong>
+          <p>
+            {play.turns.complete
+              ? "Tous les indices ont été donnés. Le GM peut ouvrir le vote."
+              : `${play.turns.completed.length} / ${play.turns.order.length} passages confirmés dans ce tour.`}
+          </p>
+        </section>
+      )}
       {play.outcome && (
         <div className="play-outcome" role="status">
           <span className="eyebrow">RÉSULTAT FINAL</span>
@@ -69,6 +91,23 @@ export function PlaySummary({
             <span>
               {p.active ? (play.dealt ? "En jeu" : "En attente") : "Éliminé"}
             </span>
+            {play.turns && p.active && (
+              <Badge
+                tone={
+                  play.turns.current === p.id
+                    ? "warning"
+                    : play.turns.completed.includes(p.id)
+                      ? "success"
+                      : "neutral"
+                }
+              >
+                {play.turns.current === p.id
+                  ? "À son tour"
+                  : play.turns.completed.includes(p.id)
+                    ? "Indice donné"
+                    : "Attend son tour"}
+              </Badge>
+            )}
             {play.ballot?.status === "open" && p.active && (
               <Badge
                 tone={play.ballot.voted.includes(p.id) ? "success" : "warning"}
@@ -285,6 +324,16 @@ export function PlayPanel({
             </p>
           )}
         </section>
+      )}
+      {play.turns?.current && (
+        <p className="turn-current" role="status">
+          Au tour de : <strong>{nameFor(view, play.turns.current)}</strong>.
+          {gm
+            ? " Écoutez son indice oral, puis confirmez son passage."
+            : me === play.turns.current
+              ? " C’est à vous : donnez votre indice à voix haute."
+              : " Écoutez son indice, puis attendez votre tour."}
+        </p>
       )}
       <div className="game-actions">
         {game.actions.map((a) =>

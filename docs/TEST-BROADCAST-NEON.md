@@ -1,5 +1,10 @@
 # Tester Broadcast Neon sur votre iPhone
 
+> Parcours actualisé : [tests iPhone + ordinateur](TEST-MULTI-DEVICE-GAMES.md).
+> Undercover 0.2.0 exige deux tours d’indices complets (configurables) avant chaque
+> vote. Les commandes de discussion décrites ci-dessous sont historiques : confirmer
+> chaque passage avant « Ouvrir les votes ».
+
 Cette livraison conserve Undercover jouable et le Studio. Enchères et Qui est
 l’espion restent en préparation. Les nouvelles couleurs ne changent pas les règles.
 

@@ -370,8 +370,29 @@ export const gameDefinitionSchema = rawDefinition.superRefine((d, ctx) => {
       )
         fail("Invalid distribution count");
     }
-    for (const ballot of m.ballots)
+    if (m.turns) {
+      const field = integerConfig(m.turns.roundsConfiguration);
+      if (
+        !phase(m.turns.phase) ||
+        field?.visibility !== "public" ||
+        field.value.type !== "integer" ||
+        field.value.min < 1 ||
+        field.value.max > 5
+      )
+        fail("Invalid turn sequence");
+      if (
+        !d.actions.some(
+          (a) =>
+            a.phases.includes(m.turns!.phase) &&
+            a.operations?.some((op) => op.type === "turn.advance"),
+        )
+      )
+        fail("Missing turn advance action");
+    }
+    for (const ballot of m.ballots) {
       if (!phase(ballot.resultPhase)) fail("Unknown ballot phase");
+      if (ballot.requireTurns && !m.turns) fail("Missing turn sequence");
+    }
     if (
       m.drawRevealVariables.some((id) => !d.variables.some((v) => v.id === id))
     )
@@ -402,6 +423,11 @@ export const gameDefinitionSchema = rawDefinition.superRefine((d, ctx) => {
       const gmOnly = a.roles.every(
         (id) => d.roles.find((r) => r.id === id)?.base === "gm",
       );
+      if (
+        operation.type === "turn.advance" &&
+        (!m.turns || a.nextPhase || a.phases.some((p) => p !== m.turns!.phase))
+      )
+        fail("Invalid turn action");
       if (operation.type === "ballot.cast") {
         const p = a.parameters.find((p) => p.id === operation.targetParameter);
         if (

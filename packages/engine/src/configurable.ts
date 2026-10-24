@@ -11,6 +11,7 @@ import {
 } from "@extension-twitch/contracts/game-definition";
 import {
   initializePlay,
+  syncTurns,
   operationsAllowed,
   applyOperations,
   projectPlay,
@@ -82,7 +83,7 @@ export function createGameRun(
         .map((v) => [v.id, v.value.initial]),
     );
   const play = initializePlay(d, config, participantIds);
-  return {
+  const run: GameRun = {
     ...(play ? { play } : {}),
     stateVersion: 1,
     runId,
@@ -99,6 +100,8 @@ export function createGameRun(
     ),
     revealed: [],
   };
+  syncTurns(run);
+  return run;
 }
 function assertVersion(run: GameRun) {
   if (
@@ -214,6 +217,7 @@ export function executeGameAction(
   }
   if (action.nextPhase) next.phase = action.nextPhase;
   applyOperations(next, action, actor, input.parameters, randomIndex);
+  syncTurns(next, run);
   return next;
 }
 export function assignGameRole(

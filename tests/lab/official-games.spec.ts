@@ -1,3 +1,4 @@
+import { completeClues } from "../e2e/turn-helpers.js";
 import { acceptConfirmation } from "../e2e/dialog-helpers.js";
 import { test, expect } from "@playwright/test";
 import { role } from "../e2e/creator-helpers.js";
@@ -25,6 +26,7 @@ test("Undercover's real mobile lab has no development, hydration or browser erro
       exact: true,
     })
     .click();
+  await completeClues(page);
   await page
     .getByRole("button", { name: "Ouvrir les votes", exact: true })
     .click();

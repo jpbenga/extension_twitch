@@ -25,7 +25,7 @@ export const labSchema = z.strictObject({
   sessionId: z.uuid(),
   token: accessTokenSchema,
   gameId: z.uuid(),
-  returnTo: z.string().regex(/^\/creator(?:\/[^#?]*)?$/),
+  returnTo: z.string().regex(/^\/(?:creator|play)(?:\/[^#?]*)?$/),
   mode: z.enum(["quick", "invite"]),
   players: z.array(player).max(12),
   demoPlayers: z.number().int().min(2).max(12).optional(),

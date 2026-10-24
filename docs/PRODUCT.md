@@ -1,6 +1,6 @@
 # Extension Twitch — Cahier des charges produit
 
-Version : 0.7
+Version : 0.8
 
 Statut : Vision produit et cadrage initial
 
@@ -494,3 +494,28 @@ safe areas et détails secondaires repliables. Les couleurs ne remplacent pas
 permissions, projections ou règles. Aucun changement de gameplay, Store ou 4C.
 Voir docs/DESIGN-SYSTEM.md et docs/TEST-BROADCAST-NEON.md. Les observations iPhone
 antérieures motivent cette livraison ; la refonte reste à valider sur appareil réel.
+
+
+21. Refonte globale validée — parcours et tours d’indices
+
+Séparer Jouer (choisir/préparer un jeu), Créer (bibliothèque, personnalisation,
+guide et Studio) et Régie (Partie, Joueurs, Plateau). Préserver Broadcast Neon et
+les confirmations personnalisées, réduire les options permanentes de gestion.
+
+Undercover utilise par défaut deux tours d’indices oraux complets avant chaque
+vote. Le nombre est configurable ; chaque actif parle à son tour et le GM confirme
+le passage. Le serveur interdit le vote prématuré. À la manche suivante, reprendre
+avec les survivants ; rejouer conserve les accès. Voir OFFICIAL-GAMES-RULES.md.
+Les parties déjà commencées conservent leur définition, sans migration silencieuse.
+
+Le laboratoire doit permettre à une personne d’être GM sur iPhone, plusieurs joueurs
+sur ordinateur et observateur du plateau, avec identités séparées et vraies commandes.
+Les jeux officiels doivent progresser vers la reconstruction depuis une création
+vide ; l’audit distingue ce but de la simple exécution de primitives déclaratives.
+Enchères et Qui est l’espion ne sont toujours pas livrés comme jeux jouables.
+Voir OFFICIAL-GAMES-CONFIGURABILITY.md et TEST-MULTI-DEVICE-GAMES.md.
+
+Statut humain : première exploration iPhone du Studio et d’Undercover effectuée ;
+vote trop précoce constaté et refonte ergonomique demandée. Les nouveaux parcours,
+Safari sur appareil réel, tests physiques iPhone + ordinateur, gameplay et OBS restent
+à valider par l’utilisateur. Aucune validation physique n’est déduite de Chromium.

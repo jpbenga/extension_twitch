@@ -6,9 +6,11 @@ import { useStudio } from "./creator-context";
 export function CreatorFrame({
   children,
   workspace = false,
+  context = "creator",
 }: {
   children: React.ReactNode;
   workspace?: boolean;
+  context?: "creator" | "play";
 }) {
   const studio = useStudio();
   useEffect(() => {
@@ -24,14 +26,21 @@ export function CreatorFrame({
   return (
     <main className="session-shell creator-shell creator-next">
       <header className="creator-top">
-        <Link className="session-brand" href="/creator">
+        <Link
+          className="session-brand"
+          href={context === "play" ? "/" : "/creator"}
+        >
           xt{" "}
           <span>
-            Extension Twitch<small>STUDIO CRÉATEUR</small>
+            Extension Twitch
+            <small>{context === "play" ? "JOUER" : "STUDIO CRÉATEUR"}</small>
           </span>
         </Link>
-        <Link className="text-link" href="/creator/library">
-          Ma bibliothèque
+        <Link
+          className="text-link"
+          href={context === "play" ? "/play" : "/creator/library"}
+        >
+          {context === "play" ? "Choisir un jeu" : "Ma bibliothèque"}
         </Link>
       </header>
       {studio.error && (

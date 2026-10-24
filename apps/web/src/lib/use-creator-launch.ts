@@ -75,7 +75,9 @@ export function useCreatorLaunch() {
       } catch {
         /* The lab resumes the exact pending commands, with their receipts. */
       }
-      router.push(`/creator/lab/${lab.sessionId}`);
+      router.push(
+        `${returnTo.startsWith("/play") ? "/play" : "/creator"}/lab/${lab.sessionId}`,
+      );
     } catch (e) {
       setFailure(
         requestMessage(

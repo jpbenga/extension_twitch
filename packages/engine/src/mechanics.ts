@@ -23,6 +23,13 @@ export interface PlayState {
   revealedRoles: string[];
   ballots: Record<string, BallotState>;
   currentBallot?: string;
+  turns?: {
+    gameRound: number;
+    round: number;
+    total: number;
+    order: string[];
+    index: number;
+  };
   outcome?: { id: string; label: string };
 }
 function fail(code: string, status = 409): never {
@@ -65,6 +72,28 @@ export function initializePlay(
     ballots: {},
   };
 }
+/** A turn sequence is attached to a declared phase, restarted only on entry/new round. */
+export function syncTurns(run: GameRun, previous?: GameRun) {
+  const p = run.play,
+    spec = run.definition.mechanics?.turns;
+  if (!p || !spec || !p.dealt || p.outcome || run.phase !== spec.phase) return;
+  if (
+    !p.turns ||
+    previous?.phase !== run.phase ||
+    previous?.play?.round !== p.round
+  )
+    p.turns = {
+      gameRound: p.round,
+      round: 1,
+      total: Number(run.configuration[spec.roundsConfiguration]),
+      order: [...p.active],
+      index: 0,
+    };
+}
+const turnsComplete = (p: PlayState) =>
+  !!p.turns &&
+  p.turns.gameRound === p.round &&
+  p.turns.index === p.turns.order.length;
 export function operationsAllowed(
   run: GameRun,
   action: ActionDefinition,
@@ -76,6 +105,14 @@ export function operationsAllowed(
   return (action.operations ?? []).every((op) => {
     if (op.type !== "ballot.cast" && actor?.role !== "gm") return false;
     if (op.type === "deal") return !p.dealt;
+    if (op.type === "turn.advance")
+      return (
+        p.dealt &&
+        run.phase === run.definition.mechanics!.turns?.phase &&
+        !!p.turns &&
+        p.turns.gameRound === p.round &&
+        p.turns.index < p.turns.order.length
+      );
     if (op.type === "round.next")
       return (
         p.dealt &&
@@ -91,6 +128,9 @@ export function operationsAllowed(
     if (op.type === "ballot.open")
       return (
         p.dealt &&
+        (!run.definition.mechanics!.ballots.find((b) => b.id === op.ballot)
+          ?.requireTurns ||
+          turnsComplete(p)) &&
         (!p.currentBallot || p.ballots[p.currentBallot]?.status === "resolved")
       );
     const b = p.ballots[op.ballot];
@@ -188,6 +228,15 @@ export function applyOperations(
         }
         p.dealt = true;
         p.round = 1;
+        break;
+      }
+      case "turn.advance": {
+        const t = p.turns!;
+        t.index++;
+        if (t.index === t.order.length && t.round < t.total) {
+          t.round++;
+          t.index = 0;
+        }
         break;
       }
       case "ballot.open": {
@@ -294,6 +343,20 @@ export function projectPlay(
             ...(b.selected ? { selected: b.selected } : {}),
             complete: b.eligible.every((id) => Object.hasOwn(b.votes, id)),
             allowSelfVote: spec.allowSelfVote,
+          },
+        }
+      : {}),
+    ...(p.turns && run.phase === m.turns?.phase && !p.outcome
+      ? {
+          turns: {
+            round: p.turns.round,
+            total: p.turns.total,
+            order: [...p.turns.order],
+            completed: p.turns.order.slice(0, p.turns.index),
+            ...(p.turns.order[p.turns.index]
+              ? { current: p.turns.order[p.turns.index] }
+              : {}),
+            complete: turnsComplete(p),
           },
         }
       : {}),

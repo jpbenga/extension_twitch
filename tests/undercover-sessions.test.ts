@@ -69,6 +69,10 @@ describe("official-game primitives through authenticated HTTP, SQLite and SSE", 
     token = gmToken,
     parameters: Record<string, string> = {},
   ) {
+    if (actionId === "open-vote") {
+      while (gm.game!.play!.turns && !gm.game!.play!.turns!.complete)
+        await action("confirm-clue");
+    }
     return accepted(
       { type: "game.action", actionId, runId: gm.game!.runId, parameters },
       token,
@@ -326,5 +330,39 @@ describe("official-game primitives through authenticated HTTP, SQLite and SSE", 
     );
     expect(other.game!.play!.ballot!.myVote).toBeUndefined();
     expect(other.game!.play!.ballot!.voted).toHaveLength(1);
+  });
+  it("rejects early voting over HTTP and receipts a confirmed oral passage exactly once", async () => {
+    await action("deal");
+    const runId = gm.game!.runId;
+    const early: LobbyAction = {
+      type: "game.action",
+      runId,
+      actionId: "open-vote",
+      parameters: {},
+    };
+    expect((await command(early)).status).toBe(403);
+    const input = {
+      commandId: randomUUID(),
+      expectedVersion: gm.version,
+      command: {
+        type: "game.action",
+        runId,
+        actionId: "confirm-clue",
+        parameters: {},
+      } as LobbyAction,
+    };
+    expect((await command(input.command, gmToken, input)).status).toBe(200);
+    expect((await command(input.command, gmToken, input)).status).toBe(200);
+    gm = gmSessionSchema.parse(await privateView());
+    expect(gm.game!.play!.turns!.completed).toHaveLength(1);
+    expect((await command(input.command, players[0]!.token)).status).toBe(403);
+    expect((await command(early)).status).toBe(403);
+    await action("open-vote");
+    expect(gm.game!.phase.id).toBe("vote");
+    expect(
+      store
+        .load(id)
+        .events.filter((e) => e.message.includes("passage de parole")),
+    ).toHaveLength(8);
   });
 });

@@ -19,18 +19,34 @@ import { GamePanel } from "./game-panel";
 import { PublicSession } from "./public-session";
 import { requestMessage } from "../lib/session-client";
 import { CopyLink } from "./copy-link";
-export function CreatorLaboratory({ id }: { id: string }) {
+export function CreatorLaboratory({
+  id,
+  context = "creator",
+}: {
+  id: string;
+  context?: "creator" | "play";
+}) {
   const confirm = useConfirm();
   const [lab, setLab] = useState<CreatorLab | null>(null),
     [loaded, setLoaded] = useState(false),
     [role, setRole] = useState("gm"),
+    [compare, setCompare] = useState(false),
     [busy, setBusy] = useState(false),
     [error, setError] = useState(""),
     [notice, setNotice] = useState("");
   const flight = useRef(false);
   useEffect(() => {
     try {
-      setLab(readLab(id));
+      const saved = readLab(id);
+      setLab(saved);
+      const selected = sessionStorage.getItem(`xt:lab-perspective:${id}`);
+      if (
+        selected &&
+        (selected === "gm" ||
+          selected === "public" ||
+          saved?.players.some((p) => `player:${p.id}` === selected))
+      )
+        setRole(selected);
     } catch {
       setError(
         "L’accès à cet essai ne peut pas être retrouvé. Ouvrez son lien privé ou créez un nouveau test.",
@@ -38,6 +54,10 @@ export function CreatorLaboratory({ id }: { id: string }) {
     }
     setLoaded(true);
   }, [id]);
+  function changeRole(next: string) {
+    sessionStorage.setItem(`xt:lab-perspective:${id}`, next);
+    setRole(next);
+  }
   async function run(task: (d: CreatorLab) => Promise<CreatorLab>) {
     if (!lab || flight.current) return false;
     flight.current = true;
@@ -71,7 +91,7 @@ export function CreatorLaboratory({ id }: { id: string }) {
   const person = lab?.players.find((p) => `player:${p.id}` === role),
     audience = role as SessionAudience;
   return (
-    <CreatorFrame>
+    <CreatorFrame context={context}>
       <div className="creator-page-title">
         <div>
           <span className="eyebrow">LABORATOIRE PRIVÉ</span>
@@ -88,7 +108,8 @@ export function CreatorLaboratory({ id }: { id: string }) {
           className="secondary-button"
           href={lab?.returnTo ?? "/creator/library"}
         >
-          {lab?.returnTo === "/creator/play"
+          {lab?.returnTo === "/creator/play" ||
+          lab?.returnTo.startsWith("/play")
             ? "Changer de jeu ou créer une nouvelle partie"
             : "Retour à l’édition"}
         </Link>
@@ -107,6 +128,41 @@ export function CreatorLaboratory({ id }: { id: string }) {
         </p>
       ) : (
         <>
+          <section
+            className="lab-device-access"
+            aria-label="Accès iPhone et ordinateur"
+          >
+            <CopyLink
+              label="Votre régie privée"
+              value={`${location.origin}/sessions/${id}/gm#access=${lab.token}`}
+              privateLink
+              compact
+              buttonLabel="Copier le lien privé GM pour mon iPhone"
+            />
+            <div className="lab-access-links">
+              <a
+                className="text-link"
+                href={`/sessions/${id}/gm#access=${lab.token}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Ouvrir la régie sur cet appareil
+              </a>
+              <a
+                className="text-link"
+                href={`/sessions/${id}/public`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Voir le plateau spectateur ↗
+              </a>
+            </div>
+            <p className="lobby-hint">
+              Sur l’iPhone, ouvrez le lien privé GM. Gardez cet onglet sur
+              l’ordinateur pour incarner les joueurs. Ces accès sont
+              confidentiels.
+            </p>
+          </section>
           <div className="creator-lab-tools">
             <button
               className="secondary-button"
@@ -149,7 +205,7 @@ export function CreatorLaboratory({ id }: { id: string }) {
               <select
                 aria-label="Perspective du laboratoire"
                 value={role}
-                onChange={(e) => setRole(e.target.value)}
+                onChange={(e) => changeRole(e.target.value)}
               >
                 <option value="gm">Game Master</option>
                 {lab.players
@@ -166,7 +222,7 @@ export function CreatorLaboratory({ id }: { id: string }) {
             <SegmentedControl
               label="Vue du laboratoire"
               value={role}
-              onChange={setRole}
+              onChange={changeRole}
               options={[
                 { value: "gm", label: "Game Master" },
                 ...lab.players
@@ -179,13 +235,71 @@ export function CreatorLaboratory({ id }: { id: string }) {
               ]}
             />
           )}
-          <LabView
-            key={`${id}:${audience}`}
-            id={id}
-            audience={audience}
-            lab={lab}
-            onPrepared={() => setLab({ ...lab, ready: true })}
-          />
+          <p className="lab-identity" role="status">
+            {lab.mode === "quick" ? "Mode test — " : "Vous consultez — "}Vous
+            incarnez{" "}
+            {role === "gm"
+              ? "le Game Master"
+              : role === "public"
+                ? "le Spectateur (informations publiques uniquement)"
+                : `Joueur ${lab.players.findIndex((p) => p.id === person?.id) + 1} · ${person?.name}`}
+            .
+          </p>
+          <label className="creator-check lab-compare-control">
+            <input
+              type="checkbox"
+              checked={compare}
+              onChange={(e) => setCompare(e.target.checked)}
+            />
+            Afficher le plateau à côté sur ordinateur
+          </label>
+          <div
+            className={`lab-perspectives ${compare && role !== "public" ? "is-comparing" : ""}`}
+          >
+            <LabView
+              key={`${id}:${audience}`}
+              id={id}
+              audience={audience}
+              lab={lab}
+              onPrepared={() => setLab({ ...lab, ready: true })}
+            />
+            {compare && role !== "public" && <PublicMirror id={id} />}
+          </div>
+          <details className="creator-private">
+            <summary>Accès individuels des joueurs de démonstration</summary>
+            <p>
+              Chaque lien ouvre uniquement ce joueur. Sur un même ordinateur, le
+              sélecteur évite de multiplier les connexions. Ne partagez jamais
+              le laboratoire avec un participant.
+            </p>
+            {lab.players
+              .filter((p) => p.id)
+              .map((p, i) => (
+                <div className="lab-person-access" key={p.id}>
+                  <button
+                    className="secondary-button"
+                    onClick={() => changeRole(`player:${p.id}`)}
+                  >
+                    Incarner Joueur {i + 1}
+                  </button>
+                  <a
+                    className="text-link"
+                    href={`/sessions/${id}/player/${p.id}#access=${p.token}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Ouvrir Joueur {i + 1} séparément
+                  </a>
+                  <CopyLink
+                    compact
+                    privateLink
+                    label={`Accès privé de Joueur ${i + 1}`}
+                    buttonLabel={`Copier le lien de Joueur ${i + 1}`}
+                    value={`${location.origin}/sessions/${id}/player/${p.id}#access=${p.token}`}
+                  />
+                </div>
+              ))}
+          </details>
           {lab.players.length > 0 && (
             <details className="creator-private">
               <summary>Vérifier les permissions (avancé)</summary>
@@ -367,5 +481,25 @@ function LabView({
           </>
         ))}
     </section>
+  );
+}
+
+/** Independent public fetch/stream: never derive an observer view from private state. */
+function PublicMirror({ id }: { id: string }) {
+  const session = useSession(id, "public");
+  return (
+    <aside className="lab-public-mirror" aria-label="Plateau public comparatif">
+      <h2>Plateau spectateur</h2>
+      <p className="lobby-hint">
+        Informations publiques uniquement ·{" "}
+        {session.connection === "connected" ? "Synchronisé" : "Connexion…"}
+      </p>
+      {session.error && (
+        <p className="lobby-error" role="alert">
+          {session.error}
+        </p>
+      )}
+      {session.view && <PublicSession view={session.view} />}
+    </aside>
   );
 }

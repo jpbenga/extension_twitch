@@ -79,3 +79,26 @@ les questions ciblées et une condition de résultat propre à cette expérience
 Implémentation et tests automatisés sont distincts du plaisir de jeu et du rythme
 d’une émission. Aucun test iPhone physique, Safari iOS réel ou OBS physique n’est
 revendiqué. La refonte du Studio 4B.1 et le gameplay attendent les retours humains.
+
+## Correction validée après le premier test humain — tours d’indices
+
+La définition Undercover **0.2.0** remplace, pour les nouvelles parties, la simple
+discussion libre par **deux tours d’indices complets avant chaque vote**. C’est une
+demande produit explicite, pas une nouvelle hypothèse silencieuse. Le nombre de
+tours est configurable de 1 à 5, valeur initiale 2. Ne pas confondre un tour
+d’indices (chacun parle une fois) avec une manche (indices, vote, résultat).
+
+Après distribution, l’ordre est celui des participants inscrits, affiché publiquement.
+Chaque actif donne un indice oral ; le GM touche « Confirmer l’indice et passer au
+suivant ». Aucune saisie d’indice, voix ou enregistrement n’est exigé. Après le dernier
+joueur, le tour d’indices suivant commence. Le vote n’est proposé et accepté par le
+serveur qu’après tous les passages prévus. Il n’existe pas de bouton de contournement.
+Le serveur sait qu’un passage a été confirmé ; il ne peut pas prouver qu’un indice
+oral a effectivement été prononcé. Le GM garde cette responsabilité.
+
+Après une égalité ou une élimination sans victoire, la manche suivante recommence
+les tours avec les seuls actifs, dans le même ordre relatif. La nouvelle partie
+redistribue les mots après démarrage et remet le suivi à zéro, sans changer les accès.
+Les autres règles de la variante 5A restent identiques. La limite de manches ne compte
+pas chaque indice séparément. Les anciennes parties et variantes 0.1.0 gardent leurs
+règles ; cette version historique reste résoluble dans la bibliothèque.

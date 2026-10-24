@@ -29,7 +29,13 @@ interface PendingEntry {
   };
 }
 
-export function SessionEntry({ invitationCode }: { invitationCode?: string }) {
+export function SessionEntry({
+  invitationCode,
+  invitationOnly = false,
+}: {
+  invitationCode?: string;
+  invitationOnly?: boolean;
+}) {
   const joining = invitationCode !== undefined;
   const [title, setTitle] = useState("Mon émission");
   const [hostName, setHostName] = useState("Game Master");
@@ -147,12 +153,12 @@ export function SessionEntry({ invitationCode }: { invitationCode?: string }) {
 
   return (
     <main className="session-home session-shell">
-      {process.env.NODE_ENV !== "production" && (
+      {process.env.NODE_ENV !== "production" && !joining && !invitationOnly && (
         <Link className="text-link" href="/lab">
           Ouvrir le laboratoire de développement ↗
         </Link>
       )}
-      {!joining && (
+      {!joining && !invitationOnly && (
         <Link className="text-link creator-home-link" href="/creator">
           Ouvrir le Studio Créateur ↗
         </Link>
@@ -164,99 +170,114 @@ export function SessionEntry({ invitationCode }: { invitationCode?: string }) {
             Extension Twitch <small>STUDIO</small>
           </span>
         </Link>
-        <Link href="/demo">Maquette visuelle ↗</Link>
+        {!joining && !invitationOnly && (
+          <Link href="/demo">Maquette visuelle ↗</Link>
+        )}
       </header>
       <div className="lobby-heading">
         <span className="eyebrow">VOTRE PLATEAU, ENSEMBLE</span>
         <h1>
-          {joining
-            ? "Votre place vous attend."
-            : "Votre émission commence ici."}
+          {invitationOnly
+            ? "Rejoindre une partie"
+            : joining
+              ? "Votre place vous attend."
+              : "Votre émission commence ici."}
         </h1>
         <p>
           Sessions réelles · salon d’attente synchronisé · sans compte Twitch.
         </p>
       </div>
-      <div className={`entry-grid ${joining ? "single" : ""}`}>
-        <section className="lobby-panel">
-          <h2>{joining ? "Rejoindre le plateau" : "Créer ma session"}</h2>
-          <p>
-            {joining
-              ? "Choisissez un nom reconnaissable pour le GM. Un accès personnel sera créé dans cet onglet."
-              : "Créez votre accès Game Master, puis invitez vos joueurs."}
-          </p>
-          <form onSubmit={(event) => void submit(event)} className="lobby-form">
-            {joining ? (
-              <label>
-                Votre nom
-                <input
-                  name="playerName"
-                  value={name}
-                  onChange={(event) => setName(event.target.value)}
-                  minLength={1}
-                  maxLength={32}
-                  required
-                  autoComplete="nickname"
-                  disabled={busy || uncertain}
-                />
-              </label>
-            ) : (
-              <>
+      <div
+        className={`entry-grid ${joining || invitationOnly ? "single" : ""}`}
+      >
+        {!invitationOnly && (
+          <section className="lobby-panel">
+            <h2>{joining ? "Rejoindre le plateau" : "Créer ma session"}</h2>
+            <p>
+              {joining
+                ? "Choisissez un nom reconnaissable pour le GM. Un accès personnel sera créé dans cet onglet."
+                : "Créez votre accès Game Master, puis invitez vos joueurs."}
+            </p>
+            <form
+              onSubmit={(event) => void submit(event)}
+              className="lobby-form"
+            >
+              {joining ? (
                 <label>
-                  Nom de l’émission
+                  Votre nom
                   <input
-                    name="title"
-                    value={title}
-                    onChange={(event) => setTitle(event.target.value)}
-                    maxLength={32}
-                    required
-                    disabled={busy || uncertain}
-                  />
-                </label>
-                <label>
-                  Votre nom de Game Master
-                  <input
-                    name="hostName"
-                    value={hostName}
-                    onChange={(event) => setHostName(event.target.value)}
+                    name="playerName"
+                    value={name}
+                    onChange={(event) => setName(event.target.value)}
+                    minLength={1}
                     maxLength={32}
                     required
                     autoComplete="nickname"
                     disabled={busy || uncertain}
                   />
                 </label>
-                <label>
-                  Jeu prévu
-                  <select
-                    name="gameId"
-                    value={gameId}
-                    onChange={(event) => setGameId(event.target.value)}
-                    disabled={busy || uncertain}
-                  >
-                    <option value="undercover">Undercover</option>
-                    <option value="auctions">Enchères de personnages</option>
-                    <option value="spy">Qui est l’espion ?</option>
-                  </select>
-                </label>
-              </>
-            )}
-            <button className="primary-button" disabled={busy}>
-              {busy
-                ? "Enregistrement…"
-                : uncertain
-                  ? "Réessayer la même demande"
-                  : joining
-                    ? "Rejoindre la session"
-                    : "Créer ma session"}
-            </button>
-          </form>
-          <p className="lobby-hint">
-            Votre accès privé reste dans cet onglet. Conservez ensuite votre
-            lien de récupération.
-          </p>
-        </section>
+              ) : (
+                <>
+                  <label>
+                    Nom de l’émission
+                    <input
+                      name="title"
+                      value={title}
+                      onChange={(event) => setTitle(event.target.value)}
+                      maxLength={32}
+                      required
+                      disabled={busy || uncertain}
+                    />
+                  </label>
+                  <label>
+                    Votre nom de Game Master
+                    <input
+                      name="hostName"
+                      value={hostName}
+                      onChange={(event) => setHostName(event.target.value)}
+                      maxLength={32}
+                      required
+                      autoComplete="nickname"
+                      disabled={busy || uncertain}
+                    />
+                  </label>
+                  <label>
+                    Jeu prévu
+                    <select
+                      name="gameId"
+                      value={gameId}
+                      onChange={(event) => setGameId(event.target.value)}
+                      disabled={busy || uncertain}
+                    >
+                      <option value="undercover">Undercover</option>
+                      <option value="auctions">
+                        Enchères · salon uniquement
+                      </option>
+                      <option value="spy">
+                        Qui est l’espion · salon uniquement
+                      </option>
+                    </select>
+                  </label>
+                </>
+              )}
+              <button className="primary-button" disabled={busy}>
+                {busy
+                  ? "Enregistrement…"
+                  : uncertain
+                    ? "Réessayer la même demande"
+                    : joining
+                      ? "Rejoindre la session"
+                      : "Créer ma session"}
+              </button>
+            </form>
+            <p className="lobby-hint">
+              Votre accès privé reste dans cet onglet. Conservez ensuite votre
+              lien de récupération.
+            </p>
+          </section>
+        )}
         {!joining && (
-          <section className="lobby-panel">
+          <section className="lobby-panel" id="invitation">
             <span className="eyebrow">VOUS ÊTES INVITÉ ?</span>
             <h2>Rejoindre une émission</h2>
             <form onSubmit={openInvitation} className="lobby-form">
@@ -287,14 +308,16 @@ export function SessionEntry({ invitationCode }: { invitationCode?: string }) {
           {error}
         </p>
       )}
-      <aside className="lobby-scope">
-        <strong>Jalon A · le salon est ouvert</strong>
-        <p>
-          Créez une session, rejoignez à plusieurs et vérifiez les états « prêt
-          » sur le plateau. Les règles, les mots secrets, les votes et le
-          lancement d’une partie arriveront au jalon C.
-        </p>
-      </aside>
+      {!invitationOnly && !joining && (
+        <aside className="lobby-scope">
+          <strong>Salon sans jeu préparé</strong>
+          <p>
+            Ce formulaire crée un salon. Pour jouer directement à Undercover,
+            choisissez Jouer depuis l’accueil. Enchères et Qui est l’espion ne
+            sont pas encore jouables.
+          </p>
+        </aside>
+      )}
     </main>
   );
 }

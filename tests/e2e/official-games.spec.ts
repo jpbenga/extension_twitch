@@ -1,3 +1,13 @@
+import {
+  creatorAccessSchema,
+  studioViewSchema,
+} from "@extension-twitch/contracts/creator";
+import {
+  gmSessionSchema,
+  playerSessionSchema,
+  publicSessionSchema,
+} from "@extension-twitch/contracts/sessions";
+import { completeClues } from "./turn-helpers.js";
 import { acceptConfirmation } from "./dialog-helpers.js";
 import {
   test as base,
@@ -141,8 +151,12 @@ test("Undercover plays several real rounds to a final victory, with private card
   for (let round = 0; round < 2; round++) {
     if (round)
       await gm
-        .getByRole("button", { name: "Commencer le tour suivant", exact: true })
+        .getByRole("button", {
+          name: "Commencer la manche suivante",
+          exact: true,
+        })
         .click();
+    await completeClues(gm);
     await gm
       .getByRole("button", { name: "Ouvrir les votes", exact: true })
       .click();
@@ -243,6 +257,7 @@ test("ties, a disconnected player's return and GM delegation use the same privat
   const gm = await views("Game Master"),
     one = await views("Joueur 1"),
     observer = await views("Spectateur");
+  await completeClues(gm);
   await gm
     .getByRole("button", { name: "Ouvrir les votes", exact: true })
     .click();
@@ -295,8 +310,9 @@ test("ties, a disconnected player's return and GM delegation use the same privat
     .filter({ hasText: /: Undercover$/ })
     .textContent())!.split(" : ")[0]!;
   await gm
-    .getByRole("button", { name: "Commencer le tour suivant", exact: true })
+    .getByRole("button", { name: "Commencer la manche suivante", exact: true })
     .click();
+  await completeClues(gm);
   await gm
     .getByRole("button", { name: "Ouvrir les votes", exact: true })
     .click();
@@ -384,6 +400,7 @@ test("a personalized official definition keeps its v3 primitives, source lineage
       exact: true,
     })
     .click();
+  await completeClues(page);
   await page
     .getByRole("button", { name: "Ouvrir les votes", exact: true })
     .click();
@@ -408,8 +425,8 @@ test("real invitees join without accounts, see a server refusal for insufficient
   try {
     await page.goto("/creator/play");
     await page
-      .getByText("Jouer avec de vraies personnes", { exact: true })
-      .click();
+      .getByLabel("Comment souhaitez-vous jouer ?", { exact: true })
+      .selectOption("invite");
     await page
       .getByRole("button", {
         name: "Créer une partie avec mes invités",
@@ -469,6 +486,7 @@ test("real invitees join without accounts, see a server refusal for insufficient
       .textContent())!.split(" : ")[0]!;
     const observer = await views("Spectateur");
     await role(page, "Game Master");
+    await completeClues(page);
     await page
       .getByRole("button", { name: "Ouvrir les votes", exact: true })
       .click();
@@ -491,4 +509,318 @@ test("real invitees join without accounts, see a server refusal for insufficient
   } finally {
     await Promise.all(contexts.map((c) => c.close()));
   }
+});
+
+test("Jouer separates creation, prepares three isolated players and transfers the GM access to another device", async ({
+  page,
+  browser,
+}, info) => {
+  const contexts: BrowserContext[] = [];
+  try {
+    await page.goto("/");
+    await page.getByRole("link", { name: "Jouer", exact: true }).click();
+    await expect(page).toHaveURL(/\/play$/);
+    await page
+      .getByRole("link", { name: "Préparer Undercover →", exact: true })
+      .click();
+    await expect(page).toHaveURL(/\/play\/undercover$/);
+    await expect(
+      page.getByLabel("Tours d’indices avant chaque vote", { exact: true }),
+    ).toHaveValue("2");
+    await page
+      .getByLabel("Joueurs de démonstration", { exact: true })
+      .fill("3");
+    await page
+      .getByRole("button", {
+        name: "Lancer une partie de démonstration",
+        exact: true,
+      })
+      .click();
+    await expect(page).toHaveURL(/\/play\/lab\//);
+    const labUrl = page.url();
+    await role(page, "Joueur 2");
+    await page.reload();
+    await expect(page.locator(".lab-identity")).toContainText(
+      "Vous incarnez Joueur 2",
+    );
+    await expect(page.getByTestId("session-connection")).toHaveText(
+      "Synchronisé",
+    );
+    await page
+      .context()
+      .grantPermissions(["clipboard-read", "clipboard-write"]);
+    await page
+      .getByRole("button", {
+        name: "Copier le lien privé GM pour mon iPhone",
+        exact: true,
+      })
+      .click();
+    await expect(
+      page.getByRole("status").filter({ hasText: "Lien copié." }),
+    ).toBeVisible();
+    const gmLink = await page.evaluate(() => navigator.clipboard.readText());
+    expect(new URL(gmLink).origin).toBe(new URL(page.url()).origin);
+    expect(gmLink).toContain("#access=");
+    const gmContext = await browser.newContext({
+      viewport: { width: 390, height: 844 },
+      isMobile: true,
+      hasTouch: true,
+    });
+    contexts.push(gmContext);
+    const gm = await gmContext.newPage();
+    await gm.goto(gmLink);
+    await expect(gm.getByTestId("session-connection")).toHaveText(
+      "Synchronisé",
+    );
+    await expect(gm).not.toHaveURL(/#access=/);
+    await expect(
+      gm
+        .getByRole("navigation", { name: "Navigation de la session" })
+        .getByRole("link"),
+    ).toHaveText(["Partie", "Joueurs", "Plateau"]);
+    await gm
+      .getByRole("button", {
+        name: "Distribuer les mots et commencer",
+        exact: true,
+      })
+      .click();
+    const sessionId = new URL(labUrl).pathname.split("/").at(-1)!;
+    const token = new URL(gmLink).hash.split("=")[1]!;
+    const privateState = gmSessionSchema.parse(
+      await (
+        await gm.request.get(`/api/server/sessions/${sessionId}/private`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+      ).json(),
+    );
+    const denied = await gm.request.post(
+      `/api/server/sessions/${sessionId}/commands`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+        data: {
+          commandId: crypto.randomUUID(),
+          expectedVersion: privateState.version,
+          command: {
+            type: "game.action",
+            runId: privateState.game!.runId,
+            actionId: "open-vote",
+            parameters: {},
+          },
+        },
+      },
+    );
+    expect(denied.status()).toBe(403);
+    expect(await denied.json()).toEqual({ error: "ACTION_FORBIDDEN" });
+    await expect(page.locator(".turn-current")).toContainText(
+      "Au tour de : Joueur démo 1",
+    );
+    await expect(page.locator(".turn-current")).toContainText(
+      "attendez votre tour",
+    );
+    await expect(page.locator(".turn-current")).not.toContainText(
+      "C’est à vous",
+    );
+    const details = page.getByText(
+      "Accès individuels des joueurs de démonstration",
+      { exact: true },
+    );
+    await details.click();
+    const players: Page[] = [];
+    for (let i = 1; i <= 3; i++) {
+      const href = await page
+        .getByRole("link", {
+          name: `Ouvrir Joueur ${i} séparément`,
+          exact: true,
+        })
+        .getAttribute("href");
+      const context = await browser.newContext({
+        viewport: page.viewportSize(),
+      });
+      contexts.push(context);
+      const p = await context.newPage();
+      players.push(p);
+      await p.goto(href!);
+      await expect(p.getByTestId("session-connection")).toHaveText(
+        "Synchronisé",
+      );
+      await expect(
+        p.locator(".personal-card .game-values article"),
+      ).toHaveCount(1);
+      const own = playerSessionSchema.parse(
+        await (
+          await p.request.get(`/api/server/sessions/${sessionId}/private`, {
+            headers: { Authorization: `Bearer ${href!.split("#access=")[1]}` },
+          })
+        ).json(),
+      );
+      expect(own.game!.values.map((v) => v.participantId)).toEqual([
+        own.participantId,
+      ]);
+      expect(own.game!.management).toBeUndefined();
+      const forbidden = await p.request.post(
+        `/api/server/sessions/${sessionId}/commands`,
+        {
+          headers: { Authorization: `Bearer ${href!.split("#access=")[1]}` },
+          data: {
+            commandId: crypto.randomUUID(),
+            expectedVersion: own.version,
+            command: { type: "session.rename", title: "Usurpation" },
+          },
+        },
+      );
+      expect(forbidden.status()).toBe(403);
+      await p.reload();
+      await expect(
+        p.locator(".personal-card .game-values article"),
+      ).toHaveCount(1);
+      if (i === 1)
+        await p.screenshot({
+          path: info.outputPath("multidevice-joueur.png"),
+          fullPage: true,
+        });
+    }
+    const observerContext = await browser.newContext({
+      viewport: page.viewportSize(),
+    });
+    contexts.push(observerContext);
+    const observer = await observerContext.newPage();
+    await observer.goto(`/sessions/${sessionId}/public`);
+    const publicState = publicSessionSchema.parse(
+      await (
+        await observer.request.get(`/api/server/sessions/${sessionId}/public`)
+      ).json(),
+    );
+    expect(publicState.publicGame!.values).toEqual([]);
+    expect(publicState.publicGame!.management).toBeUndefined();
+    expect(JSON.stringify(publicState)).not.toMatch(
+      /Phare|Fusée|secret-word|assignments/,
+    );
+    const intruder = await observerContext.newPage();
+    await intruder.goto(labUrl);
+    await expect(
+      intruder.getByText(/Les accès à cet essai ne sont pas dans cet onglet/),
+    ).toBeVisible();
+    await expect(
+      intruder.getByLabel("Perspective du laboratoire", { exact: true }),
+    ).toHaveCount(0);
+    await intruder.close();
+    if (info.project.name === "desktop") {
+      await page
+        .getByLabel("Afficher le plateau à côté sur ordinateur", {
+          exact: true,
+        })
+        .check();
+      await expect(page.getByLabel("Plateau public comparatif")).toBeVisible();
+      await expect(
+        page.getByLabel("Plateau public comparatif").locator(".game-values"),
+      ).not.toContainText(/Phare|Fusée/);
+      await page.screenshot({
+        path: info.outputPath("multidevice-comparison.png"),
+        fullPage: true,
+      });
+    }
+    await completeClues(gm);
+    await expect(observer.locator(".turn-progress")).toHaveAttribute(
+      "data-complete",
+      "true",
+    );
+    await gm
+      .getByRole("button", { name: "Ouvrir les votes", exact: true })
+      .click();
+    await vote(players[0]!, "Joueur démo 2");
+    await vote(players[1]!, "Joueur démo 1");
+    await vote(players[2]!, "Joueur démo 1");
+    await resolve(gm);
+    await expect(observer.locator(".play-outcome")).toContainText(
+      /Victoire des civils|Victoire des Undercover/,
+    );
+    await expect(gm.locator("#game .play-outcome")).toContainText(/Victoire/);
+    await gm.screenshot({
+      path: info.outputPath("multidevice-gm-mobile.png"),
+      fullPage: true,
+    });
+    await gm
+      .getByRole("button", { name: "Rejouer cette partie", exact: true })
+      .click();
+    await acceptConfirmation(gm);
+    for (const p of players)
+      await expect(p.locator(".personal-card")).toContainText(
+        "Le GM va vous distribuer",
+      );
+    await expect(observer.locator(".play-outcome")).toHaveCount(0);
+    for (const p of [gm, page, ...players, observer])
+      expect(
+        await p.evaluate(
+          () => document.documentElement.scrollWidth <= innerWidth,
+        ),
+      ).toBe(true);
+  } finally {
+    await Promise.all(contexts.map((c) => c.close()));
+  }
+});
+
+test("an old installed official release stays visible and launches its frozen rules", async ({
+  page,
+}) => {
+  await page.goto("/creator/library");
+  await expect(
+    page
+      .getByRole("button", { name: "Personnaliser ce jeu", exact: true })
+      .first(),
+  ).toBeEnabled();
+  const access = creatorAccessSchema.parse(
+    await page.evaluate(() =>
+      JSON.parse(sessionStorage.getItem("xt:creator:access")!),
+    ),
+  );
+  const path = `/api/server/studio/workspaces/${access.id}`;
+  const headers = { Authorization: `Bearer ${access.token}` };
+  const before = studioViewSchema.parse(
+    await (await page.request.get(path, { headers })).json(),
+  );
+  const current = before.catalog.find(
+    (g) => g.release.definition.id === "undercover",
+  )!;
+  // Fixture for a user who installed the previous release before this upgrade.
+  const installed = await page.request.post(`${path}/commands`, {
+    headers,
+    data: {
+      commandId: crypto.randomUUID(),
+      expectedVersion: before.workspace.version,
+      operation: {
+        type: "library.install",
+        source: { gameId: current.identity.id, version: "0.1.0" },
+      },
+    },
+  });
+  expect(installed.status()).toBe(200);
+  await page.reload();
+  await page.getByRole("button", { name: "Jeux ajoutés", exact: true }).click();
+  const card = page.locator(".creator-list-card").filter({
+    has: page.getByRole("heading", {
+      name: "Undercover · variante démo",
+      exact: true,
+    }),
+  });
+  await expect(card).toHaveCount(1);
+  await expect(card).toContainText(
+    "Version 0.1.0 · règles historiques conservées",
+  );
+  await card.getByText("Autres choix", { exact: true }).click();
+  await card
+    .getByRole("button", { name: "Essayer avec des joueurs démo", exact: true })
+    .click();
+  await expect(page.getByTestId("session-connection")).toHaveText(
+    "Synchronisé",
+  );
+  await page
+    .getByRole("button", {
+      name: "Distribuer les mots et commencer",
+      exact: true,
+    })
+    .click();
+  await expect(
+    page.getByRole("button", { name: "Ouvrir les votes", exact: true }),
+  ).toBeVisible();
+  await expect(page.locator("#game .turn-progress")).toHaveCount(0);
 });

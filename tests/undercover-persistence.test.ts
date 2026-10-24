@@ -142,6 +142,23 @@ it("restores a real Undercover deal, private partial ballot, receipts and final 
     await command({
       type: "game.action",
       runId,
+      actionId: "confirm-clue",
+      parameters: {},
+    });
+    const partialTurns = (await view()).game!.play!.turns!;
+    await stop();
+    await start();
+    expect((await view()).game!.play!.turns).toEqual(partialTurns);
+    while (!(await view()).game!.play!.turns!.complete)
+      await command({
+        type: "game.action",
+        runId,
+        actionId: "confirm-clue",
+        parameters: {},
+      });
+    await command({
+      type: "game.action",
+      runId,
       actionId: "open-vote",
       parameters: {},
     });

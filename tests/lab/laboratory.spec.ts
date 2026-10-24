@@ -66,8 +66,9 @@ test("development lab creates real isolated identities, exercises engine actions
   );
   await gm
     .getByRole("navigation", { name: "Navigation de la session" })
-    .getByRole("link", { name: "Session", exact: true })
+    .getByRole("link", { name: "Partie", exact: true })
     .click();
+  await gm.getByText("Accès et réglages de la partie", { exact: true }).click();
   await gm
     .getByRole("button", { name: "Réinitialiser le salon", exact: true })
     .click();

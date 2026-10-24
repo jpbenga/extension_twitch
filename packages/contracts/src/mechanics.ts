@@ -12,6 +12,12 @@ export const mechanicsSchema = z.strictObject({
   drawLabel: label.optional(),
   drawRevealVariables: z.array(id).max(8).default([]),
   finishedPhase: id.optional(),
+  turns: z
+    .strictObject({
+      phase: id,
+      roundsConfiguration: id,
+    })
+    .optional(),
   deals: z
     .array(
       z.strictObject({
@@ -37,6 +43,7 @@ export const mechanicsSchema = z.strictObject({
         allowGmProxy: z.boolean(),
         revealEliminatedRole: z.boolean(),
         resultPhase: id,
+        requireTurns: z.literal(true).optional(),
       }),
     )
     .max(2)
@@ -61,6 +68,7 @@ export const mechanicsSchema = z.strictObject({
 export type Mechanics = z.infer<typeof mechanicsSchema>;
 export const operationSchema = z.discriminatedUnion("type", [
   z.strictObject({ type: z.literal("deal"), deal: id }),
+  z.strictObject({ type: z.literal("turn.advance") }),
   z.strictObject({ type: z.literal("ballot.open"), ballot: id }),
   z.strictObject({
     type: z.literal("ballot.cast"),
@@ -104,6 +112,16 @@ export const playProjectionSchema = z.strictObject({
       selected: z.uuid().optional(),
       complete: z.boolean(),
       allowSelfVote: z.boolean(),
+    })
+    .optional(),
+  turns: z
+    .strictObject({
+      round: z.number().int().min(1).max(5),
+      total: z.number().int().min(1).max(5),
+      order: z.array(z.uuid()).min(1).max(12),
+      completed: z.array(z.uuid()).max(12),
+      current: z.uuid().optional(),
+      complete: z.boolean(),
     })
     .optional(),
   outcome: z.strictObject({ id, label }).optional(),

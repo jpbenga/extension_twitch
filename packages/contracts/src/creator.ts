@@ -118,6 +118,7 @@ export type StudioWorkspace = z.infer<typeof studioWorkspaceSchema>;
 export const studioViewSchema = z.strictObject({
   workspace: studioWorkspaceSchema,
   catalog: z.array(publishedGameSchema).max(8),
+  archivedInstallations: z.array(publishedGameSchema).max(32).optional(),
   guideCompatibility: z.record(z.uuid(), z.boolean()),
 });
 export type StudioView = z.infer<typeof studioViewSchema>;

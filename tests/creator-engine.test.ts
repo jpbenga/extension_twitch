@@ -14,6 +14,7 @@ import {
 } from "@extension-twitch/contracts/creator";
 import {
   officialCatalog,
+  findRelease,
   decideCreator,
   compileGuide,
   guideRepresentable,
@@ -581,4 +582,27 @@ it("combines private self conditions and public arithmetic without revealing hid
     value: { from: "expression", expression: { kind: "variable", id: "used" } },
   });
   expect(gameDefinitionSchema.safeParse(bad).success).toBe(false);
+});
+
+it("keeps installed Undercover 0.1 available while new games use 0.2 without migrating variants", () => {
+  const workspace = empty();
+  const id = officialCatalog.find(
+    (g) => g.release.definition.id === "undercover",
+  )!.identity.id;
+  const old = findRelease(workspace, id, "0.1.0");
+  expect(old.release.definition.mechanics!.turns).toBeUndefined();
+  expect(old.release.definition.configuration.map((c) => c.id)).not.toContain(
+    "clue-rounds",
+  );
+  expect(
+    findRelease(workspace, id, "0.2.0").release.definition.mechanics!.turns,
+  ).toBeDefined();
+  const forked = operate(workspace, {
+    type: "draft.fork",
+    source: { gameId: id, version: "0.1.0" },
+    title: "Mon ancienne variante",
+  });
+  expect(forked.games[0]!.draft.definition.mechanics!.turns).toBeUndefined();
+  expect(forked.games[0]!.identity.lineage.at(-1)!.version).toBe("0.1.0");
+  expect(old.release.definition.version).toBe("0.1.0");
 });

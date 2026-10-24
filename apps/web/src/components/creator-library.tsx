@@ -28,6 +28,7 @@ export function CreatorLibrary() {
   }
   const installed = studio.view?.workspace.installations ?? [];
   const sources = (studio.view?.catalog ?? []).concat(
+    studio.view?.archivedInstallations ?? [],
     studio.view?.workspace.games.flatMap((g) =>
       g.releases.map((release) => ({ identity: g.identity, release })),
     ) ?? [],
@@ -103,6 +104,16 @@ export function CreatorLibrary() {
                         : "VERSION PERSONNELLE"}
                   </span>
                   <h2>{g.release.metadata.title}</h2>
+                  {studio.view?.archivedInstallations?.some(
+                    (old) =>
+                      old.identity.id === g.identity.id &&
+                      old.release.version === g.release.version,
+                  ) && (
+                    <p className="lobby-hint">
+                      Version {g.release.version} · règles historiques
+                      conservées
+                    </p>
+                  )}
                   <p>{g.release.metadata.description}</p>
                 </div>
                 <div className="studio-inline">
