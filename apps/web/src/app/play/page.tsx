@@ -1,52 +1,62 @@
 import Link from "next/link";
+import { officialGames } from "@extension-twitch/contracts/official-games";
+import { ProductFrame } from "../../components/product-frame";
 export default function PlayPage() {
   return (
-    <main className="session-shell intent-home">
-      <header className="session-header">
-        <Link className="session-brand" href="/">
-          xt{" "}
-          <span>
-            Extension Twitch<small>JOUER</small>
-          </span>
-        </Link>
-        <Link href="/creator">Créer un jeu</Link>
-      </header>
+    <ProductFrame>
       <section className="lobby-heading">
-        <span className="eyebrow">VOTRE PROCHAIN PLATEAU</span>
+        <span className="eyebrow">JEUX OFFICIELS</span>
         <h1>Choisir un jeu</h1>
         <p>
-          Préparez une partie avec vos invités ou essayez seul avec des joueurs
-          de démonstration.
+          Préparez une partie avec vos invités ou essayez seul en démonstration.
         </p>
       </section>
-      <div className="creator-catalog">
-        <article className="lobby-panel official-game-card game-undercover">
-          <span className="eyebrow">JOUABLE · VARIANTE DE DÉMONSTRATION</span>
-          <h2>Undercover</h2>
-          <p>
-            Des mots secrets, deux tours d’indices et un vote pour démasquer les
-            intrus.
-          </p>
-          <Link href="/play/undercover" className="primary-button">
-            Préparer Undercover →
-          </Link>
-        </article>
-        <article className="lobby-panel official-game-card game-auctions">
-          <h2>Enchères</h2>
-          <p>En préparation — ce jeu n’est pas encore jouable.</p>
-        </article>
-        <article className="lobby-panel official-game-card game-spy">
-          <h2>Qui est l’espion ?</h2>
-          <p>En préparation — ce jeu n’est pas encore jouable.</p>
-        </article>
+      <div className="creator-catalog official-catalog">
+        {officialGames.map((game) => (
+          <article
+            key={game.id}
+            className={`lobby-panel official-game-card game-${game.id}`}
+          >
+            <span className="eyebrow">
+              {game.availability === "playable-demo"
+                ? "JOUABLE · RÈGLES EN TEST"
+                : "EN PRÉPARATION · NON JOUABLE"}
+            </span>
+            <h2>{game.title}</h2>
+            <p>{game.description}</p>
+            <p className="lobby-hint">
+              {game.participants} · {game.duration}
+            </p>
+            <details>
+              <summary>Découvrir le jeu</summary>
+              <p>{game.concept}</p>
+              {game.features.length > 0 && (
+                <ul>
+                  {game.features.map((f) => (
+                    <li key={f}>{f}</li>
+                  ))}
+                </ul>
+              )}
+              <p>
+                Réglages :{" "}
+                {game.settings.length
+                  ? game.settings.join(", ")
+                  : "à définir avant la mise à disposition"}
+                .
+              </p>
+            </details>
+            {game.availability === "playable-demo" && (
+              <Link
+                href={`/play/${game.id}`}
+                className="primary-button"
+                aria-label={`Jouer à ${game.title}`}
+              >
+                Jouer
+              </Link>
+            )}
+          </article>
+        ))}
       </div>
-      <details className="lobby-panel">
-        <summary>Jouer à un jeu de ma bibliothèque</summary>
-        <p>Retrouvez également vos créations et vos versions enregistrées.</p>
-        <Link className="secondary-button" href="/creator/library?intent=play">
-          Ouvrir ma bibliothèque
-        </Link>
-      </details>
-    </main>
+    </ProductFrame>
   );
 }

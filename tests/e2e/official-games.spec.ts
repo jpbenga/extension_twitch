@@ -1,8 +1,4 @@
 import {
-  creatorAccessSchema,
-  studioViewSchema,
-} from "@extension-twitch/contracts/creator";
-import {
   gmSessionSchema,
   playerSessionSchema,
   publicSessionSchema,
@@ -15,7 +11,7 @@ import {
   type Page,
   type BrowserContext,
 } from "@playwright/test";
-import { role, section, save, publish } from "./creator-helpers.js";
+import { role } from "./creator-helpers.js";
 const test = base.extend<{ views: (name: string) => Promise<Page> }>({
   views: async ({ browser, page }, use) => {
     const contexts: BrowserContext[] = [];
@@ -54,7 +50,7 @@ const test = base.extend<{ views: (name: string) => Promise<Page> }>({
   },
 });
 async function demo(page: Page) {
-  await page.goto("/creator/play");
+  await page.goto("/play/undercover");
   await page
     .getByLabel("Mot des civils", { exact: true })
     .fill("Mot civil de test");
@@ -67,7 +63,7 @@ async function demo(page: Page) {
       exact: true,
     })
     .click();
-  await expect(page).toHaveURL(/\/creator\/lab\//);
+  await expect(page).toHaveURL(/\/play\/lab\//);
   await expect(
     page.getByLabel("Perspective du laboratoire", { exact: true }),
   ).toBeVisible();
@@ -343,87 +339,13 @@ test("ties, a disconnected player's return and GM delegation use the same privat
   await Promise.all([gm, one, observer].map((p) => p.close()));
 });
 
-test("a personalized official definition keeps its v3 primitives, source lineage and editable real vote rules", async ({
-  page,
-  views,
-}) => {
-  await page.goto("/creator/library");
-  const card = page.locator(".creator-list-card").filter({
-    has: page.getByRole("heading", {
-      name: "Undercover · variante démo",
-      exact: true,
-    }),
-  });
-  await card
-    .getByRole("button", { name: "Personnaliser ce jeu", exact: true })
-    .click();
-  await page
-    .getByLabel("Nom du jeu", { exact: true })
-    .fill("Mon conseil secret");
-  await section(page, "Distribution et vote");
-  await page
-    .getByLabel("Mot des civils", { exact: true })
-    .fill("Mon mot privé");
-  await page
-    .getByLabel("Mot des Undercover", { exact: true })
-    .fill("Autre information");
-  await page
-    .getByLabel("Autoriser un joueur à voter pour lui-même", { exact: true })
-    .check();
-  await save(page);
-  await expect(
-    page.getByText("Jeu personnalisé · origine et attributions", {
-      exact: true,
-    }),
-  ).toBeVisible();
-  await publish(page);
-  await page.getByText("Outils d’export avancés", { exact: true }).click();
-  await page
-    .getByRole("button", { name: "Afficher le manifest d’export", exact: true })
-    .click();
-  const manifest = page.getByRole("textbox", {
-    name: "Manifest d’export sans références privées",
-    exact: true,
-  });
-  await expect(manifest).toHaveValue(/"engineVersion": 3/);
-  await expect(manifest).not.toHaveValue(/Mon mot privé|Autre information/);
-  await page
-    .locator(".creator-save-actions")
-    .getByRole("button", { name: "Tester mon jeu", exact: true })
-    .click();
-  await expect(
-    page.getByLabel("Perspective du laboratoire", { exact: true }),
-  ).toBeVisible();
-  await page
-    .getByRole("button", {
-      name: "Distribuer les mots et commencer",
-      exact: true,
-    })
-    .click();
-  await completeClues(page);
-  await page
-    .getByRole("button", { name: "Ouvrir les votes", exact: true })
-    .click();
-  await role(page, "Joueur 1");
-  await expect(page.locator(".personal-card")).toContainText(
-    /Mon mot privé|Autre information/,
-  );
-  await expect(
-    page.getByRole("radio", { name: "Joueur démo 1", exact: true }),
-  ).toBeVisible();
-  await role(page, "Spectateur");
-  await expect(page.locator("body")).not.toContainText("Mon mot privé");
-  await expect(page.locator(".play-summary")).toContainText("Vote");
-});
-
 test("real invitees join without accounts, see a server refusal for insufficient players, then play to a public result", async ({
   page,
   browser,
-  views,
 }) => {
   const contexts: BrowserContext[] = [];
   try {
-    await page.goto("/creator/play");
+    await page.goto("/play/undercover");
     await page
       .getByLabel("Comment souhaitez-vous jouer ?", { exact: true })
       .selectOption("invite");
@@ -433,7 +355,7 @@ test("real invitees join without accounts, see a server refusal for insufficient
         exact: true,
       })
       .click();
-    await expect(page).toHaveURL(/\/creator\/lab\//);
+    await expect(page).toHaveURL(/\/sessions\/[^/]+\/gm$/);
     const invitation = await page
       .getByLabel("Invitation des joueurs", { exact: true })
       .inputValue();
@@ -454,12 +376,34 @@ test("real invitees join without accounts, see a server refusal for insufficient
         "Synchronisé",
       );
       if (i === 2) {
-        await page
-          .getByRole("button", { name: "Préparer la partie", exact: true })
-          .click();
         await expect(
-          page.getByRole("alert").filter({ hasText: /effectif/ }),
-        ).toBeVisible();
+          page.getByRole("button", { name: "Préparer la partie", exact: true }),
+        ).toBeDisabled();
+        const refusal = await page.evaluate(async () => {
+          const id = location.pathname.split("/")[2]!;
+          const token = sessionStorage.getItem(`xt:access:${id}:gm`)!;
+          const headers = {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          };
+          const view = await (
+            await fetch(`/api/server/sessions/${id}/private`, { headers })
+          ).json();
+          const response = await fetch(`/api/server/sessions/${id}/commands`, {
+            method: "POST",
+            headers,
+            body: JSON.stringify({
+              commandId: crypto.randomUUID(),
+              expectedVersion: view.version,
+              command: { type: "game.use-prepared" },
+            }),
+          });
+          return { status: response.status, body: await response.json() };
+        });
+        expect(refusal).toEqual({
+          status: 400,
+          body: { error: "INVALID_PLAYER_COUNT" },
+        });
         await expect(
           page.getByRole("heading", {
             name: "Invitez vos joueurs",
@@ -484,8 +428,12 @@ test("real invitees join without accounts, see a server refusal for insufficient
       .locator(".gm-secrets li")
       .filter({ hasText: /: Undercover$/ })
       .textContent())!.split(" : ")[0]!;
-    const observer = await views("Spectateur");
-    await role(page, "Game Master");
+    const observerContext = await browser.newContext({
+      viewport: page.viewportSize(),
+    });
+    contexts.push(observerContext);
+    const observer = await observerContext.newPage();
+    await observer.goto(page.url().replace(/\/gm(?:#.*)?$/, "/public"));
     await completeClues(page);
     await page
       .getByRole("button", { name: "Ouvrir les votes", exact: true })
@@ -518,10 +466,12 @@ test("Jouer separates creation, prepares three isolated players and transfers th
   const contexts: BrowserContext[] = [];
   try {
     await page.goto("/");
-    await page.getByRole("link", { name: "Jouer", exact: true }).click();
+    await page
+      .getByRole("link", { name: "Choisir un jeu", exact: true })
+      .click();
     await expect(page).toHaveURL(/\/play$/);
     await page
-      .getByRole("link", { name: "Préparer Undercover →", exact: true })
+      .getByRole("link", { name: "Jouer à Undercover", exact: true })
       .click();
     await expect(page).toHaveURL(/\/play\/undercover$/);
     await expect(
@@ -757,70 +707,4 @@ test("Jouer separates creation, prepares three isolated players and transfers th
   } finally {
     await Promise.all(contexts.map((c) => c.close()));
   }
-});
-
-test("an old installed official release stays visible and launches its frozen rules", async ({
-  page,
-}) => {
-  await page.goto("/creator/library");
-  await expect(
-    page
-      .getByRole("button", { name: "Personnaliser ce jeu", exact: true })
-      .first(),
-  ).toBeEnabled();
-  const access = creatorAccessSchema.parse(
-    await page.evaluate(() =>
-      JSON.parse(sessionStorage.getItem("xt:creator:access")!),
-    ),
-  );
-  const path = `/api/server/studio/workspaces/${access.id}`;
-  const headers = { Authorization: `Bearer ${access.token}` };
-  const before = studioViewSchema.parse(
-    await (await page.request.get(path, { headers })).json(),
-  );
-  const current = before.catalog.find(
-    (g) => g.release.definition.id === "undercover",
-  )!;
-  // Fixture for a user who installed the previous release before this upgrade.
-  const installed = await page.request.post(`${path}/commands`, {
-    headers,
-    data: {
-      commandId: crypto.randomUUID(),
-      expectedVersion: before.workspace.version,
-      operation: {
-        type: "library.install",
-        source: { gameId: current.identity.id, version: "0.1.0" },
-      },
-    },
-  });
-  expect(installed.status()).toBe(200);
-  await page.reload();
-  await page.getByRole("button", { name: "Jeux ajoutés", exact: true }).click();
-  const card = page.locator(".creator-list-card").filter({
-    has: page.getByRole("heading", {
-      name: "Undercover · variante démo",
-      exact: true,
-    }),
-  });
-  await expect(card).toHaveCount(1);
-  await expect(card).toContainText(
-    "Version 0.1.0 · règles historiques conservées",
-  );
-  await card.getByText("Autres choix", { exact: true }).click();
-  await card
-    .getByRole("button", { name: "Essayer avec des joueurs démo", exact: true })
-    .click();
-  await expect(page.getByTestId("session-connection")).toHaveText(
-    "Synchronisé",
-  );
-  await page
-    .getByRole("button", {
-      name: "Distribuer les mots et commencer",
-      exact: true,
-    })
-    .click();
-  await expect(
-    page.getByRole("button", { name: "Ouvrir les votes", exact: true }),
-  ).toBeVisible();
-  await expect(page.locator("#game .turn-progress")).toHaveCount(0);
 });

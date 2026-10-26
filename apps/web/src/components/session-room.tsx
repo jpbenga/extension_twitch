@@ -5,6 +5,8 @@ import type { SessionView } from "@extension-twitch/contracts/sessions";
 import { useSession, type SessionAudience } from "../lib/use-session";
 import { findGame } from "../lib/demo";
 import { GamePanel } from "./game-panel";
+import { useLegacyTools } from "./legacy-tools";
+import { ProductFrame } from "./product-frame";
 import { CopyLink } from "./copy-link";
 import { PublicSession } from "./public-session";
 import { useConfirm } from "./ui/feedback";
@@ -23,6 +25,7 @@ export function SessionRoom({
   id: string;
   audience: SessionAudience;
 }) {
+  const legacyTools = useLegacyTools();
   const session = useSession(id, audience),
     confirm = useConfirm();
   const { view, connection, error, busy, retryAvailable, token } = session;
@@ -85,6 +88,93 @@ export function SessionRoom({
       ? `${gm ? new URL(gm.publicUrl).origin : window.location.origin}/sessions/${id}/${gm ? "gm" : `player/${me?.id}`}#access=${token}`
       : "";
   const playing = !!view?.publicGame;
+  if (
+    gm?.preparedGame?.definitionId === "undercover" &&
+    !playing &&
+    !legacyTools
+  )
+    return (
+      <ProductFrame>
+        <div
+          className={`session-connection ${connection}`}
+          role="status"
+          data-testid="session-connection"
+        >
+          {connectionLabel}
+        </div>
+        <section className="lobby-heading">
+          <span className="eyebrow">RÉGIE · PRÉPARATION</span>
+          <h1>Invitez vos joueurs</h1>
+          <p>
+            Partagez l’invitation, puis préparez Undercover quand tous les
+            joueurs sont présents.
+          </p>
+        </section>
+        {error && (
+          <p className="lobby-error" role="alert">
+            {error}
+          </p>
+        )}
+        {retryAvailable && (
+          <button
+            className="secondary-button"
+            disabled={busy || connection !== "connected"}
+            onClick={() => void session.send()}
+          >
+            Réessayer la commande
+          </button>
+        )}
+        <section className="lobby-panel">
+          <CopyLink label="Invitation des joueurs" value={gm.joinUrl} />
+          <p className="invitation-code">
+            Code : <strong>{gm.invitationCode}</strong>
+          </p>
+          <h2>{gm.participants.length} joueur(s) inscrit(s)</h2>
+          <p>
+            De 3 à 12 joueurs, avec moins d’Undercover que de civils. Les
+            réglages choisis sont conservés.
+          </p>
+          <ParticipantList
+            view={gm}
+            disabled={locked}
+            remove={(participantId) =>
+              void confirm({
+                title: "Retirer ce joueur ?",
+                description:
+                  "Son accès sera révoqué. Il devra être invité à nouveau pour revenir.",
+                confirmLabel: "Retirer le joueur",
+                tone: "danger",
+                onConfirm: () =>
+                  session.send({ type: "participant.remove", participantId }),
+              })
+            }
+          />
+          <button
+            className="primary-button"
+            disabled={
+              locked ||
+              gm.participants.length < 3 ||
+              gm.participants.length > 12
+            }
+            onClick={() => void session.send({ type: "game.use-prepared" })}
+          >
+            Préparer la partie
+          </button>
+        </section>
+        <details className="lobby-panel">
+          <summary>Ma régie et mon plateau</summary>
+          <CopyLink
+            label="Accès privé GM — ne pas partager avec les joueurs"
+            value={privateUrl}
+            privateLink
+          />
+          <CopyLink
+            label="Lien du plateau pour OBS ou un navigateur"
+            value={gm.publicUrl}
+          />
+        </details>
+      </ProductFrame>
+    );
   return (
     <main className="session-shell session-room" data-playing={playing}>
       <header className="session-header">

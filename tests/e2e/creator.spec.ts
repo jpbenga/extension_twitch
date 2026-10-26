@@ -164,7 +164,16 @@ test("concurrent authors cannot silently overwrite drafts and private recovery d
     .getByLabel("Mon lien privé", { exact: true })
     .inputValue();
   const second = await page.context().newPage();
+  // A private recovery must finish hydration and its authenticated load before a
+  // full navigation, particularly when legacy routes are cold-compiled in dev.
+  const restored = second.waitForResponse(
+    (response) =>
+      response.url().includes("/api/server/studio/workspaces/") &&
+      response.request().method() === "GET" &&
+      response.status() === 200,
+  );
   await second.goto(recovery);
+  await restored;
   await second.goto(editorUrl);
   await page.goto(editorUrl);
   await page

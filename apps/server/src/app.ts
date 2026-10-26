@@ -6,8 +6,13 @@ import {
 import { SessionApi } from "./session-api.js";
 import type { SessionService } from "./session-service.js";
 
-export function createApp(service?: SessionService) {
-  const sessions = service ? new SessionApi(service) : null;
+export function createApp(
+  service?: SessionService,
+  options: { legacyTools?: boolean } = {},
+) {
+  const sessions = service
+    ? new SessionApi(service, options.legacyTools)
+    : null;
   return createServer((request, response) => {
     response.setHeader("Cache-Control", "no-store");
     response.setHeader("X-Content-Type-Options", "nosniff");

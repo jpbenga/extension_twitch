@@ -60,6 +60,13 @@ export function useSession(id: string, audience: SessionAudience) {
           `player:${next.participantId}` !== audience))
     )
       throw new RequestFailure("ACCESS_DENIED", 403);
+    if (audience === "gm") {
+      try {
+        sessionStorage.setItem("xt:recent-gm-session", id);
+      } catch {
+        /* Projection remains usable. */
+      }
+    }
     setView((previous) =>
       previous && previous.version > next.version ? previous : next,
     );

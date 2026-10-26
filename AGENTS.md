@@ -14,13 +14,13 @@ Ne pas considérer les exemples fonctionnels comme des règles définitives lors
 
 ## 2. Périmètre de la V1
 
-La V1 comprend obligatoirement trois jeux :
+La cible de catalogue comprend les trois premiers jeux :
 
 * Undercover.
 * Enchères de personnages.
 * Qui est l’espion ?
 
-Ne pas réduire arbitrairement le périmètre produit à un seul jeu.
+Le jalon 6 autorise une première offre commerciale plus étroite, explicitement validée, avant environ dix expériences officielles. Ne pas déclarer un jeu inachevé jouable.
 
 Le développement peut être organisé progressivement, mais l’architecture doit prendre en charge les trois modules.
 
@@ -273,63 +273,40 @@ Privilégier :
 En cas de conflit entre une implémentation existante et une décision produit explicitement validée, signaler le conflit avant de modifier le comportement.
 
 
-17. Évolution validée — moteur configurable
+## 17. Décision définitive — recentrage jalon 6
 
-Consulter docs/CONFIGURABLE-ENGINE.md et docs/ASSETS.md. Les jeux officiels utilisent
-les mêmes primitives déclaratives que les créations utilisateurs. La séparation
-par jeu concerne leurs définitions, configurations et tests ; elle ne demande pas
-de dupliquer les validations et transitions génériques. Distinguer définition,
-configuration, partie et événements. Ne pas exécuter de scripts utilisateurs.
-Préserver les sessions A et leurs permissions. Ne transférer aucun média ni exposer
-de références privées dans les projections. La validation humaine iPhone reste
-en attente, mais n’empêche plus les itérations autorisées du socle et du laboratoire.
+Lire docs/STAGE-6.md, docs/SAAS-ARCHITECTURE.md et docs/ROADMAP-COMMERCIAL.md.
+Le produit est un catalogue fermé de jeux prêts à jouer avec paramètres autorisés.
+Cette décision remplace les exigences antérieures de création libre, Studio, Store,
+reconstruction depuis zéro et variantes utilisateur. Ne plus développer ces fonctions.
+Conserver le moteur déclaratif commun et les contrats v1/v2/v3, pas plusieurs moteurs.
+Les nouvelles parties utilisent des définitions officielles choisies côté serveur et
+un GameSettings strict, jamais une règle ou un rôle arbitraire reçu du navigateur.
 
+L’ancien code Studio et ses tables restent archivables : aucun effacement sans
+sauvegarde/restauration vérifiée et décision explicite. Ses routes/API sont fermées
+par défaut ; LEGACY_STUDIO_ENABLED=1 ne sert qu’à la maintenance locale explicite,
+jamais en production. Conserver les tests métier et de compatibilité, y compris les
+anciennes sessions, définitions, reçus, variantes et données privées. Le laboratoire
+multirôle des jeux officiels doit fonctionner sans bibliothèque Creator.
 
-18. Studio Créateur hybride (jalon 4A)
+## 18. Jeux et validation
 
-Consulter docs/STAGE-4A.md. Variante, guide et Studio avancé produisent un seul
-GameDefinition. Les parties actives et versions publiées sont immuables. Une
-publication privée dans la bibliothèque n’est pas une publication Store. Préserver
-la filiation et les attributions, retirer les références d’assets privées/non
-redistribuables lors d’une copie partageable. Ne pas simuler des comptes sécurisés.
-Conserver V1 et versionner les extensions du langage. Aucun code arbitraire.
+Lire docs/OFFICIAL-GAMES-RULES.md. Undercover est jouable dans une variante de
+ démonstration : deux tours d’indices par défaut, configurables, vote prématuré refusé
+serveur, distribution privée aléatoire et atomique. Aucun branchement sur l’identifiant
+Undercover dans l’interpréteur pour décider des règles. Enchères et Qui est l’espion
+restent à livrer ; débit uniquement à attribution confirmée pour les enchères.
+La reconstruction des jeux depuis une page blanche n’est plus un objectif produit.
 
+## 19. Broadcast Neon et tests humains
 
-19. Refonte ergonomique du Studio (4B.1)
-
-Consulter docs/STAGE-4B1.md et docs/TEST-STUDIO-4B1.md. Préserver les parcours dédiés
-accueil/bibliothèque/éditeur/laboratoire, le moteur et les capacités d’accès existantes.
-Utiliser un vocabulaire humain ; réserver JSON et références aux outils techniques.
-Les réglages simples ne doivent jamais remplacer une règle avancée inconnue.
-Le laboratoire appartient au GM ; les projections publiques et individuelles restent
-séparées côté serveur, même lorsqu’il change de vue dans son onglet de test.
-Statut actuel du Studio : Premier test humain iPhone effectué — refonte ergonomique
-nécessaire. Les mentions d’attente ci-dessus sont historiques. La validation de la
-refonte sur appareil réel, des parcours complets, de Safari iOS et d’OBS reste à faire.
-
-
-20. Gameplay — jalon 5A
-
-Lire docs/OFFICIAL-GAMES-RULES.md et docs/STAGE-5.md avant de changer les jeux.
-Undercover est une variante de démonstration explicite, pas une décision définitive.
-Ses primitives déclaratives v3 appartiennent au moteur commun ; aucun branchement
-sur l’identifiant du jeu ne doit décider des règles. Préserver v1/v2, les reçus,
-SQLite/SSE, les projections privées et le Studio. Les distributions sont aléatoires
-côté serveur et atomiques avec leur reçu. Ne pas exposer les mots, camps cachés ou
-choix de vote individuels dans le journal public. Les opérations de gestion exigent
-une autorité GM serveur. Enchères et Qui est l’espion restent à réaliser en verticales
-complètes ; ne pas les déclarer jouables prématurément. Les règles manquantes peuvent
-être expérimentées dans des variantes explicitement documentées selon l’autorisation
-du jalon 5. Voir docs/TEST-OFFICIAL-GAMES.md pour la validation humaine.
-
-
-21. Broadcast Neon — système visuel
-
-Lire docs/DESIGN-SYSTEM.md et docs/TEST-BROADCAST-NEON.md. Centraliser les couleurs
-dans tokens.css et utiliser les primitives/contrôles partagés. Ne pas réintroduire
-window.confirm, window.alert ou window.prompt pour les interactions applicatives.
-Conserver les protections natives de navigation beforeunload. Les confirmations
-asynchrones ne remplacent pas les reçus et validations serveur. Une refonte visuelle
-ne doit exposer aucune donnée privée, changer les règles ou supprimer un parcours.
-Le catalogue de composants reste absent en production. La validation humaine de
-Broadcast Neon sur iPhone, VoiceOver et OBS n’est pas acquise par les tests Chromium.
+Lire docs/DESIGN-SYSTEM.md et docs/TEST-PRODUCT-FOCUS.md. Tokens centralisés,
+primitives partagées, confirmations accessibles et aucun confirm/alert/prompt natif
+applicatif. Conserver beforeunload quand pertinent. Mobile-first GM iPhone, joueurs
+simples, plateau public sans secret et laboratoire à identités distinctes.
+Premiers tests humains iPhone du Studio et de la régie effectués, ayant motivé les
+refontes. Nouveau parcours, Safari iOS, gameplay multi-appareils et OBS physique
+restent à valider humainement. Chromium ne prouve pas cette validation.
+Ne pas ajouter de fournisseur payant, facturation réelle, auth simulée, site marketing
+complet ou éditeur d’overlays sans demande spécifique.

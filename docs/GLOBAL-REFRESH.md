@@ -1,3 +1,5 @@
+> Historique technique conservé. Depuis le jalon 6, la vision active est un catalogue fermé de jeux prêts à jouer ; la création libre et le Store sont retirés du produit. Voir [PRODUCT.md](PRODUCT.md) et [STAGE-6.md](STAGE-6.md). Les primitives internes et données restent conservées.
+
 # Refonte globale — bilan et décisions UX
 
 Base vérifiée sur Git et sur les branches distantes : `b277c56` Broadcast Neon,

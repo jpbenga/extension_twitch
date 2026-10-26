@@ -96,7 +96,11 @@ export function CreatorLaboratory({
         <div>
           <span className="eyebrow">LABORATOIRE PRIVÉ</span>
           <h1>
-            {lab?.mode === "invite" ? "Votre partie" : "Testez votre jeu"}
+            {lab?.mode === "invite"
+              ? "Votre partie"
+              : context === "play"
+                ? "Votre partie de démonstration"
+                : "Testez votre jeu"}
           </h1>
           <p>
             {lab?.mode === "invite"
@@ -106,9 +110,14 @@ export function CreatorLaboratory({
         </div>
         <Link
           className="secondary-button"
-          href={lab?.returnTo ?? "/creator/library"}
+          href={
+            context === "play"
+              ? "/play/undercover"
+              : (lab?.returnTo ?? "/creator/library")
+          }
         >
-          {lab?.returnTo === "/creator/play" ||
+          {context === "play" ||
+          lab?.returnTo === "/creator/play" ||
           lab?.returnTo.startsWith("/play")
             ? "Changer de jeu ou créer une nouvelle partie"
             : "Retour à l’édition"}
@@ -124,7 +133,7 @@ export function CreatorLaboratory({
       ) : !lab ? (
         <p>
           Les accès à cet essai ne sont pas dans cet onglet. Retrouvez le jeu
-          dans votre bibliothèque pour créer un nouveau test.
+          dans le catalogue pour créer une nouvelle partie.
         </p>
       ) : (
         <>
@@ -180,7 +189,10 @@ export function CreatorLaboratory({
             >
               Recommencer le test
             </button>
-            <Link className="text-link" href={lab.returnTo}>
+            <Link
+              className="text-link"
+              href={context === "play" ? "/play/undercover" : lab.returnTo}
+            >
               Créer un nouveau test depuis le jeu
             </Link>
           </div>
@@ -355,8 +367,8 @@ export function CreatorLaboratory({
             </a>
             <p>
               Un test rapide contient des joueurs de démonstration. Pour inviter
-              de vraies personnes, lancez le jeu depuis la bibliothèque :
-              l’effectif restera ouvert avant préparation.
+              de vraies personnes, choisissez « Inviter de vrais participants »
+              : l’effectif restera ouvert avant préparation.
             </p>
           </details>
         </>

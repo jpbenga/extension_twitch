@@ -1,6 +1,8 @@
 # Architecture — socle technique
 
-Statut : choix techniques validés. Les sections initiales décrivent l’historique A ; les évolutions du moteur et du Studio figurent en fin de document. État actuel : Undercover de démonstration jouable, jalon 5A. Voir [le bilan actuel](STAGE-5.md).
+Statut actuel : jalon 6, catalogue fermé. [Architecture SaaS cible](SAAS-ARCHITECTURE.md) et [inventaire de retrait](STAGE-6.md) prévalent sur les orientations historiques de création libre ci-dessous. Aucun compte ni abonnement implémenté.
+
+Historique : choix techniques validés. Les sections initiales décrivent l’historique A ; les évolutions du moteur et du Studio figurent en fin de document. État actuel : Undercover de démonstration jouable, jalon 5A. Voir [le bilan actuel](STAGE-5.md).
 
 ## Choix validés
 
@@ -196,3 +198,22 @@ résout à partir des seules installations du propriétaire ; la bibliothèque l
 uniquement dans « Jeux ajoutés », avec la version et la mention de règles conservées.
 Cela évite de faire disparaître une installation 0.1.0 lors de la sortie 0.2.0,
 sans la dupliquer dans le catalogue ni migrer son contenu. Aucun changement SQL.
+
+## Jalon 6 — entrée produit indépendante et conservation
+
+Le web `/play` n’utilise plus CreatorProvider. Les fiches publiques sont partagées par
+le contrat `official-games`, sans GameDefinition client ni valeurs privées de session.
+L’API officielle choisit la définition serveur, valide les réglages et copie les
+réglages dans PreparedGame.configuration. Ce champ optionnel ne modifie pas les
+anciennes préparations ; les nouvelles parties refusent des substitutions de paramètres.
+Le moteur contrôle toujours l’effectif réel au moment d’installer. Aucune migration SQL.
+
+`/studio/*`, `/game-examples` et la commande HTTP `game.configure` sont fermés par défaut.
+Le mode local de compatibilité est explicite et impossible via le démarrage production.
+Les GameRuns déjà persistés et les commandes de gameplay restent pris en charge.
+Les anciens liens d’éditeur vont au catalogue, les liens de laboratoire vont à `/play/lab`.
+Le laboratoire lit ses propres capacités, pas la bibliothèque. Les données Studio et
+ses tests restent conservés ; ce n’est pas une suppression de schémas ou de tables.
+La reprise d’accueil consulte une référence d’onglet et fait vérifier l’accès GM par
+le serveur ; elle ne liste pas les sessions d’autres personnes. Sans compte, elle
+ne promet pas de récupération interappareils. Voir TEST-PRODUCT-FOCUS.md.

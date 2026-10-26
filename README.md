@@ -1,172 +1,135 @@
-# Extension Twitch
+# Extension Twitch Studio
 
-Moteur et studio de création de jeux interactifs pour les émissions Twitch : régie Game Master, overlays OBS, interfaces joueurs et, à terme, extension spectateur.
+Une plateforme de jeux interactifs prêts à jouer pour les streamers : choisissez
+un jeu officiel, configurez quelques paramètres, invitez vos joueurs et animez
+la partie depuis votre téléphone. Régie mobile, interfaces privées et plateau
+public synchronisés, identité **Broadcast Neon**.
 
-**État : jalon 5A — Undercover jouable dans une variante de démonstration.** Distribution privée, discussions, votes uniques, égalités, éliminations, conditions de victoire et rejeu utilisent le moteur autoritaire commun. L’accueil sépare **Jouer** (`/play`) et **Créer** (`/creator`). Undercover prépare des identités distinctes ou accueille de vrais invités, avec **deux tours d’indices oraux avant chaque vote**, configurables. [Tester seul avec iPhone + ordinateur](docs/TEST-MULTI-DEVICE-GAMES.md). Enchères et Qui est l’espion restent à implémenter ; le Studio 4B.1 est conservé. [Tester sur iPhone](docs/TEST-OFFICIAL-GAMES.md) · [Règles et hypothèses](docs/OFFICIAL-GAMES-RULES.md) · [Architecture et bilan 5A](docs/STAGE-5.md).
+**Jalon 6 — recentrage produit.** Undercover possède un cycle complet de
+**démonstration** : deux tours d’indices par défaut, votes, égalités, éliminations,
+victoire et rejeu. Enchères et Qui est l’espion sont en préparation, **non jouables**.
+L’ancien Studio Créateur libre est retiré de l’expérience. Ses données et les
+anciennes parties sont conservées. Les comptes et abonnements ne sont pas encore livrés.
 
-**Broadcast Neon** harmonise désormais les couleurs, les contrôles et les confirmations personnalisées. La régie mobile sépare les sections pendant une partie. [Design system](docs/DESIGN-SYSTEM.md) · [Tester la nouvelle interface sur iPhone](docs/TEST-BROADCAST-NEON.md).
+## Lancer et tester
 
-**Validation humaine : premières observations iPhone reçues sur le Studio et la régie.** Ces retours ont motivé les refontes. Cette version Broadcast Neon, les parcours complets sur Safari iOS et OBS réel restent à apprécier sur les appareils de l’utilisateur. Les tests Chromium ne valident pas le plaisir ni le rythme du gameplay.
-
-## Démarrer
-
-Prérequis : **Node.js 24.x et npm 11.x** (voir `.nvmrc` et `package.json`). Depuis la racine du dépôt :
+Prérequis : **Node.js 24.x et npm 11.x**, indiqués dans `.nvmrc` et `package.json`.
+Dans le dossier du dépôt :
 
 ```sh
 npm ci
-npm run dev
-```
-
-Dans le cloud, si le cache npm du compte n’est pas accessible :
-
-```sh
-npm ci --cache /workspace/.cache/npm
-npm run dev
-```
-
-Le processus de développement compile les packages partagés puis lance leur surveillance, le serveur Node.js et Next.js. `Ctrl+C` arrête l’ensemble. Les données sont conservées dans `.data/sessions.sqlite`, jamais dans Git. Les compilations partagées sont régénérées depuis les sources ; ne pas modifier les dossiers `dist`.
-
-**Pour tester depuis un iPhone sur le même Wi-Fi que l’ordinateur :**
-
-```sh
 npm run dev:lan
 ```
 
-Ouvrir l’adresse privée affichée par cette commande. Elle configure les invitations avec l’adresse réseau réelle. Voir [le guide iPhone et ses checklists](docs/TEST-IPHONE.md) pour les vues GM, joueur, spectateur et la récupération après incident. Le cloud distant nécessite un point d’entrée HTTPS protégé fourni par l’hébergement ; aucune exposition Internet n’est créée ici.
+Ouvrez l’adresse privée affichée sur l’ordinateur et l’iPhone, connectés au même
+Wi-Fi de confiance. Exemple uniquement : `http://192.168.0.46:3000` si cette adresse
+est celle affichée chez vous. Gardez le terminal ouvert, `Ctrl+C` pour arrêter.
+Aucun compte Twitch, secret, paiement ou service externe nécessaire.
 
-| Adresse locale                                 | Usage                                                                                                         |
-| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| Port 3000, `/`                                 | Accueil Jouer / Créer, invitation et récupération                                                             |
-| `/play`                                        | Choisir un jeu, sans ouvrir le Studio                                                                         |
-| `/play/undercover`                             | Préparer Undercover : démonstration ou invités réels                                                          |
-| `/play/lab/<id>`                               | Laboratoire privé, lien GM pour iPhone, sélecteur des joueurs et spectateur                                   |
-| `/join`                                        | Saisir un code d’invitation                                                                                   |
-| `/sessions/new`                                | Ancien formulaire de salon, sans jeu automatiquement préparé                                                  |
-| `/sessions/<id>/gm`                            | Régie réelle, accès privé requis                                                                              |
-| `/join/<code>`                                 | Inscription sans compte, avec nom individuel                                                                  |
-| `/sessions/<id>/player/<participantId>`        | Compagnon individuel, accès privé requis                                                                      |
-| `/sessions/<id>/public`                        | Plateau synchronisé, pour OBS ou un navigateur                                                                |
-| `/demo`, `/player`, `/overlay?game=undercover` | Anciennes maquettes fictives ; `auctions`, `spy` et `transparent=1` restent disponibles pour l’overlay fictif |
-| `/creator`                                     | Studio : bibliothèque, personnaliser ou créer                                                                 |
-| `/creator/library`                             | Exemples disponibles, jeux ajoutés et créations privées                                                       |
-| `/creator/play`                                | Laboratoire des jeux : Undercover réel, configuration, démonstration ou invitations                           |
-| `/creator/new`                                 | Guide de création ou démarrage avancé                                                                         |
-| `/creator/games/<id>`                          | Éditeur dédié, réglages simples et Studio avancé                                                              |
-| `/creator/lab/<id>`                            | Essai privé réel, vues GM / joueurs démo / spectateur                                                         |
-| `/design-system`                               | Catalogue visuel des composants, uniquement en développement                                                  |
-| `/lab`                                         | Laboratoire réel, exclusivement en développement (`npm run dev` ou `dev:lan`)                                 |
-| Port 4000, `/health`                           | Contrôle de disponibilité du serveur                                                                          |
-| Port 4000, `/events`                           | Sonde SSE de transport, sans état de jeu                                                                      |
+**Parcours rapide :** Choisir un jeu → Undercover → configurer → Lancer une partie
+de démonstration. Sur l’ordinateur, conservez le laboratoire et sélectionnez chaque
+joueur. Copiez le lien privé GM pour l’iPhone ; ouvrez le plateau public séparément.
+[Guide très simple iPhone + ordinateur](docs/TEST-PRODUCT-FOCUS.md), avec résultats attendus,
+reconnexion, égalités, victoire, rejeu et vrais invités.
 
-Le serveur Node écoute par défaut sur `127.0.0.1:4000` et Next.js sur `127.0.0.1:3000`. Le web relaie `/api/server/*` vers le serveur : le port Node doit rester privé. `dev:lan` ouvre uniquement l’interface privée choisie pour le web. Ne pas exposer le serveur de développement directement sur Internet.
+Pour rester sur l’ordinateur : `npm run dev` (interface 127.0.0.1:3000).
+Dans le cloud, utilisez `npm ci --cache /workspace/.cache/npm` si le cache du compte
+n’est pas accessible. Un cloud distant exige une adresse HTTPS protégée adaptée à
+l’hébergement : aucune exposition Internet n’est créée par ce dépôt. Ne redirigez pas
+le port du serveur de développement vers Internet.
 
-Les variables facultatives sont décrites dans `.env.example`. Aucune copie de fichier n’est nécessaire. Exporter les variables dans le shell avant le lancement ; le serveur Node ne charge pas automatiquement de fichier `.env`. Pour déplacer le serveur :
+| URL                                     | Usage                                                                         |
+| --------------------------------------- | ----------------------------------------------------------------------------- |
+| `/`                                     | Accueil simple, reprise de la dernière partie GM accessible dans cet onglet   |
+| `/play`                                 | Fiches des trois jeux officiels et statut réel de disponibilité               |
+| `/play/undercover`                      | Mots, répartition, tours d’indices, limite de manches ; démo ou vrais invités |
+| `/play/lab/<id>`                        | Laboratoire privé GM / joueurs démo / spectateur, accès iPhone                |
+| `/sessions/<id>/gm`                     | Régie, avec lien privé GM requis                                              |
+| `/join`, `/join/<code>`                 | Invitation sans compte                                                        |
+| `/sessions/<id>/player/<participantId>` | Vue privée individuelle                                                       |
+| `/sessions/<id>/public`                 | Plateau public synchronisé, navigateur ou source OBS 1920×1080                |
+
+L’accueil ne promet pas un historique de compte. La reprise et les réglages locaux
+sont propres à l’onglet ; les parties sont persistées en SQLite. Conservez les liens
+privés de récupération pour un autre appareil. Les liens d’éditeur historiques
+redirigent vers le catalogue ; les anciens liens de laboratoire restent redirigés
+vers leur partie. Aucun ancien brouillon n’est effacé.
+
+## Configuration technique
+
+`npm run dev` compile les packages et surveille TypeScript, le serveur Node et Next.js.
+Node écoute sur `127.0.0.1:4000`, le web relaie `/api/server/*` : le port Node reste privé.
+`dev:lan` choisit une interface réseau privée et configure les liens d’invitation.
+Les données `.data/sessions.sqlite` sont ignorées par Git. Ne modifiez pas les `dist`.
+
+Variables facultatives dans `.env.example`. Exportez-les dans le shell : le serveur
+Node ne charge pas automatiquement `.env`. `PUBLIC_ORIGIN` est l’origine accessible
+aux invités, HTTP réservé au réseau local de confiance ou HTTPS distant. `PORT`,
+`WEB_HOST`, `SERVER_PORT`, `SERVER_HOST`, `SERVER_ORIGIN`, `DATABASE_PATH` personnalisent
+les processus. `SERVER_ORIGIN` sert à la compilation du relais Next : reconstruisez
+si la destination change. `DEV_ALLOWED_ORIGINS` permet des hôtes supplémentaires
+explicites de développement. Aucun secret de rôle dans ces variables.
 
 ```sh
 SERVER_PORT=4010 SERVER_ORIGIN=http://127.0.0.1:4010 npm run dev
 ```
 
-`PORT` change le port web et `PUBLIC_ORIGIN` doit alors correspondre à son origine accessible. `SERVER_HOST` change l’interface d’écoute du serveur, `WEB_HOST` celle du web. `DATABASE_PATH` change le fichier SQLite (par défaut `.data/sessions.sqlite` à la racine du dépôt). Les origines HTTP publiques non locales sont refusées ; utiliser HTTPS pour un hébergement distant. En mode compilé, `SERVER_ORIGIN` est pris en compte lors de `npm run build` : reconstruire si cette destination change.
-
-`PUBLIC_ORIGIN` fournit aussi à Next.js son hôte autorisé en développement. Pour des hôtes supplémentaires, exporter `DEV_ALLOWED_ORIGINS` sans protocole, port ni chemin, séparés par des virgules. Aucun domaine Internet n’est autorisé par défaut. Aucun secret de rôle ne doit être ajouté à ces variables.
+Version compilée : `npm run build`, puis `npm start`. Ne lancez pas simultanément
+Next dev et build/start sur le même dossier `.next`.
 
 ## Vérifier
 
 ```sh
-npm test                # contrats, moteur, HTTP/SSE, concurrence et redémarrage réel
-npm run typecheck       # packages, serveur, application, tests et configurations TS
-npm run build           # packages, serveur et application optimisée
-npm run format:check    # conventions de formatage
+npm run check          # format, tests métier/API/persistance, TypeScript strict, compilation
+npm run test:e2e       # produit, sessions réelles et maquettes historiques, trois formats
+npm run test:games     # parties Undercover complètes, identités isolées et rejeu
+npm run test:design    # confirmations, focus/clavier, erreurs, responsive et copie privée
+npm run test:legacy    # ancien Studio : compatibilité locale explicitement activée
+npm run test:lab       # anciens outils de développement et dialogues asynchrones
 ```
 
-Tests navigateur (la compilation doit déjà être effectuée, ports 3000 et 4000 libres) :
+Installez Chromium avec `npx playwright install chromium` si nécessaire. Dans le cloud :
+préfixez la commande navigateur par `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium`.
+Les suites démarrent leurs processus et bases temporaires isolés ; ne lancez pas les
+suites simultanément sur les mêmes ports. Le wrapper exécute les trois formats
+successivement pour conserver les protections anti-abus. Cibler un format :
+`npm run test:games -- --project=mobile`. Les tests legacy utilisent le développement,
+pas une activation du Studio en production. Leurs assertions métier restent conservées.
 
-```sh
-npx playwright install chromium
-npm run test:e2e
-```
+## Architecture et limites
 
-Dans cet environnement cloud, Chromium est déjà installé :
+- `apps/web` : Next.js / React, catalogue, configuration, régie, joueurs et plateau.
+- `apps/server` : API officielle, HTTP/SSE, permissions et transactions SQLite.
+- `packages/contracts` : paramètres officiels stricts et contrats versionnés historiques.
+- `packages/engine` : moteur autoritaire commun, reçus, projections et règles déclaratives.
+- `packages/games/{undercover,auctions,spy}` : modules officiels, seul Undercover jouable.
+- `tests` : moteur, API, confidentialité, persistance et Chromium multi-contextes.
 
-```sh
-PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:e2e
-PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:lab
-PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:games
-PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:design
-```
+Le lancement officiel ne dépend plus d’une bibliothèque de créations. Le serveur choisit
+la définition et conserve un instantané des paramètres. Aucun JSON exécutable ne peut
+être injecté par la nouvelle API ; l’ancien `game.configure` HTTP et `/studio/*` sont
+fermés par défaut. Les sessions v1/v2/v3 restent exécutables.
 
-`test:lab` démarre le développement sur les ports 3100/4100, avec sa propre base temporaire, pour vérifier la page absente en production. La commande `test:e2e` lance successivement chaque format avec deux services neufs et une base temporaire distincte de vos sessions. Cette isolation évite que les séries automatisées cumulent leurs requêtes dans la même fenêtre anti-abus ; les protections du produit restent actives. Les captures et traces restent dans `test-results/e2e/<format>`. Les parcours utilisent un GM, plusieurs identités et un spectateur sur des formats téléphone, tablette et ordinateur, ainsi que les anciennes maquettes. Ils ne remplacent pas un test Safari iOS sur appareil réel. `test:games` exécute les parties Undercover et variantes dans des processus séparés pour conserver les protections anti-abus, avec captures dans `test-results/games/<format>`. Pour lancer manuellement la version compilée : `npm run build`, puis `npm start`.
+Un seul processus Node et SQLite sont supportés. Toujours pas de compte vérifié,
+récupération par e-mail, expiration automatique des capacités, paywall ou facturation.
+Pas de PWA installable, extension Twitch officielle, minuteur, import de médias ou
+overlay graphique éditable. Les assets restent des références validées non téléchargées.
+Les maquettes `/demo`, `/player`, `/overlay` restent fictives, hors navigation principale.
+`/design-system` est réservé au développement. `/lab` et les anciens éditeurs sont
+réservés au mode de maintenance local explicite décrit dans [STAGE-6.md](docs/STAGE-6.md).
 
-## Structure
+## Références
 
-```text
-apps/
-  web/                   Next.js / React, trois interfaces et anciennes maquettes
-  server/                API HTTP/SSE, identification, transactions SQLite
-packages/
-  contracts/             Schémas Zod et types partagés
-  engine/                Salon et interpréteur déclaratif, exemples côté serveur
-  games/
-    undercover/          Descripteur public et définition déclarative jouable v3
-    auctions/            Descripteur ; règles à définir
-    spy/                 Descripteur ; règles à définir
-tests/
-  contracts.test.ts      Frontières des données et validation des entrées
-  server.test.ts         Intégration HTTP/SSE et configuration
-  sessions.test.ts       Accès, commandes, projections, concurrence et SSE
-  persistence.test.ts    Arrêt et redémarrage d’un vrai processus serveur
-  undercover*.test.ts    Règles, confidentialité, HTTP/SSE et redémarrage Undercover
-  e2e/                   Parcours multi-identités sur trois tailles d’écran
-scripts/
-  dev-lan.mjs            Lancement Wi-Fi avec origine réseau appropriée
-docs/
-  PRODUCT.md             Cahier des charges, parcours et tours d’indices, version 0.8
-  ARCHITECTURE.md         Décisions techniques et limites du socle
-  STAGE-3.md              Plan A/B/C/D et hypothèses Undercover non validées
-  TEST-IPHONE.md          Lancement et checklists de validation humaine
-  CONFIGURABLE-ENGINE.md  Langage, projections, versions et migration
-  ASSETS.md              Références BYOS et limites de sécurité
-  STAGE-4A.md             Architecture de la bibliothèque et du Studio hybride
-  STAGE-4B.md             Studio visuel et réutilisation des contrats
-  STAGE-5.md              Primitives v3 et livraison Undercover
-  OFFICIAL-GAMES-RULES.md Règles décidées, hypothèses et jeux restant à réaliser
-  TEST-OFFICIAL-GAMES.md  Scénarios humains : Undercover, invitations et OBS
-  STAGE-4B1.md            Audit, décisions UX, sécurité et vérifications
-  TEST-STUDIO-4B1.md      Guide actuel : personnaliser, créer et essayer sur iPhone
-  screenshots/4b1/        Captures Chromium mobile et ordinateur
-  TEST-STUDIO-4B.md       Guide historique du Studio 4B
-  TEST-CREATOR.md         Checklists variantes, guide, publication et tests réels
-  TEST-CONFIGURABLE.md    Exemples et laboratoire, validation manuelle
-AGENTS.md                Instructions de développement fournies
-```
+- [Produit actuel](docs/PRODUCT.md) et [instructions de développement](AGENTS.md).
+- [Bilan et inventaire conservé/déprécié](docs/STAGE-6.md).
+- [Architecture technique](docs/ARCHITECTURE.md) et [future identité, droits et exploitation SaaS](docs/SAAS-ARCHITECTURE.md).
+- [Roadmap commerciale et critères mesurables](docs/ROADMAP-COMMERCIAL.md).
+- [Règles officielles et hypothèses](docs/OFFICIAL-GAMES-RULES.md).
+- [Design system Broadcast Neon](docs/DESIGN-SYSTEM.md).
+- [Tests humains iPhone + ordinateur](docs/TEST-PRODUCT-FOCUS.md).
 
-## Limites actuelles
-
-Le salon réel permet d’inscrire jusqu’à 32 joueurs (limite technique, pas une règle Undercover), changer leur état prêt, observer leur présence, renommer la session, fermer/rouvrir les invitations, retirer un joueur ou réinitialiser le salon. Les liens privés de récupération doivent être conservés : sans compte, il n’existe pas encore de récupération par e-mail. Les jetons n’expirent pas automatiquement à ce jalon ; un retrait ou une réinitialisation révoque ceux des joueurs. L’accès GM se conserve tant que la base existe.
-
-Un seul processus Node est supporté pour la diffusion. Les reconnexions récupèrent un instantané récent, sans rejouer des commandes. Le langage v1 fournit valeurs bornées, rôles, comparaisons d’égalité, affectation/incrément/révélation et transitions manuelles. V2 ajoute arithmétique entière, comparaisons/logique et gardes bornées. V3 ajoute distribution privée, votes nominatifs, sélection/élimination et conditions de fin déclaratives, sans code arbitraire. Chaque partie conserve sa définition ; toute version inconnue est refusée. L’effectif est figé à l’installation jusqu’à la réinitialisation. Les assets restent des références validées et des remplacements visuels : aucun fichier n’est récupéré ni rendu.
-
-Undercover utilise les nouvelles primitives v3 ; ses règles sont une variante de démonstration à valider humainement. Pas encore d’Enchères ou de Qui est l’espion complets, de budgets transactionnels ou de minuteurs. Le Studio visuel édite les primitives existantes et conserve un document JSON secondaire pour les cas techniques. Le guide propose deux modèles exécutables. Pas de Store public, assistant universel, composition graphique des scènes, comptes, connecteur cloud, import de médias, PWA installable ou extension Twitch officielle. Les contrats Bits ne vérifient et n’exécutent aucune transaction. Les anciennes maquettes restent fictives.
-
-Pour essayer le Studio : lancer `npm run dev:lan`, ouvrir `/creator` à l’adresse affichée et suivre [le guide du Studio](docs/TEST-STUDIO-4B1.md). Conserver le lien privé de bibliothèque. « Enregistrer une version » crée une copie figée privée ; cela ne la rend pas publique sur Internet. Les capacités de bibliothèque sont distinctes de celles des sessions. La migration SQLite v1→v2 est additive ; les sauvegardes restent privées.
-
-Pour les exemples du moteur : lancer `npm run dev:lan`, ouvrir `/lab` à l’adresse affichée, créer une démonstration, puis ouvrir les liens GM, joueurs et plateau. Voir [les scénarios reproductibles](docs/TEST-CONFIGURABLE.md). En production `/lab` retourne 404 ; les panneaux génériques de session restent utilisables.
-
-Avant toute évolution, lire [le produit](docs/PRODUCT.md), [les consignes](AGENTS.md), [l’architecture configurable](docs/CONFIGURABLE-ENGINE.md), [les assets](docs/ASSETS.md) et [le plan de l’étape 3](docs/STAGE-3.md). Prochaines priorités : retours humains sur Undercover, puis verticales 5B Enchères et 5C Qui est l’espion sur les mêmes fondations. Le laboratoire unifié 5D reste à compléter avec ces jeux. Le Store et 4C sont reportés.
-
-## Refonte globale — tests iPhone + ordinateur
-
-Sur l’ordinateur, ouvrez l’adresse réseau affichée par `dev:lan`, puis **Jouer →
-Préparer Undercover → Lancer une partie de démonstration**. Copiez le lien privé
-GM pour l’iPhone et gardez le laboratoire sur l’ordinateur : sélectionnez chaque
-joueur pour consulter sa carte et voter. Le plateau possède sa vue publique propre.
-Deux tours d’indices doivent être confirmés par le GM avant chaque scrutin.
-Les versions Undercover 0.1.0 existantes restent inchangées ; le modèle courant est
-0.2.0. Les accès restent distincts et ne sont jamais des comptes publics simulés.
-
-[Guide pas à pas et résultats attendus](docs/TEST-MULTI-DEVICE-GAMES.md) ·
-[Audit de reproductibilité des trois jeux](docs/OFFICIAL-GAMES-CONFIGURABILITY.md).
-La reconstruction visuelle complète d’Undercover depuis zéro reste une limite
-explicite, même si son exécution est entièrement déclarée dans le moteur commun.
-
-Bilan de cette livraison : [refonte globale](docs/GLOBAL-REFRESH.md), parcours, sécurité, tests et limites.
+Premiers retours humains iPhone reçus sur l’ancien Studio et Undercover. Ils ont motivé
+les refontes. Ce nouveau parcours reste à valider par l’utilisateur : tests techniques,
+Chromium, iPhone physique/Safari, plaisir de jeu et OBS réel sont des validations distinctes.
+Le jalon 6 prépare un produit commercialisable ; il ne constitue pas une autorisation
+d’ouverture publique ou de facturation. Aucun fournisseur payant ajouté.

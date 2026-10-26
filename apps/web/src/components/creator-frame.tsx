@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { LoadingState } from "./ui/primitives";
 import { useEffect } from "react";
+import { ProductFrame } from "./product-frame";
 import { useStudio } from "./creator-context";
 export function CreatorFrame({
   children,
@@ -11,6 +12,22 @@ export function CreatorFrame({
   children: React.ReactNode;
   workspace?: boolean;
   context?: "creator" | "play";
+}) {
+  if (context === "play") return <ProductFrame>{children}</ProductFrame>;
+  return (
+    <LegacyCreatorFrame workspace={workspace} context={context}>
+      {children}
+    </LegacyCreatorFrame>
+  );
+}
+function LegacyCreatorFrame({
+  children,
+  workspace,
+  context,
+}: {
+  children: React.ReactNode;
+  workspace: boolean;
+  context: "creator" | "play";
 }) {
   const studio = useStudio();
   useEffect(() => {

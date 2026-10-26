@@ -210,13 +210,8 @@ test("launching a game invites real participants without opening its editor", as
   page,
   browser,
 }) => {
-  await page.goto("/play");
-  await page
-    .getByText("Jouer à un jeu de ma bibliothèque", { exact: true })
-    .click();
-  await page
-    .getByRole("link", { name: "Ouvrir ma bibliothèque", exact: true })
-    .click();
+  // Retired library remains testable only in the explicit maintenance suite.
+  await page.goto("/creator/library?intent=play");
   await page
     .getByRole("button", { name: "Lancer ce jeu", exact: true })
     .first()

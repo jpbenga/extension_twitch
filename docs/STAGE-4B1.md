@@ -1,3 +1,5 @@
+> Historique technique conservé. Depuis le jalon 6, la vision active est un catalogue fermé de jeux prêts à jouer ; la création libre et le Store sont retirés du produit. Voir [PRODUCT.md](PRODUCT.md) et [STAGE-6.md](STAGE-6.md). Les primitives internes et données restent conservées.
+
 # Studio Créateur 4B.1 — décisions UX et suivi de vérification
 
 Base réelle : `f36e913`, branche `feat/creator-studio-ux-4b1`.

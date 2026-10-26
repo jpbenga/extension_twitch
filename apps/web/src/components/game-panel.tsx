@@ -1,6 +1,8 @@
 "use client";
 import { useConfirm } from "./ui/feedback";
 
+import { useLegacyTools } from "./legacy-tools";
+import Link from "next/link";
 import { PlayPanel } from "./play-panel";
 import { useEffect, useState, type FormEvent } from "react";
 import {
@@ -30,13 +32,14 @@ export function GamePanel({
   locked: boolean;
   send: (action: LobbyAction) => Promise<void | boolean>;
 }) {
+  const legacyTools = useLegacyTools();
   const confirm = useConfirm();
   const [examples, setExamples] = useState<GameDefinition[]>([]);
   const [exampleId, setExampleId] = useState("collective-pulse");
   const [failure, setFailure] = useState("");
   const [definitionJson, setDefinitionJson] = useState("");
   useEffect(() => {
-    if (view.audience !== "gm" || view.game) return;
+    if (!legacyTools || view.audience !== "gm" || view.game) return;
     const controller = new AbortController();
     void fetch("/api/server/game-examples", { signal: controller.signal })
       .then((r) => {
@@ -49,7 +52,7 @@ export function GamePanel({
           setFailure("Catalogue indisponible. Rechargez la page.");
       });
     return () => controller.abort();
-  }, [view.audience, "game" in view && view.game?.runId]);
+  }, [legacyTools, view.audience, "game" in view && view.game?.runId]);
   if (view.audience === "public") return null;
   const game = view.game;
   const install = (definition: GameDefinition) =>
@@ -59,6 +62,40 @@ export function GamePanel({
       configuration: {},
       assets: [],
     });
+  if (!game && !legacyTools)
+    return (
+      <section className="lobby-panel" id="game">
+        <h2>Préparer la partie</h2>
+        {view.audience === "gm" && view.preparedGame ? (
+          <>
+            <p>
+              Invitez tous vos joueurs, puis préparez la partie avec les
+              réglages choisis.
+            </p>
+            <button
+              className="primary-button"
+              disabled={locked}
+              onClick={() => void send({ type: "game.use-prepared" })}
+            >
+              Préparer la partie
+            </button>
+          </>
+        ) : (
+          <>
+            <p>
+              {view.audience === "gm"
+                ? "Choisissez un jeu pour préparer une nouvelle partie. Ce salon est conservé."
+                : "Le Game Master prépare la partie."}
+            </p>
+            {view.audience === "gm" && (
+              <Link href="/play" className="primary-button">
+                Choisir un jeu
+              </Link>
+            )}
+          </>
+        )}
+      </section>
+    );
   if (game?.play)
     return (
       <PlayPanel

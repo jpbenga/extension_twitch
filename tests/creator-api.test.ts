@@ -30,7 +30,9 @@ describe("private creator workspaces over real HTTP and SQLite", () => {
     view: StudioView;
   async function start() {
     store = new SqliteStore(join(directory, "studio.sqlite"));
-    server = createApp(new SessionService(store, "http://127.0.0.1:3000"));
+    server = createApp(new SessionService(store, "http://127.0.0.1:3000"), {
+      legacyTools: true,
+    });
     await new Promise<void>((resolve) =>
       server.listen(0, "127.0.0.1", resolve),
     );

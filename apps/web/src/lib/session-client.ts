@@ -62,7 +62,8 @@ const messages: Record<string, string> = {
   ACTION_FORBIDDEN:
     "Cette action n’est plus autorisée pour votre rôle ou cette phase.",
   INVALID_PARAMETERS: "Les paramètres de l’action sont invalides.",
-  INVALID_CONFIGURATION: "La configuration ne respecte pas la définition.",
+  INVALID_CONFIGURATION:
+    "Ces réglages ne sont pas valides pour cette partie. Revenez aux paramètres du jeu pour les corriger.",
   INVALID_DEFINITION:
     "Les règles de ce jeu ne sont pas valides. Ouvrez le jeu et corrigez les points signalés.",
   VALUE_OUT_OF_BOUNDS:

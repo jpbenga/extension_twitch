@@ -5,7 +5,11 @@ import { randomUUID } from "node:crypto";
 
 export default defineConfig({
   testDir: "./tests/e2e",
-  testIgnore: ["**/official-games.spec.ts", "**/design-system.spec.ts"],
+  testMatch: [
+    "**/sessions.spec.ts",
+    "**/studio.spec.ts",
+    "**/product-focus.spec.ts",
+  ],
   fullyParallel: true,
   workers: 2,
   retries: 0,
@@ -41,6 +45,8 @@ export default defineConfig({
       DATABASE_PATH: join(tmpdir(), `xt-e2e-${randomUUID()}.sqlite`),
       PUBLIC_ORIGIN: "http://127.0.0.1:3000",
       WEB_HOST: "127.0.0.1",
+      // Production must ignore even an accidentally retained maintenance flag.
+      LEGACY_STUDIO_ENABLED: "1",
     },
   },
 });

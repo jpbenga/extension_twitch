@@ -1,3 +1,5 @@
+> Guide historique conservé. Pour le produit recentré du jalon 6, suivre [TEST-PRODUCT-FOCUS.md](TEST-PRODUCT-FOCUS.md). Les anciennes interfaces de création sont retirées du parcours courant, sans suppression de données.
+
 # Tester le Studio Créateur visuel 4B
 
 > Document historique du jalon 4B. Pour l’interface actuelle, consulter

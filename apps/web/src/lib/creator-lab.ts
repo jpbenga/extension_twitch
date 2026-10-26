@@ -24,7 +24,7 @@ const player = z.strictObject({
 export const labSchema = z.strictObject({
   sessionId: z.uuid(),
   token: accessTokenSchema,
-  gameId: z.uuid(),
+  gameId: z.union([z.uuid(), z.literal("undercover")]),
   returnTo: z.string().regex(/^\/(?:creator|play)(?:\/[^#?]*)?$/),
   mode: z.enum(["quick", "invite"]),
   players: z.array(player).max(12),
@@ -47,6 +47,7 @@ export type CreatorLab = z.infer<typeof labSchema>;
 export const labKey = (id: string) => `xt:creator:lab:${id}`;
 export function saveLab(lab: CreatorLab) {
   sessionStorage.setItem(labKey(lab.sessionId), JSON.stringify(lab));
+  sessionStorage.setItem("xt:recent-gm-session", lab.sessionId);
   sessionStorage.setItem(accessKey(lab.sessionId, "gm"), lab.token);
   for (const p of lab.players)
     if (p.id)

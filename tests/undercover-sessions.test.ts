@@ -81,7 +81,9 @@ describe("official-game primitives through authenticated HTTP, SQLite and SSE", 
   beforeEach(async () => {
     directory = mkdtempSync(join(tmpdir(), "xt-uc-http-"));
     store = new SqliteStore(join(directory, "state.sqlite"));
-    server = createApp(new SessionService(store, "http://127.0.0.1:3000"));
+    server = createApp(new SessionService(store, "http://127.0.0.1:3000"), {
+      legacyTools: true,
+    });
     await new Promise<void>((resolve) =>
       server.listen(0, "127.0.0.1", resolve),
     );

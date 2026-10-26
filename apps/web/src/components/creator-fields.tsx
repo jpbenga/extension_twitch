@@ -60,12 +60,14 @@ export function NumberInput({
   label,
   min,
   max,
+  disabled = false,
 }: {
   value: number;
   onChange: (value: number) => void;
   label: string;
   min?: number;
   max?: number;
+  disabled?: boolean;
 }) {
   const input = useRef<HTMLInputElement>(null);
   useEffect(() => {
@@ -82,6 +84,7 @@ export function NumberInput({
       min={min}
       max={max}
       defaultValue={value}
+      disabled={disabled}
       onChange={(e) => {
         const raw = e.target.value;
         if (raw !== "" && Number.isFinite(Number(raw))) onChange(Number(raw));

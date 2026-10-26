@@ -11,6 +11,11 @@ import { credential, readJson, json } from "./http-utils.js";
 import { CreatorApi } from "./creator-api.js";
 import { CreatorService } from "./creator-service.js";
 import { ZodError } from "zod";
+import {
+  officialGames,
+  officialSessionSchema,
+} from "@extension-twitch/contracts/official-games";
+import { prepareOfficialSession } from "./official-games.js";
 import { hashValue, type SessionService } from "./session-service.js";
 
 export class SessionApi {
@@ -19,7 +24,10 @@ export class SessionApi {
     { count: number; until: number }
   >();
   private readonly creator: CreatorApi;
-  constructor(private readonly service: SessionService) {
+  constructor(
+    private readonly service: SessionService,
+    private readonly legacyTools = false,
+  ) {
     this.creator = new CreatorApi(new CreatorService(service.store, service));
   }
 
@@ -39,7 +47,12 @@ export class SessionApi {
     try {
       const path = new URL(request.url ?? "/", "http://internal").pathname;
       const method = request.method;
+      if (method === "GET" && path === "/official-games") {
+        json(response, officialGames);
+        return;
+      }
       if (method === "GET" && path === "/game-examples") {
+        if (!this.legacyTools) throw new SessionError("NOT_FOUND", 404);
         json(response, gameExamples);
         return;
       }
@@ -49,7 +62,14 @@ export class SessionApi {
           throw new SessionError("ORIGIN_DENIED", 403);
         this.limit(`network:${request.socket.remoteAddress ?? "local"}`, 240);
       }
+      if (method === "POST" && path === "/official-games/undercover/sessions") {
+        const token = credential(request);
+        const input = officialSessionSchema.parse(await readJson(request));
+        json(response, prepareOfficialSession(this.service, token, input), 201);
+        return;
+      }
       if (path.startsWith("/studio/")) {
+        if (!this.legacyTools) throw new SessionError("NOT_FOUND", 404);
         this.limit(`studio:${hashValue(credential(request))}`, 90);
         if (await this.creator.handle(path, request, response)) return;
         throw new SessionError("NOT_FOUND", 404);
@@ -91,14 +111,10 @@ export class SessionApi {
         token !== null
       ) {
         this.limit(`command:${id}:${hashValue(token)}`, 90);
-        json(
-          response,
-          this.service.command(
-            id,
-            token,
-            lobbyCommandSchema.parse(await readJson(request)),
-          ),
-        );
+        const input = lobbyCommandSchema.parse(await readJson(request));
+        if (!this.legacyTools && input.command.type === "game.configure")
+          throw new SessionError("FORBIDDEN", 403);
+        json(response, this.service.command(id, token, input));
         return;
       }
       if (method !== "GET" || access === "commands")

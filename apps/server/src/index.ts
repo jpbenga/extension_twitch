@@ -5,7 +5,14 @@ import { SessionService } from "./session-service.js";
 
 const configuration = readConfiguration(process.env);
 const store = new SqliteStore(configuration.databasePath);
-const server = createApp(new SessionService(store, configuration.publicOrigin));
+const server = createApp(
+  new SessionService(store, configuration.publicOrigin),
+  {
+    legacyTools:
+      process.env.NODE_ENV !== "production" &&
+      process.env.LEGACY_STUDIO_ENABLED === "1",
+  },
+);
 server.requestTimeout = 30_000;
 server.headersTimeout = 15_000;
 

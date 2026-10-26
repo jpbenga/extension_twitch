@@ -1,3 +1,5 @@
+> Historique technique conservé. Depuis le jalon 6, la vision active est un catalogue fermé de jeux prêts à jouer ; la création libre et le Store sont retirés du produit. Voir [PRODUCT.md](PRODUCT.md) et [STAGE-6.md](STAGE-6.md). Les primitives internes et données restent conservées.
+
 # Studio Créateur visuel — 4B
 
 > Document historique du jalon 4B. Pour l’interface actuelle, consulter

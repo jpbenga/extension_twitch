@@ -27,7 +27,9 @@ describe("configurable runs on the existing session transport", () => {
   const controllers: AbortController[] = [];
   async function start() {
     store = new SqliteStore(join(directory, "sessions.sqlite"));
-    server = createApp(new SessionService(store, "http://127.0.0.1:3000"));
+    server = createApp(new SessionService(store, "http://127.0.0.1:3000"), {
+      legacyTools: true,
+    });
     await new Promise<void>((resolve) =>
       server.listen(0, "127.0.0.1", resolve),
     );

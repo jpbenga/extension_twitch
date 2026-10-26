@@ -35,6 +35,8 @@ it("restores a real Undercover deal, private partial ballot, receipts and final 
         cwd: process.cwd(),
         env: {
           ...process.env,
+          NODE_ENV: "test",
+          LEGACY_STUDIO_ENABLED: "1",
           SERVER_HOST: "127.0.0.1",
           SERVER_PORT: String(port),
           DATABASE_PATH: database,

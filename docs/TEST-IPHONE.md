@@ -1,3 +1,5 @@
+> Guide historique conservé. Pour le produit recentré du jalon 6, suivre [TEST-PRODUCT-FOCUS.md](TEST-PRODUCT-FOCUS.md). Les anciennes interfaces de création sont retirées du parcours courant, sans suppression de données.
+
 # Tester les sessions depuis un iPhone
 
 > Ce guide conserve les scénarios historiques du salon. Pour **jouer à Undercover

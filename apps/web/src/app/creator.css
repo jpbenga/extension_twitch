@@ -125,8 +125,8 @@
   padding-top: 20px;
   margin-top: 24px;
 }
-.creator-check {
-  display: flex !important;
+label.creator-check {
+  display: flex;
   align-items: center;
   gap: 12px !important;
   min-height: 48px;

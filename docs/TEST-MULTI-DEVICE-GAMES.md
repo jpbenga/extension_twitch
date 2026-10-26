@@ -1,3 +1,5 @@
+> Guide historique conservé. Pour le produit recentré du jalon 6, suivre [TEST-PRODUCT-FOCUS.md](TEST-PRODUCT-FOCUS.md). Les anciennes interfaces de création sont retirées du parcours courant, sans suppression de données.
+
 # Jouer seul avec un iPhone et un ordinateur
 
 Ce guide teste les vraies règles et les vrais accès. Pas de Twitch, JSON ou

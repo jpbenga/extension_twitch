@@ -19,6 +19,10 @@
     "./creator": {
       "types": "./dist/creator.d.ts",
       "import": "./dist/creator.js"
+    },
+    "./official-games": {
+      "types": "./dist/official-games.d.ts",
+      "import": "./dist/official-games.js"
     }
   },
   "scripts": {

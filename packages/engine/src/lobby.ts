@@ -9,6 +9,7 @@ import {
 import type {
   AssetBinding,
   GameDefinition,
+  Scalar,
 } from "@extension-twitch/contracts/game-definition";
 import type { GameId } from "@extension-twitch/contracts";
 import type {
@@ -20,6 +21,8 @@ import type {
 import { SessionError, type SessionActor } from "./session-types.js";
 export { SessionError, type SessionActor } from "./session-types.js";
 export interface PreparedGame {
+  /** Pinned product settings; absent on historical Studio snapshots. */
+  configuration?: Record<string, Scalar>;
   definition: GameDefinition;
   assets: AssetBinding[];
 }
@@ -183,6 +186,14 @@ export function decideLobby(
   switch (action.type) {
     case "game.use-prepared": {
       if (!state.preparedGame) throw new SessionError("NO_GAME", 409);
+      if (
+        state.preparedGame.configuration &&
+        action.configuration &&
+        Object.entries(action.configuration).some(
+          ([key, value]) => state.preparedGame!.configuration![key] !== value,
+        )
+      )
+        throw new SessionError("INVALID_CONFIGURATION", 400);
       return decideLobby(
         state,
         actor,
@@ -190,7 +201,8 @@ export function decideLobby(
           type: "game.configure",
           definition: state.preparedGame.definition,
           assets: state.preparedGame.assets,
-          configuration: action.configuration ?? {},
+          configuration:
+            state.preparedGame.configuration ?? action.configuration ?? {},
         },
         context,
       );

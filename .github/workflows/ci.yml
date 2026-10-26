@@ -11,7 +11,7 @@ permissions:
 jobs:
   checks:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     env:
       NEXT_TELEMETRY_DISABLED: "1"
     steps:
@@ -29,4 +29,5 @@ jobs:
       - run: npm run test:e2e
       - run: npm run test:games
       - run: npm run test:design
+      - run: npm run test:legacy
       - run: npm run test:lab

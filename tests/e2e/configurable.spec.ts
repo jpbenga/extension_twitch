@@ -124,7 +124,7 @@ test("the shared interpreter drives actual private answers, roles, reveal and re
   }
 });
 
-test("the counter uses the same generic forms and laboratory privileges are absent in production", async ({
+test("the historical counter keeps its real generic forms in explicit local maintenance", async ({
   page,
   browser,
 }) => {
@@ -168,7 +168,7 @@ test("the counter uses the same generic forms and laboratory privileges are abse
     await expect(publicPage.locator(".real-stage-header")).toContainText(
       "Terminé",
     );
-    expect((await page.request.get("/lab")).status()).toBe(404);
+    expect((await page.request.get("/lab")).status()).toBe(200);
   } finally {
     await context.close();
   }

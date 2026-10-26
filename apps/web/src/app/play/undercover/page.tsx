@@ -1,4 +1,4 @@
-import { OfficialGamesLab } from "../../../components/official-games-lab";
+import { OfficialGameSetup } from "../../../components/official-game-setup";
 export default function Page() {
-  return <OfficialGamesLab context="play" />;
+  return <OfficialGameSetup />;
 }

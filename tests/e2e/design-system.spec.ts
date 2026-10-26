@@ -1,8 +1,7 @@
 import { test, expect, type Page } from "@playwright/test";
-import { customize, section, save } from "./creator-helpers.js";
 import { acceptConfirmation } from "./dialog-helpers.js";
 async function gmView(page: Page) {
-  await page.goto("/creator/play");
+  await page.goto("/play/undercover");
   await page
     .getByRole("button", {
       name: "Lancer une partie de démonstration",
@@ -178,7 +177,7 @@ test("the shared theme fits a small phone, keeps controls legible and never expo
     path: info.outputPath("accueil.png"),
     fullPage: true,
   });
-  await page.goto("/creator");
+  await page.goto("/play");
   await page.screenshot({
     path: info.outputPath("studio.png"),
     fullPage: true,
@@ -210,74 +209,25 @@ test("the shared theme fits a small phone, keeps controls legible and never expo
   await dialog.getByRole("button", { name: "Annuler", exact: true }).click();
 });
 
-test("Studio deletions keep referenced data, confirm unused data removal and preserve actual saves", async ({
-  page,
-}, info) => {
-  await customize(page);
-  await section(page, "Données");
-  await page
-    .getByRole("button", { name: "Ajouter une donnée", exact: true })
-    .click();
-  await page
-    .getByLabel("Nom de cette donnée", { exact: true })
-    .fill("Bonus du plateau");
-  const remove = page.getByRole("button", {
-    name: "Supprimer cette donnée",
-    exact: true,
-  });
-  await remove.click();
-  const dialog = page.getByRole("dialog", {
-    name: "Supprimer cette donnée ?",
-    exact: true,
-  });
-  await expect(dialog).toBeVisible();
-  await dialog.getByRole("button", { name: "Conserver", exact: true }).click();
-  await expect(
-    page.getByLabel("Nom de cette donnée", { exact: true }),
-  ).toHaveValue("Bonus du plateau");
-  await remove.click();
-  await acceptConfirmation(page);
-  await expect(page.getByRole("heading", { level: 1 })).toBeFocused();
-  await expect(
-    page.getByRole("navigation", { name: "Données du jeu" }),
-  ).not.toContainText("Bonus du plateau");
-  await page
-    .getByRole("button", { name: "Supprimer cette donnée", exact: true })
-    .click();
-  await expect(page.getByRole("dialog")).toHaveCount(0);
-  await expect(
-    page.getByRole("alert").filter({ hasText: "Suppression impossible" }),
-  ).toContainText("Suppression impossible");
-  await save(page);
-  await expect(page.locator(".ui-toast")).toContainText(
-    "Modifications enregistrées",
-  );
-  await page.screenshot({
-    path: info.outputPath("studio-donnees.png"),
-    fullPage: true,
-  });
-  expect(await widthFits(page)).toBe(true);
-});
-
 test("Jouer stays legible on a small phone and private access copying has a real HTTP-compatible fallback", async ({
   page,
 }, info) => {
   await page.setViewportSize({ width: 320, height: 568 });
   await page.goto("/");
   await expect(
-    page.getByRole("link", { name: "Jouer", exact: true }),
+    page.getByRole("link", { name: "Choisir un jeu", exact: true }),
   ).toBeVisible();
   await expect(
     page.getByRole("link", { name: "Créer", exact: true }),
-  ).toBeVisible();
+  ).toHaveCount(0);
   expect(await widthFits(page)).toBe(true);
   await page.screenshot({
     path: info.outputPath("accueil-small-phone.png"),
     fullPage: true,
   });
-  await page.getByRole("link", { name: "Jouer", exact: true }).click();
+  await page.getByRole("link", { name: "Choisir un jeu", exact: true }).click();
   await page
-    .getByRole("link", { name: "Préparer Undercover →", exact: true })
+    .getByRole("link", { name: "Jouer à Undercover", exact: true })
     .click();
   const fields = page.locator("input, select");
   for (const field of await fields.all())

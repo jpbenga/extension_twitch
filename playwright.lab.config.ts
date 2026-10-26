@@ -24,6 +24,7 @@ export default defineConfig({
     timeout: 60_000,
     reuseExistingServer: false,
     env: {
+      LEGACY_STUDIO_ENABLED: "1",
       DATABASE_PATH: join(tmpdir(), `xt-lab-${randomUUID()}.sqlite`),
       PUBLIC_ORIGIN: "http://127.0.0.1:3100",
       PORT: "3100",
