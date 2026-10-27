@@ -11,3 +11,7 @@ coverage/
 playwright-report/
 test-results/
 *.log
+# Stitch authentication and working files stay local; .stitch.json holds only the project ID.
+.stitch/
+docs/ux/redesign/.stitch-sync.lock
+docs/ux/redesign/**/.stitch-next-*

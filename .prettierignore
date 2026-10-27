@@ -7,3 +7,5 @@ test-results
 playwright-report
 AGENTS.md
 docs/PRODUCT.md
+# Preserve the exact visual reference exported by Stitch.
+docs/ux/redesign/**/approved.html

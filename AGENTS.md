@@ -346,3 +346,17 @@ indépendantes. Ne jamais dériver la couleur d’OBS du stockage local du spect
 Pas de nouvelle règle ou variante pour remplir un wireframe ; les wireframes guident
 la hiérarchie, pas une reproduction littérale. La nouvelle UX attend un nouvel essai
 humain, sans remettre en cause le workflow OBS précédent déjà validé.
+
+## 23. Refonte Stitch — pont local et références approuvées
+
+Lire docs/ux/redesign/README.md et SCREENS.md avant une nouvelle refonte. Travailler
+écran par écran à partir d’une référence explicitement approuvée ; ne jamais déduire
+l’approbation de la dernière génération. Stitch est la référence visuelle, le dépôt
+reste la référence fonctionnelle. Conserver moteur, permissions, projections, SSE et
+OBS. Ne pas reconstruire l’application depuis un export HTML.
+
+Le pont `npm run stitch:sync` est local, en lecture seule, et exige une attestation
+`--approved`. Les identifiants Google restent locaux ; ne jamais lire, afficher ou
+copier les credentials. Le Cloud utilise les artefacts versionnés et SPEC.md, sans
+dépendance à Stitch pour compiler. Ne pas fabriquer un approved.png ou un DESIGN.md
+en l’absence de référence. Aucun écran n’est refondu par la seule mise en place du pont.

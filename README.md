@@ -123,6 +123,7 @@ réservés au mode de maintenance local explicite décrit dans [STAGE-6.md](docs
 
 ## Références
 
+- [Workflow de refonte : Stitch local → références approuvées → Codex Cloud](docs/ux/redesign/README.md).
 - [Produit actuel](docs/PRODUCT.md) et [instructions de développement](AGENTS.md).
 - [Bilan et inventaire conservé/déprécié](docs/STAGE-6.md).
 - [Architecture technique](docs/ARCHITECTURE.md) et [future identité, droits et exploitation SaaS](docs/SAAS-ARCHITECTURE.md).
