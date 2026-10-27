@@ -61,6 +61,9 @@ export class SessionService {
       const state = recordEvent(
         {
           ...(prepared ? { preparedGame: structuredClone(prepared) } : {}),
+          ...(prepared?.broadcastTheme
+            ? { broadcastTheme: prepared.broadcastTheme }
+            : {}),
           ...(prepared?.overlayLayout
             ? { overlayLayout: structuredClone(prepared.overlayLayout) }
             : {}),
@@ -181,6 +184,7 @@ export class SessionService {
                 title: state.preparedGame.definition.title,
                 definitionId: state.preparedGame.definition.id,
                 definitionVersion: state.preparedGame.definition.version,
+                ...preparationPlayerLimits(state.preparedGame),
               },
             }
           : {}),
@@ -244,4 +248,21 @@ export class SessionService {
       });
     if (group.size === 0) this.streams.delete(id);
   }
+}
+
+/** Read-only guidance for the lobby. Installation still runs the engine's full validation. */
+function preparationPlayerLimits(prepared: PreparedGame) {
+  const mechanics = prepared.definition.mechanics;
+  if (!mechanics) return {};
+  const minimumPlayers = mechanics.deals.reduce((minimum, deal) => {
+    const key = deal.minorityCountConfiguration;
+    const count =
+      prepared.configuration?.[key] ??
+      prepared.definition.configuration.find((f) => f.id === key)?.value
+        .initial;
+    return typeof count === "number"
+      ? Math.max(minimum, count * 2 + 1)
+      : minimum;
+  }, mechanics.minPlayers);
+  return { minimumPlayers, maximumPlayers: mechanics.maxPlayers };
 }

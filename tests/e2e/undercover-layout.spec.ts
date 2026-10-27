@@ -1,3 +1,4 @@
+import { openLabAccess } from "./undercover-helpers.js";
 import { test, expect, type Page, type BrowserContext } from "@playwright/test";
 import { acceptConfirmation } from "./dialog-helpers.js";
 import { completeClues } from "./turn-helpers.js";
@@ -84,6 +85,7 @@ test("configure a real Undercover game, adjust the shared layout, play to a resu
     .click();
   await expect(page).toHaveURL(/\/play\/lab\//);
   const id = page.url().split("/").pop()!;
+  await openLabAccess(page);
   const gmHref = (await page
     .getByRole("link", {
       name: "Ouvrir la régie sur cet appareil",
@@ -185,6 +187,7 @@ test("configure a real Undercover game, adjust the shared layout, play to a resu
     await acceptConfirmation(gm);
     await expect(rendered(obs)).toHaveAttribute("data-phase", "preparation");
     await expect(widget(obs, "result")).toHaveAttribute("style", resultStyle!);
+    await openLabAccess(page);
     await page
       .getByRole("link", { name: "Personnaliser l’overlay", exact: true })
       .click();
@@ -203,6 +206,7 @@ test("drag, resize, bounds, ordering and independent cards persist; concurrent e
   context,
 }) => {
   const id = await start(page, 12);
+  await openLabAccess(page);
   const gmHref = (await page
     .getByRole("link", {
       name: "Ouvrir la régie sur cet appareil",

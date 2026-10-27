@@ -10,6 +10,8 @@ import { ProductFrame } from "./product-frame";
 import { CopyLink } from "./copy-link";
 import { PublicSession } from "./public-session";
 import { useConfirm } from "./ui/feedback";
+import { UndercoverRoom } from "./undercover-room";
+import { ThemeControl } from "./application-theme";
 import { Badge } from "./ui/primitives";
 type RoomPane = "session" | "players" | "game" | "board";
 const sections: { id: RoomPane; label: string }[] = [
@@ -88,6 +90,24 @@ export function SessionRoom({
       ? `${gm ? new URL(gm.publicUrl).origin : window.location.origin}/sessions/${id}/${gm ? "gm" : `player/${me?.id}`}#access=${token}`
       : "";
   const playing = !!view?.publicGame;
+  if (
+    !legacyTools &&
+    view &&
+    view.gameId === "undercover" &&
+    (gm?.preparedGame || view.publicGame?.play || view.audience === "player")
+  )
+    return (
+      <UndercoverRoom
+        view={view}
+        connection={connection}
+        error={error}
+        busy={busy}
+        retryAvailable={retryAvailable}
+        send={session.send}
+        privateUrl={privateUrl}
+      />
+    );
+
   if (
     gm?.preparedGame?.definitionId === "undercover" &&
     !playing &&
@@ -184,6 +204,7 @@ export function SessionRoom({
             Extension Twitch <small>STUDIO</small>
           </span>
         </Link>
+        <ThemeControl />
         <Badge tone={gm ? "primary" : "success"}>
           {audience === "gm" ? "GAME MASTER" : "JOUEUR"}
         </Badge>

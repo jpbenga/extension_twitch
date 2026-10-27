@@ -1,3 +1,4 @@
+import type { ThemeId } from "@extension-twitch/contracts/themes";
 import {
   undercoverLayoutSchema,
   type UndercoverLayout,
@@ -25,6 +26,7 @@ import type {
 import { SessionError, type SessionActor } from "./session-types.js";
 export { SessionError, type SessionActor } from "./session-types.js";
 export interface PreparedGame {
+  broadcastTheme?: ThemeId;
   overlayLayout?: UndercoverLayout;
   /** Pinned product settings; absent on historical Studio snapshots. */
   configuration?: Record<string, Scalar>;
@@ -32,6 +34,7 @@ export interface PreparedGame {
   assets: AssetBinding[];
 }
 export interface LobbyState {
+  broadcastTheme?: ThemeId;
   overlayLayout?: UndercoverLayout;
   preparedGame?: PreparedGame;
   gameRun?: GameRun;
@@ -348,6 +351,7 @@ export function projectPublicSession(
   return {
     ...(state.gameRun ? { publicGame: projectGame(state.gameRun, null) } : {}),
     ...(state.overlayLayout ? { overlayLayout: state.overlayLayout } : {}),
+    ...(state.broadcastTheme ? { broadcastTheme: state.broadcastTheme } : {}),
     audience: "public",
     sessionId: state.id,
     title: state.title,

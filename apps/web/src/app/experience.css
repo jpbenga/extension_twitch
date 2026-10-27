@@ -1,0 +1,753 @@
+/* Six task-focused experiences; layout and semantics are shared across all themes. */
+.product-header-tools {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.theme-control {
+  position: relative;
+  font-size: 0.85rem;
+}
+.theme-control > summary {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  padding-inline: 6px;
+}
+.theme-control > div {
+  position: absolute;
+  z-index: 30;
+  top: 100%;
+  right: 0;
+  width: min(300px, calc(100vw - 32px));
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border-control);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow: var(--shadow-panel);
+}
+.theme-control label {
+  display: grid;
+  gap: 8px;
+}
+.theme-control p {
+  margin-top: 10px;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+.theme-control select {
+  width: 100%;
+  min-height: 48px;
+  color: var(--color-text-primary);
+  background: var(--color-input);
+  border: 1px solid var(--color-border-control);
+  border-radius: var(--radius-sm);
+  padding: 8px;
+  font-size: 16px;
+}
+.home-game-choice {
+  max-width: 900px;
+  display: grid;
+  gap: 16px;
+  margin-block: 24px;
+}
+.ready-game-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: center;
+  border-top: 3px solid var(--color-action-primary);
+}
+.ready-game-card h2 {
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  margin-block: 6px;
+}
+.ready-game-card p {
+  color: var(--color-text-secondary);
+  max-width: 55ch;
+  line-height: 1.6;
+}
+.ready-game-card .game-card-meta {
+  margin-top: 10px;
+  font-size: 0.85rem;
+}
+.future-games {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  color: var(--color-text-secondary);
+}
+.future-games article {
+  padding: 12px 0;
+  border-top: 1px solid var(--color-border);
+  flex: 1 1 240px;
+}
+.future-games h2 {
+  display: inline;
+  font-size: 1rem;
+  margin-right: 10px;
+}
+.future-games small {
+  color: var(--color-text-muted);
+}
+.home-secondary {
+  max-width: 900px;
+}
+.configuration-shell .official-game-card {
+  max-width: 1040px;
+  padding: 24px;
+}
+.configuration-shell .lobby-form {
+  gap: 18px;
+}
+.configuration-essential {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.configuration-essential label {
+  min-width: 0;
+}
+.configuration-shell .rule-recap {
+  padding: 14px 18px;
+  border-left: 3px solid var(--color-info);
+  background: var(--color-info-subtle);
+  border-radius: var(--radius-sm);
+}
+.configuration-shell .rule-recap p {
+  margin-top: 6px;
+}
+.configuration-shell details {
+  padding-block: 8px;
+}
+.configuration-options[open] {
+  display: grid;
+  gap: 14px;
+}
+.configuration-shell .layout-setup-section {
+  border-top: 1px solid var(--color-border);
+}
+.configuration-shell .lobby-form > .primary-button {
+  justify-self: start;
+}
+.experience-shell {
+  width: min(1080px, calc(100% - 40px));
+  margin: auto;
+  padding: 20px 0 max(28px, env(safe-area-inset-bottom));
+  min-height: 100dvh;
+}
+.experience-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.experience-top .session-brand {
+  font-size: 1.25rem;
+}
+.experience-top .session-brand small {
+  letter-spacing: 0.08em;
+}
+.experience-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+  margin-block: 10px;
+}
+.experience-status .session-connection {
+  margin: 0;
+  padding: 0;
+}
+.operating-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 16px 0;
+}
+.operating-header h1 {
+  font-size: clamp(1.45rem, 4vw, 2rem);
+}
+.operating-header p {
+  color: var(--color-text-secondary);
+  margin-top: 4px;
+}
+.operation-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  padding: 5px;
+  margin: 12px 0 18px;
+}
+.operation-tabs a {
+  display: grid;
+  place-items: center;
+  min-height: 48px;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+}
+.operation-tabs a[aria-current="page"] {
+  background: var(--color-primary-subtle);
+  color: var(--color-action-primary);
+  box-shadow: inset 0 -3px var(--color-action-primary);
+  font-weight: bold;
+}
+.experience-pane[hidden] {
+  display: none !important;
+}
+.experience-shell .lobby-panel {
+  padding: 20px;
+}
+.experience-shell .play-panel {
+  margin-block: 0 16px;
+}
+.experience-shell .play-panel > .eyebrow,
+.experience-shell .play-panel > h2 {
+  display: none;
+}
+.play-panel.is-focused {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+.play-panel.is-focused > .eyebrow,
+.play-panel.is-focused > h2 {
+  display: none;
+}
+.is-focused .play-heading {
+  border-bottom: 0;
+  padding-bottom: 0;
+  margin-bottom: 16px;
+}
+.is-focused .play-heading > .game-phase {
+  font-size: 1rem;
+  color: var(--color-info);
+  font-weight: bold;
+}
+.is-focused .play-heading > p:not(.game-phase) {
+  max-width: 65ch;
+  font-size: 0.9rem;
+  margin-top: 6px;
+  color: var(--color-text-secondary);
+}
+.is-focused .phase-meta {
+  margin-block: 10px;
+}
+.is-focused .turn-progress {
+  background: var(--color-surface);
+  padding: 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  margin-block: 12px;
+}
+.speaker-focus {
+  display: block;
+  font-size: clamp(1.8rem, 6vw, 2.7rem);
+  color: var(--color-text-primary);
+  margin-top: 8px;
+  overflow-wrap: anywhere;
+}
+.turn-progress progress {
+  width: 100%;
+  height: 8px;
+  accent-color: var(--color-success);
+  display: block;
+  margin: 12px 0;
+}
+.is-focused .turn-current {
+  padding: 10px 0;
+  background: transparent;
+  border: 0;
+  font-size: 0.9rem;
+}
+.is-focused .game-actions {
+  margin-block: 16px;
+}
+.is-focused .game-action {
+  border: 0;
+  padding: 0;
+}
+.is-focused .game-actions .primary-button {
+  width: 100%;
+  min-height: 54px;
+}
+.is-focused .play-roster {
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 8px;
+}
+.is-focused .play-roster article {
+  padding: 10px;
+  min-height: 0;
+  gap: 5px;
+  border-radius: var(--radius-sm);
+}
+.is-focused .play-roster .player-initial {
+  display: none;
+}
+.is-focused .play-roster .player-presence {
+  font-size: 0.75rem;
+}
+.is-focused .play-summary {
+  margin-top: 14px;
+}
+.is-focused .play-summary .play-vote-progress {
+  display: none;
+}
+.is-focused .play-vote-result {
+  padding: 12px 0;
+  border: 0;
+  margin: 0;
+}
+.is-focused > details {
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  border-radius: 0;
+  padding: 14px 0;
+  margin-block: 0;
+  background: transparent;
+}
+.companion-shell {
+  max-width: 580px;
+}
+.companion-identity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: space-between;
+  margin: 18px 0;
+}
+.companion-identity h1 {
+  font-size: 1.35rem;
+}
+.companion-shell .play-heading .phase-meta,
+.lab-role-view .is-player .phase-meta {
+  display: none;
+}
+.is-player .personal-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-top: 3px solid var(--color-success);
+  border-radius: var(--radius-lg);
+  margin: 12px 0;
+  padding: 18px;
+}
+.is-player .personal-card .game-values {
+  display: block;
+  margin: 12px 0;
+}
+.is-player .personal-card .game-values article {
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+.is-player .personal-card .game-values strong {
+  font-size: clamp(1.8rem, 7vw, 2.6rem);
+  color: var(--color-text-primary);
+  margin-top: 8px;
+}
+.is-player .personal-card .game-values span {
+  font-size: 0.9rem;
+}
+.secret-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.secret-controls button {
+  min-height: 44px;
+}
+.player-next-step {
+  padding: 14px 0;
+  color: var(--color-text-secondary);
+}
+.is-player .game-actions {
+  border-left: 3px solid var(--color-success);
+  padding-left: 12px;
+}
+.is-player .game-actions .primary-button {
+  background: var(--color-success);
+  color: var(--color-on-accent);
+}
+.is-player .vote-candidates {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.is-player .vote-candidates label {
+  padding: 16px;
+  min-height: 54px;
+}
+.saloon-intro {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+  margin-block: 20px;
+}
+.saloon-intro h1 {
+  font-size: clamp(1.8rem, 5vw, 2.4rem);
+}
+.saloon-intro p {
+  color: var(--color-text-secondary);
+  margin-top: 6px;
+}
+.saloon-main {
+  display: grid;
+  gap: 20px;
+}
+.saloon-count {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.saloon-main .lobby-players {
+  margin: 12px 0;
+}
+.saloon-main .lobby-players li {
+  padding: 10px 0;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--color-border);
+  border-radius: 0;
+}
+.saloon-main .lobby-players .avatar {
+  width: 36px;
+  height: 36px;
+  font-size: 0.8rem;
+}
+.operation-secondary {
+  border-top: 1px solid var(--color-border);
+  padding-top: 14px;
+  margin-top: 16px;
+}
+.operation-secondary > summary {
+  padding-block: 8px;
+  color: var(--color-text-secondary);
+}
+.operation-secondary .copy-block {
+  margin-block: 14px;
+}
+.lab-focused .creator-page-title {
+  margin-bottom: 12px;
+}
+.lab-focused .creator-page-title h1 {
+  font-size: 1.8rem;
+}
+.lab-focused .creator-page-title p {
+  font-size: 0.9rem;
+}
+.lab-focused .lab-device-access {
+  padding: 14px 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.lab-focused .lab-device-access > .lobby-hint {
+  display: none;
+}
+.lab-focused .lab-access-links {
+  gap: 12px;
+  margin: 8px 0 0;
+}
+.lab-focused .creator-lab-tools {
+  padding: 0;
+  margin: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.lab-focused .lab-role-tabs {
+  margin: 14px 0 8px;
+}
+.lab-focused .lab-identity {
+  padding: 10px 12px;
+  margin: 8px 0;
+  font-size: 0.9rem;
+  background: var(--color-success-subtle);
+  border-radius: var(--radius-sm);
+}
+.lab-focused .lab-role-view {
+  padding: 16px;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  min-width: 0;
+}
+.lab-focused .lab-role-view .play-panel {
+  padding: 0;
+}
+.lab-focused .lab-role-view .connection-badge {
+  margin: 0 0 10px;
+  font-size: 0.8rem;
+}
+.lab-focused .lab-public-mirror {
+  padding: 16px;
+  border-radius: var(--radius-md);
+}
+.lab-focused .lab-public-mirror > p {
+  display: none;
+}
+.lab-focused .lab-public-mirror h2 {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+.lab-focused .creator-private {
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  padding: 14px 0;
+  background: transparent;
+}
+.stream-preview-shell .creator-page-title {
+  margin-bottom: 18px;
+}
+.stream-preview-shell .creator-page-title h1 {
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+}
+.stream-preview-shell .segmented-control {
+  margin-bottom: 12px;
+}
+.stream-tools {
+  margin-top: 20px;
+  border-top: 1px solid var(--color-border);
+  padding-block: 14px;
+}
+.stream-tools > summary {
+  font-weight: bold;
+}
+@media (min-width: 1000px) {
+  .saloon-main {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.65fr);
+    align-items: start;
+  }
+  .experience-shell .gm-board {
+    max-width: 100%;
+  }
+  .configuration-shell .lobby-form > .rule-recap {
+    max-width: 70ch;
+  }
+}
+@media (max-width: 600px) {
+  .ready-game-card {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+  .ready-game-card .primary-button,
+  .ready-game-card .secondary-button {
+    width: 100%;
+  }
+  .configuration-essential {
+    grid-template-columns: 1fr;
+  }
+  .configuration-shell .official-game-card {
+    padding: 18px;
+  }
+  .experience-shell {
+    width: calc(100% - 28px);
+    padding-top: 14px;
+  }
+  .experience-shell .session-brand {
+    font-size: 1.1rem;
+    gap: 8px;
+  }
+  .experience-shell .session-brand small {
+    font-size: 0.65rem;
+  }
+  .product-header-tools {
+    gap: 8px;
+  }
+  .creator-top .product-header-tools > a {
+    font-size: 0.78rem;
+  }
+  .experience-shell .theme-control {
+    font-size: 0.8rem;
+  }
+  .experience-shell .play-panel {
+    padding: 0;
+  }
+  .operation-tabs {
+    position: sticky;
+    top: 6px;
+    z-index: 4;
+    box-shadow: var(--shadow-panel);
+  }
+  .experience-top .theme-control > div {
+    right: 0;
+  }
+  .is-focused .play-roster {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.lab-quick-access {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+.lab-quick-access .copy-block {
+  margin: 0;
+}
+.lab-focused .lab-device-access summary {
+  color: var(--color-text-secondary);
+  padding-block: 10px;
+  cursor: pointer;
+}
+.lab-focused .creator-page-title > a {
+  font-size: 0.85rem;
+}
+.public-session-page .real-stage-caption {
+  display: none;
+}
+.real-stage.has-game .real-stage-title {
+  margin-block: 10px;
+}
+.real-stage.has-game .real-stage-title h1 {
+  font-size: clamp(1.6rem, 4vw, 3rem);
+}
+.real-stage .phase-meta {
+  justify-content: center;
+}
+.is-focused.is-player[data-state="vote"] {
+  display: flex;
+  flex-direction: column;
+}
+.is-focused .game-actions:empty {
+  display: none;
+}
+.companion-shell .session-header,
+.companion-shell .room-navigation {
+  display: none;
+}
+@media (max-width: 600px) {
+  .lab-quick-access {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .lab-quick-access .copy-block button,
+  .lab-quick-access > a {
+    width: 100%;
+  }
+  .is-focused .turn-progress {
+    padding: 16px;
+  }
+}
+.product-header-tools {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  min-width: 0;
+}
+.creator-top .session-brand {
+  min-width: 0;
+}
+@media (max-width: 600px) {
+  .theme-control > div {
+    position: fixed;
+    top: calc(env(safe-area-inset-top) + 72px);
+    left: 16px;
+    right: 16px;
+    width: auto;
+    max-height: calc(100dvh - 104px);
+    overflow: auto;
+  }
+  .creator-top .session-brand > span {
+    font-size: 0.8rem;
+  }
+  .creator-top {
+    gap: 10px;
+  }
+}
+/* Remove inherited presentation panels when a role already supplies its own context. */
+.play-panel.is-focused[data-state] .play-heading {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+}
+.is-focused.is-gm .phase-meta {
+  display: none;
+}
+.is-focused.is-gm .turn-current {
+  display: none;
+}
+.is-focused.is-player {
+  display: flex;
+  flex-direction: column;
+}
+.is-focused.is-player .play-heading {
+  margin-block: 10px;
+}
+.is-focused.is-gm .play-roster {
+  display: flex;
+  flex-wrap: wrap;
+}
+.is-focused.is-gm .play-roster article {
+  flex: 1 1 90px;
+}
+.is-focused.is-gm .play-roster article > span:not([class]),
+.is-focused.is-gm .play-roster .player-presence {
+  display: none;
+}
+.secret-controls button {
+  padding: 8px 12px;
+  font-size: 0.8rem;
+}
+.configuration-shell .creator-page-title {
+  margin: 8px 0 16px;
+  gap: 10px;
+}
+.configuration-shell .creator-page-title h1 {
+  font-size: clamp(1.8rem, 5vw, 2.4rem);
+}
+.configuration-shell .creator-page-title p {
+  margin-top: 8px;
+  font-size: 0.9rem;
+}
+.configuration-shell .official-game-card > .eyebrow {
+  display: none;
+}
+.configuration-shell .official-game-card > details,
+.configuration-shell .configuration-options,
+.configuration-shell .layout-setup-section {
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  border-radius: 0;
+  background: transparent;
+  padding: 10px 0;
+  margin: 0;
+}
+.configuration-shell .official-game-card > details {
+  border-top: 0;
+}
+.configuration-shell .lobby-form {
+  margin-top: 10px;
+  gap: 12px;
+}
+.configuration-shell .rule-recap {
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+.configuration-shell .rule-recap small {
+  display: none;
+}
+.configuration-shell .rule-recap p {
+  margin-top: 4px;
+}
+.is-player .vote-choice .primary-button {
+  background: var(--color-vote);
+  color: var(--color-on-accent);
+}

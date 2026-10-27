@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { themeIdSchema } from "./themes.js";
 import { undercoverLayoutSchema } from "./undercover-layout.js";
 import {
   gameDefinitionSchema,
@@ -109,6 +110,7 @@ export const publicParticipantSchema = z.strictObject({
   connected: z.boolean(),
 });
 const viewFields = {
+  broadcastTheme: themeIdSchema.optional(),
   overlayLayout: undercoverLayoutSchema.optional(),
   publicGame: gameProjectionSchema
     .refine(
@@ -142,6 +144,8 @@ export const gmSessionSchema = z.strictObject({
       title: z.string().max(80),
       definitionId: identifierSchema,
       definitionVersion: z.string(),
+      minimumPlayers: z.number().int().min(1).optional(),
+      maximumPlayers: z.number().int().min(1).max(32).optional(),
     })
     .optional(),
   invitationCode: invitationCodeSchema,

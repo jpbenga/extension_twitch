@@ -15,7 +15,13 @@ import { GameValues } from "./game-values";
 type Send = (action: LobbyAction) => Promise<void | boolean>;
 const nameFor = (view: SessionView, id: string) =>
   view.participants.find((p) => p.id === id)?.name ?? "Joueur";
-function PlayHeading({ game }: { game: GameProjection }) {
+function PlayHeading({
+  game,
+  view,
+}: {
+  game: GameProjection;
+  view?: SessionView;
+}) {
   const play = game.play!;
   return (
     <div className="play-heading">
@@ -23,7 +29,10 @@ function PlayHeading({ game }: { game: GameProjection }) {
         {game.phase.label}{" "}
         {play.round > 0 && <span>· Manche {play.round}</span>}
       </p>
-      {game.phase.description && <p>{game.phase.description}</p>}
+      {game.phase.description &&
+        !(play.turns && game.phase.id === "discussion") && (
+          <p>{game.phase.description}</p>
+        )}
       <div className="phase-meta">
         <Badge
           tone={play.outcome ? "info" : !play.dealt ? "primary" : "success"}
@@ -38,27 +47,39 @@ function PlayHeading({ game }: { game: GameProjection }) {
           {play.roster.filter((p) => p.active).length} joueurs actifs
         </Badge>
       </div>
-      {play.turns && (
-        <section
-          className="turn-progress"
-          data-round={play.turns.round}
-          data-completed={play.turns.completed.length}
-          data-complete={String(play.turns.complete)}
-          data-count={play.turns.order.length}
-          data-total={play.turns.total}
-          aria-label="Tours de parole"
-          aria-live="polite"
-        >
-          <strong>
-            Tour d’indices {play.turns.round} / {play.turns.total}
-          </strong>
-          <p>
-            {play.turns.complete
-              ? "Tous les indices ont été donnés. Le GM peut ouvrir le vote."
-              : `${play.turns.completed.length} / ${play.turns.order.length} passages confirmés dans ce tour.`}
-          </p>
-        </section>
-      )}
+      {play.turns &&
+        game.phase.id === "discussion" &&
+        view?.audience !== "player" && (
+          <section
+            className="turn-progress"
+            data-round={play.turns.round}
+            data-completed={play.turns.completed.length}
+            data-complete={String(play.turns.complete)}
+            data-count={play.turns.order.length}
+            data-total={play.turns.total}
+            aria-label="Tours de parole"
+            aria-live="polite"
+          >
+            <strong>
+              Tour d’indices {play.turns.round} / {play.turns.total}
+            </strong>
+            {view && play.turns.current && (
+              <strong className="speaker-focus">
+                {nameFor(view, play.turns.current)}
+              </strong>
+            )}
+            <progress
+              aria-label="Progression du tour d’indices"
+              max={play.turns.order.length}
+              value={play.turns.completed.length}
+            />
+            <p>
+              {play.turns.complete
+                ? "Tous les indices ont été donnés. Le GM peut ouvrir le vote."
+                : `${play.turns.completed.length} / ${play.turns.order.length} passages confirmés dans ce tour.`}
+            </p>
+          </section>
+        )}
       {play.outcome && (
         <div className="play-outcome" role="status">
           <span className="eyebrow">RÉSULTAT FINAL</span>
@@ -80,7 +101,7 @@ export function PlaySummary({
   const play = game.play!;
   return (
     <div className="play-summary">
-      {!hideHeading && <PlayHeading game={game} />}
+      {!hideHeading && <PlayHeading game={game} view={view} />}
       <div className="play-roster">
         {play.roster.map((p) => (
           <article className={p.active ? "" : "is-eliminated"} key={p.id}>
@@ -273,15 +294,57 @@ export function PlayPanel({
 }) {
   const confirm = useConfirm();
   const [proxy, setProxy] = useState("");
+  const [wordVisible, setWordVisible] = useState(true);
+  useEffect(() => setWordVisible(true), [game.runId]);
   const play = game.play!,
     gm = view.audience === "gm",
     me = view.audience === "player" ? view.participantId : undefined;
   const active = play.roster.find((p) => p.id === me)?.active;
   const ballot = play.ballot;
   useEffect(() => setProxy(""), [play.round]);
+  const personalCard = me ? (
+    <section className="personal-card" aria-label="Votre carte privée">
+      <span className="eyebrow">
+        {play.outcome ? "RÉVÉLATION FINALE" : "POUR VOUS UNIQUEMENT"}
+      </span>
+      <div className="secret-controls">
+        <span className="lobby-hint">Gardez votre mot pour vous.</span>
+        {play.dealt && !play.outcome && (
+          <button
+            type="button"
+            className="secondary-button"
+            aria-expanded={wordVisible}
+            onClick={() => setWordVisible(!wordVisible)}
+          >
+            {wordVisible ? "Masquer mon mot" : "Voir mon mot"}
+          </button>
+        )}
+      </div>
+      {(wordVisible || !!play.outcome) && (
+        <GameValues game={game} names={view.participants} />
+      )}
+      {!play.dealt && <p>Le GM va vous distribuer vos informations.</p>}
+      {play.dealt && !active && (
+        <p>
+          Vous êtes éliminé. Vous pouvez suivre la partie mais ne votez plus.
+        </p>
+      )}
+      {ballot?.status === "open" && active && !ballot.myVote && (
+        <p>
+          Votre vote est attendu. Choisissez un joueur dans la liste ci-dessous.
+        </p>
+      )}
+      {ballot?.myVote && (
+        <p role="status">
+          Votre vote pour {nameFor(view, ballot.myVote)} est enregistré.
+        </p>
+      )}
+    </section>
+  ) : null;
+  const actionFirst = !!me && (ballot?.status === "open" || !!play.outcome);
   return (
     <section
-      className="lobby-panel play-panel"
+      className={`lobby-panel play-panel ${game.definitionId === "undercover" ? "is-focused" : ""} ${view.audience === "player" ? "is-player" : "is-gm"}`}
       id="game"
       data-audience={view.audience}
       data-state={
@@ -298,33 +361,8 @@ export function PlayPanel({
     >
       <span className="eyebrow">PARTIE RÉELLE · VARIANTE DE DÉMONSTRATION</span>
       <h2>{game.title}</h2>
-      <PlayHeading game={game} />
-      {me && (
-        <section className="personal-card" aria-label="Votre carte privée">
-          <span className="eyebrow">
-            {play.outcome ? "RÉVÉLATION FINALE" : "POUR VOUS UNIQUEMENT"}
-          </span>
-          <GameValues game={game} names={view.participants} />
-          {!play.dealt && <p>Le GM va vous distribuer vos informations.</p>}
-          {play.dealt && !active && (
-            <p>
-              Vous êtes éliminé. Vous pouvez suivre la partie mais ne votez
-              plus.
-            </p>
-          )}
-          {ballot?.status === "open" && active && !ballot.myVote && (
-            <p>
-              Votre vote est attendu. Choisissez un joueur dans la liste
-              ci-dessous.
-            </p>
-          )}
-          {ballot?.myVote && (
-            <p role="status">
-              Votre vote pour {nameFor(view, ballot.myVote)} est enregistré.
-            </p>
-          )}
-        </section>
-      )}
+      {!actionFirst && personalCard}
+      <PlayHeading game={game} view={view} />
       {play.turns?.current && (
         <p className="turn-current" role="status">
           Au tour de : <strong>{nameFor(view, play.turns.current)}</strong>.
@@ -357,6 +395,7 @@ export function PlayPanel({
           ),
         )}
       </div>
+      {actionFirst && personalCard}
       {gm ? (
         <PlaySummary game={game} view={view} hideHeading />
       ) : (
@@ -434,7 +473,7 @@ export function PlayPanel({
       )}
       {gm && !hideRestart && (
         <button
-          className="secondary-button"
+          className={play.outcome ? "primary-button" : "secondary-button"}
           disabled={locked}
           onClick={() =>
             void confirm({
@@ -455,14 +494,16 @@ export function PlayPanel({
           Rejouer cette partie
         </button>
       )}
-      <details>
-        <summary>Journal de la partie</summary>
-        <ul className="play-events">
-          {view.events.map((e) => (
-            <li key={e.version}>{e.message}</li>
-          ))}
-        </ul>
-      </details>
+      {gm && (
+        <details>
+          <summary>Journal de la partie</summary>
+          <ul className="play-events">
+            {view.events.map((e) => (
+              <li key={e.version}>{e.message}</li>
+            ))}
+          </ul>
+        </details>
+      )}
     </section>
   );
 }

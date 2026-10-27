@@ -1,4 +1,5 @@
 "use client";
+import { historicalBroadcastTheme } from "@extension-twitch/contracts/themes";
 import {
   useRef,
   useState,
@@ -303,6 +304,7 @@ export function UndercoverLayoutEditor({
             className="broadcast-frame broadcast-checker layout-canvas"
             ref={frame}
             data-testid="layout-canvas"
+            data-theme={view.broadcastTheme ?? historicalBroadcastTheme}
           >
             <BroadcastOverlay
               view={view}

@@ -94,71 +94,122 @@ export function CreatorLaboratory({
     audience = role as SessionAudience;
   return (
     <CreatorFrame context={context}>
-      <div className="creator-page-title">
-        <div>
-          <span className="eyebrow">LABORATOIRE PRIVÉ</span>
-          <h1>
-            {lab?.mode === "invite"
-              ? "Votre partie"
-              : context === "play"
-                ? "Votre partie de démonstration"
-                : "Testez votre jeu"}
-          </h1>
-          <p>
-            {lab?.mode === "invite"
-              ? "Invitez vos joueurs avant de préparer la partie."
-              : "Agissez comme un joueur et regardez le résultat sur le plateau."}
-          </p>
-        </div>
-        <Link
-          className="secondary-button"
-          href={
-            context === "play"
-              ? "/play/undercover"
-              : (lab?.returnTo ?? "/creator/library")
-          }
-        >
-          {context === "play" ||
-          lab?.returnTo === "/creator/play" ||
-          lab?.returnTo.startsWith("/play")
-            ? "Changer de jeu ou créer une nouvelle partie"
-            : "Retour à l’édition"}
-        </Link>
-      </div>
-      {error && (
-        <p role="alert" className="lobby-error">
-          {error}
-        </p>
-      )}
-      {!loaded ? (
-        <p>Ouverture de l’essai…</p>
-      ) : !lab ? (
-        <p>
-          Les accès à cet essai ne sont pas dans cet onglet. Retrouvez le jeu
-          dans le catalogue pour créer une nouvelle partie.
-        </p>
-      ) : (
-        <>
-          <section
-            className="lab-device-access"
-            aria-label="Accès iPhone et ordinateur"
+      <div className={context === "play" ? "lab-focused" : ""}>
+        <div className="creator-page-title">
+          <div>
+            <span className="eyebrow">LABORATOIRE PRIVÉ</span>
+            <h1>
+              {lab?.mode === "invite"
+                ? "Votre partie"
+                : context === "play"
+                  ? "Laboratoire Undercover"
+                  : "Testez votre jeu"}
+            </h1>
+            <p>
+              {lab?.mode === "invite"
+                ? "Invitez vos joueurs avant de préparer la partie."
+                : "Agissez comme un joueur et regardez le résultat sur le plateau."}
+            </p>
+          </div>
+          <Link
+            className="secondary-button"
+            href={
+              context === "play"
+                ? "/play/undercover"
+                : (lab?.returnTo ?? "/creator/library")
+            }
           >
-            <CopyLink
-              label="Votre régie privée"
-              value={`${location.origin}/sessions/${id}/gm#access=${lab.token}`}
-              privateLink
-              compact
-              buttonLabel="Copier le lien privé GM pour mon iPhone"
-            />
-            <div className="lab-access-links">
-              {lab.gameId === "undercover" && (
-                <Link
-                  className="secondary-button"
-                  href={`/sessions/${id}/overlay`}
+            {context === "play" ||
+            lab?.returnTo === "/creator/play" ||
+            lab?.returnTo.startsWith("/play")
+              ? "Changer de jeu ou créer une nouvelle partie"
+              : "Retour à l’édition"}
+          </Link>
+        </div>
+        {error && (
+          <p role="alert" className="lobby-error">
+            {error}
+          </p>
+        )}
+        {!loaded ? (
+          <p>Ouverture de l’essai…</p>
+        ) : !lab ? (
+          <p>
+            Les accès à cet essai ne sont pas dans cet onglet. Retrouvez le jeu
+            dans le catalogue pour créer une nouvelle partie.
+          </p>
+        ) : (
+          <>
+            {lab.mode === "quick" && !lab.ready && (
+              <div className="lobby-warning">
+                <p>
+                  La préparation n’est pas terminée. Reprenez-la sans créer une
+                  autre partie.
+                </p>
+                <button
+                  className="primary-button"
+                  disabled={busy}
+                  onClick={() => void run(prepareLab)}
                 >
-                  Personnaliser l’overlay
-                </Link>
-              )}
+                  Reprendre la préparation
+                </button>
+              </div>
+            )}
+            {lab.players.length > 2 ? (
+              <label className="lab-role-tabs">
+                Point de vue
+                <select
+                  aria-label="Perspective du laboratoire"
+                  value={role}
+                  onChange={(e) => changeRole(e.target.value)}
+                >
+                  <option value="gm">Game Master</option>
+                  {lab.players
+                    .filter((p) => p.id)
+                    .map((p, i) => (
+                      <option value={`player:${p.id}`} key={p.id}>
+                        Joueur {i + 1}
+                      </option>
+                    ))}
+                  <option value="public">Spectateur</option>
+                </select>
+              </label>
+            ) : (
+              <SegmentedControl
+                label="Vue du laboratoire"
+                value={role}
+                onChange={changeRole}
+                options={[
+                  { value: "gm", label: "Game Master" },
+                  ...lab.players
+                    .filter((p) => p.id)
+                    .map((p, i) => ({
+                      value: `player:${p.id}`,
+                      label: `Joueur ${i + 1}`,
+                    })),
+                  { value: "public", label: "Spectateur" },
+                ]}
+              />
+            )}
+            <p className="lab-identity" role="status">
+              {lab.mode === "quick" ? "Mode test — " : "Vous consultez — "}Vous
+              incarnez{" "}
+              {role === "gm"
+                ? "le Game Master"
+                : role === "public"
+                  ? "le Spectateur (informations publiques uniquement)"
+                  : `Joueur ${lab.players.findIndex((p) => p.id === person?.id) + 1} · ${person?.name}`}
+              .
+            </p>
+            <div className="lab-quick-access">
+              {" "}
+              <CopyLink
+                label="Votre régie privée"
+                value={`${location.origin}/sessions/${id}/gm#access=${lab.token}`}
+                privateLink
+                compact
+                buttonLabel="Copier le lien privé GM pour mon iPhone"
+              />
               <a
                 className="secondary-button"
                 href={`/sessions/${id}/stream`}
@@ -167,238 +218,191 @@ export function CreatorLaboratory({
               >
                 Aperçu de l’émission ↗
               </a>
-              <a
-                className="text-link"
-                href={`/sessions/${id}/obs`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source OBS transparente ↗
-              </a>
-              <a
-                className="text-link"
-                href={`/sessions/${id}/gm#access=${lab.token}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Ouvrir la régie sur cet appareil
-              </a>
-              <a
-                className="text-link"
-                href={`/sessions/${id}/public`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Voir le plateau spectateur ↗
-              </a>
             </div>
-            <p className="lobby-hint">
-              Sur l’iPhone, ouvrez le lien privé GM. Gardez cet onglet sur
-              l’ordinateur pour incarner les joueurs. Ces accès sont
-              confidentiels.
-            </p>
-          </section>
-          <div className="creator-lab-tools">
-            <button
-              className="secondary-button"
-              disabled={busy || !lab.ready}
-              onClick={() =>
-                void confirm({
-                  title: "Recommencer la partie ?",
-                  description:
-                    "Les votes et résultats seront effacés. Les joueurs conserveront leur accès à cette partie.",
-                  confirmLabel: "Recommencer",
-                  tone: "warning",
-                  onConfirm: () => run(restartLab),
-                })
-              }
-            >
-              Recommencer le test
-            </button>
-            <Link
-              className="text-link"
-              href={context === "play" ? "/play/undercover" : lab.returnTo}
-            >
-              Créer un nouveau test depuis le jeu
-            </Link>
-          </div>
-          {lab.mode === "quick" && !lab.ready && (
-            <div className="lobby-warning">
-              <p>
-                La préparation n’est pas terminée. Reprenez-la sans créer une
-                autre partie.
-              </p>
-              <button
-                className="primary-button"
-                disabled={busy}
-                onClick={() => void run(prepareLab)}
-              >
-                Reprendre la préparation
-              </button>
-            </div>
-          )}
-          {lab.players.length > 2 ? (
-            <label className="lab-role-tabs">
-              Point de vue
-              <select
-                aria-label="Perspective du laboratoire"
-                value={role}
-                onChange={(e) => changeRole(e.target.value)}
-              >
-                <option value="gm">Game Master</option>
-                {lab.players
-                  .filter((p) => p.id)
-                  .map((p, i) => (
-                    <option value={`player:${p.id}`} key={p.id}>
-                      Joueur {i + 1}
-                    </option>
-                  ))}
-                <option value="public">Spectateur</option>
-              </select>
+            <label className="creator-check lab-compare-control">
+              <input
+                type="checkbox"
+                checked={compare}
+                onChange={(e) => setCompare(e.target.checked)}
+              />
+              Afficher le plateau à côté sur ordinateur
             </label>
-          ) : (
-            <SegmentedControl
-              label="Vue du laboratoire"
-              value={role}
-              onChange={changeRole}
-              options={[
-                { value: "gm", label: "Game Master" },
-                ...lab.players
-                  .filter((p) => p.id)
-                  .map((p, i) => ({
-                    value: `player:${p.id}`,
-                    label: `Joueur ${i + 1}`,
-                  })),
-                { value: "public", label: "Spectateur" },
-              ]}
-            />
-          )}
-          <p className="lab-identity" role="status">
-            {lab.mode === "quick" ? "Mode test — " : "Vous consultez — "}Vous
-            incarnez{" "}
-            {role === "gm"
-              ? "le Game Master"
-              : role === "public"
-                ? "le Spectateur (informations publiques uniquement)"
-                : `Joueur ${lab.players.findIndex((p) => p.id === person?.id) + 1} · ${person?.name}`}
-            .
-          </p>
-          <label className="creator-check lab-compare-control">
-            <input
-              type="checkbox"
-              checked={compare}
-              onChange={(e) => setCompare(e.target.checked)}
-            />
-            Afficher le plateau à côté sur ordinateur
-          </label>
-          <div
-            className={`lab-perspectives ${compare && role !== "public" ? "is-comparing" : ""}`}
-          >
-            <LabView
-              key={`${id}:${audience}`}
-              id={id}
-              audience={audience}
-              lab={lab}
-              onPrepared={() => setLab({ ...lab, ready: true })}
-            />
-            {compare && role !== "public" && <PublicMirror id={id} />}
-          </div>
-          <details className="creator-private">
-            <summary>Accès individuels des joueurs de démonstration</summary>
-            <p>
-              Chaque lien ouvre uniquement ce joueur. Sur un même ordinateur, le
-              sélecteur évite de multiplier les connexions. Ne partagez jamais
-              le laboratoire avec un participant.
-            </p>
-            {lab.players
-              .filter((p) => p.id)
-              .map((p, i) => (
-                <div className="lab-person-access" key={p.id}>
-                  <button
+            <div
+              className={`lab-perspectives ${compare && role !== "public" ? "is-comparing" : ""}`}
+            >
+              <LabView
+                key={`${id}:${audience}`}
+                id={id}
+                audience={audience}
+                lab={lab}
+                onPrepared={() => setLab({ ...lab, ready: true })}
+              />
+              {compare && role !== "public" && <PublicMirror id={id} />}
+            </div>
+            <details className="lab-device-access">
+              <summary>iPhone, OBS et accès aux différentes vues</summary>
+              <div className="lab-access-links">
+                {lab.gameId === "undercover" && (
+                  <Link
                     className="secondary-button"
-                    onClick={() => changeRole(`player:${p.id}`)}
+                    href={`/sessions/${id}/overlay`}
                   >
-                    Incarner Joueur {i + 1}
-                  </button>
-                  <a
-                    className="text-link"
-                    href={`/sessions/${id}/player/${p.id}#access=${p.token}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Ouvrir Joueur {i + 1} séparément
-                  </a>
-                  <CopyLink
-                    compact
-                    privateLink
-                    label={`Accès privé de Joueur ${i + 1}`}
-                    buttonLabel={`Copier le lien de Joueur ${i + 1}`}
-                    value={`${location.origin}/sessions/${id}/player/${p.id}#access=${p.token}`}
-                  />
-                </div>
-              ))}
-          </details>
-          {lab.players.length > 0 && (
-            <details className="creator-private">
-              <summary>Vérifier les permissions (avancé)</summary>
-              <p>
-                Vérifiez qu’un joueur ne peut pas renommer la partie, même en
-                envoyant une commande de gestion au serveur.
+                    Personnaliser l’overlay
+                  </Link>
+                )}
+
+                <a
+                  className="text-link"
+                  href={`/sessions/${id}/obs`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Source OBS transparente ↗
+                </a>
+                <a
+                  className="text-link"
+                  href={`/sessions/${id}/gm#access=${lab.token}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Ouvrir la régie sur cet appareil
+                </a>
+                <a
+                  className="text-link"
+                  href={`/sessions/${id}/public`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Voir le plateau spectateur ↗
+                </a>
+              </div>
+              <p className="lobby-hint">
+                Sur l’iPhone, ouvrez le lien privé GM. Gardez cet onglet sur
+                l’ordinateur pour incarner les joueurs. Ces accès sont
+                confidentiels.
               </p>
+            </details>
+            <div className="creator-lab-tools">
               <button
                 className="secondary-button"
                 disabled={busy || !lab.ready}
                 onClick={() =>
-                  void run(async (d) => {
-                    const denied = await probePlayerAccess(d);
-                    if (denied)
-                      setNotice(
-                        "Accès correctement protégé : le serveur refuse cette action de gestion au joueur.",
-                      );
-                    else
-                      setError(
-                        "Cette action de gestion a été acceptée pour un joueur. Arrêtez le test et signalez ce problème.",
-                      );
-                    return d;
+                  void confirm({
+                    title: "Recommencer la partie ?",
+                    description:
+                      "Les votes et résultats seront effacés. Les joueurs conserveront leur accès à cette partie.",
+                    confirmLabel: "Recommencer",
+                    tone: "warning",
+                    onConfirm: () => run(restartLab),
                   })
                 }
               >
-                Vérifier le refus d’une action de gestion
+                Recommencer le test
               </button>
-              {notice && <p role="status">{notice}</p>}
+              <Link
+                className="text-link"
+                href={context === "play" ? "/play/undercover" : lab.returnTo}
+              >
+                Créer un nouveau test depuis le jeu
+              </Link>
+            </div>
+            <details className="creator-private">
+              <summary>Accès individuels des joueurs de démonstration</summary>
+              <p>
+                Chaque lien ouvre uniquement ce joueur. Sur un même ordinateur,
+                le sélecteur évite de multiplier les connexions. Ne partagez
+                jamais le laboratoire avec un participant.
+              </p>
+              {lab.players
+                .filter((p) => p.id)
+                .map((p, i) => (
+                  <div className="lab-person-access" key={p.id}>
+                    <button
+                      className="secondary-button"
+                      onClick={() => changeRole(`player:${p.id}`)}
+                    >
+                      Incarner Joueur {i + 1}
+                    </button>
+                    <a
+                      className="text-link"
+                      href={`/sessions/${id}/player/${p.id}#access=${p.token}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Ouvrir Joueur {i + 1} séparément
+                    </a>
+                    <CopyLink
+                      compact
+                      privateLink
+                      label={`Accès privé de Joueur ${i + 1}`}
+                      buttonLabel={`Copier le lien de Joueur ${i + 1}`}
+                      value={`${location.origin}/sessions/${id}/player/${p.id}#access=${p.token}`}
+                    />
+                  </div>
+                ))}
             </details>
-          )}
-          <details className="creator-private">
-            <summary>Ouvrir cette vue sur un autre écran</summary>
-            <p>
-              Le sélecteur est recommandé dans un même navigateur. Pour
-              plusieurs vues simultanées, utilisez différents navigateurs ou
-              appareils. Le laboratoire vous permet d’essayer plusieurs rôles.
-              Un vrai joueur doit recevoir uniquement son invitation ou son
-              propre accès.
-            </p>
-            <a
-              className="secondary-button"
-              href={
-                role === "public"
-                  ? `/sessions/${id}/public`
-                  : role === "gm"
-                    ? `/sessions/${id}/gm#access=${lab.token}`
-                    : `/sessions/${id}/player/${person?.id}#access=${person?.token}`
-              }
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Ouvrir la vue sélectionnée
-            </a>
-            <p>
-              Un test rapide contient des joueurs de démonstration. Pour inviter
-              de vraies personnes, choisissez « Inviter de vrais participants »
-              : l’effectif restera ouvert avant préparation.
-            </p>
-          </details>
-        </>
-      )}
+            {lab.players.length > 0 && (
+              <details className="creator-private">
+                <summary>Vérifier les permissions (avancé)</summary>
+                <p>
+                  Vérifiez qu’un joueur ne peut pas renommer la partie, même en
+                  envoyant une commande de gestion au serveur.
+                </p>
+                <button
+                  className="secondary-button"
+                  disabled={busy || !lab.ready}
+                  onClick={() =>
+                    void run(async (d) => {
+                      const denied = await probePlayerAccess(d);
+                      if (denied)
+                        setNotice(
+                          "Accès correctement protégé : le serveur refuse cette action de gestion au joueur.",
+                        );
+                      else
+                        setError(
+                          "Cette action de gestion a été acceptée pour un joueur. Arrêtez le test et signalez ce problème.",
+                        );
+                      return d;
+                    })
+                  }
+                >
+                  Vérifier le refus d’une action de gestion
+                </button>
+                {notice && <p role="status">{notice}</p>}
+              </details>
+            )}
+            <details className="creator-private">
+              <summary>Ouvrir cette vue sur un autre écran</summary>
+              <p>
+                Le sélecteur est recommandé dans un même navigateur. Pour
+                plusieurs vues simultanées, utilisez différents navigateurs ou
+                appareils. Le laboratoire vous permet d’essayer plusieurs rôles.
+                Un vrai joueur doit recevoir uniquement son invitation ou son
+                propre accès.
+              </p>
+              <a
+                className="secondary-button"
+                href={
+                  role === "public"
+                    ? `/sessions/${id}/public`
+                    : role === "gm"
+                      ? `/sessions/${id}/gm#access=${lab.token}`
+                      : `/sessions/${id}/player/${person?.id}#access=${person?.token}`
+                }
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Ouvrir la vue sélectionnée
+              </a>
+              <p>
+                Un test rapide contient des joueurs de démonstration. Pour
+                inviter de vraies personnes, choisissez « Inviter de vrais
+                participants » : l’effectif restera ouvert avant préparation.
+              </p>
+            </details>
+          </>
+        )}
+      </div>
     </CreatorFrame>
   );
 }

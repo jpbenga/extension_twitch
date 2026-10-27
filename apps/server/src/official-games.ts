@@ -22,6 +22,7 @@ export function prepareOfficialSession(
       assets: [],
       configuration: input.settings,
       ...(input.overlayLayout ? { overlayLayout: input.overlayLayout } : {}),
+      ...(input.broadcastTheme ? { broadcastTheme: input.broadcastTheme } : {}),
     },
   );
 }

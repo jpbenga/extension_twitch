@@ -1,6 +1,11 @@
-# Broadcast Neon — Design system
+# Design system — thèmes officiels et fondations Broadcast Neon
 
-Direction validée : **Broadcast Neon, version équilibrée**. Livraison construite
+Référence actuelle : la section **Jalon 8 — trois identités officielles** décrit les
+thèmes disponibles et leurs portées. Les sections initiales ci-dessous conservent
+l’audit historique de la fondation Broadcast Neon ; leurs bilans ne valent pas état
+actuel des fonctionnalités ou validation humaine des nouveaux écrans.
+
+Direction initialement validée : **Broadcast Neon, version équilibrée**. Livraison construite
 sur `512d936` (Undercover 5A), vérifié sur le dépôt et les branches distantes,
 sans changement du moteur, des contrats métier, des permissions ou de SQLite/SSE.
 Branche : `feat/broadcast-neon-design-system`.
@@ -230,3 +235,50 @@ Broadcast Neon précédente, préservée ici. Les tests de focus, refus asynchro
 annulation et réinitialisation ne sont pas remplacés par des mocks natifs.
 Le suivi oral emploie les commandes serveur existantes avec un reçu ; son bouton
 n’est pas une animation qui ferait avancer localement la partie.
+
+## Jalon 8 — trois identités officielles
+
+La direction Broadcast Neon fournit les fondations conservées. Trois thèmes utilisent
+maintenant les mêmes tokens, composants et règles de mise en page :
+
+| Thème            | Fond      | Action principale | Information | Attention |
+| ---------------- | --------- | ----------------- | ----------- | --------- |
+| Broadcast Studio | `#131D27` | `#20C9B4`         | `#74A8FF`   | `#F5B65D` |
+| Neon Show        | `#17151E` | `#BB9BFF`         | `#90B5FF`   | `#F3C76C` |
+| On Air Premium   | `#191D24` | `#E6B96B`         | `#A8B6C9`   | `#F5C575` |
+
+`tokens.css` centralise chaque palette complète : surfaces, textes, saisies, bordures,
+focus, accents et fonds atténués. Les alias historiques sont réévalués dans chaque
+portée `[data-theme]`, afin qu’un overlay ne reprenne pas une couleur privée de son
+parent. Les états gardent leur sens : participation/réussite, attention, vote/destruction
+avec libellés distincts, information. Les mouvements réduits et dialogues sont conservés.
+
+Le thème d’application est choisi via Apparence, conservé dans ce navigateur. Le
+thème d’émission vient uniquement de la session publique, choisi avant lancement.
+Les anciennes sessions ont un défaut Neon Show déterministe. Même cadre, géométrie
+et animations pour les trois ; aucune duplication des composants.
+
+Les tests lisent les palettes effectives et mesurent les contrastes : 4,5:1 pour
+les textes usuels sur chaque surface contrôlée, les libellés des accents et les
+feedbacks ; 3:1 pour les bordures de contrôle. Cela ne certifie pas tous les pixels
+sur n’importe quelle vidéo ou disposition libre. Les panneaux d’overlay conservent
+leur fond sombre presque opaque pour limiter la dépendance à la vidéo de fond.
+Les champs visibles gardent 16 px, les commandes principales au moins 48 px.
+
+L’en-tête d’apparence est une disclosure non modale, navigable au clavier ; Échap
+la ferme et restaure le focus. Les actions critiques restent dans le dialogue modal
+existant. Le partage natif est optionnel et détecté ; le repli de copie HTTP reste actif.
+
+Voir [décisions UX](UX-REDESIGN-DECISIONS.md) et
+[guide de validation physique](TEST-UX-THEMES.md). La nouvelle UX n’est pas encore
+validée humainement, malgré la validation du workflow OBS précédent.
+
+Mesure des palettes du jalon 8 (rapport minimal, sans arrondi pour les assertions) :
+
+| Thème            | Texte usuel sur les cinq surfaces | Libellé sombre sur les cinq accents |
+| ---------------- | --------------------------------- | ----------------------------------- |
+| Broadcast Studio | 6,10:1                            | 7,64:1                              |
+| Neon Show        | 6,26:1                            | 7,20:1                              |
+| On Air Premium   | 6,22:1                            | 8,40:1                              |
+
+Ces chiffres mesurent les couples de tokens contrôlés, pas l’intégralité d’une scène vidéo.

@@ -1,3 +1,4 @@
+import { historicalBroadcastTheme } from "@extension-twitch/contracts/themes";
 import type { CSSProperties } from "react";
 import {
   createUndercoverLayout,
@@ -59,6 +60,7 @@ export function BroadcastOverlay({
     <section
       className={`broadcast-overlay ${layout ? "has-layout" : ""}`}
       aria-label="Overlay public de l’émission"
+      data-theme={view?.broadcastTheme ?? historicalBroadcastTheme}
       data-renderer="broadcast-v1"
       data-version={view?.version ?? 0}
       data-phase={game?.phase.id ?? "lobby"}
@@ -86,8 +88,10 @@ export function BroadcastOverlay({
       </header>
       <div className="broadcast-phase" {...widget("phase")}>
         <strong>
-          {game?.phase.label ??
-            (view ? "En attente des joueurs" : "Chargement du plateau")}
+          {play?.turns && game?.phase.id === "discussion"
+            ? `Tour d’indices ${play.turns.round} / ${play.turns.total}`
+            : (game?.phase.label ??
+              (view ? "En attente des joueurs" : "Chargement du plateau"))}
         </strong>
         {!layout && (
           <span>
@@ -97,21 +101,34 @@ export function BroadcastOverlay({
               : `${roster.length} participants`}
           </span>
         )}
-        {play?.turns && (
+        {play?.turns && game?.phase.id === "discussion" && (
           <p data-testid="broadcast-turns">
-            Tour d’indices {play.turns.round} / {play.turns.total} ·{" "}
-            {play.turns.complete
-              ? "Indices terminés"
-              : `${play.turns.completed.length} / ${play.turns.order.length} passages confirmés · Au tour de ${name(play.turns.current ?? "")}`}
+            {play.turns.complete ? (
+              "Indices terminés"
+            ) : (
+              <>
+                <span className="broadcast-speaker">
+                  Au tour de {name(play.turns.current ?? "")}
+                </span>
+                {play.turns.completed.length} / {play.turns.order.length}{" "}
+                passages confirmés
+              </>
+            )}
           </p>
         )}
       </div>
       {layout && (
         <div className="broadcast-round" {...widget("round")}>
           <strong>
-            {play && play.round > 0 ? `Manche ${play.round}` : "Préparation"}
+            {play && play.round > 0
+              ? `Manche ${play.round}`
+              : "Avant la partie"}
           </strong>
-          <span>{roster.filter((p) => p.active).length} joueurs actifs</span>
+          <span>
+            {play?.dealt
+              ? `${roster.filter((p) => p.active).length} joueurs actifs`
+              : `${roster.length} participants`}
+          </span>
         </div>
       )}
       <div
@@ -202,7 +219,7 @@ export function BroadcastOverlay({
         ) : (
           <p>
             {play?.dealt
-              ? "Les joueurs échangent leurs indices à voix haute."
+              ? "Les indices sont donnés à voix haute."
               : view
                 ? "Le Game Master prépare la partie."
                 : "Chargement des informations publiques…"}
@@ -220,7 +237,11 @@ export function BroadcastOverlay({
         <ol>
           {view &&
             publicEventsForRun(view).map((event) => (
-              <li key={event.version}>{event.message}</li>
+              <li key={event.version}>
+                {event.type === "game.configure"
+                  ? "Le Game Master a préparé la partie."
+                  : event.message}
+              </li>
             ))}
         </ol>
       </footer>

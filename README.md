@@ -3,9 +3,9 @@
 Une plateforme de jeux interactifs prêts à jouer pour les streamers : choisissez
 un jeu officiel, configurez quelques paramètres, invitez vos joueurs et animez
 la partie depuis votre téléphone. Régie mobile, interfaces privées et plateau
-public synchronisés, identité **Broadcast Neon**.
+public synchronisés et **trois thèmes officiels** sur les fondations Broadcast Neon.
 
-**Jalon 6 — recentrage produit.** Undercover possède un cycle complet de
+**Jeu prioritaire : Undercover.** Il possède un cycle complet de
 **démonstration** : deux tours d’indices par défaut, votes, égalités, éliminations,
 victoire et rejeu. Enchères et Qui est l’espion sont en préparation, **non jouables**.
 L’ancien Studio Créateur libre est retiré de l’expérience. Ses données et les
@@ -164,3 +164,19 @@ validation ne couvre pas les nouveaux layouts, encore à apprécier sur ses appa
 `npm run test:layout` vérifie création/configuration, placement, sauvegarde,
 concurrence et partie réelle multicontexte jusqu’au résultat avec aperçu/OBS partagé.
 Le jalon ne commence aucun autre jeu et ne constitue pas un éditeur de scènes universel.
+
+## Jalon 8 — interfaces par rôle et trois thèmes
+
+L’accueil donne accès directement à Undercover. La configuration sépare l’essentiel
+et les options ; le salon prépare les invitations ; la régie se concentre sur Partie,
+Joueurs et Plateau. Le compagnon joueur garde son mot et son action du moment.
+Le laboratoire regroupe les accès secondaires sans modifier les permissions.
+
+**Apparence** choisit Broadcast Studio, Neon Show ou On Air Premium dans ce navigateur.
+Le **Thème de l’émission** est un choix séparé à la préparation, conservé par la partie
+et utilisé par OBS. Modifier l’apparence de la régie ne modifie pas le plateau public.
+Les anciens layouts restent intacts. La nouvelle UX attend votre validation humaine.
+
+[Guide simple iPhone + ordinateur + OBS](docs/TEST-UX-THEMES.md) ·
+[Diagnostic et décisions](docs/UX-REDESIGN-DECISIONS.md).
+`npm run test:ux` couvre les nouveaux parcours et thèmes sur 320/390/768/1440 pixels.

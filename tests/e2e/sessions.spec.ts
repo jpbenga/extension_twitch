@@ -85,6 +85,7 @@ test("a GM, two independent players and an observer share actual server state", 
     await expect(
       page.locator(".lobby-players li").filter({ hasText: "Nova" }),
     ).toContainText("Prêt");
+    await playerB.getByText("Qui participe ?", { exact: true }).click();
     await expect(
       playerB.locator(".lobby-players li").filter({ hasText: "Nova" }),
     ).toContainText("Prêt");
@@ -101,9 +102,20 @@ test("a GM, two independent players and an observer share actual server state", 
       .getByRole("button", { name: "Renommer la session", exact: true })
       .click();
     for (const client of [page, playerA, playerB, observer]) {
-      await expect(
-        client.getByRole("heading", { name: "Un titre synchronisé", level: 1 }),
-      ).toBeVisible();
+      if (client === playerA || client === playerB) {
+        await expect(
+          client.getByText("Un titre synchronisé", { exact: true }),
+        ).toBeVisible();
+        await expect(
+          client.locator('[data-experience="player"]'),
+        ).toBeVisible();
+      } else
+        await expect(
+          client.getByRole("heading", {
+            name: "Un titre synchronisé",
+            level: 1,
+          }),
+        ).toBeVisible();
       expect(
         await client.evaluate(
           () => document.documentElement.scrollWidth <= window.innerWidth,
@@ -177,7 +189,10 @@ test("private recovery works in another browser and unrelated tabs do not inheri
       joinUrl,
       "Identité distincte",
     );
-    await expect(player.getByText("JOUEUR", { exact: true })).toBeVisible();
+    await expect(player.locator('[data-experience="player"]')).toBeVisible();
+    await expect(
+      player.getByRole("heading", { name: "Identité distincte", exact: true }),
+    ).toBeVisible();
     await expect(
       player.getByRole("button", { name: "Réinitialiser le salon" }),
     ).toHaveCount(0);
@@ -288,7 +303,7 @@ test("an authenticated player reconnects to the latest state after a transport f
       "Synchronisé",
     );
     await expect(
-      player.getByRole("heading", { name: "Après reconnexion", level: 1 }),
+      player.getByText("Après reconnexion", { exact: true }),
     ).toBeVisible();
     await expect(
       player.getByRole("button", { name: "Je ne suis plus prêt", exact: true }),

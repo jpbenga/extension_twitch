@@ -1,4 +1,9 @@
 import {
+  openUndercoverOptions,
+  openLabAccess,
+  openBroadcastHelp,
+} from "./undercover-helpers.js";
+import {
   gmSessionSchema,
   playerSessionSchema,
   publicSessionSchema,
@@ -51,6 +56,7 @@ const test = base.extend<{ views: (name: string) => Promise<Page> }>({
 });
 async function demo(page: Page) {
   await page.goto("/play/undercover");
+  await openUndercoverOptions(page);
   await page
     .getByLabel("Mot des civils", { exact: true })
     .fill("Mot civil de test");
@@ -406,7 +412,7 @@ test("real invitees join without accounts, see a server refusal for insufficient
         });
         await expect(
           page.getByRole("heading", {
-            name: "Invitez vos joueurs",
+            name: "Votre salon",
             exact: true,
           }),
         ).toBeVisible();

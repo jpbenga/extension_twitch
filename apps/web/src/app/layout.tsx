@@ -5,6 +5,8 @@ import "./sessions.css";
 import "./creator.css";
 import "./design-system.css";
 import "./broadcast.css";
+import "./experience.css";
+import { ApplicationTheme } from "../components/application-theme";
 import { LegacyToolsContext } from "../components/legacy-tools";
 import { FeedbackProvider } from "../components/ui/feedback";
 
@@ -28,7 +30,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="fr" data-scroll-behavior="smooth">
+    <html lang="fr" data-scroll-behavior="smooth" data-theme="broadcast-studio">
       <body>
         <LegacyToolsContext
           value={
@@ -36,7 +38,9 @@ export default function RootLayout({
             process.env.LEGACY_STUDIO_ENABLED === "1"
           }
         >
-          <FeedbackProvider>{children}</FeedbackProvider>
+          <FeedbackProvider>
+            <ApplicationTheme>{children}</ApplicationTheme>
+          </FeedbackProvider>
         </LegacyToolsContext>
       </body>
     </html>

@@ -334,3 +334,15 @@ pour construire un rendu public. Les positions visuelles ne modifient pas les r�
 ou l’ordre de parole. Ne pas inventer de nouvelles variantes de règles définitives.
 Le testeur a confirmé un premier workflow complet avec OBS ; conserver cette
 validation humaine du parcours observé, sans la généraliser aux nouveaux layouts.
+
+## 22. Jalon 8 — expériences et thèmes
+
+Lire docs/UX-REDESIGN-DECISIONS.md et docs/TEST-UX-THEMES.md. Six présentations pour
+les tâches réelles, sans six moteurs : préserver les routes, capacités, SQLite/SSE,
+reçus, commandes et layouts Undercover. Le laboratoire reste distinct des vues normales.
+Thèmes officiels dans tokens.css : Broadcast Studio, Neon Show, On Air Premium.
+Préférence privée du navigateur et thème public figé de la session sont deux portées
+indépendantes. Ne jamais dériver la couleur d’OBS du stockage local du spectateur/GM.
+Pas de nouvelle règle ou variante pour remplir un wireframe ; les wireframes guident
+la hiérarchie, pas une reproduction littérale. La nouvelle UX attend un nouvel essai
+humain, sans remettre en cause le workflow OBS précédent déjà validé.

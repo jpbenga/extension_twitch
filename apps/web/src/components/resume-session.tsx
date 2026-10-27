@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import {
   gmSessionSchema,
   sessionIdSchema,
@@ -9,7 +9,13 @@ import { readLab } from "../lib/creator-lab";
 import { accessKey } from "../lib/session-client";
 export const recentSessionKey = "xt:recent-gm-session";
 /** This tab remembers a reference only; authorization is always checked by the server. */
-export function ResumeSession() {
+export function ResumeSession({
+  showCatalogLink = true,
+  children,
+}: {
+  showCatalogLink?: boolean;
+  children?: (hasRecent: boolean) => ReactNode;
+}) {
   const [recent, setRecent] = useState<{
     id: string;
     title: string;
@@ -45,7 +51,7 @@ export function ResumeSession() {
   return (
     <>
       {recent && (
-        <section className="lobby-panel">
+        <section className="lobby-panel resume-card">
           <span className="eyebrow">PARTIE EN COURS DANS CET ONGLET</span>
           <h2>{recent.title}</h2>
           <Link
@@ -60,12 +66,15 @@ export function ResumeSession() {
           </Link>
         </section>
       )}
-      <Link
-        className={recent ? "secondary-button" : "primary-button"}
-        href="/play"
-      >
-        Choisir un jeu
-      </Link>
+      {showCatalogLink && (
+        <Link
+          className={recent ? "secondary-button" : "primary-button"}
+          href="/play"
+        >
+          Choisir un jeu
+        </Link>
+      )}
+      {children?.(recent !== null)}
     </>
   );
 }

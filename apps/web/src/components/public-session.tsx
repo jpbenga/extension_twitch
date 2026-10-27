@@ -1,3 +1,4 @@
+import { historicalBroadcastTheme } from "@extension-twitch/contracts/themes";
 import type { SessionView } from "@extension-twitch/contracts/sessions";
 import { PlaySummary } from "./play-panel";
 import { GameValues } from "./game-values";
@@ -16,6 +17,7 @@ export function PublicSession({
   return (
     <section
       className={`real-stage ${game.theme} ${view.publicGame ? "has-game" : ""}`}
+      data-theme={view.broadcastTheme ?? historicalBroadcastTheme}
       aria-label="Plateau public synchronisé"
     >
       <div className="real-stage-header">

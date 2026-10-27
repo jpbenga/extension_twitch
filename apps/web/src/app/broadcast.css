@@ -508,3 +508,19 @@ body:has(.obs-output) {
   border-bottom: 2px solid currentColor;
   margin: auto;
 }
+.broadcast-speaker {
+  display: block;
+  color: var(--color-text-primary);
+  font-size: 1.7cqw;
+  font-weight: bold;
+  margin-bottom: 0.25cqw;
+}
+.broadcast-phase p {
+  font-size: 1.05cqw;
+}
+.broadcast-overlay[data-phase="vote"] .broadcast-phase {
+  border-left-color: var(--color-vote);
+}
+.broadcast-vote strong {
+  color: var(--color-vote);
+}

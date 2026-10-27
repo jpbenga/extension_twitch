@@ -16,11 +16,17 @@ for (let i = 0; i < args.length; i++) {
   else if (arg.startsWith("--project=")) requested.push(arg.slice(10));
   else forwarded.push(arg);
 }
-const projects = requested.length ? requested : ["desktop", "tablet", "mobile"];
+const projects = requested.length
+  ? requested
+  : forwarded.some((a) => a.includes("playwright.ux.config"))
+    ? ["desktop", "tablet", "mobile", "small"]
+    : ["desktop", "tablet", "mobile"];
 if (
-  projects.some((project) => !["desktop", "tablet", "mobile"].includes(project))
+  projects.some(
+    (project) => !["desktop", "tablet", "mobile", "small"].includes(project),
+  )
 ) {
-  console.error("Projet attendu : desktop, tablet ou mobile.");
+  console.error("Projet attendu : desktop, tablet, mobile ou small.");
   process.exit(1);
 }
 let active;
@@ -39,7 +45,7 @@ for (const project of projects) {
         cli,
         "test",
         `--project=${project}`,
-        `--output=test-results/${forwarded.some((a) => a.includes("playwright.layout.config")) ? "layout" : forwarded.some((a) => a.includes("playwright.games.config")) ? "games" : forwarded.some((a) => a.includes("playwright.design.config")) ? "design" : forwarded.some((a) => a.includes("playwright.legacy.config")) ? "legacy" : forwarded.some((a) => a.includes("playwright.stream.config")) ? "stream" : "e2e"}/${project}`,
+        `--output=test-results/${forwarded.some((a) => a.includes("playwright.ux.config")) ? "ux" : forwarded.some((a) => a.includes("playwright.layout.config")) ? "layout" : forwarded.some((a) => a.includes("playwright.games.config")) ? "games" : forwarded.some((a) => a.includes("playwright.design.config")) ? "design" : forwarded.some((a) => a.includes("playwright.legacy.config")) ? "legacy" : forwarded.some((a) => a.includes("playwright.stream.config")) ? "stream" : "e2e"}/${project}`,
         ...forwarded,
       ],
       { stdio: "inherit" },

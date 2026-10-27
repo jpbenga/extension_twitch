@@ -236,3 +236,14 @@ conservés, aucune nouvelle table ni migration des définitions/règles. Le mêm
 BroadcastOverlay reçoit le layout public enregistré ou la copie locale de l’éditeur.
 Sept blocs obligatoires et places joueurs indépendantes des camps, aucune source
 privée/CSS/script utilisateur. Le guide de test conserve le workflow OBS validé.
+
+## Jalon 8 — séparation de présentation et thème d’émission
+
+[Décisions UX](UX-REDESIGN-DECISIONS.md). UndercoverRoom sépare salon/régie/compagnon,
+avec les mêmes hooks de commande et composants de gameplay. Le laboratoire conserve
+une projection privée à la fois et un flux public indépendant. Aucun nouveau moteur.
+`broadcastTheme?` est un enum officiel validé dans la création, conservé dans le blob
+SQLite et explicitement projeté au public. Le défaut historique est déterministe ;
+aucun endpoint de préférence locale ne modifie une partie active. La préférence
+ApplicationTheme est locale au navigateur. Le renderer scope ses tokens selon le
+thème serveur, y compris dans l’éditeur de layout. Aucune migration SQL destructrice.

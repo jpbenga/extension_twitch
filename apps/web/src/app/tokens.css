@@ -1,4 +1,4 @@
-/* Broadcast Neon: the only application palette. Semantic roles stay stable. */
+/* Shared foundations. Official themes override semantic colours without changing behaviour. */
 :root {
   color-scheme: dark;
   --color-background: #101017;
@@ -62,4 +62,95 @@
   --mint: var(--color-success);
   --amber: var(--color-warning);
   --lime: var(--color-success);
+}
+
+[data-theme="broadcast-studio"] {
+  --color-background: #131d27;
+  --color-surface: #1b2834;
+  --color-surface-secondary: #243442;
+  --color-surface-raised: #2d3e4c;
+  --color-input: #101b25;
+  --color-text-primary: #f4fbff;
+  --color-text-secondary: #cad6e0;
+  --color-text-muted: #b3c3cf;
+  --color-on-accent: #0b1620;
+  --color-action-primary: #20c9b4;
+  --color-success: #62dcc1;
+  --color-warning: #f5b65d;
+  --color-danger: #ff91b0;
+  --color-info: #74a8ff;
+  --color-border: #4b6172;
+  --color-border-control: #98afc2;
+  --color-primary-subtle: #14352f;
+  --color-success-subtle: #17362e;
+  --color-warning-subtle: #392f20;
+  --color-danger-subtle: #3a2330;
+  --color-info-subtle: #192c48;
+}
+
+[data-theme="neon-show"] {
+  --color-background: #17151e;
+  --color-surface: #211e2a;
+  --color-surface-secondary: #2a2535;
+  --color-surface-raised: #342d40;
+  --color-input: #17131e;
+  --color-text-primary: #fbf8ff;
+  --color-text-secondary: #ccc2dc;
+  --color-text-muted: #b9aecb;
+  --color-on-accent: #121018;
+  --color-action-primary: #bb9bff;
+  --color-success: #52ddc7;
+  --color-warning: #f3c76c;
+  --color-danger: #f179a4;
+  --color-info: #90b5ff;
+  --color-border: #554a65;
+  --color-border-control: #a696ba;
+  --color-primary-subtle: #312442;
+  --color-success-subtle: #17342e;
+  --color-warning-subtle: #382e1e;
+  --color-danger-subtle: #3c2232;
+  --color-info-subtle: #202b43;
+}
+
+[data-theme="on-air-premium"] {
+  --color-background: #191d24;
+  --color-surface: #222831;
+  --color-surface-secondary: #2c333f;
+  --color-surface-raised: #353d49;
+  --color-input: #141a21;
+  --color-text-primary: #fffaf2;
+  --color-text-secondary: #d0d6df;
+  --color-text-muted: #bac4d1;
+  --color-on-accent: #171b20;
+  --color-action-primary: #e6b96b;
+  --color-success: #62c7b5;
+  --color-warning: #f5c575;
+  --color-danger: #ff9bb7;
+  --color-info: #a8b6c9;
+  --color-border: #536170;
+  --color-border-control: #a4b2c3;
+  --color-primary-subtle: #3b3021;
+  --color-success-subtle: #1c332f;
+  --color-warning-subtle: #3b3021;
+  --color-danger-subtle: #3c2932;
+  --color-info-subtle: #252f3d;
+}
+
+[data-theme] {
+  color: var(--color-text-primary);
+  --color-vote: var(--color-danger);
+  --color-focus: var(--color-action-primary);
+  --bg: var(--color-background);
+  --panel: var(--color-surface);
+  --border: var(--color-border);
+  --text: var(--color-text-primary);
+  --muted: var(--color-text-secondary);
+  --violet: var(--color-action-primary);
+  --mint: var(--color-success);
+  --amber: var(--color-warning);
+  --lime: var(--color-success);
+  --shadow-panel: 0 12px 36px
+    color-mix(in srgb, var(--color-background) 45%, transparent);
+  --shadow-dialog: 0 24px 100px
+    color-mix(in srgb, var(--color-background) 80%, transparent);
 }

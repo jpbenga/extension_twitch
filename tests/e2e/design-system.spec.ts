@@ -50,7 +50,9 @@ test("the operational room navigates by mobile sections and uses cancel-safe, fo
   });
   await expect(main).toBeVisible();
   await expect(
-    page.locator(".session-room .primary-button:visible"),
+    page.locator(
+      ".experience-shell[data-experience=gm] .primary-button:visible",
+    ),
   ).toHaveCount(1);
   const bounds = await main.boundingBox();
   expect(bounds!.height).toBeGreaterThanOrEqual(44);
@@ -143,9 +145,15 @@ test("a destructive reset retains its dialog on a rejected command and only revo
   });
   await reset.click();
   const dialog = page.getByRole("dialog");
+  const danger = await page.evaluate(() =>
+    getComputedStyle(document.documentElement)
+      .getPropertyValue("--color-danger")
+      .trim(),
+  );
+  const rgb = `rgb(${[1, 3, 5].map((i) => parseInt(danger.slice(i, i + 2), 16)).join(", ")})`;
   await expect(
     dialog.getByRole("button", { name: "Réinitialiser le salon", exact: true }),
-  ).toHaveCSS("background-color", "rgb(241, 121, 164)");
+  ).toHaveCSS("background-color", rgb);
   await dialog.getByRole("button", { name: "Annuler", exact: true }).click();
   await expect(page.locator(".lobby-players li")).toHaveCount(4);
   await page.route("**/api/server/sessions/*/commands", (route) =>
@@ -229,7 +237,7 @@ test("Jouer stays legible on a small phone and private access copying has a real
   await page
     .getByRole("link", { name: "Jouer à Undercover", exact: true })
     .click();
-  const fields = page.locator("input, select");
+  const fields = page.locator("input:visible, select:visible");
   for (const field of await fields.all())
     expect(
       parseFloat(await field.evaluate((e) => getComputedStyle(e).fontSize)),

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ThemeControl } from "./application-theme";
 export function ProductFrame({
   children,
   catalogLink = true,
@@ -15,11 +16,14 @@ export function ProductFrame({
             Extension Twitch<small>JEUX EN DIRECT</small>
           </span>
         </Link>
-        {catalogLink && (
-          <Link className="text-link" href="/play">
-            Choisir un jeu
-          </Link>
-        )}
+        <div className="product-header-tools">
+          <ThemeControl />
+          {catalogLink && (
+            <Link className="text-link" href="/play">
+              Choisir un jeu
+            </Link>
+          )}
+        </div>
       </header>
       {children}
     </main>

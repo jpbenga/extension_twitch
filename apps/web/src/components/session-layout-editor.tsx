@@ -2,6 +2,10 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
+  officialThemes,
+  historicalBroadcastTheme,
+} from "@extension-twitch/contracts/themes";
+import {
   undercoverLayoutSchema,
   createUndercoverLayout,
   type UndercoverLayout,
@@ -97,6 +101,18 @@ export function SessionLayoutEditor({ id }: { id: string }) {
         <div>
           <span className="eyebrow">UNDERCOVER · RENDU SPECTATEUR</span>
           <h1>Votre overlay</h1>
+          <p className="lobby-hint">
+            Thème de l’émission :{" "}
+            {
+              officialThemes.find(
+                (t) =>
+                  t.id ===
+                  (gm.view?.broadcastTheme ?? historicalBroadcastTheme),
+              )?.name
+            }
+            . Conservé pour cette partie ; choisissez un autre thème lors d’une
+            nouvelle préparation.
+          </p>
           <p role="status">
             {!draft
               ? "Ouverture de la disposition…"

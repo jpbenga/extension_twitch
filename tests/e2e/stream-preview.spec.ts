@@ -1,4 +1,9 @@
 import {
+  openUndercoverOptions,
+  openLabAccess,
+  openBroadcastHelp,
+} from "./undercover-helpers.js";
+import {
   test as base,
   expect,
   type Page,
@@ -38,6 +43,7 @@ async function demo(page: Page, count = 3, long = false) {
   await page
     .getByLabel("Joueurs de démonstration", { exact: true })
     .fill(String(count));
+  await openUndercoverOptions(page);
   await page
     .getByLabel("Mot des civils", { exact: true })
     .fill(long ? "C".repeat(80) : "SECRET CIVIL");
@@ -57,6 +63,7 @@ async function demo(page: Page, count = 3, long = false) {
   return page.url().split("/").pop()!;
 }
 async function gmLink(page: Page) {
+  await openLabAccess(page);
   return (await page
     .getByRole("link", {
       name: "Ouvrir la régie sur cet appareil",
@@ -331,6 +338,7 @@ test("spectator testing is honestly read-only, the comparison is public and the 
   const id = await demo(page, 12, true);
   const preview = await open(`/sessions/${id}/stream`);
   await synced(preview);
+  await openBroadcastHelp(preview);
   await expect(
     preview.getByLabel("Interface spectateur de test"),
   ).toContainText("Aucune action spectateur n’est autorisée");

@@ -1,6 +1,6 @@
 # Extension Twitch Studio — référence produit
 
-Version : 1.2 — décision stratégique définitive, jalon 6.
+Version : 1.3 — décision stratégique définitive, jalon 6.
 
 ## Positionnement
 
@@ -155,3 +155,23 @@ Un même rendu public alimente éditeur, aperçu et OBS. Sauvegarde par partie, 
 locaux de préparation dans l’onglet, aucune création de scène universelle ou média envoyé.
 Voir UNDERCOVER-LAYOUT.md et TEST-UNDERCOVER-OVERLAY.md. Les anciens paragraphes de
 report d’un éditeur concernent toujours un outil universel, pas ce périmètre ciblé.
+
+## Jalon 8 — six expériences et trois thèmes
+
+Les parcours sont organisés autour de l’accueil/catalogue, de la configuration,
+du salon, de la régie GM, du compagnon joueur et du plateau public/OBS. Le laboratoire
+est transversal : il ne distribue pas ses outils de test aux participants ordinaires.
+Aucune règle Undercover n’est modifiée pour obtenir cette séparation visuelle.
+
+Trois identités sont disponibles : Broadcast Studio (défaut d’application), Neon Show,
+On Air Premium. Préférence privée conservée dans le navigateur, sans compte ni promesse
+de synchronisation interappareils. Thème d’émission séparé, choisi à la préparation,
+figé pour la session et utilisé par l’aperçu/OBS/layout. Anciennes parties sans choix :
+Neon Show. Changer la régie ne recolore jamais accidentellement l’émission.
+
+Les réglages peu fréquents sont repliés ; les limites réelles et le résumé des règles
+restent lisibles. Le statut Prêt ne devient pas une obligation du moteur. Le compagnon
+ne présente plus les onglets GM ; le mot peut être masqué visuellement et le vote est
+prioritaire quand il est ouvert. Les fenêtres applicatives restent personnalisées.
+La nouvelle ergonomie et les palettes attendent la validation humaine, distincte du
+workflow de jeu/OBS déjà validé. Voir UX-REDESIGN-DECISIONS.md et TEST-UX-THEMES.md.

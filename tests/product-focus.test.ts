@@ -102,6 +102,66 @@ describe("closed official product API, preserving the legacy engine and data", (
       },
     });
   }
+  it("pins the public broadcast theme independently of layout edits and restores it through replay and restart", async () => {
+    const requestId = randomUUID(),
+      payload = { requestId, settings: {}, broadcastTheme: "on-air-premium" };
+    const created = await post("/official-games/undercover/sessions", payload);
+    expect(created.status).toBe(201);
+    const { sessionId: id } = sessionAccessSchema.parse(await created.json());
+    expect((await gm(id)).broadcastTheme).toBe("on-air-premium");
+    expect(
+      (
+        await post("/official-games/undercover/sessions", {
+          ...payload,
+          broadcastTheme: "neon-show",
+        })
+      ).status,
+    ).toBe(409);
+    await joinPlayers(id);
+    await install(id);
+    let view = await gm(id);
+    expect(
+      (
+        await post(`/sessions/${id}/commands`, {
+          commandId: randomUUID(),
+          expectedVersion: view.version,
+          command: {
+            type: "overlay.configure",
+            layout: createUndercoverLayout(),
+          },
+        })
+      ).status,
+    ).toBe(200);
+    view = await gm(id);
+    expect(
+      (
+        await post(`/sessions/${id}/commands`, {
+          commandId: randomUUID(),
+          expectedVersion: view.version,
+          command: { type: "game.restart", runId: view.game!.runId },
+        })
+      ).status,
+    ).toBe(200);
+    await stop();
+    await start();
+    const publicView = publicSessionSchema.parse(
+      await (await fetch(`${origin}/sessions/${id}/public`)).json(),
+    );
+    expect(publicView.broadcastTheme).toBe("on-air-premium");
+    expect(JSON.stringify(publicView)).not.toMatch(
+      /Phare|Fusée|invitationCode|preparedGame/,
+    );
+    for (const broadcastTheme of ["custom", { css: "background:red" }])
+      expect(
+        (
+          await post("/official-games/undercover/sessions", {
+            requestId: randomUUID(),
+            settings: {},
+            broadcastTheme,
+          })
+        ).status,
+      ).toBe(400);
+  });
   it("persists a layout seed and GM updates with normal receipts, SSE projections and conflict protection", async () => {
     const layout = createUndercoverLayout("bottom");
     const requestId = randomUUID();
@@ -317,6 +377,10 @@ describe("closed official product API, preserving the legacy engine and data", (
   });
   it("requires GM authorization and validates the real roster on installation", async () => {
     const { sessionId: id } = await prepare({ "undercover-count": 2 });
+    expect((await gm(id)).preparedGame).toMatchObject({
+      minimumPlayers: 5,
+      maximumPlayers: 12,
+    });
     await joinPlayers(id);
     expect((await install(id)).status).toBe(400);
     expect(

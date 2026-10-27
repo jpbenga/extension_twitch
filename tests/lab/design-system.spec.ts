@@ -23,7 +23,15 @@ test("custom dialogs trap focus, cancel without effects, block the background an
   await expect(cancel).toBeFocused();
   await page.keyboard.press("Tab");
   await expect(accept).toBeFocused();
-  await expect(accept).toHaveCSS("outline-color", "rgb(179, 150, 255)");
+  const focus = await accept.evaluate((e) =>
+    getComputedStyle(e).getPropertyValue("--color-focus").trim(),
+  );
+  await expect(accept).toHaveCSS(
+    "outline-color",
+    `rgb(${[1, 3, 5].map((i) => parseInt(focus.slice(i, i + 2), 16)).join(", ")})`,
+  );
+  await expect(accept).toHaveCSS("outline-width", "3px");
+  await expect(accept).toHaveCSS("outline-style", "solid");
   await page.keyboard.press("Shift+Tab");
   await expect(cancel).toBeFocused();
   await page
@@ -118,21 +126,25 @@ test("semantic variants, keyboard navigation, reduced motion and short mobile di
   const issues: string[] = [];
   page.on("pageerror", (e) => issues.push(e.message));
   await page.goto("/design-system");
-  await expect(
-    page.getByRole("button", { name: "primary", exact: true }),
-  ).toHaveCSS("background-color", "rgb(179, 150, 255)");
-  await expect(
-    page.getByRole("button", { name: "success", exact: true }),
-  ).toHaveCSS("background-color", "rgb(56, 220, 200)");
-  await expect(
-    page.getByRole("button", { name: "warning", exact: true }),
-  ).toHaveCSS("background-color", "rgb(244, 184, 93)");
-  await expect(
-    page.getByRole("button", { name: "danger", exact: true }),
-  ).toHaveCSS("background-color", "rgb(241, 121, 164)");
-  await expect(
-    page.getByRole("button", { name: "info", exact: true }),
-  ).toHaveCSS("background-color", "rgb(108, 155, 255)");
+  for (const [name, token] of [
+    ["primary", "action-primary"],
+    ["success", "success"],
+    ["warning", "warning"],
+    ["danger", "danger"],
+    ["info", "info"],
+  ]) {
+    const color = await page.evaluate(
+      (token) =>
+        getComputedStyle(document.documentElement)
+          .getPropertyValue(`--color-${token}`)
+          .trim(),
+      token!,
+    );
+    const rgb = `rgb(${[1, 3, 5].map((i) => parseInt(color.slice(i, i + 2), 16)).join(", ")})`;
+    await expect(
+      page.getByRole("button", { name: name!, exact: true }),
+    ).toHaveCSS("background-color", rgb);
+  }
   const gm = page
     .getByRole("navigation", { name: "Exemple de navigation" })
     .getByRole("button", { name: "Game Master", exact: true });

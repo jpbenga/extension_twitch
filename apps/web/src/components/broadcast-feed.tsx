@@ -1,4 +1,5 @@
 "use client";
+import { historicalBroadcastTheme } from "@extension-twitch/contracts/themes";
 import { useEffect, useRef, useState } from "react";
 import { useSession } from "../lib/use-session";
 import {
@@ -45,6 +46,7 @@ export function BroadcastFeed({
     <div
       className={`broadcast-frame ${scene ? "with-scene" : ""}`}
       data-testid="broadcast-frame"
+      data-theme={view?.broadcastTheme ?? historicalBroadcastTheme}
     >
       {scene && (
         <div className="broadcast-demo-scene" aria-hidden="true">
