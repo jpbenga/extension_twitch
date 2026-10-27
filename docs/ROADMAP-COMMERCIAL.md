@@ -19,6 +19,15 @@ proposés, à confirmer avant engagement commercial ; ils ne sont pas des mesure
   trois joueurs et spectateur isolés finissent une partie, rejouent et se reconnectent.
   L’appréciation humaine sur iPhone reste une porte distincte.
 
+### Addendum prioritaire — aperçu de diffusion dès le recentrage
+
+- **I** Le laboratoire donne accès à un aperçu 16:9 synchronisé et une source OBS
+  transparente partageant le même rendu public. Pas d’attente d’un éditeur d’overlays.
+  Acceptation technique : partie Undercover complète GM/joueurs/public, animations
+  réelles, ouverture tardive et reconnexion sans rejouer les événements, aucun secret.
+  Voir STREAM-PREVIEW.md. Le contrôle physique OBS/iPhone reste une porte humaine
+  distincte ; l’implémentation navigateur n’est pas une validation de diffusion réelle.
+
 ## Phase 2 — Catalogue réellement jouable
 
 - **I** Undercover stabilisé : règles validées avec pilotes, 2 tours par défaut, limites

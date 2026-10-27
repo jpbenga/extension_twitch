@@ -42,6 +42,7 @@ export function useSession(id: string, audience: SessionAudience) {
   const [token, setToken] = useState<string | null | undefined>(undefined);
   const [accessRevision, setAccessRevision] = useState(0);
   const [view, setView] = useState<SessionView | null>(null);
+  const [streamEpoch, setStreamEpoch] = useState(0);
   const [connection, setConnection] = useState<Connection>("loading");
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
@@ -53,6 +54,7 @@ export function useSession(id: string, audience: SessionAudience) {
   const accept = (input: unknown) => {
     const next = sessionViewSchema.parse(input);
     if (
+      next.sessionId !== id ||
       (audience === "public" && next.audience !== "public") ||
       (audience === "gm" && next.audience !== "gm") ||
       (audience.startsWith("player:") &&
@@ -147,6 +149,7 @@ export function useSession(id: string, audience: SessionAudience) {
           if (!reader) throw new Error("Stream unavailable");
           const decoder = new TextDecoder();
           let buffer = "";
+          let initialSnapshot = true;
           while (!lifecycle.signal.aborted) {
             watchdog = setTimeout(() => current?.abort(), 25_000);
             const chunk = await reader.read();
@@ -163,6 +166,10 @@ export function useSession(id: string, audience: SessionAudience) {
               );
               if (event.type === "access.revoked")
                 throw new RequestFailure("ACCESS_REVOKED", 403);
+              if (initialSnapshot) {
+                setStreamEpoch((epoch) => epoch + 1);
+                initialSnapshot = false;
+              }
               accept(event.view);
               setConnection("connected");
               delay = 500;
@@ -255,5 +262,15 @@ export function useSession(id: string, audience: SessionAudience) {
     }
   }
 
-  return { view, token, connection, error, notice, busy, retryAvailable, send };
+  return {
+    view,
+    token,
+    connection,
+    streamEpoch,
+    error,
+    notice,
+    busy,
+    retryAvailable,
+    send,
+  };
 }

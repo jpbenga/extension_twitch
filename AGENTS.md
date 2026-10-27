@@ -310,3 +310,14 @@ refontes. Nouveau parcours, Safari iOS, gameplay multi-appareils et OBS physique
 restent à valider humainement. Chromium ne prouve pas cette validation.
 Ne pas ajouter de fournisseur payant, facturation réelle, auth simulée, site marketing
 complet ou éditeur d’overlays sans demande spécifique.
+
+## 20. Aperçu d’émission et OBS
+
+Lire docs/STREAM-PREVIEW.md et docs/TEST-STREAM-PREVIEW.md. L’aperçu fictif, le
+comparatif du laboratoire et la source OBS partagent BroadcastOverlay et des flux
+publics indépendants. Aucun filtrage d’un état GM pour fabriquer un plateau. Ne pas
+rejouer les anciens effets après reconnexion ou ouverture tardive ; conserver l’état
+durable autoritaire. Les spectateurs restent en lecture seule tant qu’une nouvelle
+permission moteur n’est pas explicitement implémentée. Ne pas simuler une intégration
+Twitch, des enchères ou des jeux absents. Pas de nouvel éditeur de scènes. Distinguer
+tests navigateur, véritable OBS, iPhone physique et validation humaine.

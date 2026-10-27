@@ -29,5 +29,6 @@ jobs:
       - run: npm run test:e2e
       - run: npm run test:games
       - run: npm run test:design
+      - run: npm run test:stream
       - run: npm run test:legacy
       - run: npm run test:lab

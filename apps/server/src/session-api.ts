@@ -15,6 +15,7 @@ import {
   officialGames,
   officialSessionSchema,
 } from "@extension-twitch/contracts/official-games";
+import { readOnlySpectators } from "@extension-twitch/contracts/spectators";
 import { prepareOfficialSession } from "./official-games.js";
 import { hashValue, type SessionService } from "./session-service.js";
 
@@ -93,6 +94,18 @@ export class SessionApi {
           ),
           201,
         );
+        return;
+      }
+      const spectator = /^\/sessions\/([^/]+)\/spectator-interactions$/.exec(
+        path,
+      );
+      if (
+        method === "GET" &&
+        spectator &&
+        sessionIdSchema.safeParse(spectator[1]).success
+      ) {
+        this.service.view(spectator[1]!, null); // Same public availability check as the board.
+        json(response, readOnlySpectators);
         return;
       }
       const session =

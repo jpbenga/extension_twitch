@@ -32,7 +32,8 @@
     "test:lab": "playwright test --config playwright.lab.config.ts",
     "test:games": "node scripts/test-e2e.mjs --config=playwright.games.config.ts",
     "test:design": "node scripts/test-e2e.mjs --config=playwright.design.config.ts",
-    "test:legacy": "node scripts/test-e2e.mjs --config=playwright.legacy.config.ts"
+    "test:legacy": "node scripts/test-e2e.mjs --config=playwright.legacy.config.ts",
+    "test:stream": "node scripts/test-e2e.mjs --config=playwright.stream.config.ts"
   },
   "devDependencies": {
     "@playwright/test": "1.64.1",

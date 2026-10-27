@@ -18,6 +18,8 @@ import { useSession, type SessionAudience } from "../lib/use-session";
 import { GamePanel } from "./game-panel";
 import { PublicSession } from "./public-session";
 import { requestMessage } from "../lib/session-client";
+import { SpectatorTest } from "./spectator-test";
+import { BroadcastFeed } from "./broadcast-feed";
 import { CopyLink } from "./copy-link";
 export function CreatorLaboratory({
   id,
@@ -149,6 +151,22 @@ export function CreatorLaboratory({
               buttonLabel="Copier le lien privé GM pour mon iPhone"
             />
             <div className="lab-access-links">
+              <a
+                className="secondary-button"
+                href={`/sessions/${id}/stream`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Aperçu de l’émission ↗
+              </a>
+              <a
+                className="text-link"
+                href={`/sessions/${id}/obs`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Source OBS transparente ↗
+              </a>
               <a
                 className="text-link"
                 href={`/sessions/${id}/gm#access=${lab.token}`}
@@ -457,7 +475,10 @@ function LabView({
       )}
       {view &&
         (audience === "public" ? (
-          <PublicSession view={view} standalone />
+          <>
+            <PublicSession view={view} standalone />
+            <SpectatorTest id={id} />
+          </>
         ) : (
           <>
             {view.audience === "gm" && !view.game ? (
@@ -498,20 +519,11 @@ function LabView({
 
 /** Independent public fetch/stream: never derive an observer view from private state. */
 function PublicMirror({ id }: { id: string }) {
-  const session = useSession(id, "public");
   return (
     <aside className="lab-public-mirror" aria-label="Plateau public comparatif">
-      <h2>Plateau spectateur</h2>
-      <p className="lobby-hint">
-        Informations publiques uniquement ·{" "}
-        {session.connection === "connected" ? "Synchronisé" : "Connexion…"}
-      </p>
-      {session.error && (
-        <p className="lobby-error" role="alert">
-          {session.error}
-        </p>
-      )}
-      {session.view && <PublicSession view={session.view} />}
+      <h2>Aperçu de l’émission</h2>
+      <p className="lobby-hint">Scène fictive · données publiques uniquement</p>
+      <BroadcastFeed id={id} scene />
     </aside>
   );
 }

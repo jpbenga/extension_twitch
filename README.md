@@ -47,6 +47,8 @@ le port du serveur de développement vers Internet.
 | `/sessions/<id>/gm`                     | Régie, avec lien privé GM requis                                              |
 | `/join`, `/join/<code>`                 | Invitation sans compte                                                        |
 | `/sessions/<id>/player/<participantId>` | Vue privée individuelle                                                       |
+| `/sessions/<id>/stream`                 | Aperçu d’émission : scène fictive et véritable overlay                        |
+| `/sessions/<id>/obs`                    | Source navigateur OBS transparente, même rendu public                         |
 | `/sessions/<id>/public`                 | Plateau public synchronisé, navigateur ou source OBS 1920×1080                |
 
 L’accueil ne promet pas un historique de compte. La reprise et les réglages locaux
@@ -83,6 +85,7 @@ Next dev et build/start sur le même dossier `.next`.
 npm run check          # format, tests métier/API/persistance, TypeScript strict, compilation
 npm run test:e2e       # produit, sessions réelles et maquettes historiques, trois formats
 npm run test:games     # parties Undercover complètes, identités isolées et rejeu
+npm run test:stream    # aperçu/OBS partagés, partie complète, transparence et reconnexion
 npm run test:design    # confirmations, focus/clavier, erreurs, responsive et copie privée
 npm run test:legacy    # ancien Studio : compatibilité locale explicitement activée
 npm run test:lab       # anciens outils de développement et dialogues asynchrones
@@ -133,3 +136,13 @@ les refontes. Ce nouveau parcours reste à valider par l’utilisateur : tests t
 Chromium, iPhone physique/Safari, plaisir de jeu et OBS réel sont des validations distinctes.
 Le jalon 6 prépare un produit commercialisable ; il ne constitue pas une autorisation
 d’ouverture publique ou de facturation. Aucun fournisseur payant ajouté.
+
+## Aperçu de l’émission et OBS
+
+Depuis le laboratoire, ouvrez **Aperçu de l’émission** ou activez le comparatif sur
+ordinateur. Le cadre fictif utilise les données publiques réelles et le même composant
+que **Source OBS transparente**, en 1920×1080. Aucun flux Twitch ni paiement nécessaire.
+Les spectateurs restent en lecture seule : aucune interaction native Twitch n’est livrée.
+[Guide iPhone + PC + OBS](docs/TEST-STREAM-PREVIEW.md) ·
+[Architecture et bilan](docs/STREAM-PREVIEW.md). OBS physique et Safari iOS restent
+à valider par l’utilisateur ; les ouvertures tardives ne rejouent pas les effets passés.

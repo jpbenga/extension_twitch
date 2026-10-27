@@ -23,6 +23,10 @@
     "./official-games": {
       "types": "./dist/official-games.d.ts",
       "import": "./dist/official-games.js"
+    },
+    "./spectators": {
+      "types": "./dist/spectators.d.ts",
+      "import": "./dist/spectators.js"
     }
   },
   "scripts": {

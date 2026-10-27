@@ -1,6 +1,6 @@
 # Extension Twitch Studio — référence produit
 
-Version : 1.0 — décision stratégique définitive, jalon 6.
+Version : 1.1 — décision stratégique définitive, jalon 6.
 
 ## Positionnement
 
@@ -125,3 +125,15 @@ Première exploration humaine iPhone du Studio et d’Undercover effectuée ; el
 la simplification et les deux tours d’indices. Cette livraison, les parties multi-appareils,
 le rythme de jeu, Safari iOS physique et OBS réel restent à valider. Les tests automatisés
 ne constituent pas une validation humaine. Guide actuel : TEST-PRODUCT-FOCUS.md.
+
+## Addendum prioritaire — prévisualisation d’émission
+
+Le laboratoire doit rendre visibles les effets des véritables commandes sur un
+plateau 16:9. L’aperçu ajoute une scène fictive au même overlay transparent que la
+source navigateur OBS, alimenté exclusivement par les projections publiques serveur.
+Aucun flux Twitch ni éditeur d’overlays complet requis. Les animations éphémères ne
+sont pas rejouées à l’ouverture tardive ou à la reconnexion. Le test seul iPhone GM +
+ordinateur multijoueur/public est prioritaire. Les interactions spectateur sont
+distinctes de l’affichage public : le moteur actuel reste en lecture seule pour ce
+rôle, sans commande fictive ni Bits opérationnel. Voir STREAM-PREVIEW.md et
+TEST-STREAM-PREVIEW.md. Enchères et Qui est l’espion restent non jouables.

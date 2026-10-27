@@ -217,3 +217,13 @@ ses tests restent conservés ; ce n’est pas une suppression de schémas ou de 
 La reprise d’accueil consulte une référence d’onglet et fait vérifier l’accès GM par
 le serveur ; elle ne liste pas les sessions d’autres personnes. Sans compte, elle
 ne promet pas de récupération interappareils. Voir TEST-PRODUCT-FOCUS.md.
+
+## Aperçu d’émission partagé
+
+Voir [STREAM-PREVIEW.md](STREAM-PREVIEW.md). `/sessions/:id/stream` et `/sessions/:id/obs`
+utilisent le même BroadcastFeed/BroadcastOverlay, de même que le comparatif du laboratoire.
+Ils ne chargent que le SSE public ; la scène fictive appartient au wrapper d’aperçu,
+pas au rendu de jeu. Le flux fournit une époque de connexion pour établir une base
+sans animer l’historique. Aucun changement de règles, de tables ou d’accès privés.
+Les capacités spectateur sont découvertes via un endpoint public versionné mais restent
+vides, conformément aux permissions du moteur actuel. Aucun dispatcher Twitch actif.
