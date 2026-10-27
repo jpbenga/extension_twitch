@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Accueil — Proposition 02 jeu vidéo affinée</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-fixed": "#e0e0ff",
+            "primary-fixed-dim": "#aed500",
+            "on-tertiary": "#131e8c",
+            "inverse-on-surface": "#2f2e43",
+            "surface": "#111124",
+            "surface-container-high": "#28283c",
+            "outline-variant": "#444934",
+            "on-secondary-fixed-variant": "#4f319c",
+            "background": "#111124",
+            "inverse-surface": "#e2e0fb",
+            "surface-container-lowest": "#0c0c1f",
+            "inverse-primary": "#526600",
+            "on-error": "#690005",
+            "on-tertiary-fixed-variant": "#2f3aa3",
+            "on-background": "#e2e0fb",
+            "primary-fixed": "#c8f323",
+            "on-surface": "#e2e0fb",
+            "secondary-container": "#4f319c",
+            "surface-variant": "#333347",
+            "outline": "#8f937a",
+            "on-primary-container": "#576c00",
+            "error-container": "#93000a",
+            "surface-container": "#1e1e31",
+            "on-secondary-container": "#bea8ff",
+            "tertiary": "#ffffff",
+            "on-primary-fixed": "#171e00",
+            "on-secondary": "#381385",
+            "secondary-fixed-dim": "#cebdff",
+            "on-primary": "#293500",
+            "tertiary-container": "#e0e0ff",
+            "on-tertiary-fixed": "#000767",
+            "surface-dim": "#111124",
+            "on-surface-variant": "#c5c9ad",
+            "on-secondary-fixed": "#21005e",
+            "surface-container-low": "#1a1a2d",
+            "surface-container-highest": "#333347",
+            "tertiary-fixed-dim": "#bdc2ff",
+            "secondary": "#cebdff",
+            "primary": "#ffffff",
+            "on-primary-fixed-variant": "#3d4d00",
+            "primary-container": "#c8f323",
+            "on-tertiary-container": "#4f5ac2",
+            "surface-bright": "#38374c",
+            "on-error-container": "#ffdad6",
+            "secondary-fixed": "#e8ddff",
+            "error": "#ffb4ab",
+            "surface-tint": "#aed500"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter": "1.5rem",
+            "margin-mobile": "1rem",
+            "space-lg": "1.5rem",
+            "space-md": "1rem",
+            "space-sm": "0.5rem",
+            "gutter-mobile": "0.75rem",
+            "space-xl": "2.5rem",
+            "margin": "3rem",
+            "space-xs": "0.25rem"
+          },
+          "fontFamily": {
+            "label-lg": ["Space Grotesk"],
+            "body-lg": ["DM Sans"],
+            "label-md": ["Space Grotesk"],
+            "body-sm": ["DM Sans"],
+            "display-hero-mobile": ["Space Grotesk"],
+            "headline-lg": ["Space Grotesk"],
+            "headline-lg-mobile": ["Space Grotesk"],
+            "body-md": ["DM Sans"],
+            "headline-md": ["Space Grotesk"],
+            "label-sm": ["Space Grotesk"],
+            "headline-sm": ["Space Grotesk"],
+            "display-hero": ["Space Grotesk"]
+          },
+          "fontSize": {
+            "label-lg": ["15px", { "lineHeight": "20px", "letterSpacing": "0.04em", "fontWeight": "700" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+            "body-sm": ["13px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+            "display-hero-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "body-md": ["15px", { "lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+            "headline-md": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "700" }],
+            "headline-sm": ["22px", { "lineHeight": "30px", "letterSpacing": "0em", "fontWeight": "600" }],
+            "display-hero": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    
+    /* Subtle inner-rim highlight tokens */
+    .rim-card {
+      box-shadow: inset 0 1px 0 rgba(206, 189, 255, 0.12), 0 12px 32px -8px rgba(0, 0, 0, 0.65);
+    }
+    .rim-card-interactive:hover {
+      box-shadow: inset 0 1px 0 rgba(206, 189, 255, 0.25), 0 0 28px -4px rgba(79, 49, 156, 0.35);
+    }
+    .btn-citron-glow {
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 0 20px rgba(200, 243, 35, 0.28);
+    }
+    .btn-citron-glow:hover {
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65), 0 0 28px rgba(200, 243, 35, 0.45);
+    }
+  </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface min-h-screen flex flex-col font-body-md text-body-md antialiased selection:bg-primary-container selection:text-on-primary-fixed overflow-x-hidden relative">
+<!-- Ambient Nocturne Glow Elements -->
+<div class="fixed top-[-10%] left-[20%] w-[650px] h-[450px] bg-secondary-container/20 rounded-full blur-[140px] pointer-events-none -z-10"></div>
+<div class="fixed bottom-[-5%] right-[10%] w-[550px] h-[380px] bg-secondary-container/15 rounded-full blur-[130px] pointer-events-none -z-10"></div>
+<!-- Shared Top Navigation Anchor -->
+<header class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 lg:px-12 py-3 bg-surface-container-lowest/80 backdrop-blur-md shadow-2xl">
+<div class="flex items-center gap-6">
+<a class="flex items-center gap-3 group focus:outline-none" href="#">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high border border-secondary/20 flex items-center justify-center text-primary-fixed group-hover:border-primary-fixed/50 transition-colors">
+<span class="material-symbols-outlined text-[18px]">sports_esports</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-on-surface tracking-wider font-bold">Extension Twitch</span>
+</a>
+<!-- Subdued game network status tag -->
+</div>
+<!-- Right Controls -->
+<div class="flex items-center gap-3">
+<!-- Tactile Apparence Action Pill -->
+<button class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-container-low border border-secondary/20 text-secondary hover:text-on-surface hover:bg-surface-container hover:border-secondary/40 active:scale-95 transition-all cursor-pointer" type="button">
+<span class="material-symbols-outlined text-[17px]">palette</span>
+<span class="font-label-md text-label-md">Apparence</span>
+</button>
+<!-- Settings / status quick trigger -->
+</div>
+</header>
+<!-- Main Viewport Canvas (Targeted for first-screen scannability ~900-980px) -->
+<main class="flex-1 w-full max-w-[1440px] mx-auto px-6 lg:px-12 pt-20 pb-6 flex flex-col justify-between">
+<!-- Hero Header / Intro Title -->
+<section class="mt-4 mb-5">
+<div class="flex items-center gap-3">
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight font-bold">
+          Votre prochaine partie commence ici.
+        </h1>
+</div>
+</section>
+<!-- Core Layout Grid: Dominant Undercover Hero (Col 7) + Quick Access Rail (Col 5) -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch mb-6">
+<!-- Dominant Focal Point: Undercover Cartridge/Panel (7 Columns) -->
+<div class="lg:col-span-7 bg-surface-container-low rounded-xl rim-card relative overflow-hidden border border-secondary/15 flex flex-col justify-between min-h-[420px] lg:min-h-[440px] group">
+<!-- Game Key Art Canvas Underlay & Vignette -->
+<div class="absolute inset-0 z-0"><img alt="Undercover key art illustrant une atmosphère de déduction sociale nocturne" class="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.02]" src="https://lh3.googleusercontent.com/aida/AEtjO1XhaPMrq9CmLht9JCFHkRPZipkkkjgJSGeTu72iUyTTzvdtQblnpqMxf3__2Dx07IAboxYtaWUzOPOGZF5IBFpMtrJkb6zKvI6Z5oCcfXtj9j5ui8woVbGjlnMy6703U60L4ANyZvSbdIj14nAbXQ3phj_yRgy5RBMAX8_6DTvLMJDcBh8weAfFcBmgnaBV5SL4NRWJRXds1J-Zg9WcW1xq6F3hjGBBnsZTdvFLuThC7MGPHEYdsStl4Jo"/><div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/80 to-transparent"></div><div class="absolute inset-0 bg-gradient-to-r from-surface-container-lowest/90 via-surface-container-lowest/40 to-transparent"></div></div>
+<!-- Upper Card Badges & Metadata -->
+<div class="relative z-10 p-6 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-1 rounded-full bg-surface-container-lowest/80 backdrop-blur-md border border-secondary/30 text-on-surface font-label-sm text-label-sm tracking-wide flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[13px] text-secondary">groups</span>
+              3–12 joueurs
+            </span>
+<span class="px-2.5 py-1 rounded-full bg-surface-container-lowest/80 backdrop-blur-md border border-secondary/30 text-secondary font-label-sm text-label-sm tracking-wide flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[13px] text-primary-fixed">broadcast_on_personal</span>
+              Compatible OBS
+            </span>
+</div>
+<span class="px-3 py-1 rounded-full bg-secondary-container/40 border border-secondary/40 text-secondary font-label-sm text-label-sm uppercase tracking-wider backdrop-blur-md">
+            En vedette
+          </span>
+</div>
+<!-- Lower Card Content, Premise & Tactile Game Master CTAs -->
+<div class="relative z-10 p-6 lg:p-8 pt-0">
+<div class="max-w-xl">
+<h2 class="font-display-hero text-[44px] leading-[48px] text-white font-bold tracking-tight mb-2 drop-shadow-md">
+              Undercover
+            </h2>
+<p class="font-body-lg text-body-lg text-secondary-fixed-dim/90 mb-6 font-medium leading-snug">
+              Des mots secrets, des indices et un intrus à démasquer.
+            </p>
+</div>
+<!-- CTAs Cluster -->
+<div class="flex flex-wrap items-center gap-4">
+<!-- Dominant Electric Citron Primary Button -->
+<button class="btn-citron-glow bg-primary-container text-on-primary-fixed hover:bg-primary-fixed px-6 py-3 rounded-lg font-label-lg text-label-lg font-bold flex items-center gap-2.5 transition-all duration-200 active:scale-95 cursor-pointer" type="button">
+<span>Préparer une partie</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+<!-- Quiet Secondary Link Action -->
+<button class="px-4 py-2.5 rounded-lg text-secondary hover:text-white hover:bg-surface-container/60 transition-all font-label-md text-label-md flex items-center gap-1.5 cursor-pointer" type="button">
+<span>Découvrir le jeu</span>
+<span class="material-symbols-outlined text-[16px]">info</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Quick Access Panels (5 Columns: Host Recovery + Guest Join) -->
+<div class="lg:col-span-5 flex flex-col gap-4 justify-between">
+<!-- Panel 1: Host Recovery -->
+<div class="bg-surface-container-low rounded-xl rim-card p-6 border border-secondary/15 relative overflow-hidden flex-1 flex flex-col justify-between group rim-card-interactive transition-all"><div class="flex flex-col justify-between h-full gap-4"><div><div class="flex items-center gap-2 mb-1.5"><span class="material-symbols-outlined text-secondary text-[20px]">admin_panel_settings</span><span class="font-label-sm text-label-sm text-secondary tracking-widest uppercase">Espace Animateur</span></div><h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Déjà une partie ?</h3></div><div><button class="w-full bg-surface-container-high hover:bg-surface-variant text-on-surface border border-secondary/25 hover:border-secondary/50 px-4 py-3 rounded-lg font-label-md text-label-md font-bold flex items-center justify-between transition-all active:scale-[0.98] cursor-pointer" type="button"><span>Retrouver ma partie</span><span class="material-symbols-outlined text-[18px] text-secondary">arrow_forward</span></button></div></div></div>
+<!-- Panel 2: Guest Join -->
+<div class="bg-surface-container-low rounded-xl rim-card p-6 border border-secondary/15 relative overflow-hidden flex-1 flex flex-col justify-between rim-card-interactive transition-all"><div class="flex flex-col justify-between h-full gap-4"><div><div class="flex items-center gap-2 mb-1.5"><span class="material-symbols-outlined text-primary-fixed text-[20px]">group_add</span><span class="font-label-sm text-label-sm text-primary-fixed tracking-widest uppercase">Accès Joueur</span></div><h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Vous êtes invité ?</h3></div><form class="flex items-center gap-2.5" onsubmit="event.preventDefault();"><div class="relative flex-1"><input autocomplete="off" class="w-full bg-surface-container-lowest text-on-surface placeholder:text-secondary-fixed-dim/70 border border-secondary/25 rounded-lg px-3.5 py-2.5 font-label-md text-label-md focus:border-secondary focus:ring-1 focus:ring-secondary focus:outline-none transition-colors" placeholder="Code d’invitation" spellcheck="false" type="text"/></div><button class="bg-surface-container-high hover:bg-secondary-container hover:text-white text-secondary-fixed border border-secondary/30 px-5 py-2.5 rounded-lg font-label-md text-label-md font-bold transition-all active:scale-95 cursor-pointer shrink-0" type="submit">Rejoindre</button></form></div></div>
+</div>
+</section>
+<!-- Future Games Row (Bientôt) -->
+<section class="mb-4">
+<div class="flex items-center gap-3 mb-3">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest font-bold">Bientôt</span>
+<div class="h-px flex-1 bg-surface-container-high"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div class="bg-surface-container-low/70 border border-secondary/15 rounded-lg p-3.5 flex items-center justify-between hover:border-secondary/30 transition-colors"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-md bg-surface-container flex items-center justify-center text-secondary"><span class="material-symbols-outlined text-[18px]">gavel</span></div><span class="font-label-md text-label-md text-on-surface font-semibold">Enchères</span></div><span class="px-2.5 py-0.5 rounded-full bg-surface-container-high border border-secondary/15 text-secondary-fixed-dim/70 font-label-sm text-label-sm">À venir</span></div><div class="bg-surface-container-low/70 border border-secondary/15 rounded-lg p-3.5 flex items-center justify-between hover:border-secondary/30 transition-colors"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-md bg-surface-container flex items-center justify-center text-secondary"><span class="material-symbols-outlined text-[18px]">visibility</span></div><span class="font-label-md text-label-md text-on-surface font-semibold">Qui est l’espion ?</span></div><span class="px-2.5 py-0.5 rounded-full bg-surface-container-high border border-secondary/15 text-secondary-fixed-dim/70 font-label-sm text-label-sm">À venir</span></div></div>
+</section>
+<!-- Discrete Game Footer -->
+<footer class="pt-3 border-t border-surface-container-high/60 flex flex-col sm:flex-row justify-between items-center gap-2 font-body-sm text-body-sm text-secondary-fixed-dim/50"><div class="flex items-center justify-between w-full"><span class="font-semibold text-secondary-fixed-dim/70 font-body-sm text-body-sm">Extension Twitch</span></div></footer>
+</main>
+</body></html>
