@@ -31,7 +31,10 @@ test("three app themes persist, remain keyboard accessible and never alter the i
 }, info) => {
   await page.goto("/");
   await expect(
-    page.getByRole("link", { name: "Jouer à Undercover", exact: true }),
+    page.getByRole("link", {
+      name: "Préparer une partie Undercover",
+      exact: true,
+    }),
   ).toBeVisible();
   for (const theme of ["broadcast-studio", "neon-show", "on-air-premium"]) {
     await chooseTheme(page, theme);
@@ -54,7 +57,7 @@ test("three app themes persist, remain keyboard accessible and never alter the i
     await expect(page.locator("html")).toHaveAttribute("data-theme", theme);
   }
   await page
-    .getByRole("link", { name: "Jouer à Undercover", exact: true })
+    .getByRole("link", { name: "Préparer une partie Undercover", exact: true })
     .click();
   await expect(page.getByLabel("Mot des civils", { exact: true })).toBeHidden();
   await page.getByLabel("Joueurs de démonstration", { exact: true }).fill("3");
@@ -184,7 +187,10 @@ test("six experiences run a real invited game with a focused GM, private compani
   try {
     await page.goto("/");
     await page
-      .getByRole("link", { name: "Jouer à Undercover", exact: true })
+      .getByRole("link", {
+        name: "Préparer une partie Undercover",
+        exact: true,
+      })
       .click();
     await fits(page);
     await page.screenshot({
@@ -353,6 +359,23 @@ test("six experiences run a real invited game with a focused GM, private compani
     await acceptConfirmation(page);
     await expect(overlay(obs)).toContainText("Victoire des civils");
     await expect(overlay(obs)).toContainText(/Phare|Fusée/);
+    const finishedUrl = page.url();
+    await page.goto("/");
+    await expect(
+      page
+        .getByRole("status")
+        .filter({ hasText: "Votre dernière partie est terminée." }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: "Reprendre ma partie", exact: true }),
+    ).toHaveCount(0);
+    await expect(
+      page.getByRole("link", {
+        name: "Préparer une partie Undercover",
+        exact: true,
+      }),
+    ).toBeVisible();
+    await page.goto(finishedUrl);
     await fits(page);
     await obs.screenshot({
       path: info.outputPath("obs-final.png"),
@@ -420,7 +443,10 @@ test("a browser without stored preferences has a deterministic default and unava
     );
     await fits(p);
     await p
-      .getByRole("link", { name: "Jouer à Undercover", exact: true })
+      .getByRole("link", {
+        name: "Préparer une partie Undercover",
+        exact: true,
+      })
       .click();
     await expect(
       p.getByRole("heading", { name: "Préparer Undercover", exact: true }),

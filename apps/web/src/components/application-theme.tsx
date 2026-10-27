@@ -62,7 +62,7 @@ export function ApplicationTheme({ children }: { children: ReactNode }) {
     </ThemeContext.Provider>
   );
 }
-export function ThemeControl() {
+export function ThemeControl({ icon }: { icon?: ReactNode }) {
   const context = useContext(ThemeContext);
   return (
     <details
@@ -74,7 +74,7 @@ export function ThemeControl() {
         }
       }}
     >
-      <summary aria-label="Apparence de l’application">Apparence</summary>
+      <summary aria-label="Apparence de l’application">{icon}Apparence</summary>
       <div>
         <label>
           Thème de l’application

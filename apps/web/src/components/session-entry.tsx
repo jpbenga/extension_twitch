@@ -5,11 +5,11 @@ import { useEffect, useRef, useState } from "react";
 import {
   accessTokenSchema,
   createSessionSchema,
-  invitationCodeSchema,
   joinSessionSchema,
   sessionAccessSchema,
 } from "@extension-twitch/contracts/sessions";
 import { gameIdSchema } from "@extension-twitch/contracts";
+import { invitationInputError, parseInvitationCode } from "../lib/invitation";
 import {
   accessKey,
   commandId,
@@ -134,18 +134,9 @@ export function SessionEntry({
 
   function openInvitation(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
-    let value = code.trim();
-    if (value.includes("://")) {
-      try {
-        value = new URL(value).pathname.split("/").at(-1) ?? "";
-      } catch {
-        value = "";
-      }
-    }
-    if (!invitationCodeSchema.safeParse(value).success) {
-      setError(
-        "Collez le code complet ou le lien d’invitation fourni par le GM.",
-      );
+    const value = parseInvitationCode(code);
+    if (value === null) {
+      setError(invitationInputError);
       return;
     }
     window.location.assign(`/join/${encodeURIComponent(value)}`);

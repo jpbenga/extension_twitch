@@ -18,7 +18,7 @@ for (let i = 0; i < args.length; i++) {
 }
 const projects = requested.length
   ? requested
-  : forwarded.some((a) => a.includes("playwright.ux.config"))
+  : forwarded.some((a) => /playwright\.(ux|home)\.config/.test(a))
     ? ["desktop", "tablet", "mobile", "small"]
     : ["desktop", "tablet", "mobile"];
 if (
@@ -45,7 +45,7 @@ for (const project of projects) {
         cli,
         "test",
         `--project=${project}`,
-        `--output=test-results/${forwarded.some((a) => a.includes("playwright.ux.config")) ? "ux" : forwarded.some((a) => a.includes("playwright.layout.config")) ? "layout" : forwarded.some((a) => a.includes("playwright.games.config")) ? "games" : forwarded.some((a) => a.includes("playwright.design.config")) ? "design" : forwarded.some((a) => a.includes("playwright.legacy.config")) ? "legacy" : forwarded.some((a) => a.includes("playwright.stream.config")) ? "stream" : "e2e"}/${project}`,
+        `--output=test-results/${forwarded.some((a) => a.includes("playwright.home.config")) ? "home" : forwarded.some((a) => a.includes("playwright.ux.config")) ? "ux" : forwarded.some((a) => a.includes("playwright.layout.config")) ? "layout" : forwarded.some((a) => a.includes("playwright.games.config")) ? "games" : forwarded.some((a) => a.includes("playwright.design.config")) ? "design" : forwarded.some((a) => a.includes("playwright.legacy.config")) ? "legacy" : forwarded.some((a) => a.includes("playwright.stream.config")) ? "stream" : "e2e"}/${project}`,
         ...forwarded,
       ],
       { stdio: "inherit" },

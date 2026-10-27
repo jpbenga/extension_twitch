@@ -7,7 +7,7 @@ test("the homepage and official catalog offer only games that really run", async
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "Prêt pour votre prochain live ?",
+    "Votre prochaine partie commence ici.",
   );
   await expect(
     page.getByRole("link", {

@@ -18,6 +18,7 @@
   ],
   "scripts": {
     "stitch:sync": "tsx scripts/stitch-sync.ts",
+    "test:home": "node scripts/test-e2e.mjs --config=playwright.home.config.ts",
     "build:packages": "tsc -b packages/contracts packages/engine packages/games/undercover packages/games/auctions packages/games/spy",
     "dev": "npm run build:packages && concurrently --kill-others --names types,server,web \"npm run dev:packages\" \"npm run dev --workspace @extension-twitch/server\" \"npm run dev --workspace @extension-twitch/web\"",
     "dev:packages": "npm run build:packages -- --watch --preserveWatchOutput",

@@ -42,8 +42,9 @@ npm run stitch:sync -- --screen 70b5e989c97d4b9fa64f3add659e116b --slug accueil-
 npm run stitch:sync -- --screen 15989136117558531304 --slug accueil-mobile --surface "Accueil · Mobile" --approved
 ```
 
-Ces références ne sont pas encore récupérées dans le Cloud. Leurs titres et leur
-disponibilité seront vérifiés auprès de Stitch au moment du premier export local.
+Ces deux références ont été synchronisées localement, poussées au commit `1f7607c`
+et récupérées dans le Cloud. Les SPEC fonctionnelles ont été complétées au commit
+`3c02734`. Voir le [bilan de leur première intégration](HOME-IMPLEMENTATION.md).
 
 Résultat :
 
