@@ -27,6 +27,10 @@
     "./spectators": {
       "types": "./dist/spectators.d.ts",
       "import": "./dist/spectators.js"
+    },
+    "./undercover-layout": {
+      "types": "./dist/undercover-layout.d.ts",
+      "import": "./dist/undercover-layout.js"
     }
   },
   "scripts": {

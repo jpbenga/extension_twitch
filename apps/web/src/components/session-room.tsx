@@ -536,6 +536,14 @@ export function SessionRoom({
             data-room-pane="board"
           >
             <h2>Le plateau public</h2>
+            {gm && view.gameId === "undercover" && (
+              <Link
+                className="secondary-button"
+                href={`/sessions/${id}/overlay`}
+              >
+                Personnaliser l’overlay
+              </Link>
+            )}
             <PublicSession view={view} />
           </section>
           {gm && !playing && (

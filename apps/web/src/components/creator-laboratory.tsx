@@ -151,6 +151,14 @@ export function CreatorLaboratory({
               buttonLabel="Copier le lien privé GM pour mon iPhone"
             />
             <div className="lab-access-links">
+              {lab.gameId === "undercover" && (
+                <Link
+                  className="secondary-button"
+                  href={`/sessions/${id}/overlay`}
+                >
+                  Personnaliser l’overlay
+                </Link>
+              )}
               <a
                 className="secondary-button"
                 href={`/sessions/${id}/stream`}

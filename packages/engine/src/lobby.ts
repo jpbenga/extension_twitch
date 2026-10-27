@@ -1,3 +1,7 @@
+import {
+  undercoverLayoutSchema,
+  type UndercoverLayout,
+} from "@extension-twitch/contracts/undercover-layout";
 import { randomUUID } from "node:crypto";
 import {
   createGameRun,
@@ -21,12 +25,14 @@ import type {
 import { SessionError, type SessionActor } from "./session-types.js";
 export { SessionError, type SessionActor } from "./session-types.js";
 export interface PreparedGame {
+  overlayLayout?: UndercoverLayout;
   /** Pinned product settings; absent on historical Studio snapshots. */
   configuration?: Record<string, Scalar>;
   definition: GameDefinition;
   assets: AssetBinding[];
 }
 export interface LobbyState {
+  overlayLayout?: UndercoverLayout;
   preparedGame?: PreparedGame;
   gameRun?: GameRun;
   id: string;
@@ -266,6 +272,19 @@ export function decideLobby(
         context.at,
       );
     }
+    case "overlay.configure": {
+      if (state.gameId !== "undercover")
+        throw new SessionError("INVALID_CONFIGURATION", 400);
+      return recordEvent(
+        {
+          ...state,
+          overlayLayout: undercoverLayoutSchema.parse(action.layout),
+        },
+        action.type,
+        "Le GM a enregistré la disposition du plateau.",
+        context.at,
+      );
+    }
     case "session.rename":
       return recordEvent(
         { ...state, title: action.title },
@@ -328,6 +347,7 @@ export function projectPublicSession(
 ): PublicSessionView {
   return {
     ...(state.gameRun ? { publicGame: projectGame(state.gameRun, null) } : {}),
+    ...(state.overlayLayout ? { overlayLayout: state.overlayLayout } : {}),
     audience: "public",
     sessionId: state.id,
     title: state.title,

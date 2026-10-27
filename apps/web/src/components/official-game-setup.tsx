@@ -7,6 +7,14 @@ import {
   type UndercoverSettings,
 } from "@extension-twitch/contracts/official-games";
 import { sessionAccessSchema } from "@extension-twitch/contracts/sessions";
+import {
+  createUndercoverLayout,
+  undercoverLayoutSchema,
+  maximumUndercover,
+  type UndercoverLayout,
+} from "@extension-twitch/contracts/undercover-layout";
+import { UndercoverLayoutEditor } from "./undercover-layout-editor";
+import { layoutPreparationPreview } from "../lib/layout-preview";
 import { NumberInput } from "./creator-fields";
 import { ProductFrame } from "./product-frame";
 import {
@@ -26,12 +34,16 @@ type Pending = {
   settings: UndercoverSettings;
   mode: "quick" | "invite";
   count: number;
+  overlayLayout?: UndercoverLayout;
 };
 export function OfficialGameSetup() {
   const router = useRouter(),
     flight = useRef(false);
   const [settings, setSettings] = useState<UndercoverSettings>(
     undercoverSettingsSchema.parse({}),
+  );
+  const [overlayLayout, setOverlayLayout] = useState<UndercoverLayout>(
+    createUndercoverLayout(),
   );
   const [mode, setMode] = useState<"quick" | "invite">("quick"),
     [count, setCount] = useState(4);
@@ -46,7 +58,24 @@ export function OfficialGameSetup() {
         setSettings(undercoverSettingsSchema.parse(attempt.settings));
         setMode(attempt.mode);
         setCount(attempt.count);
+        if (attempt.overlayLayout)
+          setOverlayLayout(undercoverLayoutSchema.parse(attempt.overlayLayout));
       }
+      const preferences =
+        !waiting &&
+        sessionStorage.getItem("xt:official:undercover:preferences");
+      if (preferences) {
+        const p = JSON.parse(preferences) as { count: number; mode: string };
+        if (Number.isInteger(p.count) && p.count >= 3 && p.count <= 12)
+          setCount(p.count);
+        if (p.mode === "quick" || p.mode === "invite") setMode(p.mode);
+      }
+      const savedLayout =
+        !waiting && sessionStorage.getItem("xt:official:undercover:layout");
+      if (savedLayout)
+        setOverlayLayout(
+          undercoverLayoutSchema.parse(JSON.parse(savedLayout) as unknown),
+        );
       const saved = !waiting && sessionStorage.getItem(settingsKey);
       if (saved) {
         const result = undercoverSettingsSchema.safeParse(
@@ -61,6 +90,17 @@ export function OfficialGameSetup() {
     }
     setReady(true);
   }, []);
+  useEffect(() => {
+    if (!ready) return;
+    try {
+      sessionStorage.setItem(
+        "xt:official:undercover:preferences",
+        JSON.stringify({ mode, count }),
+      );
+    } catch {
+      setError("Vos choix ne peuvent pas être conservés dans cet onglet.");
+    }
+  }, [ready, mode, count]);
   function change<K extends keyof UndercoverSettings>(
     key: K,
     value: UndercoverSettings[K],
@@ -71,6 +111,17 @@ export function OfficialGameSetup() {
       sessionStorage.setItem(settingsKey, JSON.stringify(next));
     } catch {
       setError("Vos réglages ne peuvent pas être conservés dans cet onglet.");
+    }
+  }
+  function changeLayout(next: UndercoverLayout) {
+    setOverlayLayout(next);
+    try {
+      sessionStorage.setItem(
+        "xt:official:undercover:layout",
+        JSON.stringify(next),
+      );
+    } catch {
+      setError("La disposition ne peut pas être conservée dans cet onglet.");
     }
   }
   async function launch() {
@@ -107,7 +158,9 @@ export function OfficialGameSetup() {
           settings: saved.settings,
           mode: saved.mode,
           count: saved.count,
-        }) !== JSON.stringify({ settings: parsed.data, mode, count })
+          overlayLayout: saved.overlayLayout ?? createUndercoverLayout(),
+        }) !==
+          JSON.stringify({ settings: parsed.data, mode, count, overlayLayout })
       ) {
         setError(
           "Une préparation attend sa confirmation. Retrouvez vos réglages précédents pour la reprendre : ils viennent d’être restaurés.",
@@ -115,6 +168,7 @@ export function OfficialGameSetup() {
         setSettings(saved.settings);
         setMode(saved.mode);
         setCount(saved.count);
+        setOverlayLayout(saved.overlayLayout ?? createUndercoverLayout());
         return;
       }
       const attempt: Pending = saved ?? {
@@ -123,12 +177,16 @@ export function OfficialGameSetup() {
         settings: parsed.data,
         mode,
         count,
+        overlayLayout,
       };
       sessionStorage.setItem(pendingKey, JSON.stringify(attempt));
       const access = sessionAccessSchema.parse(
         await post("/official-games/undercover/sessions", attempt.token, {
           requestId: attempt.requestId,
           settings: attempt.settings,
+          ...(attempt.overlayLayout
+            ? { overlayLayout: attempt.overlayLayout }
+            : {}),
         }),
       );
       const lab: CreatorLab = {
@@ -199,6 +257,11 @@ export function OfficialGameSetup() {
             {error}
           </p>
         )}
+        <p>
+          <strong>Mode classique · mots proches, sans rôle spécial.</strong> La
+          répartition est tirée au sort par le serveur. Aucun joueur ne connaît
+          son camp au départ.
+        </p>
         <form
           className="lobby-form"
           onSubmit={(e) => {
@@ -238,6 +301,23 @@ export function OfficialGameSetup() {
               la partie depuis la régie.
             </p>
           )}
+          <section className="lobby-notice" aria-label="Règles actives">
+            <strong>Votre format de partie</strong>
+            <p>
+              {mode === "quick"
+                ? `${count} joueurs prévus : ${count - settings["undercover-count"]} civils et ${settings["undercover-count"]} Undercover. Jusqu’à ${maximumUndercover(count)} Undercover pour cet effectif.`
+                : `Invités : prévoyez au moins ${settings["undercover-count"] * 2 + 1} joueurs pour ${settings["undercover-count"]} Undercover. L’effectif réel sera contrôlé avant préparation.`}
+            </p>
+            <p>
+              {settings["clue-rounds"]} tours d’indices avant chaque vote · vote
+              unique sans vote pour soi · égalité sans élimination ·{" "}
+              {settings["round-limit"]} manches maximum.
+            </p>
+            <small>
+              La répartition manuelle, le rôle blanc et les autres règles de
+              vote ne sont pas disponibles.
+            </small>
+          </section>
           <label>
             Mot des civils
             <input
@@ -269,7 +349,10 @@ export function OfficialGameSetup() {
               onChange={(value) => change("undercover-count", value)}
               disabled={busy}
             />
-            <small>De 1 à 5, toujours moins que les civils.</small>
+            <small>
+              De 1 à 5, toujours moins que les civils. La répartition affichée
+              ci-dessus doit rester valide.
+            </small>
           </label>
           <label>
             Tours d’indices avant chaque vote
@@ -301,6 +384,24 @@ export function OfficialGameSetup() {
                 De 1 à 30, puis partie nulle si aucun camp n’a gagné.
               </small>
             </label>
+          </details>
+          <details className="layout-setup-section">
+            <summary>Personnaliser l’overlay</summary>
+            <p>
+              Ces noms sont des exemples pour préparer la disposition ; aucune
+              partie n’est encore démarrée. Les vrais participants et événements
+              apparaîtront après le lancement.
+            </p>
+            <p className="lobby-hint">
+              Vos ajustements sont conservés automatiquement dans cet onglet.
+              Lancez la partie pour les enregistrer avec elle.
+            </p>
+            <UndercoverLayoutEditor
+              layout={overlayLayout}
+              onChange={changeLayout}
+              view={layoutPreparationPreview(count)}
+              disabled={busy}
+            />
           </details>
           <button
             className="primary-button"

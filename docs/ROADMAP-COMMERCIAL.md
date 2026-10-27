@@ -94,8 +94,9 @@ Une démo Undercover automatisée réussie ne suffit pas à autoriser la factura
 
 ## Prochaine priorité recommandée
 
-Valider le parcours Undercover simplifié sur les appareils du testeur ; corriger les
-frictions ; choisir une verticale Enchères avant d’élargir le catalogue. Concevoir ensuite
+Consolider exclusivement Undercover et valider ses dispositions personnalisées après
+le premier essai humain OBS réussi ; ne pas démarrer Enchères ou espion au jalon 7.
+Voir UNDERCOVER-VARIANTS.md et UNDERCOVER-LAYOUT.md. Concevoir ensuite
 l’identité et l’exploitation en staging. Ne pas financer dix expériences avant d’avoir
 prouvé l’usage et les portes de lancement ci-dessus. Aucun de ces jalons ne démarre
 sans une nouvelle demande ; le jalon 6 prépare ces choix, il ne livre pas un SaaS facturable.

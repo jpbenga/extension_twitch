@@ -1,6 +1,6 @@
 # Extension Twitch Studio — référence produit
 
-Version : 1.1 — décision stratégique définitive, jalon 6.
+Version : 1.2 — décision stratégique définitive, jalon 6.
 
 ## Positionnement
 
@@ -51,7 +51,7 @@ Les anciennes parties 0.1.0 conservent leurs règles. Voir OFFICIAL-GAMES-RULES.
 3. **Régie** : Partie / Joueurs / Plateau, phase et instruction, prochaine action,
    progression, votes, révélations, résultats et rejeu. Gestion secondaire repliée.
 4. **Joueurs / spectateurs** : actions adaptées au jeu et informations autorisées seulement.
-   Le plateau navigateur est synchronisé, adapté au 16:9 OBS ; OBS physique reste à vérifier.
+   Le plateau navigateur est synchronisé, adapté au 16:9 OBS ; un premier workflow OBS réel a été validé par le testeur.
 
 L’accueil pose « Prêt pour votre prochain live ? ». Il propose la reprise lorsqu’un
 accès GM valide est retrouvé dans cet onglet, puis le catalogue et une invitation
@@ -122,8 +122,8 @@ signalements et retraits resteront nécessaires si des médias utilisateurs sont
 ## Validation
 
 Première exploration humaine iPhone du Studio et d’Undercover effectuée ; elle a motivé
-la simplification et les deux tours d’indices. Cette livraison, les parties multi-appareils,
-le rythme de jeu, Safari iOS physique et OBS réel restent à valider. Les tests automatisés
+la simplification et les deux tours d’indices. Un premier parcours complet avec OBS a depuis reçu une validation humaine positive.
+Les nouveaux layouts, les autres appareils, les cas limites et le rythme de jeu restent à valider. Les tests automatisés
 ne constituent pas une validation humaine. Guide actuel : TEST-PRODUCT-FOCUS.md.
 
 ## Addendum prioritaire — prévisualisation d’émission
@@ -137,3 +137,21 @@ ordinateur multijoueur/public est prioritaire. Les interactions spectateur sont
 distinctes de l’affichage public : le moteur actuel reste en lecture seule pour ce
 rôle, sans commande fictive ni Bits opérationnel. Voir STREAM-PREVIEW.md et
 TEST-STREAM-PREVIEW.md. Enchères et Qui est l’espion restent non jouables.
+
+## Jalon 7 — Undercover et layout ciblé
+
+Undercover devient la priorité exclusive ; Enchères et Qui est l’espion sont reportés.
+Un format classique, plusieurs répartitions bornées selon l’effectif, pas de rôle
+spécial inventé : voir UNDERCOVER-VARIANTS.md. La définition 0.2.0 et ses règles
+restent figées. Les deux tours par défaut et le blocage du vote sont conservés.
+
+Le workflow complet avec OBS a reçu un retour humain positif explicite du testeur
+après essai. Cette validation concerne le parcours observé, pas tous les cas limites,
+ni les nouveaux layouts. Elle complète les tests automatisés sans les remplacer.
+
+La personnalisation du layout Undercover est désormais autorisée : sept blocs publics,
+quatre presets, déplacement/redimensionnement bornés et organisation des cartes joueurs.
+Un même rendu public alimente éditeur, aperçu et OBS. Sauvegarde par partie, réglages
+locaux de préparation dans l’onglet, aucune création de scène universelle ou média envoyé.
+Voir UNDERCOVER-LAYOUT.md et TEST-UNDERCOVER-OVERLAY.md. Les anciens paragraphes de
+report d’un éditeur concernent toujours un outil universel, pas ce périmètre ciblé.

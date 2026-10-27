@@ -1,3 +1,4 @@
+import { createUndercoverLayout } from "@extension-twitch/contracts/undercover-layout";
 import { randomBytes, randomUUID } from "node:crypto";
 import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -101,6 +102,111 @@ describe("closed official product API, preserving the legacy engine and data", (
       },
     });
   }
+  it("persists a layout seed and GM updates with normal receipts, SSE projections and conflict protection", async () => {
+    const layout = createUndercoverLayout("bottom");
+    const requestId = randomUUID();
+    const payload = { requestId, settings: {}, overlayLayout: layout };
+    const first = await post("/official-games/undercover/sessions", payload);
+    expect(first.status).toBe(201);
+    const { sessionId: id } = sessionAccessSchema.parse(await first.json());
+    expect(
+      await (await post("/official-games/undercover/sessions", payload)).json(),
+    ).toEqual({ sessionId: id });
+    await joinPlayers(id);
+    await install(id);
+    const view = await gm(id),
+      runId = view.game!.runId;
+    expect(view.overlayLayout).toEqual(layout);
+    const changed = createUndercoverLayout("lateral");
+    const command = {
+      commandId: randomUUID(),
+      expectedVersion: view.version,
+      command: { type: "overlay.configure", layout: changed },
+    };
+    const playerToken = token();
+    // A real player from another new party cannot claim a GM operation here.
+    expect(
+      (await post(`/sessions/${id}/commands`, command, playerToken)).status,
+    ).toBe(401);
+    const publicViews: unknown[] = [];
+    const unsub = service.subscribe(id, null, (m) => {
+      if (m.type === "session.snapshot") publicViews.push(m.view);
+    });
+    try {
+      expect((await post(`/sessions/${id}/commands`, command)).status).toBe(
+        200,
+      );
+      const version = (await gm(id)).version;
+      expect((await post(`/sessions/${id}/commands`, command)).status).toBe(
+        200,
+      );
+      expect((await gm(id)).version).toBe(version);
+      expect(
+        (
+          await post(`/sessions/${id}/commands`, {
+            ...command,
+            commandId: randomUUID(),
+          })
+        ).status,
+      ).toBe(409);
+      expect(
+        publicSessionSchema.parse(publicViews.at(-1)).overlayLayout,
+      ).toEqual(changed);
+      expect(JSON.stringify(publicViews)).not.toMatch(
+        /Phare|Fusée|invitationCode|preparedGame/,
+      );
+    } finally {
+      unsub();
+    }
+    await stop();
+    await start();
+    expect((await gm(id)).overlayLayout).toEqual(changed);
+    expect((await gm(id)).game!.runId).toBe(runId);
+    const restored = await gm(id);
+    expect(
+      (
+        await post(`/sessions/${id}/commands`, {
+          commandId: randomUUID(),
+          expectedVersion: restored.version,
+          command: { type: "game.restart", runId },
+        })
+      ).status,
+    ).toBe(200);
+    expect((await gm(id)).overlayLayout).toEqual(changed);
+  });
+  it("refuses a real player's layout command and validates malformed layouts before mutation", async () => {
+    const { sessionId: id } = await prepare();
+    const view = await gm(id),
+      playerToken = token();
+    await post(
+      `/invitations/${view.invitationCode}/join`,
+      { requestId: randomUUID(), name: "Player" },
+      playerToken,
+    );
+    const next = await gm(id),
+      layout = createUndercoverLayout();
+    const command = {
+      commandId: randomUUID(),
+      expectedVersion: next.version,
+      command: { type: "overlay.configure", layout },
+    };
+    expect(
+      (await post(`/sessions/${id}/commands`, command, playerToken)).status,
+    ).toBe(403);
+    expect(
+      (
+        await post(`/sessions/${id}/commands`, {
+          ...command,
+          command: {
+            ...command.command,
+            layout: { ...layout, css: "arbitrary" },
+          },
+        })
+      ).status,
+    ).toBe(400);
+    expect((await gm(id)).version).toBe(next.version);
+    expect((await gm(id)).overlayLayout).toBeUndefined();
+  });
   it("exposes only actual official availability, never pedagogical examples or definitions", async () => {
     const catalog = officialCatalogSchema.parse(
       await (await fetch(origin + "/official-games")).json(),

@@ -62,6 +62,33 @@ function votesFor(run: GameRun, target: string) {
   return r;
 }
 describe("Undercover's demonstrator executes shared declared primitives", () => {
+  it("plays the configured multi-Undercover format for every roster size, with two full clue rounds before each ballot", () => {
+    for (let count = 3; count <= 12; count++) {
+      const minority = Math.min(5, Math.floor((count - 1) / 2));
+      const { run } = setup(count, { "undercover-count": minority });
+      let current = act(run, "deal");
+      expect(
+        Object.values(current.assignments).filter((r) => r === "undercover"),
+      ).toHaveLength(minority);
+      let eliminated = 0;
+      while (current.phase !== "finished") {
+        expect(current.play!.turns!.total).toBe(2);
+        expect(() => act(current, "open-vote")).toThrow("ACTION_FORBIDDEN");
+        const ready = completeClues(current);
+        const target = ready.play!.active.find(
+          (id) => ready.assignments[id] === "undercover",
+        )!;
+        current = act(votesFor(act(ready, "open-vote"), target), "resolve");
+        eliminated++;
+        if (current.phase !== "finished") current = act(current, "next");
+      }
+      expect(eliminated).toBe(minority);
+      expect(current.play!.outcome!.id).toBe("civils-win");
+      expect(() =>
+        setup(count, { "undercover-count": minority + 1 }),
+      ).toThrow();
+    }
+  });
   it("keeps bounded v3 separate from v1/v2, validates every role/configuration/phase/permission reference", () => {
     expect(gameDefinitionSchema.parse(undercoverDefinition).schemaVersion).toBe(
       3,

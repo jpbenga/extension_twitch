@@ -180,3 +180,12 @@ Données fictives uniquement, aucune capacité privée affichée :
 - [Douze participants dans le cadre](screenshots/stream-preview/douze-joueurs.png).
 
 Ces images montrent un navigateur, pas une capture OBS ou un iPhone physique.
+
+## Retour humain ultérieur — jalon 7
+
+Après la livraison technique ci-dessus, le testeur a confirmé un premier parcours
+réussi de bout en bout avec OBS réel et a validé le workflow et le guide de scène.
+Ce retour ne vaut pas validation exhaustive de Safari, VoiceOver, de tous les
+effectifs ou des nouveaux layouts. La personnalisation ciblée Undercover ajoute
+un champ public de session sans changer les principes du rendu partagé : voir
+[UNDERCOVER-LAYOUT.md](UNDERCOVER-LAYOUT.md).

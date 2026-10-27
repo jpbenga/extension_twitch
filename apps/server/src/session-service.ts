@@ -61,6 +61,9 @@ export class SessionService {
       const state = recordEvent(
         {
           ...(prepared ? { preparedGame: structuredClone(prepared) } : {}),
+          ...(prepared?.overlayLayout
+            ? { overlayLayout: structuredClone(prepared.overlayLayout) }
+            : {}),
           id: randomUUID(),
           title: input.title,
           hostName: input.hostName,

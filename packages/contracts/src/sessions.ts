@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { undercoverLayoutSchema } from "./undercover-layout.js";
 import {
   gameDefinitionSchema,
   assetBindingSchema,
@@ -38,6 +39,10 @@ export const lobbyActionSchema = z.discriminatedUnion("type", [
     participantId: z.uuid(),
   }),
   z.strictObject({ type: z.literal("session.reset") }),
+  z.strictObject({
+    type: z.literal("overlay.configure"),
+    layout: undercoverLayoutSchema,
+  }),
   z.strictObject({
     type: z.literal("game.configure"),
     definition: gameDefinitionSchema,
@@ -81,6 +86,7 @@ export const lobbyEventSchema = z.strictObject({
   at: z.iso.datetime(),
   type: z.enum([
     "session.created",
+    "overlay.configure",
     "participant.joined",
     "participant.ready",
     "session.rename",
@@ -103,6 +109,7 @@ export const publicParticipantSchema = z.strictObject({
   connected: z.boolean(),
 });
 const viewFields = {
+  overlayLayout: undercoverLayoutSchema.optional(),
   publicGame: gameProjectionSchema
     .refine(
       (game) =>

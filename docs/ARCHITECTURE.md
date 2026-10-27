@@ -227,3 +227,12 @@ pas au rendu de jeu. Le flux fournit une époque de connexion pour établir une 
 sans animer l’historique. Aucun changement de règles, de tables ou d’accès privés.
 Les capacités spectateur sont découvertes via un endpoint public versionné mais restent
 vides, conformément aux permissions du moteur actuel. Aucun dispatcher Twitch actif.
+
+## Jalon 7 — layout de diffusion Undercover
+
+[Décision ciblée](UNDERCOVER-LAYOUT.md) : schéma de rectangles strict versionné,
+champ optionnel de session et commande GM `overlay.configure`. SQLite et SSE sont
+conservés, aucune nouvelle table ni migration des définitions/règles. Le même
+BroadcastOverlay reçoit le layout public enregistré ou la copie locale de l’éditeur.
+Sept blocs obligatoires et places joueurs indépendantes des camps, aucune source
+privée/CSS/script utilisateur. Le guide de test conserve le workflow OBS validé.

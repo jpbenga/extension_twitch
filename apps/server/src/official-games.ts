@@ -21,6 +21,7 @@ export function prepareOfficialSession(
       definition: undercoverDefinition,
       assets: [],
       configuration: input.settings,
+      ...(input.overlayLayout ? { overlayLayout: input.overlayLayout } : {}),
     },
   );
 }

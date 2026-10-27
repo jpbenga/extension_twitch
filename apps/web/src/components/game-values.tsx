@@ -3,19 +3,27 @@ import type { SessionView } from "@extension-twitch/contracts/sessions";
 export function GameValues({
   game,
   names,
+  compactNames = false,
 }: {
   game: GameProjection;
   names: SessionView["participants"];
+  compactNames?: boolean;
 }) {
   return (
     <div className="game-values" aria-label="Informations de jeu">
       {game.values.map((v) => (
         <article key={`${v.id}:${v.participantId ?? "session"}`}>
-          <span>
-            {v.label}
-            {v.participantId
-              ? ` · ${names.find((p) => p.id === v.participantId)?.name ?? "Joueur"}`
-              : ""}
+          <span title={v.label}>
+            {compactNames && v.participantId ? (
+              (names.find((p) => p.id === v.participantId)?.name ?? "Joueur")
+            ) : (
+              <>
+                {v.label}
+                {v.participantId
+                  ? ` · ${names.find((p) => p.id === v.participantId)?.name ?? "Joueur"}`
+                  : ""}
+              </>
+            )}
           </span>
           <strong>
             {typeof v.value === "boolean"

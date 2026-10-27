@@ -116,7 +116,7 @@ fermés par défaut. Les sessions v1/v2/v3 restent exécutables.
 Un seul processus Node et SQLite sont supportés. Toujours pas de compte vérifié,
 récupération par e-mail, expiration automatique des capacités, paywall ou facturation.
 Pas de PWA installable, extension Twitch officielle, minuteur, import de médias ou
-overlay graphique éditable. Les assets restent des références validées non téléchargées.
+éditeur universel d’overlays. La disposition Undercover est personnalisable. Les assets restent des références validées non téléchargées.
 Les maquettes `/demo`, `/player`, `/overlay` restent fictives, hors navigation principale.
 `/design-system` est réservé au développement. `/lab` et les anciens éditeurs sont
 réservés au mode de maintenance local explicite décrit dans [STAGE-6.md](docs/STAGE-6.md).
@@ -132,8 +132,8 @@ réservés au mode de maintenance local explicite décrit dans [STAGE-6.md](docs
 - [Tests humains iPhone + ordinateur](docs/TEST-PRODUCT-FOCUS.md).
 
 Premiers retours humains iPhone reçus sur l’ancien Studio et Undercover. Ils ont motivé
-les refontes. Ce nouveau parcours reste à valider par l’utilisateur : tests techniques,
-Chromium, iPhone physique/Safari, plaisir de jeu et OBS réel sont des validations distinctes.
+les refontes. Le testeur a confirmé un premier workflow complet réussi avec OBS réel. Tests
+techniques, autres appareils, plaisir de jeu et nouveaux layouts restent des validations distinctes.
 Le jalon 6 prépare un produit commercialisable ; il ne constitue pas une autorisation
 d’ouverture publique ou de facturation. Aucun fournisseur payant ajouté.
 
@@ -144,5 +144,23 @@ ordinateur. Le cadre fictif utilise les données publiques réelles et le même 
 que **Source OBS transparente**, en 1920×1080. Aucun flux Twitch ni paiement nécessaire.
 Les spectateurs restent en lecture seule : aucune interaction native Twitch n’est livrée.
 [Guide iPhone + PC + OBS](docs/TEST-STREAM-PREVIEW.md) ·
-[Architecture et bilan](docs/STREAM-PREVIEW.md). OBS physique et Safari iOS restent
-à valider par l’utilisateur ; les ouvertures tardives ne rejouent pas les effets passés.
+[Architecture et bilan](docs/STREAM-PREVIEW.md). Le premier workflow OBS a été validé par l’utilisateur ; les nouveaux layouts et
+les autres appareils restent à vérifier. Les ouvertures tardives ne rejouent pas les effets passés.
+
+## Jalon 7 — Undercover, disposition personnalisable
+
+Depuis Préparer Undercover, ouvrez **Personnaliser l’overlay** : quatre dispositions,
+sept blocs à déplacer/agrandir et cartes joueurs réorganisables. Le lancement conserve
+ces réglages dans la partie. Le laboratoire et l’onglet Plateau de la régie permettent
+aussi d’ouvrir `/sessions/<id>/overlay` avec l’accès GM existant, puis d’enregistrer
+les ajustements. L’aperçu et la même source OBS se mettent à jour automatiquement.
+
+Le premier workflow complet avec OBS a été validé humainement par le testeur. Cette
+validation ne couvre pas les nouveaux layouts, encore à apprécier sur ses appareils.
+[Formats et règles](docs/UNDERCOVER-VARIANTS.md) ·
+[Guide simple ordinateur/iPhone/OBS](docs/TEST-UNDERCOVER-OVERLAY.md) ·
+[Architecture et limites](docs/UNDERCOVER-LAYOUT.md).
+
+`npm run test:layout` vérifie création/configuration, placement, sauvegarde,
+concurrence et partie réelle multicontexte jusqu’au résultat avec aperçu/OBS partagé.
+Le jalon ne commence aucun autre jeu et ne constitue pas un éditeur de scènes universel.

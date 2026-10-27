@@ -306,8 +306,9 @@ primitives partagées, confirmations accessibles et aucun confirm/alert/prompt n
 applicatif. Conserver beforeunload quand pertinent. Mobile-first GM iPhone, joueurs
 simples, plateau public sans secret et laboratoire à identités distinctes.
 Premiers tests humains iPhone du Studio et de la régie effectués, ayant motivé les
-refontes. Nouveau parcours, Safari iOS, gameplay multi-appareils et OBS physique
-restent à valider humainement. Chromium ne prouve pas cette validation.
+refontes. Un premier workflow complet avec OBS réel a depuis été validé par le testeur.
+Les nouveaux layouts, autres appareils et cas limites restent à vérifier ; Chromium
+ne prouve pas cette validation physique.
 Ne pas ajouter de fournisseur payant, facturation réelle, auth simulée, site marketing
 complet ou éditeur d’overlays sans demande spécifique.
 
@@ -321,3 +322,15 @@ durable autoritaire. Les spectateurs restent en lecture seule tant qu’une nouv
 permission moteur n’est pas explicitement implémentée. Ne pas simuler une intégration
 Twitch, des enchères ou des jeux absents. Pas de nouvel éditeur de scènes. Distinguer
 tests navigateur, véritable OBS, iPhone physique et validation humaine.
+
+## 21. Jalon 7 — Undercover uniquement
+
+Lire docs/UNDERCOVER-VARIANTS.md, docs/UNDERCOVER-LAYOUT.md et le guide associé.
+Priorité Undercover ; ne pas commencer Enchères ou espion. L’éditeur de layout
+Undercover est explicitement autorisé, sans studio de scènes universel. Géométrie
+bornée, sauvegarde GM via commandes/reçus existants, projection publique explicite.
+Même BroadcastOverlay pour édition, aperçu et OBS ; jamais de données GM filtrées
+pour construire un rendu public. Les positions visuelles ne modifient pas les rôles
+ou l’ordre de parole. Ne pas inventer de nouvelles variantes de règles définitives.
+Le testeur a confirmé un premier workflow complet avec OBS ; conserver cette
+validation humaine du parcours observé, sans la généraliser aux nouveaux layouts.

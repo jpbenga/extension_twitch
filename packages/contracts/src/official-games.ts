@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { undercoverLayoutSchema } from "./undercover-layout.js";
 
 /** Product settings only: no executable definition or expression is accepted. */
 export const undercoverSettingsSchema = z
@@ -19,6 +20,7 @@ export type UndercoverSettings = z.infer<typeof undercoverSettingsSchema>;
 export const officialSessionSchema = z.strictObject({
   requestId: z.uuid(),
   settings: undercoverSettingsSchema,
+  overlayLayout: undercoverLayoutSchema.optional(),
 });
 export const officialGameSchema = z.strictObject({
   id: z.enum(["undercover", "auctions", "spy"]),

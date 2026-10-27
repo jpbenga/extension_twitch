@@ -1,3 +1,10 @@
+import type { CSSProperties } from "react";
+import {
+  createUndercoverLayout,
+  type UndercoverLayout,
+  type WidgetId,
+} from "@extension-twitch/contracts/undercover-layout";
+import { playerCardRects } from "../lib/undercover-layout";
 import type { PublicSessionView } from "@extension-twitch/contracts/sessions";
 import { publicEventsForRun } from "../lib/public-cues";
 import type { PublicCue } from "../lib/public-cues";
@@ -8,10 +15,12 @@ export function BroadcastOverlay({
   view,
   connection,
   cue,
+  layout: override,
 }: {
   view: PublicSessionView | null;
   connection: string;
   cue: PublicCue | null;
+  layout?: UndercoverLayout;
 }) {
   const game = view?.publicGame,
     play = game?.play;
@@ -26,16 +35,36 @@ export function BroadcastOverlay({
     })) ??
     [];
   const ballot = play?.ballot;
+  const layout =
+    override ??
+    view?.overlayLayout ??
+    (view?.gameId === "undercover" ? createUndercoverLayout() : undefined);
+  const widget = (id: WidgetId) => ({
+    "data-widget": id,
+    style: layout
+      ? ({
+          left: `${layout.widgets[id].x / 19.2}%`,
+          top: `${layout.widgets[id].y / 10.8}%`,
+          width: `${layout.widgets[id].width / 19.2}%`,
+          height: `${layout.widgets[id].height / 10.8}%`,
+        } as CSSProperties)
+      : undefined,
+  });
+  const ordered = layout
+    ? layout.players.order.flatMap((i) => (roster[i] ? [roster[i]!] : []))
+    : roster;
+  const cards = layout ? playerCardRects(layout, roster.length) : [];
+
   return (
     <section
-      className="broadcast-overlay"
+      className={`broadcast-overlay ${layout ? "has-layout" : ""}`}
       aria-label="Overlay public de l’émission"
       data-renderer="broadcast-v1"
       data-version={view?.version ?? 0}
       data-phase={game?.phase.id ?? "lobby"}
       data-run={game?.runId ?? ""}
     >
-      <header className="broadcast-heading">
+      <header className="broadcast-heading" {...widget("header")}>
         <div>
           <span className="broadcast-brand">XT · SHOWTIME</span>
           <h2>{game?.title ?? view?.title ?? "Extension Twitch Studio"}</h2>
@@ -44,26 +73,30 @@ export function BroadcastOverlay({
           className={`broadcast-connection ${connection}`}
           data-testid="broadcast-connection"
         >
-          {connection === "connected"
-            ? "Synchronisé"
-            : connection === "reconnecting"
-              ? "Reconnexion…"
-              : connection === "denied"
-                ? "Plateau indisponible"
-                : "Connexion…"}
+          {connection === "preview"
+            ? "Aperçu de préparation"
+            : connection === "connected"
+              ? "Synchronisé"
+              : connection === "reconnecting"
+                ? "Reconnexion…"
+                : connection === "denied"
+                  ? "Plateau indisponible"
+                  : "Connexion…"}
         </span>
       </header>
-      <div className="broadcast-phase">
+      <div className="broadcast-phase" {...widget("phase")}>
         <strong>
           {game?.phase.label ??
             (view ? "En attente des joueurs" : "Chargement du plateau")}
         </strong>
-        <span>
-          {play && play.round > 0 ? `Manche ${play.round} · ` : ""}
-          {play
-            ? `${roster.filter((p) => p.active).length} joueurs actifs`
-            : `${roster.length} participants`}
-        </span>
+        {!layout && (
+          <span>
+            {play && play.round > 0 ? `Manche ${play.round} · ` : ""}
+            {play
+              ? `${roster.filter((p) => p.active).length} joueurs actifs`
+              : `${roster.length} participants`}
+          </span>
+        )}
         {play?.turns && (
           <p data-testid="broadcast-turns">
             Tour d’indices {play.turns.round} / {play.turns.total} ·{" "}
@@ -73,15 +106,39 @@ export function BroadcastOverlay({
           </p>
         )}
       </div>
+      {layout && (
+        <div className="broadcast-round" {...widget("round")}>
+          <strong>
+            {play && play.round > 0 ? `Manche ${play.round}` : "Préparation"}
+          </strong>
+          <span>{roster.filter((p) => p.active).length} joueurs actifs</span>
+        </div>
+      )}
       <div
+        {...widget("players")}
         className="broadcast-roster"
-        style={{
-          gridTemplateColumns: `repeat(${Math.max(1, Math.min(6, roster.length))}, minmax(0,1fr))`,
-        }}
+        style={
+          layout
+            ? widget("players").style
+            : {
+                gridTemplateColumns: `repeat(${Math.max(1, Math.min(6, roster.length))}, minmax(0,1fr))`,
+              }
+        }
       >
-        {roster.map((p) => (
+        {ordered.map((p, i) => (
           <article
             key={p.id}
+            style={
+              layout && cards[i]
+                ? {
+                    left: `${cards[i]!.x}%`,
+                    top: `${cards[i]!.y}%`,
+                    width: `${cards[i]!.width}%`,
+                    height: `${cards[i]!.height}%`,
+                    fontSize: `${Math.max(0.65, Math.min(1.4, ((layout.widgets.players.height * cards[i]!.height) / 100 / 1920) * 18))}cqw`,
+                  }
+                : undefined
+            }
             data-player={p.id}
             data-active={p.active}
             className={!p.active ? "broadcast-eliminated" : ""}
@@ -113,11 +170,25 @@ export function BroadcastOverlay({
           </article>
         ))}
       </div>
-      <div className="broadcast-result" aria-live="polite">
+      {layout && (
+        <div className="broadcast-vote" {...widget("vote")}>
+          <strong>Vote</strong>
+          <p data-testid="broadcast-votes">
+            {ballot
+              ? `${ballot.voted.length} / ${ballot.eligible.length} votes reçus`
+              : "Pas de vote en cours"}
+          </p>
+        </div>
+      )}
+      <div
+        className="broadcast-result"
+        {...widget("result")}
+        aria-live="polite"
+      >
         {play?.outcome ? (
           <h3>{play.outcome.label}</h3>
         ) : ballot?.status === "open" ? (
-          <p data-testid="broadcast-votes">
+          <p data-testid={layout ? undefined : "broadcast-votes"}>
             {ballot.voted.length} / {ballot.eligible.length} votes reçus
           </p>
         ) : ballot?.status === "resolved" ? (
@@ -137,9 +208,15 @@ export function BroadcastOverlay({
                 : "Chargement des informations publiques…"}
           </p>
         )}
-        {game && <GameValues game={game} names={view!.participants} />}
+        {game && (
+          <GameValues game={game} names={view!.participants} compactNames />
+        )}
       </div>
-      <footer className="broadcast-events" aria-label="Événements publics">
+      <footer
+        className="broadcast-events"
+        {...widget("events")}
+        aria-label="Événements publics"
+      >
         <ol>
           {view &&
             publicEventsForRun(view).map((event) => (
