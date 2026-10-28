@@ -10,6 +10,8 @@ validés. Le défaut des commandes historiques reste le projet ci-dessus.
 Les 21 références ont été reçues au commit `3c2e704`. Voir le
 [bilan de leur intégration, les captures et le guide humain](LOBBY-PLAYER-IMPLEMENTATION.md).
 
+Les **43 références APPROVED des blocs 5, 6 et 7** sont disponibles dans ce dépôt avec captures natives, HTML, SPEC complètes et rendus de viewport. Voir [le guide de reprise Cloud](BLOCKS-5-6-7.md) et [le manifeste exact](blocks-5-6-7/manifest.json). Leur validation humaine est acquise ; aucun accès Stitch ni nouvelle validation UX n’est nécessaire pour commencer l’intégration depuis ces artefacts.
+
 ```text
 écran actuel → Stitch BEFORE → itération Stitch → validation humaine APPROVED
 → synchronisation locale → Git → Codex Cloud → implémentation de l’écran

@@ -1,0 +1,138 @@
+<!DOCTYPE html><html class="dark" lang="fr"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>AFTER — GM Replay Confirmation — Mobile — v1</title>
+<!-- Tailwind CSS v3 with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Space Grotesk & DM Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0C0C1F',
+            card: '#1A1A2D',
+            raised: '#28283C',
+            citron: '#C8F323',
+            'citron-text': '#171E00',
+            primary: '#E2E0FB',
+            secondary: '#B7A8D4',
+            lilac: '#CEBDFF',
+          },
+          fontFamily: {
+            grotesk: ['"Space Grotesk"', 'sans-serif'],
+            body: ['"DM Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="base-typography">
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: #0C0C1F;
+      color: #E2E0FB;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .font-grotesk {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+  </style>
+<style data-purpose="modal-layer">
+    /* Locking scroll and controlling modal appearance */
+    .modal-backdrop {
+      background-color: rgba(12, 12, 31, 0.82);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+  </style>
+<style data-b5-material-repair="">.b5-modal-card{width:100%;max-width:520px;max-height:calc(100svh - 48px);overflow:auto;background:#1A1A2D;color:#E2E0FB;border:1px solid #7E7199;border-radius:12px;padding:28px;box-shadow:0 20px 60px #0006;}.b5-modal-card h2{font-size:24px;line-height:32px;margin:0 0 20px;}.b5-modal-card p{font-size:16px;line-height:24px;color:#B7A8D4;margin:0 0 16px;}.b5-modal-actions{display:flex;gap:12px;justify-content:flex-end;margin-top:28px;}.b5-cancel,.b5-confirm{border-radius:8px;min-height:48px;padding:12px 18px;font-weight:600;}.b5-cancel{border:1px solid #7E7199;background:#28283C;color:#E2E0FB;}.b5-confirm{background:#C8F323;color:#171E00;}.b5-danger{background:#FFB4AB;color:#690005;}[role=dialog]{position:fixed!important;inset:0!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:16px!important;background:rgba(12,12,31,.85)!important;z-index:100!important;}@media(max-width:600px){.b5-modal-card{padding:22px;}.b5-modal-actions{flex-direction:column;}.b5-confirm{order:-1;}}body{background:#0C0C1F!important;color:#E2E0FB;font-family:'DM Sans',sans-serif;}h1,h2,h3,button,summary,label,[class*=font-label],[class*=font-headline]{font-family:'Space Grotesk',sans-serif;}.text-on-surface-variant,.text-secondary-fixed-dim,.text-text-muted{color:#B7A8D4!important;}.b5-disclosure-content{padding:16px;display:grid;gap:12px;color:#B7A8D4;font-size:14px;}.b5-secondary,.b5-input{background:#28283C;color:#E2E0FB;border:1px solid #7E7199;border-radius:8px;padding:10px 14px;}.b5-input{display:block;width:100%;margin-top:8px;}button, summary, input, select, a[role="button"] { min-height: 44px; } button:focus-visible, summary:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid #CEBDFF; outline-offset: 3px; } @media(max-width:600px){button,summary,input,select,a[role="button"]{min-height:48px;} input,select,textarea{font-size:16px!important;} button{white-space:normal;}}</style><style data-b5-controls>a{min-height:44px;display:inline-flex;align-items:center;}nav a{justify-content:center;}button{min-width:44px;}nav .bg-primary-container{background:#28283C!important;color:#CEBDFF!important;box-shadow:none!important;}@media(max-width:600px){a{min-height:48px;}}</style></head>
+<body class="bg-canvas text-primary antialiased selection:bg-citron selection:text-citron-text min-h-screen flex justify-center">
+<!-- BEGIN: MobileContainer -->
+<!-- Container with max width 390px typical of mobile screen -->
+<div class="relative w-full max-w-[390px] min-h-screen bg-canvas overflow-x-hidden flex flex-col justify-between shadow-2xl border-x border-[#28283C]/40">
+<!-- BEGIN: UnderlayerDimmedContent -->
+<!-- Represents the dimmed GM Final screen (SCREEN_9) in the background -->
+<div aria-hidden="true" class="w-full flex-1 flex flex-col opacity-30 pointer-events-none select-none filter blur-[0.5px]">
+<!-- Top Bar: Twitch Régie Header -->
+<header class="p-3 bg-[#111126] border-b border-raised/60 flex items-center justify-between">
+<div class="flex items-center gap-1.5 font-grotesk font-bold text-xs uppercase tracking-wider text-citron">
+<svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+<path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3z"></path>
+</svg>
+<span>Régie MJ • Live</span>
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-citron ml-0.5 animate-pulse"></span>
+</div>
+<div class="flex items-center gap-2">
+<div class="bg-card px-2 py-0.5 rounded text-[10px] text-secondary font-grotesk border border-raised flex items-center gap-1">
+<span class="text-[9px]">TV</span> EXTENSION
+          </div>
+<div class="bg-card px-2 py-0.5 rounded text-[10px] text-secondary font-grotesk border border-raised">
+            Apparence ▾
+          </div>
+</div>
+</header>
+<!-- Main Overview Head -->
+<div class="p-4 space-y-3">
+<div>
+
+<h1 class="text-2xl font-grotesk font-bold text-primary mt-0.5">Partie terminée</h1>
+</div>
+<div class="flex items-center gap-2">
+<span class="bg-[#1A1A2D] text-citron text-[11px] font-medium px-2 py-0.5 rounded-full border border-citron/30 flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-citron"></span> Manche 2 • Dénouement final
+          </span>
+<span class="bg-[#1A1A2D] text-secondary text-[11px] px-2 py-0.5 rounded-full border border-raised">
+            4 joueurs
+          </span>
+</div>
+<!-- Navigation Tabs Simulated -->
+<div class="grid grid-cols-3 gap-1 bg-[#151528] p-1 rounded-lg border border-raised text-center text-xs font-grotesk font-medium">
+<div class="bg-card text-citron py-1.5 rounded shadow-sm">Partie</div>
+<div class="text-secondary py-1.5">Joueurs</div>
+<div class="text-secondary py-1.5">Plateau ↗</div>
+</div>
+<!-- Summary Banner -->
+<div class="bg-card p-3 rounded-xl border border-raised space-y-2">
+<div class="inline-block bg-[#202715] text-citron text-[10px] px-2 py-0.5 rounded border border-citron/40 font-grotesk">
+            ✓ Résultat final
+          </div>
+<div class="font-grotesk font-bold text-base text-primary flex items-center gap-1.5">
+            🏆 Victoire des Civils
+          </div>
+<p class="text-xs text-secondary leading-relaxed">Le dernier Undercover a été éliminé.</p>
+</div>
+<!-- Participants List (Abbreviated) -->
+<div class="space-y-2 pt-1">
+<div class="flex justify-between items-center text-xs font-grotesk">
+<span class="text-primary font-medium">Bilan des participants</span>
+<span class="text-[10px] text-secondary bg-raised px-1.5 py-0.5 rounded">4/4 révélés</span>
+</div>
+<div class="bg-card p-2.5 rounded-lg border border-raised flex items-center justify-between text-xs">
+<span class="font-medium text-primary">Alex (Civil)</span>
+<span class="text-[10px] text-emerald-400 bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-500/20">Actif</span>
+</div>
+<div class="bg-card p-2.5 rounded-lg border-l-2 border-l-citron border-t border-r border-b border-raised flex items-center justify-between text-xs">
+<span class="font-medium text-citron">Lou (Undercover)</span>
+<span class="text-[10px] text-rose-400 bg-rose-950/40 px-2 py-0.5 rounded border border-rose-500/20">Éliminé (M2)</span>
+</div>
+</div>
+</div>
+<!-- Footer Nav Simulation -->
+<nav class="mt-auto border-t border-raised bg-[#111126] p-2 grid grid-cols-3 text-center text-[10px] font-grotesk text-secondary">
+<div class="text-citron font-semibold">Partie</div>
+<div>Joueurs</div>
+<div>Plateau</div>
+</nav>
+</div>
+<!-- END: UnderlayerDimmedContent -->
+<!-- BEGIN: ConfirmationModalOverlay -->
+<!-- Fixed positioned overlay filling the mobile viewport -->
+<aside aria-labelledby="b5-modal-title" aria-modal="true" class="absolute inset-0 z-50 modal-backdrop flex items-center justify-center p-4" data-purpose="replay-modal-overlay" role="dialog"><div class="b5-modal-card"><h2 id="b5-modal-title">Rejouer cette partie ?</h2><p>Les votes, éliminations et résultats seront effacés.</p><p>Les joueurs et leurs accès sont conservés. Les mots seront redistribués au prochain démarrage.</p><div class="b5-modal-actions"><button type="button" class="b5-cancel">Annuler</button><button type="button" class="b5-confirm ">Recommencer</button></div></div></aside>
+<!-- END: ConfirmationModalOverlay -->
+</div>
+<!-- END: MobileContainer -->
+</body></html>
