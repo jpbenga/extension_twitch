@@ -1,23 +1,62 @@
 {
   "block": 7,
   "name": "Lab / QA",
-  "status": "BLOCKED",
+  "status": "INTEGRATING",
   "stitchProjectId": "8710675424358674545",
   "stitchProjectName": "Extension Twitch UX — Block 7 — Lab",
-  "designScreens": [],
-  "approvedScreens": [],
+  "designScreens": [
+    "64f7cbad24324dc9b84e7f38d623e521",
+    "20b629654f334e3ab4f56ab000ccedaa",
+    "6aba92598d7347de831c725b9082e5ae",
+    "e12ac0762b674a46a71fabbd3101e379",
+    "466000430ac54eacab2ae45c89eac5dd",
+    "15365f53b46e46b5932eeb5d6b1041f7",
+    "12831149329146105505"
+  ],
+  "approvedScreens": [
+    {
+      "screenId": "64f7cbad24324dc9b84e7f38d623e521",
+      "slug": "lab-main-desktop",
+      "directory": "docs/ux/redesign/lab-main-desktop"
+    },
+    {
+      "screenId": "20b629654f334e3ab4f56ab000ccedaa",
+      "slug": "lab-main-mobile",
+      "directory": "docs/ux/redesign/lab-main-mobile"
+    },
+    {
+      "screenId": "6aba92598d7347de831c725b9082e5ae",
+      "slug": "lab-compare-desktop",
+      "directory": "docs/ux/redesign/lab-compare-desktop"
+    },
+    {
+      "screenId": "e12ac0762b674a46a71fabbd3101e379",
+      "slug": "lab-access-desktop",
+      "directory": "docs/ux/redesign/lab-access-desktop"
+    },
+    {
+      "screenId": "466000430ac54eacab2ae45c89eac5dd",
+      "slug": "lab-restart-desktop",
+      "directory": "docs/ux/redesign/lab-restart-desktop"
+    },
+    {
+      "screenId": "15365f53b46e46b5932eeb5d6b1041f7",
+      "slug": "lab-resume-desktop",
+      "directory": "docs/ux/redesign/lab-resume-desktop"
+    },
+    {
+      "screenId": "12831149329146105505",
+      "slug": "lab-unavailable-desktop",
+      "directory": "docs/ux/redesign/lab-unavailable-desktop"
+    }
+  ],
   "branch": "ux/block-7-lab",
   "worktree": "/workspace/ux-worktrees/block-7-lab",
-  "lastUpdate": "2026-10-28T18:18:11Z",
-  "blockers": [
-    "Les captures APPROVED, les Screen IDs et les rapports/SPEC du projet B7 ne sont pas présents dans le checkout audité au commit 73562c1.",
-    "Aucun outil MCP Google Stitch n’est exposé dans le runtime actuel pour lire le projet et récupérer ces références."
-  ],
+  "lastUpdate": "2026-10-28T18:58:17Z",
+  "blockers": [],
   "notes": [
-    "Validation humaine explicite de B7 reçue le 28 octobre 2026 ; aucune nouvelle validation UX n’est demandée.",
-    "L’absence d’identifiants dans approvedScreens signifie références non reçues, et non approbation refusée.",
-    "Audit fonctionnel effectué ; aucune interface, règle, projection, route ou donnée modifiée.",
-    "Source fonctionnelle : base 73562c1. Intégration et captures suspendues jusqu’à réception des références exactes par Git ou un accès Stitch opérationnel.",
-    "Voir BLOCK-7-INTEGRATION.md pour les composants, invariants, dépendances partagées et vérifications à exécuter."
+    "Validation humaine explicite reçue ; 7 références APPROVED synchronisées au commit documentaire 1a533c3.",
+    "Shell QA en cours d’intégration ; logique et API de partie inchangées, comparatif BroadcastFeed public indépendant.",
+    "Les résultats et captures seront consignés après les vérifications."
   ]
 }
