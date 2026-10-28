@@ -10,6 +10,16 @@ async function openPrepareSection(page: Page, name: string) {
   return false;
 }
 export async function openUndercoverOptions(page: Page) {
+  await expect(
+    page
+      .locator('[data-prepare-option="words"]')
+      .or(
+        page
+          .locator("summary")
+          .filter({ hasText: "Mots et options supplémentaires" }),
+      )
+      .first(),
+  ).toBeAttached();
   if (await openPrepareSection(page, "words")) {
     await openPrepareSection(page, "roles");
     return;
@@ -23,6 +33,10 @@ export async function openUndercoverOptions(page: Page) {
     await panel.locator(":scope > summary").click();
 }
 export async function openPrepareDemo(page: Page) {
+  // A client-side navigation may resolve its click before the destination mounts.
+  await expect(
+    page.locator('[data-prepare-option="laboratory"]'),
+  ).toBeAttached();
   await openPrepareSection(page, "laboratory");
 }
 export async function launchPrepareDemo(page: Page) {
@@ -35,6 +49,12 @@ export async function launchPrepareDemo(page: Page) {
     .click();
 }
 export async function openPrepareBroadcast(page: Page) {
+  await expect(
+    page
+      .locator('[data-prepare-option="broadcast"]')
+      .or(page.getByText("Personnaliser l’overlay", { exact: true }))
+      .first(),
+  ).toBeAttached();
   if (await openPrepareSection(page, "broadcast")) return;
   await page.getByText("Personnaliser l’overlay", { exact: true }).click();
 }
