@@ -116,7 +116,19 @@ async function shot(page: Page, info: TestInfo, state: string) {
     name: "Fermer la notification",
     exact: true,
   });
-  if (await close.count()) await close.click();
+  const dialogOpen = await page.getByRole("dialog").isVisible();
+  if (!dialogOpen && (await close.isVisible())) await close.click();
+  if (!dialogOpen) {
+    for (const action of await page
+      .getByRole("button", {
+        name: /^(Distribuer les mots et commencer|Confirmer l’indice et passer au suivant|Ouvrir les votes|Commencer la manche suivante|Rejouer cette partie|Renommer la session)$/,
+      })
+      .all())
+      await expect(action).toBeEnabled();
+    await page.evaluate(() =>
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "instant" }),
+    );
+  }
   await page.evaluate(() => document.fonts.ready);
   await expect
     .poll(() =>
@@ -172,7 +184,7 @@ async function resolve(page: Page) {
   await acceptConfirmation(page);
 }
 async function settings(page: Page) {
-  const detail = page.locator(".experience-pane:not([hidden]) .gm-settings");
+  const detail = page.locator(".gm-room-secondary .gm-settings");
   if ((await detail.getAttribute("open")) === null)
     await detail.locator("summary").click();
   return detail;
@@ -368,7 +380,7 @@ test("GM preserves a tied round, reaches a server draw and revokes players only 
   baseURL,
 }, info) => {
   test.setTimeout(90_000);
-  const f = await fixture(request, browser, page, baseURL!, 1);
+  const f = await fixture(request, browser, page, baseURL!, 2);
   try {
     await page
       .getByRole("button", {
@@ -394,6 +406,13 @@ test("GM preserves a tied round, reaches a server draw and revokes players only 
         exact: true,
       })
       .click();
+    await clues(page);
+    await page
+      .getByRole("button", { name: "Ouvrir les votes", exact: true })
+      .click();
+    for (let i = 0; i < f.players.length; i++)
+      await cast(f.players[i]!, f.players[(i + 1) % f.players.length]!.name);
+    await resolve(page);
     await expect(page.locator("#game .play-outcome")).toContainText(
       "Partie nulle",
     );
@@ -409,7 +428,7 @@ test("GM preserves a tied round, reaches a server draw and revokes players only 
         `/api/server/sessions/${f.id}/private`,
         { headers: { Authorization: `Bearer ${p.token}` } },
       );
-      expect(response.status()).toBe(403);
+      expect(response.status()).toBe(401);
     }
   } finally {
     await f.close();

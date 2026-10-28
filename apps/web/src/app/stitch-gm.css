@@ -77,6 +77,9 @@
   background: transparent;
 }
 .gm-studio .operation-tabs a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-width: 94px;
   min-height: 44px;
   border: 1px solid transparent;
@@ -86,6 +89,7 @@
   font-size: 14px;
 }
 .gm-studio .operation-tabs a[aria-current] {
+  box-shadow: none;
   color: var(--home-ink);
   background: var(--home-raised);
   border-color: var(--home-border);
@@ -217,12 +221,18 @@
 .gm-game .game-actions:empty {
   display: none;
 }
-.gm-progress {
+.gm-studio.gm-game .gm-progress {
   margin: 20px 0;
   padding: 0;
   border: 0;
   background: transparent;
   border-radius: 0;
+}
+.gm-studio.gm-game.is-gm .turn-current {
+  display: block;
+}
+.gm-progress.turn-progress > .gm-footnote {
+  display: none;
 }
 .gm-progress progress {
   display: block;
@@ -593,8 +603,8 @@
   max-width: none;
 }
 @media (max-width: 700px) and (min-height: 620px) {
-  main.gm-studio .gm-game {
-    padding-bottom: 96px;
+  main.gm-studio .gm-workspace {
+    padding-bottom: calc(112px + env(safe-area-inset-bottom, 0px));
   }
   main.gm-studio .gm-main-actions[data-has-action="true"] {
     position: fixed;

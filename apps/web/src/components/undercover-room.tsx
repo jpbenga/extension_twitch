@@ -240,15 +240,7 @@ export function UndercoverRoom({
               game={gm.game}
               locked={locked}
               send={send}
-              settings={
-                <GmSettings
-                  view={gm}
-                  locked={locked}
-                  send={send}
-                  privateUrl={privateUrl}
-                  onOpenChange={setSettingsOpen}
-                />
-              }
+              hideSecondary
             />
           ) : (
             <>
@@ -339,17 +331,6 @@ export function UndercoverRoom({
                 </section>
                 <GmRoster view={gm} game={gm.game} />
               </div>
-              <div className="gm-secondary">
-                <GmPrivateInfo view={gm} game={gm.game} />
-                <GmJournal view={gm} />
-                <GmSettings
-                  view={gm}
-                  locked={locked}
-                  send={send}
-                  privateUrl={privateUrl}
-                  onOpenChange={setSettingsOpen}
-                />
-              </div>
             </>
           ) : (
             <Roster view={gm} />
@@ -382,6 +363,22 @@ export function UndercoverRoom({
             value={`${new URL(gm.publicUrl).origin}/sessions/${view.sessionId}/obs`}
           />
         </section>
+        {gm.game?.play && gm.game.definitionId === "undercover" && (
+          <div
+            className="gm-secondary gm-room-secondary"
+            hidden={pane === "board"}
+          >
+            <GmPrivateInfo view={gm} game={gm.game} />
+            <GmJournal view={gm} />
+            <GmSettings
+              view={gm}
+              locked={locked}
+              send={send}
+              privateUrl={privateUrl}
+              onOpenChange={setSettingsOpen}
+            />
+          </div>
+        )}
       </div>
     </main>
   );

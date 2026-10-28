@@ -407,6 +407,7 @@ export function GmGamePanel({
   send,
   hideRestart = false,
   settings,
+  hideSecondary = false,
 }: {
   view: GmSessionView;
   game: GameProjection;
@@ -414,6 +415,7 @@ export function GmGamePanel({
   send: Send;
   hideRestart?: boolean;
   settings?: ReactNode;
+  hideSecondary?: boolean;
 }) {
   const play = game.play!,
     turns = play.turns,
@@ -639,11 +641,15 @@ export function GmGamePanel({
       </div>
       <div className="gm-secondary">
         <GmDelegatedVote view={view} game={game} locked={locked} send={send} />
-        <GmPrivateInfo view={view} game={game} />
-        <GmJournal view={view} />
-        {settings}
-        {!hideRestart && !play.outcome && !settings && (
-          <GmReplay game={game} send={send} locked={locked} />
+        {!hideSecondary && (
+          <>
+            <GmPrivateInfo view={view} game={game} />
+            <GmJournal view={view} />
+            {settings}
+            {!hideRestart && !play.outcome && !settings && (
+              <GmReplay game={game} send={send} locked={locked} />
+            )}
+          </>
         )}
       </div>
     </section>
