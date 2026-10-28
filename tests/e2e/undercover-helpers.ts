@@ -35,7 +35,15 @@ export async function openUndercoverOptions(page: Page) {
 export async function openPrepareDemo(page: Page) {
   // A client-side navigation may resolve its click before the destination mounts.
   await expect(
-    page.locator('[data-prepare-option="laboratory"]'),
+    page
+      .locator('[data-prepare-option="laboratory"]')
+      .or(
+        page.getByRole("button", {
+          name: "Lancer une partie de démonstration",
+          exact: true,
+        }),
+      )
+      .first(),
   ).toBeAttached();
   await openPrepareSection(page, "laboratory");
 }
