@@ -1,0 +1,117 @@
+[
+  {
+    "slug": "lab-main-desktop",
+    "functionalIntent": "Tester une partie réelle depuis une seule perspective privée, avec identité visible et action de phase dominante.",
+    "existingBehaviour": "CreatorLaboratory conserve le point de vue par essai en sessionStorage. LabView utilise useSession avec la véritable audience GM, joueur inscrit ou public et monte GamePanel pour les projections privées. Les essais rapides ont de vrais joueurs de démonstration et des accès distincts.",
+    "implementationNotes": "Refondre le shell privé QA autour des panneaux B5/B4 existants. Garder les outils et accès secondaires repliés. Ne jamais partager le laboratoire comme accès participant, monter toutes les perspectives privées simultanément ou inventer des commandes. Garder les reconnections et reprises dans le panneau actif.",
+    "captureViewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "acceptanceCriteria": [
+      "Le contexte Laboratoire privé / QA et l’identité sélectionnée sont immédiatement visibles.",
+      "Un changement de perspective démonte l’ancienne projection privée et utilise les permissions de la nouvelle identité.",
+      "L’action de phase correspond aux commandes existantes ; les outils QA restent secondaires.",
+      "Les petits textes utiles atteignent au moins 4,5:1 et la navigation clavier reste utilisable."
+    ]
+  },
+  {
+    "slug": "lab-main-mobile",
+    "functionalIntent": "Utiliser le même laboratoire sur téléphone, avec une perspective unique et des actions accessibles à une main.",
+    "existingBehaviour": "La vue responsive conserve le sélecteur GM, joueurs réellement inscrits et spectateur, ainsi que les accès privés pour ouvrir une régie ou une vue individuelle sur un autre appareil.",
+    "implementationNotes": "Réutiliser le shell et les mêmes panneaux fonctionnels que sur desktop. Ne pas forcer le comparatif côte à côte sur mobile. Préserver l’identité visible, le défilement vertical, les messages de connexion et les accès regroupés sans afficher les longues URL privées.",
+    "captureViewport": {
+      "width": 390,
+      "height": 844
+    },
+    "acceptanceCriteria": [
+      "Aucun débordement horizontal à 390 px.",
+      "Cibles tactiles d’au moins 44 px, champs d’au moins 16 px et zoom navigateur autorisé.",
+      "CTA et messages ne sont pas masqués par les éléments fixes ou les safe areas.",
+      "Le choix de perspective et les accès individuels restent utilisables sans exposer les secrets des autres rôles."
+    ]
+  },
+  {
+    "slug": "lab-compare-desktop",
+    "functionalIntent": "Comparer le compagnon privé du joueur sélectionné à l’émission publique de la même partie.",
+    "existingBehaviour": "PublicMirror monte un BroadcastFeed indépendant avec scene. Celui-ci consomme useSession(id, public) et BroadcastOverlay ; il ne dérive pas la projection publique d’un état GM ou joueur. Le comparatif ne monte qu’une perspective privée sélectionnée.",
+    "implementationNotes": "Raccorder la colonne émission au véritable renderer B6 à sept widgets configurables, sans reproduction statique ou panneau simplifié issu du HTML. Le thème émission vient de la projection de session, indépendamment de la préférence privée. Conserver la mention scène fictive et aucun flux Twitch.",
+    "captureViewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "acceptanceCriteria": [
+      "Les sept widgets et les dispositions B6 sont rendus par le même BroadcastOverlay que preview/OBS.",
+      "Le mot privé n’apparaît jamais dans la colonne publique avant la révélation autorisée.",
+      "La projection publique est obtenue séparément et reste en lecture seule.",
+      "Le choix d’apparence privée ne modifie ni le thème public ni le layout de la session.",
+      "Les petits textes secondaires atteignent au moins 4,5:1 et les noms longs restent lisibles."
+    ]
+  },
+  {
+    "slug": "lab-access-desktop",
+    "functionalIntent": "Retrouver les accès utiles et vérifier le refus réel d’une commande de gestion envoyée par un joueur.",
+    "existingBehaviour": "Le laboratoire permet ouvrir/copier la régie, les joueurs inscrits, le plateau spectateur, l’aperçu, la source OBS et le layout Undercover. probePlayerAccess vérifie la projection du premier joueur puis envoie session.rename avec son accès : le succès du probe signifie un refus serveur 403, pas une commande localement cachée.",
+    "implementationNotes": "Grouper les accès en disclosures et garder ouvrir, copier et incarner distincts. Ne jamais afficher ou journaliser les secrets réels. Conserver le contrôle avancé ciblé et ses états busy, refus attendu, résultat inattendu et erreur réseau ; ne pas prétendre à un audit complet ou à des scénarios QA inexistants. Le résultat illustré dans Stitch ne constitue pas une exécution.",
+    "captureViewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "acceptanceCriteria": [
+      "Chaque lien privé cible uniquement sa véritable identité ; seules les personnes inscrites ont un accès joueur.",
+      "Le laboratoire ne peut pas être proposé comme lien à partager aux participants.",
+      "Le probe n’annonce un succès qu’après un refus serveur 403 et signale une acceptation inattendue.",
+      "Les libellés et descriptions utiles atteignent au moins 4,5:1, y compris dans les disclosures.",
+      "Aucun contrôle QA n’apparaît dans les routes GM, joueur ou spectateur normales."
+    ]
+  },
+  {
+    "slug": "lab-restart-desktop",
+    "functionalIntent": "Confirmer le rejeu de la même partie en conservant la session, les identités et les accès.",
+    "existingBehaviour": "restartLab appelle game.restart sur le run courant et conserve les étapes et reçus en cas de résultat incertain. Le helper peut réexécuter startAction si elle est configurée ; pour Undercover officiel, le retour en préparation requiert une nouvelle distribution par le GM.",
+    "implementationNotes": "Utiliser le dialogue de confirmation partagé accessible plutôt qu’un confirm natif. Expliquer l’effacement des votes et résultats et la conservation des accès. Ne pas confondre avec le reset salon B5 qui retire les joueurs et révoque les accès. Ne pas promettre une redistribution automatique.",
+    "captureViewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "acceptanceCriteria": [
+      "Annuler ne déclenche aucune commande.",
+      "Confirmer une fois conserve la session, les identités et les liens joueur.",
+      "Le double clic et la reprise d’une réponse perdue ne réinitialisent pas deux fois le jeu.",
+      "Le retour Undercover correspond à la préparation réelle et laisse la nouvelle distribution au GM.",
+      "Le dialogue gère focus, retour de focus, clavier et état occupé."
+    ]
+  },
+  {
+    "slug": "lab-resume-desktop",
+    "functionalIntent": "Reprendre une préparation interrompue dans le même essai, sans recréer la partie ni dupliquer les inscriptions.",
+    "existingBehaviour": "prepareLab persiste chaque joueur de démonstration et son requestId, réutilise les inscriptions ayant déjà un identifiant, puis game.use-prepared et l’éventuelle action initiale. labCommand conserve le même commandId et expectedVersion après résultat réseau incertain ; une erreur définitive autorise une nouvelle commande.",
+    "implementationNotes": "Réutiliser run(prepareLab), le verrou de requête en vol et le stockage existant. Présenter Reprendre la préparation comme seule action dominante. Garder le lien nouveau test secondaire et distinct. Ne pas effacer les reçus ou générer de nouvelles identités pour rendre l’écran plus simple.",
+    "captureViewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "acceptanceCriteria": [
+      "La reprise conserve le même identifiant de session et les joueurs déjà inscrits.",
+      "Une réponse perdue réutilise les reçus/idempotence existants et ne duplique ni inscription ni action.",
+      "Le bouton est verrouillé pendant la requête ; l’erreur réseau explique la possibilité de reprendre.",
+      "Après succès, le laboratoire retrouve le shell de l’essai actif sans création automatique d’une autre session."
+    ]
+  },
+  {
+    "slug": "lab-unavailable-desktop",
+    "functionalIntent": "Expliquer que cet onglet ne possède pas les accès locaux et orienter vers le jeu pour démarrer un nouveau test.",
+    "existingBehaviour": "readLab lit les accès d’essai depuis sessionStorage. Un stockage absent ou invalide produit une absence d’accès dans cet onglet ; cela ne prouve pas que la session serveur a été supprimée. Le contexte officiel renvoie vers la configuration Undercover.",
+    "implementationNotes": "Conserver l’explication limitée aux accès locaux et une action vers le jeu. Ne pas inventer récupération de compte, jeton, réouverture de session ou effacement serveur. Garder cet état dans le laboratoire privé, sans réactiver les routes Creator legacy fermées par défaut.",
+    "captureViewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "acceptanceCriteria": [
+      "Aucun secret ou faux identifiant de récupération n’est demandé ou affiché.",
+      "Le texte ne prétend ni à une session supprimée ni à une restauration automatique des accès.",
+      "L’action ouvre la configuration du jeu officiel ; elle ne crée pas une session avant validation du parcours normal.",
+      "Les accès absents ou corrompus n’entraînent ni crash ni fuite de projection privée."
+    ]
+  }
+]

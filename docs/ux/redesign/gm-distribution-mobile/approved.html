@@ -1,0 +1,300 @@
+<!DOCTYPE html><html lang="fr" class="dark"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AFTER — GM Distribution — Mobile — v1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0C0C1F',
+            card: '#1A1A2D',
+            raised: '#28283C',
+            'raised-hover': '#32324a',
+            bordercol: '#2C2B42',
+            textbase: '#E2E0FB',
+            secondary: '#B7A8D4',
+            accentlilac: '#CEBDFF',
+            citron: '#C8F323',
+            citrondark: '#171E00',
+            citronhover: '#b5dd1c',
+            tealstatus: '#20C9B4'
+          },
+          fontFamily: {
+            space: ['"Space Grotesk"', 'sans-serif'],
+            sans: ['"DM Sans"', 'sans-serif']
+          },
+          borderRadius: {
+            card: '12px',
+            control: '8px'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #0C0C1F;
+      color: #E2E0FB;
+      font-family: 'DM Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .font-space {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    /* Touch target helpers */
+    .touch-target-48 {
+      min-height: 48px;
+    }
+    .touch-target-44 {
+      min-height: 44px;
+    }
+  </style>
+<style data-b5-material-repair="">.b5-modal-card{width:100%;max-width:520px;max-height:calc(100svh - 48px);overflow:auto;background:#1A1A2D;color:#E2E0FB;border:1px solid #7E7199;border-radius:12px;padding:28px;box-shadow:0 20px 60px #0006;}.b5-modal-card h2{font-size:24px;line-height:32px;margin:0 0 20px;}.b5-modal-card p{font-size:16px;line-height:24px;color:#B7A8D4;margin:0 0 16px;}.b5-modal-actions{display:flex;gap:12px;justify-content:flex-end;margin-top:28px;}.b5-cancel,.b5-confirm{border-radius:8px;min-height:48px;padding:12px 18px;font-weight:600;}.b5-cancel{border:1px solid #7E7199;background:#28283C;color:#E2E0FB;}.b5-confirm{background:#C8F323;color:#171E00;}.b5-danger{background:#FFB4AB;color:#690005;}[role=dialog]{position:fixed!important;inset:0!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:16px!important;background:rgba(12,12,31,.85)!important;z-index:100!important;}@media(max-width:600px){.b5-modal-card{padding:22px;}.b5-modal-actions{flex-direction:column;}.b5-confirm{order:-1;}}body{background:#0C0C1F!important;color:#E2E0FB;font-family:'DM Sans',sans-serif;}h1,h2,h3,button,summary,label,[class*=font-label],[class*=font-headline]{font-family:'Space Grotesk',sans-serif;}.text-on-surface-variant,.text-secondary-fixed-dim,.text-text-muted{color:#B7A8D4!important;}.b5-disclosure-content{padding:16px;display:grid;gap:12px;color:#B7A8D4;font-size:14px;}.b5-secondary,.b5-input{background:#28283C;color:#E2E0FB;border:1px solid #7E7199;border-radius:8px;padding:10px 14px;}.b5-input{display:block;width:100%;margin-top:8px;}button, summary, input, select, a[role="button"] { min-height: 44px; } button:focus-visible, summary:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid #CEBDFF; outline-offset: 3px; } @media(max-width:600px){button,summary,input,select,a[role="button"]{min-height:48px;} input,select,textarea{font-size:16px!important;} button{white-space:normal;}}</style><style data-b5-controls>a{min-height:44px;display:inline-flex;align-items:center;}nav a{justify-content:center;}button{min-width:44px;}nav .bg-primary-container{background:#28283C!important;color:#CEBDFF!important;box-shadow:none!important;}@media(max-width:600px){a{min-height:48px;}}</style></head>
+<body class="min-h-screen bg-canvas text-textbase flex justify-center selection:bg-citron selection:text-citrondark">
+
+  <!-- Mobile Container (390px layout reference with responsive one-column fluid up to 430px) -->
+  <div class="w-full max-w-[430px] min-h-screen bg-canvas flex flex-col justify-between px-4 pt-3 pb-6 relative">
+    
+    <!-- TOP SECTION: Shell Header & Navigation -->
+    <header class="w-full mb-3">
+      <!-- Topmost Row: Brand / Studio & Appearance -->
+      <div class="flex items-center justify-between py-1 border-b border-bordercol/40 pb-2.5">
+        <div class="flex items-center gap-2">
+          <!-- Game / Extension Icon -->
+          <div class="w-7 h-7 rounded-control bg-raised flex items-center justify-center text-accentlilac border border-bordercol">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="6" width="20" height="12" rx="4"></rect>
+              <line x1="6" y1="12" x2="10" y2="12"></line>
+              <line x1="8" y1="10" x2="8" y2="14"></line>
+              <line x1="15" y1="13" x2="15.01" y2="13"></line>
+              <line x1="18" y1="11" x2="18.01" y2="11"></line>
+            </svg>
+          </div>
+          <div class="leading-tight">
+            <div class="text-[13px] font-space font-semibold text-textbase tracking-tight flex items-center gap-1.5">
+              Extension Twitch
+              <span class="text-[10px] font-medium px-1.5 py-0.5 rounded bg-raised text-secondary border border-bordercol/70 tracking-wide uppercase">Régie</span>
+            </div>
+            <div class="text-[11px] text-secondary">Meneur de jeu · Privé</div>
+          </div>
+        </div>
+
+        <!-- Apparence Dropdown / Control (Private theme selector) -->
+        <button type="button" class="touch-target-44 flex items-center gap-1.5 text-xs text-secondary hover:text-textbase px-2.5 py-1.5 rounded-control bg-card/80 border border-bordercol transition-colors">
+          <svg class="w-3.5 h-3.5 text-secondary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <span class="font-space font-medium text-[11px]">Apparence</span>
+        </button>
+      </div>
+
+      <!-- App Title & State Indicator -->
+      <div class="mt-3 flex items-center justify-between">
+        <div>
+          <span class="text-[10px] tracking-wider uppercase text-secondary/80 font-space font-semibold block">Votre partie</span>
+          <h1 class="text-2xl font-space font-bold text-textbase tracking-tight">Undercover</h1>
+        </div>
+        <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-card border border-tealstatus/30 text-tealstatus text-[11px] font-space font-medium">
+          <span class="w-1.5 h-1.5 rounded-full bg-tealstatus"></span>
+          Prêt à distribuer
+        </div>
+      </div>
+
+      <!-- Stable Navigation Tabs: Partie (active) / Joueurs / Plateau -->
+      <nav class="mt-3.5 grid grid-cols-3 gap-1 bg-card p-1 rounded-control border border-bordercol text-xs font-space font-medium">
+        <button class="py-2 rounded-control bg-raised text-textbase font-semibold shadow-sm text-center border border-bordercol/80 flex items-center justify-center">
+          Partie
+        </button>
+        <button class="py-2 rounded-control text-secondary hover:text-textbase text-center transition-colors flex items-center justify-center">
+          Joueurs
+        </button>
+        <!-- Plateau points to separate B6 public preview -->
+        <a href="#plateau" class="py-2 rounded-control text-secondary hover:text-textbase text-center transition-colors flex items-center justify-center">
+          Plateau
+        </a>
+      </nav>
+    </header>
+
+    <!-- MAIN SCROLLABLE CONTENT AREA -->
+    <main class="flex-1 flex flex-col gap-3 py-1">
+      
+      <!-- Primary Card: Prêt à distribuer -->
+      <section class="bg-card rounded-card p-4 border border-bordercol flex flex-col gap-3">
+        <!-- Card Header & Status -->
+        <div class="flex flex-col gap-1">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-space font-semibold uppercase tracking-wider text-accentlilac">Phase en attente</span>
+            <span class="text-[11px] font-space text-secondary">Inscriptions closes</span>
+          </div>
+          <h2 class="text-lg font-space font-bold text-textbase">Prêt à distribuer</h2>
+          <p class="text-[13px] text-secondary leading-relaxed">
+            Les inscriptions sont fermées. Distribuez les mots pour commencer.
+          </p>
+        </div>
+
+        <!-- Configuration Badge / Summary pill -->
+        <div class="bg-raised rounded-control px-3 py-2 border border-bordercol/80 flex items-center justify-between text-xs">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-accentlilac" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+            <span class="font-space font-medium text-textbase">4 joueurs · 2 tours d’indices</span>
+          </div>
+          <span class="text-[11px] text-tealstatus font-space font-semibold flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-tealstatus"></span>
+            Verrouillé
+          </span>
+        </div>
+
+        <!-- Ordered Roster List: Alex, Lou, Sam, Noa (Registered order, neutral names only, no secret camps/words) -->
+        <div class="flex flex-col gap-1.5 pt-1">
+          <div class="text-[11px] font-space uppercase tracking-wider text-secondary flex items-center justify-between px-1">
+            <span>Joueurs inscrits (4)</span>
+            <span class="text-[10px] lowercase text-secondary/70">rôles masqués</span>
+          </div>
+
+          <!-- Player Item 1: Alex -->
+          <div class="bg-raised/80 rounded-control px-3 py-2.5 border border-bordercol/60 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <div class="w-6 h-6 rounded-full bg-card border border-bordercol flex items-center justify-center text-[11px] font-space font-semibold text-accentlilac">
+                A
+              </div>
+              <span class="text-sm font-space font-semibold text-textbase">Alex</span>
+            </div>
+            <span class="text-[11px] text-secondary font-medium">Participant 1</span>
+          </div>
+
+          <!-- Player Item 2: Lou -->
+          <div class="bg-raised/80 rounded-control px-3 py-2.5 border border-bordercol/60 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <div class="w-6 h-6 rounded-full bg-card border border-bordercol flex items-center justify-center text-[11px] font-space font-semibold text-accentlilac">
+                L
+              </div>
+              <span class="text-sm font-space font-semibold text-textbase">Lou</span>
+            </div>
+            <span class="text-[11px] text-secondary font-medium">Participant 2</span>
+          </div>
+
+          <!-- Player Item 3: Sam -->
+          <div class="bg-raised/80 rounded-control px-3 py-2.5 border border-bordercol/60 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <div class="w-6 h-6 rounded-full bg-card border border-bordercol flex items-center justify-center text-[11px] font-space font-semibold text-accentlilac">
+                S
+              </div>
+              <span class="text-sm font-space font-semibold text-textbase">Sam</span>
+            </div>
+            <span class="text-[11px] text-secondary font-medium">Participant 3</span>
+          </div>
+
+          <!-- Player Item 4: Noa -->
+          <div class="bg-raised/80 rounded-control px-3 py-2.5 border border-bordercol/60 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <div class="w-6 h-6 rounded-full bg-card border border-bordercol flex items-center justify-center text-[11px] font-space font-semibold text-accentlilac">
+                N
+              </div>
+              <span class="text-sm font-space font-semibold text-textbase">Noa</span>
+            </div>
+            <span class="text-[11px] text-secondary font-medium">Participant 4</span>
+          </div>
+        </div>
+
+        <p class="text-[11px] text-secondary/80 text-center pt-1 leading-snug">Les mots seront transmis aux joueurs. La discussion commencera ensuite.</p>
+      </section>
+
+      <!-- Closed Secondary Disclosures: Stable game administration rows -->
+      <section class="flex flex-col gap-2 pt-1">
+        
+        <!-- Row 1: Informations privées du Game Master (Closed) -->
+        <details class="group bg-card rounded-card border border-bordercol overflow-hidden">
+          <summary class="touch-target-48 px-3.5 py-3 flex items-center justify-between cursor-pointer select-none list-none hover:bg-raised/40 transition-colors">
+            <div class="flex items-center gap-2.5 text-xs font-space font-semibold text-textbase">
+              <svg class="w-4 h-4 text-accentlilac" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <span>Informations privées du Game Master</span>
+            </div>
+            <svg class="w-4 h-4 text-secondary group-open:rotate-90 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </summary>
+          
+        <div class="b5-disclosure-content"><p>Les attributions seront disponibles après la distribution.</p></div></details>
+
+        <!-- Row 2: Journal de la partie (Closed) -->
+        <details class="group bg-card rounded-card border border-bordercol overflow-hidden">
+          <summary class="touch-target-48 px-3.5 py-3 flex items-center justify-between cursor-pointer select-none list-none hover:bg-raised/40 transition-colors">
+            <div class="flex items-center gap-2.5 text-xs font-space font-semibold text-textbase">
+              <svg class="w-4 h-4 text-secondary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+              <span>Journal de la partie</span>
+            </div>
+            <svg class="w-4 h-4 text-secondary group-open:rotate-90 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </summary>
+          
+        <div class="b5-disclosure-content"><p>Événements de la partie.</p></div></details>
+
+        <!-- Row 3: Accès et réglages de la partie (Closed) -->
+        <details class="group bg-card rounded-card border border-bordercol overflow-hidden">
+          <summary class="touch-target-48 px-3.5 py-3 flex items-center justify-between cursor-pointer select-none list-none hover:bg-raised/40 transition-colors">
+            <div class="flex items-center gap-2.5 text-xs font-space font-semibold text-textbase">
+              <svg class="w-4 h-4 text-secondary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+              <span>Accès et réglages de la partie</span>
+            </div>
+            <svg class="w-4 h-4 text-secondary group-open:rotate-90 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </summary>
+          
+        <div class="b5-disclosure-content"><p>Accès privé GM — ne pas partager avec les joueurs.</p><p aria-label="Lien privé masqué">••••••••••••</p><button type="button" class="b5-secondary">Copier mon accès GM</button><label>Nom de l’émission<input type="text" value="Soirée Undercover" maxlength="32" class="b5-input"></label><button type="button" class="b5-secondary">Renommer la session</button><p>Rejouer conserve les joueurs et leurs accès.</p><button type="button" class="b5-secondary">Rejouer cette partie</button><p>Réinitialiser retire les joueurs et révoque leurs accès.</p><button type="button" class="b5-secondary">Réinitialiser le salon</button></div></details>
+
+      </section>
+
+    </main>
+
+    <!-- BOTTOM ACTION AREA: Single dominant action citron CTA with safe area -->
+    <footer class="w-full pt-3 pb-2 sticky bottom-0 bg-gradient-to-t from-canvas via-canvas to-transparent">
+      <!-- Dominant Citron CTA: Target >= 48px, bold Space Grotesk, dark text #171E00 on citron #C8F323 -->
+      <button type="button" class="w-full touch-target-48 py-3.5 px-4 rounded-control bg-citron hover:bg-citronhover active:scale-[0.99] text-citrondark font-space font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-citron/10 transition-all text-center leading-snug">
+        <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="5 3 19 12 5 21 5 3"></polygon>
+        </svg>
+        <span>Distribuer les mots et commencer</span>
+      </button>
+
+      <p class="text-[11px] text-secondary/70 text-center mt-2 font-sans">
+        Distribution privée. Lance immédiatement la Manche 1.
+      </p>
+    </footer>
+
+  </div>
+
+
+</body></html>

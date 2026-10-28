@@ -1,0 +1,232 @@
+[
+  {
+    "slug": "broadcast-obs-preparation",
+    "functionalIntent": "Présenter la préparation de la partie au public sans suggérer une distribution déjà faite.",
+    "existingBehaviour": "BroadcastOverlay utilise publicGame/play quand disponibles et les participants publics en attente sinon. Le GM réalise la distribution ; le public ne commande aucune transition.",
+    "implementationNotes": "Adapter le renderer React BroadcastOverlay et ses styles partagés ; ne pas reconstruire l’application à partir du HTML de maquette. Conserver exactement les sept widgets obligatoires et leur géométrie bornée, le cadre 16:9 et la transparence réelle hors panneaux. Aucune commande ni damier dans OBS. Utiliser seulement PublicSessionView provenant du flux public indépendant ; thème public de session indépendant du thème privé. Ne pas afficher de rôle ou mot avant leur publication serveur.",
+    "acceptanceCriteria": [
+      "Le cadre 1920×1080 contient les sept widgets et ne déforme pas le ratio16:9.",
+      "Les coins et espaces hors panneaux ont un alpha nul dans la capture navigateur ; aucun contrôle interactif ni damier.",
+      "Aucun mot, rôle non publié, invitation, accès privé ou état GM dans les données publiques ou le DOM.",
+      "Les participants restent en attente et aucune action Démarrer, Inviter ou Voter n’est rendue."
+    ],
+    "captureViewport": {
+      "width": 1920,
+      "height": 1080
+    }
+  },
+  {
+    "slug": "broadcast-obs-discussion",
+    "functionalIntent": "Faire reconnaître immédiatement le joueur qui donne son indice et l’avancement réel des tours oraux.",
+    "existingBehaviour": "play.turns expose round, total, current, completed, order et complete. Les passages sont confirmés par le GM, sans minuteur automatique ni saisie de l’indice côté diffusion.",
+    "implementationNotes": "Adapter le renderer React BroadcastOverlay et ses styles partagés ; ne pas reconstruire l’application à partir du HTML de maquette. Conserver exactement les sept widgets obligatoires et leur géométrie bornée, le cadre 16:9 et la transparence réelle hors panneaux. Aucune commande ni damier dans OBS. Utiliser seulement PublicSessionView provenant du flux public indépendant ; thème public de session indépendant du thème privé. Corriger la réserve connue de la maquette : la progression orale doit rester lisible dans le widget phase, sans texte coupé par sa hauteur. Prévoir le reflow du nom du joueur courant, une taille de texte adaptée et une troncature maîtrisée du nom si nécessaire, jamais de la progression utile.",
+    "acceptanceCriteria": [
+      "Le cadre 1920×1080 contient les sept widgets et ne déforme pas le ratio16:9.",
+      "Les coins et espaces hors panneaux ont un alpha nul dans la capture navigateur ; aucun contrôle interactif ni damier.",
+      "Aucun mot, rôle non publié, invitation, accès privé ou état GM dans les données publiques ou le DOM.",
+      "Tour d’indices, total, joueur courant et nombre de passages confirmés restent lisibles au preset Équilibré.",
+      "Tester un nom de32 caractères et douze participants : aucune sortie du cadre, aucun nombre de progression masqué.",
+      "Quand complete=true, afficher Indices terminés sans inventer un changement de phase."
+    ],
+    "captureViewport": {
+      "width": 1920,
+      "height": 1080
+    }
+  },
+  {
+    "slug": "broadcast-obs-vote",
+    "functionalIntent": "Rendre visible la participation au scrutin sans divulguer les choix avant résolution.",
+    "existingBehaviour": "Le ballot ouvert fournit eligible et voted ; projectPlay ne publie les tallies qu’après résolution. Les cartes publiques indiquent A voté ou Vote attendu.",
+    "implementationNotes": "Adapter le renderer React BroadcastOverlay et ses styles partagés ; ne pas reconstruire l’application à partir du HTML de maquette. Conserver exactement les sept widgets obligatoires et leur géométrie bornée, le cadre 16:9 et la transparence réelle hors panneaux. Aucune commande ni damier dans OBS. Utiliser seulement PublicSessionView provenant du flux public indépendant ; thème public de session indépendant du thème privé. Distinguer nombre de votes reçus et décomptes par candidat. La révélation reste une commande GM.",
+    "acceptanceCriteria": [
+      "Le cadre 1920×1080 contient les sept widgets et ne déforme pas le ratio16:9.",
+      "Les coins et espaces hors panneaux ont un alpha nul dans la capture navigateur ; aucun contrôle interactif ni damier.",
+      "Aucun mot, rôle non publié, invitation, accès privé ou état GM dans les données publiques ou le DOM.",
+      "Le nombre reçu et le nombre attendu correspondent au ballot public.",
+      "Aucun choix individuel ni total par candidat pendant le vote ouvert."
+    ],
+    "captureViewport": {
+      "width": 1920,
+      "height": 1080
+    }
+  },
+  {
+    "slug": "broadcast-obs-elimination",
+    "functionalIntent": "Faire comprendre le résultat public du scrutin et l’élimination non finale.",
+    "existingBehaviour": "Le ballot résolu expose tallies, eliminated et tied. Le camp du joueur éliminé est affichable uniquement si roster.role est déjà présent dans la projection publique ; les autres camps restent secrets.",
+    "implementationNotes": "Adapter le renderer React BroadcastOverlay et ses styles partagés ; ne pas reconstruire l’application à partir du HTML de maquette. Conserver exactement les sept widgets obligatoires et leur géométrie bornée, le cadre 16:9 et la transparence réelle hors panneaux. Aucune commande ni damier dans OBS. Utiliser seulement PublicSessionView provenant du flux public indépendant ; thème public de session indépendant du thème privé. Garder les joueurs éliminés identifiables sans leur attribuer une action. Aucun bouton de manche suivante ; le GM garde cette commande.",
+    "acceptanceCriteria": [
+      "Le cadre 1920×1080 contient les sept widgets et ne déforme pas le ratio16:9.",
+      "Les coins et espaces hors panneaux ont un alpha nul dans la capture navigateur ; aucun contrôle interactif ni damier.",
+      "Aucun mot, rôle non publié, invitation, accès privé ou état GM dans les données publiques ou le DOM.",
+      "Le résultat nomme le joueur réellement éliminé et ses voix publiées.",
+      "Seul le camp déjà public est montré ; aucun décompte de camps secrets.",
+      "Le plateau ne passe pas automatiquement à une nouvelle manche."
+    ],
+    "captureViewport": {
+      "width": 1920,
+      "height": 1080
+    }
+  },
+  {
+    "slug": "broadcast-obs-tie",
+    "functionalIntent": "Signaler une égalité compréhensible sans ajouter une règle de départage.",
+    "existingBehaviour": "ballot.status=resolved et tied=true indiquent une égalité ; personne n’est éliminé. La suite dépend de la commande GM existante.",
+    "implementationNotes": "Adapter le renderer React BroadcastOverlay et ses styles partagés ; ne pas reconstruire l’application à partir du HTML de maquette. Conserver exactement les sept widgets obligatoires et leur géométrie bornée, le cadre 16:9 et la transparence réelle hors panneaux. Aucune commande ni damier dans OBS. Utiliser seulement PublicSessionView provenant du flux public indépendant ; thème public de session indépendant du thème privé. Réutiliser les décomptes publiés sans inventer revote, duel, départage ou compte à rebours.",
+    "acceptanceCriteria": [
+      "Le cadre 1920×1080 contient les sept widgets et ne déforme pas le ratio16:9.",
+      "Les coins et espaces hors panneaux ont un alpha nul dans la capture navigateur ; aucun contrôle interactif ni damier.",
+      "Aucun mot, rôle non publié, invitation, accès privé ou état GM dans les données publiques ou le DOM.",
+      "Le texte indique une égalité et aucune élimination.",
+      "Aucune nouvelle option de départage ou transition automatique."
+    ],
+    "captureViewport": {
+      "width": 1920,
+      "height": 1080
+    }
+  },
+  {
+    "slug": "broadcast-obs-victory",
+    "functionalIntent": "Annoncer le résultat global final et les révélations publiques autorisées.",
+    "existingBehaviour": "play.outcome.label est autoritaire. Les rôles et GameValues rendus publics après fin peuvent être affichés. Un seul patron accepte victoire des civils ou des Undercover.",
+    "implementationNotes": "Adapter le renderer React BroadcastOverlay et ses styles partagés ; ne pas reconstruire l’application à partir du HTML de maquette. Conserver exactement les sept widgets obligatoires et leur géométrie bornée, le cadre 16:9 et la transparence réelle hors panneaux. Aucune commande ni damier dans OBS. Utiliser seulement PublicSessionView provenant du flux public indépendant ; thème public de session indépendant du thème privé. Utiliser le libellé serveur global, sans victoire personnelle ni nouvelle statistique. Les mots finaux proviennent exclusivement des valeurs publiques autorisées.",
+    "acceptanceCriteria": [
+      "Le cadre 1920×1080 contient les sept widgets et ne déforme pas le ratio16:9.",
+      "Les coins et espaces hors panneaux ont un alpha nul dans la capture navigateur ; aucun contrôle interactif ni damier.",
+      "Aucun mot, rôle non publié, invitation, accès privé ou état GM dans les données publiques ou le DOM.",
+      "Le patron accepte les deux équipes gagnantes sans logique de victoire recodée.",
+      "Les révélations finales n’apparaissent qu’après publication moteur.",
+      "Après vrai rejeu, le résultat et les anciennes valeurs disparaissent."
+    ],
+    "captureViewport": {
+      "width": 1920,
+      "height": 1080
+    }
+  },
+  {
+    "slug": "broadcast-obs-draw",
+    "functionalIntent": "Présenter une fin nulle lorsque le moteur atteint la limite de manches.",
+    "existingBehaviour": "Le moteur publie outcome id round-limit et son label de fin nulle ; le public ne recalcule pas la limite et ne choisit pas de vainqueur.",
+    "implementationNotes": "Adapter le renderer React BroadcastOverlay et ses styles partagés ; ne pas reconstruire l’application à partir du HTML de maquette. Conserver exactement les sept widgets obligatoires et leur géométrie bornée, le cadre 16:9 et la transparence réelle hors panneaux. Aucune commande ni damier dans OBS. Utiliser seulement PublicSessionView provenant du flux public indépendant ; thème public de session indépendant du thème privé. Conserver ce patron distinct de la victoire sans inventer une défaite personnelle ou un nouveau départage.",
+    "acceptanceCriteria": [
+      "Le cadre 1920×1080 contient les sept widgets et ne déforme pas le ratio16:9.",
+      "Les coins et espaces hors panneaux ont un alpha nul dans la capture navigateur ; aucun contrôle interactif ni damier.",
+      "Aucun mot, rôle non publié, invitation, accès privé ou état GM dans les données publiques ou le DOM.",
+      "Le nul reflète exactement l’outcome serveur.",
+      "Aucun gagnant, score ou départage fabriqué côté client."
+    ],
+    "captureViewport": {
+      "width": 1920,
+      "height": 1080
+    }
+  },
+  {
+    "slug": "broadcast-spectator-desktop",
+    "functionalIntent": "Permettre de suivre la partie sur le plateau public classique responsive.",
+    "existingBehaviour": "La route /sessions/:id/public utilise PublicSession, distinct de la composition BroadcastOverlay ; elle lit un état public et conserve les anciens liens.",
+    "implementationNotes": "Refondre la présentation PublicSession et les résumés partagés existants sans substituer le renderer OBS au plateau classique. Garder les informations longues consultables dans cette page responsive, la même projection publique et le thème public de session. Aucun contrôle de jeu ou faux vote Twitch.",
+    "acceptanceCriteria": [
+      "La route publique existante reste accessible sans capacité GM.",
+      "Les phases préparation, discussion, vote et fin conservent les mêmes données publiques et protections de secrets.",
+      "Les noms longs et douze participants restent lisibles sans débordement horizontal.",
+      "Les libellés ne prétendent pas être connectés à Twitch."
+    ],
+    "captureViewport": {
+      "width": 1440,
+      "height": 900
+    }
+  },
+  {
+    "slug": "broadcast-spectator-mobile",
+    "functionalIntent": "Suivre sur téléphone le joueur courant et les informations publiques essentielles.",
+    "existingBehaviour": "Même PublicSession et mêmes données publiques que sur ordinateur ; les joueurs et le résumé se réorganisent de manière responsive.",
+    "implementationNotes": "Décliner la référence desktop en une colonne et garder les noms et informations complètes lisibles. Aucun petit contrôle de jeu ajouté ; le spectateur reste lecteur. Conserver les autres phases dans le même patron public.",
+    "acceptanceCriteria": [
+      "À390×844 aucune barre horizontale ni texte essentiel coupé.",
+      "Le joueur courant, la phase et la progression restent identifiables avec un nom de32 caractères.",
+      "Aucune donnée ni commande de joueur/GM n’est présente."
+    ],
+    "captureViewport": {
+      "width": 390,
+      "height": 844
+    }
+  },
+  {
+    "slug": "broadcast-stream-preview-desktop",
+    "functionalIntent": "Vérifier le cadrage du rendu synchronisé sur une scène fictive avant usage OBS.",
+    "existingBehaviour": "StreamPreview propose Scène fictive et Overlay seul, un BroadcastFeed public indépendant, les outils OBS et les capacités spectateur réelles. Le décor et le damier appartiennent au shell d’aperçu.",
+    "implementationNotes": "Conserver BroadcastFeed/BroadcastOverlay partagé avec OBS et le comparatif B7. Ne pas remplacer ce canvas par une capture statique ou un faux renderer. Ouvrir/copier seulement les URLs publiques /stream et /obs ; aucun jeton GM. Garder les outils secondaires en disclosures et identifier explicitement la scène fictive.",
+    "acceptanceCriteria": [
+      "Le changement de fond ne change ni le gameplay, ni la projection, ni la géométrie du renderer.",
+      "Le canvas conserve son ratio16:9 et le même état durable que la source OBS.",
+      "Aucun flux Twitch réel ou contrôle spectateur fictif n’est annoncé.",
+      "Le thème privé de l’app ne modifie pas le thème public de la session."
+    ],
+    "captureViewport": {
+      "width": 1440,
+      "height": 900
+    }
+  },
+  {
+    "slug": "broadcast-stream-preview-mobile",
+    "functionalIntent": "Contrôler le cadrage 16:9 et retrouver les outils OBS depuis un téléphone.",
+    "existingBehaviour": "Même StreamPreview que sur ordinateur : scène fictive/overlay seul, outils OBS repliables et URLs publiques sans droit de commande.",
+    "implementationNotes": "Adapter le shell à une main avec des cibles44px minimum et garder la miniature16:9 proportionnelle. Autoriser le scroll vertical pour les outils. Ne pas agrandir artificiellement la miniature au prix de son cadrage ; le contrôle détaillé de typographie se fait aussi en1920×1080.",
+    "acceptanceCriteria": [
+      "À390×844 le canvas reste16:9, sans scroll horizontal.",
+      "Les commandes de fond et les disclosures sont utilisables avec des cibles44px minimum.",
+      "Ouvrir/copier OBS utilise une URL publique sans capacité privée."
+    ],
+    "captureViewport": {
+      "width": 390,
+      "height": 844
+    }
+  },
+  {
+    "slug": "broadcast-layout-desktop",
+    "functionalIntent": "Personnaliser la disposition Undercover par des réglages bornés et enregistrer une seule fois dans la partie.",
+    "existingBehaviour": "SessionLayoutEditor sépare le flux GM des données publiques du canvas et garde un brouillon sessionStorage. UndercoverLayoutEditor offre quatre presets, sept widgets, pointer/clavier/champs, cartes grid/horizontal/vertical/free et placement individuel. overlay.configure utilise permissions, version attendue et reçu existants.",
+    "implementationNotes": "Refondre les contrôles et la hiérarchie autour d’Enregistrer la disposition sans changer le schéma. Garder les sept blocs obligatoires, les quatre presets et les minima ; aucune suppression/masquage/ajout arbitraire. Le canvas utilise BroadcastOverlay avec un override de brouillon et uniquement PublicSessionView. Conserver le retour au défaut confirmé, les chevauchements signalés, le brouillon privé, beforeunload et le réessai de commande incertaine.",
+    "acceptanceCriteria": [
+      "Chaque bloc reste dans1920×1080 avec marge24px et minimas du contrat ; aucune mutation du moteur ou de l’ordre de parole.",
+      "Les quatre presets et quatre modes de cartes, le placement individuel et les alternatives clavier/champs restent accessibles.",
+      "Enregistrer publie la disposition sans reset, nouvelle URL ni perte du thème public.",
+      "Un conflit empêche l’écrasement ; le réessai conserve l’identité de commande existante."
+    ],
+    "captureViewport": {
+      "width": 1440,
+      "height": 900
+    }
+  },
+  {
+    "slug": "broadcast-layout-mobile",
+    "functionalIntent": "Ajuster sur téléphone la même disposition avec des champs tactiles précis.",
+    "existingBehaviour": "Même schéma, brouillon, sauvegarde et renderer public que l’éditeur desktop. Les champs numériques et bornes offrent une alternative aux gestes sur miniature.",
+    "implementationNotes": "Prioriser la sélection de bloc et les champs tactiles plutôt qu’exiger le drag sur un petit canvas. Conserver toutes les capacités existantes sans densité technique inutile. Inputs16px minimum, cibles44px minimum, état non enregistré explicite et action principale accessible. Ne pas créer un éditeur de scènes.",
+    "acceptanceCriteria": [
+      "À390×844 aucun débordement horizontal ; champs16px minimum et cibles44px minimum.",
+      "Les bornes sont appliquées à chaque édition et les sept widgets ne peuvent être retirés.",
+      "La sauvegarde utilise le même overlay.configure et met à jour OBS sans réinitialiser la partie."
+    ],
+    "captureViewport": {
+      "width": 390,
+      "height": 844
+    }
+  },
+  {
+    "slug": "broadcast-layout-conflict",
+    "functionalIntent": "Protéger les ajustements locaux lorsqu’une autre fenêtre a enregistré une disposition différente.",
+    "existingBehaviour": "SessionLayoutEditor compare draft.base au layout distant : un changement distant de layout avec brouillon modifié bloque la sauvegarde. Charger la version serveur exige confirmation et remplace ensuite le brouillon ; un changement de gameplay seul n’est pas un conflit.",
+    "implementationNotes": "Conserver les ajustements locaux visibles, expliquer pourquoi Enregistrer est bloqué et garder une confirmation accessible avant tout remplacement local. Ne pas ajouter Forcer l’écrasement, fusion automatique ou écrasement silencieux. Après réponse incertaine garder le circuit Réessayer de la même commande.",
+    "acceptanceCriteria": [
+      "Deux onglets provoquent un conflit uniquement si leurs layouts divergent et si le brouillon local est modifié.",
+      "Annuler la confirmation conserve intégralement les ajustements locaux.",
+      "Confirmer le chargement récupère la version autoritaire sans changer la partie.",
+      "Le focus du dialogue est contenu puis rendu au déclencheur."
+    ],
+    "captureViewport": {
+      "width": 1440,
+      "height": 900
+    }
+  }
+]

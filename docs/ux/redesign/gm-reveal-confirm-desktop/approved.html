@@ -1,0 +1,202 @@
+<!DOCTYPE html><html lang="fr" class="dark"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AFTER — GM Reveal Confirmation — Desktop — v1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,400&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0C0C1F',
+            card: '#1A1A2D',
+            raised: '#28283C',
+            text: '#E2E0FB',
+            secondary: '#B7A8D4',
+            lilac: '#CEBDFF',
+            citron: '#C8F323',
+            'citron-dark': '#171E00',
+            outline: '#7E7199',
+            bordercol: 'rgba(126, 113, 153, 0.25)',
+          },
+          fontFamily: {
+            title: ['Space Grotesk', 'sans-serif'],
+            body: ['DM Sans', 'sans-serif'],
+          },
+          borderRadius: {
+            card: '12px',
+            ctrl: '8px',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #0C0C1F;
+      color: #E2E0FB;
+      font-family: 'DM Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+    .font-space {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      vertical-align: middle;
+    }
+  </style>
+<style data-b5-material-repair="">.b5-modal-card{width:100%;max-width:520px;max-height:calc(100svh - 48px);overflow:auto;background:#1A1A2D;color:#E2E0FB;border:1px solid #7E7199;border-radius:12px;padding:28px;box-shadow:0 20px 60px #0006;}.b5-modal-card h2{font-size:24px;line-height:32px;margin:0 0 20px;}.b5-modal-card p{font-size:16px;line-height:24px;color:#B7A8D4;margin:0 0 16px;}.b5-modal-actions{display:flex;gap:12px;justify-content:flex-end;margin-top:28px;}.b5-cancel,.b5-confirm{border-radius:8px;min-height:48px;padding:12px 18px;font-weight:600;}.b5-cancel{border:1px solid #7E7199;background:#28283C;color:#E2E0FB;}.b5-confirm{background:#C8F323;color:#171E00;}.b5-danger{background:#FFB4AB;color:#690005;}[role=dialog]{position:fixed!important;inset:0!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:16px!important;background:rgba(12,12,31,.85)!important;z-index:100!important;}@media(max-width:600px){.b5-modal-card{padding:22px;}.b5-modal-actions{flex-direction:column;}.b5-confirm{order:-1;}}body{background:#0C0C1F!important;color:#E2E0FB;font-family:'DM Sans',sans-serif;}h1,h2,h3,button,summary,label,[class*=font-label],[class*=font-headline]{font-family:'Space Grotesk',sans-serif;}.text-on-surface-variant,.text-secondary-fixed-dim,.text-text-muted{color:#B7A8D4!important;}.b5-disclosure-content{padding:16px;display:grid;gap:12px;color:#B7A8D4;font-size:14px;}.b5-secondary,.b5-input{background:#28283C;color:#E2E0FB;border:1px solid #7E7199;border-radius:8px;padding:10px 14px;}.b5-input{display:block;width:100%;margin-top:8px;}button, summary, input, select, a[role="button"] { min-height: 44px; } button:focus-visible, summary:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid #CEBDFF; outline-offset: 3px; } @media(max-width:600px){button,summary,input,select,a[role="button"]{min-height:48px;} input,select,textarea{font-size:16px!important;} button{white-space:normal;}}</style><style data-b5-controls>a{min-height:44px;display:inline-flex;align-items:center;}nav a{justify-content:center;}button{min-width:44px;}nav .bg-primary-container{background:#28283C!important;color:#CEBDFF!important;box-shadow:none!important;}@media(max-width:600px){a{min-height:48px;}}</style></head>
+<body class="bg-[#0C0C1F] text-[#E2E0FB] min-h-screen relative overflow-hidden select-none">
+
+  <!-- ================= BACKGROUND BASE SCREEN: GM VOTE DESKTOP (Dimmed) ================= -->
+  <div class="w-full min-h-screen filter brightness-[0.35] blur-[1px] pointer-events-none" aria-hidden="true">
+    
+    <!-- Top Bar Shell -->
+    <header class="w-full border-b border-[#7E7199]/20 bg-[#0C0C1F] px-12 py-3.5 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-ctrl bg-[#1A1A2D] border border-[#7E7199]/30 flex items-center justify-center text-[#CEBDFF]">
+          <span class="material-symbols-outlined text-lg">videogame_asset</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="font-space font-medium text-sm text-[#E2E0FB] tracking-wide">Extension Twitch</span>
+          <span class="px-2 py-0.5 rounded-full text-xs font-space bg-[#28283C] text-[#B7A8D4] border border-[#7E7199]/30">Meneur de jeu · Privé</span>
+        </div>
+      </div>
+
+      <!-- Apparence control -->
+      <div class="flex items-center gap-2 bg-[#1A1A2D] border border-[#7E7199]/30 px-3 py-1.5 rounded-ctrl text-xs font-space text-[#B7A8D4]">
+        <span class="material-symbols-outlined text-sm text-[#C8F323]">wb_sunny</span>
+        <span>Neon Show</span>
+        <span class="text-[#B7A8D4]">(Thème actif)</span>
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-[1100px] mx-auto px-12 pt-8 pb-16">
+      
+      <!-- Subtitle and Meta -->
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-xs font-space tracking-wider uppercase text-[#B7A8D4]">Undercover · Régie privée du meneur de jeu</span>
+        <div class="flex items-center gap-2 text-xs font-space">
+          <span class="px-2.5 py-1 rounded-full bg-[#1A1A2D] text-[#CEBDFF] border border-[#7E7199]/30 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#C8F323]"></span>
+            Manche 1 · Votes reçus
+          </span>
+          <span class="px-2.5 py-1 rounded-full bg-[#1A1A2D] text-[#B7A8D4] border border-[#7E7199]/30">4 joueurs</span>
+        </div>
+      </div>
+
+      <!-- Header Title -->
+      <h1 class="text-3xl font-space font-bold text-[#E2E0FB] mb-1">Les votes sont complets</h1>
+      <p class="text-sm text-[#B7A8D4] mb-6">Tous les joueurs actifs ont soumis leur désignation secrète.</p>
+
+      <!-- Navigation tabs -->
+      <div class="flex items-center gap-2 mb-8 border-b border-[#7E7199]/20 pb-4">
+        <button class="flex items-center gap-2 px-4 py-2 rounded-ctrl bg-[#28283C] border border-[#7E7199]/40 text-xs font-space font-medium text-[#E2E0FB]">
+          <span class="w-2 h-2 rounded-full bg-[#C8F323]"></span>
+          Partie
+        </button>
+        <button class="px-4 py-2 rounded-ctrl text-xs font-space text-[#B7A8D4]">Joueurs</button>
+        <button class="px-4 py-2 rounded-ctrl text-xs font-space text-[#B7A8D4] flex items-center gap-1">
+          Plateau <span class="material-symbols-outlined text-xs">open_in_new</span>
+        </button>
+      </div>
+
+      <!-- 7 / 5 Grid Layout -->
+      <div class="grid grid-cols-12 gap-6 mb-8">
+        <!-- 7 cols: Main card -->
+        <div class="col-span-7 bg-[#1A1A2D] border border-[#7E7199]/25 rounded-card p-6 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-space uppercase tracking-wider text-[#CEBDFF] flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-[#C8F323]"></span> Scrutin terminé · 100% de participation
+              </span>
+              <span class="text-xs font-space px-2 py-0.5 rounded bg-[#28283C] text-[#B7A8D4]">4 / 4 votes reçus</span>
+            </div>
+            <h2 class="text-xl font-space font-bold text-[#E2E0FB] mb-2">Prêt pour la révélation</h2>
+            <p class="text-sm text-[#B7A8D4] leading-relaxed mb-6">Tous les votes sont reçus. Vous pouvez confirmer la révélation du résultat.</p>
+          </div>
+
+          <div class="pt-4 border-t border-[#7E7199]/20">
+            <button class="w-full h-12 rounded-ctrl bg-[#C8F323] text-[#171E00] font-space font-bold text-sm flex items-center justify-center gap-2">
+              <span class="material-symbols-outlined text-lg">play_arrow</span>
+              Révéler le résultat du vote
+            </button>
+          </div>
+        </div>
+
+        <!-- 5 cols: Roster list -->
+        <div class="col-span-5 bg-[#1A1A2D] border border-[#7E7199]/25 rounded-card p-6">
+          <div class="flex items-center justify-between mb-4 pb-3 border-b border-[#7E7199]/20">
+            <h3 class="text-xs font-space uppercase tracking-wider text-[#E2E0FB] font-semibold">Participation des joueurs (4)</h3>
+            <span class="text-xs font-space text-[#B7A8D4]">Votes reçus</span>
+          </div>
+
+          <div class="space-y-2.5">
+            <div class="flex items-center justify-between p-3 rounded-ctrl bg-[#28283C]/70 border border-[#7E7199]/20">
+              <div class="flex items-center gap-3">
+                <div class="w-7 h-7 rounded-full bg-[#1A1A2D] text-[#E2E0FB] font-space text-xs font-semibold flex items-center justify-center">A</div>
+                <span class="text-sm font-space font-medium text-[#E2E0FB]">Alex</span>
+              </div>
+              <span class="text-xs font-space text-[#C8F323] flex items-center gap-1"><span class="material-symbols-outlined text-sm">check</span> A voté</span>
+            </div>
+            <div class="flex items-center justify-between p-3 rounded-ctrl bg-[#28283C]/70 border border-[#7E7199]/20">
+              <div class="flex items-center gap-3">
+                <div class="w-7 h-7 rounded-full bg-[#1A1A2D] text-[#E2E0FB] font-space text-xs font-semibold flex items-center justify-center">L</div>
+                <span class="text-sm font-space font-medium text-[#E2E0FB]">Lou</span>
+              </div>
+              <span class="text-xs font-space text-[#C8F323] flex items-center gap-1"><span class="material-symbols-outlined text-sm">check</span> A voté</span>
+            </div>
+            <div class="flex items-center justify-between p-3 rounded-ctrl bg-[#28283C]/70 border border-[#7E7199]/20">
+              <div class="flex items-center gap-3">
+                <div class="w-7 h-7 rounded-full bg-[#1A1A2D] text-[#E2E0FB] font-space text-xs font-semibold flex items-center justify-center">S</div>
+                <span class="text-sm font-space font-medium text-[#E2E0FB]">Sam</span>
+              </div>
+              <span class="text-xs font-space text-[#C8F323] flex items-center gap-1"><span class="material-symbols-outlined text-sm">check</span> A voté</span>
+            </div>
+            <div class="flex items-center justify-between p-3 rounded-ctrl bg-[#28283C]/70 border border-[#7E7199]/20">
+              <div class="flex items-center gap-3">
+                <div class="w-7 h-7 rounded-full bg-[#1A1A2D] text-[#E2E0FB] font-space text-xs font-semibold flex items-center justify-center">N</div>
+                <span class="text-sm font-space font-medium text-[#E2E0FB]">Noa</span>
+              </div>
+              <span class="text-xs font-space text-[#C8F323] flex items-center gap-1"><span class="material-symbols-outlined text-sm">check</span> A voté</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Disclosures -->
+      <div class="space-y-2">
+        <div class="p-3.5 rounded-ctrl bg-[#1A1A2D] border border-[#7E7199]/25 flex items-center justify-between text-xs text-[#B7A8D4]">
+          <span class="flex items-center gap-2.5 font-space"><span class="material-symbols-outlined text-base">lock</span> Informations privées du Game Master</span>
+          <span class="text-xs font-space">Afficher <span class="material-symbols-outlined text-xs">chevron_right</span></span>
+        </div>
+        <div class="p-3.5 rounded-ctrl bg-[#1A1A2D] border border-[#7E7199]/25 flex items-center justify-between text-xs text-[#B7A8D4]">
+          <span class="flex items-center gap-2.5 font-space"><span class="material-symbols-outlined text-base">article</span> Journal de la partie</span>
+          <span class="text-xs font-space">Afficher <span class="material-symbols-outlined text-xs">chevron_right</span></span>
+        </div>
+        <div class="p-3.5 rounded-ctrl bg-[#1A1A2D] border border-[#7E7199]/25 flex items-center justify-between text-xs text-[#B7A8D4]">
+          <span class="flex items-center gap-2.5 font-space"><span class="material-symbols-outlined text-base">settings</span> Accès et réglages de la partie</span>
+          <span class="text-xs font-space">Afficher <span class="material-symbols-outlined text-xs">chevron_right</span></span>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ================= MODAL OVERLAY (DIMMED BACKGROUND) ================= -->
+  <div class="fixed inset-0 z-50 flex items-center justify-center p-6 bg-[#0C0C1F]/80 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="b5-modal-title"><div class="b5-modal-card"><h2 id="b5-modal-title">Révéler le résultat du vote ?</h2><p>Le décompte sera publié. Le joueur seul en tête sera éliminé et son camp révélé. En cas d’égalité, personne ne sera éliminé.</p><p>Si la partie se termine, les mots et tous les camps seront révélés.</p><div class="b5-modal-actions"><button type="button" class="b5-cancel">Annuler</button><button type="button" class="b5-confirm ">Révéler le résultat</button></div></div></div>
+
+  <!-- Bottom legal footer text conforming to system -->
+  
+
+
+</body></html>
