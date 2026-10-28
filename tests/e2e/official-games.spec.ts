@@ -1,6 +1,10 @@
+import { openGmReplay } from "./undercover-helpers.js";
 import {
   openUndercoverOptions,
   openLabAccess,
+  selectedLabHref,
+  openLabPlayers,
+  openLabTools,
   openBroadcastHelp,
 } from "./undercover-helpers.js";
 import {
@@ -23,19 +27,7 @@ const test = base.extend<{ views: (name: string) => Promise<Page> }>({
     try {
       await use(async (name) => {
         await role(page, name);
-        const details = page.locator("details").filter({
-          has: page.locator("summary", {
-            hasText: "Ouvrir cette vue sur un autre écran",
-          }),
-        });
-        if ((await details.getAttribute("open")) === null)
-          await details.locator("summary").click();
-        const href = await page
-          .getByRole("link", {
-            name: "Ouvrir la vue sélectionnée",
-            exact: true,
-          })
-          .getAttribute("href");
+        const href = await selectedLabHref(page);
         const context = await browser.newContext({
           viewport: page.viewportSize(),
         });
@@ -132,7 +124,7 @@ test("Undercover plays several real rounds to a final victory, with private card
   });
   await expect(observer.locator("body")).not.toContainText("Mot civil de test");
   await expect(observer.locator(".real-stage-title")).toContainText(
-    "4 participants",
+    /4 (?:participants|joueurs actifs)/,
   );
   await expect(
     players[0]!.getByRole("button", { name: "Je suis prêt", exact: true }),
@@ -211,19 +203,29 @@ test("Undercover plays several real rounds to a final victory, with private card
     fullPage: true,
   });
   if (info.project.name === "desktop") {
-    await observer.setViewportSize({ width: 1920, height: 1080 });
-    const dimensions = await observer.locator(".real-stage").evaluate((el) => ({
-      width: el.getBoundingClientRect().width,
-      height: el.getBoundingClientRect().height,
-      overflows: el.scrollHeight > el.clientHeight + 1,
-    }));
+    const obs = await observer.context().newPage();
+    await obs.setViewportSize({ width: 1920, height: 1080 });
+    await obs.goto(observer.url().replace(/\/public$/, "/obs"));
+    await expect(obs.getByTestId("broadcast-connection")).toHaveText(
+      "Synchronisé",
+    );
+    const dimensions = await obs
+      .getByTestId("broadcast-frame")
+      .evaluate((el) => ({
+        width: el.getBoundingClientRect().width,
+        height: el.getBoundingClientRect().height,
+        overflows: el.scrollHeight > el.clientHeight + 1,
+      }));
     expect(dimensions.width / dimensions.height).toBeCloseTo(16 / 9, 1);
     expect(dimensions.overflows).toBe(false);
+    await expect(obs.locator("button,input,select,textarea")).toHaveCount(0);
+    await obs.close();
   }
   await observer.screenshot({
     path: info.outputPath("undercover-public-final.png"),
     fullPage: true,
   });
+  await openLabTools(page);
   await page
     .getByRole("button", { name: "Recommencer le test", exact: true })
     .click();
@@ -298,9 +300,9 @@ test("ties, a disconnected player's return and GM delegation use the same privat
   await delegated("Joueur démo 3", "Joueur démo 4");
   await delegated("Joueur démo 4", "Joueur démo 1");
   await resolve(gm);
-  await expect(observer.locator(".play-vote-result")).toContainText(
-    "Égalité : personne n’est éliminé.",
-  );
+  await expect(
+    observer.locator(".play-vote-result, .spectator-round"),
+  ).toContainText("Égalité : personne n’est éliminé.");
   await expect(observer.locator(".is-eliminated")).toHaveCount(0);
   await gm
     .getByText("Informations privées du Game Master", { exact: true })
@@ -333,6 +335,7 @@ test("ties, a disconnected player's return and GM delegation use the same privat
   await expect(gm.locator("#game .game-phase")).toContainText(
     "Partie terminée",
   );
+  await openGmReplay(gm);
   await gm
     .getByRole("button", { name: "Rejouer cette partie", exact: true })
     .click();
@@ -574,11 +577,7 @@ test("Jouer separates creation, prepares three isolated players and transfers th
     await expect(page.locator(".turn-current")).not.toContainText(
       "C’est à vous",
     );
-    const details = page.getByText(
-      "Accès individuels des joueurs de démonstration",
-      { exact: true },
-    );
-    await details.click();
+    await openLabPlayers(page);
     const players: Page[] = [];
     for (let i = 1; i <= 3; i++) {
       const href = await page
@@ -674,10 +673,19 @@ test("Jouer separates creation, prepares three isolated players and transfers th
       });
     }
     await completeClues(gm);
-    await expect(observer.locator(".turn-progress")).toHaveAttribute(
-      "data-complete",
-      "true",
-    );
+    // The approved spectator and the preserved pre-B6 reader expose the same completion.
+    if (await observer.locator(".broadcast-spectator").count())
+      await expect(
+        observer.getByRole("heading", {
+          name: "Indices terminés",
+          exact: true,
+        }),
+      ).toBeVisible();
+    else
+      await expect(observer.locator(".turn-progress")).toHaveAttribute(
+        "data-complete",
+        "true",
+      );
     await gm
       .getByRole("button", { name: "Ouvrir les votes", exact: true })
       .click();
@@ -693,6 +701,7 @@ test("Jouer separates creation, prepares three isolated players and transfers th
       path: info.outputPath("multidevice-gm-mobile.png"),
       fullPage: true,
     });
+    await openGmReplay(gm);
     await gm
       .getByRole("button", { name: "Rejouer cette partie", exact: true })
       .click();

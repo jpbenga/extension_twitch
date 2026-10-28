@@ -1,3 +1,4 @@
+import { openGmReplay } from "./undercover-helpers.js";
 import { test, expect, type Page, type BrowserContext } from "@playwright/test";
 import { completeClues } from "./turn-helpers.js";
 import { acceptConfirmation } from "./dialog-helpers.js";
@@ -156,6 +157,7 @@ test("three app themes persist, remain keyboard accessible and never alter the i
       })
       .click();
     await expect(overlay(obs)).toHaveAttribute("data-phase", "discussion");
+    await openGmReplay(page);
     await page
       .getByRole("button", { name: "Rejouer cette partie", exact: true })
       .click();
@@ -381,6 +383,7 @@ test("six experiences run a real invited game with a focused GM, private compani
       path: info.outputPath("obs-final.png"),
       omitBackground: true,
     });
+    await openGmReplay(page);
     await page
       .getByRole("button", { name: "Rejouer cette partie", exact: true })
       .click();

@@ -66,6 +66,17 @@ export function SessionRoom({
   if (audience === "public")
     return (
       <main className="public-session-page">
+        {(!view ||
+          view.gameId !== "undercover" ||
+          (view.publicGame && !view.publicGame.play)) && (
+          <div
+            className={`session-connection ${connection}`}
+            role="status"
+            data-testid="session-connection"
+          >
+            {connectionLabel}
+          </div>
+        )}
         {error && (
           <p className="lobby-error" role="alert">
             {error}

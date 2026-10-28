@@ -1,0 +1,157 @@
+{
+  "block": 6,
+  "status": "IMPLEMENTATION_CAPTURE",
+  "date": "2026-10-28",
+  "engine": "Chromium",
+  "referenceCommit": "fbec4a5877832d9ce5b4dd99868a9bb24381ff2b",
+  "method": "Real server API/SSE, separate test identities and disposable SQLite databases. Full-page browser captures; OBS captures are transparent 1920 × 1080. B7 captures use the temporary combined test copy; no branch merged.",
+  "screens": [
+    {
+      "screenId": "5180594610240066342",
+      "slug": "broadcast-obs-preparation",
+      "approved": "docs/ux/redesign/broadcast-obs-preparation/approved.png",
+      "implementation": "docs/ux/redesign/broadcast-obs-preparation/implementation-obs.png",
+      "width": 1920,
+      "height": 1080,
+      "fullPage": false,
+      "sha256": "d7634739efe137bc7b33f8bb1374aed385e0cd61ba6bd005aa5d088e3e6ceb5a",
+      "rgbaCornerAlpha": 0
+    },
+    {
+      "screenId": "15234760056600880163",
+      "slug": "broadcast-obs-discussion",
+      "approved": "docs/ux/redesign/broadcast-obs-discussion/approved.png",
+      "implementation": "docs/ux/redesign/broadcast-obs-discussion/implementation-obs.png",
+      "width": 1920,
+      "height": 1080,
+      "fullPage": false,
+      "sha256": "1030af78e716d8a5ab87e0d844cb6d4d9685c8c0abcd241397a111adbb80987f",
+      "rgbaCornerAlpha": 0
+    },
+    {
+      "screenId": "14540847010751378625",
+      "slug": "broadcast-obs-vote",
+      "approved": "docs/ux/redesign/broadcast-obs-vote/approved.png",
+      "implementation": "docs/ux/redesign/broadcast-obs-vote/implementation-obs.png",
+      "width": 1920,
+      "height": 1080,
+      "fullPage": false,
+      "sha256": "5f2902d7fa9c6443916110a6d63746feccba6716badbb6b4bc7824ee769e199d",
+      "rgbaCornerAlpha": 0
+    },
+    {
+      "screenId": "8284643245660127207",
+      "slug": "broadcast-obs-elimination",
+      "approved": "docs/ux/redesign/broadcast-obs-elimination/approved.png",
+      "implementation": "docs/ux/redesign/broadcast-obs-elimination/implementation-obs.png",
+      "width": 1920,
+      "height": 1080,
+      "fullPage": false,
+      "sha256": "681346236344e9b306b1dde69cc1e166bb019102de80b70cad4ba88f15a36dce",
+      "rgbaCornerAlpha": 0
+    },
+    {
+      "screenId": "10166693569404062547",
+      "slug": "broadcast-obs-tie",
+      "approved": "docs/ux/redesign/broadcast-obs-tie/approved.png",
+      "implementation": "docs/ux/redesign/broadcast-obs-tie/implementation-obs.png",
+      "width": 1920,
+      "height": 1080,
+      "fullPage": false,
+      "sha256": "e38aa0b21780ef3209c48af2953c664cc28200afe2f1496f5b5083a7231e02ed",
+      "rgbaCornerAlpha": 0
+    },
+    {
+      "screenId": "11645902411572347225",
+      "slug": "broadcast-obs-victory",
+      "approved": "docs/ux/redesign/broadcast-obs-victory/approved.png",
+      "implementation": "docs/ux/redesign/broadcast-obs-victory/implementation-obs.png",
+      "width": 1920,
+      "height": 1080,
+      "fullPage": false,
+      "sha256": "543aeb92d6d8795a7f0d4e3e70b2a62c27d9f1d904dde2b767077fd5bca20e88",
+      "rgbaCornerAlpha": 0
+    },
+    {
+      "screenId": "13503278689603029654",
+      "slug": "broadcast-obs-draw",
+      "approved": "docs/ux/redesign/broadcast-obs-draw/approved.png",
+      "implementation": "docs/ux/redesign/broadcast-obs-draw/implementation-obs.png",
+      "width": 1920,
+      "height": 1080,
+      "fullPage": false,
+      "sha256": "cdffb6a7fb110ab888e0e62e9eb173dd5e340e0a90d7b905f1752bdb39c5fe17",
+      "rgbaCornerAlpha": 0
+    },
+    {
+      "screenId": "6480344334821852281",
+      "slug": "broadcast-spectator-desktop",
+      "approved": "docs/ux/redesign/broadcast-spectator-desktop/approved.png",
+      "implementation": "docs/ux/redesign/broadcast-spectator-desktop/implementation-desktop.png",
+      "width": 1440,
+      "height": 1000,
+      "fullPage": true,
+      "sha256": "8478e2e99f7021acf4410ae1188d1944131d694359d05aae7a0c750fba7342d3"
+    },
+    {
+      "screenId": "14539924185403909224",
+      "slug": "broadcast-spectator-mobile",
+      "approved": "docs/ux/redesign/broadcast-spectator-mobile/approved.png",
+      "implementation": "docs/ux/redesign/broadcast-spectator-mobile/implementation-mobile.png",
+      "width": 390,
+      "height": 1366,
+      "fullPage": true,
+      "sha256": "3dee2cb4543aa75574784da07747f5a14bece4ade59f85ea60eadb0dab0842ff"
+    },
+    {
+      "screenId": "17913833612662065697",
+      "slug": "broadcast-stream-preview-desktop",
+      "approved": "docs/ux/redesign/broadcast-stream-preview-desktop/approved.png",
+      "implementation": "docs/ux/redesign/broadcast-stream-preview-desktop/implementation-desktop.png",
+      "width": 1440,
+      "height": 1704,
+      "fullPage": true,
+      "sha256": "ccc237174ad43dd5086ec5663a10e4a0d4f0b07becfdec255a654a27af3c5a07"
+    },
+    {
+      "screenId": "16837080339606998775",
+      "slug": "broadcast-stream-preview-mobile",
+      "approved": "docs/ux/redesign/broadcast-stream-preview-mobile/approved.png",
+      "implementation": "docs/ux/redesign/broadcast-stream-preview-mobile/implementation-mobile.png",
+      "width": 390,
+      "height": 1202,
+      "fullPage": true,
+      "sha256": "c2203d411fa9830ec28c25d864aa4cd2494b313b0e0b95214b579a7ce0a7e62c"
+    },
+    {
+      "screenId": "16716479521615247860",
+      "slug": "broadcast-layout-desktop",
+      "approved": "docs/ux/redesign/broadcast-layout-desktop/approved.png",
+      "implementation": "docs/ux/redesign/broadcast-layout-desktop/implementation-desktop.png",
+      "width": 1440,
+      "height": 1135,
+      "fullPage": true,
+      "sha256": "aa0cb8a565ffc5c432d9ebd7d23d7065df497141cee0ad2f78fb96a001dfdca2"
+    },
+    {
+      "screenId": "14317748143534499916",
+      "slug": "broadcast-layout-mobile",
+      "approved": "docs/ux/redesign/broadcast-layout-mobile/approved.png",
+      "implementation": "docs/ux/redesign/broadcast-layout-mobile/implementation-mobile.png",
+      "width": 390,
+      "height": 1665,
+      "fullPage": true,
+      "sha256": "9c40dadeb142b09ca87e2f9b3810290fec90169d73e3d56743dee7254b07c3eb"
+    },
+    {
+      "screenId": "17206795688804889669",
+      "slug": "broadcast-layout-conflict",
+      "approved": "docs/ux/redesign/broadcast-layout-conflict/approved.png",
+      "implementation": "docs/ux/redesign/broadcast-layout-conflict/implementation-desktop.png",
+      "width": 1440,
+      "height": 1345,
+      "fullPage": true,
+      "sha256": "e651558ed25071e32ce32668863dff46e646dc726b7375a5975e066583f45f51"
+    }
+  ]
+}

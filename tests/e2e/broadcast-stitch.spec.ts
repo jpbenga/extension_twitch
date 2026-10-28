@@ -117,6 +117,43 @@ async function shot(
   });
 }
 
+/** Visible geometry matters: flex compression can hide text that still exists in the DOM. */
+async function readablePublicCards(page: Page, revealed = false) {
+  const clipped = await overlay(page).evaluate((root) => {
+    const bad: string[] = [];
+    for (const card of Array.from(
+      root.querySelectorAll<HTMLElement>(".broadcast-roster article"),
+    )) {
+      const box = card.getBoundingClientRect();
+      for (const child of Array.from(card.children)) {
+        const rect = child.getBoundingClientRect();
+        if (
+          rect.height < 1 ||
+          rect.top < box.top ||
+          rect.bottom > box.bottom + 1
+        )
+          bad.push(child.textContent ?? "missing player label");
+      }
+    }
+    return bad;
+  });
+  expect(clipped).toEqual([]);
+  if (revealed) {
+    const hiddenValues = await overlay(page)
+      .locator("[data-widget=result]")
+      .evaluate((box) => {
+        const bounds = box.getBoundingClientRect();
+        return Array.from(
+          box.querySelectorAll(".game-values article strong"),
+        ).some((el) => {
+          const rect = el.getBoundingClientRect();
+          return rect.height < 1 || rect.bottom > bounds.bottom + 1;
+        });
+      });
+    expect(hiddenValues).toBe(false);
+  }
+}
+
 test("approved broadcast states follow real public commands through elimination, victory, replay, tie and draw", async ({
   page,
   browser,
@@ -212,6 +249,7 @@ test("approved broadcast states follow real public commands through elimination,
       `${f.players.find((p) => p.id === civilian)!.name} est éliminé.`,
     );
     await expect(overlay(obs)).not.toContainText(/PHARE PRIVÉ|FUSÉE PRIVÉE/);
+    await readablePublicCards(obs);
     await shot(obs, info, "broadcast-obs-elimination", true);
     await f.action("next");
     await f.clues();
@@ -231,6 +269,7 @@ test("approved broadcast states follow real public commands through elimination,
     await f.action("resolve");
     await expect(overlay(obs)).toContainText("Victoire des civils");
     await expect(overlay(obs)).toContainText("PHARE PRIVÉ");
+    await readablePublicCards(obs, true);
     await shot(obs, info, "broadcast-obs-victory", true);
     await f.command({
       type: "game.restart",
@@ -258,6 +297,7 @@ test("approved broadcast states follow real public commands through elimination,
       }
     }
     await expect(overlay(obs)).toContainText("Partie nulle");
+    await readablePublicCards(obs, true);
     await shot(obs, info, "broadcast-obs-draw", true);
     await expect
       .poll(
@@ -301,10 +341,14 @@ test("twelve long public names keep oral counts visible for all four bounded pre
     ),
   ).toBe(themeBefore);
   for (const preset of ["balanced", "bottom", "lateral", "centered"] as const) {
-    await f.command({
+    const updated = await f.command({
       type: "overlay.configure",
       layout: createUndercoverLayout(preset),
     });
+    await expect(overlay(page)).toHaveAttribute(
+      "data-version",
+      String(updated.version),
+    );
     await expect(overlay(page).locator("[data-player]")).toHaveCount(12);
     const clipped = await page.locator("[data-widget=phase]").evaluate((el) => {
       const outer = el.getBoundingClientRect();
@@ -320,8 +364,36 @@ test("twelve long public names keep oral counts visible for all four bounded pre
       });
     });
     expect(clipped).toBe(false);
+    await readablePublicCards(page);
   }
   await shot(page, info, "broadcast-long-names-1920", true);
+  await f.clues();
+  await f.action("open-vote");
+  const voting = await f.view();
+  const intrus = Object.entries(voting.game!.management!.assignments).find(
+    ([, assigned]) => assigned === "undercover",
+  )![0];
+  for (const player of f.players)
+    await f.action("vote", player.token, {
+      target:
+        player.id === intrus
+          ? f.players.find((p) => p.id !== intrus)!.id
+          : intrus,
+    });
+  await f.action("resolve");
+  await expect(overlay(page)).toContainText("Victoire des civils");
+  for (const preset of ["balanced", "bottom", "lateral", "centered"] as const) {
+    const updated = await f.command({
+      type: "overlay.configure",
+      layout: createUndercoverLayout(preset),
+    });
+    await expect(overlay(page)).toHaveAttribute(
+      "data-version",
+      String(updated.version),
+    );
+    await expect(overlay(page).locator(".game-values article")).toHaveCount(12);
+    await readablePublicCards(page, true);
+  }
   await page.goto(`/sessions/${f.id}/public`);
   await expect(page.locator(".spectator-roster article")).toHaveCount(12);
   await page.setViewportSize({ width: 390, height: 844 });
@@ -344,6 +416,13 @@ test("layout conflicts keep local work on cancel and load only the confirmed ser
   );
   await page.goto(`/sessions/${f.id}/overlay#access=${f.gmToken}`);
   await expect(page.getByTestId("layout-canvas")).toBeVisible();
+  await page.getByLabel("Joueurs · Hauteur", { exact: true }).fill("328");
+  await expect(
+    page.getByRole("button", {
+      name: "Enregistrer la disposition",
+      exact: true,
+    }),
+  ).toBeEnabled();
   await shot(page, info, `broadcast-layout-${info.project.name}`);
   await page
     .getByLabel("Bloc à ajuster", { exact: true })

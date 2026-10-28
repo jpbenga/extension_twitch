@@ -155,46 +155,60 @@ export function BroadcastOverlay({
               }
         }
       >
-        {ordered.map((p, i) => (
-          <article
-            key={p.id}
-            style={
-              layout && cards[i]
-                ? {
-                    left: `${cards[i]!.x}%`,
-                    top: `${cards[i]!.y}%`,
-                    width: `${cards[i]!.width}%`,
-                    height: `${cards[i]!.height}%`,
-                    fontSize: `${Math.max(0.65, Math.min(1.4, ((layout.widgets.players.height * cards[i]!.height) / 100 / 1920) * 18))}cqw`,
-                  }
-                : undefined
-            }
-            data-player={p.id}
-            data-active={p.active}
-            data-current={
-              game?.phase.id === "discussion" &&
-              play?.turns?.current === p.id &&
-              !play.turns.complete
-            }
-            className={!p.active ? "broadcast-eliminated" : ""}
-          >
-            <small className="broadcast-player-number">
-              {String(
-                roster.findIndex((player) => player.id === p.id) + 1,
-              ).padStart(2, "0")}
-            </small>
-            <strong title={name(p.id)}>{name(p.id)}</strong>
-            <span>{publicPlayerStatus(play, p.id, p.active)}</span>
-            {p.role && <small>{p.role}</small>}
-            {ballot?.status === "resolved" && (
-              <span>
-                {ballot.tallies.find((t) => t.participantId === p.id)?.count ??
-                  0}{" "}
-                voix
-              </span>
-            )}
-          </article>
-        ))}
+        {ordered.map((p, i) => {
+          const card = cards[i];
+          const cardHeight =
+            layout && card
+              ? (layout.widgets.players.height * card.height) / 100
+              : undefined;
+          const compact = cardHeight !== undefined && cardHeight < 90;
+          return (
+            <article
+              key={p.id}
+              style={
+                layout && cards[i]
+                  ? {
+                      left: `${cards[i]!.x}%`,
+                      top: `${cards[i]!.y}%`,
+                      width: `${cards[i]!.width}%`,
+                      height: `${cards[i]!.height}%`,
+                      fontSize: `${Math.max(0.4, Math.min(1.4, (cardHeight! / 1920) * (compact ? 22 : 15)))}cqw`,
+                    }
+                  : undefined
+              }
+              data-player={p.id}
+              data-compact={compact}
+              data-active={p.active}
+              data-current={
+                game?.phase.id === "discussion" &&
+                play?.turns?.current === p.id &&
+                !play.turns.complete
+              }
+              className={!p.active ? "broadcast-eliminated" : ""}
+            >
+              <small className="broadcast-player-number">
+                {String(
+                  roster.findIndex((player) => player.id === p.id) + 1,
+                ).padStart(2, "0")}
+              </small>
+              <strong title={name(p.id)}>{name(p.id)}</strong>
+              <span>{publicPlayerStatus(play, p.id, p.active)}</span>
+              {(p.role || ballot?.status === "resolved") && (
+                <small className="broadcast-player-details">
+                  {p.role}
+                  {p.role && ballot?.status === "resolved" ? " · " : ""}
+                  {ballot?.status === "resolved" && (
+                    <>
+                      {ballot.tallies.find((t) => t.participantId === p.id)
+                        ?.count ?? 0}{" "}
+                      voix
+                    </>
+                  )}
+                </small>
+              )}
+            </article>
+          );
+        })}
       </div>
       {layout && (
         <div className="broadcast-vote" {...widget("vote")}>

@@ -1,0 +1,184 @@
+{
+  "date": "2026-10-28",
+  "baseCommit": "73562c1",
+  "referenceCommit": "fbec4a5877832d9ce5b4dd99868a9bb24381ff2b",
+  "assembly": "Temporary detached worktree validation-5-6-7. Source copy only, no branch merge or deployment.",
+  "unitIntegration": {
+    "passed": 197,
+    "files": 24,
+    "alsoRunInEachIndividualWorktree": true
+  },
+  "productionBrowserSuites": [
+    {
+      "suite": "stream",
+      "passed": 9,
+      "failed": 0,
+      "command": "node scripts/test-e2e.mjs --config=playwright.stream.config.ts"
+    },
+    {
+      "suite": "games",
+      "passed": 12,
+      "failed": 0,
+      "command": "node scripts/test-e2e.mjs --config=playwright.games.config.ts"
+    },
+    {
+      "suite": "design",
+      "passed": 12,
+      "failed": 0,
+      "command": "node scripts/test-e2e.mjs --config=playwright.design.config.ts"
+    },
+    {
+      "suite": "e2e",
+      "passed": 42,
+      "failed": 0,
+      "command": "node scripts/test-e2e.mjs"
+    },
+    {
+      "suite": "ux",
+      "passed": 12,
+      "failed": 0,
+      "command": "node scripts/test-e2e.mjs --config=playwright.ux.config.ts"
+    },
+    {
+      "suite": "home",
+      "passed": 16,
+      "failed": 0,
+      "command": "node scripts/test-e2e.mjs --config=playwright.home.config.ts"
+    },
+    {
+      "suite": "players",
+      "passed": 16,
+      "failed": 0,
+      "command": "node scripts/test-e2e.mjs --config=playwright.players.config.ts"
+    },
+    {
+      "suite": "layout",
+      "passed": 6,
+      "failed": 0,
+      "command": "node scripts/test-e2e.mjs --config=playwright.layout.config.ts"
+    },
+    {
+      "suite": "stitch-lab",
+      "passed": 12,
+      "failed": 0,
+      "command": "node scripts/test-e2e.mjs --config=playwright.stitch-lab.config.ts"
+    },
+    {
+      "suite": "stitch-gm",
+      "passed": 6,
+      "failed": 0,
+      "command": "node scripts/test-e2e.mjs --config=playwright.stitch-gm.config.ts"
+    },
+    {
+      "suite": "stitch-broadcast",
+      "passed": 9,
+      "failed": 0,
+      "command": "node scripts/test-e2e.mjs --config=playwright.stitch-broadcast.config.ts"
+    },
+    {
+      "suite": "legacy",
+      "passed": 60,
+      "failed": 0,
+      "command": "node scripts/test-e2e.mjs --config=playwright.legacy.config.ts"
+    }
+  ],
+  "developmentBrowserLab": {
+    "passed": 6,
+    "failed": 0,
+    "command": "npm run test:lab"
+  },
+  "distinctBrowserCases": 218,
+  "newBlockBrowserCases": 27,
+  "strictTypeScript": "PASS",
+  "productionBuild": "PASS",
+  "formatting": "PASS",
+  "approvedReferenceHashChecks": {
+    "perWorktree": 129,
+    "worktrees": 3,
+    "unchanged": 387
+  },
+  "physicalValidation": {
+    "newIPhoneSafariVoiceOver": "NOT_RUN",
+    "newActualOBS": "NOT_RUN",
+    "previousObservedOBSWorkflow": "Previously validated by the user; not generalized to these changes"
+  },
+  "verifiedApplicationSourceSHA256": {
+    "apps/web/src/app/broadcast.css": "67cb8c92957aa2be2e2aa8cffc290522ffea6c0a28bf4b2bebb515f8f788942a",
+    "apps/web/src/app/stitch-gm.css": "bdb1741a4e291a35fe4d59e0be59a4fcbd5cbdcb0a7c650491948cd8a79956fc",
+    "apps/web/src/app/stitch-lab.css": "bb41923512ce632acea5440de3e3ad0c85bfb57f3b2ce188c00f0bdab23ab6a5",
+    "apps/web/src/app/tokens.css": "fe797f6e06488099ff56217988892bf2c3567ff831b3d7d93c4a1c6829a3c247",
+    "apps/web/src/components/broadcast-feed.tsx": "37a4a1d507e09f94f06d8a9e7ea2391ad2f981378447a6e8b90095aa82776008",
+    "apps/web/src/components/broadcast-overlay.tsx": "8e86aff5871eff7845e65444e8c03c0922aba35349d540c5357de1a4e9805b87",
+    "apps/web/src/components/creator-laboratory.tsx": "c0cb90e20ed5052dbb6ed587db57e57e44c101cf394b320b59ac1436eaa57ab7",
+    "apps/web/src/components/game-action.tsx": "54874e1f8cde85eabeb112021f0e96300576669740943df31d53527053b44c46",
+    "apps/web/src/components/gm-game-panel.tsx": "8d8015d5da40ac1462d2557626df7c09b32683bc3341bf17daea6c3d7b8725c4",
+    "apps/web/src/components/official-laboratory.tsx": "aa64d23b21b354ad5bc6d0727adf6afd8bac803d32626f5a9c4eb481019a87f5",
+    "apps/web/src/components/play-panel.tsx": "235b92826c55f1780d730dfd3aa1fe8103ad537b7c45212467f0d6359d3720c2",
+    "apps/web/src/components/public-session.tsx": "a850799c4bb1b719ad76440a49b4e7a6bf1513902b3504ee7e1a0d2f0b79fd84",
+    "apps/web/src/components/session-layout-editor.tsx": "5f1f6f209c3f25d76bcbf39c5c73646668214a59253bd1420592026930bd577d",
+    "apps/web/src/components/session-room.tsx": "41465cc3a80caedd84c3a6f01e89726f55cf6e85499d9c6c758a7ffa4fae6ad0",
+    "apps/web/src/components/stream-preview.tsx": "65daef0a20c0ab742a640f833fc397bc4e815d2bb55919a3d9b59dac0edf9e3a",
+    "apps/web/src/components/undercover-layout-editor.tsx": "ffb8c17ed6c180c238b2d2206f9567aba9fc475f6434f221215c912c7886b159",
+    "apps/web/src/components/undercover-room.tsx": "af4f749c0fc65aa0a29265f474740e4e1e0b2ef0cc73ff6c8a6c82c156a1bc92",
+    "apps/web/src/lib/broadcast-presentation.ts": "3872daedbacc91840bee6dc0aa874cf8645a7983a1196d05125aa78a01cba9df"
+  },
+  "sharedNavigationTestFilesIdentical": [
+    "scripts/test-e2e.mjs",
+    "tests/e2e/undercover-helpers.ts",
+    "tests/e2e/creator-helpers.ts",
+    "tests/e2e/official-games.spec.ts",
+    "tests/e2e/design-system.spec.ts",
+    "tests/e2e/stream-preview.spec.ts",
+    "tests/e2e/undercover-layout.spec.ts",
+    "tests/e2e/ux-experiences.spec.ts",
+    "tests/lab/official-games.spec.ts"
+  ],
+  "additionalBranchCompatibilityChecks": {
+    "block5": {
+      "gamesDesktop": 4,
+      "designDesktop": 4
+    },
+    "block6": {
+      "gamesThreeViewports": 12,
+      "designDesktop": 4,
+      "broadcastDesktop": 3
+    },
+    "block7": {
+      "gamesThreeViewports": 12,
+      "designThreeViewports": 12,
+      "labThreeViewports": 12
+    }
+  },
+  "additionalBranchCompatibilityChecksCountedAgainInTotal": false,
+  "postVisualFixBrowserChecks": [
+    {
+      "suite": "stitch-broadcast",
+      "exit_code": 0,
+      "passed": 9,
+      "failed": 0,
+      "seconds": 97.3
+    },
+    {
+      "suite": "stitch-lab",
+      "exit_code": 0,
+      "passed": 12,
+      "failed": 0,
+      "seconds": 52.3
+    },
+    {
+      "suite": "layout",
+      "exit_code": 0,
+      "passed": 6,
+      "failed": 0,
+      "seconds": 57.9
+    },
+    {
+      "suite": "stream",
+      "exit_code": 0,
+      "passed": 9,
+      "failed": 0,
+      "seconds": 59.0
+    }
+  ],
+  "postVisualFixChecksCountedAgainInTotal": false
+}

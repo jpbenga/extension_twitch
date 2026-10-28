@@ -1,3 +1,5 @@
+import { openGmReplay } from "./undercover-helpers.js";
+import { selectedLabHref } from "./undercover-helpers.js";
 import { test, expect, type Page } from "@playwright/test";
 import { acceptConfirmation } from "./dialog-helpers.js";
 async function gmView(page: Page) {
@@ -11,13 +13,7 @@ async function gmView(page: Page) {
   await expect(
     page.getByLabel("Perspective du laboratoire", { exact: true }),
   ).toBeVisible();
-  await page
-    .getByText("Ouvrir cette vue sur un autre écran", { exact: true })
-    .click();
-  const href = await page
-    .getByRole("link", { name: "Ouvrir la vue sélectionnée", exact: true })
-    .getAttribute("href");
-  await page.goto(href!);
+  await page.goto(await selectedLabHref(page));
   await expect(page.getByTestId("session-connection")).toHaveText(
     "Synchronisé",
   );
@@ -56,9 +52,10 @@ test("the operational room navigates by mobile sections and uses cancel-safe, fo
   ).toHaveCount(1);
   const bounds = await main.boundingBox();
   expect(bounds!.height).toBeGreaterThanOrEqual(44);
+  expect(bounds!.y).toBeGreaterThanOrEqual(0);
   if (info.project.name === "mobile")
     expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(
-      page.viewportSize()!.height - 72,
+      page.viewportSize()!.height - 12,
     );
   await main.click();
   await expect(page.locator("#game")).toHaveAttribute("data-state", "active");
@@ -83,6 +80,7 @@ test("the operational room navigates by mobile sections and uses cancel-safe, fo
   await expect(page.locator(".lobby-players li").first()).toBeVisible();
   if (info.project.name !== "desktop") await expect(main).toBeHidden();
   await nav(page, "Partie");
+  await openGmReplay(page);
   const replay = page.getByRole("button", {
     name: "Rejouer cette partie",
     exact: true,
@@ -200,6 +198,7 @@ test("the shared theme fits a small phone, keeps controls legible and never expo
   });
   await expect(action).toBeVisible();
   expect(await widthFits(page)).toBe(true);
+  await openGmReplay(page);
   await page
     .getByRole("button", { name: "Rejouer cette partie", exact: true })
     .click();

@@ -15,7 +15,7 @@ import "../app/brand-fonts.css";
 export function PublicSession({
   view,
   standalone = false,
-  connection = "connected",
+  connection,
 }: {
   view: SessionView;
   standalone?: boolean;
@@ -54,7 +54,7 @@ export function PublicSession({
         </strong>
         <span className="spectator-kicker">Plateau public</span>
         <span className="spectator-sr-only">{phase}</span>
-        {standalone && (
+        {standalone && connection && (
           <span
             className={`spectator-connection ${connection}`}
             role="status"
@@ -85,7 +85,7 @@ export function PublicSession({
                   </>
                 )
               ) : (
-                (game?.phase.label ?? "La partie se prépare")
+                (game?.phase.label ?? view.title)
               )}
             </Heading>
             {turns && (

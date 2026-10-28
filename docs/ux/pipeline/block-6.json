@@ -1,7 +1,7 @@
 {
   "block": 6,
   "name": "Broadcast / Spectateur / OBS",
-  "status": "TESTING",
+  "status": "READY_TO_MERGE",
   "stitchProjectId": "10132472591870592947",
   "stitchProjectName": "Extension Twitch UX — Block 6 — Broadcast",
   "designScreens": [
@@ -262,10 +262,15 @@
   ],
   "branch": "ux/block-6-broadcast",
   "worktree": "/workspace/ux-worktrees/block-6-broadcast",
-  "lastUpdate": "2026-10-28",
+  "lastUpdate": "2026-10-28T20:14:24.358353+00:00",
   "blockers": [],
   "notes": [
-    "Références APPROVED reçues au commit documentaire 6bc7711, validation humaine acquise.",
-    "Intégration visuelle B6 en cours ; invariants, renderer partagé, sept widgets et quatre presets conservés."
-  ]
+    "Validation humaine des 14 références exacte reçue ; artefacts APPROVED inchangés.",
+    "Intégration et captures terminées ; 197 tests unitaires/intégration, TypeScript et build réussis.",
+    "9 nouveaux parcours navigateur validés dans la copie croisée ; 218 cas navigateur distincts passent au total.",
+    "Vérifications croisées et contrôles des branches séparées réussis. Aucun blocage technique identifié ; aucune fusion ni aucun déploiement. Les nouveaux rendus iPhone/Safari/OBS restent à vérifier humainement."
+  ],
+  "deliveryReport": "BLOCK-6-DELIVERY.md",
+  "captureIndex": "block-6-captures.json",
+  "crossValidation": "cross-validation.json"
 }

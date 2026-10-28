@@ -1,5 +1,8 @@
 # Bloc 6 — préparation de l’intégration Broadcast / Spectateur / OBS
 
+> Audit historique conservé. Le blocage de transfert décrit ci-dessous a été levé
+> par la livraison documentaire `fbec4a5`. Voir le [bilan d’intégration actuel](BLOCK-6-DELIVERY.md).
+
 État : **BLOCKED**, base `73562c1`, branche `ux/block-6-broadcast`.
 Projet Stitch approuvé humainement : `10132472591870592947`.
 Audit réalisé le 28 octobre 2026, sans modification de l’application.
