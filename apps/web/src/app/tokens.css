@@ -156,6 +156,7 @@
 }
 
 /* Approved Stitch surfaces only: homepage, official lobby and player companion. */
+.gm-studio,
 .stitch-page,
 .stitch-dialog,
 .home-page {
@@ -174,6 +175,7 @@
   --home-shadow: 0 12px 32px -8px #05051180;
   --home-ambient: #4f319c;
 }
+[data-theme="broadcast-studio"] .gm-studio,
 [data-theme="broadcast-studio"] .stitch-page,
 [data-theme="broadcast-studio"] .stitch-dialog,
 [data-theme="broadcast-studio"] .home-page {
@@ -190,6 +192,7 @@
   --home-badge: #1f4458;
   --home-ambient: #22516b;
 }
+[data-theme="on-air-premium"] .gm-studio,
 [data-theme="on-air-premium"] .stitch-page,
 [data-theme="on-air-premium"] .stitch-dialog,
 [data-theme="on-air-premium"] .home-page {

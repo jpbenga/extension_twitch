@@ -1,0 +1,350 @@
+<!DOCTYPE html><html lang="fr" class="dark"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AFTER — GM Vote — Desktop — v1</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0C0C1F',
+            card: '#1A1A2D',
+            raised: '#28283C',
+            textMain: '#E2E0FB',
+            secondary: '#B7A8D4',
+            lilac: '#CEBDFF',
+            citron: '#C8F323',
+            citronDark: '#171E00',
+            borderMuted: '#2B2B44',
+            statusGreen: '#22c55e',
+          },
+          fontFamily: {
+            space: ['"Space Grotesk"', 'sans-serif'],
+            sans: ['"DM Sans"', 'sans-serif'],
+          },
+          borderRadius: {
+            'card': '12px',
+            'control': '8px',
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      background-color: #0C0C1F;
+      color: #E2E0FB;
+      font-family: 'DM Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, button, .font-heading {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+  </style>
+<style data-b5-material-repair="">.b5-modal-card{width:100%;max-width:520px;max-height:calc(100svh - 48px);overflow:auto;background:#1A1A2D;color:#E2E0FB;border:1px solid #7E7199;border-radius:12px;padding:28px;box-shadow:0 20px 60px #0006;}.b5-modal-card h2{font-size:24px;line-height:32px;margin:0 0 20px;}.b5-modal-card p{font-size:16px;line-height:24px;color:#B7A8D4;margin:0 0 16px;}.b5-modal-actions{display:flex;gap:12px;justify-content:flex-end;margin-top:28px;}.b5-cancel,.b5-confirm{border-radius:8px;min-height:48px;padding:12px 18px;font-weight:600;}.b5-cancel{border:1px solid #7E7199;background:#28283C;color:#E2E0FB;}.b5-confirm{background:#C8F323;color:#171E00;}.b5-danger{background:#FFB4AB;color:#690005;}[role=dialog]{position:fixed!important;inset:0!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:16px!important;background:rgba(12,12,31,.85)!important;z-index:100!important;}@media(max-width:600px){.b5-modal-card{padding:22px;}.b5-modal-actions{flex-direction:column;}.b5-confirm{order:-1;}}body{background:#0C0C1F!important;color:#E2E0FB;font-family:'DM Sans',sans-serif;}h1,h2,h3,button,summary,label,[class*=font-label],[class*=font-headline]{font-family:'Space Grotesk',sans-serif;}.text-on-surface-variant,.text-secondary-fixed-dim,.text-text-muted{color:#B7A8D4!important;}.b5-disclosure-content{padding:16px;display:grid;gap:12px;color:#B7A8D4;font-size:14px;}.b5-secondary,.b5-input{background:#28283C;color:#E2E0FB;border:1px solid #7E7199;border-radius:8px;padding:10px 14px;}.b5-input{display:block;width:100%;margin-top:8px;}button, summary, input, select, a[role="button"] { min-height: 44px; } button:focus-visible, summary:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid #CEBDFF; outline-offset: 3px; } @media(max-width:600px){button,summary,input,select,a[role="button"]{min-height:48px;} input,select,textarea{font-size:16px!important;} button{white-space:normal;}}</style><style data-b5-controls>a{min-height:44px;display:inline-flex;align-items:center;}nav a{justify-content:center;}button{min-width:44px;}nav .bg-primary-container{background:#28283C!important;color:#CEBDFF!important;box-shadow:none!important;}@media(max-width:600px){a{min-height:48px;}}</style></head>
+<body class="min-h-screen bg-[#0C0C1F] flex flex-col justify-between selection:bg-[#CEBDFF] selection:text-[#0C0C1F]">
+
+  <!-- Top App Shell Bar -->
+  <header class="w-full border-b border-[#1A1A2D] bg-[#0C0C1F]/90 backdrop-blur-md px-12 py-3.5 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 text-[#E2E0FB]">
+        <div class="w-8 h-8 rounded-control bg-[#1A1A2D] border border-[#28283C] flex items-center justify-center text-[#CEBDFF]">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="20" height="14" x="2" y="5" rx="3"></rect>
+            <path d="M6 12h4m-2-2v4m7-3h.01m3 2h.01"></path>
+          </svg>
+        </div>
+        <span class="font-space font-semibold text-sm tracking-wide">Extension Twitch</span>
+      </div>
+      <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#1A1A2D] border border-[#28283C] text-[#B7A8D4]">
+        Meneur de jeu · Privé
+      </span>
+    </div>
+
+    <!-- Right Controls: Apparence -->
+    <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 px-3 py-1.5 rounded-control bg-[#1A1A2D] border border-[#28283C] text-xs font-space text-[#B7A8D4]">
+        <svg class="w-3.5 h-3.5 text-[#CEBDFF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41m14.14-14.14l-1.41 1.41"></path>
+        </svg>
+        <span>Neon Show <span class="text-[#B7A8D4]/60">(Thème actif)</span></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container (Centered, max 1100px, 48px padding) -->
+  <main class="w-full max-w-[1100px] mx-auto px-12 py-8 flex-1 flex flex-col justify-start">
+
+    <!-- Header Section -->
+    <div class="mb-7 flex items-start justify-between">
+      <div>
+        <p class="text-xs uppercase tracking-widest font-space text-[#CEBDFF] font-medium mb-1.5">
+          Undercover · Régie privée du meneur de jeu
+        </p>
+        <h1 class="text-3xl font-bold font-space text-[#E2E0FB] tracking-tight">
+          Les votes sont complets
+        </h1>
+        <p class="text-sm text-[#B7A8D4] mt-1.5">
+          Tous les joueurs actifs ont soumis leur désignation secrète.
+        </p>
+      </div>
+
+      <!-- Live Phase Status Badge -->
+      <div class="flex items-center gap-2.5">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1A1A2D] border border-[#28283C] text-xs font-medium text-[#E2E0FB]">
+          <span class="w-2 h-2 rounded-full bg-[#22c55e]"></span>
+          <span>Manche 1 · Votes reçus</span>
+        </div>
+        <div class="px-3.5 py-1.5 rounded-full bg-[#1A1A2D] border border-[#28283C] text-xs font-medium text-[#B7A8D4]">
+          4 joueurs
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="flex items-center gap-2 mb-8" aria-label="Navigation régie">
+      <div class="inline-flex p-1 bg-[#1A1A2D] border border-[#28283C] rounded-control">
+        <button class="flex items-center gap-2 px-4 py-2 rounded-control bg-[#28283C] text-xs font-space font-medium text-[#E2E0FB] shadow-sm">
+          <span>Partie</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-[#C8F323]"></span>
+        </button>
+        <button class="px-4 py-2 rounded-control text-xs font-space font-medium text-[#B7A8D4] hover:text-[#E2E0FB] transition-colors">
+          Joueurs
+        </button>
+        <a href="#plateau" class="flex items-center gap-1.5 px-4 py-2 rounded-control text-xs font-space font-medium text-[#B7A8D4] hover:text-[#E2E0FB] transition-colors">
+          <span>Plateau</span>
+          <svg class="w-3 h-3 text-[#B7A8D4]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6m4-3h6v6m-11 5L21 3"></path>
+          </svg>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Primary Workspace: 7 / 5 Grid Composition -->
+    <div class="grid grid-cols-12 gap-6 items-start mb-8">
+
+      <!-- Left 7 cols: Main Decision Card -->
+      <div class="col-span-7 bg-[#1A1A2D] border border-[#28283C] rounded-card p-7 flex flex-col justify-between min-h-[352px]">
+        <div>
+          <!-- Header of card -->
+          <div class="flex items-center justify-between pb-5 border-b border-[#28283C]/70 mb-5">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-[#22c55e]"></span>
+              <span class="text-xs uppercase tracking-wider font-space font-medium text-[#CEBDFF]">
+                Scrutin terminé · 100% de participation
+              </span>
+            </div>
+            <span class="text-xs font-space px-2.5 py-1 rounded bg-[#28283C] text-[#E2E0FB] font-medium border border-[#37374C]">
+              4 / 4 votes reçus
+            </span>
+          </div>
+
+          <!-- Headline and narrative -->
+          <h2 class="text-2xl font-bold font-space text-[#E2E0FB] mb-2 tracking-tight">
+            Prêt pour la révélation
+          </h2>
+          <p class="text-sm text-[#B7A8D4] leading-relaxed mb-6">Tous les votes sont reçus. Vous pouvez confirmer la révélation du résultat.</p>
+
+          <!-- Hint text -->
+          <div class="flex items-center gap-2 text-xs text-[#B7A8D4]/90 bg-[#0C0C1F]/60 border border-[#28283C] px-3.5 py-2.5 rounded-control">
+            <svg class="w-4 h-4 text-[#CEBDFF] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M12 16v-4m0-4h.01"></path>
+            </svg>
+            <span>Pendant le vote, la révélation attend tous les joueurs actifs.</span>
+          </div>
+        </div>
+
+        <!-- Dominant Primary Action (Citron #C8F323 with Dark #171E00) -->
+        <div class="pt-6 mt-4 border-t border-[#28283C]/60 flex flex-col gap-2.5">
+          <button class="w-full min-h-[48px] bg-[#C8F323] hover:bg-[#d6fa3f] text-[#171E00] font-space font-bold text-sm tracking-wide rounded-control px-6 py-3.5 flex items-center justify-center gap-2.5 transition-all focus:outline-none focus:ring-2 focus:ring-[#C8F323] focus:ring-offset-2 focus:ring-offset-[#1A1A2D]">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            <span>Révéler le résultat du vote</span>
+          </button>
+          <div class="flex items-center justify-between text-xs text-[#B7A8D4]/70 px-1">
+            <span>Ouvre l'écran de confirmation du résultat.</span>
+            <span>Manche 1 · Décision d'élimination</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right 5 cols: Ordered Roster Status -->
+      <div class="col-span-5 bg-[#1A1A2D] border border-[#28283C] rounded-card p-6 flex flex-col justify-between min-h-[352px]">
+        <div>
+          <div class="flex items-center justify-between pb-4 border-b border-[#28283C]/70 mb-4">
+            <span class="text-xs uppercase tracking-wider font-space font-medium text-[#CEBDFF]">
+              Participation des joueurs (4)
+            </span>
+            <span class="text-xs text-[#B7A8D4] font-space">
+              Votes reçus
+            </span>
+          </div>
+
+          <!-- Players List (Alex, Lou, Sam, Noa in registration order) -->
+          <div class="space-y-2.5">
+            <!-- Player 1: Alex -->
+            <div class="flex items-center justify-between p-3 rounded-control bg-[#0C0C1F]/60 border border-[#28283C] hover:border-[#37374C] transition-colors">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-control bg-[#28283C] text-xs font-space font-bold text-[#E2E0FB] flex items-center justify-center border border-[#37374C]">
+                  A
+                </div>
+                <div>
+                  <div class="text-sm font-space font-medium text-[#E2E0FB]">Alex</div>
+                  <div class="text-[11px] text-[#B7A8D4] flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#22c55e]"></span>
+                    <span>Connecté</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#28283C]/80 border border-[#28283C] text-xs font-space font-medium text-[#22c55e]">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span>A voté</span>
+              </div>
+            </div>
+
+            <!-- Player 2: Lou -->
+            <div class="flex items-center justify-between p-3 rounded-control bg-[#0C0C1F]/60 border border-[#28283C] hover:border-[#37374C] transition-colors">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-control bg-[#28283C] text-xs font-space font-bold text-[#E2E0FB] flex items-center justify-center border border-[#37374C]">
+                  L
+                </div>
+                <div>
+                  <div class="text-sm font-space font-medium text-[#E2E0FB]">Lou</div>
+                  <div class="text-[11px] text-[#B7A8D4] flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#22c55e]"></span>
+                    <span>Connecté</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#28283C]/80 border border-[#28283C] text-xs font-space font-medium text-[#22c55e]">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span>A voté</span>
+              </div>
+            </div>
+
+            <!-- Player 3: Sam -->
+            <div class="flex items-center justify-between p-3 rounded-control bg-[#0C0C1F]/60 border border-[#28283C] hover:border-[#37374C] transition-colors">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-control bg-[#28283C] text-xs font-space font-bold text-[#E2E0FB] flex items-center justify-center border border-[#37374C]">
+                  S
+                </div>
+                <div>
+                  <div class="text-sm font-space font-medium text-[#E2E0FB]">Sam</div>
+                  <div class="text-[11px] text-[#B7A8D4] flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#22c55e]"></span>
+                    <span>Connecté</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#28283C]/80 border border-[#28283C] text-xs font-space font-medium text-[#22c55e]">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span>A voté</span>
+              </div>
+            </div>
+
+            <!-- Player 4: Noa -->
+            <div class="flex items-center justify-between p-3 rounded-control bg-[#0C0C1F]/60 border border-[#28283C] hover:border-[#37374C] transition-colors">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-control bg-[#28283C] text-xs font-space font-bold text-[#E2E0FB] flex items-center justify-center border border-[#37374C]">
+                  N
+                </div>
+                <div>
+                  <div class="text-sm font-space font-medium text-[#E2E0FB]">Noa</div>
+                  <div class="text-[11px] text-[#B7A8D4] flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#22c55e]"></span>
+                    <span>Connecté</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#28283C]/80 border border-[#28283C] text-xs font-space font-medium text-[#22c55e]">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span>A voté</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Roster Footer Note -->
+        <div class="pt-4 mt-3 border-t border-[#28283C]/70">
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- Secondary Closed Disclosure: Voter pour un joueur sans interface (Disabled in this completed fixture) -->
+    <div class="mb-5">
+      <div class="w-full bg-[#1A1A2D]/60 border border-[#28283C] rounded-control px-4 py-3 flex items-center justify-between text-xs text-[#B7A8D4]">
+        <div class="flex items-center gap-2.5">
+          <svg class="w-4 h-4 text-[#B7A8D4]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <span class="font-space">Voter pour un joueur sans interface</span>
+        </div>
+        <span class="text-[11px] font-space text-[#B7A8D4]/60 px-2 py-0.5 rounded bg-[#0C0C1F]/60 border border-[#28283C]">
+          Tous les votes sont reçus
+        </span>
+      </div>
+    </div>
+
+    <!-- Closed Secondary Shelves: Consistent with Lobby & Discussion reference screens -->
+    <div class="space-y-2.5">
+      <!-- Row 1: Informations privées du Game Master -->
+      <div class="w-full bg-[#1A1A2D] border border-[#28283C] hover:border-[#37374C] rounded-control px-4 py-3.5 flex items-center justify-between cursor-pointer transition-colors">
+        <div class="flex items-center gap-3">
+          <svg class="w-4 h-4 text-[#B7A8D4]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+          <span class="text-sm font-space text-[#E2E0FB]">Informations privées du Game Master</span>
+        </div>
+        <span class="text-xs font-space text-[#B7A8D4]">Afficher</span>
+      </div>
+
+      <!-- Row 2: Journal de la partie -->
+      <div class="w-full bg-[#1A1A2D] border border-[#28283C] hover:border-[#37374C] rounded-control px-4 py-3.5 flex items-center justify-between cursor-pointer transition-colors">
+        <div class="flex items-center gap-3">
+          <svg class="w-4 h-4 text-[#B7A8D4]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+          <span class="text-sm font-space text-[#E2E0FB]">Journal de la partie</span>
+        </div>
+        <span class="text-xs font-space text-[#B7A8D4]">Afficher</span>
+      </div>
+
+      <!-- Row 3: Accès et réglages de la partie -->
+      <div class="w-full bg-[#1A1A2D] border border-[#28283C] hover:border-[#37374C] rounded-control px-4 py-3.5 flex items-center justify-between cursor-pointer transition-colors">
+        <div class="flex items-center gap-3">
+          <svg class="w-4 h-4 text-[#B7A8D4]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+          <span class="text-sm font-space text-[#E2E0FB]">Accès et réglages de la partie</span>
+        </div>
+        <span class="text-xs font-space text-[#B7A8D4]">Afficher</span>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Ground Footer Note -->
+  
+
+
+
+</body></html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html><html class="dark" lang="fr"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Extension Twitch — Undercover Régie GM</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0C0C1F',
+            surface: {
+              card: '#1A1A2D',
+              raised: '#28283C',
+              subtle: '#222238',
+            },
+            text: {
+              primary: '#E2E0FB',
+              secondary: '#B7A8D4',
+              accent: '#CEBDFF',
+              dark: '#171E00',
+            },
+            citron: '#C8F323',
+            status: {
+              green: '#22C55E',
+              greenBg: '#132E1E',
+              borderGreen: '#1C4B2E',
+            },
+            border: {
+              subtle: 'rgba(40, 40, 60, 0.4)',
+              light: '#28283C',
+            }
+          },
+          fontFamily: {
+            sans: ['"DM Sans"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-resets">
+    /* Remove tap highlight & customize scroll behavior */
+    * {
+      -webkit-tap-highlight-color: transparent;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #0C0C1F;
+      color: #E2E0FB;
+      font-family: 'DM Sans', sans-serif;
+    }
+  </style>
+<style data-b5-material-repair="">.b5-modal-card{width:100%;max-width:520px;max-height:calc(100svh - 48px);overflow:auto;background:#1A1A2D;color:#E2E0FB;border:1px solid #7E7199;border-radius:12px;padding:28px;box-shadow:0 20px 60px #0006;}.b5-modal-card h2{font-size:24px;line-height:32px;margin:0 0 20px;}.b5-modal-card p{font-size:16px;line-height:24px;color:#B7A8D4;margin:0 0 16px;}.b5-modal-actions{display:flex;gap:12px;justify-content:flex-end;margin-top:28px;}.b5-cancel,.b5-confirm{border-radius:8px;min-height:48px;padding:12px 18px;font-weight:600;}.b5-cancel{border:1px solid #7E7199;background:#28283C;color:#E2E0FB;}.b5-confirm{background:#C8F323;color:#171E00;}.b5-danger{background:#FFB4AB;color:#690005;}[role=dialog]{position:fixed!important;inset:0!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:16px!important;background:rgba(12,12,31,.85)!important;z-index:100!important;}@media(max-width:600px){.b5-modal-card{padding:22px;}.b5-modal-actions{flex-direction:column;}.b5-confirm{order:-1;}}body{background:#0C0C1F!important;color:#E2E0FB;font-family:'DM Sans',sans-serif;}h1,h2,h3,button,summary,label,[class*=font-label],[class*=font-headline]{font-family:'Space Grotesk',sans-serif;}.text-on-surface-variant,.text-secondary-fixed-dim,.text-text-muted{color:#B7A8D4!important;}.b5-disclosure-content{padding:16px;display:grid;gap:12px;color:#B7A8D4;font-size:14px;}.b5-secondary,.b5-input{background:#28283C;color:#E2E0FB;border:1px solid #7E7199;border-radius:8px;padding:10px 14px;}.b5-input{display:block;width:100%;margin-top:8px;}button, summary, input, select, a[role="button"] { min-height: 44px; } button:focus-visible, summary:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid #CEBDFF; outline-offset: 3px; } @media(max-width:600px){button,summary,input,select,a[role="button"]{min-height:48px;} input,select,textarea{font-size:16px!important;} button{white-space:normal;}}</style><style data-b5-controls>a{min-height:44px;display:inline-flex;align-items:center;}nav a{justify-content:center;}button{min-width:44px;}nav .bg-primary-container{background:#28283C!important;color:#CEBDFF!important;box-shadow:none!important;}@media(max-width:600px){a{min-height:48px;}}</style><style data-b5-touch>@media(max-width:600px){button{min-height:48px!important;}}</style></head>
+<body class="min-h-screen bg-canvas text-text-primary flex justify-center selection:bg-citron selection:text-text-dark pb-32">
+<!-- Mobile Viewport Wrapper (390px target frame) -->
+<div class="w-full max-w-[390px] min-h-screen flex flex-col px-4 pt-3 pb-8 relative">
+<!-- BEGIN: TopHeader -->
+<header class="flex items-center justify-between pb-3 pt-1 border-b border-surface-raised/60">
+<!-- Brand & Régie badge -->
+<div class="flex items-center gap-2">
+<div aria-hidden="true" class="w-7 h-7 rounded-lg bg-surface-raised flex items-center justify-center text-text-accent">
+<!-- Gamepad icon -->
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<line x1="6" x2="10" y1="12" y2="12"></line>
+<line x1="8" x2="8" y1="10" y2="14"></line>
+<line x1="15" x2="15.01" y1="13" y2="13"></line>
+<line x1="18" x2="18.01" y1="11" y2="11"></line>
+<rect height="12" rx="2" width="20" x="2" y="6"></rect>
+</svg>
+</div>
+<div>
+<div class="flex items-center gap-1.5">
+<span class="text-xs font-semibold tracking-wider font-display uppercase text-text-primary">Extension Twitch</span>
+<span class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-surface-raised text-text-accent tracking-widest border border-white/5 uppercase">Régie</span>
+</div>
+<p class="text-[11px] text-text-secondary">Meneur de jeu</p>
+</div>
+</div>
+<!-- Apparence theme button -->
+<button aria-label="Changer l'apparence" class="flex items-center gap-1.5 text-xs text-text-secondary hover:text-text-primary px-2.5 py-1.5 rounded-lg border border-surface-raised/40 hover:bg-surface-raised transition-colors min-h-[36px]" type="button">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="4"></circle>
+<path d="M12 2v2"></path>
+<path d="M12 20v2"></path>
+<path d="m4.93 4.93 1.41 1.41"></path>
+<path d="m17.66 17.66 1.41 1.41"></path>
+<path d="M2 12h2"></path>
+<path d="M20 12h2"></path>
+<path d="m6.34 17.66-1.41 1.41"></path>
+<path d="m19.07 4.93-1.41 1.41"></path>
+</svg>
+<span class="text-[11px] font-medium font-sans">Apparence</span>
+</button>
+</header>
+<!-- END: TopHeader -->
+<!-- BEGIN: TitleAndStatus -->
+<section class="mt-4 flex flex-col gap-1">
+<span class="text-[10px] font-bold uppercase tracking-widest text-text-secondary font-display">Votre partie</span>
+<div class="flex items-center justify-between">
+<h1 class="text-2xl font-bold font-display tracking-tight text-white flex items-center gap-2">
+          Undercover
+        </h1>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-greenBg border border-status-borderGreen text-status-green text-xs font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-status-green animate-pulse"></span>
+<span>En cours</span>
+</div>
+</div>
+</section>
+<!-- END: TitleAndStatus -->
+<!-- BEGIN: NavigationTabs -->
+<!-- Equal-width segmented controls -->
+<nav class="mt-4 grid grid-cols-3 gap-1 bg-surface-card p-1 rounded-xl border border-surface-raised/40">
+<button class="flex items-center justify-center gap-1.5 py-2 rounded-lg bg-surface-raised text-text-primary text-xs font-semibold font-display shadow-sm" type="button">
+<span class="w-1.5 h-1.5 rounded-full bg-citron"></span>
+<span>Partie</span>
+</button>
+<button class="flex items-center justify-center py-2 rounded-lg text-text-secondary hover:text-text-primary text-xs font-medium font-display transition-colors" type="button">
+        Joueurs
+      </button>
+<button class="flex items-center justify-center gap-1 py-2 rounded-lg text-text-secondary hover:text-text-primary text-xs font-medium font-display transition-colors" type="button">
+        Plateau <span class="text-[10px] opacity-70">↗</span>
+</button>
+</nav>
+<!-- END: NavigationTabs -->
+<!-- BEGIN: PhaseIndicator -->
+<section class="mt-4 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="text-sm font-bold font-display tracking-wide uppercase text-text-primary">Vote • Manche 1</span>
+</div>
+<span class="text-xs px-2.5 py-0.5 rounded-full bg-surface-card border border-surface-raised text-text-accent font-medium">
+        4 / 4 votes reçus
+      </span>
+</section>
+<!-- END: PhaseIndicator -->
+<!-- BEGIN: StatusCard -->
+<section class="mt-3 bg-surface-card rounded-[12px] p-4 border border-surface-raised/40 flex flex-col gap-3">
+<!-- Status Badge -->
+<div class="self-start inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-status-greenBg border border-status-borderGreen text-status-green text-xs font-semibold tracking-wide font-display">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24">
+<polyline points="20 6 9 17 4 12"></polyline>
+</svg>
+<span>Votes reçus — 4 / 4 EXPRIMÉS</span>
+</div>
+<!-- Main Heading & Body -->
+<div class="space-y-1.5">
+<h2 class="text-base font-bold font-display text-white">Les votes sont complets</h2>
+<p class="text-xs leading-relaxed text-text-secondary">Tous les joueurs actifs ont voté. Vous pouvez révéler le résultat.</p>
+</div>
+<!-- Progress Bar (100% complete) -->
+<div class="w-full bg-surface-raised h-1.5 rounded-full overflow-hidden mt-1">
+<div aria-valuemax="100" aria-valuemin="0" aria-valuenow="100" class="bg-status-green h-full w-full rounded-full" role="progressbar"></div>
+</div>
+</section>
+<!-- END: StatusCard -->
+<!-- BEGIN: RosterCard -->
+<section class="mt-3 bg-surface-card rounded-[12px] p-4 border border-surface-raised/40">
+<div class="flex items-center justify-between pb-3 border-b border-surface-raised/40">
+<span class="text-xs font-bold font-display uppercase tracking-wider text-text-secondary">Participants</span>
+<span class="text-xs text-text-secondary font-medium">4 joueurs</span>
+</div>
+<!-- Participant List -->
+<div class="divide-y divide-surface-raised/30">
+<!-- Participant: Alex -->
+<div class="py-2.5 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-raised text-text-accent font-display font-bold text-xs flex items-center justify-center border border-white/5">
+              A
+            </div>
+<div>
+<p class="text-sm font-semibold font-display text-text-primary">Alex</p>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-status-green"></span>
+<span class="text-[11px] text-text-secondary">Connecté</span>
+</div>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 text-[11px] font-medium font-display px-2.5 py-1 rounded-full bg-status-greenBg/80 text-status-green border border-status-borderGreen">
+            ✓ A voté
+          </span>
+</div>
+<!-- Participant: Lou -->
+<div class="py-2.5 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-raised text-text-accent font-display font-bold text-xs flex items-center justify-center border border-white/5">
+              L
+            </div>
+<div>
+<p class="text-sm font-semibold font-display text-text-primary">Lou</p>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-status-green"></span>
+<span class="text-[11px] text-text-secondary">Connecté</span>
+</div>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 text-[11px] font-medium font-display px-2.5 py-1 rounded-full bg-status-greenBg/80 text-status-green border border-status-borderGreen">
+            ✓ A voté
+          </span>
+</div>
+<!-- Participant: Sam -->
+<div class="py-2.5 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-raised text-text-accent font-display font-bold text-xs flex items-center justify-center border border-white/5">
+              S
+            </div>
+<div>
+<p class="text-sm font-semibold font-display text-text-primary">Sam</p>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-status-green"></span>
+<span class="text-[11px] text-text-secondary">Connecté</span>
+</div>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 text-[11px] font-medium font-display px-2.5 py-1 rounded-full bg-status-greenBg/80 text-status-green border border-status-borderGreen">
+            ✓ A voté
+          </span>
+</div>
+<!-- Participant: Noa -->
+<div class="py-2.5 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-raised text-text-accent font-display font-bold text-xs flex items-center justify-center border border-white/5">
+              N
+            </div>
+<div>
+<p class="text-sm font-semibold font-display text-text-primary">Noa</p>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-status-green"></span>
+<span class="text-[11px] text-text-secondary">Connecté</span>
+</div>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 text-[11px] font-medium font-display px-2.5 py-1 rounded-full bg-status-greenBg/80 text-status-green border border-status-borderGreen">
+            ✓ A voté
+          </span>
+</div>
+</div>
+<!-- Confidentiality microcopy note -->
+
+</section>
+<!-- END: RosterCard -->
+<!-- BEGIN: SecondaryActions -->
+<section class="mt-3 flex flex-col gap-2">
+<!-- Manual Vote Fallback (Disabled) -->
+<div class="bg-surface-card rounded-[12px] p-3.5 border border-surface-raised/40 flex items-center justify-between opacity-60 cursor-not-allowed">
+<div class="flex items-center gap-2.5">
+<svg class="w-4 h-4 text-text-secondary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<path d="M12 20h9"></path>
+<path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+</svg>
+<span class="text-xs font-medium text-text-primary">Voter pour un joueur sans interface</span>
+</div>
+<span class="text-[10px] px-2 py-0.5 rounded bg-surface-raised text-text-secondary font-medium whitespace-nowrap">
+          Tous les votes sont reçus
+        </span>
+</div>
+<!-- Accordion: Informations privées du GM -->
+<button class="w-full bg-surface-card rounded-[12px] p-3.5 border border-surface-raised/40 flex items-center justify-between text-left hover:bg-surface-raised/30 transition-colors" type="button">
+<div class="flex items-center gap-2.5">
+<svg class="w-4 h-4 text-text-accent" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<rect height="11" rx="2" ry="2" width="18" x="3" y="11"></rect>
+<path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+</svg>
+<span class="text-xs font-medium text-text-primary">Informations privées du Game Master</span>
+</div>
+<svg class="w-4 h-4 text-text-secondary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<polyline points="9 18 15 12 9 6"></polyline>
+</svg>
+</button>
+<!-- Accordion: Journal de la partie -->
+<button class="w-full bg-surface-card rounded-[12px] p-3.5 border border-surface-raised/40 flex items-center justify-between text-left hover:bg-surface-raised/30 transition-colors" type="button">
+<div class="flex items-center gap-2.5">
+<svg class="w-4 h-4 text-text-secondary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+<polyline points="14 2 14 8 20 8"></polyline>
+<line x1="16" x2="8" y1="13" y2="13"></line>
+<line x1="16" x2="8" y1="17" y2="17"></line>
+<polyline points="10 9 9 9 8 9"></polyline>
+</svg>
+<span class="text-xs font-medium text-text-primary">Journal de la partie</span>
+</div>
+<svg class="w-4 h-4 text-text-secondary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<polyline points="9 18 15 12 9 6"></polyline>
+</svg>
+</button>
+<!-- Accordion: Accès et réglages de la partie -->
+<button class="w-full bg-surface-card rounded-[12px] p-3.5 border border-surface-raised/40 flex items-center justify-between text-left hover:bg-surface-raised/30 transition-colors" type="button">
+<div class="flex items-center gap-2.5">
+<svg class="w-4 h-4 text-text-secondary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="3"></circle>
+<path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+</svg>
+<span class="text-xs font-medium text-text-primary">Accès et réglages de la partie</span>
+</div>
+<svg class="w-4 h-4 text-text-secondary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<polyline points="9 18 15 12 9 6"></polyline>
+</svg>
+</button>
+</section>
+<!-- END: SecondaryActions -->
+<!-- BEGIN: FixedBottomAction -->
+<!-- Fixed bar container for dominant call to action -->
+<div class="fixed bottom-0 left-0 right-0 z-50 bg-[#0C0C1F]/95 backdrop-blur border-t border-surface-raised/60 py-3 px-4 flex justify-center">
+<div class="w-full max-w-[390px] flex flex-col items-center">
+<!-- Dominant Citron CTA -->
+<button class="w-full h-12 bg-citron text-text-dark font-display font-bold text-sm tracking-wide rounded-[8px] flex items-center justify-center gap-2 active:scale-[0.99] transition-transform shadow-lg shadow-citron/10" type="button">
+<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+<polygon points="5 3 19 12 5 21 5 3"></polygon>
+</svg>
+<span>Révéler le résultat du vote</span>
+</button>
+<!-- Contextual safety microcopy -->
+<p class="text-[10px] text-center text-text-secondary mt-2 leading-tight">
+          Pendant le vote, la révélation attend tous les joueurs actifs. Cette action ouvre une confirmation avant affichage public.
+        </p>
+</div>
+</div>
+<!-- END: FixedBottomAction -->
+</div>
+</body></html>

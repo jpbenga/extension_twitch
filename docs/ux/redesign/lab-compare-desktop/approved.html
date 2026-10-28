@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AFTER — Lab Compare — Desktop — v2</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            title: ['Space Grotesk', 'sans-serif'],
+            body: ['DM Sans', 'sans-serif'],
+          },
+          colors: {
+            'surface-base': '#0C0C1F',
+            'surface-card': '#1A1A2D',
+            'surface-elevated': '#28283C',
+            'text-primary': '#E2E0FB',
+            'text-secondary': '#B7A8D4',
+            'text-tertiary': '#8479A1',
+            'accent-citron': '#C8F323',
+            'accent-citron-text': '#171E00',
+            'border-control': '#7E7199',
+            'border-subtle': '#2A2946',
+            'accent-lilac': '#CEBDFF',
+            'accent-live': '#4ADE80',
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body {
+      background-color: #0C0C1F;
+      color: #E2E0FB;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .font-title {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    button:focus-visible, select:focus-visible, a:focus-visible, input:focus-visible {
+      outline: 3px solid #C8F323;
+      outline-offset: 2px;
+    }
+    /* Subtle custom scrollbar if needed */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0C0C1F;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #28283C;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="min-h-full flex flex-col bg-[#0C0C1F] text-[#E2E0FB] antialiased selection:bg-[#C8F323] selection:text-[#171E00]">
+<!-- Top Navigation / Shell Header -->
+<header class="w-full border-b border-[#2A2946] bg-[#0C0C1F]/90 backdrop-blur-sm sticky top-0 z-20">
+<div class="max-w-[1440px] mx-auto px-6 md:px-12 h-16 flex items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-[#1A1A2D] border border-[#2A2946] flex items-center justify-center text-xs font-bold font-title text-[#CEBDFF] tracking-wider">
+          XT
+        </div>
+<div class="flex flex-col">
+<span class="text-[10px] tracking-wider uppercase font-semibold text-[#8479A1] font-title">Extension Twitch</span>
+<span class="text-sm font-semibold text-[#E2E0FB] leading-none">Undercover</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<!-- Apparence Switcher with Discreet Theme selector -->
+<div class="flex items-center gap-2 text-xs text-[#B7A8D4]">
+<svg class="w-3.5 h-3.5 text-[#B7A8D4]" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="5"></circle>
+<path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+</svg>
+<span class="hidden sm:inline">Apparence</span>
+<div class="relative inline-flex items-center">
+<span class="px-2.5 py-1 rounded bg-[#1A1A2D] border border-[#7E7199]/40 text-xs font-title font-medium text-[#CEBDFF]">
+              Neon Show
+            </span>
+</div>
+</div>
+<a class="text-xs text-[#B7A8D4] hover:text-[#E2E0FB] transition-colors py-2 px-1 focus:outline-none" href="#">
+          Nouveau test depuis Undercover
+        </a>
+</div>
+</div>
+</header>
+<!-- Main Container -->
+<main class="flex-1 max-w-[1440px] w-full mx-auto px-6 md:px-12 py-8 flex flex-col gap-6">
+<!-- Laboratory Header & Status -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="text-[11px] font-title font-semibold uppercase tracking-wider text-[#8479A1]">Laboratoire privé · QA</span>
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-medium bg-[#1A1A2D] border border-[#2A2946] text-[#4ADE80]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#4ADE80]"></span>
+            Synchronisé
+          </span>
+</div>
+<h1 class="text-2xl md:text-3xl font-bold font-title text-[#E2E0FB] tracking-tight">
+          Laboratoire Undercover
+        </h1>
+<p class="text-sm text-[#B7A8D4] mt-0.5">
+          Testez un point de vue à la fois et validez le rendu public sans fuite de secrets.
+        </p>
+</div>
+<!-- Quick Session Badge / Context -->
+</div>
+<!-- Perspective & Lab Controls Card -->
+<section aria-label="Contrôle de point de vue" class="bg-[#1A1A2D] rounded-xl border border-[#2A2946] p-5 flex flex-col gap-4 shadow-sm">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+<!-- Perspective Selector -->
+<div class="flex-1 max-w-xl flex flex-col sm:flex-row sm:items-center gap-3">
+<label class="text-xs uppercase font-title font-semibold tracking-wider text-[#8479A1] whitespace-nowrap min-w-[90px]" for="point-de-vue-select">
+            Point de vue
+          </label>
+<div class="relative w-full">
+<select class="w-full h-11 pl-3.5 pr-10 bg-[#0C0C1F] border border-[#7E7199]/50 rounded-lg text-sm font-medium text-[#E2E0FB] focus:border-[#C8F323] appearance-none cursor-pointer" id="point-de-vue-select">
+<option selected="">Joueur 1 · Alex</option>
+<option>Game Master</option>
+<option>Joueur 2 · Lou</option>
+<option>Joueur 3 · Sam</option>
+<option>Joueur 4 · Noa</option>
+<option>Spectateur (public)</option>
+</select>
+<div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-[#B7A8D4]">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M6 9l6 6 6-6"></path>
+</svg>
+</div>
+</div>
+</div>
+<!-- Checkbox: Comparer avec l'émission (Active / Checked) -->
+<div class="flex items-center gap-3 bg-[#0C0C1F]/60 px-4 py-2.5 rounded-lg border border-[#2A2946]">
+<input checked="" class="w-4 h-4 rounded bg-[#1A1A2D] border border-[#7E7199] text-[#C8F323] focus:ring-0 focus:ring-offset-0 accent-[#C8F323] cursor-pointer" id="compare-emission" type="checkbox"/>
+<label class="text-xs sm:text-sm font-medium text-[#E2E0FB] cursor-pointer select-none" for="compare-emission">
+            Comparer avec l’émission
+          </label>
+</div>
+</div>
+<!-- Identity Banner & Secondary Actions Bar -->
+<div class="pt-3 border-t border-[#2A2946] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+<!-- Active Persona Notice -->
+<div class="flex items-center gap-2.5 text-xs text-[#E2E0FB]">
+<span class="w-2 h-2 rounded-full bg-[#4ADE80]"></span>
+<span class="font-medium text-[#B7A8D4]">Vous incarnez</span>
+<span class="font-semibold text-[#E2E0FB] bg-[#28283C] px-2 py-0.5 rounded text-xs">Joueur 1 · Alex</span>
+<span class="text-[11px] text-[#8479A1] hidden sm:inline">(vue privée active)</span>
+</div>
+<!-- Quiet Secondary Shortcuts -->
+<div class="flex items-center gap-2">
+<button class="h-9 px-3.5 rounded-lg bg-[#28283C] hover:bg-[#34344e] text-xs font-title font-medium text-[#E2E0FB] border border-[#2A2946] flex items-center gap-2 transition-colors min-h-[44px] sm:min-h-[36px]" type="button">
+<svg class="w-3.5 h-3.5 text-[#B7A8D4]" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<rect height="13" rx="2" ry="2" width="13" x="9" y="9"></rect>
+<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+</svg>
+            Copier le lien privé GM
+          </button>
+<button class="h-9 px-3.5 rounded-lg bg-[#28283C] hover:bg-[#34344e] text-xs font-title font-medium text-[#E2E0FB] border border-[#2A2946] flex items-center gap-2 transition-colors min-h-[44px] sm:min-h-[36px]" type="button">
+            Aperçu de l’émission
+            <svg class="w-3.5 h-3.5 text-[#B7A8D4]" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+<polyline points="15 3 21 3 21 9"></polyline>
+<line x1="10" x2="21" y1="14" y2="3"></line>
+</svg>
+</button>
+</div>
+</div>
+</section>
+<!-- Split View: ~45% Private Player Panel (Alex) / ~55% Public Broadcast Overlay Preview -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- LEFT COLUMN (~45% - 5 cols in 12-grid = 42-45%): PRIVATE PLAYER PANEL (Alex) -->
+<section aria-label="Panneau privé Joueur 1" class="lg:col-span-5 flex flex-col gap-4">
+<div class="bg-[#1A1A2D] rounded-xl border border-[#2A2946] p-6 flex flex-col gap-5 shadow-sm">
+<!-- Phase and Turn Header -->
+<div class="flex items-center justify-between pb-3 border-b border-[#2A2946]">
+<div>
+<span class="text-[11px] font-title uppercase font-semibold text-[#8479A1] tracking-wider block">Phase active</span>
+<span class="text-xs font-medium text-[#CEBDFF]">Tour d’indices 1 sur 2</span>
+</div>
+</div>
+<!-- Active Player Announcement (Matches approved B4 Player View) -->
+<div class="flex flex-col gap-1.5">
+<div class="inline-flex items-center self-start px-2 py-0.5 rounded text-[11px] font-title font-bold bg-[#C8F323] text-[#171E00]">
+              À votre tour
+            </div>
+<h2 class="text-2xl font-bold font-title text-[#E2E0FB] tracking-tight">
+              Donnez votre indice
+            </h2>
+<p class="text-sm text-[#B7A8D4] leading-relaxed">
+              Donnez votre indice à voix haute. Le Game Master confirme le passage.
+            </p>
+</div>
+<!-- Secret Word Card (Confined to private perspective) -->
+<div class="bg-[#0C0C1F] rounded-lg border border-[#7E7199]/40 p-5 flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="text-[11px] uppercase font-title font-semibold tracking-wider text-[#8479A1]">
+                Votre mot secret
+              </span>
+<!-- Discreet indicator of strictly confidential scope -->
+<span class="text-[10px] uppercase font-title font-bold text-[#CEBDFF] tracking-wider px-2 py-0.5 rounded bg-[#28283C]">
+                Confidentiel
+              </span>
+</div>
+<!-- The fake private word: Phare -->
+<div class="flex items-baseline justify-between py-1">
+<div>
+<span class="text-2xl md:text-3xl font-bold font-title tracking-tight text-[#E2E0FB]">
+                  Phare
+                </span>
+<span class="block text-xs text-[#8479A1] mt-0.5">Mot attribué pour la manche en cours</span>
+</div>
+</div>
+<!-- Quiet touch-sized button: Masquer mon mot (min-h 44px) -->
+<div class="pt-2 border-t border-[#2A2946] flex items-center justify-end">
+<button class="h-11 px-4 rounded-lg bg-[#28283C] hover:bg-[#34344e] text-xs font-title font-medium text-[#E2E0FB] border border-[#7E7199]/40 flex items-center gap-2 transition-colors min-h-[44px]" type="button">
+<svg class="w-4 h-4 text-[#B7A8D4]" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+<line x1="1" x2="23" y1="1" y2="23"></line>
+</svg>
+                Masquer mon mot
+              </button>
+</div>
+</div>
+<!-- Roster Order / Passage Sequence (Private Observer View) -->
+<div class="flex flex-col gap-2 pt-1">
+<div class="flex items-center justify-between text-xs">
+<span class="font-title font-semibold uppercase text-[#8479A1] tracking-wider text-[11px]">Ordre de passage (4 participants)</span>
+<span class="text-[#B7A8D4] text-xs">1 / 4 en cours</span>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<!-- Player 1 (Alex - Current & Self) -->
+<div class="p-3 rounded-lg bg-[#28283C] border-2 border-[#C8F323] flex items-center justify-between">
+<div>
+<span class="text-[10px] text-[#8479A1] font-title block">1 · Vous</span>
+<span class="text-sm font-semibold text-[#E2E0FB]">Alex</span>
+</div>
+<span class="w-2.5 h-2.5 rounded-full bg-[#C8F323]"></span>
+</div>
+<!-- Player 2 (Lou) -->
+<div class="p-3 rounded-lg bg-[#0C0C1F] border border-[#2A2946] flex items-center justify-between opacity-80">
+<div>
+<span class="text-[10px] text-[#8479A1] font-title block">2</span>
+<span class="text-sm font-medium text-[#B7A8D4]">Lou</span>
+</div>
+</div>
+<!-- Player 3 (Sam) -->
+<div class="p-3 rounded-lg bg-[#0C0C1F] border border-[#2A2946] flex items-center justify-between opacity-80">
+<div>
+<span class="text-[10px] text-[#8479A1] font-title block">3</span>
+<span class="text-sm font-medium text-[#B7A8D4]">Sam</span>
+</div>
+</div>
+<!-- Player 4 (Noa) -->
+<div class="p-3 rounded-lg bg-[#0C0C1F] border border-[#2A2946] flex items-center justify-between opacity-80">
+<div>
+<span class="text-[10px] text-[#8479A1] font-title block">4</span>
+<span class="text-sm font-medium text-[#B7A8D4]">Noa</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Note on Absence of Game-Altering Controls -->
+<div class="text-[11px] text-[#8479A1] bg-[#0C0C1F]/40 p-2.5 rounded border border-[#2A2946]/50">
+            Écoutez attentivement chaque joueur. Le passage de parole est validé par le Game Master depuis sa régie.
+          </div>
+</div>
+</section>
+<!-- RIGHT COLUMN (~55% - 7 cols in 12-grid): PUBLIC BROADCAST OVERLAY PREVIEW -->
+<section aria-label="Aperçu public de l'émission" class="lg:col-span-7 flex flex-col gap-3">
+<div class="bg-[#1A1A2D] rounded-xl border border-[#2A2946] p-5 sm:p-6 flex flex-col gap-4 shadow-sm">
+<!-- Section Heading & Sublabel -->
+<div class="flex items-center justify-between pb-2 border-b border-[#2A2946]">
+<div>
+<h2 class="text-base sm:text-lg font-bold font-title text-[#E2E0FB]">
+                Aperçu de l’émission
+              </h2>
+<span class="text-xs text-[#8479A1] font-title tracking-wide block">
+                Vue publique · scène fictive
+              </span>
+</div>
+<!-- Projection Indicator -->
+<div class="flex items-center gap-2">
+<span class="text-[11px] font-title uppercase text-[#CEBDFF] px-2.5 py-1 rounded bg-[#28283C] border border-[#2A2946]">
+                Sortie OBS 1080p
+              </span>
+</div>
+</div>
+<!-- Restrained 16:9 Broadcast Stage Canvas -->
+<div class="relative w-full aspect-video bg-[#0C0C1F] rounded-lg border border-[#7E7199]/40 overflow-hidden flex flex-col justify-between p-4 sm:p-6 shadow-inner select-none"><div class="flex items-center justify-between z-10"><div class="flex items-center gap-2"><span class="text-xs font-bold font-title tracking-wider uppercase text-[#E2E0FB]">Undercover</span><span class="text-xs text-[#8479A1]">·</span><span class="text-xs text-[#B7A8D4] font-title">Tour d’indices 1 sur 2</span></div></div><div class="my-auto flex flex-col items-center justify-center text-center px-4 py-2 z-10"><div class="text-2xl sm:text-4xl font-bold font-title text-[#E2E0FB] tracking-tight">À Alex de parler</div></div><div class="w-full z-10 pt-2 border-t border-[#2A2946]/80"><div class="grid grid-cols-4 gap-2"><div class="bg-[#1A1A2D]/90 rounded border border-[#C8F323] p-2.5 flex flex-col items-center text-center min-h-[44px] justify-center"><span class="text-[10px] uppercase font-title font-bold text-[#C8F323] tracking-wider">Parle</span><span class="text-xs sm:text-sm font-semibold font-title text-[#E2E0FB] truncate w-full">Alex</span></div><div class="bg-[#1A1A2D]/60 rounded border border-[#2A2946] p-2.5 flex flex-col items-center text-center opacity-70 min-h-[44px] justify-center"><span class="text-[10px] uppercase font-title text-[#8479A1] tracking-wider">En attente</span><span class="text-xs sm:text-sm font-medium font-title text-[#B7A8D4] truncate w-full">Lou</span></div><div class="bg-[#1A1A2D]/60 rounded border border-[#2A2946] p-2.5 flex flex-col items-center text-center opacity-70 min-h-[44px] justify-center"><span class="text-[10px] uppercase font-title text-[#8479A1] tracking-wider">En attente</span><span class="text-xs sm:text-sm font-medium font-title text-[#B7A8D4] truncate w-full">Sam</span></div><div class="bg-[#1A1A2D]/60 rounded border border-[#2A2946] p-2.5 flex flex-col items-center text-center opacity-70 min-h-[44px] justify-center"><span class="text-[10px] uppercase font-title text-[#8479A1] tracking-wider">En attente</span><span class="text-xs sm:text-sm font-medium font-title text-[#B7A8D4] truncate w-full">Noa</span></div></div></div></div>
+<!-- Integrity Verification Note -->
+</div>
+</section>
+</div>
+<!-- Secondary Closed Collapsible Tools (Accès aux vues, Outils de test, Vérification des permissions) -->
+<section aria-label="Sections secondaires de laboratoire" class="flex flex-col gap-2.5 pt-2"><details class="group bg-[#1A1A2D] rounded-xl border border-[#2A2946] overflow-hidden"><summary class="flex items-center justify-between p-4 cursor-pointer hover:bg-[#28283C]/50 transition-colors select-none min-h-[44px]"><div class="flex items-center gap-3"><svg class="w-4 h-4 text-[#B7A8D4] group-open:rotate-90 transition-transform duration-150" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg><span class="text-sm font-title font-medium text-[#E2E0FB]">Accès aux vues</span></div><span class="text-xs text-[#8479A1]">Perspectives privées &amp; projection</span></summary><div class="p-5 pt-3 border-t border-[#2A2946] flex flex-col gap-4 text-xs text-[#B7A8D4]"><div class="p-3 rounded-lg bg-[#0C0C1F] border border-[#2A2946] text-xs text-[#B7A8D4]">Chaque joueur reçoit uniquement son accès privé.</div><div class="flex flex-col gap-2"><div class="flex items-center justify-between p-3 rounded bg-[#0C0C1F]/60 border border-[#2A2946]"><span class="font-medium text-[#E2E0FB]">Régie Game Master</span><div class="flex items-center gap-2"><button class="h-11 px-3.5 rounded bg-[#28283C] text-xs font-title text-[#E2E0FB] border border-[#2A2946] hover:bg-[#34344e]" type="button">Ouvrir</button><button class="h-11 px-3.5 rounded bg-[#28283C] text-xs font-title text-[#E2E0FB] border border-[#2A2946] hover:bg-[#34344e]" type="button">Copier le lien privé</button></div></div><div class="flex items-center justify-between p-3 rounded bg-[#0C0C1F]/60 border border-[#2A2946]"><span class="font-medium text-[#E2E0FB]">Joueur 1 · Alex</span><div class="flex items-center gap-2"><button class="h-11 px-3.5 rounded bg-[#28283C] text-xs font-title text-[#E2E0FB] border border-[#2A2946] hover:bg-[#34344e]" type="button">Incarner</button><button class="h-11 px-3.5 rounded bg-[#28283C] text-xs font-title text-[#E2E0FB] border border-[#2A2946] hover:bg-[#34344e]" type="button">Ouvrir</button><button class="h-11 px-3.5 rounded bg-[#28283C] text-xs font-title text-[#E2E0FB] border border-[#2A2946] hover:bg-[#34344e]" type="button">Copier</button></div></div><div class="flex items-center justify-between p-3 rounded bg-[#0C0C1F]/60 border border-[#2A2946]"><span class="font-medium text-[#E2E0FB]">Joueur 2 · Lou</span><div class="flex items-center gap-2"><button class="h-11 px-3.5 rounded bg-[#28283C] text-xs font-title text-[#E2E0FB] border border-[#2A2946] hover:bg-[#34344e]" type="button">Incarner</button><button class="h-11 px-3.5 rounded bg-[#28283C] text-xs font-title text-[#E2E0FB] border border-[#2A2946] hover:bg-[#34344e]" type="button">Ouvrir</button><button class="h-11 px-3.5 rounded bg-[#28283C] text-xs font-title text-[#E2E0FB] border border-[#2A2946] hover:bg-[#34344e]" type="button">Copier</button></div></div><div class="flex items-center justify-between p-3 rounded bg-[#0C0C1F]/60 border border-[#2A2946]"><span class="font-medium text-[#E2E0FB]">Joueur 3 · Sam</span><div class="flex items-center gap-2"><button class="h-11 px-3.5 rounded bg-[#28283C] text-xs font-title text-[#E2E0FB] border border-[#2A2946] hover:bg-[#34344e]" type="button">Incarner</button><button class="h-11 px-3.5 rounded bg-[#28283C] text-xs font-title text-[#E2E0FB] border border-[#2A2946] hover:bg-[#34344e]" type="button">Ouvrir</button><button class="h-11 px-3.5 rounded bg-[#28283C] text-xs font-title text-[#E2E0FB] border border-[#2A2946] hover:bg-[#34344e]" type="button">Copier</button></div></div><div class="flex items-center justify-between p-3 rounded bg-[#0C0C1F]/60 border border-[#2A2946]"><span class="font-medium text-[#E2E0FB]">Joueur 4 · Noa</span><div class="flex items-center gap-2"><button class="h-11 px-3.5 rounded bg-[#28283C] text-xs font-title text-[#E2E0FB] border border-[#2A2946] hover:bg-[#34344e]" type="button">Incarner</button><button class="h-11 px-3.5 rounded bg-[#28283C] text-xs font-title text-[#E2E0FB] border border-[#2A2946] hover:bg-[#34344e]" type="button">Ouvrir</button><button class="h-11 px-3.5 rounded bg-[#28283C] text-xs font-title text-[#E2E0FB] border border-[#2A2946] hover:bg-[#34344e]" type="button">Copier</button></div></div><div class="flex items-center justify-between p-3 rounded bg-[#0C0C1F]/60 border border-[#2A2946]"><span class="font-medium text-[#E2E0FB]">Spectateur public</span><div class="flex items-center gap-2"><button class="h-11 px-3.5 rounded bg-[#28283C] text-xs font-title text-[#E2E0FB] border border-[#2A2946] hover:bg-[#34344e]" type="button">Ouvrir</button></div></div><div class="flex items-center justify-between p-3 rounded bg-[#0C0C1F]/60 border border-[#2A2946]"><span class="font-medium text-[#E2E0FB]">Aperçu de l’émission</span><div class="flex items-center gap-2"><button class="h-11 px-3.5 rounded bg-[#28283C] text-xs font-title text-[#E2E0FB] border border-[#2A2946] hover:bg-[#34344e]" type="button">Ouvrir</button></div></div><div class="flex items-center justify-between p-3 rounded bg-[#0C0C1F]/60 border border-[#2A2946]"><span class="font-medium text-[#E2E0FB]">Source OBS transparente</span><div class="flex items-center gap-2"><button class="h-11 px-3.5 rounded bg-[#28283C] text-xs font-title text-[#E2E0FB] border border-[#2A2946] hover:bg-[#34344e]" type="button">Personnaliser l’overlay</button><button class="h-11 px-3.5 rounded bg-[#28283C] text-xs font-title text-[#E2E0FB] border border-[#2A2946] hover:bg-[#34344e]" type="button">Ouvrir</button></div></div></div></div></details><details class="group bg-[#1A1A2D] rounded-xl border border-[#2A2946] overflow-hidden"><summary class="flex items-center justify-between p-4 cursor-pointer hover:bg-[#28283C]/50 transition-colors select-none min-h-[44px]"><div class="flex items-center gap-3"><svg class="w-4 h-4 text-[#B7A8D4] group-open:rotate-90 transition-transform duration-150" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg><span class="text-sm font-title font-medium text-[#E2E0FB]">Outils de test</span></div><span class="text-xs text-[#8479A1]">Actions secondaires</span></summary><div class="p-5 pt-3 border-t border-[#2A2946] flex flex-col gap-3 text-xs text-[#B7A8D4]"><div><button class="h-11 px-4 rounded-lg bg-[#28283C] hover:bg-[#34344e] text-xs font-title font-medium text-[#E2E0FB] border border-[#7E7199]/40 transition-colors min-h-[44px]" type="button">Recommencer le test</button></div><p class="text-xs text-[#8479A1]">Efface les votes et résultats. Conserve les accès des joueurs.</p><div class="pt-1"><a class="text-xs text-[#B7A8D4] hover:text-[#E2E0FB] underline transition-colors" href="#">Nouveau test depuis Undercover</a></div></div></details><details class="group bg-[#1A1A2D] rounded-xl border border-[#2A2946] overflow-hidden"><summary class="flex items-center justify-between p-4 cursor-pointer hover:bg-[#28283C]/50 transition-colors select-none min-h-[44px]"><div class="flex items-center gap-3"><svg class="w-4 h-4 text-[#B7A8D4] group-open:rotate-90 transition-transform duration-150" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg><span class="text-sm font-title font-medium text-[#E2E0FB]">Vérifier les permissions · avancé</span></div></summary><div class="p-5 pt-3 border-t border-[#2A2946] flex flex-col gap-3 text-xs text-[#B7A8D4]"><p class="text-xs text-[#E2E0FB]">Vérifier qu’un joueur ne peut pas renommer la partie.</p><div><button class="h-11 px-4 rounded-lg bg-[#28283C] hover:bg-[#34344e] text-xs font-title font-medium text-[#E2E0FB] border border-[#7E7199]/50 transition-colors min-h-[44px]" type="button">Vérifier le refus d’une action de gestion</button></div></div></details></section>
+</main>
+<!-- Footer -->
+<footer class="w-full border-t border-[#2A2946] py-6 mt-8"><div class="max-w-[1440px] mx-auto px-6 md:px-12 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#8479A1]"><p>Laboratoire privé · Outils de test Undercover</p></div></footer>
+</body>
+</html>

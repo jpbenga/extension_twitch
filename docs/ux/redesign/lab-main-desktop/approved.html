@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AFTER — Lab Main — Desktop — v2</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+    :root {
+      --home-surface-base: #0C0C1F;
+      --home-surface-card: #1A1A2D;
+      --home-surface-elevated: #28283C;
+      --home-surface-dim: #111125;
+      --home-text-primary: #E2E0FB;
+      --home-text-secondary: #B7A8D4;
+      --home-accent-lilac: #CEBDFF;
+      --home-accent-citron: #C8F323;
+      --home-accent-citron-text: #171E00;
+      --home-border-control: #7E7199;
+      --home-border-subtle: rgba(126, 113, 153, 0.28);
+      --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background-color: var(--home-surface-base);
+      color: var(--home-text-primary);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    .font-display {
+      font-family: var(--font-display);
+    }
+
+    .focus-ring:focus-visible {
+      outline: 3px solid var(--home-accent-citron);
+      outline-offset: 2px;
+    }
+
+    /* Custom select chevron */
+    .custom-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%23B7A8D4' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+      background-position: right 0.85rem center;
+      background-repeat: no-repeat;
+      background-size: 1.25rem 1.25rem;
+    }
+
+    /* Disclosure details reset */
+    details summary::-webkit-details-marker {
+      display: none;
+    }
+  </style>
+</head>
+<body class="bg-[#0C0C1F] text-[#E2E0FB] min-h-screen flex flex-col justify-between selection:bg-[#C8F323] selection:text-[#171E00]">
+<!-- Top Application Shell Navigation -->
+<header class="w-full border-b border-[#7E7199]/20 bg-[#0C0C1F]/95 backdrop-blur sticky top-0 z-30">
+<div class="max-w-[1440px] mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
+<!-- Left brand identity -->
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-md bg-[#28283C] border border-[#7E7199]/40 flex items-center justify-center font-display font-bold text-xs text-[#C8F323]">
+            xt
+          </div>
+<div class="flex flex-col">
+<span class="text-xs uppercase tracking-wider text-[#B7A8D4] font-medium leading-none">Laboratoire</span>
+<span class="font-display font-semibold text-sm tracking-tight text-[#E2E0FB] leading-tight">Undercover</span>
+</div>
+</div>
+</div>
+<!-- Right secondary utility navigation -->
+<div class="flex items-center gap-6">
+<!-- Appearance modal trigger -->
+<div class="relative group">
+<button class="focus-ring flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-[#B7A8D4] hover:text-[#E2E0FB] hover:bg-[#1A1A2D] transition-colors" type="button">
+<svg class="w-4 h-4 text-[#B7A8D4]" fill="none" stroke="currentColor" stroke-width="1.75" viewbox="0 0 24 24">
+<path d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>Apparence</span>
+<span class="text-xs px-1.5 py-0.5 rounded bg-[#28283C] text-[#CEBDFF] border border-[#7E7199]/30">Neon Show</span>
+</button>
+</div>
+<!-- Discreet return to test setup -->
+<a class="focus-ring text-xs text-[#B7A8D4] hover:text-[#E2E0FB] underline-offset-4 hover:underline transition-colors flex items-center gap-1.5" href="#nouveau-test">
+<span>Nouveau test depuis Undercover</span>
+</a>
+</div>
+</div>
+</header>
+<!-- Main Laboratory Workspace -->
+<main class="w-full flex-grow max-w-[1440px] mx-auto px-6 md:px-12 py-8">
+<div class="max-w-[760px] mx-auto flex flex-col gap-6">
+<!-- Lab Header & Status -->
+<section class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="text-[11px] font-semibold tracking-wider uppercase text-[#CEBDFF] font-display">
+            LABORATOIRE PRIVÉ · QA
+          </span>
+<span class="inline-flex items-center gap-1.5 text-xs text-[#B7A8D4] bg-[#1A1A2D] px-2.5 py-1 rounded-full border border-[#7E7199]/25">
+<span class="w-2 h-2 rounded-full bg-[#C8F323] inline-block animate-pulse"></span>
+            Synchronisé
+          </span>
+</div>
+<h1 class="font-display text-3xl md:text-4xl font-bold tracking-tight text-[#E2E0FB]">
+          Laboratoire Undercover
+        </h1>
+<p class="text-sm md:text-base text-[#B7A8D4]">
+          Testez un point de vue à la fois.
+        </p>
+</section>
+<!-- Perspective Selector & Context Banner -->
+<section class="bg-[#1A1A2D] border border-[#7E7199]/30 rounded-xl p-5 flex flex-col gap-4 shadow-sm">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+<label class="text-xs font-semibold uppercase tracking-wider text-[#B7A8D4] font-display" for="perspective-select">
+            Point de vue
+          </label>
+<div class="relative w-full sm:w-[320px]">
+<select class="focus-ring custom-select w-full bg-[#0C0C1F] border border-[#7E7199] text-[#E2E0FB] text-base sm:text-sm rounded-lg px-3.5 py-2.5 pr-10 cursor-pointer transition-colors focus:border-[#C8F323]" id="perspective-select">
+<option selected="" value="gm">Game Master</option>
+<option value="p1">Joueur 1 · Alex</option>
+<option value="p2">Joueur 2 · Lou</option>
+<option value="p3">Joueur 3 · Sam</option>
+<option value="p4">Joueur 4 · Noa</option>
+<option value="spec">Spectateur</option>
+</select>
+</div>
+</div>
+<!-- Identity Affirmation Pill -->
+<div class="bg-[#28283C]/70 border-l-2 border-[#C8F323] rounded-r-lg px-4 py-2.5 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<svg class="w-4 h-4 text-[#C8F323]" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="text-sm font-medium text-[#E2E0FB]">
+              Vous incarnez le Game Master
+            </span>
+</div>
+<span class="text-[11px] text-[#B7A8D4] font-mono">Vue privée active</span>
+</div>
+<!-- Secondary Quiet Shortcuts -->
+<div class="pt-1 border-t border-[#7E7199]/20 flex flex-wrap items-center justify-between gap-3">
+<div class="flex flex-wrap items-center gap-2">
+<button class="focus-ring inline-flex items-center gap-1.5 px-3 py-2 min-h-[44px] rounded-lg bg-[#28283C] hover:bg-[#34344d] border border-[#7E7199]/40 text-xs font-medium text-[#E2E0FB] transition-colors" type="button">
+<svg class="w-3.5 h-3.5 text-[#B7A8D4]" fill="none" stroke="currentColor" stroke-width="1.75" viewbox="0 0 24 24">
+<path d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+              Copier le lien privé GM
+            </button>
+<button class="focus-ring inline-flex items-center gap-1.5 px-3 py-2 min-h-[44px] rounded-lg bg-[#28283C] hover:bg-[#34344d] border border-[#7E7199]/40 text-xs font-medium text-[#E2E0FB] transition-colors" type="button">
+<span>Aperçu de l’émission</span>
+<span class="text-xs text-[#B7A8D4]">↗</span>
+</button>
+</div>
+<!-- Desktop-only comparison toggle -->
+<label class="hidden md:flex items-center gap-2 cursor-pointer select-none py-1.5">
+<input class="focus-ring w-4 h-4 rounded bg-[#0C0C1F] border border-[#7E7199] text-[#C8F323] accent-[#C8F323] cursor-pointer" type="checkbox"/>
+<span class="text-xs text-[#B7A8D4] hover:text-[#E2E0FB] transition-colors">Comparer avec l’émission</span>
+</label>
+</div>
+</section>
+<!-- Main Game Specimen Panel (Game Master - Ongoing Oral Clues) -->
+<section class="bg-[#1A1A2D] border border-[#7E7199]/40 rounded-xl p-6 md:p-8 flex flex-col gap-6 shadow-md relative overflow-hidden">
+<!-- Header of active game state -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-[#7E7199]/20 gap-3">
+<div>
+<span class="text-xs font-semibold uppercase tracking-wider text-[#CEBDFF] font-display">
+              Phase active
+            </span>
+<h2 class="font-display text-xl md:text-2xl font-bold text-[#E2E0FB] mt-0.5">
+              Tour d’indices 1 sur 2
+            </h2>
+</div>
+</div>
+<!-- Current speaker prompt card -->
+<div class="bg-[#28283C] border border-[#7E7199]/35 rounded-xl p-5 md:p-6 flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="text-xs font-medium text-[#B7A8D4] uppercase tracking-wide">Tour de parole</span>
+<span class="text-xs font-semibold text-[#171E00] bg-[#C8F323] px-2 py-0.5 rounded font-display">Joueur actif</span>
+</div>
+<h3 class="font-display text-2xl md:text-3xl font-bold text-[#E2E0FB]">
+            À Alex de parler
+          </h3>
+<p class="text-sm text-[#B7A8D4] max-w-lg leading-relaxed">
+            Écoutez son indice, puis confirmez le passage.
+          </p>
+<!-- The SINGLE DOMINANT ACTION of this game phase -->
+<div class="pt-3">
+<button class="focus-ring w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 min-h-[48px] rounded-lg bg-[#C8F323] hover:bg-[#d6ff38] text-[#171E00] font-display font-bold text-base shadow-sm transition-all hover:shadow-[0_0_16px_rgba(200,243,35,0.3)] active:translate-y-0.5" type="button">
+<svg class="w-5 h-5 text-[#171E00]" fill="none" stroke="currentColor" stroke-width="2.25" viewbox="0 0 24 24">
+<path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>Confirmer le passage</span>
+</button>
+</div>
+</div>
+<!-- Ordered player indicator badges (no revealed roles, no secret words) -->
+<div class="flex flex-col gap-2.5">
+<div class="flex items-center justify-between text-xs text-[#B7A8D4]">
+<span class="font-medium uppercase tracking-wider font-display">Ordre de passage (4 participants)</span>
+<span>1 / 4 en cours</span>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+<!-- Alex (Active) -->
+<div class="bg-[#28283C] border-2 border-[#C8F323] rounded-lg p-3 flex flex-col justify-between min-h-[58px]">
+<div class="flex items-center justify-between">
+<span class="text-[10px] uppercase font-mono text-[#CEBDFF]">1</span>
+<span class="w-1.5 h-1.5 rounded-full bg-[#C8F323]"></span>
+</div>
+<span class="font-display font-bold text-sm text-[#E2E0FB] truncate">Alex</span>
+</div>
+<!-- Lou -->
+<div class="bg-[#0C0C1F]/60 border border-[#7E7199]/30 rounded-lg p-3 flex flex-col justify-between min-h-[58px]">
+<span class="text-[10px] uppercase font-mono text-[#B7A8D4]">2</span>
+<span class="font-display font-medium text-sm text-[#B7A8D4] truncate">Lou</span>
+</div>
+<!-- Sam -->
+<div class="bg-[#0C0C1F]/60 border border-[#7E7199]/30 rounded-lg p-3 flex flex-col justify-between min-h-[58px]">
+<span class="text-[10px] uppercase font-mono text-[#B7A8D4]">3</span>
+<span class="font-display font-medium text-sm text-[#B7A8D4] truncate">Sam</span>
+</div>
+<!-- Noa -->
+<div class="bg-[#0C0C1F]/60 border border-[#7E7199]/30 rounded-lg p-3 flex flex-col justify-between min-h-[58px]">
+<span class="text-[10px] uppercase font-mono text-[#B7A8D4]">4</span>
+<span class="font-display font-medium text-sm text-[#B7A8D4] truncate">Noa</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Three Closed Secondary Disclosures (QA & Maintenance Tools) -->
+<section class="flex flex-col gap-3 pt-2">
+<!-- Disclosure 1: Accès aux vues -->
+<details class="group bg-[#1A1A2D] border border-[#7E7199]/30 rounded-xl overflow-hidden transition-all">
+<summary class="focus-ring flex items-center justify-between px-5 py-4 cursor-pointer select-none min-h-[48px] hover:bg-[#28283C]/40 transition-colors">
+<span class="text-sm font-medium text-[#E2E0FB] font-display flex items-center gap-2">
+<svg class="w-4 h-4 text-[#B7A8D4] group-open:rotate-90 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M8.25 4.5l7.5 7.5-7.5 7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+              Accès aux vues
+            </span>
+<span class="text-xs text-[#B7A8D4] font-normal">Liens individuels</span>
+</summary>
+<div class="px-5 pb-5 pt-2 border-t border-[#7E7199]/20 text-xs text-[#B7A8D4] flex flex-col gap-3"><p class="text-xs text-[#B7A8D4]">Chaque joueur reçoit uniquement son accès privé.</p><div class="flex flex-col gap-2 pt-1"><div class="flex flex-col sm:flex-row sm:items-center justify-between p-3 rounded-lg bg-[#28283C]/70 border border-[#7E7199]/25 gap-2.5"><div class="flex items-center gap-2.5"><span class="text-xs font-semibold text-[#E2E0FB] font-display">Régie GM</span><span class="text-[11px] text-[#CEBDFF] px-1.5 py-0.5 rounded bg-[#1A1A2D] border border-[#7E7199]/20">Rôle actif</span></div><div class="flex items-center gap-2"><button class="focus-ring min-h-[44px] px-3.5 py-2 rounded-lg bg-[#28283C] hover:bg-[#34344d] border border-[#7E7199]/40 text-xs font-medium text-[#E2E0FB] transition-colors" type="button">Ouvrir</button><button class="focus-ring min-h-[44px] px-3.5 py-2 rounded-lg bg-[#28283C] hover:bg-[#34344d] border border-[#7E7199]/40 text-xs font-medium text-[#E2E0FB] transition-colors" type="button">Copier le lien privé</button></div></div><div class="flex flex-col sm:flex-row sm:items-center justify-between p-3 rounded-lg bg-[#0C0C1F]/60 border border-[#7E7199]/20 gap-2.5"><div class="flex items-center gap-2.5"><span class="text-xs font-semibold text-[#E2E0FB] font-display">Joueur 1 · Alex</span><span class="text-[10px] text-[#C8F323] px-1.5 py-0.5 rounded bg-[#28283C] border border-[#C8F323]/40">Actif</span></div><div class="flex items-center gap-2"><button class="focus-ring min-h-[44px] px-3 py-2 rounded-lg bg-[#28283C] hover:bg-[#34344d] border border-[#7E7199]/40 text-xs font-medium text-[#E2E0FB] transition-colors" type="button">Incarner</button><button class="focus-ring min-h-[44px] px-3 py-2 rounded-lg bg-[#28283C] hover:bg-[#34344d] border border-[#7E7199]/40 text-xs font-medium text-[#E2E0FB] transition-colors" type="button">Ouvrir</button><button class="focus-ring min-h-[44px] px-3 py-2 rounded-lg bg-[#28283C] hover:bg-[#34344d] border border-[#7E7199]/40 text-xs font-medium text-[#E2E0FB] transition-colors" type="button">Copier</button></div></div><div class="flex flex-col sm:flex-row sm:items-center justify-between p-3 rounded-lg bg-[#0C0C1F]/60 border border-[#7E7199]/20 gap-2.5"><span class="text-xs font-semibold text-[#E2E0FB] font-display">Joueur 2 · Lou</span><div class="flex items-center gap-2"><button class="focus-ring min-h-[44px] px-3 py-2 rounded-lg bg-[#28283C] hover:bg-[#34344d] border border-[#7E7199]/40 text-xs font-medium text-[#E2E0FB] transition-colors" type="button">Incarner</button><button class="focus-ring min-h-[44px] px-3 py-2 rounded-lg bg-[#28283C] hover:bg-[#34344d] border border-[#7E7199]/40 text-xs font-medium text-[#E2E0FB] transition-colors" type="button">Ouvrir</button><button class="focus-ring min-h-[44px] px-3 py-2 rounded-lg bg-[#28283C] hover:bg-[#34344d] border border-[#7E7199]/40 text-xs font-medium text-[#E2E0FB] transition-colors" type="button">Copier</button></div></div><div class="flex flex-col sm:flex-row sm:items-center justify-between p-3 rounded-lg bg-[#0C0C1F]/60 border border-[#7E7199]/20 gap-2.5"><span class="text-xs font-semibold text-[#E2E0FB] font-display">Joueur 3 · Sam</span><div class="flex items-center gap-2"><button class="focus-ring min-h-[44px] px-3 py-2 rounded-lg bg-[#28283C] hover:bg-[#34344d] border border-[#7E7199]/40 text-xs font-medium text-[#E2E0FB] transition-colors" type="button">Incarner</button><button class="focus-ring min-h-[44px] px-3 py-2 rounded-lg bg-[#28283C] hover:bg-[#34344d] border border-[#7E7199]/40 text-xs font-medium text-[#E2E0FB] transition-colors" type="button">Ouvrir</button><button class="focus-ring min-h-[44px] px-3 py-2 rounded-lg bg-[#28283C] hover:bg-[#34344d] border border-[#7E7199]/40 text-xs font-medium text-[#E2E0FB] transition-colors" type="button">Copier</button></div></div><div class="flex flex-col sm:flex-row sm:items-center justify-between p-3 rounded-lg bg-[#0C0C1F]/60 border border-[#7E7199]/20 gap-2.5"><span class="text-xs font-semibold text-[#E2E0FB] font-display">Joueur 4 · Noa</span><div class="flex items-center gap-2"><button class="focus-ring min-h-[44px] px-3 py-2 rounded-lg bg-[#28283C] hover:bg-[#34344d] border border-[#7E7199]/40 text-xs font-medium text-[#E2E0FB] transition-colors" type="button">Incarner</button><button class="focus-ring min-h-[44px] px-3 py-2 rounded-lg bg-[#28283C] hover:bg-[#34344d] border border-[#7E7199]/40 text-xs font-medium text-[#E2E0FB] transition-colors" type="button">Ouvrir</button><button class="focus-ring min-h-[44px] px-3 py-2 rounded-lg bg-[#28283C] hover:bg-[#34344d] border border-[#7E7199]/40 text-xs font-medium text-[#E2E0FB] transition-colors" type="button">Copier</button></div></div><div class="flex flex-col sm:flex-row sm:items-center justify-between p-3 rounded-lg bg-[#0C0C1F]/60 border border-[#7E7199]/20 gap-2.5"><span class="text-xs font-medium text-[#B7A8D4]">Spectateur</span><button class="focus-ring min-h-[44px] px-3.5 py-2 rounded-lg bg-[#28283C] hover:bg-[#34344d] border border-[#7E7199]/40 text-xs font-medium text-[#E2E0FB] transition-colors" type="button">Ouvrir</button></div><div class="flex flex-col sm:flex-row sm:items-center justify-between p-3 rounded-lg bg-[#0C0C1F]/60 border border-[#7E7199]/20 gap-2.5"><span class="text-xs font-medium text-[#B7A8D4]">Aperçu de l’émission</span><button class="focus-ring min-h-[44px] px-3.5 py-2 rounded-lg bg-[#28283C] hover:bg-[#34344d] border border-[#7E7199]/40 text-xs font-medium text-[#E2E0FB] transition-colors" type="button">Ouvrir</button></div><div class="flex flex-col sm:flex-row sm:items-center justify-between p-3 rounded-lg bg-[#0C0C1F]/60 border border-[#7E7199]/20 gap-2.5"><span class="text-xs font-medium text-[#B7A8D4]">Source OBS transparente</span><button class="focus-ring min-h-[44px] px-3.5 py-2 rounded-lg bg-[#28283C] hover:bg-[#34344d] border border-[#7E7199]/40 text-xs font-medium text-[#E2E0FB] transition-colors" type="button">Ouvrir</button></div><div class="pt-1"><button class="focus-ring text-xs text-[#CEBDFF] hover:text-[#E2E0FB] underline-offset-4 hover:underline transition-colors min-h-[44px] inline-flex items-center" type="button">Personnaliser l’overlay</button></div></div></div>
+</details>
+<!-- Disclosure 2: Outils de test -->
+<details class="group bg-[#1A1A2D] border border-[#7E7199]/30 rounded-xl overflow-hidden transition-all">
+<summary class="focus-ring flex items-center justify-between px-5 py-4 cursor-pointer select-none min-h-[48px] hover:bg-[#28283C]/40 transition-colors">
+<span class="text-sm font-medium text-[#E2E0FB] font-display flex items-center gap-2">
+<svg class="w-4 h-4 text-[#B7A8D4] group-open:rotate-90 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M8.25 4.5l7.5 7.5-7.5 7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+              Outils de test
+            </span>
+<span class="text-xs text-[#B7A8D4] font-normal">Actions secondaires</span>
+</summary>
+<div class="px-5 pb-5 pt-2 border-t border-[#7E7199]/20 text-xs text-[#B7A8D4] flex flex-col gap-3"><div class="flex flex-col gap-3 pt-1"><div class="flex flex-wrap items-center gap-3"><button class="focus-ring px-4 py-2.5 min-h-[44px] rounded-lg bg-[#28283C] hover:bg-[#34344d] border border-[#7E7199]/40 text-xs font-medium text-[#E2E0FB] transition-colors" type="button">Recommencer le test</button><p class="text-xs text-[#B7A8D4]">Efface les votes et résultats. Conserve les accès des joueurs.</p></div><div class="pt-1"><a class="focus-ring text-xs text-[#B7A8D4] hover:text-[#E2E0FB] underline-offset-4 hover:underline transition-colors min-h-[44px] inline-flex items-center" href="#nouveau-test">Nouveau test depuis Undercover</a></div></div></div>
+</details>
+<!-- Disclosure 3: Vérifier les permissions · avancé -->
+<details class="group bg-[#1A1A2D] border border-[#7E7199]/30 rounded-xl overflow-hidden transition-all">
+<summary class="focus-ring flex items-center justify-between px-5 py-4 cursor-pointer select-none min-h-[48px] hover:bg-[#28283C]/40 transition-colors">
+<span class="text-sm font-medium text-[#E2E0FB] font-display flex items-center gap-2">
+<svg class="w-4 h-4 text-[#B7A8D4] group-open:rotate-90 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M8.25 4.5l7.5 7.5-7.5 7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+              Vérifier les permissions · avancé
+            </span>
+</summary>
+<div class="px-5 pb-5 pt-2 border-t border-[#7E7199]/20 text-xs text-[#B7A8D4] flex flex-col gap-2"><div class="flex flex-col gap-3 pt-1"><p class="text-xs text-[#B7A8D4]">Vérifier qu’un joueur ne peut pas renommer la partie.</p><div><button class="focus-ring px-4 py-2.5 min-h-[44px] rounded-lg bg-[#28283C] hover:bg-[#34344d] border border-[#7E7199]/40 text-xs font-medium text-[#E2E0FB] transition-colors" type="button">Vérifier le refus d’une action de gestion</button></div></div></div>
+</details>
+</section>
+</div>
+</main>
+<!-- Discreet Lab Footer -->
+<footer class="w-full border-t border-[#7E7199]/20 bg-[#0C0C1F] py-4 text-center">
+<div class="max-w-[1440px] mx-auto px-6 text-xs text-[#B7A8D4]/70">Laboratoire privé · Outils de test Undercover</div>
+</footer>
+</body>
+</html>

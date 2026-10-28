@@ -1,0 +1,257 @@
+<!DOCTYPE html><html lang="fr" class="dark"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AFTER — GM Reveal Confirmation — Mobile — v1</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Space Grotesk & DM Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0C0C1F',
+            card: '#1A1A2D',
+            raised: '#28283C',
+            textMain: '#E2E0FB',
+            secondary: '#B7A8D4',
+            lilac: '#CEBDFF',
+            citron: '#C8F323',
+            citronDark: '#171E00',
+            citronHover: '#b5dd1b',
+            borderSubtle: 'rgba(126, 113, 153, 0.25)',
+            borderFocus: '#7E7199',
+            emeraldBadge: '#10B981'
+          },
+          fontFamily: {
+            heading: ['"Space Grotesk"', 'sans-serif'],
+            body: ['"DM Sans"', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      background-color: #0C0C1F;
+      color: #E2E0FB;
+      font-family: 'DM Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+    .font-heading {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    /* Safe container & modal overlay lock */
+    .mobile-frame {
+      width: 100%;
+      max-width: 390px;
+      min-height: 844px;
+      margin: 0 auto;
+      position: relative;
+      background-color: #0C0C1F;
+      overflow-x: hidden;
+    }
+  </style>
+<style data-b5-material-repair="">.b5-modal-card{width:100%;max-width:520px;max-height:calc(100svh - 48px);overflow:auto;background:#1A1A2D;color:#E2E0FB;border:1px solid #7E7199;border-radius:12px;padding:28px;box-shadow:0 20px 60px #0006;}.b5-modal-card h2{font-size:24px;line-height:32px;margin:0 0 20px;}.b5-modal-card p{font-size:16px;line-height:24px;color:#B7A8D4;margin:0 0 16px;}.b5-modal-actions{display:flex;gap:12px;justify-content:flex-end;margin-top:28px;}.b5-cancel,.b5-confirm{border-radius:8px;min-height:48px;padding:12px 18px;font-weight:600;}.b5-cancel{border:1px solid #7E7199;background:#28283C;color:#E2E0FB;}.b5-confirm{background:#C8F323;color:#171E00;}.b5-danger{background:#FFB4AB;color:#690005;}[role=dialog]{position:fixed!important;inset:0!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:16px!important;background:rgba(12,12,31,.85)!important;z-index:100!important;}@media(max-width:600px){.b5-modal-card{padding:22px;}.b5-modal-actions{flex-direction:column;}.b5-confirm{order:-1;}}body{background:#0C0C1F!important;color:#E2E0FB;font-family:'DM Sans',sans-serif;}h1,h2,h3,button,summary,label,[class*=font-label],[class*=font-headline]{font-family:'Space Grotesk',sans-serif;}.text-on-surface-variant,.text-secondary-fixed-dim,.text-text-muted{color:#B7A8D4!important;}.b5-disclosure-content{padding:16px;display:grid;gap:12px;color:#B7A8D4;font-size:14px;}.b5-secondary,.b5-input{background:#28283C;color:#E2E0FB;border:1px solid #7E7199;border-radius:8px;padding:10px 14px;}.b5-input{display:block;width:100%;margin-top:8px;}button, summary, input, select, a[role="button"] { min-height: 44px; } button:focus-visible, summary:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid #CEBDFF; outline-offset: 3px; } @media(max-width:600px){button,summary,input,select,a[role="button"]{min-height:48px;} input,select,textarea{font-size:16px!important;} button{white-space:normal;}}</style><style data-b5-controls>a{min-height:44px;display:inline-flex;align-items:center;}nav a{justify-content:center;}button{min-width:44px;}nav .bg-primary-container{background:#28283C!important;color:#CEBDFF!important;box-shadow:none!important;}@media(max-width:600px){a{min-height:48px;}}</style></head>
+<body class="bg-canvas min-h-screen flex justify-center items-start selection:bg-citron selection:text-citronDark">
+
+  <!-- Mobile Viewport Container 390px -->
+  <div class="mobile-frame relative flex flex-col justify-between min-h-[844px] shadow-2xl">
+
+    <!-- UNDERLYING SCREEN: GM Vote screen with 4/4 votes received (aria-hidden when dialog is active) -->
+    <div class="w-full px-4 pt-3 pb-24 flex flex-col gap-4 select-none opacity-40 pointer-events-none filter blur-[1px]" aria-hidden="true">
+      
+      <!-- Stable Shell Header -->
+      <header class="flex items-center justify-between py-1 border-b border-borderSubtle">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-card flex items-center justify-center border border-borderSubtle text-secondary">
+            <i data-lucide="gamepad-2" class="w-4 h-4 text-lilac"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="font-heading font-bold text-xs tracking-wider text-textMain uppercase">Extension Twitch</span>
+              <span class="text-[10px] px-1.5 py-0.5 rounded bg-raised text-lilac font-heading font-medium tracking-wide uppercase">Régie</span>
+            </div>
+            <p class="text-[11px] text-secondary">Meneur de jeu</p>
+          </div>
+        </div>
+
+        <!-- Apparence Switcher Pill -->
+        <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-card border border-borderSubtle text-secondary text-xs font-medium">
+          <i data-lucide="sun" class="w-3.5 h-3.5 text-citron"></i>
+          <span class="text-[11px]">Apparence</span>
+          <i data-lucide="chevron-down" class="w-3 h-3 text-secondary"></i>
+        </div>
+      </header>
+
+      <!-- Subheader / Title Block -->
+      <div class="flex flex-col gap-1">
+        <div class="flex items-center justify-between">
+          
+          <span class="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full bg-card text-emerald-400 font-medium border border-emerald-500/20">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> En cours
+          </span>
+        </div>
+        <h1 class="font-heading font-bold text-2xl text-textMain tracking-tight">Undercover</h1>
+      </div>
+
+      <!-- Navigation Tabs (Partie / Joueurs / Plateau) -->
+      <nav class="grid grid-cols-3 gap-1 p-1 bg-card rounded-lg border border-borderSubtle text-center text-xs font-heading font-medium">
+        <div class="py-2 rounded-md bg-raised text-textMain shadow-sm flex items-center justify-center gap-1.5 font-bold">
+          <span class="w-1.5 h-1.5 rounded-full bg-citron"></span>
+          Partie
+        </div>
+        <div class="py-2 rounded-md text-secondary flex items-center justify-center">
+          Joueurs
+        </div>
+        <div class="py-2 rounded-md text-secondary flex items-center justify-center gap-1">
+          Plateau
+          <i data-lucide="external-link" class="w-3 h-3 text-secondary"></i>
+        </div>
+      </nav>
+
+      <!-- Status Indicator Pill -->
+      <div class="flex items-center justify-between text-xs pt-1">
+        <div class="font-heading font-bold uppercase tracking-wider text-lilac flex items-center gap-1.5 text-[11px]">
+          <span>Vote • Manche 1</span>
+        </div>
+        <span class="px-2 py-0.5 rounded bg-raised text-secondary text-[11px] font-medium border border-borderSubtle">
+          4 / 4 votes reçus
+        </span>
+      </div>
+
+      <!-- Main Status Card: Scrutin clos -->
+      <section class="p-4 rounded-xl bg-card border border-borderSubtle flex flex-col gap-3">
+        <div class="flex items-center gap-1.5 text-xs text-emerald-400 font-heading font-semibold">
+          <i data-lucide="check" class="w-4 h-4"></i>
+          <span>Votes reçus — 4 / 4 exprimés</span>
+        </div>
+        <div>
+          <h2 class="font-heading font-bold text-lg text-textMain leading-tight">Les votes sont complets</h2>
+          <p class="text-xs text-secondary mt-1 leading-relaxed">Tous les joueurs actifs ont voté. Vous pouvez révéler le résultat.</p>
+        </div>
+        <!-- Progress bar complete -->
+        <div class="w-full bg-raised h-1.5 rounded-full overflow-hidden">
+          <div class="bg-emerald-400 h-full w-full rounded-full"></div>
+        </div>
+      </section>
+
+      <!-- Participants List Card -->
+      <section class="p-4 rounded-xl bg-card border border-borderSubtle flex flex-col gap-3">
+        <div class="flex items-center justify-between pb-1 border-b border-borderSubtle/60">
+          <span class="font-heading font-semibold text-xs text-secondary uppercase tracking-wider">Participants</span>
+          <span class="text-xs text-secondary">4 joueurs</span>
+        </div>
+        
+        <div class="flex flex-col gap-2">
+          <!-- Alex -->
+          <div class="flex items-center justify-between p-2.5 rounded-lg bg-raised border border-borderSubtle">
+            <div class="flex items-center gap-2.5">
+              <span class="w-7 h-7 rounded-md bg-card flex items-center justify-center font-heading font-bold text-xs text-lilac border border-borderSubtle">A</span>
+              <div>
+                <span class="text-xs font-semibold text-textMain">Alex</span>
+                <span class="block text-[10px] text-emerald-400 flex items-center gap-1"><span class="w-1 h-1 rounded-full bg-emerald-400"></span> Connecté</span>
+              </div>
+            </div>
+            <span class="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded bg-card text-emerald-400 border border-emerald-500/20">
+              <i data-lucide="check" class="w-3 h-3"></i> A voté
+            </span>
+          </div>
+
+          <!-- Lou -->
+          <div class="flex items-center justify-between p-2.5 rounded-lg bg-raised border border-borderSubtle">
+            <div class="flex items-center gap-2.5">
+              <span class="w-7 h-7 rounded-md bg-card flex items-center justify-center font-heading font-bold text-xs text-lilac border border-borderSubtle">L</span>
+              <div>
+                <span class="text-xs font-semibold text-textMain">Lou</span>
+                <span class="block text-[10px] text-emerald-400 flex items-center gap-1"><span class="w-1 h-1 rounded-full bg-emerald-400"></span> Connecté</span>
+              </div>
+            </div>
+            <span class="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded bg-card text-emerald-400 border border-emerald-500/20">
+              <i data-lucide="check" class="w-3 h-3"></i> A voté
+            </span>
+          </div>
+
+          <!-- Sam -->
+          <div class="flex items-center justify-between p-2.5 rounded-lg bg-raised border border-borderSubtle">
+            <div class="flex items-center gap-2.5">
+              <span class="w-7 h-7 rounded-md bg-card flex items-center justify-center font-heading font-bold text-xs text-lilac border border-borderSubtle">S</span>
+              <div>
+                <span class="text-xs font-semibold text-textMain">Sam</span>
+                <span class="block text-[10px] text-emerald-400 flex items-center gap-1"><span class="w-1 h-1 rounded-full bg-emerald-400"></span> Connecté</span>
+              </div>
+            </div>
+            <span class="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded bg-card text-emerald-400 border border-emerald-500/20">
+              <i data-lucide="check" class="w-3 h-3"></i> A voté
+            </span>
+          </div>
+
+          <!-- Noa -->
+          <div class="flex items-center justify-between p-2.5 rounded-lg bg-raised border border-borderSubtle">
+            <div class="flex items-center gap-2.5">
+              <span class="w-7 h-7 rounded-md bg-card flex items-center justify-center font-heading font-bold text-xs text-lilac border border-borderSubtle">N</span>
+              <div>
+                <span class="text-xs font-semibold text-textMain">Noa</span>
+                <span class="block text-[10px] text-emerald-400 flex items-center gap-1"><span class="w-1 h-1 rounded-full bg-emerald-400"></span> Connecté</span>
+              </div>
+            </div>
+            <span class="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded bg-card text-emerald-400 border border-emerald-500/20">
+              <i data-lucide="check" class="w-3 h-3"></i> A voté
+            </span>
+          </div>
+        </div>
+
+        
+      </section>
+
+      <!-- Disclosures Rows (Closed) -->
+      <div class="flex flex-col gap-2">
+        <div class="flex items-center justify-between p-3 rounded-lg bg-card border border-borderSubtle text-xs text-secondary">
+          <div class="flex items-center gap-2">
+            <i data-lucide="lock" class="w-4 h-4 text-secondary"></i>
+            <span>Informations privées du Game Master</span>
+          </div>
+          <i data-lucide="chevron-down" class="w-4 h-4"></i>
+        </div>
+        <div class="flex items-center justify-between p-3 rounded-lg bg-card border border-borderSubtle text-xs text-secondary">
+          <div class="flex items-center gap-2">
+            <i data-lucide="file-text" class="w-4 h-4 text-secondary"></i>
+            <span>Journal de la partie</span>
+          </div>
+          <i data-lucide="chevron-down" class="w-4 h-4"></i>
+        </div>
+        <div class="flex items-center justify-between p-3 rounded-lg bg-card border border-borderSubtle text-xs text-secondary">
+          <div class="flex items-center gap-2">
+            <i data-lucide="settings" class="w-4 h-4 text-secondary"></i>
+            <span>Accès et réglages de la partie</span>
+          </div>
+          <i data-lucide="chevron-down" class="w-4 h-4"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL OVERLAY (DIMMED BACKGROUND) & CONFIRMATION DIALOG -->
+    <div class="absolute inset-0 z-50 bg-[#0C0C1F]/80 backdrop-blur-sm flex items-center justify-center p-4">
+      
+      <!-- Dialog container: 358px wide (390 - 32px margins), 12px corners -->
+      <div role="dialog" aria-modal="true" aria-labelledby="b5-modal-title" aria-describedby="modal-description" class="w-full max-w-[358px] bg-card rounded-[12px] border border-borderSubtle shadow-2xl p-5 flex flex-col gap-5 text-left relative focus:outline-none focus:ring-2 focus:ring-borderFocus" tabindex="-1"><div class="b5-modal-card"><h2 id="b5-modal-title">Révéler le résultat du vote ?</h2><p>Le décompte sera publié. Le joueur seul en tête sera éliminé et son camp révélé. En cas d’égalité, personne ne sera éliminé.</p><p>Si la partie se termine, les mots et tous les camps seront révélés.</p><div class="b5-modal-actions"><button type="button" class="b5-cancel">Annuler</button><button type="button" class="b5-confirm ">Révéler le résultat</button></div></div></div>
+    </div>
+
+    <!-- Mobile Footer status line -->
+    
+
+  </div>
+
+  <!-- Lucide script initialization -->
+  
+
+
+</body></html>

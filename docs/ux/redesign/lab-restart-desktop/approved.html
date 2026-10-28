@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AFTER — Lab Restart Confirmation — Desktop — v1</title>
+<!-- Google Fonts: Space Grotesk & DM Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "inverse-primary": "#526600",
+            "on-primary-fixed": "#171e00",
+            "surface-dim": "#111125",
+            "on-secondary-fixed": "#1f1048",
+            "error-container": "#93000a",
+            "background": "#111125",
+            "secondary-fixed-dim": "#cebdff",
+            "on-primary-container": "#576c00",
+            "surface-container-high": "#28283c",
+            "secondary": "#cebdff",
+            "tertiary": "#ffffff",
+            "on-tertiary-fixed-variant": "#4c4165",
+            "surface-container-highest": "#333348",
+            "tertiary-fixed-dim": "#cfbfec",
+            "on-tertiary": "#352a4e",
+            "on-secondary": "#35275e",
+            "on-surface": "#e2e0fb",
+            "on-secondary-container": "#c0aff0",
+            "on-primary-fixed-variant": "#3d4d00",
+            "on-primary": "#293500",
+            "on-background": "#e2e0fb",
+            "outline": "#8f937a",
+            "primary-fixed-dim": "#aed500",
+            "primary-fixed": "#c8f323",
+            "text-secondary": "#B7A8D4",
+            "on-error": "#690005",
+            "accent-citron-text": "#171E00",
+            "surface-bright": "#37374c",
+            "primary": "#ffffff",
+            "accent-citron": "#C8F323",
+            "surface-container-low": "#1a1a2d",
+            "secondary-container": "#4e4079",
+            "surface-elevated": "#28283C",
+            "border-control": "#7E7199",
+            "text-primary": "#E2E0FB",
+            "secondary-fixed": "#e8ddff",
+            "tertiary-container": "#eaddff",
+            "on-error-container": "#ffdad6",
+            "surface-tint": "#aed500",
+            "on-secondary-fixed-variant": "#4c3e76",
+            "surface": "#111125",
+            "tertiary-fixed": "#eaddff",
+            "surface-variant": "#333348",
+            "inverse-surface": "#e2e0fb",
+            "error": "#ffb4ab",
+            "primary-container": "#c8f323",
+            "inverse-on-surface": "#2f2e43",
+            "outline-variant": "#444934",
+            "on-tertiary-container": "#6b5e85",
+            "surface-card": "#1A1A2D",
+            "surface-container-lowest": "#0c0c1f",
+            "on-tertiary-fixed": "#201537",
+            "surface-container": "#1e1e31",
+            "surface-base": "#0C0C1F",
+            "on-surface-variant": "#c5c9ad"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-lg": "1.5rem",
+            "gutter": "1.5rem",
+            "space-sm": "0.5rem",
+            "margin": "3rem",
+            "space-xs": "0.25rem",
+            "margin-mobile": "1rem",
+            "space-xl": "2.5rem",
+            "space-md": "1rem"
+          },
+          "fontFamily": {
+            "headline-md": ["Space Grotesk"],
+            "headline-lg": ["Space Grotesk"],
+            "label-sm": ["Space Grotesk"],
+            "body-lg": ["DM Sans"],
+            "label-md": ["Space Grotesk"],
+            "headline-lg-mobile": ["Space Grotesk"],
+            "body-md": ["DM Sans"]
+          },
+          "fontSize": {
+            "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+            "headline-lg": ["40px", { "lineHeight": "48px", "fontWeight": "700" }],
+            "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+            "headline-lg-mobile": ["28px", { "lineHeight": "35px", "fontWeight": "700" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-surface-base text-text-primary antialiased selection:bg-accent-citron selection:text-accent-citron-text min-h-screen relative overflow-x-hidden font-body-md text-body-md">
+<!-- ========================================================================= -->
+<!-- INERT / DIMMED DESKTOP WORKSPACE CANVAS (Dimmed under confirmation modal) -->
+<!-- ========================================================================= -->
+<div aria-hidden="true" class="relative w-full min-h-screen flex flex-col justify-between select-none filter blur-[1.5px] opacity-40 pointer-events-none">
+<!-- Top Global Workspace Navigation Bar -->
+<header class="w-full bg-surface-container-lowest border-b border-border-control/25 px-12 py-3.5 flex items-center justify-between z-10">
+<div class="flex items-center gap-4">
+<div class="w-9 h-9 rounded-lg bg-surface-elevated border border-border-control/30 flex items-center justify-center text-accent-citron font-headline-md font-bold tracking-tight">
+          XT
+        </div>
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-headline-md tracking-wider text-accent-citron uppercase font-bold">LABORATOIRE</span>
+<span class="font-headline-md text-headline-md font-medium text-text-primary tracking-wide">Undercover</span>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 bg-surface-card px-3.5 py-1.5 rounded-lg border border-border-control/25">
+<span class="font-label-sm text-label-sm text-text-secondary">Apparence :</span>
+<div class="flex items-center gap-1.5 font-label-sm text-label-sm text-text-primary font-medium">
+<span class="w-2 h-2 rounded-full bg-accent-citron"></span>
+            Neon Show
+          </div>
+</div>
+<button class="flex items-center gap-2 px-3.5 py-1.5 rounded-lg border border-border-control/30 text-text-secondary font-label-md text-label-md" tabindex="-1" type="button">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+          Nouveau test depuis Undercover
+        </button>
+</div>
+</header>
+<!-- Main Workspace Container (1440px target, 48px lateral margins) -->
+<main class="w-full max-w-[1440px] mx-auto px-12 py-8 flex-1 flex flex-col gap-6">
+<!-- Eyebrow & Status Row -->
+<section class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-label-sm tracking-widest text-text-secondary font-semibold uppercase">LABORATOIRE PRIVÉ · QA</span>
+<span class="text-text-secondary/40">/</span>
+<div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-surface-elevated border border-border-control/30 text-accent-citron font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-accent-citron"></span>
+            Synchronisé
+          </div>
+</div>
+</section>
+<!-- Main Headline Header -->
+<section class="flex flex-col gap-1">
+<h1 class="font-headline-lg text-headline-lg text-text-primary tracking-tight">Laboratoire Undercover</h1>
+<p class="font-body-lg text-body-lg text-text-secondary">Testez un point de vue à la fois.</p>
+</section>
+<!-- Perspective Selector / Session Status Strip -->
+<section class="w-full bg-surface-card rounded-xl p-4 border border-border-control/30 flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2.5 px-3 py-1.5 bg-surface-elevated rounded-lg border border-accent-citron/40 text-accent-citron font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]">shield_person</span>
+            Point de vue : Game Master
+          </div>
+<span class="font-body-md text-body-md text-text-secondary">Vous incarnez le Game Master (vue privée active)</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-surface-elevated border border-border-control/30 text-text-primary font-label-md text-label-md" tabindex="-1" type="button">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+            Copier le lien privé GM
+          </button>
+<button class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-surface-elevated border border-border-control/30 text-text-primary font-label-md text-label-md" tabindex="-1" type="button">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+            Aperçu de l’émission
+          </button>
+</div>
+</section>
+<!-- Primary QA Interactive Arena (7/5 Split) -->
+<div class="grid grid-cols-12 gap-6 items-start">
+<!-- Left: Active Phase Card (7 Cols) -->
+<div class="col-span-7 bg-surface-card rounded-xl border border-border-control/35 p-6 flex flex-col gap-6">
+<div class="flex items-center justify-between pb-4 border-b border-border-control/20">
+<div class="flex items-center gap-2.5">
+<span class="px-2.5 py-1 rounded bg-secondary-container text-secondary font-label-sm text-label-sm font-semibold">Phase active</span>
+<h2 class="font-headline-md text-headline-md text-text-primary">Tour d’indices 1 sur 2</h2>
+</div>
+<span class="font-label-sm text-label-sm text-text-secondary">4 participants en lice</span>
+</div>
+<div class="bg-surface-elevated/70 rounded-xl p-5 border border-border-control/25 flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-secondary uppercase tracking-wider font-semibold">Tour de parole</span>
+<span class="px-2.5 py-0.5 rounded-full bg-accent-citron/15 text-accent-citron font-label-sm text-label-sm font-semibold">Actif</span>
+</div>
+<p class="font-headline-md text-headline-md text-text-primary">À Alex de parler</p>
+<p class="font-body-md text-body-md text-text-secondary">Écoutez son indice, puis confirmez le passage.</p>
+<div class="pt-2">
+<button class="w-full min-h-[48px] rounded-lg bg-accent-citron text-accent-citron-text font-label-md text-label-md font-semibold flex items-center justify-center gap-2" tabindex="-1" type="button">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+                Confirmer le passage
+              </button>
+</div>
+</div>
+<!-- Participant Turns Array -->
+<div class="flex flex-col gap-2.5">
+<span class="font-label-sm text-label-sm text-text-secondary uppercase tracking-wider font-semibold">Ordre des tours</span>
+<div class="grid grid-cols-4 gap-3">
+<div class="p-3 rounded-lg bg-surface-elevated border-2 border-accent-citron flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-accent-citron font-semibold">1. Alex</span>
+<span class="font-body-md text-body-md text-text-primary font-medium">Actif</span>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low border border-border-control/25 flex flex-col gap-1 opacity-70">
+<span class="font-label-sm text-label-sm text-text-secondary font-semibold">2. Lou</span>
+<span class="font-body-md text-body-md text-text-secondary">En attente</span>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low border border-border-control/25 flex flex-col gap-1 opacity-70">
+<span class="font-label-sm text-label-sm text-text-secondary font-semibold">3. Sam</span>
+<span class="font-body-md text-body-md text-text-secondary">En attente</span>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low border border-border-control/25 flex flex-col gap-1 opacity-70">
+<span class="font-label-sm text-label-sm text-text-secondary font-semibold">4. Noa</span>
+<span class="font-body-md text-body-md text-text-secondary">En attente</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Diagnostic Disclosures & Secondary QA Controls (5 Cols) -->
+<div class="col-span-5 flex flex-col gap-3">
+<!-- Disclosure 1 -->
+<div class="bg-surface-card rounded-xl border border-border-control/30 p-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-[22px]">link</span>
+<div>
+<p class="font-label-md text-label-md text-text-primary font-semibold">Accès aux vues</p>
+<p class="font-body-md text-body-md text-text-secondary">Liens individuels par joueur</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-text-secondary">expand_more</span>
+</div>
+<!-- Disclosure 2 -->
+<div class="bg-surface-card rounded-xl border border-border-control/30 p-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-[22px]">construction</span>
+<div>
+<p class="font-label-md text-label-md text-text-primary font-semibold">Outils de test</p>
+<p class="font-body-md text-body-md text-text-secondary">Actions secondaires et réinitialisations</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-text-secondary">expand_more</span>
+</div>
+<!-- Disclosure 3 -->
+<div class="bg-surface-card rounded-xl border border-border-control/30 p-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-[22px]">verified_user</span>
+<div>
+<p class="font-label-md text-label-md text-text-primary font-semibold">Vérifier les permissions · avancé</p>
+<p class="font-body-md text-body-md text-text-secondary">Contrôle d’accès</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-text-secondary">expand_more</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Inert Footer -->
+<footer class="w-full bg-surface-container-lowest border-t border-border-control/25 px-12 py-4 flex items-center justify-between text-text-secondary font-body-md text-body-md"><span>Laboratoire privé · Outils de test Undercover</span></footer>
+</div>
+<!-- ========================================================================= -->
+<!-- ACCESSIBLE CENTERED CONFIRMATION DIALOG (MODAL OVERLAY)                   -->
+<!-- ========================================================================= -->
+<div aria-describedby="dialog-description" aria-labelledby="dialog-title" aria-modal="true" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-[#0C0C1F]/80 backdrop-blur-sm" role="dialog">
+<!-- Modal Card (Max width ~500px, #1A1A2D background, soft border, tonal depth) -->
+<div class="stitch-dialog relative w-full max-w-[500px] bg-surface-card rounded-xl border border-border-control/40 shadow-2xl p-7 sm:p-8 flex flex-col gap-6 transform transition-all">
+<!-- Top Row: Icon badge + Close Affordance -->
+<div class="flex items-start justify-between">
+<!-- Restrained Warm Warning Container (Soft ochre/citron-amber glow, not harsh red alarm) -->
+<div class="w-12 h-12 rounded-xl bg-surface-elevated border border-border-control/40 flex items-center justify-center text-accent-citron">
+<span class="material-symbols-outlined text-[26px]">restart_alt</span>
+</div>
+<!-- Accessible Close Button (44px hit target) -->
+<button aria-label="Fermer" class="w-11 h-11 rounded-lg flex items-center justify-center text-text-secondary hover:text-text-primary hover:bg-surface-elevated transition-colors duration-150 focus:outline-none focus:ring-3 focus:ring-accent-citron active:scale-95" onclick="console.log('Close dialog requested')" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Content Area -->
+<div class="flex flex-col gap-3">
+<h2 class="font-headline-md text-headline-md font-bold text-text-primary tracking-tight" id="dialog-title">
+          Recommencer le test ?
+        </h2>
+<p class="font-body-lg text-body-lg text-text-secondary leading-relaxed" id="dialog-description">
+          Les votes et résultats seront effacés. Les joueurs conserveront leur accès à cette partie.
+        </p>
+</div>
+<!-- Reassuring Context Note / Badge -->
+<div class="w-full bg-surface-container-lowest/80 border border-border-control/25 rounded-lg px-4 py-3 flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-[20px] shrink-0">info</span>
+<span class="font-label-sm text-label-sm text-text-primary">
+          Même session de jeu · Mêmes accès joueurs conservés
+        </span>
+</div>
+<!-- Action Buttons Row (min 44px touch targets) -->
+<div class="flex items-center justify-end gap-3 pt-2">
+<!-- Secondary Action: Annuler -->
+<button class="min-h-[44px] px-6 rounded-lg bg-surface-elevated hover:bg-surface-container-highest border border-border-control/35 text-text-primary font-label-md text-label-md font-medium transition-colors duration-150 focus:outline-none focus:ring-3 focus:ring-accent-citron active:scale-98" onclick="console.log('Annuler')" type="button">
+          Annuler
+        </button>
+<!-- Primary Action: Recommencer (Accent Citron, dark text, no red alarm) -->
+<button class="min-h-[44px] px-6 rounded-lg bg-accent-citron hover:bg-primary-fixed-dim text-accent-citron-text font-label-md text-label-md font-semibold flex items-center gap-2 transition-colors duration-150 focus:outline-none focus:ring-3 focus:ring-accent-citron active:scale-98 shadow-sm" onclick="console.log('Recommencer confirmé')" type="button">
+<span class="material-symbols-outlined text-[18px]">replay</span>
+          Recommencer
+        </button>
+</div>
+</div>
+</div>
+</body></html>

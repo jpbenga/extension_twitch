@@ -1,0 +1,337 @@
+<!DOCTYPE html><html lang="fr" class="h-full"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AFTER — GM Players — Desktop — v1</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+    body {
+      font-family: var(--font-body);
+      background-color: #0C0C1F;
+      color: #E2E0FB;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+    .font-display {
+      font-family: var(--font-display);
+    }
+  </style>
+<style data-b5-material-repair="">.b5-modal-card{width:100%;max-width:520px;max-height:calc(100svh - 48px);overflow:auto;background:#1A1A2D;color:#E2E0FB;border:1px solid #7E7199;border-radius:12px;padding:28px;box-shadow:0 20px 60px #0006;}.b5-modal-card h2{font-size:24px;line-height:32px;margin:0 0 20px;}.b5-modal-card p{font-size:16px;line-height:24px;color:#B7A8D4;margin:0 0 16px;}.b5-modal-actions{display:flex;gap:12px;justify-content:flex-end;margin-top:28px;}.b5-cancel,.b5-confirm{border-radius:8px;min-height:48px;padding:12px 18px;font-weight:600;}.b5-cancel{border:1px solid #7E7199;background:#28283C;color:#E2E0FB;}.b5-confirm{background:#C8F323;color:#171E00;}.b5-danger{background:#FFB4AB;color:#690005;}[role=dialog]{position:fixed!important;inset:0!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:16px!important;background:rgba(12,12,31,.85)!important;z-index:100!important;}@media(max-width:600px){.b5-modal-card{padding:22px;}.b5-modal-actions{flex-direction:column;}.b5-confirm{order:-1;}}body{background:#0C0C1F!important;color:#E2E0FB;font-family:'DM Sans',sans-serif;}h1,h2,h3,button,summary,label,[class*=font-label],[class*=font-headline]{font-family:'Space Grotesk',sans-serif;}.text-on-surface-variant,.text-secondary-fixed-dim,.text-text-muted{color:#B7A8D4!important;}.b5-disclosure-content{padding:16px;display:grid;gap:12px;color:#B7A8D4;font-size:14px;}.b5-secondary,.b5-input{background:#28283C;color:#E2E0FB;border:1px solid #7E7199;border-radius:8px;padding:10px 14px;}.b5-input{display:block;width:100%;margin-top:8px;}button, summary, input, select, a[role="button"] { min-height: 44px; } button:focus-visible, summary:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid #CEBDFF; outline-offset: 3px; } @media(max-width:600px){button,summary,input,select,a[role="button"]{min-height:48px;} input,select,textarea{font-size:16px!important;} button{white-space:normal;}}</style><style data-b5-controls>a{min-height:44px;display:inline-flex;align-items:center;}nav a{justify-content:center;}button{min-width:44px;}nav .bg-primary-container{background:#28283C!important;color:#CEBDFF!important;box-shadow:none!important;}@media(max-width:600px){a{min-height:48px;}}</style></head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-[#CEBDFF]/20 selection:text-[#E2E0FB]">
+
+  <!-- Top bar (Extension Twitch Régie) -->
+  <header class="w-full border-b border-[#28283C]/60 bg-[#0C0C1F]/90 backdrop-blur-sm sticky top-0 z-30">
+    <div class="max-w-[1100px] mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-[#1A1A2D] border border-[#28283C] flex items-center justify-center text-[#CEBDFF]">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+          </svg>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="font-display font-medium text-sm text-[#E2E0FB] tracking-tight">Extension Twitch</span>
+          <span class="text-xs px-2 py-0.5 rounded bg-[#1A1A2D] text-[#B7A8D4] border border-[#28283C]">Meneur de jeu · Privé</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <!-- Apparence Switcher (Private GM preferences) -->
+        <button type="button" class="h-9 px-3 rounded-lg bg-[#1A1A2D] border border-[#28283C] text-xs text-[#B7A8D4] flex items-center gap-2 hover:border-[#CEBDFF]/40 transition-colors">
+          <svg class="w-3.5 h-3.5 text-[#C8F323]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+          </svg>
+          <span class="font-display text-[#E2E0FB]">Neon Show</span>
+          <span class="text-[11px] text-[#B7A8D4]/70">(Thème actif)</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="w-full flex-1 max-w-[1100px] mx-auto px-6 py-10 flex flex-col gap-8">
+
+    <!-- Sub-header & Title & Contextual Pills -->
+    <div class="flex flex-col gap-3">
+      <div class="flex items-center justify-between">
+        <span class="text-xs uppercase tracking-wider font-display font-semibold text-[#B7A8D4]">
+          Undercover · Régie privée du meneur de jeu
+        </span>
+        <div class="flex items-center gap-2">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-[#1A1A2D] border border-[#28283C] text-[#CEBDFF]">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#20C9B4]"></span>
+            Manche 2 · Discussion en cours
+          </span>
+          <span class="px-2.5 py-1 rounded-full text-xs font-medium bg-[#1A1A2D] border border-[#28283C] text-[#B7A8D4]">
+            4 joueurs inscrits
+          </span>
+        </div>
+      </div>
+
+      <div class="flex items-end justify-between">
+        <div>
+          <h1 class="text-3xl font-display font-bold text-[#E2E0FB] tracking-tight">
+            Les joueurs
+          </h1>
+          <p class="text-sm text-[#B7A8D4] mt-1 max-w-xl">
+            L’effectif reste fixe pendant la partie. Une déconnexion ne retire pas un joueur.
+          </p>
+        </div>
+
+        <!-- Navigation Tabs: Partie / Joueurs (Active) / Plateau -->
+        <nav class="flex items-center gap-1 p-1 bg-[#1A1A2D] border border-[#28283C] rounded-xl text-xs font-display">
+          <a href="#" class="px-3.5 py-1.5 rounded-lg text-[#B7A8D4] hover:text-[#E2E0FB] transition-colors flex items-center gap-1.5">
+            Partie
+          </a>
+          <a href="#" class="px-3.5 py-1.5 rounded-lg bg-[#28283C] text-[#E2E0FB] font-medium shadow-sm flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#C8F323]"></span>
+            Joueurs
+          </a>
+          <a href="#" class="px-3.5 py-1.5 rounded-lg text-[#B7A8D4] hover:text-[#E2E0FB] transition-colors flex items-center gap-1">
+            <span>Plateau</span>
+            <svg class="w-3 h-3 text-[#B7A8D4]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- 7/5 Grid Layout -->
+    <div class="grid grid-cols-12 gap-6 items-start">
+
+      <!-- Left Column (7 cols): Synthèse & règles de synchronisation -->
+      <section class="col-span-7 flex flex-col gap-6">
+        
+        <!-- Main Card -->
+        <div class="bg-[#1A1A2D] border border-[#28283C] rounded-xl p-6 flex flex-col gap-6">
+          <div class="flex items-center justify-between pb-4 border-b border-[#28283C]">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-[#20C9B4]"></span>
+              <span class="text-xs uppercase font-display tracking-wider font-semibold text-[#B7A8D4]">
+                État du groupe · Table de jeu
+              </span>
+            </div>
+            <span class="text-xs text-[#B7A8D4]">
+              3 / 4 connectés
+            </span>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            <h2 class="text-xl font-display font-semibold text-[#E2E0FB]">
+              Effectif figé en régie
+            </h2>
+            <p class="text-sm text-[#B7A8D4] leading-relaxed">L’effectif est figé depuis la préparation. Une déconnexion ne retire pas un joueur.</p>
+          </div>
+
+          <!-- Information notice box -->
+          <div class="bg-[#0C0C1F] border border-[#28283C] rounded-lg p-4 flex gap-3 items-start">
+            <div class="w-5 h-5 rounded-full bg-[#28283C] flex items-center justify-center shrink-0 mt-0.5 text-[#CEBDFF]">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <div class="text-xs text-[#B7A8D4] leading-relaxed flex flex-col gap-1">
+              <span class="font-display font-medium text-[#E2E0FB]">Persistance de la présence</span>
+              <span>Un joueur hors ligne conserve son accès à la partie.</span>
+            </div>
+          </div>
+
+          <!-- Return to game CTA (Quiet return action, not competing) -->
+          <div class="pt-2 flex flex-col gap-2">
+            <a href="#" class="h-11 px-5 rounded-lg bg-[#28283C] border border-[#37374c] hover:border-[#CEBDFF]/40 text-[#E2E0FB] font-display font-medium text-sm flex items-center justify-center gap-2 transition-all">
+              <svg class="w-4 h-4 text-[#C8F323]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+              </svg>
+              <span>Revenir à la partie</span>
+            </a>
+            <p class="text-[11px] text-[#B7A8D4]/70 text-center">
+              Retourne à la conduite du tour d’indices en cours (Discussion · Manche 2).
+            </p>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Right Column (5 cols): Roster ordonné avec statut et présence -->
+      <section class="col-span-5 flex flex-col gap-4">
+        
+        <div class="bg-[#1A1A2D] border border-[#28283C] rounded-xl p-6 flex flex-col gap-4">
+          <div class="flex items-center justify-between pb-3 border-b border-[#28283C]">
+            <span class="text-xs uppercase font-display tracking-wider font-semibold text-[#B7A8D4]">
+              Participants inscrits (4)
+            </span>
+            <span class="text-xs text-[#B7A8D4]/70">
+              Ordre d'inscription
+            </span>
+          </div>
+
+          <!-- Roster list: Alex, Lou, Sam, Noa -->
+          <div class="flex flex-col gap-2.5">
+
+            <!-- 1. Alex -->
+            <div class="p-3.5 rounded-lg bg-[#0C0C1F] border border-[#28283C] flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded bg-[#1A1A2D] border border-[#28283C] font-display font-semibold text-xs flex items-center justify-center text-[#E2E0FB]">
+                  A
+                </div>
+                <div class="flex flex-col">
+                  <span class="font-display font-medium text-sm text-[#E2E0FB]">Alex</span>
+                  <div class="flex items-center gap-1.5 mt-0.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#20C9B4]"></span>
+                    <span class="text-[11px] text-[#B7A8D4]">Connecté</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded text-xs font-display bg-[#28283C] text-[#E2E0FB] border border-[#37374c]">
+                  En jeu
+                </span>
+              </div>
+            </div>
+
+            <!-- 2. Lou -->
+            <div class="p-3.5 rounded-lg bg-[#0C0C1F] border border-[#28283C] flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded bg-[#1A1A2D] border border-[#28283C] font-display font-semibold text-xs flex items-center justify-center text-[#E2E0FB]">
+                  L
+                </div>
+                <div class="flex flex-col">
+                  <span class="font-display font-medium text-sm text-[#E2E0FB]">Lou</span>
+                  <div class="flex items-center gap-1.5 mt-0.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#20C9B4]"></span>
+                    <span class="text-[11px] text-[#B7A8D4]">Connecté</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded text-xs font-display bg-[#28283C] text-[#E2E0FB] border border-[#37374c]">
+                  En jeu
+                </span>
+              </div>
+            </div>
+
+            <!-- 3. Sam (Éliminé manche 1, rôle Civil public) -->
+            <div class="p-3.5 rounded-lg bg-[#0C0C1F] border border-[#37374c]/50 flex items-center justify-between opacity-85">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded bg-[#1A1A2D] border border-[#28283C] font-display font-semibold text-xs flex items-center justify-center text-[#B7A8D4]">
+                  S
+                </div>
+                <div class="flex flex-col">
+                  <span class="font-display font-medium text-sm text-[#B7A8D4]">Sam</span>
+                  <div class="flex items-center gap-1.5 mt-0.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#20C9B4]"></span>
+                    <span class="text-[11px] text-[#B7A8D4]">Connecté</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded text-xs font-display bg-[#1A1A2D] text-[#CEBDFF] border border-[#28283C]">
+                  Civil
+                </span>
+                <span class="px-2 py-0.5 rounded text-xs font-display bg-[#1A1A2D] text-[#ff8077] border border-[#ff8077]/30">
+                  Éliminé (M1)
+                </span>
+              </div>
+            </div>
+
+            <!-- 4. Noa (En jeu, mais Hors-ligne) -->
+            <div class="p-3.5 rounded-lg bg-[#0C0C1F] border border-[#28283C] flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded bg-[#1A1A2D] border border-[#28283C] font-display font-semibold text-xs flex items-center justify-center text-[#E2E0FB]">
+                  N
+                </div>
+                <div class="flex flex-col">
+                  <span class="font-display font-medium text-sm text-[#E2E0FB]">Noa</span>
+                  <div class="flex items-center gap-1.5 mt-0.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#B7A8D4]/40"></span>
+                    <span class="text-[11px] text-[#B7A8D4]/70">Hors-ligne</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded text-xs font-display bg-[#28283C] text-[#E2E0FB] border border-[#37374c]">
+                  En jeu
+                </span>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="pt-2 border-t border-[#28283C]">
+            
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+
+    <!-- Secondary Closed Disclosures (Stable across GM interface) -->
+    <div class="flex flex-col gap-2.5 pt-2">
+      
+      <!-- Disclosure 1: Informations privées du Game Master -->
+      <div class="w-full bg-[#1A1A2D] border border-[#28283C] rounded-xl px-5 py-3.5 flex items-center justify-between text-xs text-[#E2E0FB]">
+        <div class="flex items-center gap-3">
+          <svg class="w-4 h-4 text-[#B7A8D4]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+          </svg>
+          <span class="font-display font-medium">Informations privées du Game Master</span>
+        </div>
+        <div class="flex items-center gap-2 text-[#B7A8D4]">
+          <span class="text-[11px]">Afficher</span>
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Disclosure 2: Journal de la partie -->
+      <div class="w-full bg-[#1A1A2D] border border-[#28283C] rounded-xl px-5 py-3.5 flex items-center justify-between text-xs text-[#E2E0FB]">
+        <div class="flex items-center gap-3">
+          <svg class="w-4 h-4 text-[#B7A8D4]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          </svg>
+          <span class="font-display font-medium">Journal de la partie</span>
+        </div>
+        <div class="flex items-center gap-2 text-[#B7A8D4]">
+          <span class="text-[11px]">Afficher</span>
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Disclosure 3: Accès et réglages de la partie -->
+      <div class="w-full bg-[#1A1A2D] border border-[#28283C] rounded-xl px-5 py-3.5 flex items-center justify-between text-xs text-[#E2E0FB]">
+        <div class="flex items-center gap-3">
+          <svg class="w-4 h-4 text-[#B7A8D4]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          </svg>
+          <span class="font-display font-medium">Accès et réglages de la partie</span>
+        </div>
+        <div class="flex items-center gap-2 text-[#B7A8D4]">
+          <span class="text-[11px]">Afficher</span>
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Footer credits and system authority statement -->
+  
+
+
+
+</body></html>

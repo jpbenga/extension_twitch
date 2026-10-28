@@ -1,0 +1,1283 @@
+{
+  "date": "2026-10-28",
+  "scope": "Approved reference transfer, no application implementation",
+  "counts": {
+    "block5": 22,
+    "block6": 14,
+    "block7": 7,
+    "approvedCaptures": 43,
+    "htmlExports": 43,
+    "viewportReferences": 43,
+    "completedSpecs": 43
+  },
+  "method": "Existing stitch:sync bridge / syncScreen, exact project and screen IDs, authenticated read-only CLI get/download; sequential registry updates.",
+  "validation": "Explicit human approval; no approval inferred from titles or latest generation.",
+  "credentialsExported": false,
+  "applicationModified": false,
+  "screens": [
+    {
+      "block": 5,
+      "projectId": "11936034876302496963",
+      "screenId": "4748605395910424442",
+      "slug": "gm-distribution-desktop",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/gm-distribution-desktop/approved.png",
+        "sha256": "1b89a57f66ae66a8aec2e72771a7e5a67312713bebf62e5abb9a12a959de1e71",
+        "bytes": 287704,
+        "width": 2560,
+        "height": 1962,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/gm-distribution-desktop/approved.html",
+        "sha256": "204614ee4a7f5f7544673f0cae998cd19885fb666c720710d662c45419e6743c",
+        "bytes": 17754
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/gm-distribution-desktop/reference-desktop-1440.png",
+        "sha256": "7d5ffc43147d69284c8ff13a41e199f9db60d67d59f3689c96c5e3b2fdac2b0d",
+        "bytes": 106990,
+        "width": 1440,
+        "height": 1000,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 5,
+      "projectId": "11936034876302496963",
+      "screenId": "12546587580834232912",
+      "slug": "gm-distribution-mobile",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/gm-distribution-mobile/approved.png",
+        "sha256": "cc08d860a7e32c4049d070c662892412d528236a205b444e60dc70eafaeaeae7",
+        "bytes": 235956,
+        "width": 2560,
+        "height": 1964,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/gm-distribution-mobile/approved.html",
+        "sha256": "e6414a35354dbb9dd6830e527447c45c6cb5e01d07603928ac199e81efb3eb51",
+        "bytes": 20138
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/gm-distribution-mobile/reference-mobile-390.png",
+        "sha256": "dab4a309e878f2be88b5948041583a71af73818502f19adf7df4d5c6c84bd0da",
+        "bytes": 61197,
+        "width": 390,
+        "height": 982,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 5,
+      "projectId": "11936034876302496963",
+      "screenId": "14255636269363992144",
+      "slug": "gm-discussion-desktop",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/gm-discussion-desktop/approved.png",
+        "sha256": "92233d65f684a557ed59a06334f5b238c2643201aec0fa48178fc0c8c97f96a8",
+        "bytes": 311671,
+        "width": 2560,
+        "height": 1816,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/gm-discussion-desktop/approved.html",
+        "sha256": "4050daf4935ddafb158bc185312aeb630da1045337b9776f56e1c248734ba67d",
+        "bytes": 21023
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/gm-discussion-desktop/reference-desktop-1440.png",
+        "sha256": "840e96dc7b81d71576046c0823f5c0cbd7fc382894b78003b85b3f1e4c1fafa3",
+        "bytes": 98109,
+        "width": 1440,
+        "height": 1000,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 5,
+      "projectId": "11936034876302496963",
+      "screenId": "4748605395910425523",
+      "slug": "gm-discussion-mobile",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/gm-discussion-mobile/approved.png",
+        "sha256": "9deb886d8d76c0f61224abdf7c4f12ae22db872410e47eeb2ae96b9e5e07051d",
+        "bytes": 223703,
+        "width": 2560,
+        "height": 2006,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/gm-discussion-mobile/approved.html",
+        "sha256": "e4c98d17b4a9d3395f7d8d3f9d00c80d9b1540c7cbb3c130a5cb1ae462fd530d",
+        "bytes": 19897
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/gm-discussion-mobile/reference-mobile-390.png",
+        "sha256": "7aa8fc55419c1dbaffcddee146e27c3e03eb8ba3a6299c73be8634c8e4e0253c",
+        "bytes": 56847,
+        "width": 390,
+        "height": 1011,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 5,
+      "projectId": "11936034876302496963",
+      "screenId": "3619269997911621594",
+      "slug": "gm-open-vote-desktop",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/gm-open-vote-desktop/approved.png",
+        "sha256": "e96a0cfef08df313bb684dcc683ac8a4926687b0d10449f973b559cf90680b2b",
+        "bytes": 276824,
+        "width": 2560,
+        "height": 1910,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/gm-open-vote-desktop/approved.html",
+        "sha256": "0f8f4f0db78ce1e2d293a3dac369e1eeaf453cdd517e92ced456a54135631a55",
+        "bytes": 19189
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/gm-open-vote-desktop/reference-desktop-1440.png",
+        "sha256": "5403144e3a97796a6d65b06815d4c48ff85554969ddf07eb6df4a370e3c8558b",
+        "bytes": 102748,
+        "width": 1440,
+        "height": 1000,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 5,
+      "projectId": "11936034876302496963",
+      "screenId": "7936486053927704401",
+      "slug": "gm-open-vote-mobile",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/gm-open-vote-mobile/approved.png",
+        "sha256": "0a0380a1dd227e8783cb130c56a0d4ac5e2a18eb753653c009388d42a390878e",
+        "bytes": 229195,
+        "width": 2560,
+        "height": 2024,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/gm-open-vote-mobile/approved.html",
+        "sha256": "2a60dc9e2ac18bad8a82adf0f0ce0144cc0e4d43873542b91384aa408ad40571",
+        "bytes": 19335
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/gm-open-vote-mobile/reference-mobile-390.png",
+        "sha256": "f8c487d60110366f33ca676f6c82aa2794368fa6a6b5ab10cdf02cfab36ef4da",
+        "bytes": 60550,
+        "width": 390,
+        "height": 1040,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 5,
+      "projectId": "11936034876302496963",
+      "screenId": "6819393873932687793",
+      "slug": "gm-vote-desktop",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/gm-vote-desktop/approved.png",
+        "sha256": "ccbbd2f3ef48cd027e4fee86e286f2e8a5a3a5768a8a66dc81540df7f8ff158f",
+        "bytes": 281959,
+        "width": 2560,
+        "height": 2002,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/gm-vote-desktop/approved.html",
+        "sha256": "0fd2a265cde81f13d450b9c227739b0cc09ef1109585ae8e3d4239d0c20bb5c1",
+        "bytes": 19947
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/gm-vote-desktop/reference-desktop-1440.png",
+        "sha256": "9424e9a7d39f743ca6122229551d264e73a4814d8c4980eef7cc948aac19ff84",
+        "bytes": 101080,
+        "width": 1440,
+        "height": 1001,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 5,
+      "projectId": "11936034876302496963",
+      "screenId": "6465139537118349617",
+      "slug": "gm-vote-mobile",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/gm-vote-mobile/approved.png",
+        "sha256": "197a13077acacf77d2eae9d5c061bc811ab78d23cdb63c3e392d0131fbf7a537",
+        "bytes": 263141,
+        "width": 2560,
+        "height": 2246,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/gm-vote-mobile/approved.html",
+        "sha256": "04ae4eceb1825e8fe10f69e0138fa9a51ac4d6f222daea003625b8b0c72c6636",
+        "bytes": 18976
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/gm-vote-mobile/reference-mobile-390.png",
+        "sha256": "6affc5089e1861181c231608c69d56b1bebea9662aa37625a281f175883871a9",
+        "bytes": 67150,
+        "width": 390,
+        "height": 1145,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 5,
+      "projectId": "11936034876302496963",
+      "screenId": "10785877862233376543",
+      "slug": "gm-vote-result-desktop",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/gm-vote-result-desktop/approved.png",
+        "sha256": "0b234d6a17eee3973da6b12cef801fe787d8378f1ce10640bfd975074a568033",
+        "bytes": 289776,
+        "width": 2560,
+        "height": 1884,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/gm-vote-result-desktop/approved.html",
+        "sha256": "d8b19594d3cecbe9906c0564f0e7cbb3d01f2c3d757b3418ccec8079ffc66bd1",
+        "bytes": 23381
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/gm-vote-result-desktop/reference-desktop-1440.png",
+        "sha256": "c013e24542be5afd6815746a34eac1019995602eed91ba77fa55ad7d9f13e6b8",
+        "bytes": 104131,
+        "width": 1440,
+        "height": 1000,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 5,
+      "projectId": "11936034876302496963",
+      "screenId": "13624688543223233419",
+      "slug": "gm-vote-result-mobile",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/gm-vote-result-mobile/approved.png",
+        "sha256": "28969cc107dec516272657674ee0508e8bcabe6d23090785dbefa3597cdf8a8e",
+        "bytes": 278121,
+        "width": 2560,
+        "height": 2334,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/gm-vote-result-mobile/approved.html",
+        "sha256": "cb9de837b7fe2cde9a8a5bee0d667ee57df86c5461973805702b77491f2dd37a",
+        "bytes": 19539
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/gm-vote-result-mobile/reference-mobile-390.png",
+        "sha256": "1aa9e95c700972d5af54bda701683ee1255139248570049e0c0534cc3fd66d9d",
+        "bytes": 77099,
+        "width": 390,
+        "height": 1187,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 5,
+      "projectId": "11936034876302496963",
+      "screenId": "15914122444161597271",
+      "slug": "gm-final-desktop",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/gm-final-desktop/approved.png",
+        "sha256": "508b83dd6798602403d903c685a3c4d899223dd3d46d153fff6ee44abb2d4659",
+        "bytes": 302343,
+        "width": 2560,
+        "height": 2090,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/gm-final-desktop/approved.html",
+        "sha256": "8485e0d2353a44ff3c7a61e3a0c15cf4e5b6c06880cb87721be79574294a7470",
+        "bytes": 21228
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/gm-final-desktop/reference-desktop-1440.png",
+        "sha256": "006204d3ce0c74ad3f5d0b1b07461ec89abb4fa61bbdf2ed2ddb4f3783fc5dbb",
+        "bytes": 107150,
+        "width": 1440,
+        "height": 1045,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 5,
+      "projectId": "11936034876302496963",
+      "screenId": "16346440702236190738",
+      "slug": "gm-final-mobile",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/gm-final-mobile/approved.png",
+        "sha256": "d8be2eb03c66d0384a8ddca72c231482a933e9a227d4c768f712c15f3a6c6f3f",
+        "bytes": 403035,
+        "width": 2560,
+        "height": 2864,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/gm-final-mobile/approved.html",
+        "sha256": "20a85747b5ce0f496633acc17d94e9d91e63c7f4b3759cdc5d9b949e7815e3fe",
+        "bytes": 24798
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/gm-final-mobile/reference-mobile-390.png",
+        "sha256": "6f5a6fd96ddfd6f47325ac80daac916a01a8816a959cf5c5ad14796e9e41822e",
+        "bytes": 108513,
+        "width": 390,
+        "height": 1446,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 5,
+      "projectId": "11936034876302496963",
+      "screenId": "2317685032850690371",
+      "slug": "gm-players-desktop",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/gm-players-desktop/approved.png",
+        "sha256": "687e693a9be7934d04b23e044baaed34f678f84176bccef2b9d427180b0337f0",
+        "bytes": 254703,
+        "width": 2560,
+        "height": 1794,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/gm-players-desktop/approved.html",
+        "sha256": "f1eca1fac7ec905496e3fd1174cd4834e0f2ccb6396a4f20ec0959d054015e8c",
+        "bytes": 20073
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/gm-players-desktop/reference-desktop-1440.png",
+        "sha256": "fcadbe18608bd27ab33c85ca0858026568218b216dc6136445faf72f8b2f095b",
+        "bytes": 92599,
+        "width": 1440,
+        "height": 1000,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 5,
+      "projectId": "11936034876302496963",
+      "screenId": "16290725861665464450",
+      "slug": "gm-players-mobile",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/gm-players-mobile/approved.png",
+        "sha256": "a4c2ce8d2008c6bf120c37b2e563efc8fe7f8ae7c51ea892ac4f5478f5459149",
+        "bytes": 275392,
+        "width": 2560,
+        "height": 2314,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/gm-players-mobile/approved.html",
+        "sha256": "2efc8a721dfbc3d59556a572d2753a725fd645188d945477447e811832c87874",
+        "bytes": 22419
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/gm-players-mobile/reference-mobile-390.png",
+        "sha256": "dfa2bf05ce8c2953bdee0f5aa11e46dbbf90237e4546e79ca09eaf394f41dd9e",
+        "bytes": 77677,
+        "width": 390,
+        "height": 1157,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 5,
+      "projectId": "11936034876302496963",
+      "screenId": "646664438643247707",
+      "slug": "gm-settings-desktop",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/gm-settings-desktop/approved.png",
+        "sha256": "57f9b7041e016f3c6b11280aa54a7fb6c41c29fab82da932a37454c6398ba210",
+        "bytes": 351837,
+        "width": 2560,
+        "height": 2414,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/gm-settings-desktop/approved.html",
+        "sha256": "32031531bb227490a9aa49d57853efbadfd337d3adf8beb52221659f1b4848c1",
+        "bytes": 23641
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/gm-settings-desktop/reference-desktop-1440.png",
+        "sha256": "9b8d39a28cfdc9465a97b274602630638c1ab9767f6792b9fca9afb02e6b0880",
+        "bytes": 127075,
+        "width": 1440,
+        "height": 1207,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 5,
+      "projectId": "11936034876302496963",
+      "screenId": "11545104283831130276",
+      "slug": "gm-settings-mobile",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/gm-settings-mobile/approved.png",
+        "sha256": "64eb21572325737591f1c732fcf2fc100cf03785df0b07f19bf043e60f911aa7",
+        "bytes": 329928,
+        "width": 2560,
+        "height": 2466,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/gm-settings-mobile/approved.html",
+        "sha256": "723ab54ff1c1e816fe517b3096e49efaabd8d022d5c6224ae27c9a080bd2674c",
+        "bytes": 21305
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/gm-settings-mobile/reference-mobile-390.png",
+        "sha256": "632f44fb2c7bada758df66aa0dc9e6433544e52f7b96e7127380cd7cbfcf180b",
+        "bytes": 85484,
+        "width": 390,
+        "height": 1253,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 5,
+      "projectId": "11936034876302496963",
+      "screenId": "8576805565582557266",
+      "slug": "gm-reveal-confirm-desktop",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/gm-reveal-confirm-desktop/approved.png",
+        "sha256": "c36bba2d4015a88e49e88bfb64e1a9e227a85fdd0cf479b19400483726f1d1b2",
+        "bytes": 298769,
+        "width": 2560,
+        "height": 1842,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/gm-reveal-confirm-desktop/approved.html",
+        "sha256": "4e6b9f2bc429a7fe0357ee8a1a8d6f15dcb262f94db524d6d11a0c430e662ff2",
+        "bytes": 13999
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/gm-reveal-confirm-desktop/reference-desktop-1440.png",
+        "sha256": "ab22e959c03d6c3edb266951332d93970e17d19a58615ea5bed699829657a148",
+        "bytes": 66005,
+        "width": 1440,
+        "height": 1000,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 5,
+      "projectId": "11936034876302496963",
+      "screenId": "12057866864672599328",
+      "slug": "gm-reveal-confirm-mobile",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/gm-reveal-confirm-mobile/approved.png",
+        "sha256": "b355b27bc493fa406c443ed2bcd79ae5b1170f2f58bc88747cf9af749d5ad835",
+        "bytes": 172811,
+        "width": 2560,
+        "height": 1996,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/gm-reveal-confirm-mobile/approved.html",
+        "sha256": "11b9a52bdc9106c4e9ce4bc166f92fee3f016027a5d27b03a7fa4d63af386189",
+        "bytes": 15328
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/gm-reveal-confirm-mobile/reference-mobile-390.png",
+        "sha256": "90637dab5d64848cae8e94e6087ebb977d99aea579e3d75807dbc39aebc79f7a",
+        "bytes": 39720,
+        "width": 390,
+        "height": 998,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 5,
+      "projectId": "11936034876302496963",
+      "screenId": "18070633581580327668",
+      "slug": "gm-restart-confirm-desktop",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/gm-restart-confirm-desktop/approved.png",
+        "sha256": "e082ad488a3179e01e85dea179a2186f7c73436e3dfaabae8c359456562badfc",
+        "bytes": 218601,
+        "width": 2560,
+        "height": 1788,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/gm-restart-confirm-desktop/approved.html",
+        "sha256": "8688be7296858a3fe039d16e38b1ac4b9610bf93c3122aa4e434d536fa96341b",
+        "bytes": 13895
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/gm-restart-confirm-desktop/reference-desktop-1440.png",
+        "sha256": "86653d53990b3208e7ae048e810d170e7cbbafaf1d588afb32fa3a3a322ef5c9",
+        "bytes": 50592,
+        "width": 1440,
+        "height": 1000,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 5,
+      "projectId": "11936034876302496963",
+      "screenId": "1716362227008769434",
+      "slug": "gm-restart-confirm-mobile",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/gm-restart-confirm-mobile/approved.png",
+        "sha256": "c320c0a69efb72bc84b90b88a9fec91299c32780e60d11e7a5b74024bdf57a83",
+        "bytes": 149796,
+        "width": 2560,
+        "height": 1600,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/gm-restart-confirm-mobile/approved.html",
+        "sha256": "a004c9553747d9ddc6c60237139ee08006082541ee40fb046f0570882185eed4",
+        "bytes": 9156
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/gm-restart-confirm-mobile/reference-mobile-390.png",
+        "sha256": "8be3b9d8377e9ed4fd73da8092fb84e0335fc684ec05617cc2aaf21dbb99bd41",
+        "bytes": 33522,
+        "width": 390,
+        "height": 844,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 5,
+      "projectId": "11936034876302496963",
+      "screenId": "1984237665935802616",
+      "slug": "gm-reset-confirm-desktop",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/gm-reset-confirm-desktop/approved.png",
+        "sha256": "8784a051a485cdbacb3a80b487f6c801f914c90bb8887ef1e50d1736e2b153c5",
+        "bytes": 289515,
+        "width": 2560,
+        "height": 2122,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/gm-reset-confirm-desktop/approved.html",
+        "sha256": "014b4e0596875d475ad29f24c04677bb970b2e45a335910f03898155a656907f",
+        "bytes": 16452
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/gm-reset-confirm-desktop/reference-desktop-1440.png",
+        "sha256": "37b9330210434b667e5d5f6d9a3beb2f4b7fe52b6a2ab9eb7ae63a31fcc349ea",
+        "bytes": 55231,
+        "width": 1440,
+        "height": 1061,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 5,
+      "projectId": "11936034876302496963",
+      "screenId": "3389502206259627851",
+      "slug": "gm-reset-confirm-mobile",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/gm-reset-confirm-mobile/approved.png",
+        "sha256": "9adf94b76ee9945a8376bee380385ed6d42085c5e646e5e514c798e9287a9e81",
+        "bytes": 165537,
+        "width": 2560,
+        "height": 1600,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/gm-reset-confirm-mobile/approved.html",
+        "sha256": "9bfa0e3b05dc47b5a10a48c0d95b6197731c4120984cefcff294492a0562039f",
+        "bytes": 9012
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/gm-reset-confirm-mobile/reference-mobile-390.png",
+        "sha256": "937e2e52169ee646ae3c49a939bda92707a92c82ae3cd6455f0f2af197416149",
+        "bytes": 32285,
+        "width": 390,
+        "height": 844,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 6,
+      "projectId": "10132472591870592947",
+      "screenId": "5180594610240066342",
+      "slug": "broadcast-obs-preparation",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/broadcast-obs-preparation/approved.png",
+        "sha256": "7db70f5b3677e890b35a91e6df16f1ed02d09dcf5ec610d007074825afb30073",
+        "bytes": 147259,
+        "width": 2560,
+        "height": 1600,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/broadcast-obs-preparation/approved.html",
+        "sha256": "549f21d17fbe4dc67b5272129bfd3fb08733e9d2676489ff71f6f082ed256cb2",
+        "bytes": 507359
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/broadcast-obs-preparation/reference-transparent-1920.png",
+        "sha256": "1e568c35a5d156124eab77a69556f3025e5e16a3252f265eec38189d138ee09e",
+        "bytes": 88762,
+        "width": 1920,
+        "height": 1080,
+        "pngColorType": 6
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 6,
+      "projectId": "10132472591870592947",
+      "screenId": "15234760056600880163",
+      "slug": "broadcast-obs-discussion",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/broadcast-obs-discussion/approved.png",
+        "sha256": "ced79f9315dab4cc3acab22197838605dcb6b9369dd6560cb2dbb9fab0f42684",
+        "bytes": 171255,
+        "width": 2560,
+        "height": 1600,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/broadcast-obs-discussion/approved.html",
+        "sha256": "2346692649ce4e9ff43058bd96b7b39043b85cf72f9864face3bed01a82a2b37",
+        "bytes": 507505
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/broadcast-obs-discussion/reference-transparent-1920.png",
+        "sha256": "322e108f0035fea2c9be78c7f234036fbfc54f8e18afb7380ba6ad3d838f963e",
+        "bytes": 109265,
+        "width": 1920,
+        "height": 1080,
+        "pngColorType": 6
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 6,
+      "projectId": "10132472591870592947",
+      "screenId": "14540847010751378625",
+      "slug": "broadcast-obs-vote",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/broadcast-obs-vote/approved.png",
+        "sha256": "30811f5084bd1f6d6997a0a3fbae38401adf592092122b3a59d6a256296874f9",
+        "bytes": 156188,
+        "width": 2560,
+        "height": 1600,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/broadcast-obs-vote/approved.html",
+        "sha256": "10b2edb2d62f1af5b0f1b3b5376876f77d9926326e9178c52e8160648046648d",
+        "bytes": 507384
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/broadcast-obs-vote/reference-transparent-1920.png",
+        "sha256": "f5dd9e52289a476cfe3a838493dfb5db1bf0660afa90db553639e9a3eb79d20d",
+        "bytes": 96184,
+        "width": 1920,
+        "height": 1080,
+        "pngColorType": 6
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 6,
+      "projectId": "10132472591870592947",
+      "screenId": "8284643245660127207",
+      "slug": "broadcast-obs-elimination",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/broadcast-obs-elimination/approved.png",
+        "sha256": "89b2ba09216b12c532d3b63f4124b43ec9658ba4ed25ff95a1fc9d6042f85bcb",
+        "bytes": 161503,
+        "width": 2560,
+        "height": 1600,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/broadcast-obs-elimination/approved.html",
+        "sha256": "af55fb0a0b86c5606b64c6abb2eb82b7341b0787e432a13c3c5cbd1d8c7f167b",
+        "bytes": 507581
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/broadcast-obs-elimination/reference-transparent-1920.png",
+        "sha256": "793ed6d18d2476fdb21f2657eca8672837e4e485f16d5490966bcc1723607f3d",
+        "bytes": 98510,
+        "width": 1920,
+        "height": 1080,
+        "pngColorType": 6
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 6,
+      "projectId": "10132472591870592947",
+      "screenId": "10166693569404062547",
+      "slug": "broadcast-obs-tie",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/broadcast-obs-tie/approved.png",
+        "sha256": "cc504149ed542e592cf232ee5b28df807f4e5568af07bba09b952fea06cfb4ee",
+        "bytes": 160092,
+        "width": 2560,
+        "height": 1600,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/broadcast-obs-tie/approved.html",
+        "sha256": "9e27294f0f6aae3480b596354896fe1f27ded8cbb6aa41414add35d319b8c978",
+        "bytes": 507577
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/broadcast-obs-tie/reference-transparent-1920.png",
+        "sha256": "c06dc922ef55ff093f7934498f31fdb358bfa803b0753a3da783491678f7ea31",
+        "bytes": 100447,
+        "width": 1920,
+        "height": 1080,
+        "pngColorType": 6
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 6,
+      "projectId": "10132472591870592947",
+      "screenId": "11645902411572347225",
+      "slug": "broadcast-obs-victory",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/broadcast-obs-victory/approved.png",
+        "sha256": "7e765383bb4588d79066baa592cfa76cda3c6e7b06350c29443a34fb21f0b6c0",
+        "bytes": 187599,
+        "width": 2560,
+        "height": 1600,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/broadcast-obs-victory/approved.html",
+        "sha256": "88801d233410913e7cc7826d1ef0b5158f5e719c3177eb7edd111a719a30fdd2",
+        "bytes": 508038
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/broadcast-obs-victory/reference-transparent-1920.png",
+        "sha256": "f4cb41fa4d69f6e3a0f60925542decb23a0dc57ee53794b4ade069ffbd1f8abc",
+        "bytes": 123804,
+        "width": 1920,
+        "height": 1080,
+        "pngColorType": 6
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 6,
+      "projectId": "10132472591870592947",
+      "screenId": "13503278689603029654",
+      "slug": "broadcast-obs-draw",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/broadcast-obs-draw/approved.png",
+        "sha256": "a53f84ef77db50f87156501b320fdc82223e97fdb6a8c487c6120729be80ecf2",
+        "bytes": 182301,
+        "width": 2560,
+        "height": 1600,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/broadcast-obs-draw/approved.html",
+        "sha256": "955af25504bd87cce27bbc1f01810848fac4584d7840ca26aef6b59fa9984167",
+        "bytes": 508044
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/broadcast-obs-draw/reference-transparent-1920.png",
+        "sha256": "f748c204830b3a5b872a8e61a8cc3c03d859ff9c27a0b707ea8f659a80cf2f9c",
+        "bytes": 123723,
+        "width": 1920,
+        "height": 1080,
+        "pngColorType": 6
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 6,
+      "projectId": "10132472591870592947",
+      "screenId": "6480344334821852281",
+      "slug": "broadcast-spectator-desktop",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/broadcast-spectator-desktop/approved.png",
+        "sha256": "c23f9368dc50639358d4f6ca6e20d0f0f068d60a3a1f3f34fea5010cd377a16e",
+        "bytes": 181969,
+        "width": 2560,
+        "height": 1600,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/broadcast-spectator-desktop/approved.html",
+        "sha256": "768e4ac6919ac1ab2b3b34a724fcc3500376b29f975ede89017a711669e63187",
+        "bytes": 511375
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/broadcast-spectator-desktop/reference-desktop-1440.png",
+        "sha256": "688324e7c6defba915bcb7ca73cfc99364f0984b80af1aacacc58da1871a04c1",
+        "bytes": 68860,
+        "width": 1440,
+        "height": 1100,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 6,
+      "projectId": "10132472591870592947",
+      "screenId": "14539924185403909224",
+      "slug": "broadcast-spectator-mobile",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/broadcast-spectator-mobile/approved.png",
+        "sha256": "c23f9368dc50639358d4f6ca6e20d0f0f068d60a3a1f3f34fea5010cd377a16e",
+        "bytes": 181969,
+        "width": 2560,
+        "height": 1600,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/broadcast-spectator-mobile/approved.html",
+        "sha256": "cb6d41bd8495d16e6ec89e37471789539a3749348a536743b70270beb373f5e5",
+        "bytes": 511374
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/broadcast-spectator-mobile/reference-mobile-390.png",
+        "sha256": "710116ea18d3a02dc7359a4ea26de59e80520b83198fdd914fbb79793d1139a5",
+        "bytes": 59144,
+        "width": 390,
+        "height": 1225,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 6,
+      "projectId": "10132472591870592947",
+      "screenId": "17913833612662065697",
+      "slug": "broadcast-stream-preview-desktop",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/broadcast-stream-preview-desktop/approved.png",
+        "sha256": "102f878c6a36860cea6e11af132f9a2f8a60493ea238865f630ba3c062483a84",
+        "bytes": 773105,
+        "width": 2560,
+        "height": 2976,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/broadcast-stream-preview-desktop/approved.html",
+        "sha256": "f0ff563fc472e280f6a12702286dc823e90dffad80764cc5236c135ac7201c1f",
+        "bytes": 1019528
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/broadcast-stream-preview-desktop/reference-desktop-1440.png",
+        "sha256": "292a2b6328f3404bf9a9f57f551da00fe51ddaca67de855bd1ef8319566b74a6",
+        "bytes": 186017,
+        "width": 1440,
+        "height": 1578,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 6,
+      "projectId": "10132472591870592947",
+      "screenId": "16837080339606998775",
+      "slug": "broadcast-stream-preview-mobile",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/broadcast-stream-preview-mobile/approved.png",
+        "sha256": "102f878c6a36860cea6e11af132f9a2f8a60493ea238865f630ba3c062483a84",
+        "bytes": 773105,
+        "width": 2560,
+        "height": 2976,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/broadcast-stream-preview-mobile/approved.html",
+        "sha256": "f9e9b34843b0fc567b9c01ffca836c9fd1936f90e4ddbfcb16f0100aa73dd100",
+        "bytes": 1019527
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/broadcast-stream-preview-mobile/reference-mobile-390.png",
+        "sha256": "42d08361203bf68f79603e7efc1bad52ec102e2ddd650a329a4ee91f6416244a",
+        "bytes": 76611,
+        "width": 390,
+        "height": 1217,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 6,
+      "projectId": "10132472591870592947",
+      "screenId": "16716479521615247860",
+      "slug": "broadcast-layout-desktop",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/broadcast-layout-desktop/approved.png",
+        "sha256": "04ba0045e384f2fed7644bc2308fa6fd6f2fe6349336b9f28f185e27ec577ea7",
+        "bytes": 335800,
+        "width": 2560,
+        "height": 2104,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/broadcast-layout-desktop/approved.html",
+        "sha256": "5ec823bb228cd46e1836868024543ea6d99ca5b8b8a1ae9e9cce5c0a06d39939",
+        "bytes": 1022385
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/broadcast-layout-desktop/reference-desktop-1440.png",
+        "sha256": "c0994488f00655bbf0599eeb479b531aad550163c3e2c9359fe7c20e95f77048",
+        "bytes": 134835,
+        "width": 1440,
+        "height": 1142,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 6,
+      "projectId": "10132472591870592947",
+      "screenId": "14317748143534499916",
+      "slug": "broadcast-layout-mobile",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/broadcast-layout-mobile/approved.png",
+        "sha256": "04ba0045e384f2fed7644bc2308fa6fd6f2fe6349336b9f28f185e27ec577ea7",
+        "bytes": 335800,
+        "width": 2560,
+        "height": 2104,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/broadcast-layout-mobile/approved.html",
+        "sha256": "d46d7b869fefe598b027a63690e60cdb638d080e36e922bac4521cc73267d709",
+        "bytes": 1022384
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/broadcast-layout-mobile/reference-mobile-390.png",
+        "sha256": "b8745925c9b517bb9411f2e915f43a09cd6a5309d7dacacbd8afb6cd5e2b0bce",
+        "bytes": 88279,
+        "width": 390,
+        "height": 1658,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 6,
+      "projectId": "10132472591870592947",
+      "screenId": "17206795688804889669",
+      "slug": "broadcast-layout-conflict",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/broadcast-layout-conflict/approved.png",
+        "sha256": "fe8f9f22eeb1dc5b0e083a3ec9ec59a8c014297b4c2b6fe4763a53dcbd18d9ef",
+        "bytes": 418038,
+        "width": 2560,
+        "height": 2464,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/broadcast-layout-conflict/approved.html",
+        "sha256": "524a58af515f3fc143fa9c9e40082cd51c56e7053bf608f35f2ee80729bc883a",
+        "bytes": 1023062
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/broadcast-layout-conflict/reference-desktop-1440.png",
+        "sha256": "da4406ac26a6d3e95de07450db125bacb22bdcaa153035e6a1280b946427f333",
+        "bytes": 155708,
+        "width": 1440,
+        "height": 1322,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 7,
+      "projectId": "8710675424358674545",
+      "screenId": "64f7cbad24324dc9b84e7f38d623e521",
+      "slug": "lab-main-desktop",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/lab-main-desktop/approved.png",
+        "sha256": "4740d67645fc842ced08c2d3e7776add843e70c95775b5095c26ba5540090c95",
+        "bytes": 291567,
+        "width": 2560,
+        "height": 2532,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/lab-main-desktop/approved.html",
+        "sha256": "a30580dccdaedbb2ab08ab1ce9998eab2415303210262d89f0ea7aa2b0900eee",
+        "bytes": 22600
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/lab-main-desktop/reference-desktop-1440.png",
+        "sha256": "5a9fc061818df85671cfc8221586b5e7d35b793ac192c753309a0a0c69233754",
+        "bytes": 94732,
+        "width": 1440,
+        "height": 1266,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 7,
+      "projectId": "8710675424358674545",
+      "screenId": "20b629654f334e3ab4f56ab000ccedaa",
+      "slug": "lab-main-mobile",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/lab-main-mobile/approved.png",
+        "sha256": "d913150b718bd274f130f75a58cc232c01efeaf1633a5da1087f677654e12282",
+        "bytes": 192900,
+        "width": 780,
+        "height": 2548,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/lab-main-mobile/approved.html",
+        "sha256": "dc1caceebddf9f372dbd0accdde8831fa7b7306bac20809236536ad345fbd2ac",
+        "bytes": 19628
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/lab-main-mobile/reference-mobile-390.png",
+        "sha256": "59db79b005335319b0a41bc7d8e1c310c761e2db655b453af6a9ef6f678d6025",
+        "bytes": 71912,
+        "width": 390,
+        "height": 1274,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 7,
+      "projectId": "8710675424358674545",
+      "screenId": "6aba92598d7347de831c725b9082e5ae",
+      "slug": "lab-compare-desktop",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/lab-compare-desktop/approved.png",
+        "sha256": "532b5ab1d4cb0f9c625afd81727220db85e1d36c7e388007b791a879b2f00a6a",
+        "bytes": 367310,
+        "width": 2560,
+        "height": 2880,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/lab-compare-desktop/approved.html",
+        "sha256": "1a6373df51c37814b25a0976df361c17ae076caf4f206391493e6922ec8f56c8",
+        "bytes": 24716
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/lab-compare-desktop/reference-desktop-1440.png",
+        "sha256": "77682c59edf4b803cc09b8212cbe79174f35a1c4e218b0f8c36c1cce8eb4edc2",
+        "bytes": 126532,
+        "width": 1440,
+        "height": 1417,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 7,
+      "projectId": "8710675424358674545",
+      "screenId": "e12ac0762b674a46a71fabbd3101e379",
+      "slug": "lab-access-desktop",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/lab-access-desktop/approved.png",
+        "sha256": "06e88a5e99f495c847be9508ecb1cd996490beee65296f179e6b638133dc5a25",
+        "bytes": 486842,
+        "width": 2560,
+        "height": 3354,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/lab-access-desktop/approved.html",
+        "sha256": "4eb0930aadd0b8bb42eb8f87e30ef94aa5e56e092050a8e710173368ef788054",
+        "bytes": 20598
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/lab-access-desktop/reference-desktop-1440.png",
+        "sha256": "8890fe1547fd49c8f175599043eef5ed38af9f716e6f4d6c9e72435194613a3e",
+        "bytes": 177223,
+        "width": 1440,
+        "height": 1677,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 7,
+      "projectId": "8710675424358674545",
+      "screenId": "466000430ac54eacab2ae45c89eac5dd",
+      "slug": "lab-restart-desktop",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/lab-restart-desktop/approved.png",
+        "sha256": "48454c2c1f36ca7d44a122ea44076e46effc5d838e745a7c52eaffbc47d31bad",
+        "bytes": 327367,
+        "width": 2560,
+        "height": 2048,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/lab-restart-desktop/approved.html",
+        "sha256": "52801500c73797c8304219b78c29adb128a5fa10959771d63b5de03a395b65f8",
+        "bytes": 18074
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/lab-restart-desktop/reference-desktop-1440.png",
+        "sha256": "51fb867a4d89693d9f4c118d453615d2958c4c54ebc7e183e821a71170118c78",
+        "bytes": 80708,
+        "width": 1440,
+        "height": 875,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 7,
+      "projectId": "8710675424358674545",
+      "screenId": "15365f53b46e46b5932eeb5d6b1041f7",
+      "slug": "lab-resume-desktop",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/lab-resume-desktop/approved.png",
+        "sha256": "1daf12eb51baf9f261ee3d07c4f7f112c7620b65355a1473a8ebc61a5afc4fe2",
+        "bytes": 324464,
+        "width": 2560,
+        "height": 2260,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/lab-resume-desktop/approved.html",
+        "sha256": "497ecf0388ef3915506a8596324cf821b4c7012dc09d1a84ec547dad7630a2f4",
+        "bytes": 25097
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/lab-resume-desktop/reference-desktop-1440.png",
+        "sha256": "fc36c5e02a6ae57ee1a3a2ee494c4c3b4909a1bae1b7d80783f112bf768c28f3",
+        "bytes": 118314,
+        "width": 1440,
+        "height": 1130,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    },
+    {
+      "block": 7,
+      "projectId": "8710675424358674545",
+      "screenId": "12831149329146105505",
+      "slug": "lab-unavailable-desktop",
+      "status": "APPROVED",
+      "nativeImage": {
+        "path": "docs/ux/redesign/lab-unavailable-desktop/approved.png",
+        "sha256": "64571d4f1473b86a3945de2509c565b5cc1b7b109eb50e858077a37584b18b66",
+        "bytes": 172780,
+        "width": 2560,
+        "height": 1600,
+        "pngColorType": 2
+      },
+      "html": {
+        "path": "docs/ux/redesign/lab-unavailable-desktop/approved.html",
+        "sha256": "2f9a56eed38602109bf50accb497d9b1b07645ab5d9e315bad788e410d543aaf",
+        "bytes": 7534
+      },
+      "viewportReference": {
+        "path": "docs/ux/redesign/lab-unavailable-desktop/reference-desktop-1440.png",
+        "sha256": "38032f164a723c621bfbe7468b224dd7c787ca8084f9208570271cc9e538c68a",
+        "bytes": 60114,
+        "width": 1440,
+        "height": 844,
+        "pngColorType": 2
+      },
+      "matchesFrozenApprovedDesign": true
+    }
+  ],
+  "checks": {
+    "existingBridgeTests": {
+      "file": "tests/stitch-sync.test.ts",
+      "passed": 28,
+      "failed": 0
+    },
+    "formattedDocumentationFiles": 54,
+    "stagedReferenceBytesMatchFrozenDesigns": true,
+    "previousB1ToB4ReferenceFilesUnchanged": true,
+    "applicationSourceFilesChanged": 0,
+    "gitDiffCheck": {
+      "passed": true,
+      "excludedVerbatimFiles": "docs/ux/redesign/**/approved.html",
+      "reason": "Native Stitch whitespace preserved byte-for-byte, as for the existing Prettier exclusion."
+    },
+    "applicationIntegrationTests": "Not rerun for this documentation-only transfer; implementation and cross-block verification remain in the Cloud integration tasks."
+  }
+}

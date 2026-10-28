@@ -1,0 +1,321 @@
+<!DOCTYPE html><html lang="fr" class="dark"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AFTER — GM Discussion — Mobile — v1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0C0C1F',
+            card: '#1A1A2D',
+            raised: '#28283C',
+            'border-subtle': '#2B2B44',
+            'text-primary': '#E2E0FB',
+            'text-secondary': '#B7A8D4',
+            'accent-lilac': '#CEBDFF',
+            citron: '#C8F323',
+            'citron-text': '#171E00',
+            teal: '#20C9B4',
+            surface: '#111124',
+          },
+          fontFamily: {
+            heading: ['"Space Grotesk"', 'sans-serif'],
+            body: ['"DM Sans"', 'sans-serif'],
+          },
+          borderRadius: {
+            'card': '12px',
+            'control': '8px',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #0C0C1F;
+      color: #E2E0FB;
+      font-family: 'DM Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+    .font-heading {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    /* Safe-area padding for mobile viewport */
+    .pb-safe {
+      padding-bottom: max(16px, env(safe-area-inset-bottom));
+    }
+    .pt-safe {
+      padding-top: max(12px, env(safe-area-inset-top));
+    }
+  </style>
+<style data-b5-material-repair="">.b5-modal-card{width:100%;max-width:520px;max-height:calc(100svh - 48px);overflow:auto;background:#1A1A2D;color:#E2E0FB;border:1px solid #7E7199;border-radius:12px;padding:28px;box-shadow:0 20px 60px #0006;}.b5-modal-card h2{font-size:24px;line-height:32px;margin:0 0 20px;}.b5-modal-card p{font-size:16px;line-height:24px;color:#B7A8D4;margin:0 0 16px;}.b5-modal-actions{display:flex;gap:12px;justify-content:flex-end;margin-top:28px;}.b5-cancel,.b5-confirm{border-radius:8px;min-height:48px;padding:12px 18px;font-weight:600;}.b5-cancel{border:1px solid #7E7199;background:#28283C;color:#E2E0FB;}.b5-confirm{background:#C8F323;color:#171E00;}.b5-danger{background:#FFB4AB;color:#690005;}[role=dialog]{position:fixed!important;inset:0!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:16px!important;background:rgba(12,12,31,.85)!important;z-index:100!important;}@media(max-width:600px){.b5-modal-card{padding:22px;}.b5-modal-actions{flex-direction:column;}.b5-confirm{order:-1;}}body{background:#0C0C1F!important;color:#E2E0FB;font-family:'DM Sans',sans-serif;}h1,h2,h3,button,summary,label,[class*=font-label],[class*=font-headline]{font-family:'Space Grotesk',sans-serif;}.text-on-surface-variant,.text-secondary-fixed-dim,.text-text-muted{color:#B7A8D4!important;}.b5-disclosure-content{padding:16px;display:grid;gap:12px;color:#B7A8D4;font-size:14px;}.b5-secondary,.b5-input{background:#28283C;color:#E2E0FB;border:1px solid #7E7199;border-radius:8px;padding:10px 14px;}.b5-input{display:block;width:100%;margin-top:8px;}button, summary, input, select, a[role="button"] { min-height: 44px; } button:focus-visible, summary:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid #CEBDFF; outline-offset: 3px; } @media(max-width:600px){button,summary,input,select,a[role="button"]{min-height:48px;} input,select,textarea{font-size:16px!important;} button{white-space:normal;}}</style><style data-b5-controls>a{min-height:44px;display:inline-flex;align-items:center;}nav a{justify-content:center;}button{min-width:44px;}nav .bg-primary-container{background:#28283C!important;color:#CEBDFF!important;box-shadow:none!important;}@media(max-width:600px){a{min-height:48px;}}</style></head>
+<body class="min-h-screen bg-canvas text-text-primary flex justify-center selection:bg-citron selection:text-citron-text">
+
+  <!-- Mobile screen container (390px max-width, strictly 1-column mobile standard) -->
+  <div class="w-full max-w-[390px] min-h-screen flex flex-col justify-between px-4 pt-safe pb-safe relative bg-canvas">
+
+    <!-- Top / Content Area -->
+    <div class="flex flex-col space-y-4">
+
+      <!-- Shell Header : Extension Twitch + Régie + Thème Apparence -->
+      <header class="flex items-center justify-between pt-1 pb-1">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-control bg-raised border border-border-subtle flex items-center justify-center text-accent-lilac shadow-sm">
+            <!-- Gamepad icon -->
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="6" width="20" height="12" rx="4"></rect>
+              <line x1="6" y1="12" x2="10" y2="12"></line>
+              <line x1="8" y1="10" x2="8" y2="14"></line>
+              <line x1="15" y1="13" x2="15.01" y2="13"></line>
+              <line x1="18" y1="11" x2="18.01" y2="11"></line>
+            </svg>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="font-heading font-semibold text-xs tracking-wide text-text-primary">Extension Twitch</span>
+              <span class="text-[10px] font-heading font-medium uppercase px-1.5 py-0.5 rounded bg-raised text-text-secondary border border-border-subtle">Régie</span>
+            </div>
+            <p class="text-[11px] text-text-secondary">Meneur de jeu · Privé</p>
+          </div>
+        </div>
+
+        <!-- Apparence selector (Neon Show / Broadcast / On Air) -->
+        <button type="button" class="h-8 px-2.5 rounded-control bg-card hover:bg-raised border border-border-subtle flex items-center gap-1.5 text-xs text-text-secondary font-medium transition-colors" title="Changer d'apparence">
+          <svg class="w-3.5 h-3.5 text-accent-lilac" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <span>Apparence</span>
+        </button>
+      </header>
+
+      <!-- Titre de la partie & badge de statut serveur -->
+      <div class="flex items-baseline justify-between pt-1">
+        <div>
+          <span class="text-[10px] uppercase tracking-wider font-heading text-text-secondary font-semibold">Votre partie</span>
+          <h1 class="text-2xl font-heading font-bold tracking-tight text-text-primary leading-tight">Undercover</h1>
+        </div>
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-heading font-medium bg-[#142328] text-teal border border-teal/20">
+          <span class="w-1.5 h-1.5 rounded-full bg-teal animate-pulse"></span>
+          En cours
+        </span>
+      </div>
+
+      <!-- Navigation d'onglets (Partie / Joueurs / Plateau vers B6) -->
+      <nav class="grid grid-cols-3 bg-card p-1 rounded-control border border-border-subtle" aria-label="Navigation régie">
+        <button type="button" class="h-9 rounded-control bg-raised font-heading font-semibold text-xs text-text-primary border border-border-subtle shadow-sm flex items-center justify-center gap-1.5">
+          <span>Partie</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-teal"></span>
+        </button>
+        <button type="button" class="h-9 rounded-control font-heading font-medium text-xs text-text-secondary hover:text-text-primary flex items-center justify-center transition-colors">
+          Joueurs
+        </button>
+        <button type="button" class="h-9 rounded-control font-heading font-medium text-xs text-text-secondary hover:text-text-primary flex items-center justify-center gap-1 transition-colors" title="Aperçu public B6">
+          Plateau
+          <svg class="w-3 h-3 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+        </button>
+      </nav>
+
+      <!-- Context Header : Phase actuelle & Tour -->
+      <div class="flex items-center justify-between pt-0.5">
+        <div class="flex items-center gap-2">
+          <span class="font-heading font-semibold text-xs tracking-wide text-accent-lilac">Discussion</span>
+          <span class="text-text-secondary text-xs">·</span>
+          <span class="text-xs text-text-secondary font-medium">Manche 1</span>
+        </div>
+        <div class="text-[11px] font-heading font-medium text-text-secondary bg-card px-2 py-0.5 rounded border border-border-subtle">
+          Tour d’indices 1 / 2
+        </div>
+      </div>
+
+      <!-- CARTE PRINCIPALE : Joueur actif & Consigne GM -->
+      <section class="bg-card rounded-card p-4 border border-border-subtle shadow-lg flex flex-col relative overflow-hidden">
+        <!-- Sub-header card -->
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[11px] font-heading font-semibold uppercase tracking-wider text-accent-lilac">
+            À son tour
+          </span>
+          <span class="text-xs font-heading font-medium text-text-secondary">
+            1 / 4 passages confirmés
+          </span>
+        </div>
+
+        <!-- Joueur en cours (Lou large) -->
+        <div class="my-1.5 flex items-center gap-3.5">
+          <div class="w-12 h-12 rounded-control bg-raised border border-accent-lilac/30 flex items-center justify-center text-accent-lilac font-heading font-bold text-lg shadow-inner">
+            L
+          </div>
+          <div class="flex-1 min-w-0">
+            <h2 class="text-2xl font-heading font-bold text-text-primary tracking-tight truncate">Lou</h2>
+            <p class="text-xs text-text-secondary font-medium mt-0.5">
+              Écoutez son indice, puis confirmez son passage.
+            </p>
+          </div>
+        </div>
+
+        <!-- Visual progress bar subtle -->
+        <div class="w-full bg-canvas/80 h-1.5 rounded-full mt-3 overflow-hidden border border-border-subtle/50">
+          <div class="bg-teal h-full rounded-full w-1/4 transition-all duration-300"></div>
+        </div>
+      </section>
+
+      <!-- ROSTER ORDONNÉ DE LA MANCHE (Alex, Lou, Sam, Noa) -->
+      <section class="bg-card rounded-card p-3.5 border border-border-subtle flex flex-col space-y-2.5">
+        <div class="flex items-center justify-between px-0.5">
+          <h3 class="text-xs font-heading font-semibold uppercase tracking-wider text-text-secondary">
+            Ordre de passage
+          </h3>
+          <span class="text-[11px] text-text-secondary">
+            4 joueurs
+          </span>
+        </div>
+
+        <div class="flex flex-col space-y-1.5">
+
+          <!-- 1. Alex (Passage confirmé) -->
+          <div class="flex items-center justify-between p-2.5 rounded-control bg-canvas/60 border border-border-subtle/70">
+            <div class="flex items-center gap-2.5">
+              <div class="w-7 h-7 rounded-control bg-raised flex items-center justify-center font-heading font-semibold text-xs text-text-secondary">
+                A
+              </div>
+              <span class="font-heading font-medium text-xs text-text-secondary">Alex</span>
+            </div>
+            <div class="flex items-center gap-1.5 text-xs text-teal font-medium">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>Passage confirmé</span>
+            </div>
+          </div>
+
+          <!-- 2. Lou (À son tour - Mise en valeur active) -->
+          <div class="flex items-center justify-between p-2.5 rounded-control bg-raised border border-accent-lilac/40 shadow-sm">
+            <div class="flex items-center gap-2.5">
+              <div class="w-7 h-7 rounded-control bg-accent-lilac/10 border border-accent-lilac/30 flex items-center justify-center font-heading font-bold text-xs text-accent-lilac">
+                L
+              </div>
+              <span class="font-heading font-bold text-xs text-text-primary">Lou</span>
+            </div>
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-heading font-semibold bg-accent-lilac/15 text-accent-lilac border border-accent-lilac/30">
+              <span class="w-1.5 h-1.5 rounded-full bg-accent-lilac animate-pulse"></span>
+              À son tour
+            </span>
+          </div>
+
+          <!-- 3. Sam (À venir) -->
+          <div class="flex items-center justify-between p-2.5 rounded-control bg-canvas/60 border border-border-subtle/40">
+            <div class="flex items-center gap-2.5">
+              <div class="w-7 h-7 rounded-control bg-canvas border border-border-subtle flex items-center justify-center font-heading font-medium text-xs text-text-secondary/70">
+                S
+              </div>
+              <span class="font-heading font-medium text-xs text-text-secondary">Sam</span>
+            </div>
+            <span class="text-xs text-text-secondary/80 font-medium">
+              À venir
+            </span>
+          </div>
+
+          <!-- 4. Noa (À venir) -->
+          <div class="flex items-center justify-between p-2.5 rounded-control bg-canvas/60 border border-border-subtle/40">
+            <div class="flex items-center gap-2.5">
+              <div class="w-7 h-7 rounded-control bg-canvas border border-border-subtle flex items-center justify-center font-heading font-medium text-xs text-text-secondary/70">
+                N
+              </div>
+              <span class="font-heading font-medium text-xs text-text-secondary">Noa</span>
+            </div>
+            <span class="text-xs text-text-secondary/80 font-medium">
+              À venir
+            </span>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ROWS SECONDAIRES FERMÉES (Disclosures GM privées) -->
+      <section class="flex flex-col space-y-2 pt-1 pb-3">
+        <!-- Informations privées du Game Master -->
+        <button type="button" class="w-full min-h-[44px] px-3.5 py-2.5 rounded-control bg-card hover:bg-raised border border-border-subtle flex items-center justify-between text-left transition-colors">
+          <div class="flex items-center gap-2.5">
+            <svg class="w-4 h-4 text-accent-lilac flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <span class="text-xs font-heading font-medium text-text-primary">Informations privées du Game Master</span>
+          </div>
+          <svg class="w-4 h-4 text-text-secondary flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+
+        <!-- Journal de la partie -->
+        <button type="button" class="w-full min-h-[44px] px-3.5 py-2.5 rounded-control bg-card hover:bg-raised border border-border-subtle flex items-center justify-between text-left transition-colors">
+          <div class="flex items-center gap-2.5">
+            <svg class="w-4 h-4 text-text-secondary flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            <span class="text-xs font-heading font-medium text-text-primary">Journal de la partie</span>
+          </div>
+          <svg class="w-4 h-4 text-text-secondary flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+
+        <!-- Accès et réglages de la partie -->
+        <button type="button" class="w-full min-h-[44px] px-3.5 py-2.5 rounded-control bg-card hover:bg-raised border border-border-subtle flex items-center justify-between text-left transition-colors">
+          <div class="flex items-center gap-2.5">
+            <svg class="w-4 h-4 text-text-secondary flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+            <span class="text-xs font-heading font-medium text-text-primary">Accès et réglages de la partie</span>
+          </div>
+          <svg class="w-4 h-4 text-text-secondary flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </section>
+
+    </div>
+
+    <!-- ANCHORED ACTION AREA (Safe Area Bottom, 48px Touch Target, Single Dominant Citron CTA) -->
+    <div class="sticky bottom-0 pt-3 pb-2 bg-gradient-to-t from-canvas via-canvas to-transparent mt-2">
+      <!-- CTA Principal Citron -->
+      <button type="button" class="w-full min-h-[48px] px-4 py-3 rounded-control bg-citron text-citron-text hover:bg-[#b8e020] active:scale-[0.99] font-heading font-bold text-sm tracking-wide flex items-center justify-center gap-2 shadow-lg transition-transform focus:outline-none focus:ring-2 focus:ring-citron/50">
+        <svg class="w-4 h-4 text-citron-text flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M5 3l14 9-14 9V3z"></path>
+        </svg>
+        <span class="text-center">Confirmer l’indice et passer au suivant</span>
+      </button>
+      <!-- Sub-label rassurant / explicatif sous CTA -->
+      <p class="text-[11px] text-text-secondary text-center mt-2 leading-tight">
+        Avance d’un passage pour le tour en cours.
+      </p>
+    </div>
+
+  </div>
+
+
+</body></html>

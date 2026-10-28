@@ -1,0 +1,134 @@
+{
+  "block": 5,
+  "name": "GM Control Room",
+  "status": "READY_TO_MERGE",
+  "stitchProjectId": "11936034876302496963",
+  "stitchProjectName": "Extension Twitch UX — Block 5 — GM",
+  "designScreens": [
+    {
+      "id": "4748605395910424442",
+      "slug": "gm-distribution-desktop"
+    },
+    {
+      "id": "12546587580834232912",
+      "slug": "gm-distribution-mobile"
+    },
+    {
+      "id": "14255636269363992144",
+      "slug": "gm-discussion-desktop"
+    },
+    {
+      "id": "4748605395910425523",
+      "slug": "gm-discussion-mobile"
+    },
+    {
+      "id": "3619269997911621594",
+      "slug": "gm-open-vote-desktop"
+    },
+    {
+      "id": "7936486053927704401",
+      "slug": "gm-open-vote-mobile"
+    },
+    {
+      "id": "6819393873932687793",
+      "slug": "gm-vote-desktop"
+    },
+    {
+      "id": "6465139537118349617",
+      "slug": "gm-vote-mobile"
+    },
+    {
+      "id": "10785877862233376543",
+      "slug": "gm-vote-result-desktop"
+    },
+    {
+      "id": "13624688543223233419",
+      "slug": "gm-vote-result-mobile"
+    },
+    {
+      "id": "15914122444161597271",
+      "slug": "gm-final-desktop"
+    },
+    {
+      "id": "16346440702236190738",
+      "slug": "gm-final-mobile"
+    },
+    {
+      "id": "2317685032850690371",
+      "slug": "gm-players-desktop"
+    },
+    {
+      "id": "16290725861665464450",
+      "slug": "gm-players-mobile"
+    },
+    {
+      "id": "646664438643247707",
+      "slug": "gm-settings-desktop"
+    },
+    {
+      "id": "11545104283831130276",
+      "slug": "gm-settings-mobile"
+    },
+    {
+      "id": "8576805565582557266",
+      "slug": "gm-reveal-confirm-desktop"
+    },
+    {
+      "id": "12057866864672599328",
+      "slug": "gm-reveal-confirm-mobile"
+    },
+    {
+      "id": "18070633581580327668",
+      "slug": "gm-restart-confirm-desktop"
+    },
+    {
+      "id": "1716362227008769434",
+      "slug": "gm-restart-confirm-mobile"
+    },
+    {
+      "id": "1984237665935802616",
+      "slug": "gm-reset-confirm-desktop"
+    },
+    {
+      "id": "3389502206259627851",
+      "slug": "gm-reset-confirm-mobile"
+    }
+  ],
+  "approvedScreens": [
+    "4748605395910424442",
+    "12546587580834232912",
+    "14255636269363992144",
+    "4748605395910425523",
+    "3619269997911621594",
+    "7936486053927704401",
+    "6819393873932687793",
+    "6465139537118349617",
+    "10785877862233376543",
+    "13624688543223233419",
+    "15914122444161597271",
+    "16346440702236190738",
+    "2317685032850690371",
+    "16290725861665464450",
+    "646664438643247707",
+    "11545104283831130276",
+    "8576805565582557266",
+    "12057866864672599328",
+    "18070633581580327668",
+    "1716362227008769434",
+    "1984237665935802616",
+    "3389502206259627851"
+  ],
+  "branch": "ux/block-5-gm",
+  "worktree": "/workspace/ux-worktrees/block-5-gm",
+  "lastUpdate": "2026-10-28T20:14:24.357548+00:00",
+  "blockers": [],
+  "notes": [
+    "Validation humaine des 22 références exacte reçue ; artefacts APPROVED inchangés.",
+    "Intégration et captures terminées ; 197 tests unitaires/intégration, TypeScript et build réussis.",
+    "6 nouveaux parcours navigateur validés dans la copie croisée ; 218 cas navigateur distincts passent au total.",
+    "Vérifications croisées et contrôles des branches séparées réussis. Aucun blocage technique identifié ; aucune fusion ni aucun déploiement. Les nouveaux rendus iPhone/Safari/OBS restent à vérifier humainement."
+  ],
+  "deliveryReport": "BLOCK-5-DELIVERY.md",
+  "captureIndex": "block-5-captures.json",
+  "crossValidation": "cross-validation.json"
+}
