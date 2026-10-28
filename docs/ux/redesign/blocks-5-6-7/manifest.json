@@ -1,0 +1,878 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "approval": {
+    "type": "explicit-human-approval",
+    "date": "2026-10-28",
+    "scope": "43 final Screen IDs of Blocks 5, 6 and 7",
+    "implementationCorrectionsAccepted": true
+  },
+  "implementationStatus": "NOT_IMPLEMENTED_BY_REFERENCE_TRANSFER",
+  "blocks": [
+    {
+      "block": 5,
+      "projectId": "11936034876302496963",
+      "projectTitle": "Extension Twitch UX — Block 5 — GM",
+      "status": "APPROVED",
+      "screens": [
+        {
+          "screenId": "4748605395910424442",
+          "projectId": "11936034876302496963",
+          "slug": "gm-distribution-desktop",
+          "surface": "Distribuer les mots et commencer · Desktop",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/gm-distribution-desktop",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-desktop-1440.png",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1000,
+            "fullPage": true,
+            "approvedResponsiveImage": {
+              "width": 1440,
+              "height": 1000
+            }
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/11936034876302496963?node-id=4748605395910424442"
+        },
+        {
+          "screenId": "12546587580834232912",
+          "projectId": "11936034876302496963",
+          "slug": "gm-distribution-mobile",
+          "surface": "Distribuer les mots et commencer · Mobile",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/gm-distribution-mobile",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-mobile-390.png",
+          "captureViewport": {
+            "width": 390,
+            "height": 844,
+            "fullPage": true,
+            "approvedResponsiveImage": {
+              "width": 390,
+              "height": 982
+            }
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/11936034876302496963?node-id=12546587580834232912"
+        },
+        {
+          "screenId": "14255636269363992144",
+          "projectId": "11936034876302496963",
+          "slug": "gm-discussion-desktop",
+          "surface": "Confirmer le passage oral · Desktop",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/gm-discussion-desktop",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-desktop-1440.png",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1000,
+            "fullPage": true,
+            "approvedResponsiveImage": {
+              "width": 1440,
+              "height": 1000
+            }
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/11936034876302496963?node-id=14255636269363992144"
+        },
+        {
+          "screenId": "4748605395910425523",
+          "projectId": "11936034876302496963",
+          "slug": "gm-discussion-mobile",
+          "surface": "Confirmer le passage oral · Mobile",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/gm-discussion-mobile",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-mobile-390.png",
+          "captureViewport": {
+            "width": 390,
+            "height": 844,
+            "fullPage": true,
+            "approvedResponsiveImage": {
+              "width": 390,
+              "height": 1011
+            }
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/11936034876302496963?node-id=4748605395910425523"
+        },
+        {
+          "screenId": "3619269997911621594",
+          "projectId": "11936034876302496963",
+          "slug": "gm-open-vote-desktop",
+          "surface": "Ouvrir le scrutin après tous les indices · Desktop",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/gm-open-vote-desktop",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-desktop-1440.png",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1000,
+            "fullPage": true,
+            "approvedResponsiveImage": {
+              "width": 1440,
+              "height": 1000
+            }
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/11936034876302496963?node-id=3619269997911621594"
+        },
+        {
+          "screenId": "7936486053927704401",
+          "projectId": "11936034876302496963",
+          "slug": "gm-open-vote-mobile",
+          "surface": "Ouvrir le scrutin après tous les indices · Mobile",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/gm-open-vote-mobile",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-mobile-390.png",
+          "captureViewport": {
+            "width": 390,
+            "height": 844,
+            "fullPage": true,
+            "approvedResponsiveImage": {
+              "width": 390,
+              "height": 1040
+            }
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/11936034876302496963?node-id=7936486053927704401"
+        },
+        {
+          "screenId": "6819393873932687793",
+          "projectId": "11936034876302496963",
+          "slug": "gm-vote-desktop",
+          "surface": "Suivre les votes et révéler après participation complète · Desktop",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/gm-vote-desktop",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-desktop-1440.png",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1000,
+            "fullPage": true,
+            "approvedResponsiveImage": {
+              "width": 1440,
+              "height": 1001
+            }
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/11936034876302496963?node-id=6819393873932687793"
+        },
+        {
+          "screenId": "6465139537118349617",
+          "projectId": "11936034876302496963",
+          "slug": "gm-vote-mobile",
+          "surface": "Suivre les votes et révéler après participation complète · Mobile",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/gm-vote-mobile",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-mobile-390.png",
+          "captureViewport": {
+            "width": 390,
+            "height": 844,
+            "fullPage": true,
+            "approvedResponsiveImage": {
+              "width": 390,
+              "height": 1145
+            }
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/11936034876302496963?node-id=6465139537118349617"
+        },
+        {
+          "screenId": "10785877862233376543",
+          "projectId": "11936034876302496963",
+          "slug": "gm-vote-result-desktop",
+          "surface": "Lire élimination et démarrer la manche suivante · Desktop",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/gm-vote-result-desktop",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-desktop-1440.png",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1000,
+            "fullPage": true,
+            "approvedResponsiveImage": {
+              "width": 1440,
+              "height": 1000
+            }
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/11936034876302496963?node-id=10785877862233376543"
+        },
+        {
+          "screenId": "13624688543223233419",
+          "projectId": "11936034876302496963",
+          "slug": "gm-vote-result-mobile",
+          "surface": "Lire élimination et démarrer la manche suivante · Mobile",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/gm-vote-result-mobile",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-mobile-390.png",
+          "captureViewport": {
+            "width": 390,
+            "height": 844,
+            "fullPage": true,
+            "approvedResponsiveImage": {
+              "width": 390,
+              "height": 1187
+            }
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/11936034876302496963?node-id=13624688543223233419"
+        },
+        {
+          "screenId": "15914122444161597271",
+          "projectId": "11936034876302496963",
+          "slug": "gm-final-desktop",
+          "surface": "Lire résultat final et proposer rejeu · Desktop",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/gm-final-desktop",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-desktop-1440.png",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1000,
+            "fullPage": true,
+            "approvedResponsiveImage": {
+              "width": 1440,
+              "height": 1045
+            }
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/11936034876302496963?node-id=15914122444161597271"
+        },
+        {
+          "screenId": "16346440702236190738",
+          "projectId": "11936034876302496963",
+          "slug": "gm-final-mobile",
+          "surface": "Lire résultat final et proposer rejeu · Mobile",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/gm-final-mobile",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-mobile-390.png",
+          "captureViewport": {
+            "width": 390,
+            "height": 844,
+            "fullPage": true,
+            "approvedResponsiveImage": {
+              "width": 390,
+              "height": 1446
+            }
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/11936034876302496963?node-id=16346440702236190738"
+        },
+        {
+          "screenId": "2317685032850690371",
+          "projectId": "11936034876302496963",
+          "slug": "gm-players-desktop",
+          "surface": "Vérifier effectif et présence pendant partie · Desktop",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/gm-players-desktop",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-desktop-1440.png",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1000,
+            "fullPage": true,
+            "approvedResponsiveImage": {
+              "width": 1440,
+              "height": 1000
+            }
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/11936034876302496963?node-id=2317685032850690371"
+        },
+        {
+          "screenId": "16290725861665464450",
+          "projectId": "11936034876302496963",
+          "slug": "gm-players-mobile",
+          "surface": "Vérifier effectif et présence pendant partie · Mobile",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/gm-players-mobile",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-mobile-390.png",
+          "captureViewport": {
+            "width": 390,
+            "height": 844,
+            "fullPage": true,
+            "approvedResponsiveImage": {
+              "width": 390,
+              "height": 1157
+            }
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/11936034876302496963?node-id=16290725861665464450"
+        },
+        {
+          "screenId": "646664438643247707",
+          "projectId": "11936034876302496963",
+          "slug": "gm-settings-desktop",
+          "surface": "Conserver accès privé, renommer et accéder aux actions sensibles · Desktop",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/gm-settings-desktop",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-desktop-1440.png",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1000,
+            "fullPage": true,
+            "approvedResponsiveImage": {
+              "width": 1440,
+              "height": 1207
+            }
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/11936034876302496963?node-id=646664438643247707"
+        },
+        {
+          "screenId": "11545104283831130276",
+          "projectId": "11936034876302496963",
+          "slug": "gm-settings-mobile",
+          "surface": "Conserver accès privé, renommer et accéder aux actions sensibles · Mobile",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/gm-settings-mobile",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-mobile-390.png",
+          "captureViewport": {
+            "width": 390,
+            "height": 844,
+            "fullPage": true,
+            "approvedResponsiveImage": {
+              "width": 390,
+              "height": 1253
+            }
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/11936034876302496963?node-id=11545104283831130276"
+        },
+        {
+          "screenId": "8576805565582557266",
+          "projectId": "11936034876302496963",
+          "slug": "gm-reveal-confirm-desktop",
+          "surface": "Confirmer publication irréversible du résultat · Desktop",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/gm-reveal-confirm-desktop",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-desktop-1440.png",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1000,
+            "fullPage": true,
+            "approvedResponsiveImage": {
+              "width": 1440,
+              "height": 1000
+            }
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/11936034876302496963?node-id=8576805565582557266"
+        },
+        {
+          "screenId": "12057866864672599328",
+          "projectId": "11936034876302496963",
+          "slug": "gm-reveal-confirm-mobile",
+          "surface": "Confirmer publication irréversible du résultat · Mobile",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/gm-reveal-confirm-mobile",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-mobile-390.png",
+          "captureViewport": {
+            "width": 390,
+            "height": 844,
+            "fullPage": true,
+            "approvedResponsiveImage": {
+              "width": 390,
+              "height": 998
+            }
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/11936034876302496963?node-id=12057866864672599328"
+        },
+        {
+          "screenId": "18070633581580327668",
+          "projectId": "11936034876302496963",
+          "slug": "gm-restart-confirm-desktop",
+          "surface": "Confirmer rejeu sans révoquer les accès · Desktop",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/gm-restart-confirm-desktop",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-desktop-1440.png",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1000,
+            "fullPage": true,
+            "approvedResponsiveImage": {
+              "width": 1440,
+              "height": 1000
+            }
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/11936034876302496963?node-id=18070633581580327668"
+        },
+        {
+          "screenId": "1716362227008769434",
+          "projectId": "11936034876302496963",
+          "slug": "gm-restart-confirm-mobile",
+          "surface": "Confirmer rejeu sans révoquer les accès · Mobile",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/gm-restart-confirm-mobile",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-mobile-390.png",
+          "captureViewport": {
+            "width": 390,
+            "height": 844,
+            "fullPage": true,
+            "approvedResponsiveImage": {
+              "width": 390,
+              "height": 844
+            }
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/11936034876302496963?node-id=1716362227008769434"
+        },
+        {
+          "screenId": "1984237665935802616",
+          "projectId": "11936034876302496963",
+          "slug": "gm-reset-confirm-desktop",
+          "surface": "Confirmer retrait des joueurs et révocation des accès · Desktop",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/gm-reset-confirm-desktop",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-desktop-1440.png",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1000,
+            "fullPage": true,
+            "approvedResponsiveImage": {
+              "width": 1440,
+              "height": 1061
+            }
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/11936034876302496963?node-id=1984237665935802616"
+        },
+        {
+          "screenId": "3389502206259627851",
+          "projectId": "11936034876302496963",
+          "slug": "gm-reset-confirm-mobile",
+          "surface": "Confirmer retrait des joueurs et révocation des accès · Mobile",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/gm-reset-confirm-mobile",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-mobile-390.png",
+          "captureViewport": {
+            "width": 390,
+            "height": 844,
+            "fullPage": true,
+            "approvedResponsiveImage": {
+              "width": 390,
+              "height": 844
+            }
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/11936034876302496963?node-id=3389502206259627851"
+        }
+      ]
+    },
+    {
+      "block": 6,
+      "projectId": "10132472591870592947",
+      "projectTitle": "Extension Twitch UX — Block 6 — Broadcast",
+      "status": "APPROVED",
+      "screens": [
+        {
+          "screenId": "5180594610240066342",
+          "projectId": "10132472591870592947",
+          "slug": "broadcast-obs-preparation",
+          "surface": "Attendre la distribution sur le plateau public · OBS",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/broadcast-obs-preparation",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-transparent-1920.png",
+          "captureViewport": {
+            "width": 1920,
+            "height": 1080
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/10132472591870592947?node-id=5180594610240066342"
+        },
+        {
+          "screenId": "15234760056600880163",
+          "projectId": "10132472591870592947",
+          "slug": "broadcast-obs-discussion",
+          "surface": "Mettre en évidence le joueur courant et la progression orale · OBS",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/broadcast-obs-discussion",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-transparent-1920.png",
+          "captureViewport": {
+            "width": 1920,
+            "height": 1080
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/10132472591870592947?node-id=15234760056600880163"
+        },
+        {
+          "screenId": "14540847010751378625",
+          "projectId": "10132472591870592947",
+          "slug": "broadcast-obs-vote",
+          "surface": "Montrer la participation au vote sans révéler les choix · OBS",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/broadcast-obs-vote",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-transparent-1920.png",
+          "captureViewport": {
+            "width": 1920,
+            "height": 1080
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/10132472591870592947?node-id=14540847010751378625"
+        },
+        {
+          "screenId": "8284643245660127207",
+          "projectId": "10132472591870592947",
+          "slug": "broadcast-obs-elimination",
+          "surface": "Afficher une élimination et les voix publiquement résolues · OBS",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/broadcast-obs-elimination",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-transparent-1920.png",
+          "captureViewport": {
+            "width": 1920,
+            "height": 1080
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/10132472591870592947?node-id=8284643245660127207"
+        },
+        {
+          "screenId": "10166693569404062547",
+          "projectId": "10132472591870592947",
+          "slug": "broadcast-obs-tie",
+          "surface": "Afficher une égalité sans inventer de nouvelle règle · OBS",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/broadcast-obs-tie",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-transparent-1920.png",
+          "captureViewport": {
+            "width": 1920,
+            "height": 1080
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/10132472591870592947?node-id=10166693569404062547"
+        },
+        {
+          "screenId": "11645902411572347225",
+          "projectId": "10132472591870592947",
+          "slug": "broadcast-obs-victory",
+          "surface": "Présenter le résultat global et les révélations autorisées en fin · OBS",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/broadcast-obs-victory",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-transparent-1920.png",
+          "captureViewport": {
+            "width": 1920,
+            "height": 1080
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/10132472591870592947?node-id=11645902411572347225"
+        },
+        {
+          "screenId": "13503278689603029654",
+          "projectId": "10132472591870592947",
+          "slug": "broadcast-obs-draw",
+          "surface": "Présenter une fin à la limite des manches · OBS",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/broadcast-obs-draw",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-transparent-1920.png",
+          "captureViewport": {
+            "width": 1920,
+            "height": 1080
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/10132472591870592947?node-id=13503278689603029654"
+        },
+        {
+          "screenId": "6480344334821852281",
+          "projectId": "10132472591870592947",
+          "slug": "broadcast-spectator-desktop",
+          "surface": "Suivre la partie sur un plateau public responsive · Desktop",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/broadcast-spectator-desktop",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-desktop-1440.png",
+          "captureViewport": {
+            "width": 1440,
+            "height": 900
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/10132472591870592947?node-id=6480344334821852281"
+        },
+        {
+          "screenId": "14539924185403909224",
+          "projectId": "10132472591870592947",
+          "slug": "broadcast-spectator-mobile",
+          "surface": "Suivre le joueur courant sur téléphone · Mobile",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/broadcast-spectator-mobile",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-mobile-390.png",
+          "captureViewport": {
+            "width": 390,
+            "height": 844
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/10132472591870592947?node-id=14539924185403909224"
+        },
+        {
+          "screenId": "17913833612662065697",
+          "projectId": "10132472591870592947",
+          "slug": "broadcast-stream-preview-desktop",
+          "surface": "Vérifier la diffusion sur une scène fictive · Desktop",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/broadcast-stream-preview-desktop",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-desktop-1440.png",
+          "captureViewport": {
+            "width": 1440,
+            "height": 900
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/10132472591870592947?node-id=17913833612662065697"
+        },
+        {
+          "screenId": "16837080339606998775",
+          "projectId": "10132472591870592947",
+          "slug": "broadcast-stream-preview-mobile",
+          "surface": "Contrôler le cadrage 16:9 et ouvrir les outils OBS sur mobile · Mobile",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/broadcast-stream-preview-mobile",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-mobile-390.png",
+          "captureViewport": {
+            "width": 390,
+            "height": 844
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/10132472591870592947?node-id=16837080339606998775"
+        },
+        {
+          "screenId": "16716479521615247860",
+          "projectId": "10132472591870592947",
+          "slug": "broadcast-layout-desktop",
+          "surface": "Ajuster la géométrie des sept blocs publics · Desktop",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/broadcast-layout-desktop",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-desktop-1440.png",
+          "captureViewport": {
+            "width": 1440,
+            "height": 900
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/10132472591870592947?node-id=16716479521615247860"
+        },
+        {
+          "screenId": "14317748143534499916",
+          "projectId": "10132472591870592947",
+          "slug": "broadcast-layout-mobile",
+          "surface": "Ajuster le layout avec des champs tactiles bornés · Mobile",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/broadcast-layout-mobile",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-mobile-390.png",
+          "captureViewport": {
+            "width": 390,
+            "height": 844
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/10132472591870592947?node-id=14317748143534499916"
+        },
+        {
+          "screenId": "17206795688804889669",
+          "projectId": "10132472591870592947",
+          "slug": "broadcast-layout-conflict",
+          "surface": "Protéger les ajustements locaux en cas de modification concurrente · Desktop",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/broadcast-layout-conflict",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-desktop-1440.png",
+          "captureViewport": {
+            "width": 1440,
+            "height": 900
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/10132472591870592947?node-id=17206795688804889669"
+        }
+      ]
+    },
+    {
+      "block": 7,
+      "projectId": "8710675424358674545",
+      "projectTitle": "Extension Twitch UX — Block 7 — Lab",
+      "status": "APPROVED",
+      "screens": [
+        {
+          "screenId": "64f7cbad24324dc9b84e7f38d623e521",
+          "projectId": "8710675424358674545",
+          "slug": "lab-main-desktop",
+          "surface": "Tester un point de vue GM réel, avec une action de phase et les outils secondaires repliés. · Desktop",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/lab-main-desktop",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-desktop-1440.png",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/8710675424358674545?node-id=64f7cbad24324dc9b84e7f38d623e521"
+        },
+        {
+          "screenId": "20b629654f334e3ab4f56ab000ccedaa",
+          "projectId": "8710675424358674545",
+          "slug": "lab-main-mobile",
+          "surface": "Même modèle mental sur téléphone : une perspective à la fois, actions tactiles. · Mobile",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/lab-main-mobile",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-mobile-390.png",
+          "captureViewport": {
+            "width": 390,
+            "height": 844
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/8710675424358674545?node-id=20b629654f334e3ab4f56ab000ccedaa"
+        },
+        {
+          "screenId": "6aba92598d7347de831c725b9082e5ae",
+          "projectId": "8710675424358674545",
+          "slug": "lab-compare-desktop",
+          "surface": "Comparer le compagnon privé d’Alex et l’émission publique indépendante. · Desktop",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/lab-compare-desktop",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-desktop-1440.png",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/8710675424358674545?node-id=6aba92598d7347de831c725b9082e5ae"
+        },
+        {
+          "screenId": "e12ac0762b674a46a71fabbd3101e379",
+          "projectId": "8710675424358674545",
+          "slug": "lab-access-desktop",
+          "surface": "Ouvrir/copier les accès utiles et effectuer le contrôle avancé réellement disponible. · Desktop",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/lab-access-desktop",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-desktop-1440.png",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/8710675424358674545?node-id=e12ac0762b674a46a71fabbd3101e379"
+        },
+        {
+          "screenId": "466000430ac54eacab2ae45c89eac5dd",
+          "projectId": "8710675424358674545",
+          "slug": "lab-restart-desktop",
+          "surface": "Confirmer le rejeu de la même partie en conservant les accès joueurs. · Desktop",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/lab-restart-desktop",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-desktop-1440.png",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/8710675424358674545?node-id=466000430ac54eacab2ae45c89eac5dd"
+        },
+        {
+          "screenId": "15365f53b46e46b5932eeb5d6b1041f7",
+          "projectId": "8710675424358674545",
+          "slug": "lab-resume-desktop",
+          "surface": "Reprendre le même essai après interruption de préparation. · Desktop",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/lab-resume-desktop",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-desktop-1440.png",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/8710675424358674545?node-id=15365f53b46e46b5932eeb5d6b1041f7"
+        },
+        {
+          "screenId": "12831149329146105505",
+          "projectId": "8710675424358674545",
+          "slug": "lab-unavailable-desktop",
+          "surface": "Expliquer l’absence d’accès locaux et retourner à la configuration du jeu. · Desktop",
+          "status": "APPROVED",
+          "directory": "docs/ux/redesign/lab-unavailable-desktop",
+          "approvedImage": "approved.png",
+          "approvedHtml": "approved.html",
+          "spec": "SPEC.md",
+          "referenceViewportImage": "reference-desktop-1440.png",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "stitchUrl": "https://stitch.withgoogle.com/projects/8710675424358674545?node-id=12831149329146105505"
+        }
+      ]
+    }
+  ]
+}

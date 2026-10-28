@@ -1,0 +1,308 @@
+<!DOCTYPE html><html lang="fr" class="dark"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AFTER — GM Open Vote — Mobile — v1</title>
+  <!-- Tailwind Play CDN for utility classes -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0C0C1F',
+            card: '#1A1A2D',
+            raised: '#28283C',
+            textMain: '#E2E0FB',
+            secondary: '#B7A8D4',
+            lilac: '#CEBDFF',
+            citron: '#C8F323',
+            citronDark: '#171E00',
+            borderSubtle: '#2A2A44',
+            borderHover: '#3C3C5E',
+            statusGreen: '#22c55e',
+          },
+          fontFamily: {
+            heading: ['"Space Grotesk"', 'sans-serif'],
+            body: ['"DM Sans"', 'sans-serif'],
+          },
+          borderRadius: {
+            'card': '12px',
+            'control': '8px',
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      background-color: #0C0C1F;
+      color: #E2E0FB;
+      font-family: 'DM Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .font-heading {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    /* Mobile scrollbar hide */
+    ::-webkit-scrollbar {
+      width: 0px;
+      background: transparent;
+    }
+  </style>
+<style data-b5-material-repair="">.b5-modal-card{width:100%;max-width:520px;max-height:calc(100svh - 48px);overflow:auto;background:#1A1A2D;color:#E2E0FB;border:1px solid #7E7199;border-radius:12px;padding:28px;box-shadow:0 20px 60px #0006;}.b5-modal-card h2{font-size:24px;line-height:32px;margin:0 0 20px;}.b5-modal-card p{font-size:16px;line-height:24px;color:#B7A8D4;margin:0 0 16px;}.b5-modal-actions{display:flex;gap:12px;justify-content:flex-end;margin-top:28px;}.b5-cancel,.b5-confirm{border-radius:8px;min-height:48px;padding:12px 18px;font-weight:600;}.b5-cancel{border:1px solid #7E7199;background:#28283C;color:#E2E0FB;}.b5-confirm{background:#C8F323;color:#171E00;}.b5-danger{background:#FFB4AB;color:#690005;}[role=dialog]{position:fixed!important;inset:0!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:16px!important;background:rgba(12,12,31,.85)!important;z-index:100!important;}@media(max-width:600px){.b5-modal-card{padding:22px;}.b5-modal-actions{flex-direction:column;}.b5-confirm{order:-1;}}body{background:#0C0C1F!important;color:#E2E0FB;font-family:'DM Sans',sans-serif;}h1,h2,h3,button,summary,label,[class*=font-label],[class*=font-headline]{font-family:'Space Grotesk',sans-serif;}.text-on-surface-variant,.text-secondary-fixed-dim,.text-text-muted{color:#B7A8D4!important;}.b5-disclosure-content{padding:16px;display:grid;gap:12px;color:#B7A8D4;font-size:14px;}.b5-secondary,.b5-input{background:#28283C;color:#E2E0FB;border:1px solid #7E7199;border-radius:8px;padding:10px 14px;}.b5-input{display:block;width:100%;margin-top:8px;}button, summary, input, select, a[role="button"] { min-height: 44px; } button:focus-visible, summary:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid #CEBDFF; outline-offset: 3px; } @media(max-width:600px){button,summary,input,select,a[role="button"]{min-height:48px;} input,select,textarea{font-size:16px!important;} button{white-space:normal;}}</style><style data-b5-controls>a{min-height:44px;display:inline-flex;align-items:center;}nav a{justify-content:center;}button{min-width:44px;}nav .bg-primary-container{background:#28283C!important;color:#CEBDFF!important;box-shadow:none!important;}@media(max-width:600px){a{min-height:48px;}}</style><style data-b5-touch>@media(max-width:600px){button{min-height:48px!important;}}</style></head>
+<body class="bg-canvas text-textMain min-h-screen flex flex-col justify-between items-center selection:bg-lilac selection:text-canvas">
+
+  <!-- Mobile Container: 390px responsive column -->
+  <div class="w-full max-w-[390px] min-h-screen bg-canvas px-4 pt-3 pb-8 flex flex-col justify-between relative shadow-2xl overflow-x-hidden">
+    
+    <!-- Top Area: Shell Header & Navigation -->
+    <div class="w-full flex flex-col space-y-4">
+      
+      <!-- Stable Shell Header -->
+      <header class="w-full flex items-center justify-between pt-1">
+        <div class="flex items-center space-x-2">
+          <div class="w-7 h-7 rounded-control bg-raised flex items-center justify-center text-lilac border border-borderSubtle">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <div class="flex items-center space-x-1.5">
+            <span class="text-xs font-semibold tracking-wide text-textMain font-heading">Extension Twitch</span>
+            <span class="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-raised text-secondary border border-borderSubtle">Régie</span>
+          </div>
+        </div>
+
+        <!-- Appearance Switcher (read-only / interactive preview for 3 private themes) -->
+        <button type="button" aria-label="Apparence du studio" class="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-control bg-raised/70 border border-borderSubtle text-xs text-secondary hover:text-textMain hover:border-borderHover transition-colors min-h-[36px]">
+          <svg class="w-3.5 h-3.5 text-lilac" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+          </svg>
+          <span class="font-medium text-[11px]">Apparence</span>
+        </button>
+      </header>
+
+      <!-- App Title & Subtitle / Status -->
+      <div class="flex items-center justify-between pt-1">
+        <div>
+          <span class="text-[11px] font-semibold tracking-wider uppercase text-secondary/70 block">Votre partie</span>
+          <h1 class="text-2xl font-bold tracking-tight text-textMain font-heading">Undercover</h1>
+        </div>
+        <div class="flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-statusGreen/10 border border-statusGreen/30 text-statusGreen text-[11px] font-medium">
+          <span class="w-1.5 h-1.5 rounded-full bg-statusGreen animate-pulse"></span>
+          <span>En cours</span>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs (Partie / Joueurs / Plateau link) -->
+      <nav class="w-full grid grid-cols-3 gap-1 p-1 bg-card rounded-control border border-borderSubtle text-xs font-heading font-medium">
+        <button type="button" class="py-2 rounded-control bg-raised text-textMain font-semibold shadow-sm border border-borderSubtle flex items-center justify-center space-x-1.5">
+          <span>Partie</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-statusGreen"></span>
+        </button>
+        <button type="button" class="py-2 rounded-control text-secondary hover:text-textMain transition-colors flex items-center justify-center">
+          <span>Joueurs</span>
+        </button>
+        <a href="#plateau-preview" class="py-2 rounded-control text-secondary hover:text-textMain transition-colors flex items-center justify-center space-x-1">
+          <span>Plateau</span>
+          <svg class="w-3 h-3 text-secondary/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+          </svg>
+        </a>
+      </nav>
+
+      <!-- Phase Label & Context Header -->
+      <div class="flex items-center justify-between text-xs pt-1 px-0.5">
+        <div class="flex items-center space-x-1.5 text-secondary">
+          <span class="font-medium text-textMain">Discussion</span>
+          <span>•</span>
+          <span>Manche 1</span>
+        </div>
+        <span class="text-[11px] font-medium px-2 py-0.5 rounded-full bg-raised text-lilac border border-borderSubtle">
+          2 tours terminés
+        </span>
+      </div>
+
+      <!-- Main Focal Card: Indices terminés / Transition vers vote -->
+      <section class="w-full bg-card rounded-card border border-borderSubtle p-4 flex flex-col space-y-3.5 shadow-sm">
+        <div class="flex items-start justify-between">
+          <div class="space-y-1">
+            <span class="text-[10px] uppercase font-bold tracking-wider text-lilac flex items-center space-x-1">
+              <svg class="w-3 h-3 text-statusGreen" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span>Tour d’indices 2 / 2 terminé</span>
+            </span>
+            <h2 class="text-lg font-bold text-textMain font-heading leading-tight">
+              Les indices sont terminés
+            </h2>
+          </div>
+          <span class="text-[11px] font-medium text-secondary bg-raised px-2 py-1 rounded-control border border-borderSubtle whitespace-nowrap">
+            4 / 4 passages validés
+          </span>
+        </div>
+
+        <p class="text-xs leading-relaxed text-secondary font-body">Les tours d’indices sont terminés. Vous pouvez ouvrir les votes.</p>
+
+        <!-- Progress completion bar -->
+        <div class="w-full bg-raised h-1.5 rounded-full overflow-hidden">
+          <div class="bg-statusGreen h-full w-full rounded-full transition-all"></div>
+        </div>
+      </section>
+
+      <!-- Ordered Roster Card: All 4 participants with Passage Confirmé -->
+      <section class="w-full bg-card rounded-card border border-borderSubtle p-3.5 space-y-2.5">
+        <div class="flex items-center justify-between px-1">
+          <span class="text-[11px] uppercase tracking-wider font-semibold text-secondary font-heading">
+            Ordre de passage validé
+          </span>
+          <span class="text-[11px] text-secondary">
+            4 joueurs
+          </span>
+        </div>
+
+        <!-- Participants List in Registration Order: Alex, Lou, Sam, Noa -->
+        <div class="space-y-1.5">
+          
+          <!-- Alex -->
+          <div class="w-full flex items-center justify-between p-2.5 bg-raised/50 rounded-control border border-borderSubtle/60">
+            <div class="flex items-center space-x-2.5">
+              <div class="w-7 h-7 rounded-control bg-raised flex items-center justify-center font-heading text-xs font-bold text-lilac border border-borderSubtle">
+                A
+              </div>
+              <span class="text-xs font-medium text-textMain font-heading">Alex</span>
+            </div>
+            <div class="flex items-center space-x-1.5 text-statusGreen text-[11px] font-medium">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span>Passage confirmé</span>
+            </div>
+          </div>
+
+          <!-- Lou -->
+          <div class="w-full flex items-center justify-between p-2.5 bg-raised/50 rounded-control border border-borderSubtle/60">
+            <div class="flex items-center space-x-2.5">
+              <div class="w-7 h-7 rounded-control bg-raised flex items-center justify-center font-heading text-xs font-bold text-lilac border border-borderSubtle">
+                L
+              </div>
+              <span class="text-xs font-medium text-textMain font-heading">Lou</span>
+            </div>
+            <div class="flex items-center space-x-1.5 text-statusGreen text-[11px] font-medium">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span>Passage confirmé</span>
+            </div>
+          </div>
+
+          <!-- Sam -->
+          <div class="w-full flex items-center justify-between p-2.5 bg-raised/50 rounded-control border border-borderSubtle/60">
+            <div class="flex items-center space-x-2.5">
+              <div class="w-7 h-7 rounded-control bg-raised flex items-center justify-center font-heading text-xs font-bold text-lilac border border-borderSubtle">
+                S
+              </div>
+              <span class="text-xs font-medium text-textMain font-heading">Sam</span>
+            </div>
+            <div class="flex items-center space-x-1.5 text-statusGreen text-[11px] font-medium">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span>Passage confirmé</span>
+            </div>
+          </div>
+
+          <!-- Noa -->
+          <div class="w-full flex items-center justify-between p-2.5 bg-raised/50 rounded-control border border-borderSubtle/60">
+            <div class="flex items-center space-x-2.5">
+              <div class="w-7 h-7 rounded-control bg-raised flex items-center justify-center font-heading text-xs font-bold text-lilac border border-borderSubtle">
+                N
+              </div>
+              <span class="text-xs font-medium text-textMain font-heading">Noa</span>
+            </div>
+            <div class="flex items-center space-x-1.5 text-statusGreen text-[11px] font-medium">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span>Passage confirmé</span>
+            </div>
+          </div>
+
+        </div>
+
+        
+      </section>
+
+      <!-- Secondary Disclosures (Closed by default) -->
+      <section class="space-y-2 pt-1">
+        <!-- Informations privées du Game Master -->
+        <button type="button" class="w-full flex items-center justify-between p-3 rounded-control bg-card border border-borderSubtle text-secondary hover:text-textMain hover:border-borderHover transition-colors min-h-[44px]">
+          <div class="flex items-center space-x-2.5">
+            <svg class="w-4 h-4 text-lilac" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+            </svg>
+            <span class="text-xs font-medium font-heading">Informations privées du Game Master</span>
+          </div>
+          <svg class="w-3.5 h-3.5 text-secondary/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </button>
+
+        <!-- Journal de la partie -->
+        <button type="button" class="w-full flex items-center justify-between p-3 rounded-control bg-card border border-borderSubtle text-secondary hover:text-textMain hover:border-borderHover transition-colors min-h-[44px]">
+          <div class="flex items-center space-x-2.5">
+            <svg class="w-4 h-4 text-lilac" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            <span class="text-xs font-medium font-heading">Journal de la partie</span>
+          </div>
+          <svg class="w-3.5 h-3.5 text-secondary/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </button>
+
+        <!-- Accès et réglages de la partie -->
+        <button type="button" class="w-full flex items-center justify-between p-3 rounded-control bg-card border border-borderSubtle text-secondary hover:text-textMain hover:border-borderHover transition-colors min-h-[44px]">
+          <div class="flex items-center space-x-2.5">
+            <svg class="w-4 h-4 text-lilac" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+            <span class="text-xs font-medium font-heading">Accès et réglages de la partie</span>
+          </div>
+          <svg class="w-3.5 h-3.5 text-secondary/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </button>
+      </section>
+
+    </div>
+
+    <!-- Bottom Area: Anchored Single Dominant CTA -->
+    <div class="w-full pt-6 pb-2 space-y-2">
+      <!-- Dominant Citron CTA -->
+      <button type="button" class="w-full py-3.5 px-4 bg-citron hover:bg-[#d6ff3b] active:scale-[0.99] text-citronDark font-heading font-bold text-sm rounded-control shadow-lg flex items-center justify-center space-x-2 transition-all min-h-[48px]">
+        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z"></path>
+        </svg>
+        <span>Ouvrir les votes</span>
+      </button>
+
+      <!-- Explanatory supporting copy strictly as requested -->
+      <p class="text-[11px] text-center text-secondary leading-tight">
+        Chaque joueur actif vote une fois pour un autre joueur.
+      </p>
+    </div>
+
+  </div>
+
+
+
+</body></html>
