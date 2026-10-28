@@ -80,7 +80,35 @@ les captures avec Stitch. Le thème privé par défaut existant n’est pas chan
 
 ## Vérifications
 
-Le bilan chiffré est consigné après les exécutions dans `../pipeline/block-2.json`.
+**`npm run check` réussi** : 197 tests unitaires/intégration (24 fichiers), formatage,
+TypeScript strict et build de production. **238 parcours Chromium réussis**, dont
+20 nouveaux pour la préparation, sur quatre formats lorsque prévus par les suites.
+Détail reproductible dans [le bilan chiffré](../pipeline/block-2.json).
+
+| Suite                              | Parcours réussis |
+| ---------------------------------- | ---------------: |
+| Préparation (nouvelle)             |               20 |
+| Sessions et produit                |               42 |
+| Accueil                            |               16 |
+| Salon et joueurs                   |               16 |
+| Thèmes et six expériences          |               12 |
+| Gameplay Undercover                |               12 |
+| Layout Undercover                  |                6 |
+| Aperçu d’émission / OBS navigateur |                9 |
+| Design system et dialogues         |               12 |
+| B5 Régie                           |                6 |
+| B6 Diffusion                       |                9 |
+| B7 Laboratoire                     |               12 |
+| Maintenance et anciennes parties   |               60 |
+| QA développement                   |                6 |
+
+La première passe complète a porté sur `0ffcba8`. Après les ajustements limités au
+récapitulatif, aux cibles et aux helpers de navigation, les suites préparation,
+layout, thèmes, maintenance et QA ont été relancées sur l’application finale
+`8d15e64` et ses helpers corrigés, puis `npm run check` a été réexécuté. Le code
+applicatif n’a pas changé ensuite. Les deux échecs initiaux (attente de navigation
+et accès au récapitulatif déplacé) et le helper de maintenance sont corrigés ; aucune
+assertion de sécurité ou de gameplay n’a été retirée.
 Les nouveaux scénarios vérifient les options persistées, les thèmes indépendants,
 le vrai parcours préparation → salon → régie → distribution, les invitations sans
 capacité liée à la prévision, la séparation QA, les refus, le stockage indisponible,

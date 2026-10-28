@@ -2,9 +2,15 @@
 
 ## Ouvrir l’application
 
-Node 24 et npm 11 sont nécessaires. Sur le Mac, dans le dossier du dépôt :
+Node 24 et npm 11 sont nécessaires. Sur le Mac, si votre dépôt est toujours dans
+`~/extension-twitch-studio-4b`, récupérez la branche dédiée (arrêtez d’abord le serveur
+avec Ctrl+C dans son terminal) :
 
 ```sh
+cd ~/extension-twitch-studio-4b
+git fetch origin
+git switch ux/block-2-prepare-undercover
+git pull --ff-only
 nvm use 24
 npm ci
 npm run dev:lan

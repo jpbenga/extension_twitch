@@ -1,0 +1,215 @@
+{
+  "block": 2,
+  "name": "Prepare Undercover",
+  "status": "READY_TO_MERGE",
+  "branch": "ux/block-2-prepare-undercover",
+  "baseBranch": "integration/blocks-5-6-7",
+  "baseCommit": "022b5549187a4195e0947040101830c5006d9795",
+  "applicationCommit": "8d15e64471aa7b2a2d235d8cba2aece7feae6376",
+  "applicationWebTree": "461e2e43e4f4589c597fcd3424cc71d8ce0a61f2",
+  "testHarnessCommit": "930ce559d32d42d8a7da543e1e4cb0c6dcb5008d",
+  "references": [
+    {
+      "projectId": "7117487747163082855",
+      "screenId": "4143568521582746268",
+      "spec": "docs/ux/redesign/prepare-undercover-desktop/SPEC.md"
+    },
+    {
+      "projectId": "7117487747163082855",
+      "screenId": "12712e36e77f4c33850ed5b07962942d",
+      "spec": "docs/ux/redesign/prepare-undercover-mobile/SPEC.md"
+    }
+  ],
+  "unchangedApprovedSha256": {
+    "docs/ux/redesign/prepare-undercover-desktop/approved.png": "3bd735834c924f8a67d90c5e5d2625bc501ee60adec1b50da3815814f6313a84",
+    "docs/ux/redesign/prepare-undercover-desktop/approved.html": "67f2baae8ddfda8763d9060133f322192ee622e0606d574f0fc0e5b989810634",
+    "docs/ux/redesign/prepare-undercover-mobile/approved.png": "118e626788245f89512f1a3a33a767e53d667342716406941a4dac2684dfd926",
+    "docs/ux/redesign/prepare-undercover-mobile/approved.html": "d57dc5ec9567834f2eeeb4a023734e3f209c544d692428ba01a7d50761c639b7"
+  },
+  "captures": [
+    {
+      "path": "docs/ux/redesign/prepare-undercover-desktop/implementation-desktop.png",
+      "width": 1440,
+      "height": 1039,
+      "sha256": "0806a38dc9cee4f7905aad672e3d5d21fd611e46555635dc4d41d60b134ccd77"
+    },
+    {
+      "path": "docs/ux/redesign/prepare-undercover-mobile/implementation-mobile.png",
+      "width": 390,
+      "height": 985,
+      "sha256": "76e7953b7dfde1bd7a32958b4a5ece5ba212e5a9c640a52ac0a9006943b3eb15"
+    }
+  ],
+  "verification": {
+    "check": {
+      "command": "npm run check",
+      "status": "PASSED",
+      "unitIntegrationTests": 197,
+      "unitIntegrationFiles": 24,
+      "typescript": "strict passed",
+      "productionBuild": "passed",
+      "format": "passed",
+      "testedCommit": "930ce559d32d42d8a7da543e1e4cb0c6dcb5008d"
+    },
+    "browserSuites": [
+      {
+        "suite": "stitch-gm",
+        "command": "node scripts/test-e2e.mjs --config=playwright.stitch-gm.config.ts",
+        "passed": 6,
+        "failed": 0,
+        "testedCommit": "0ffcba88536bc092bc0a58d9ce36cb99978d1ac5"
+      },
+      {
+        "suite": "design",
+        "command": "node scripts/test-e2e.mjs --config=playwright.design.config.ts",
+        "passed": 12,
+        "failed": 0,
+        "testedCommit": "0ffcba88536bc092bc0a58d9ce36cb99978d1ac5"
+      },
+      {
+        "suite": "e2e",
+        "command": "npm run test:e2e",
+        "passed": 42,
+        "failed": 0,
+        "testedCommit": "0ffcba88536bc092bc0a58d9ce36cb99978d1ac5"
+      },
+      {
+        "suite": "games",
+        "command": "node scripts/test-e2e.mjs --config=playwright.games.config.ts",
+        "passed": 12,
+        "failed": 0,
+        "testedCommit": "0ffcba88536bc092bc0a58d9ce36cb99978d1ac5"
+      },
+      {
+        "suite": "stitch-broadcast",
+        "command": "node scripts/test-e2e.mjs --config=playwright.stitch-broadcast.config.ts",
+        "passed": 9,
+        "failed": 0,
+        "testedCommit": "0ffcba88536bc092bc0a58d9ce36cb99978d1ac5"
+      },
+      {
+        "suite": "stream",
+        "command": "node scripts/test-e2e.mjs --config=playwright.stream.config.ts",
+        "passed": 9,
+        "failed": 0,
+        "testedCommit": "0ffcba88536bc092bc0a58d9ce36cb99978d1ac5"
+      },
+      {
+        "suite": "stitch-lab",
+        "command": "node scripts/test-e2e.mjs --config=playwright.stitch-lab.config.ts",
+        "passed": 12,
+        "failed": 0,
+        "testedCommit": "0ffcba88536bc092bc0a58d9ce36cb99978d1ac5"
+      },
+      {
+        "suite": "home",
+        "command": "node scripts/test-e2e.mjs --config=playwright.home.config.ts",
+        "passed": 16,
+        "failed": 0,
+        "testedCommit": "0ffcba88536bc092bc0a58d9ce36cb99978d1ac5"
+      },
+      {
+        "suite": "players",
+        "command": "node scripts/test-e2e.mjs --config=playwright.players.config.ts",
+        "passed": 16,
+        "failed": 0,
+        "testedCommit": "0ffcba88536bc092bc0a58d9ce36cb99978d1ac5"
+      },
+      {
+        "suite": "prepare",
+        "command": "npm run test:prepare",
+        "passed": 20,
+        "failed": 0,
+        "applicationCommit": "8d15e64471aa7b2a2d235d8cba2aece7feae6376",
+        "testHarnessCommits": ["0952bcdb40db5815d6a091ad80548c3cab2a4a5e"]
+      },
+      {
+        "suite": "layout",
+        "command": "npm run test:layout",
+        "passed": 6,
+        "failed": 0,
+        "applicationCommit": "8d15e64471aa7b2a2d235d8cba2aece7feae6376",
+        "testHarnessCommits": ["0952bcdb40db5815d6a091ad80548c3cab2a4a5e"]
+      },
+      {
+        "suite": "legacy",
+        "command": "npm run test:legacy",
+        "passed": 60,
+        "failed": 0,
+        "applicationCommit": "8d15e64471aa7b2a2d235d8cba2aece7feae6376",
+        "testHarnessCommits": ["0952bcdb40db5815d6a091ad80548c3cab2a4a5e"]
+      },
+      {
+        "suite": "lab-dev",
+        "command": "npm run test:lab",
+        "passed": 6,
+        "failed": 0,
+        "applicationCommit": "8d15e64471aa7b2a2d235d8cba2aece7feae6376",
+        "testHarnessCommits": ["930ce559d32d42d8a7da543e1e4cb0c6dcb5008d"]
+      },
+      {
+        "suite": "ux",
+        "command": "npm run test:ux",
+        "passed": 12,
+        "failed": 0,
+        "applicationCommit": "8d15e64471aa7b2a2d235d8cba2aece7feae6376",
+        "testHarnessCommits": [
+          "0952bcdb40db5815d6a091ad80548c3cab2a4a5e",
+          "930ce559d32d42d8a7da543e1e4cb0c6dcb5008d"
+        ]
+      }
+    ],
+    "browserTotalDistinctCases": 238,
+    "unresolvedBrowserFailures": 0,
+    "method": "Initial full regressions at 0ffcba8; targeted final revalidation of preparation, layout, themes, legacy and development QA after the scoped recap/target fixes. Production groups used isolated builds, ports and SQLite.",
+    "resolvedInitialFailures": [
+      "Missing wait for disclosure mount after SPA navigation: helper now waits for the real destination.",
+      "The active role recap is retained in Roles and distribution; layout test opens this disclosure.",
+      "Maintenance QA keeps its actual direct demo button, distinct from the new preparation disclosure."
+    ],
+    "viewports": [
+      {
+        "name": "desktop",
+        "width": 1440,
+        "height": 1000
+      },
+      {
+        "name": "tablet",
+        "width": 768,
+        "height": 1024
+      },
+      {
+        "name": "mobile",
+        "width": 390,
+        "height": 844
+      },
+      {
+        "name": "small",
+        "width": 320,
+        "height": 568
+      }
+    ],
+    "shortHeightCheck": {
+      "width": 390,
+      "height": 500
+    },
+    "physicalIPhone": "NOT_TESTED",
+    "safariVoiceOver": "NOT_TESTED",
+    "physicalOBS": "NOT_RETESTED; previous human workflow validation preserved"
+  },
+  "functionalPreservation": {
+    "plannedCountIsCapacity": false,
+    "inviteCreatesDemoPlayers": false,
+    "preparationDistributesSecrets": false,
+    "defaultClueRounds": 2,
+    "classicIsTechnicalMode": false,
+    "uncertainCommandIdentityPreserved": true,
+    "broadcastThemeIndependent": true,
+    "B6LayoutEditorReused": true,
+    "engineApiOrContractsChanged": false,
+    "mergePerformed": false,
+    "deployed": false
+  },
+  "manualGuide": "docs/TEST-PREPARE-UNDERCOVER.md",
+  "implementationReport": "docs/ux/redesign/PREPARE-UNDERCOVER-IMPLEMENTATION.md"
+}
