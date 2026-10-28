@@ -123,7 +123,7 @@ test("Undercover plays several real rounds to a final victory, with private card
   });
   await expect(observer.locator("body")).not.toContainText("Mot civil de test");
   await expect(observer.locator(".real-stage-title")).toContainText(
-    "4 participants",
+    "4 joueurs actifs",
   );
   await expect(
     players[0]!.getByRole("button", { name: "Je suis prêt", exact: true }),
@@ -202,14 +202,23 @@ test("Undercover plays several real rounds to a final victory, with private card
     fullPage: true,
   });
   if (info.project.name === "desktop") {
-    await observer.setViewportSize({ width: 1920, height: 1080 });
-    const dimensions = await observer.locator(".real-stage").evaluate((el) => ({
-      width: el.getBoundingClientRect().width,
-      height: el.getBoundingClientRect().height,
-      overflows: el.scrollHeight > el.clientHeight + 1,
-    }));
+    const obs = await observer.context().newPage();
+    await obs.setViewportSize({ width: 1920, height: 1080 });
+    await obs.goto(observer.url().replace(/\/public$/, "/obs"));
+    await expect(obs.getByTestId("broadcast-connection")).toHaveText(
+      "Synchronisé",
+    );
+    const dimensions = await obs
+      .getByTestId("broadcast-frame")
+      .evaluate((el) => ({
+        width: el.getBoundingClientRect().width,
+        height: el.getBoundingClientRect().height,
+        overflows: el.scrollHeight > el.clientHeight + 1,
+      }));
     expect(dimensions.width / dimensions.height).toBeCloseTo(16 / 9, 1);
     expect(dimensions.overflows).toBe(false);
+    await expect(obs.locator("button,input,select,textarea")).toHaveCount(0);
+    await obs.close();
   }
   await observer.screenshot({
     path: info.outputPath("undercover-public-final.png"),
@@ -290,7 +299,7 @@ test("ties, a disconnected player's return and GM delegation use the same privat
   await delegated("Joueur démo 3", "Joueur démo 4");
   await delegated("Joueur démo 4", "Joueur démo 1");
   await resolve(gm);
-  await expect(observer.locator(".play-vote-result")).toContainText(
+  await expect(observer.locator(".spectator-round")).toContainText(
     "Égalité : personne n’est éliminé.",
   );
   await expect(observer.locator(".is-eliminated")).toHaveCount(0);
@@ -662,10 +671,9 @@ test("Jouer separates creation, prepares three isolated players and transfers th
       });
     }
     await completeClues(gm);
-    await expect(observer.locator(".turn-progress")).toHaveAttribute(
-      "data-complete",
-      "true",
-    );
+    await expect(
+      observer.getByRole("heading", { name: "Indices terminés", exact: true }),
+    ).toBeVisible();
     await gm
       .getByRole("button", { name: "Ouvrir les votes", exact: true })
       .click();

@@ -74,8 +74,7 @@ export function OfficialLaboratory({
         : previous.filter((entry) => entry !== name),
     );
   }
-  function incarnate(next: string) {
-    changeRole(next);
+  function closeTools() {
     shell.current
       ?.querySelectorAll<HTMLDetailsElement>(
         "details.lab-stitch-disclosure[open]",
@@ -84,6 +83,10 @@ export function OfficialLaboratory({
         panel.open = false;
       });
     setExpanded([]);
+  }
+  function incarnate(next: string) {
+    changeRole(next);
+    closeTools();
     requestAnimationFrame(() =>
       shell.current
         ?.querySelector<HTMLSelectElement>(".lab-stitch-selector select")
@@ -220,7 +223,7 @@ export function OfficialLaboratory({
                     id={`lab-perspective-${id}`}
                     aria-label="Perspective du laboratoire"
                     value={role}
-                    onChange={(event) => changeRole(event.target.value)}
+                    onChange={(event) => incarnate(event.target.value)}
                   >
                     <option value="gm">Game Master</option>
                     {players.map((person, index) => (
@@ -269,7 +272,10 @@ export function OfficialLaboratory({
                       type="checkbox"
                       aria-label="Afficher le plateau à côté sur ordinateur"
                       checked={compare}
-                      onChange={(event) => setCompare(event.target.checked)}
+                      onChange={(event) => {
+                        if (event.target.checked) closeTools();
+                        setCompare(event.target.checked);
+                      }}
                     />
                     Comparer avec l’émission
                   </label>

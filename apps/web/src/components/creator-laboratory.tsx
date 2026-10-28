@@ -527,7 +527,7 @@ function LabView({
       {view &&
         (audience === "public" ? (
           <>
-            <PublicSession view={view} standalone />
+            <PublicSession view={view} />
             <SpectatorTest id={id} />
           </>
         ) : (
