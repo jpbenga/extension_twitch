@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>AFTER — Player Tied Vote — Mobile — v1</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0C0C1F',
+            surface: '#1A1A2D',
+            raised: '#28283C',
+            'raised-dim': '#202034',
+            'text-primary': '#E2E0FB',
+            'text-secondary': '#B7A8D4',
+            lilac: '#CEBDFF',
+            'control-border': '#7E7199',
+            citron: '#C8F323',
+            'on-citron': '#171E00'
+          },
+          fontFamily: {
+            headline: ['"Space Grotesk"', 'sans-serif'],
+            body: ['"DM Sans"', 'sans-serif']
+          },
+          borderRadius: {
+            card: '12px',
+            control: '8px'
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    body {
+      background-color: #0C0C1F;
+      color: #E2E0FB;
+      font-family: 'DM Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .font-headline {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    details summary::-webkit-details-marker {
+      display: none;
+    }
+  </style>
+</head>
+<body class="min-h-full bg-canvas text-text-primary flex flex-col justify-between p-4 selection:bg-lilac selection:text-canvas max-w-[390px] mx-auto">
+<!-- Minimal Top Header -->
+<header class="w-full pt-1 pb-4 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<!-- Gamepad Icon -->
+<svg class="w-5 h-5 text-lilac" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<rect height="12" rx="6" width="20" x="2" y="6"></rect>
+<path d="M6 12h4"></path>
+<path d="M8 10v4"></path>
+<circle cx="15" cy="11" fill="currentColor" r="1"></circle>
+<circle cx="17" cy="13" fill="currentColor" r="1"></circle>
+</svg>
+<span class="font-headline font-bold text-sm tracking-wider uppercase text-text-primary">Undercover</span>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface border border-control-border/30 text-xs font-headline text-text-secondary">
+<span class="w-1.5 h-1.5 rounded-full bg-lilac/70"></span>
+<span>Camille</span>
+</div>
+</header>
+<!-- Main Center Content Area -->
+<main class="w-full flex-1 flex flex-col items-center justify-center my-auto space-y-4">
+<!-- Context Badge -->
+<div class="px-3 py-1 rounded-full bg-surface/90 border border-control-border/30 text-xs font-headline text-text-secondary tracking-wide text-center">
+      Manche 1 · Résultat du vote
+    </div>
+<!-- Central Announcement Card -->
+<section class="w-full bg-surface rounded-card border border-control-border/30 p-6 flex flex-col items-center text-center shadow-sm">
+<!-- Icon: Tied vote balance / equals -->
+<div class="w-12 h-12 rounded-full bg-raised flex items-center justify-center mb-4 text-lilac border border-control-border/20">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M5 9h14"></path>
+<path d="M5 15h14"></path>
+</svg>
+</div>
+<!-- Main Headline -->
+<h1 class="font-headline text-2xl font-bold text-text-primary mb-2">
+        Égalité
+      </h1>
+<!-- Support Explanation -->
+<p class="text-base text-text-primary font-medium mb-1">
+        Personne n’est éliminé.
+      </p>
+<p class="text-xs text-text-secondary leading-relaxed">
+        Le Game Master lancera la prochaine manche.
+      </p>
+<!-- Aggregate tallies disclosure (optional closed detail) -->
+<div class="w-full mt-5 pt-4 border-t border-control-border/25">
+<details class="group w-full text-left">
+<summary class="flex items-center justify-between cursor-pointer min-h-[48px] py-2 px-1 text-xs font-headline text-text-secondary hover:text-text-primary transition-colors select-none list-none">
+<span>Détail des votes</span>
+<svg class="w-4 h-4 text-text-secondary transition-transform group-open:rotate-180" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<polyline points="6 9 12 15 18 9"></polyline>
+</svg>
+</summary>
+<div class="mt-3 space-y-2 text-xs">
+<div class="flex items-center justify-between py-1.5 px-3 rounded-control bg-raised/70 border border-control-border/20">
+<span class="text-text-primary font-medium">Léa</span>
+<span class="font-headline text-lilac font-semibold">2 votes</span>
+</div>
+<div class="flex items-center justify-between py-1.5 px-3 rounded-control bg-raised/70 border border-control-border/20">
+<span class="text-text-primary font-medium">Noa</span>
+<span class="font-headline text-lilac font-semibold">2 votes</span>
+</div>
+<div class="text-[11px] text-text-secondary/80 text-center pt-1">
+              4 votes exprimés au total
+            </div>
+</div>
+</details>
+</div>
+</section>
+<!-- Word Conceal Card (Resting State) -->
+<section class="w-full bg-surface rounded-card border border-control-border/30 p-3.5 flex items-center justify-between"><div class="flex items-center gap-2.5 text-xs text-text-secondary">
+<svg class="w-4 h-4 text-text-secondary/90 flex-shrink-0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+<line x1="1" x2="23" y1="1" y2="23"></line>
+</svg>
+<span class="text-xs">Votre mot est masqué</span>
+</div>
+<button class="min-h-[48px] h-12 px-4 rounded-control bg-raised border border-control-border/40 text-text-primary text-xs font-headline font-medium hover:border-lilac/50 transition-colors flex items-center gap-2" type="button">
+<svg class="w-4 h-4 text-lilac" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+<circle cx="12" cy="12" r="3"></circle>
+</svg>
+<span>Voir mon mot</span>
+</button></section>
+</main>
+<!-- Bottom Secondary Accordion Disclosure -->
+<footer class="w-full pt-4 pb-1">
+<details class="group w-full">
+<summary class="w-full min-h-[48px] h-12 px-4 rounded-card bg-surface/80 border border-control-border/30 flex items-center justify-between cursor-pointer text-xs font-headline text-text-secondary hover:text-text-primary hover:border-control-border/50 transition-all select-none list-none">
+<div class="flex items-center gap-2">
+<svg class="w-4 h-4 text-text-secondary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+<circle cx="9" cy="7" r="4"></circle>
+<path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+</svg>
+<span>Suivre la partie</span>
+</div>
+<svg class="w-4 h-4 text-text-secondary transition-transform group-open:rotate-180" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<polyline points="6 9 12 15 18 9"></polyline>
+</svg>
+</summary>
+<div class="mt-2 p-3 bg-surface/90 border border-control-border/30 rounded-card text-xs text-text-secondary space-y-2">
+<div class="flex justify-between items-center py-1 border-b border-control-border/20">
+<span>Joueurs en lice</span>
+<span class="font-headline font-semibold text-text-primary">4 joueurs</span>
+</div>
+<div class="flex justify-between items-center py-1">
+<span>Phase</span>
+<span class="font-headline text-lilac">Transition manche suivante</span>
+</div>
+</div>
+</details>
+</footer>
+</body>
+</html>

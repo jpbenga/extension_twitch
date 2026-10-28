@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AFTER — Player Private Access — Mobile — v1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'canvas': '#0C0C1F',
+            'main-surface': '#1A1A2D',
+            'raised-surface': '#28283C',
+            'primary-text': '#E2E0FB',
+            'secondary-text': '#B7A8D4',
+            'lilac': '#CEBDFF',
+            'citron': '#C8F323',
+            'citron-text': '#171E00',
+            'control-border': '#7E7199',
+          },
+          fontFamily: {
+            sans: ['"DM Sans"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      background-color: #0C0C1F;
+      color: #E2E0FB;
+      font-family: 'DM Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, button {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+  </style>
+</head>
+<body class="min-h-full flex flex-col justify-between selection:bg-lilac selection:text-canvas">
+  <!-- Minimal Player Header -->
+  <header class="w-full max-w-md mx-auto px-4 pt-6 pb-2 flex items-center justify-between">
+    <div class="flex items-center gap-2.5 text-secondary-text">
+      <div class="w-7 h-7 rounded-lg bg-main-surface border border-control-border/40 flex items-center justify-center text-lilac">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="6" width="20" height="12" rx="4"></rect>
+          <path d="M6 12h4m-2-2v4m7-2h.01m3 0h.01"></path>
+        </svg>
+      </div>
+      <span class="font-display font-bold tracking-wider text-xs uppercase text-primary-text/90">Undercover</span>
+    </div>
+  </header>
+
+  <!-- Main Content Viewport -->
+  <main class="w-full max-w-md mx-auto px-4 py-8 flex-1 flex flex-col justify-center">
+    <div class="space-y-6">
+      <!-- Calm neutral access icon badge -->
+      <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-main-surface border border-control-border/40 text-lilac shadow-sm">
+        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+      </div>
+
+      <!-- Title & Explanation -->
+      <div class="space-y-3">
+        <h1 class="text-[26px] leading-[32px] sm:text-[28px] sm:leading-[34px] font-bold tracking-tight text-primary-text">
+          Votre accès privé est nécessaire
+        </h1>
+        <p class="text-[15px] sm:text-[16px] leading-relaxed text-secondary-text">
+          Ouvrez votre lien privé de récupération dans ce navigateur. Pour une nouvelle inscription, demandez une invitation au Game Master.
+        </p>
+      </div>
+
+      <!-- Secondary Navigation Action -->
+      <div class="pt-4">
+        <a href="#" class="inline-flex items-center justify-center w-full min-h-[48px] px-5 py-3 rounded-lg border border-control-border/60 hover:border-lilac/80 bg-main-surface hover:bg-raised-surface text-primary-text hover:text-white font-medium text-[15px] transition-colors focus:outline-none focus:ring-2 focus:ring-lilac focus:ring-offset-2 focus:ring-offset-canvas active:scale-[0.99]">
+          Retour à l’accueil
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Minimal Footer -->
+  <footer class="w-full max-w-md mx-auto px-4 py-6 text-center">
+    <p class="text-xs text-secondary-text/60">
+      Undercover · Accès participant sécurisé
+    </p>
+  </footer>
+</body>
+</html>

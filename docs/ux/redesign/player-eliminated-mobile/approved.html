@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AFTER — Player Eliminated — Mobile — v1</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: #0C0C1F;
+      color: #E2E0FB;
+      -webkit-font-smoothing: antialiased;
+    }
+    .font-display {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+  </style>
+</head>
+<body class="min-h-full flex flex-col justify-between bg-[#0C0C1F] text-[#E2E0FB] p-4 max-w-[390px] mx-auto antialiased selection:bg-[#CEBDFF]/20">
+
+  <!-- Header compact minimaliste -->
+  <header class="w-full flex items-center justify-between pt-2 pb-4">
+    <div class="flex items-center gap-2">
+      <!-- Gamepad Icon -->
+      <svg class="w-5 h-5 text-[#CEBDFF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="6" y1="12" x2="10" y2="12"></line>
+        <line x1="8" y1="10" x2="8" y2="14"></line>
+        <line x1="15" y1="13" x2="15.01" y2="13"></line>
+        <line x1="18" y1="11" x2="18.01" y2="11"></line>
+        <rect x="2" y="6" width="20" height="12" rx="6"></rect>
+      </svg>
+      <span class="font-display font-bold text-sm tracking-wider uppercase text-[#E2E0FB]">Undercover</span>
+    </div>
+    <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-[#1A1A2D] border border-[#7E7199]/30 text-xs">
+      <span class="text-[#B7A8D4]">Joueur</span>
+      <span class="font-medium text-[#E2E0FB]">Camille</span>
+    </div>
+  </header>
+
+  <!-- Contenu Principal -->
+  <main class="flex-1 flex flex-col justify-center gap-6 my-auto py-4">
+
+    <!-- Contexte de la partie / manche -->
+    <div class="flex flex-col items-center gap-1.5 text-center">
+      <div class="inline-flex items-center px-3 py-1 rounded-full bg-[#1A1A2D] border border-[#7E7199]/25 text-xs text-[#B7A8D4]">
+        <span>Manche 2 · Tour d’indices 1 sur 2</span>
+      </div>
+      <p class="text-xs text-[#B7A8D4]">Prise de parole orale · <span class="text-[#E2E0FB] font-medium">Au tour de Noa</span></p>
+    </div>
+
+    <!-- Carte principale : Élimination et rôle révélé -->
+    <section class="bg-[#1A1A2D] border border-[#7E7199]/30 rounded-[12px] p-6 text-center shadow-lg">
+      <!-- Statut / Icône d'élimination -->
+      <div class="w-12 h-12 rounded-full bg-[#28283C] border border-[#7E7199]/40 flex items-center justify-center mx-auto mb-4 text-[#B7A8D4]">
+        <svg class="w-6 h-6 text-[#CEBDFF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+        </svg>
+      </div>
+
+      <h1 class="font-display font-bold text-[24px] leading-tight text-[#E2E0FB] mb-2">
+        Vous êtes éliminée
+      </h1>
+
+      <div class="inline-block px-3 py-1 rounded-[8px] bg-[#28283C] border border-[#7E7199]/40 mb-4">
+        <span class="text-xs text-[#B7A8D4]">Votre camp : </span>
+        <span class="font-display font-semibold text-xs text-[#CEBDFF]">Civil</span>
+      </div>
+
+      <p class="text-sm text-[#B7A8D4] leading-relaxed max-w-[280px] mx-auto">
+        Vous pouvez suivre la partie, mais vous ne votez plus.
+      </p>
+    </section>
+
+    <!-- Statut d'écoute en direct -->
+    <div class="bg-[#1A1A2D] border border-[#7E7199]/20 rounded-[12px] p-4 flex items-center gap-3.5">
+      <div class="w-9 h-9 rounded-full bg-[#28283C] flex items-center justify-center flex-shrink-0 text-[#B7A8D4]">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+        </svg>
+      </div>
+      <div class="flex-1 min-w-0">
+        <div class="flex items-center gap-1.5">
+          <span class="text-xs text-[#B7A8D4]">En cours :</span>
+          <span class="text-xs font-medium text-[#E2E0FB]">Au tour de Noa</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-[#CEBDFF] animate-pulse"></span>
+        </div>
+        <p class="text-xs text-[#B7A8D4]/80 truncate">Écoutez son indice oral.</p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Tiroir de détails secondaire fermé : Suivre la partie -->
+  <footer class="w-full pb-2">
+    <button type="button" class="w-full min-h-[44px] flex items-center justify-between px-4 py-2.5 rounded-[12px] bg-[#1A1A2D] border border-[#7E7199]/30 text-xs text-[#B7A8D4] hover:text-[#E2E0FB] transition-colors focus:outline-none focus:ring-2 focus:ring-[#CEBDFF]">
+      <div class="flex items-center gap-2">
+        <svg class="w-4 h-4 text-[#B7A8D4]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>
+        <span class="font-medium text-[#E2E0FB]">Suivre la partie</span>
+      </div>
+      <svg class="w-4 h-4 text-[#B7A8D4]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </button>
+  </footer>
+
+</body>
+</html>

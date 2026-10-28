@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AFTER — Player Waiting Turn — Mobile — v1</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0C0C1F',
+            surface: {
+              DEFAULT: '#1A1A2D',
+              raised: '#28283C',
+            },
+            text: {
+              primary: '#E2E0FB',
+              secondary: '#B7A8D4',
+            },
+            lilac: '#CEBDFF',
+            citron: {
+              DEFAULT: '#C8F323',
+              dark: '#171E00',
+            },
+            controlBorder: '#7E7199',
+          },
+          fontFamily: {
+            heading: ['"Space Grotesk"', 'sans-serif'],
+            body: ['"DM Sans"', 'sans-serif'],
+          },
+          borderRadius: {
+            card: '12px',
+            control: '8px',
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      background-color: #0C0C1F;
+      color: #E2E0FB;
+      font-family: 'DM Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+    .font-space {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#0C0C1F] text-[#E2E0FB] flex flex-col justify-between p-4 max-w-[390px] mx-auto select-none antialiased">
+  
+  <!-- Header compact Undercover / Joueur Camille -->
+  <header class="w-full flex items-center justify-between pt-1 pb-4">
+    <div class="flex items-center gap-2">
+      <!-- Gamepad brand mark -->
+      <svg class="w-5 h-5 text-[#E2E0FB]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect width="20" height="12" x="2" y="6" rx="6" />
+        <path d="M6 12h4" />
+        <path d="M8 10v4" />
+        <circle cx="15" cy="11" r="1" fill="currentColor" />
+        <circle cx="17" cy="13" r="1" fill="currentColor" />
+      </svg>
+      <span class="font-space font-bold text-base tracking-wide uppercase text-[#E2E0FB]">Undercover</span>
+    </div>
+    
+    <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-[8px] bg-[#1A1A2D] border border-[#7E7199]/40 text-xs">
+      <span class="w-2 h-2 rounded-full bg-[#C8F323]"></span>
+      <span class="font-space font-medium text-[#E2E0FB]">Camille</span>
+    </div>
+  </header>
+
+  <!-- Contenu Principal -->
+  <main class="flex-1 flex flex-col justify-center gap-4 my-auto py-2">
+    
+    <!-- Contexte / Manche & Tour -->
+    <div class="w-full flex justify-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-[8px] bg-[#1A1A2D] border border-[#7E7199]/30 text-xs text-[#B7A8D4] font-space tracking-tight">
+        <span>Manche 1 · Tour d’indices 1 sur 2</span>
+      </div>
+    </div>
+
+    <!-- Carte principale : Au tour de Noa -->
+    <section class="w-full bg-[#1A1A2D] border border-[#7E7199]/30 rounded-[12px] p-6 text-center shadow-lg">
+      <!-- Icône prise de parole / écoute -->
+      <div class="w-12 h-12 mx-auto mb-4 rounded-full bg-[#28283C] flex items-center justify-center text-[#CEBDFF]">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+        </svg>
+      </div>
+
+      <h1 class="font-space font-bold text-2xl tracking-tight text-[#E2E0FB] mb-2">
+        Au tour de Noa
+      </h1>
+      
+      <p class="text-sm text-[#B7A8D4] leading-relaxed max-w-[280px] mx-auto">
+        Écoutez son indice, puis attendez votre tour.
+      </p>
+    </section>
+
+    <!-- Carte discrète de rappel : Mot masqué avec toggle secondaire -->
+    <section class="w-full bg-[#1A1A2D] border border-[#7E7199]/30 rounded-[12px] p-4 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-full bg-[#28283C] flex items-center justify-center text-[#B7A8D4] flex-shrink-0">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+            <line x1="1" y1="1" x2="23" y2="23"></line>
+          </svg>
+        </div>
+        <div class="text-left">
+          <p class="font-space font-medium text-sm text-[#E2E0FB]">Votre mot est masqué</p>
+        </div>
+      </div>
+
+      <button type="button" class="min-h-[44px] px-3 py-2 rounded-[8px] bg-[#28283C] hover:bg-[#37374c] text-[#CEBDFF] font-space text-xs font-semibold border border-[#7E7199]/40 flex items-center gap-1.5 transition-colors active:scale-95">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+          <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+        <span>Voir mon mot</span>
+      </button>
+    </section>
+
+  </main>
+
+  <!-- Footer : Disclosure fermé "Suivre la partie" -->
+  <footer class="w-full pb-2 pt-2">
+    <div class="w-full bg-[#1A1A2D] border border-[#7E7199]/30 rounded-[12px] overflow-hidden">
+      <button type="button" class="w-full min-h-[48px] px-4 py-3 flex items-center justify-between text-left text-sm font-space text-[#B7A8D4] hover:text-[#E2E0FB] transition-colors">
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-[#B7A8D4]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <span class="font-medium">Suivre la partie</span>
+        </div>
+        <svg class="w-4 h-4 text-[#B7A8D4]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+    </div>
+  </footer>
+
+</body>
+</html>

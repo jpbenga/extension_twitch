@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AFTER — Player Vote — Mobile — v1</title>
+  <!-- Google Fonts: Space Grotesk & DM Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0C0C1F',
+            surface: {
+              DEFAULT: '#1A1A2D',
+              raised: '#28283C',
+            },
+            text: {
+              primary: '#E2E0FB',
+              secondary: '#B7A8D4',
+            },
+            lilac: '#CEBDFF',
+            citron: {
+              DEFAULT: '#C8F323',
+              dark: '#171E00',
+            },
+            control: {
+              border: '#7E7199',
+            }
+          },
+          fontFamily: {
+            heading: ['"Space Grotesk"', 'sans-serif'],
+            body: ['"DM Sans"', 'sans-serif'],
+          },
+          borderRadius: {
+            'card': '12px',
+            'control': '8px',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #0C0C1F;
+      color: #E2E0FB;
+      font-family: 'DM Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    h1, h2, h3, button, .font-heading {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-canvas min-h-screen text-text-primary flex flex-col justify-between p-4 max-w-[390px] mx-auto select-none">
+
+  <!-- Header -->
+  <header class="flex items-center justify-between pt-2 pb-6 px-1">
+    <div class="flex items-center gap-2">
+      <!-- Gamepad brand icon -->
+      <svg class="w-5 h-5 text-lilac" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm3-3c-.83 0-1.5-.67-1.5-1.5S17.67 9 18.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+      </svg>
+      <span class="font-heading font-bold text-sm tracking-wider uppercase text-text-primary">Undercover</span>
+    </div>
+    
+    <!-- Player Badge -->
+    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface border border-surface-raised text-xs text-text-secondary">
+      <span class="w-1.5 h-1.5 rounded-full bg-citron"></span>
+      <span class="font-medium text-text-primary">Camille</span>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 flex flex-col">
+    <!-- Context Phase Pill -->
+    <div class="flex justify-center mb-6">
+      <span class="inline-flex items-center px-3 py-1 rounded-full bg-surface border border-surface-raised text-xs text-text-secondary tracking-wide font-medium">
+        Manche 1 · Vote
+      </span>
+    </div>
+
+    <!-- Title and helper description -->
+    <div class="text-center px-2 mb-6">
+      <h1 class="text-2xl font-bold text-text-primary tracking-tight font-heading mb-2">
+        Qui souhaitez-vous éliminer&nbsp;?
+      </h1>
+      <p class="text-sm text-text-secondary leading-relaxed">
+        Un seul choix. Votre vote sera définitif.
+      </p>
+    </div>
+
+    <!-- Ballot Radio Options Form -->
+    <form id="vote-form" class="flex flex-col gap-3 mb-6" onsubmit="event.preventDefault();">
+      
+      <!-- Candidate 1: Noa -->
+      <label class="candidate-option flex items-center justify-between p-4 rounded-card bg-surface border border-surface-raised active:bg-surface-raised cursor-pointer transition-colors duration-150 min-h-[58px]">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-surface-raised flex items-center justify-center text-xs font-heading font-semibold text-text-primary">
+            N
+          </div>
+          <span class="font-heading font-medium text-base text-text-primary">Noa</span>
+        </div>
+        <div class="relative flex items-center justify-center">
+          <input type="radio" name="candidate" value="Noa" class="sr-only peer" onchange="handleSelection(this)">
+          <div class="w-5 h-5 rounded-full border border-control-border peer-checked:border-lilac peer-checked:bg-surface-raised flex items-center justify-center transition-all duration-150">
+            <div class="w-2.5 h-2.5 rounded-full bg-lilac opacity-0 peer-checked:opacity-100 transition-opacity duration-150"></div>
+          </div>
+        </div>
+      </label>
+
+      <!-- Candidate 2: Léa -->
+      <label class="candidate-option flex items-center justify-between p-4 rounded-card bg-surface border border-surface-raised active:bg-surface-raised cursor-pointer transition-colors duration-150 min-h-[58px]">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-surface-raised flex items-center justify-center text-xs font-heading font-semibold text-text-primary">
+            L
+          </div>
+          <span class="font-heading font-medium text-base text-text-primary">Léa</span>
+        </div>
+        <div class="relative flex items-center justify-center">
+          <input type="radio" name="candidate" value="Léa" class="sr-only peer" onchange="handleSelection(this)">
+          <div class="w-5 h-5 rounded-full border border-control-border peer-checked:border-lilac peer-checked:bg-surface-raised flex items-center justify-center transition-all duration-150">
+            <div class="w-2.5 h-2.5 rounded-full bg-lilac opacity-0 peer-checked:opacity-100 transition-opacity duration-150"></div>
+          </div>
+        </div>
+      </label>
+
+      <!-- Candidate 3: Sami -->
+      <label class="candidate-option flex items-center justify-between p-4 rounded-card bg-surface border border-surface-raised active:bg-surface-raised cursor-pointer transition-colors duration-150 min-h-[58px]">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-surface-raised flex items-center justify-center text-xs font-heading font-semibold text-text-primary">
+            S
+          </div>
+          <span class="font-heading font-medium text-base text-text-primary">Sami</span>
+        </div>
+        <div class="relative flex items-center justify-center">
+          <input type="radio" name="candidate" value="Sami" class="sr-only peer" onchange="handleSelection(this)">
+          <div class="w-5 h-5 rounded-full border border-control-border peer-checked:border-lilac peer-checked:bg-surface-raised flex items-center justify-center transition-all duration-150">
+            <div class="w-2.5 h-2.5 rounded-full bg-lilac opacity-0 peer-checked:opacity-100 transition-opacity duration-150"></div>
+          </div>
+        </div>
+      </label>
+
+    </form>
+
+    <!-- Vote CTA (Single Primary, visibly subdued disabled state) -->
+    <div class="mt-auto pt-2 pb-4">
+      <button 
+        id="vote-btn" 
+        type="button" 
+        disabled 
+        class="w-full h-12 rounded-control font-heading font-semibold text-base flex items-center justify-center transition-all duration-200 cursor-not-allowed bg-surface-raised/60 text-text-secondary/50 border border-transparent"
+      >
+        Voter
+      </button>
+    </div>
+  </main>
+
+  <!-- Secondary Footer: Suivre la partie (Closed Disclosure) -->
+  <footer class="pt-2 pb-2">
+    <details class="group rounded-card bg-surface border border-surface-raised/70 overflow-hidden text-sm">
+      <summary class="flex items-center justify-between p-3.5 cursor-pointer list-none text-text-secondary hover:text-text-primary transition-colors min-h-[44px]">
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+          <span class="text-xs font-medium">Suivre la partie</span>
+        </div>
+        <svg class="w-4 h-4 transition-transform duration-200 group-open:rotate-180 text-text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </summary>
+      <div class="p-3.5 pt-0 border-t border-surface-raised/40 text-xs text-text-secondary space-y-1.5">
+        <div class="flex justify-between items-center py-1">
+          <span>Tour d'indices</span>
+          <span class="text-text-primary">Terminé (2/2)</span>
+        </div>
+        <div class="flex justify-between items-center py-1">
+          <span>Joueurs encore en lice</span>
+          <span class="text-text-primary">4 joueurs</span>
+        </div>
+      </div>
+    </details>
+  </footer>
+
+  <!-- Interactivity Script for State Switch -->
+  <script>
+    function handleSelection(radio) {
+      const btn = document.getElementById('vote-btn');
+      const allLabels = document.querySelectorAll('.candidate-option');
+      
+      allLabels.forEach(label => {
+        label.classList.remove('border-lilac', 'bg-surface-raised');
+        label.classList.add('border-surface-raised', 'bg-surface');
+      });
+
+      if (radio.checked) {
+        const parentLabel = radio.closest('.candidate-option');
+        parentLabel.classList.remove('border-surface-raised', 'bg-surface');
+        parentLabel.classList.add('border-lilac', 'bg-surface-raised');
+
+        // Enable button with canonical citron primary treatment
+        btn.disabled = false;
+        btn.classList.remove('cursor-not-allowed', 'bg-surface-raised/60', 'text-text-secondary/50', 'border-transparent');
+        btn.classList.add('cursor-pointer', 'bg-citron', 'text-citron-dark', 'hover:brightness-95', 'active:brightness-90');
+      }
+    }
+  </script>
+</body>
+</html>

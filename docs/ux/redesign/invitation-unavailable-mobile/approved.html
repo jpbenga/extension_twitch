@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>AFTER — Invitation Unavailable — Mobile — v1</title>
+<!-- Google Fonts: Space Grotesk & DM Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0C0C1F',
+            'main-surface': '#1A1A2D',
+            'raised-surface': '#28283C',
+            'primary-text': '#E2E0FB',
+            'secondary-text': '#B7A8D4',
+            'lilac': '#CEBDFF',
+            'primary-action': '#C8F323',
+            'on-primary-action': '#171E00',
+            'control-border': '#7E7199',
+            'border-subtle': '#343352',
+            'state-dim': '#202038',
+          },
+          fontFamily: {
+            title: ['"Space Grotesk"', 'sans-serif'],
+            body: ['"DM Sans"', 'sans-serif'],
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="min-h-full bg-canvas text-primary-text font-body antialiased flex flex-col justify-between selection:bg-lilac selection:text-canvas">
+<!-- Player Mobile Minimal Header: Exact Undercover minimal header from Screen 2 -->
+<header class="w-full max-w-lg mx-auto px-4 pt-6 pb-4 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<!-- Gamepad brand mark -->
+<div class="w-8 h-8 rounded-lg bg-main-surface border border-control-border/30 flex items-center justify-center text-lilac">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<line x1="6" x2="10" y1="12" y2="12"></line>
+<line x1="8" x2="8" y1="10" y2="14"></line>
+<line x1="15" x2="15.01" y1="13" y2="13"></line>
+<line x1="18" x2="18.01" y1="11" y2="11"></line>
+<rect height="12" rx="6" width="20" x="2" y="6"></rect>
+</svg>
+</div>
+<span class="font-title text-xs tracking-wider uppercase font-semibold text-primary-text">Undercover</span>
+</div>
+</header>
+<!-- Main Content Area: Single intention, calm error state -->
+<main class="w-full max-w-lg mx-auto px-4 py-8 sm:py-12 flex-1 flex flex-col justify-center">
+<div class="w-full space-y-6">
+<!-- Quiet Access-state Icon (Calm, not alarmist or hazard decoration) -->
+<div class="w-12 h-12 rounded-xl bg-main-surface border border-border-subtle flex items-center justify-center text-lilac/90 shadow-sm">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<!-- Calm link-off / access unavailable symbol -->
+<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+<path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+<line x1="2" x2="22" y1="2" y2="22"></line>
+</svg>
+</div>
+<!-- Title & Explanation -->
+<div class="space-y-3">
+<h1 class="font-title text-[28px] leading-[34px] font-bold text-primary-text tracking-tight">
+          Invitation indisponible
+        </h1>
+<p class="text-base text-secondary-text leading-relaxed font-normal">
+          Cette invitation est inconnue ou a été renouvelée. Demandez un nouveau lien au Game Master.
+        </p>
+</div>
+<!-- State summary indicator card (restrained, single card, 12px radius) -->
+<!-- Actions Stack -->
+<div class="pt-2 space-y-3">
+<!-- Single Primary Recovery Action (Restrained Citron) -->
+<a class="w-full min-h-[48px] px-6 py-3.5 rounded-lg bg-primary-action hover:bg-[#bce420] active:scale-[0.99] text-on-primary-action font-title font-semibold text-sm flex items-center justify-center gap-2 transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-lilac focus:ring-offset-2 focus:ring-offset-canvas text-center" href="#">
+<span>Saisir une autre invitation</span>
+<svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<line x1="5" x2="19" y1="12" y2="12"></line>
+<polyline points="12 5 19 12 12 19"></polyline>
+</svg>
+</a>
+<!-- Secondary Navigation Action -->
+<div class="text-center pt-2">
+<a class="inline-flex items-center justify-center min-h-[44px] px-4 py-2 text-sm text-secondary-text hover:text-lilac transition-colors focus:outline-none focus:text-lilac" href="#">
+            Retour à l’accueil
+          </a>
+</div>
+</div>
+</div>
+</main>
+<!-- Player Mobile Minimal Footer -->
+</body>
+</html>

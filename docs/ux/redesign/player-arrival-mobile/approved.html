@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AFTER — Join Player — Mobile — v1</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0C0C1F',
+            'main-surface': '#1A1A2D',
+            'raised-surface': '#28283C',
+            'primary-text': '#E2E0FB',
+            'secondary-text': '#B7A8D4',
+            'lilac': '#CEBDFF',
+            'citron': '#C8F323',
+            'citron-text': '#171E00',
+            'control-border': '#7E7199',
+            'error-surface': 'rgba(255, 95, 126, 0.12)',
+            'error-border': '#FF5F7E',
+            'error-text': '#FF96AA',
+          },
+          fontFamily: {
+            heading: ['Space Grotesk', 'sans-serif'],
+            body: ['DM Sans', 'sans-serif'],
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    body {
+      background-color: #0C0C1F;
+      color: #E2E0FB;
+      font-family: 'DM Sans', sans-serif;
+    }
+    h1, h2, h3, .font-heading {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+  </style>
+</head>
+<body class="min-h-full flex flex-col justify-between bg-canvas text-primary-text antialiased selection:bg-lilac selection:text-canvas">
+<!-- Main Container -->
+<div class="w-full max-w-[420px] mx-auto min-h-screen flex flex-col px-4 py-6 sm:py-8 justify-between">
+<!-- Top section: Header & Main Form -->
+<div class="w-full flex flex-col">
+<!-- Minimal Player Header -->
+<header class="flex items-center justify-between py-2 mb-8">
+<div class="flex items-center gap-2.5">
+<div aria-hidden="true" class="w-7 h-7 rounded-lg bg-main-surface border border-control-border/40 flex items-center justify-center text-lilac shadow-sm">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<rect height="12" rx="4" width="20" x="2" y="6"></rect>
+<path d="M6 12h4m-2-2v4m7-2h.01m3 0h.01"></path>
+</svg>
+</div>
+<span class="text-xs uppercase tracking-wider font-semibold text-secondary-text font-heading">Undercover</span>
+</div>
+<a class="min-h-[44px] inline-flex items-center text-xs text-secondary-text hover:text-lilac transition-colors px-2.5 rounded-md hover:bg-main-surface/60" href="#">
+          Retour à l’accueil
+        </a>
+</header>
+<!-- Content Intro -->
+<main class="w-full">
+<div class="mb-6">
+<h1 class="text-[26px] sm:text-[28px] font-bold tracking-tight text-primary-text font-heading leading-tight mb-2">
+            Rejoindre la partie
+          </h1>
+<p class="text-sm text-secondary-text leading-relaxed">
+            Choisissez un nom reconnaissable.
+          </p>
+</div>
+<!-- Form Card / Area -->
+<form class="space-y-5" onsubmit="event.preventDefault();">
+<!-- Name Input Field with Validation State -->
+<div class="space-y-2">
+<div class="flex items-center justify-between">
+<label class="block text-sm font-medium text-primary-text font-heading" for="player-name">
+                Votre nom
+              </label>
+<span class="text-xs text-secondary-text/80">1–32 caractères</span>
+</div>
+<div class="relative">
+<input aria-describedby="name-error-message" aria-invalid="true" autocomplete="nickname" class="w-full min-h-[48px] px-3.5 py-3 rounded-lg bg-main-surface border text-base text-primary-text placeholder-secondary-text/50 outline-none transition-all duration-150 border-error-border focus:ring-2 focus:ring-error-border/40 focus:border-error-border" id="player-name" maxlength="32" name="playerName" spellcheck="false" type="text" value="Alex"/>
+<div aria-hidden="true" class="absolute right-3 top-1/2 -translate-y-1/2 text-error-border pointer-events-none">
+<svg class="w-5 h-5" fill="currentColor" viewbox="0 0 20 20">
+<path clip-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" fill-rule="evenodd"></path>
+</svg>
+</div>
+</div>
+<!-- Inline accessible error message -->
+<div class="flex items-start gap-2 p-2.5 rounded-lg bg-error-surface border border-error-border/30 text-xs text-error-text leading-normal" id="name-error-message">
+<svg class="w-4 h-4 text-error-border shrink-0 mt-0.5" fill="currentColor" viewbox="0 0 20 20">
+<path clip-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" fill-rule="evenodd"></path>
+</svg>
+<span>Ce nom est déjà utilisé. Choisissez un autre nom.</span>
+</div>
+</div>
+<!-- Primary Action & Helper -->
+<div class="pt-4 space-y-3">
+<button class="w-full min-h-[48px] px-5 py-3 rounded-lg bg-citron text-citron-text font-heading font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-sm hover:brightness-105 active:scale-[0.99] transition-all duration-150 cursor-pointer focus:outline-none focus:ring-2 focus:ring-lilac focus:ring-offset-2 focus:ring-offset-canvas" type="submit">
+<span>Rejoindre la partie</span>
+<svg aria-hidden="true" class="w-4 h-4" fill="currentColor" viewbox="0 0 20 20">
+<path clip-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" fill-rule="evenodd"></path>
+</svg>
+</button>
+<!-- Small helper text -->
+<p class="text-center text-xs text-secondary-text/90 leading-relaxed px-2">
+              Sans compte. Votre accès reste dans cet onglet.
+            </p>
+</div>
+</form>
+</main>
+</div>
+<!-- Quiet Footer Note -->
+</div>
+</body>
+</html>

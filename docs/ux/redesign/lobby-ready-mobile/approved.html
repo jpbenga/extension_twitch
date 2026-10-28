@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>AFTER — Lobby GM Ready — Mobile — v1</title>
+<!-- Google Fonts: Space Grotesk & DM Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0C0C1F',
+            'main-surface': '#1A1A2D',
+            'raised-surface': '#28283C',
+            'text-primary': '#E2E0FB',
+            'text-secondary': '#B7A8D4',
+            lilac: '#CEBDFF',
+            citron: '#C8F323',
+            'citron-text': '#171E00',
+            'control-border': '#7E7199',
+            'subtle-border': 'rgba(126, 113, 153, 0.28)',
+            'card-border': 'rgba(126, 113, 153, 0.22)',
+            'success-pill': 'rgba(74, 222, 128, 0.15)',
+            'success-text': '#86EFAC',
+            'neutral-pill': 'rgba(183, 168, 212, 0.12)',
+            'offline-text': '#8B83A8',
+          },
+          fontFamily: {
+            sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+          },
+          borderRadius: {
+            card: '12px',
+            control: '8px',
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body {
+      background-color: #0C0C1F;
+      color: #E2E0FB;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      margin: 0;
+      padding: 0;
+    }
+    .font-display {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    /* Touch target guarantee */
+    .touch-target {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-canvas text-text-primary flex flex-col items-center">
+<!-- Main Container: Mobile view optimized at ~390px, max 430px, 16px lateral padding -->
+<div class="w-full max-w-[430px] min-h-screen flex flex-col justify-between px-4 pb-6 pt-3 relative">
+<!-- Top Content Area -->
+<div class="flex-1 flex flex-col">
+<!-- Top GM Header: Extension Twitch gamepad + discreet Apparence -->
+<header class="flex items-center justify-between py-2 border-b border-subtle-border/50 mb-5">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-control bg-raised-surface flex items-center justify-center border border-control-border/40 text-lilac">
+<!-- Gamepad Icon -->
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<line x1="6" x2="10" y1="12" y2="12"></line>
+<line x1="8" x2="8" y1="10" y2="14"></line>
+<line x1="15" x2="15.01" y1="13" y2="13"></line>
+<line x1="18" x2="18.01" y1="11" y2="11"></line>
+<rect height="12" rx="6" width="20" x="2" y="6"></rect>
+</svg>
+</div>
+<div class="flex flex-col leading-tight">
+<span class="text-xs font-display font-bold tracking-wider text-text-primary uppercase">Extension Twitch</span>
+<span class="text-[11px] text-text-secondary">Meneur de jeu</span>
+</div>
+</div>
+<button aria-label="Apparence" class="touch-target px-2 text-text-secondary hover:text-lilac transition-colors text-xs flex items-center gap-1.5 rounded-control" type="button">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="4"></circle>
+<path d="M12 2v2"></path>
+<path d="M12 20v2"></path>
+<path d="m4.93 4.93 1.41 1.41"></path>
+<path d="m17.66 17.66 1.41 1.41"></path>
+<path d="M2 12h2"></path>
+<path d="M20 12h2"></path>
+<path d="m6.34 17.66-1.41 1.41"></path>
+<path d="m19.07 4.93-1.41 1.41"></path>
+</svg>
+<span>Apparence</span>
+</button>
+</header>
+<!-- Page Title & Room Counters Header -->
+<section class="mb-5">
+<div class="flex items-center gap-2 mb-1"><span class="text-[11px] font-display font-bold tracking-widest text-lilac uppercase">Undercover</span></div>
+<div class="flex items-baseline justify-between gap-2">
+<h1 class="text-[28px] leading-tight font-display font-bold text-text-primary tracking-tight">Votre salon</h1>
+<div class="flex flex-col items-end">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-raised-surface border border-control-border/40 text-text-primary">
+              4 joueurs inscrits
+            </span>
+<span class="text-[11px] text-text-secondary mt-0.5">3 connectés</span>
+</div>
+</div>
+</section>
+<!-- Section: Participants Roster (Full list with readiness states) -->
+<section class="bg-main-surface border border-card-border rounded-card p-4 mb-4 shadow-sm">
+<div class="flex items-center justify-between pb-3 mb-3 border-b border-subtle-border">
+<h2 class="text-xs font-display font-semibold uppercase tracking-wider text-text-secondary">Joueurs inscrits</h2>
+<span class="text-xs text-text-secondary">4 au total</span>
+</div>
+<!-- Roster List -->
+<ul class="space-y-2.5" role="list">
+<!-- Alex : Prêt / Connecté -->
+<li class="flex items-center justify-between p-2.5 rounded-control bg-raised-surface/60 border border-subtle-border/60">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-8 h-8 rounded-control bg-raised-surface flex items-center justify-center font-display font-semibold text-xs text-lilac border border-control-border/30 shrink-0">
+                A
+              </div>
+<div class="min-w-0">
+<p class="text-sm font-medium text-text-primary truncate leading-tight">Alex</p>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+<span class="text-[11px] text-emerald-400/90 font-medium">Connecté</span>
+</div>
+</div>
+</div>
+<div class="shrink-0 pl-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-success-pill text-success-text border border-success-text/25">
+                Prêt
+              </span>
+</div>
+</li>
+<!-- Lou : En préparation / Connecté -->
+<li class="flex items-center justify-between p-2.5 rounded-control bg-raised-surface/60 border border-subtle-border/60">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-8 h-8 rounded-control bg-raised-surface flex items-center justify-center font-display font-semibold text-xs text-lilac border border-control-border/30 shrink-0">
+                L
+              </div>
+<div class="min-w-0">
+<p class="text-sm font-medium text-text-primary truncate leading-tight">Lou</p>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+<span class="text-[11px] text-emerald-400/90 font-medium">Connecté</span>
+</div>
+</div>
+</div>
+<div class="shrink-0 pl-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-neutral-pill text-text-secondary border border-control-border/30">
+                En préparation
+              </span>
+</div>
+</li>
+<!-- Sam : Prêt / Connecté -->
+<li class="flex items-center justify-between p-2.5 rounded-control bg-raised-surface/60 border border-subtle-border/60">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-8 h-8 rounded-control bg-raised-surface flex items-center justify-center font-display font-semibold text-xs text-lilac border border-control-border/30 shrink-0">
+                S
+              </div>
+<div class="min-w-0">
+<p class="text-sm font-medium text-text-primary truncate leading-tight">Sam</p>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+<span class="text-[11px] text-emerald-400/90 font-medium">Connecté</span>
+</div>
+</div>
+</div>
+<div class="shrink-0 pl-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-success-pill text-success-text border border-success-text/25">
+                Prêt
+              </span>
+</div>
+</li>
+<!-- Noa : En préparation / Hors ligne -->
+<li class="flex items-center justify-between p-2.5 rounded-control bg-raised-surface/40 border border-subtle-border/40">
+<div class="flex items-center gap-2.5 min-w-0"><div class="w-8 h-8 rounded-control bg-raised-surface flex items-center justify-center font-display font-semibold text-xs text-text-secondary border border-control-border/30 shrink-0">N</div><div class="min-w-0"><p class="text-sm font-medium text-text-primary truncate leading-tight">Noa</p><div class="flex items-center gap-1.5 mt-0.5"><span class="w-1.5 h-1.5 rounded-full bg-offline-text"></span><span class="text-[11px] text-text-secondary font-medium">Hors ligne</span></div></div></div>
+<div class="shrink-0 pl-2"><span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-neutral-pill text-text-secondary border border-control-border/30">En préparation</span></div>
+</li>
+</ul>
+</section>
+<!-- Section: Invitation & Code -->
+<section class="bg-main-surface border border-card-border rounded-card p-3.5 mb-4">
+<div class="flex items-center justify-between mb-2"><span class="text-[11px] font-display font-semibold tracking-wider text-text-secondary uppercase">Code de salon</span></div>
+<!-- Code display box with subtle QR trigger -->
+<div class="flex items-center justify-between bg-raised-surface px-3 py-2 rounded-control border border-subtle-border mb-3">
+<span class="font-display font-bold tracking-wider text-base text-text-primary select-all">DEMO12345678</span>
+</div>
+<!-- Invitation actions: Secondary outlined (NEVER solid citron) + Quiet Share -->
+<div class="grid grid-cols-5 gap-2">
+<button class="col-span-3 touch-target px-3 py-2 text-xs font-display font-semibold text-lilac border border-control-border hover:bg-raised-surface rounded-control transition-colors flex items-center justify-center gap-1.5" type="button">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<rect height="13" rx="2" ry="2" width="13" x="9" y="9"></rect>
+<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+</svg>
+<span class="truncate">Copier le lien</span>
+</button>
+<button class="col-span-2 touch-target px-3 py-2 text-xs font-display font-medium text-text-secondary hover:text-text-primary bg-raised-surface/50 border border-subtle-border rounded-control transition-colors flex items-center justify-center gap-1.5" type="button">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<circle cx="18" cy="5" r="3"></circle>
+<circle cx="6" cy="12" r="3"></circle>
+<circle cx="18" cy="19" r="3"></circle>
+<line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line>
+<line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line>
+</svg>
+<span>Partager</span>
+</button>
+</div>
+</section>
+<!-- Section: Collapsed Settings Links -->
+<section class="space-y-2 mb-4">
+<!-- Gérer les invités -->
+<button class="w-full touch-target px-3.5 py-2.5 rounded-card bg-main-surface border border-card-border flex items-center justify-between text-left hover:border-control-border/60 transition-colors group" type="button"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-control bg-raised-surface flex items-center justify-center text-text-secondary group-hover:text-lilac transition-colors border border-subtle-border"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div><div><p class="text-xs font-display font-medium text-text-primary leading-tight">Gérer les invités</p></div></div><svg class="w-4 h-4 text-text-secondary/70 group-hover:text-lilac transition-colors" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+<!-- Ma régie et mon plateau -->
+<button class="w-full touch-target px-3.5 py-2.5 rounded-card bg-main-surface border border-card-border flex items-center justify-between text-left hover:border-control-border/60 transition-colors group" type="button"><div class="flex items-center gap-3"><div class="w-7 h-7 rounded-control bg-raised-surface flex items-center justify-center text-text-secondary group-hover:text-lilac transition-colors border border-subtle-border"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><rect height="14" rx="2" ry="2" width="20" x="2" y="3"></rect><line x1="8" x2="16" y1="21" y2="21"></line><line x1="12" x2="12" y1="17" y2="21"></line></svg></div><div><p class="text-xs font-display font-medium text-text-primary leading-tight">Ma régie et mon plateau</p></div></div><svg class="w-4 h-4 text-text-secondary/70 group-hover:text-lilac transition-colors" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</section>
+</div>
+<!-- Fixed Bottom Action Area (Thumb-reachable, Safe-area aware, no content overlap) -->
+<div class="mt-4 pt-3 border-t border-subtle-border/60 bg-canvas/95 backdrop-blur-sm sticky bottom-0 z-10 pb-[env(safe-area-inset-bottom,8px)]">
+<!-- Mode context readout -->
+<div class="flex items-center justify-between mb-2.5 px-0.5">
+<span class="text-xs text-text-secondary font-medium flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-lilac"></span>
+<span>4 joueurs · 2 tours d’indices</span>
+</span>
+<span class="text-[11px] text-text-secondary">Configuration prête</span>
+</div>
+<!-- THE SINGLE DOMINANT CITRON CTA: Préparer la partie -->
+<button class="w-full touch-target h-12 bg-citron hover:brightness-105 active:scale-[0.99] text-citron-text font-display font-bold text-sm tracking-wide rounded-control shadow-md transition-all flex items-center justify-center gap-2" type="button">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewbox="0 0 24 24">
+<polygon points="5 3 19 12 5 21 5 3"></polygon>
+</svg>
+<span>Préparer la partie</span>
+</button>
+<!-- Short helper text directly below primary action -->
+<p class="text-[11px] text-center text-text-secondary mt-2 px-2 leading-relaxed">
+        Ferme les inscriptions. Les mots seront distribués ensuite.
+      </p>
+</div>
+</div>
+</body>
+</html>

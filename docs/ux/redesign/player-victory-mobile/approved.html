@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>AFTER — Player Victory — Mobile — v1</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0C0C1F',
+            surface: '#1A1A2D',
+            'surface-raised': '#28283C',
+            'text-primary': '#E2E0FB',
+            'text-secondary': '#B7A8D4',
+            'accent-lilac': '#CEBDFF',
+            'accent-citron': '#C8F323',
+            'on-citron': '#171E00',
+            'control-border': '#7E7199',
+          },
+          fontFamily: {
+            heading: ['"Space Grotesk"', 'sans-serif'],
+            body: ['"DM Sans"', 'sans-serif'],
+          },
+          borderRadius: {
+            card: '12px',
+            control: '8px',
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body {
+      background-color: #0C0C1F;
+      color: #E2E0FB;
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, .font-heading {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    details summary::-webkit-details-marker {
+      display: none;
+    }
+  </style>
+</head>
+<body class="flex flex-col items-center justify-start min-h-screen px-4 py-5 select-none text-text-primary">
+<!-- Mobile Container (390px max-width context) -->
+<div class="w-full max-w-[390px] flex flex-col min-h-[calc(100vh-2.5rem)] justify-between">
+<!-- Top Header & Pill -->
+<header class="flex flex-col items-center w-full gap-5">
+<!-- Minimal App Bar -->
+<div class="w-full flex items-center justify-between">
+<!-- Brand / Gamepad Logo -->
+<div class="flex items-center gap-2 text-text-primary">
+<svg class="w-5 h-5 text-text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<rect height="12" rx="6" width="20" x="2" y="6"></rect>
+<path d="M6 12h4m-2-2v4"></path>
+<circle cx="17" cy="10" fill="currentColor" r="1"></circle>
+<circle cx="15" cy="13" fill="currentColor" r="1"></circle>
+</svg>
+<span class="font-heading font-semibold text-xs tracking-wider uppercase">Undercover</span>
+</div>
+<!-- Player badge -->
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface text-xs font-heading font-medium text-text-secondary border border-surface-raised">
+<span class="text-text-secondary/70">Joueur</span>
+<span class="text-text-primary font-semibold">Camille</span>
+</div>
+</div>
+<!-- State Context Pill -->
+<div class="inline-flex items-center px-3.5 py-1 rounded-full bg-surface border border-surface-raised text-xs font-heading text-text-secondary">
+        Fin de partie · Dénouement
+      </div>
+</header>
+<!-- Main Victory Card & Content -->
+<main class="w-full flex flex-col gap-4 my-auto py-4">
+<!-- Primary Outcome Card -->
+<div class="w-full bg-surface border border-surface-raised rounded-card p-6 flex flex-col items-center text-center shadow-lg">
+<!-- Victory Icon Badge -->
+<div class="w-12 h-12 rounded-full bg-surface-raised flex items-center justify-center text-accent-lilac mb-4">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewbox="0 0 24 24">
+<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+<path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+<path d="M4 22h16"></path>
+<path d="M10 14.66V17c0 .55-.45 1-1 1H7v2h10v-2h-2c-.55 0-1-.45-1-1v-2.34"></path>
+<path d="M6 4h12a2 2 0 0 1 2 2v3a6 6 0 0 1-6 6h-4a6 6 0 0 1-6-6V6a2 2 0 0 1 2-2Z"></path>
+</svg>
+</div>
+<!-- Main Headline -->
+<h1 class="text-2xl font-bold font-heading text-text-primary tracking-tight mb-1">
+          Vous avez gagné !
+        </h1>
+<!-- Supporting Global Outcome -->
+<p class="font-heading text-sm font-semibold text-accent-lilac mb-3">
+          Victoire des civils
+        </p>
+<!-- Player Camp Badge -->
+<div class="inline-flex items-center px-3 py-1 rounded-full bg-surface-raised border border-control-border/40 text-xs font-body text-text-primary mb-5">
+<span>Votre camp : <strong class="font-heading font-medium text-text-primary">Civil</strong></span>
+</div>
+<!-- Secret Words Authorized Reveal -->
+<div class="w-full pt-4 border-t border-surface-raised flex flex-col gap-2">
+<span class="text-[11px] font-heading uppercase tracking-wider text-text-secondary">
+            Mots de la partie
+          </span>
+<div class="grid grid-cols-2 gap-2 text-left">
+<div class="bg-canvas/60 border border-surface-raised/80 rounded-control p-2.5 flex flex-col">
+<span class="text-[11px] text-text-secondary font-medium">Civils</span>
+<span class="font-heading text-sm font-bold text-text-primary mt-0.5">Phare</span>
+</div>
+<div class="bg-canvas/60 border border-surface-raised/80 rounded-control p-2.5 flex flex-col">
+<span class="text-[11px] text-text-secondary font-medium">Undercover</span>
+<span class="font-heading text-sm font-bold text-text-primary mt-0.5">Fusée</span>
+</div>
+</div>
+</div>
+<!-- Quiet Status / GM notice -->
+<p class="text-xs text-text-secondary font-body mt-5 leading-relaxed">
+          Le Game Master peut préparer une nouvelle partie.
+        </p>
+</div>
+<!-- Closed Disclosure: Voir les joueurs -->
+<details class="w-full bg-surface border border-surface-raised rounded-card overflow-hidden group">
+<summary class="w-full min-h-[48px] px-4 py-3 flex items-center justify-between cursor-pointer list-none select-none text-xs font-heading font-medium text-text-secondary hover:text-text-primary transition-colors">
+<div class="flex items-center gap-2">
+<svg class="w-4 h-4 text-accent-lilac" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+<circle cx="9" cy="7" r="4"></circle>
+<path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+</svg>
+<span>Voir les joueurs</span>
+</div>
+<svg class="w-4 h-4 text-text-secondary group-open:rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="m6 9 6 6 6-6"></path>
+</svg>
+</summary>
+<div class="px-4 pb-4 pt-1 border-t border-surface-raised flex flex-col gap-2"><!-- Roster item: Camille (Vous) -->
+<div class="flex items-center justify-between py-2 border-b border-surface-raised/40 text-xs">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded-full bg-surface-raised text-text-primary flex items-center justify-center font-heading text-[11px] font-semibold">C</span>
+<span class="font-heading font-medium text-text-primary">Camille (Vous)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="text-text-secondary text-[11px]">Civil</span>
+<span class="w-1.5 h-1.5 rounded-full bg-accent-citron"></span>
+</div>
+</div>
+<!-- Roster item: Noa -->
+<div class="flex items-center justify-between py-2 border-b border-surface-raised/40 text-xs">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded-full bg-surface-raised text-text-secondary flex items-center justify-center font-heading text-[11px] font-semibold">N</span>
+<span class="font-heading font-medium text-text-primary">Noa</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="text-text-secondary text-[11px]">Civil</span>
+<span class="w-1.5 h-1.5 rounded-full bg-accent-citron"></span>
+</div>
+</div>
+<!-- Roster item: Léa -->
+<div class="flex items-center justify-between py-2 border-b border-surface-raised/40 text-xs">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded-full bg-surface-raised text-text-secondary flex items-center justify-center font-heading text-[11px] font-semibold">L</span>
+<span class="font-heading font-medium text-text-primary">Léa</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="text-text-secondary text-[11px]">Civil</span>
+<span class="w-1.5 h-1.5 rounded-full bg-accent-citron"></span>
+</div>
+</div>
+<!-- Roster item: Sami (Undercover éliminé) -->
+<div class="flex items-center justify-between py-2 text-xs">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded-full bg-surface-raised text-text-secondary flex items-center justify-center font-heading text-[11px] font-semibold">S</span>
+<span class="font-heading font-medium text-text-primary">Sami</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="text-accent-lilac text-[11px] font-medium">Undercover · Éliminé</span>
+<span class="w-1.5 h-1.5 rounded-full bg-text-secondary"></span>
+</div>
+</div></div>
+</details>
+</main>
+<!-- Bottom Secondary Info / History -->
+<footer class="w-full pt-2 pb-1">
+<details class="w-full bg-surface border border-surface-raised rounded-card overflow-hidden group">
+<summary class="w-full px-4 py-2.5 flex items-center justify-between cursor-pointer list-none select-none text-xs font-heading font-medium text-text-secondary hover:text-text-primary transition-colors min-h-[48px]">
+<div class="flex items-center gap-2">
+<svg class="w-4 h-4 text-text-secondary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M12 20v-6M6 20V10M18 20V4"></path>
+</svg>
+<span>Suivre la partie</span>
+</div>
+<svg class="w-4 h-4 text-text-secondary group-open:rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="m6 9 6 6 6-6"></path>
+</svg>
+</summary>
+<div class="px-4 pb-3 pt-1 border-t border-surface-raised text-xs text-text-secondary leading-relaxed">
+<div class="flex justify-between py-1">
+<span>Manches jouées :</span>
+<span class="font-heading text-text-primary font-medium">2 manches</span>
+</div>
+<div class="flex justify-between py-1">
+<span>Résultat final :</span>
+<span class="font-heading text-accent-lilac font-medium">Civils victorieux</span>
+</div>
+</div>
+</details>
+</footer>
+</div>
+</body>
+</html>

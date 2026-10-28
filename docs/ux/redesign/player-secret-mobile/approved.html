@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AFTER — Player Secret — Mobile — v1</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0C0C1F',
+            surface: {
+              DEFAULT: '#1A1A2D',
+              raised: '#28283C',
+              dim: '#111125'
+            },
+            text: {
+              primary: '#E2E0FB',
+              secondary: '#B7A8D4'
+            },
+            accent: {
+              lilac: '#CEBDFF',
+              citron: '#C8F323',
+              citronText: '#171E00'
+            },
+            border: {
+              control: '#7E7199',
+              subtle: '#2E2D48'
+            }
+          },
+          fontFamily: {
+            heading: ['Space Grotesk', 'sans-serif'],
+            body: ['DM Sans', 'sans-serif']
+          },
+          borderRadius: {
+            card: '12px',
+            control: '8px'
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      background-color: #0C0C1F;
+      color: #E2E0FB;
+      font-family: 'DM Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    h1, h2, h3, button, .font-heading {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#0C0C1F] text-[#E2E0FB] flex flex-col justify-between selection:bg-[#CEBDFF]/20 selection:text-[#CEBDFF]">
+
+  <!-- Mobile Container (Fluid up to 390px default, 16px horizontal margins) -->
+  <div class="w-full max-w-[390px] mx-auto min-h-screen flex flex-col px-4 py-5 justify-between">
+    
+    <!-- Top Bar: Minimal player header (Undercover & Camille) -->
+    <header class="flex items-center justify-between py-1 border-b border-[#2E2D48]/50">
+      <div class="flex items-center gap-2">
+        <!-- Discreet Gamepad brand mark -->
+        <svg class="w-5 h-5 text-[#CEBDFF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="6" width="20" height="12" rx="4"></rect>
+          <path d="M6 12h4"></path>
+          <path d="M8 10v4"></path>
+          <line x1="15" y1="11" x2="15.01" y2="11" stroke-width="3"></line>
+          <line x1="18" y1="13" x2="18.01" y2="13" stroke-width="3"></line>
+        </svg>
+        <span class="font-heading font-bold text-sm tracking-wide uppercase text-[#E2E0FB]">Undercover</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-[#C8F323]"></span>
+        <span class="font-heading font-medium text-xs text-[#B7A8D4]">Camille</span>
+      </div>
+    </header>
+
+    <!-- Main Content Area: Word Reveal and immediate actions -->
+    <main class="flex-1 flex flex-col justify-center my-6">
+
+      <!-- Round Context Subtitle -->
+      <div class="mb-4 text-center">
+        <span class="inline-block text-xs font-medium tracking-wide text-[#B7A8D4] uppercase font-heading bg-[#1A1A2D] px-3 py-1 rounded-[8px] border border-[#2E2D48]">
+          Manche 1 · Tour d’indices 1 sur 2
+        </span>
+      </div>
+
+      <!-- Secret Word Card -->
+      <section class="bg-[#1A1A2D] rounded-[12px] border border-[#2E2D48] p-6 text-center shadow-lg relative flex flex-col items-center">
+        
+        <h1 class="font-heading text-lg font-semibold text-[#B7A8D4] tracking-normal mb-1">
+          Votre mot secret
+        </h1>
+        
+        <p class="text-xs text-[#B7A8D4] mb-8 font-normal">
+          Gardez-le pour vous.
+        </p>
+
+        <!-- Large Quiet Word "Phare" -->
+        <div class="my-3 py-4 w-full flex items-center justify-center">
+          <span class="font-heading font-bold text-4xl sm:text-5xl tracking-tight text-[#E2E0FB]">
+            Phare
+          </span>
+        </div>
+
+        <!-- Conceal Action Button (Primary Action in Citron) -->
+        <div class="w-full mt-8">
+          <button type="button" class="w-full min-h-[48px] px-4 py-3 bg-[#C8F323] hover:bg-[#b5dc1e] text-[#171E00] font-heading font-semibold text-sm rounded-[8px] flex items-center justify-center gap-2 transition-colors active:scale-[0.99] focus:outline-none focus:ring-2 focus:ring-[#CEBDFF] focus:ring-offset-2 focus:ring-offset-[#1A1A2D]">
+            <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
+              <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path>
+              <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path>
+              <line x1="2" y1="2" x2="22" y2="22"></line>
+            </svg>
+            <span>Masquer mon mot</span>
+          </button>
+        </div>
+
+      </section>
+
+      <!-- Active Turn Status / Audio listening cue -->
+      <section class="mt-4 bg-[#28283C]/50 rounded-[12px] border border-[#2E2D48] p-4 flex items-center gap-3.5">
+        <div class="w-10 h-10 rounded-full bg-[#1A1A2D] border border-[#7E7199]/40 flex items-center justify-center flex-shrink-0 text-[#CEBDFF]">
+          <!-- Speaker / ear indicator for spoken clues -->
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+          </svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2">
+            <span class="font-heading font-semibold text-sm text-[#E2E0FB] truncate">Au tour de Noa</span>
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-[#C8F323] animate-pulse"></span>
+          </div>
+          <p class="text-xs text-[#B7A8D4] mt-0.5">
+            Écoutez son indice.
+          </p>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Secondary Section: Collapsible / Minimal 'Suivre la partie' -->
+    <footer class="pt-2 pb-1">
+      <details class="group bg-[#1A1A2D]/70 rounded-[8px] border border-[#2E2D48] transition-all">
+        <summary class="min-h-[44px] px-3.5 py-2.5 flex items-center justify-between cursor-pointer list-none select-none text-xs font-heading font-medium text-[#B7A8D4] hover:text-[#E2E0FB]">
+          <span class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-[#CEBDFF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            Suivre la partie
+          </span>
+          <svg class="w-4 h-4 text-[#7E7199] group-open:rotate-180 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </summary>
+        <div class="px-3.5 pb-3 pt-1 text-xs text-[#B7A8D4] border-t border-[#2E2D48]/60 space-y-1.5">
+          <div class="flex justify-between py-1">
+            <span>Règles du tour :</span>
+            <span class="text-[#E2E0FB]">Indices donnés à voix haute</span>
+          </div>
+          <div class="flex justify-between py-1">
+            <span>Participants actifs :</span>
+            <span class="text-[#E2E0FB]">4 joueurs en jeu</span>
+          </div>
+        </div>
+      </details>
+    </footer>
+
+  </div>
+
+</body>
+</html>

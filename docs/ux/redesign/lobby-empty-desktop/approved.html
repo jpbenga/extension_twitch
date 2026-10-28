@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-[#0C0C1F] text-[#E2E0FB]" lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AFTER — Lobby GM Empty — Desktop — v1</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0C0C1F',
+            'main-surface': '#1A1A2D',
+            'raised-surface': '#28283C',
+            'primary-text': '#E2E0FB',
+            'secondary-text': '#B7A8D4',
+            'lilac': '#CEBDFF',
+            'primary-action': '#C8F323',
+            'text-on-primary': '#171E00',
+            'control-border': '#7E7199',
+          },
+          fontFamily: {
+            heading: ['"Space Grotesk"', 'sans-serif'],
+            body: ['"DM Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: #0C0C1F;
+      color: #E2E0FB;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, .font-heading {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+  </style>
+</head>
+<body class="min-h-full flex flex-col justify-between selection:bg-[#CEBDFF]/20 selection:text-[#E2E0FB]">
+<!-- Compact Extension Twitch Gamepad Header -->
+<header class="w-full border-b border-[#28283C] bg-[#1A1A2D]/70 backdrop-blur-md sticky top-0 z-30">
+<div class="max-w-[1440px] mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
+<!-- Gamepad Logo & Channel Name -->
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-[#28283C] border border-[#7E7199]/40 flex items-center justify-center text-[#CEBDFF]">
+<!-- Gamepad SVG Icon -->
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<line x1="6" x2="10" y1="12" y2="12"></line>
+<line x1="8" x2="8" y1="10" y2="14"></line>
+<line x1="15" x2="15.01" y1="13" y2="13"></line>
+<line x1="18" x2="18.01" y1="11" y2="11"></line>
+<rect height="12" rx="6" width="20" x="2" y="6"></rect>
+</svg>
+</div>
+<div class="flex items-center gap-2"><span class="font-heading font-semibold text-sm tracking-wide text-[#E2E0FB]">Extension Twitch</span>
+<span class="text-[#7E7199] text-xs">/</span>
+<span class="font-heading font-medium text-xs text-[#B7A8D4] tracking-wider">Undercover</span></div>
+</div>
+<!-- Right controls: Discreet Apparence -->
+<div class="flex items-center gap-4">
+<button class="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs font-medium text-[#B7A8D4] hover:text-[#E2E0FB] hover:bg-[#28283C]/60 transition-colors border border-transparent hover:border-[#7E7199]/30 min-h-[44px] min-w-[44px]" type="button">
+<svg class="w-4 h-4 text-[#B7A8D4]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="4"></circle>
+<path d="M12 2v2"></path>
+<path d="M12 20v2"></path>
+<path d="m4.93 4.93 1.41 1.41"></path>
+<path d="m17.66 17.66 1.41 1.41"></path>
+<path d="M2 12h2"></path>
+<path d="M20 12h2"></path>
+<path d="m6.34 17.66-1.41 1.41"></path>
+<path d="m19.07 4.93-1.41 1.41"></path>
+</svg>
+<span>Apparence</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Viewport Content Container (GM Desktop: restrained content measure at 1440px) -->
+<main class="flex-1 w-full max-w-[1440px] mx-auto px-6 md:px-12 py-10 flex flex-col justify-start">
+<div class="max-w-4xl mx-auto w-full">
+<!-- Heading & Introduction Section -->
+<div class="mb-8">
+<p class="font-heading text-xs font-semibold uppercase tracking-widest text-[#CEBDFF] mb-2">UNDERCOVER</p>
+<h1 class="font-heading text-3xl md:text-[38px] leading-tight font-bold text-[#E2E0FB] tracking-tight mb-2.5">Votre salon</h1>
+<p class="text-[#B7A8D4] text-base leading-relaxed">Invitez vos joueurs, puis préparez la partie.</p>
+</div>
+<!-- Main Balanced Region: Invitation Block + Empty Guest List -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch mb-8">
+<!-- Left: Invitation Card (Col 7) -->
+<div class="md:col-span-7 bg-[#1A1A2D] border border-[#7E7199]/40 rounded-xl p-6 flex flex-col justify-between shadow-lg shadow-black/20">
+<div>
+<div class="flex items-center justify-between mb-4"><span class="font-heading text-xs uppercase tracking-wider font-semibold text-[#CEBDFF]">Invitation directe</span></div>
+<!-- Demo Link Field -->
+<div class="mb-4">
+<label class="block text-xs font-medium text-[#B7A8D4] mb-1.5">Lien d’accès joueur</label>
+<div class="flex items-center justify-between px-3.5 py-3 bg-[#0C0C1F] border border-[#7E7199]/50 rounded-lg text-sm text-[#E2E0FB] font-mono select-all">
+<span class="truncate">exemple.test/join/DEMO12345678</span>
+<span class="text-[11px] font-mono text-[#7E7199] ml-2 shrink-0">URL</span>
+</div>
+</div>
+<!-- Demo Room Code -->
+<div class="mb-6">
+<label class="block text-xs font-medium text-[#B7A8D4] mb-1.5">Code de salle</label>
+<div class="flex items-center justify-between px-3.5 py-2.5 bg-[#28283C]/70 border border-[#7E7199]/40 rounded-lg">
+<span class="font-mono text-sm tracking-widest font-semibold text-[#CEBDFF]">DEMO12345678</span>
+<span class="text-xs text-[#B7A8D4]">Saisie manuelle</span>
+</div>
+</div>
+</div>
+<!-- Actions: Single Citron Primary Action + Discreet Secondary -->
+<div class="pt-4 border-t border-[#28283C] flex flex-col sm:flex-row items-center gap-3">
+<button class="w-full sm:flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-[#C8F323] hover:bg-[#d6f74a] active:bg-[#b8e219] text-[#171E00] font-heading font-semibold text-sm transition-colors min-h-[44px] shadow-sm" type="button">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24">
+<rect height="13" rx="2" ry="2" width="13" x="9" y="9"></rect>
+<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+</svg>
+<span>Copier le lien d’invitation</span>
+</button>
+<button class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-[#28283C] hover:bg-[#34344d] text-[#E2E0FB] border border-[#7E7199]/50 text-sm font-medium transition-colors min-h-[44px]" type="button">
+<svg class="w-4 h-4 text-[#CEBDFF]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<circle cx="18" cy="5" r="3"></circle>
+<circle cx="6" cy="12" r="3"></circle>
+<circle cx="18" cy="19" r="3"></circle>
+<line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line>
+<line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line>
+</svg>
+<span>Partager</span>
+</button>
+</div>
+</div>
+<!-- Right: Empty Guest Roster (Col 5) -->
+<div class="md:col-span-5 bg-[#1A1A2D] border border-[#7E7199]/40 rounded-xl p-6 flex flex-col justify-between shadow-lg shadow-black/20">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-heading text-xs uppercase tracking-wider font-semibold text-[#CEBDFF]">Joueurs inscrits</span>
+<span class="px-2.5 py-1 rounded-full bg-[#0C0C1F] border border-[#7E7199]/40 font-heading text-xs font-semibold text-[#B7A8D4]">
+                0 joueur inscrit
+              </span>
+</div>
+<!-- Empty State Area -->
+<div class="py-10 px-4 flex flex-col items-center justify-center text-center rounded-lg border border-dashed border-[#7E7199]/40 bg-[#0C0C1F]/40 my-2">
+<div class="w-10 h-10 rounded-full bg-[#28283C] text-[#CEBDFF] flex items-center justify-center mb-3">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24">
+<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+<circle cx="9" cy="7" r="4"></circle>
+<line x1="19" x2="19" y1="8" y2="14"></line>
+<line x1="22" x2="16" y1="11" y2="11"></line>
+</svg>
+</div>
+<p class="text-sm font-medium text-[#E2E0FB] mb-1">Vos joueurs apparaîtront ici.</p>
+<p class="text-xs text-[#B7A8D4] max-w-[210px] leading-relaxed">Partagez le lien d'invitation pour leur permettre de rejoindre la partie.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Game Configuration Summary & Disabled Preparation Action -->
+<div class="bg-[#1A1A2D] border border-[#7E7199]/40 rounded-xl p-6 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-5">
+<div class="flex flex-col gap-1">
+<span class="text-xs font-medium uppercase tracking-wider text-[#CEBDFF] font-heading">Configuration prévue</span>
+<p class="text-base font-semibold text-[#E2E0FB]">Classique · 2 tours d’indices</p>
+</div>
+<div class="flex flex-col items-start md:items-end gap-1.5 shrink-0">
+<button aria-disabled="true" class="w-full md:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[#28283C] text-[#7E7199] border border-[#7E7199]/30 font-heading font-semibold text-sm cursor-not-allowed opacity-75 min-h-[44px]" disabled="" type="button">
+<svg class="w-4 h-4 text-[#7E7199]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M12 20h9"></path>
+<path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+</svg>
+<span>Préparer la partie</span>
+</button>
+<span class="text-xs text-[#B7A8D4] font-medium flex items-center gap-1.5">
+<svg class="w-3.5 h-3.5 text-[#B7A8D4]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="10"></circle>
+<line x1="12" x2="12" y1="8" y2="12"></line>
+<line x1="12" x2="12.01" y1="16" y2="16"></line>
+</svg>
+            Au moins 3 joueurs inscrits.
+          </span>
+</div>
+</div>
+<!-- Collapsed Secondary Settings & Regie Rows -->
+<div class="space-y-3">
+<!-- Row 1: Gérer les invités -->
+<button class="w-full bg-[#1A1A2D] hover:bg-[#28283C]/70 border border-[#7E7199]/40 rounded-xl px-5 py-4 flex items-center justify-between text-left transition-colors min-h-[44px]" type="button"><div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-[#28283C] flex items-center justify-center text-[#CEBDFF]">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+<circle cx="9" cy="7" r="4"></circle>
+<path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+</svg>
+</div>
+<span class="font-heading font-medium text-sm text-[#E2E0FB]">Gérer les invités</span>
+</div>
+<svg class="w-4 h-4 text-[#7E7199]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<polyline points="9 18 15 12 9 6"></polyline>
+</svg></button>
+<!-- Row 2: Ma régie et mon plateau -->
+<button class="w-full bg-[#1A1A2D] hover:bg-[#28283C]/70 border border-[#7E7199]/40 rounded-xl px-5 py-4 flex items-center justify-between text-left transition-colors min-h-[44px]" type="button"><div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-[#28283C] flex items-center justify-center text-[#CEBDFF]">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<rect height="14" rx="2" ry="2" width="20" x="2" y="3"></rect>
+<line x1="8" x2="16" y1="21" y2="21"></line>
+<line x1="12" x2="12" y1="17" y2="21"></line>
+</svg>
+</div>
+<span class="font-heading font-medium text-sm text-[#E2E0FB]">Ma régie et mon plateau</span>
+</div>
+<svg class="w-4 h-4 text-[#7E7199]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<polyline points="9 18 15 12 9 6"></polyline>
+</svg></button>
+</div>
+</div>
+</main>
+<!-- Clean, quiet footer -->
+</body>
+</html>

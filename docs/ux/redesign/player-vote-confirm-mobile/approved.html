@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>AFTER — Player Vote Confirmation — Mobile — v1</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0C0C1F',
+            surface: {
+              DEFAULT: '#1A1A2D',
+              raised: '#28283C',
+              dim: '#111125',
+              border: '#2D2D44'
+            },
+            primaryText: '#E2E0FB',
+            secondaryText: '#B7A8D4',
+            lilac: {
+              DEFAULT: '#CEBDFF',
+              dim: 'rgba(206, 189, 255, 0.12)'
+            },
+            citron: {
+              DEFAULT: '#C8F323',
+              dark: '#171E00'
+            },
+            controlBorder: '#7E7199'
+          },
+          fontFamily: {
+            heading: ['"Space Grotesk"', 'sans-serif'],
+            body: ['"DM Sans"', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    body {
+      background-color: #0C0C1F;
+      color: #E2E0FB;
+      font-family: 'DM Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  </style>
+</head>
+<body class="bg-[#0C0C1F] text-[#E2E0FB] min-h-screen flex flex-col justify-between selection:bg-[#CEBDFF]/20 relative overflow-hidden font-body">
+<!-- Main Background Mobile View (Vote background) -->
+<div class="w-full max-w-[390px] mx-auto min-h-screen flex flex-col justify-between p-4 box-border relative">
+<!-- Top Header -->
+<header class="w-full pt-2 pb-4 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<svg class="w-5 h-5 text-[#E2E0FB]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<rect height="12" rx="4" width="20" x="2" y="6"></rect>
+<path d="M6 12h4m-2-2v4"></path>
+<line stroke-width="3" x1="15" x2="15.01" y1="11" y2="11"></line>
+<line stroke-width="3" x1="18" x2="18.01" y1="13" y2="13"></line>
+</svg>
+<span class="font-heading font-bold text-sm tracking-wider uppercase text-[#E2E0FB]">Undercover</span>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#1A1A2D] border border-[#2D2D44] text-xs font-heading text-[#B7A8D4]">
+<span class="w-2 h-2 rounded-full bg-[#C8F323] inline-block"></span>
+<span>Camille</span>
+</div>
+</header>
+<!-- Context Pill / Status -->
+<div class="flex flex-col items-center gap-3 my-auto w-full">
+<div class="px-3.5 py-1.5 rounded-full bg-[#1A1A2D] border border-[#2D2D44] text-xs font-heading text-[#B7A8D4] tracking-wide text-center">Manche 1 · Vote</div>
+<!-- Main task card: Voting candidates (background state) -->
+<div class="w-full bg-[#1A1A2D] border border-[#2D2D44] rounded-[12px] p-5 text-center flex flex-col items-center"><h1 class="font-heading font-bold text-xl text-[#E2E0FB] mb-1">Qui souhaitez-vous éliminer ?</h1><p class="text-sm text-[#B7A8D4] mb-4">Un seul choix. Votre vote sera définitif.</p><div class="w-full flex flex-col gap-2"><div class="w-full flex items-center justify-between p-3.5 rounded-[8px] bg-[#111125] border border-[#2D2D44] text-left min-h-[48px]"><span class="font-heading font-medium text-sm text-[#E2E0FB]">Noa</span><div class="w-5 h-5 rounded-full border border-[#7E7199]"></div></div><div class="w-full flex items-center justify-between p-3.5 rounded-[8px] bg-[#28283C] border-2 border-[#CEBDFF] text-left min-h-[48px]"><span class="font-heading font-medium text-sm text-[#E2E0FB]">Léa</span><div class="w-5 h-5 rounded-full border-2 border-[#CEBDFF] flex items-center justify-center bg-[#CEBDFF]"><div class="w-2 h-2 rounded-full bg-[#1A1A2D]"></div></div></div><div class="w-full flex items-center justify-between p-3.5 rounded-[8px] bg-[#111125] border border-[#2D2D44] text-left min-h-[48px]"><span class="font-heading font-medium text-sm text-[#E2E0FB]">Sami</span><div class="w-5 h-5 rounded-full border border-[#7E7199]"></div></div></div></div>
+<!-- Mot secret masqué info card -->
+<button class="w-full min-h-[48px] py-3.5 px-4 rounded-[8px] bg-[#C8F323] text-[#171E00] font-heading font-bold text-sm tracking-wide flex items-center justify-center transition-colors shadow-lg" type="button">Voter</button>
+</div>
+<!-- Bottom Secondary Disclosure: Suivre la partie -->
+<div class="w-full pb-2">
+<div class="w-full py-3 px-4 rounded-[12px] bg-[#1A1A2D] border border-[#2D2D44] flex items-center justify-between text-xs font-heading text-[#B7A8D4] opacity-50">
+<div class="flex items-center gap-2">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+<circle cx="9" cy="7" r="4"></circle>
+<path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+</svg>
+<span>Suivre la partie</span>
+</div>
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<polyline points="6 9 12 15 18 9"></polyline>
+</svg>
+</div>
+</div>
+</div>
+<!-- Dimmed Backdrop Overlay (contained within mobile viewport) -->
+<div class="absolute inset-0 bg-[#0C0C1F]/80 backdrop-blur-[2px] z-20 flex flex-col justify-end items-center pointer-events-auto">
+<!-- Accessible Lower Bottom Sheet -->
+<div class="w-full max-w-[390px] bg-[#1A1A2D] border-t border-x border-[#2D2D44] rounded-t-[20px] p-5 pb-8 shadow-2xl z-30 flex flex-col gap-4">
+<!-- Drag handle indicator -->
+<div class="w-10 h-1 rounded-full bg-[#7E7199]/40 mx-auto mb-1"></div>
+<!-- Sheet Header / Title -->
+<div class="text-left">
+<h2 class="font-heading font-bold text-xl text-[#E2E0FB] tracking-tight">
+          Confirmer ce vote ?
+        </h2>
+<p class="text-sm text-[#B7A8D4] mt-2 leading-relaxed font-body">
+          Vous votez contre <span class="font-heading font-semibold text-[#E2E0FB]">Léa</span>. Ce choix ne pourra plus être modifié.
+        </p>
+</div>
+<!-- Action buttons -->
+<div class="flex flex-col gap-2.5 mt-2">
+<!-- Main Primary CTA: Citron with Dark Text -->
+<button class="w-full min-h-[48px] py-3.5 px-4 rounded-[8px] bg-[#C8F323] hover:bg-[#d6f849] active:bg-[#b5dc1a] text-[#171E00] font-heading font-bold text-sm tracking-wide flex items-center justify-center transition-colors" type="button">
+          Confirmer mon vote
+        </button>
+<!-- Secondary CTA: Annuler -->
+<button class="w-full min-h-[44px] py-3 px-4 rounded-[8px] bg-[#28283C] hover:bg-[#32324b] text-[#E2E0FB] border border-[#7E7199]/40 font-heading font-medium text-sm flex items-center justify-center transition-colors" type="button">
+          Annuler
+        </button>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-[#0C0C1F]" lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AFTER — Player Lobby Waiting — Mobile — v1</title>
+<!-- Google Fonts: Space Grotesk & DM Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0C0C1F',
+            'main-surface': '#1A1A2D',
+            'raised-surface': '#28283C',
+            'primary-text': '#E2E0FB',
+            'secondary-text': '#B7A8D4',
+            lilac: '#CEBDFF',
+            citron: '#C8F323',
+            'citron-text': '#171E00',
+            'control-border': '#7E7199',
+            'subtle-border': 'rgba(126, 113, 153, 0.28)'
+          },
+          fontFamily: {
+            space: ['"Space Grotesk"', 'sans-serif'],
+            sans: ['"DM Sans"', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    /* Details chevron rotation */
+    details summary::-webkit-details-marker {
+      display: none;
+    }
+    details summary {
+      list-style: none;
+    }
+    details[open] summary .chevron-icon {
+      transform: rotate(180deg);
+    }
+  </style>
+</head>
+<body class="min-h-full bg-canvas text-primary-text font-sans antialiased selection:bg-lilac selection:text-canvas flex flex-col justify-between">
+<!-- Outer viewport wrapper: smartphone-first, centered, no phone frame -->
+<div class="w-full max-w-[420px] mx-auto min-h-screen flex flex-col px-4 pt-6 pb-8 justify-between">
+<!-- Top Area: Minimal player header & Main status card -->
+<div class="flex flex-col gap-6">
+<!-- Minimal Player Header: UNDERCOVER & Player status pill -->
+<header class="flex items-center justify-between py-1">
+<div class="flex items-center gap-2">
+<span class="font-space font-bold tracking-wider text-xs uppercase text-secondary-text">UNDERCOVER</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-main-surface border border-subtle-border text-xs text-secondary-text font-medium">
+<span class="w-2 h-2 rounded-full bg-emerald-400 inline-block animate-pulse"></span>
+<span>Alex <span class="text-secondary-text/70">·</span> En attente</span>
+</div>
+</header>
+<!-- Main Status Hero (Calm waiting state) -->
+<main class="mt-4 flex flex-col">
+<!-- Ready badge indication -->
+<h1 class="font-space font-bold text-[28px] leading-[34px] tracking-tight text-primary-text">
+          Vous êtes prêt.
+        </h1>
+<p class="mt-2.5 text-[15px] leading-relaxed text-secondary-text">
+          Le Game Master prépare la partie. Votre mot apparaîtra ici.
+        </p>
+<!-- Waiting Card (Spare, restrained placeholder for distribution) -->
+<!-- Collapsible informative rows (Qui participe ? & Conserver mon accès joueur) -->
+<div class="mt-5 space-y-3">
+<!-- Row 1: Qui participe ? -->
+<details class="group rounded-[12px] bg-main-surface border border-subtle-border transition-colors">
+<summary class="flex items-center justify-between p-4 cursor-pointer select-none">
+<div class="flex items-center gap-3">
+<svg class="w-4 h-4 text-secondary-text" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24">
+<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+<circle cx="9" cy="7" r="4"></circle>
+<path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+</svg>
+<span class="text-sm font-medium text-primary-text">Qui participe ?</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs text-secondary-text">4 inscrits</span>
+<svg class="w-4 h-4 text-secondary-text transition-transform duration-200 chevron-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<polyline points="6 9 12 15 18 9"></polyline>
+</svg>
+</div>
+</summary>
+<div class="px-4 pb-4 pt-1 border-t border-subtle-border/60">
+<ul class="space-y-2.5 text-xs text-secondary-text">
+<li class="flex items-center justify-between">
+<span class="flex items-center gap-2 text-primary-text font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                    Alex (Vous)
+                  </span>
+<span class="text-lilac bg-lilac/10 px-2 py-0.5 rounded text-[11px] font-space">Prêt</span>
+</li>
+<li class="flex items-center justify-between">
+<span class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                    Lou
+                  </span>
+<span class="text-secondary-text/80 text-[11px]">En préparation</span>
+</li>
+<li class="flex items-center justify-between">
+<span class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                    Sam
+                  </span>
+<span class="text-lilac bg-lilac/10 px-2 py-0.5 rounded text-[11px] font-space">Prêt</span>
+</li>
+<li class="flex items-center justify-between">
+<span class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-text/40"></span>
+                    Noa
+                  </span>
+<span class="text-secondary-text/60 text-[11px]">Hors ligne</span>
+</li>
+</ul>
+</div>
+</details>
+<!-- Row 2: Conserver mon accès joueur -->
+<details class="group rounded-[12px] bg-main-surface border border-subtle-border transition-colors">
+<summary class="flex items-center justify-between p-4 cursor-pointer select-none">
+<div class="flex items-center gap-3">
+<svg class="w-4 h-4 text-secondary-text" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24">
+<rect height="11" rx="2" ry="2" width="18" x="3" y="11"></rect>
+<path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+</svg>
+<span class="text-sm font-medium text-primary-text">Conserver mon accès joueur</span>
+</div>
+<svg class="w-4 h-4 text-secondary-text transition-transform duration-200 chevron-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<polyline points="6 9 12 15 18 9"></polyline>
+</svg>
+</summary>
+<div class="px-4 pb-4 pt-2 border-t border-subtle-border/60">
+<p class="text-xs text-secondary-text leading-relaxed mb-3">
+                Si vous fermez cet onglet par inadvertance, réutilisez votre lien privé pour revenir directement dans cette session avec votre identité.
+              </p>
+<div class="flex items-center gap-2">
+<input class="w-full bg-raised-surface border border-subtle-border text-secondary-text text-xs rounded-[8px] px-3 py-2.5 focus:outline-none focus:border-lilac truncate font-mono" readonly="" type="text" value="https://exemple.test/join/DEM012345678#u=alex-7f"/>
+<button class="min-h-[44px] px-3 py-2 rounded-[8px] bg-raised-surface border border-control-border/60 hover:border-lilac text-xs font-space font-medium text-primary-text flex items-center justify-center gap-1.5 flex-shrink-0 transition-colors" type="button">
+<svg class="w-3.5 h-3.5 text-lilac" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<rect height="13" rx="2" ry="2" width="13" x="9" y="9"></rect>
+<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+</svg>
+<span>Copier</span>
+</button>
+</div>
+</div>
+</details>
+</div>
+</main>
+</div>
+<!-- Bottom Area: The single legitimate toggle action (Restrained outlined/lilac) -->
+<div class="pt-8 pb-2 mt-auto">
+<button class="w-full min-h-[48px] px-4 py-3 rounded-[8px] border border-control-border hover:border-lilac active:bg-raised-surface text-primary-text hover:text-lilac font-space font-medium text-sm flex items-center justify-center gap-2.5 transition-colors focus:outline-none focus:ring-2 focus:ring-lilac/40" type="button">
+<!-- Icon: Undo / Toggle ready off -->
+<svg class="w-4 h-4 text-secondary-text group-hover:text-lilac" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="10"></circle>
+<line x1="15" x2="9" y1="9" y2="15"></line>
+<line x1="9" x2="15" y1="9" y2="15"></line>
+</svg>
+<span>Je ne suis plus prêt</span>
+</button>
+<p class="text-center text-[12px] text-secondary-text/70 mt-2.5">Vous pouvez changer d’avis tant que le Game Master prépare la partie.</p>
+</div>
+</div>
+</body>
+</html>

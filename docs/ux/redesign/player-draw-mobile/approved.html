@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AFTER — Player Draw — Mobile — v1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0C0C1F',
+            surface: {
+              DEFAULT: '#1A1A2D',
+              raised: '#28283C',
+            },
+            text: {
+              primary: '#E2E0FB',
+              secondary: '#B7A8D4',
+            },
+            lilac: '#CEBDFF',
+            citron: {
+              DEFAULT: '#C8F323',
+              text: '#171E00',
+            },
+            control: {
+              border: '#7E7199',
+            }
+          },
+          fontFamily: {
+            heading: ['"Space Grotesk"', 'sans-serif'],
+            body: ['"DM Sans"', 'sans-serif'],
+          },
+          borderRadius: {
+            card: '12px',
+            control: '8px',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #0C0C1F;
+      color: #E2E0FB;
+      font-family: 'DM Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .font-heading {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+  </style>
+</head>
+<body class="min-h-full flex flex-col justify-between p-4 max-w-[390px] mx-auto select-none">
+  <!-- Minimal Header -->
+  <header class="w-full flex items-center justify-between pt-2 pb-6">
+    <div class="flex items-center gap-2">
+      <!-- Gamepad Icon -->
+      <svg class="w-5 h-5 text-text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="6" y1="12" x2="10" y2="12"></line>
+        <line x1="8" y1="10" x2="8" y2="14"></line>
+        <line x1="15" y1="13" x2="15.01" y2="13"></line>
+        <line x1="18" y1="11" x2="18.01" y2="11"></line>
+        <rect x="2" y="6" width="20" height="12" rx="6"></rect>
+      </svg>
+      <span class="font-heading font-bold text-sm tracking-wider uppercase text-text-primary">Undercover</span>
+    </div>
+    <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-surface text-xs border border-surface-raised">
+      <span class="text-text-secondary">Joueur</span>
+      <span class="font-heading font-medium text-text-primary">Camille</span>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 flex flex-col items-center justify-center w-full gap-4 my-auto">
+    <!-- Context Badge -->
+    <div class="px-3.5 py-1 rounded-full bg-surface border border-surface-raised text-xs text-text-secondary font-medium tracking-wide">
+      Fin de partie · Dénouement
+    </div>
+
+    <!-- Outcome Card -->
+    <section class="w-full bg-surface border border-surface-raised rounded-card p-6 flex flex-col items-center text-center">
+      <!-- Draw / Equal Icon -->
+      <div class="w-12 h-12 rounded-full bg-surface-raised flex items-center justify-center mb-4 text-text-secondary">
+        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="9" x2="19" y2="9"></line>
+          <line x1="5" y1="15" x2="19" y2="15"></line>
+        </svg>
+      </div>
+
+      <!-- Main Title -->
+      <h1 class="font-heading text-2xl font-bold text-text-primary mb-1">
+        Partie nulle
+      </h1>
+
+      <!-- Subtitle / Support Text -->
+      <p class="text-sm text-text-secondary mb-4">
+        La limite de manches est atteinte.
+      </p>
+
+      <!-- Player Role Tag -->
+      <div class="px-3 py-1 rounded-full bg-surface-raised/70 border border-surface-raised text-xs text-text-secondary mb-6">
+        Votre camp : <span class="text-text-primary font-medium">Civil</span>
+      </div>
+
+      <!-- Divider -->
+      <div class="w-full h-px bg-surface-raised mb-5"></div>
+
+      <!-- Authorized Two-word Key -->
+      <div class="w-full mb-6">
+        <h2 class="font-heading text-[11px] font-semibold tracking-wider uppercase text-text-secondary mb-3">
+          Mots de la partie
+        </h2>
+        <div class="grid grid-cols-2 gap-2.5">
+          <div class="bg-surface-raised/60 rounded-control p-3 text-left border border-surface-raised/80">
+            <span class="block text-[11px] text-text-secondary mb-1">Civils</span>
+            <span class="font-heading font-bold text-base text-text-primary tracking-wide">Phare</span>
+          </div>
+          <div class="bg-surface-raised/60 rounded-control p-3 text-left border border-surface-raised/80">
+            <span class="block text-[11px] text-text-secondary mb-1">Undercover</span>
+            <span class="font-heading font-bold text-base text-text-primary tracking-wide">Fusée</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiet GM notice -->
+      <p class="text-xs text-text-secondary leading-relaxed">
+        Le Game Master peut préparer une nouvelle partie.
+      </p>
+    </section>
+
+    <!-- Secondary Closed Disclosure: Voir les joueurs -->
+    <details class="w-full group">
+      <summary class="list-none flex items-center justify-between w-full min-h-[44px] px-4 py-3 bg-surface border border-surface-raised rounded-card cursor-pointer hover:bg-surface-raised/40 transition-colors">
+        <div class="flex items-center gap-2.5 text-xs font-heading font-medium text-text-secondary group-hover:text-text-primary transition-colors">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <span>Voir les joueurs</span>
+        </div>
+        <svg class="w-4 h-4 text-text-secondary transition-transform duration-200 group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </summary>
+      <div class="mt-2 p-3 bg-surface border border-surface-raised rounded-card text-xs text-text-secondary space-y-2">
+        <div class="flex items-center justify-between py-1 border-b border-surface-raised/50">
+          <span class="text-text-primary font-medium">Camille (Vous)</span>
+          <span class="text-[11px] text-text-secondary">Civil</span>
+        </div>
+        <div class="flex items-center justify-between py-1 border-b border-surface-raised/50">
+          <span class="text-text-primary font-medium">Léa</span>
+          <span class="text-[11px] text-text-secondary">Civil</span>
+        </div>
+        <div class="flex items-center justify-between py-1 border-b border-surface-raised/50">
+          <span class="text-text-primary font-medium">Noa</span>
+          <span class="text-[11px] text-text-secondary">Civil</span>
+        </div>
+        <div class="flex items-center justify-between py-1">
+          <span class="text-text-primary font-medium">Sami</span>
+          <span class="text-[11px] text-text-secondary">Undercover</span>
+        </div>
+      </div>
+    </details>
+  </main>
+
+  <!-- Bottom Spacer / Optional Follow Section -->
+  <footer class="w-full pt-4 pb-2">
+    <details class="w-full group">
+      <summary class="list-none flex items-center justify-between w-full min-h-[44px] px-4 py-3 bg-surface border border-surface-raised rounded-card cursor-pointer hover:bg-surface-raised/40 transition-colors">
+        <div class="flex items-center gap-2.5 text-xs font-heading font-medium text-text-secondary group-hover:text-text-primary transition-colors">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"></line>
+            <line x1="12" y1="20" x2="12" y2="4"></line>
+            <line x1="6" y1="20" x2="6" y2="14"></line>
+          </svg>
+          <span>Suivre la partie</span>
+        </div>
+        <svg class="w-4 h-4 text-text-secondary transition-transform duration-200 group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </summary>
+      <div class="mt-2 p-3 bg-surface border border-surface-raised rounded-card text-xs text-text-secondary">
+        <p class="leading-relaxed">Partie terminée après le nombre maximal de manches sans désignation de vainqueur.</p>
+      </div>
+    </details>
+  </footer>
+</body>
+</html>

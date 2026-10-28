@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AFTER — Player Secret Hidden — Mobile — v1</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0C0C1F',
+            surface: {
+              DEFAULT: '#1A1A2D',
+              raised: '#28283C',
+            },
+            primaryText: '#E2E0FB',
+            secondaryText: '#B7A8D4',
+            lilac: '#CEBDFF',
+            citron: {
+              DEFAULT: '#C8F323',
+              dark: '#171E00',
+            },
+            controlBorder: '#7E7199',
+          },
+          fontFamily: {
+            heading: ['"Space Grotesk"', 'sans-serif'],
+            body: ['"DM Sans"', 'sans-serif'],
+          },
+          borderRadius: {
+            card: '12px',
+            control: '8px',
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      background-color: #0C0C1F;
+      color: #E2E0FB;
+      font-family: 'DM Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  </style>
+</head>
+<body class="bg-canvas min-h-screen flex flex-col justify-between selection:bg-lilac selection:text-surface">
+  <!-- Mobile Main Container (responsive 390px-wide flow, 16px margins, no outer device frame) -->
+  <div class="w-full max-w-[420px] mx-auto min-h-screen flex flex-col justify-between p-4 box-border">
+
+    <!-- Header Compact & Minimal: Game identity & Player name Camille -->
+    <header class="w-full pt-2 pb-5 flex items-center justify-between border-b border-controlBorder/20">
+      <div class="flex items-center gap-2">
+        <!-- Brand Mark (gamepad-style discreet SVG) -->
+        <svg class="w-5 h-5 text-lilac shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="6" width="20" height="12" rx="4"></rect>
+          <path d="M6 12h4"></path>
+          <path d="M8 10v4"></path>
+          <circle cx="15" cy="11" r="1" fill="currentColor"></circle>
+          <circle cx="17" cy="13" r="1" fill="currentColor"></circle>
+        </svg>
+        <span class="font-heading font-bold text-base tracking-wide text-primaryText">Undercover</span>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <span class="text-xs font-heading font-medium tracking-normal text-secondaryText">Joueur</span>
+        <span class="inline-flex items-center px-2.5 py-1 rounded-control bg-surface-raised border border-controlBorder/30 font-heading text-xs font-medium text-primaryText">
+          Camille
+        </span>
+      </div>
+    </header>
+
+    <!-- Context Banner: Server Projection (Round & Turn) -->
+    <section class="mt-4 mb-3">
+      <div class="bg-surface rounded-card p-3 border border-controlBorder/25 flex flex-col gap-1.5">
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-secondaryText font-medium">Manche 1 · Tour d’indices 1 sur 2</span>
+          <span class="inline-flex items-center gap-1.5 text-lilac font-medium">
+            <span class="w-1.5 h-1.5 rounded-full bg-lilac animate-pulse"></span>
+            En cours
+          </span>
+        </div>
+        <div class="pt-1 border-t border-controlBorder/15 flex items-center justify-between text-xs">
+          <span class="text-secondaryText">Prise de parole orale</span>
+          <span class="font-heading font-semibold text-primaryText">Au tour de Noa</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content: Secret Concealed / Local privacy state -->
+    <main class="flex-1 flex flex-col justify-center my-4">
+      <div class="bg-surface rounded-card p-6 border border-controlBorder/30 text-center flex flex-col items-center shadow-lg">
+        
+        <!-- Discreet privacy icon: eye-off -->
+        <div class="w-12 h-12 rounded-full bg-surface-raised border border-controlBorder/40 flex items-center justify-center text-secondaryText mb-4">
+          <svg class="w-6 h-6 text-secondaryText" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
+            <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path>
+            <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path>
+            <line x1="2" y1="2" x2="22" y2="22"></line>
+          </svg>
+        </div>
+
+        <!-- Heading -->
+        <h1 class="font-heading font-bold text-xl sm:text-2xl text-primaryText mb-2 tracking-tight">
+          Votre mot est masqué
+        </h1>
+
+        <!-- Explanatory / privacy hint -->
+        <p class="font-body text-sm text-secondaryText leading-relaxed mb-6 max-w-[280px]">
+          Vous pouvez le consulter à tout moment.
+        </p>
+
+        <!-- Primary Action: Voir mon mot (Solid Citron #C8F323 with text #171E00) -->
+        <button type="button" class="w-full min-h-[48px] px-5 py-3 rounded-control bg-citron hover:bg-[#bce41e] active:scale-[0.99] text-citron-dark font-heading font-semibold text-base flex items-center justify-center gap-2 transition duration-150 focus:outline-none focus:ring-2 focus:ring-lilac focus:ring-offset-2 focus:ring-offset-surface cursor-pointer shadow-sm">
+          <svg class="w-5 h-5 text-citron-dark shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+          <span>Voir mon mot</span>
+        </button>
+
+      </div>
+    </main>
+
+    <!-- Bottom Secondary Section: Secondary details disclosure 'Suivre la partie' -->
+    <footer class="w-full pt-2 pb-3">
+      <details class="group bg-surface rounded-card border border-controlBorder/25 transition-all duration-200 overflow-hidden">
+        <summary class="min-h-[44px] px-4 py-2.5 flex items-center justify-between text-xs font-heading font-medium text-secondaryText hover:text-primaryText cursor-pointer list-none select-none transition-colors">
+          <span class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-secondaryText group-hover:text-primaryText transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+            Suivre la partie
+          </span>
+          <svg class="w-4 h-4 text-secondaryText transition-transform duration-200 group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </summary>
+        <div class="px-4 pb-3 pt-1 border-t border-controlBorder/15 text-xs text-secondaryText space-y-2">
+          <div class="flex items-center justify-between py-1">
+            <span>Ordre des prises de parole</span>
+            <span class="text-primaryText font-medium">1. Noa · 2. Camille · 3. Alex</span>
+          </div>
+          <p class="text-[11px] text-secondaryText/80 leading-normal">
+            Donnez votre indice à voix haute lorsque votre tour arrive. Ne révélez pas votre mot directement.
+          </p>
+        </div>
+      </details>
+    </footer>
+
+  </div>
+</body>
+</html>
