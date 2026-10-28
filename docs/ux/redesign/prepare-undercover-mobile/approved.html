@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AFTER — Prepare Undercover — Mobile — v1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              citron: '#d4ff33',
+              'citron-hover': '#c2ee22',
+              surface: '#0d0d1a',
+              card: '#16162a',
+              'card-border': '#252542',
+              lilac: '#7c6cf0',
+              'lilac-muted': '#322d60',
+              'lilac-border': '#4b438c',
+              text: '#f2f2fa',
+              'text-muted': '#9696b4',
+            }
+          },
+          fontFamily: {
+            sans: ['"DM Sans"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #0d0d1a;
+      color: #f2f2fa;
+      font-family: 'DM Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .font-display {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#0d0d1a] flex flex-col antialiased selection:bg-[#d4ff33] selection:text-black">
+
+  <!-- Top Bar / App Header -->
+  <header class="w-full px-5 py-3.5 flex items-center justify-between border-b border-[#1c1c33] bg-[#0d0d1a]/95 backdrop-blur-md sticky top-0 z-30">
+    <div class="flex items-center gap-2.5">
+      <span class="material-symbols-outlined text-[#d4ff33] text-[22px]">sports_esports</span>
+      <span class="font-display font-bold text-sm tracking-tight text-[#f2f2fa]">Extension Twitch</span>
+    </div>
+    <button type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#16162a] border border-[#252542] text-xs font-medium text-[#c4c4e0] hover:text-white transition-colors min-h-[36px]" aria-label="Réglages de l'apparence">
+      <span class="material-symbols-outlined text-[16px] text-[#9696b4]">palette</span>
+      <span>Apparence</span>
+    </button>
+  </header>
+
+  <!-- Main Scrollable Content Area -->
+  <main class="flex-1 w-full max-w-[390px] mx-auto px-4 pt-4 pb-36 flex flex-col gap-5">
+    
+    <!-- Navigation context & Title -->
+    <div>
+      <a href="#" class="inline-flex items-center gap-1 text-xs font-medium text-[#9696b4] hover:text-[#d4ff33] transition-colors py-1 group mb-2">
+        <span class="material-symbols-outlined text-sm transition-transform group-hover:-translate-x-0.5">arrow_back</span>
+        <span>Undercover</span>
+      </a>
+      <h1 class="font-display font-bold text-2xl tracking-tight text-[#f2f2fa]">
+        Préparer la partie
+      </h1>
+    </div>
+
+    <!-- Section 1: Réglages essentiels (Participants, Tours d'indices, Mode) -->
+    <div class="bg-[#16162a] rounded-2xl border border-[#252542] p-4 flex flex-col gap-5 shadow-lg shadow-black/20">
+      
+      <!-- Participants -->
+      <div class="flex flex-col gap-2.5">
+        <div class="flex items-baseline justify-between">
+          <label class="font-display font-medium text-sm text-[#f2f2fa]">Participants</label>
+          <span class="text-xs text-[#9696b4]">3 à 12</span>
+        </div>
+        
+        <!-- Stepper Row -->
+        <div class="flex items-center justify-between bg-[#101020] rounded-xl border border-[#23233c] p-1.5">
+          <button type="button" class="w-12 h-12 flex items-center justify-center rounded-lg bg-[#18182e] border border-[#2c2c4a] text-[#f2f2fa] active:scale-95 active:bg-[#20203c] transition-all" aria-label="Diminuer le nombre de participants">
+            <span class="material-symbols-outlined text-xl">remove</span>
+          </button>
+          
+          <div class="flex flex-col items-center justify-center">
+            <span class="font-display font-bold text-2xl text-[#f2f2fa] leading-none">4</span>
+            <span class="text-[10px] uppercase tracking-wider text-[#9696b4] font-medium mt-1">prévus</span>
+          </div>
+
+          <button type="button" class="w-12 h-12 flex items-center justify-center rounded-lg bg-[#18182e] border border-[#2c2c4a] text-[#f2f2fa] active:scale-95 active:bg-[#20203c] transition-all" aria-label="Augmenter le nombre de participants">
+            <span class="material-symbols-outlined text-xl">add</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="h-px w-full bg-[#202038]"></div>
+
+      <!-- Tours d'indices -->
+      <div class="flex flex-col gap-2.5">
+        <div class="flex items-baseline justify-between">
+          <label class="font-display font-medium text-sm text-[#f2f2fa]">Tours d’indices</label>
+          <span class="text-xs text-[#9696b4]">avant chaque vote</span>
+        </div>
+        
+        <!-- Segmented 1 to 5 selector -->
+        <div class="grid grid-cols-5 gap-1.5 p-1 bg-[#101020] rounded-xl border border-[#23233c]">
+          <!-- 1 -->
+          <button type="button" class="h-11 rounded-lg flex items-center justify-center font-display font-medium text-sm text-[#9696b4] hover:text-white hover:bg-[#1a1a2e] transition-colors">
+            1
+          </button>
+          <!-- 2 (Selected default) -->
+          <button type="button" class="h-11 rounded-lg flex items-center justify-center font-display font-bold text-base bg-[#2a2456] border border-[#5d52b5] text-[#ffffff] shadow-sm shadow-[#4a3ea3]/30">
+            2
+          </button>
+          <!-- 3 -->
+          <button type="button" class="h-11 rounded-lg flex items-center justify-center font-display font-medium text-sm text-[#9696b4] hover:text-white hover:bg-[#1a1a2e] transition-colors">
+            3
+          </button>
+          <!-- 4 -->
+          <button type="button" class="h-11 rounded-lg flex items-center justify-center font-display font-medium text-sm text-[#9696b4] hover:text-white hover:bg-[#1a1a2e] transition-colors">
+            4
+          </button>
+          <!-- 5 -->
+          <button type="button" class="h-11 rounded-lg flex items-center justify-center font-display font-medium text-sm text-[#9696b4] hover:text-white hover:bg-[#1a1a2e] transition-colors">
+            5
+          </button>
+        </div>
+      </div>
+
+      <div class="h-px w-full bg-[#202038]"></div>
+
+      <!-- Mode -->
+      <div class="flex flex-col gap-1.5">
+        <label class="font-display font-medium text-sm text-[#f2f2fa]">Mode</label>
+        <div class="p-3 bg-[#101020] rounded-xl border border-[#23233c] flex flex-col gap-0.5">
+          <span class="font-display font-semibold text-sm text-[#f2f2fa]">Classique</span>
+          <span class="text-xs text-[#9696b4]">Mode standard d’Undercover.</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Section 2: Options (Closed disclosures) -->
+    <div class="bg-[#16162a] rounded-2xl border border-[#252542] divide-y divide-[#202038] overflow-hidden shadow-lg shadow-black/20">
+      
+      <!-- Option 1: Rôles et distribution -->
+      <button type="button" class="w-full px-4 py-3.5 flex items-center justify-between text-left hover:bg-[#1c1c34] active:bg-[#20203a] transition-colors min-h-[48px]">
+        <span class="font-display font-medium text-sm text-[#f2f2fa]">Rôles et distribution</span>
+        <span class="material-symbols-outlined text-[#727294] text-lg">chevron_right</span>
+      </button>
+
+      <!-- Option 2: Mots -->
+      <button type="button" class="w-full px-4 py-3.5 flex items-center justify-between text-left hover:bg-[#1c1c34] active:bg-[#20203a] transition-colors min-h-[48px]">
+        <span class="font-display font-medium text-sm text-[#f2f2fa]">Mots</span>
+        <span class="material-symbols-outlined text-[#727294] text-lg">chevron_right</span>
+      </button>
+
+      <!-- Option 3: Plateau de diffusion -->
+      <button type="button" class="w-full px-4 py-3.5 flex items-center justify-between text-left hover:bg-[#1c1c34] active:bg-[#20203a] transition-colors min-h-[48px]">
+        <span class="font-display font-medium text-sm text-[#f2f2fa]">Plateau de diffusion</span>
+        <span class="material-symbols-outlined text-[#727294] text-lg">chevron_right</span>
+      </button>
+
+    </div>
+
+  </main>
+
+  <!-- Sticky Bottom Bar: Concise Recap + Dominant Citron CTA -->
+  <aside class="fixed bottom-0 left-0 right-0 z-40 bg-[#0d0d1a]/95 backdrop-blur-xl border-t border-[#1f1f38] px-4 pt-3 pb-6 flex flex-col gap-2.5 max-w-[390px] mx-auto shadow-2xl shadow-black">
+    <!-- Recap Row -->
+    <div class="flex items-center justify-between text-xs px-0.5">
+      <div class="flex items-center gap-1.5 text-[#f2f2fa] font-medium">
+        <span>4 participants prévus</span>
+        <span class="text-[#4b438c]">•</span>
+        <span>2 tours d’indices</span>
+      </div>
+      <span class="text-[#9696b4] font-medium">Classique</span>
+    </div>
+
+    <!-- Primary Action Button -->
+    <button type="button" class="w-full h-12 rounded-xl bg-[#d4ff33] hover:bg-[#c2ee22] active:scale-[0.98] text-black font-display font-bold text-sm tracking-tight flex items-center justify-center gap-2 shadow-lg shadow-[#d4ff33]/15 transition-all">
+      <span>Préparer la partie</span>
+      <span class="material-symbols-outlined text-lg font-bold">arrow_forward</span>
+    </button>
+  </aside>
+
+</body>
+</html>

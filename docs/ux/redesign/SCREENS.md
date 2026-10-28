@@ -8,10 +8,12 @@ Ne pas implémenter une référence dont les intentions fonctionnelles ne sont p
 
 <!-- stitch:screens:start -->
 
-| Screen                                                       | Surface    | Status   | Stitch ID                        | Local reference                     |
-| ------------------------------------------------------------ | ---------- | -------- | -------------------------------- | ----------------------------------- |
-| Accueil — Proposition 02 jeu vidéo affinée                   | À préciser | APPROVED | 70b5e989c97d4b9fa64f3add659e116b | [accueil-desktop](accueil-desktop/) |
-| Accueil — Proposition 02 jeu vidéo mobile · accents corrigés | À préciser | APPROVED | 15989136117558531304             | [accueil-mobile](accueil-mobile/)   |
+| Screen                                                       | Surface    | Status   | Stitch ID                        | Local reference                                           |
+| ------------------------------------------------------------ | ---------- | -------- | -------------------------------- | --------------------------------------------------------- |
+| Accueil — Proposition 02 jeu vidéo affinée                   | À préciser | APPROVED | 70b5e989c97d4b9fa64f3add659e116b | [accueil-desktop](accueil-desktop/)                       |
+| Accueil — Proposition 02 jeu vidéo mobile · accents corrigés | À préciser | APPROVED | 15989136117558531304             | [accueil-mobile](accueil-mobile/)                         |
+| AFTER — Prepare Undercover — Desktop — v1                    | À préciser | APPROVED | 4143568521582746268              | [prepare-undercover-desktop](prepare-undercover-desktop/) |
+| AFTER — Prepare Undercover — Mobile — v1                     | À préciser | APPROVED | 12712e36e77f4c33850ed5b07962942d | [prepare-undercover-mobile](prepare-undercover-mobile/)   |
 
 <!-- stitch:screens:end -->
 
