@@ -1,0 +1,23 @@
+{
+  "block": 6,
+  "name": "Broadcast / Spectateur / OBS",
+  "status": "BLOCKED",
+  "stitchProjectId": "10132472591870592947",
+  "stitchProjectName": "Extension Twitch UX — Block 6 — Broadcast",
+  "designScreens": [],
+  "approvedScreens": [],
+  "branch": "ux/block-6-broadcast",
+  "worktree": "/workspace/ux-worktrees/block-6-broadcast",
+  "lastUpdate": "2026-10-28",
+  "blockers": [
+    "La validation humaine du Bloc 6 est reçue, mais aucun Screen ID, PNG APPROVED, export HTML ou SPEC du projet 10132472591870592947 n’est présent dans la base Git vérifiée 73562c1.",
+    "L’orchestrateur n’a aucun outil MCP Stitch utilisable dans ce runtime pour récupérer les références manquantes. Les artefacts doivent être récupérés par le pont Git établi ou par un accès Stitch effectivement disponible avant toute intégration visuelle."
+  ],
+  "notes": [
+    "Ne pas redemander une validation UX : elle a été explicitement donnée pour les Blocs 5, 6 et 7.",
+    "Les tableaux de Screen IDs restent vides faute d’identifiants vérifiés ; leur absence ne remet pas en cause l’approbation humaine.",
+    "Audit fonctionnel disponible dans BLOCK-6-INTEGRATION.md. Aucune UI, règle, projection, permission, configuration ou donnée modifiée.",
+    "La branche part du commit 73562c1, qui conserve les intégrations des Blocs 1, 3 et 4 et les références APPROVED du Bloc 2.",
+    "Le renderer BroadcastOverlay est partagé avec le Bloc 7. Toute modification doit être coordonnée par l’orchestrateur ; aucune duplication de renderer ni fusion automatique."
+  ]
+}
