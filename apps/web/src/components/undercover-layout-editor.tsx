@@ -232,14 +232,6 @@ export function UndercoverLayoutEditor({
       className="undercover-layout-editor"
       aria-label="Personnalisation de l’overlay Undercover"
     >
-      <div className="layout-intro">
-        <h2>Personnaliser l’overlay Undercover</h2>
-        <p>
-          Vous modifiez le rendu spectateur, dans un cadre 16:9. Une fois
-          enregistrée, cette disposition est utilisée dans l’aperçu et dans OBS.
-          Aucun réglage ne change les règles du jeu.
-        </p>
-      </div>
       <div className="layout-toolbar">
         <label>
           Disposition de départ
@@ -253,6 +245,7 @@ export function UndercoverLayoutEditor({
               if (preset)
                 void confirm({
                   title: "Remplacer la disposition ?",
+                  presentation: "stitch",
                   description:
                     "Les positions actuelles seront remplacées par cette disposition. Les règles et les joueurs sont conservés.",
                   confirmLabel: "Utiliser cette disposition",
@@ -280,6 +273,7 @@ export function UndercoverLayoutEditor({
           onClick={() =>
             void confirm({
               title: "Rétablir la disposition par défaut ?",
+              presentation: "stitch",
               description:
                 "Seule la disposition change. Les joueurs et la partie sont conservés.",
               confirmLabel: "Rétablir",
@@ -293,11 +287,6 @@ export function UndercoverLayoutEditor({
           Rétablir la disposition par défaut
         </button>
       </div>
-      <p className="lobby-hint">
-        Glissez un bloc ou sa poignée ↘. Les flèches du clavier permettent aussi
-        de déplacer ou agrandir. Les blocs restent dans une marge de sécurité de
-        24 pixels.
-      </p>
       <div className="layout-workspace">
         <div>
           <div
