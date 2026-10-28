@@ -11,6 +11,10 @@ victoire et rejeu. Enchères et Qui est l’espion sont en préparation, **non j
 L’ancien Studio Créateur libre est retiré de l’expérience. Ses données et les
 anciennes parties sont conservées. Les comptes et abonnements ne sont pas encore livrés.
 
+**Version intégrée B5/B6/B7 :** branche `integration/blocks-5-6-7`.
+[Bilan et commandes de récupération](docs/INTEGRATION-BLOCKS-5-6-7.md) ·
+[Guide iPhone, ordinateur et OBS](docs/TEST-APPROVED-BLOCKS-5-6-7.md).
+
 ## Lancer et tester
 
 Prérequis : **Node.js 24.x et npm 11.x**, indiqués dans `.nvmrc` et `package.json`.

@@ -1,0 +1,337 @@
+{
+  "branch": "integration/blocks-5-6-7",
+  "testedApplicationCommit": "905b647aedd4a6e78b8144938e72199cd71c4eae",
+  "validatedAt": "2026-10-28T22:39:23.716495+01:00",
+  "initialAudit": {
+    "auditAt": "2026-10-28T22:13:31.156187+01:00",
+    "base": "73562c1d95023df104da186e0489c23bcda28401",
+    "tips": {
+      "B5": "25466ca410331ade294c6235ccd0336d4fc80c2a",
+      "B6": "b8bd7ea4251558ed99e05b6141b799ddd4bf4dff",
+      "B7": "8688a4c1670beacf860b282d173d059ab65ab0f1"
+    },
+    "refs": [
+      "refs/heads/feat/broadcast-neon-design-system b277c5654b789feb2c5a9bd060317caa89bf3c71",
+      "refs/heads/feat/configurable-game-foundation e39492b8ca01990633996ffc514c2c5aeb4265e7",
+      "refs/heads/feat/creator-studio-4a 80cc82fb9e18bee4979593b083051462a75d7af8",
+      "refs/heads/feat/creator-studio-4b f36e913fea9e64aafa4eda006d460bc5e7f192ae",
+      "refs/heads/feat/creator-studio-ux-4b1 26b0202eccd46496dd17ff22f543d559da5b2fc1",
+      "refs/heads/feat/official-games-playable 512d936f2e9f76e5d7ad22b06a92e3e658dd10f4",
+      "refs/heads/feat/play-flows-multidevice fdacc865fed3d05955d621abdc549f85be22458e",
+      "refs/heads/feat/product-focus-saas e3c83be6c61f3282238dc448b64830296ee0d5cd",
+      "refs/heads/feat/stage-3-sessions 5957b1fe5f50c99a05b7bb444c1720c01a9ce12e",
+      "refs/heads/feat/stitch-homepage b841caa1b729b72a04b3682d05ea8327bdccf0a8",
+      "refs/heads/feat/stitch-lobby-player 73562c1d95023df104da186e0489c23bcda28401",
+      "refs/heads/feat/stitch-local-bridge 3c0273479496ca02d1ee6a3b030577beef2ca115",
+      "refs/heads/feat/stream-preview-obs 4183dcebf6d338b34ed8d1f2237b744ef3506bda",
+      "refs/heads/feat/technical-foundation 46d3ba0c99a8efdc2e1ef81343ef49890cd1f5b1",
+      "refs/heads/feat/undercover-overlay-layout 5d167d0c1cd6e52aa56bb86fa7e374337457d9dd",
+      "refs/heads/feat/ux-six-experiences-themes 208df4f094f860dfcab54f633016003f18280a1f",
+      "refs/heads/ux/block-5-gm 25466ca410331ade294c6235ccd0336d4fc80c2a",
+      "refs/heads/ux/block-6-broadcast b8bd7ea4251558ed99e05b6141b799ddd4bf4dff",
+      "refs/heads/ux/block-7-lab 8688a4c1670beacf860b282d173d059ab65ab0f1",
+      "refs/heads/work a587c88c57c94846f94e203e0087e64cdd01ea85",
+      "refs/remotes/origin/HEAD a587c88c57c94846f94e203e0087e64cdd01ea85",
+      "refs/remotes/origin/docs/stitch-approved-blocks-5-6-7 fbec4a5877832d9ce5b4dd99868a9bb24381ff2b",
+      "refs/remotes/origin/feat/broadcast-neon-design-system b277c5654b789feb2c5a9bd060317caa89bf3c71",
+      "refs/remotes/origin/feat/configurable-game-foundation e39492b8ca01990633996ffc514c2c5aeb4265e7",
+      "refs/remotes/origin/feat/creator-studio-4a 80cc82fb9e18bee4979593b083051462a75d7af8",
+      "refs/remotes/origin/feat/creator-studio-4b f36e913fea9e64aafa4eda006d460bc5e7f192ae",
+      "refs/remotes/origin/feat/creator-studio-ux-4b1 26b0202eccd46496dd17ff22f543d559da5b2fc1",
+      "refs/remotes/origin/feat/official-games-playable 512d936f2e9f76e5d7ad22b06a92e3e658dd10f4",
+      "refs/remotes/origin/feat/play-flows-multidevice fdacc865fed3d05955d621abdc549f85be22458e",
+      "refs/remotes/origin/feat/product-focus-saas e3c83be6c61f3282238dc448b64830296ee0d5cd",
+      "refs/remotes/origin/feat/stage-3-sessions 5957b1fe5f50c99a05b7bb444c1720c01a9ce12e",
+      "refs/remotes/origin/feat/stitch-homepage b841caa1b729b72a04b3682d05ea8327bdccf0a8",
+      "refs/remotes/origin/feat/stitch-lobby-player 73562c1d95023df104da186e0489c23bcda28401",
+      "refs/remotes/origin/feat/stitch-local-bridge 3c0273479496ca02d1ee6a3b030577beef2ca115",
+      "refs/remotes/origin/feat/stream-preview-obs 4183dcebf6d338b34ed8d1f2237b744ef3506bda",
+      "refs/remotes/origin/feat/technical-foundation 46d3ba0c99a8efdc2e1ef81343ef49890cd1f5b1",
+      "refs/remotes/origin/feat/undercover-overlay-layout 5d167d0c1cd6e52aa56bb86fa7e374337457d9dd",
+      "refs/remotes/origin/feat/ux-six-experiences-themes 208df4f094f860dfcab54f633016003f18280a1f",
+      "refs/remotes/origin/main a587c88c57c94846f94e203e0087e64cdd01ea85",
+      "refs/remotes/origin/ux/block-5-gm 25466ca410331ade294c6235ccd0336d4fc80c2a",
+      "refs/remotes/origin/ux/block-6-broadcast b8bd7ea4251558ed99e05b6141b799ddd4bf4dff",
+      "refs/remotes/origin/ux/block-7-lab 8688a4c1670beacf860b282d173d059ab65ab0f1"
+    ],
+    "refsContainingAllTips": [],
+    "temporaryCombinedCopy": {
+      "path": "/workspace/ux-worktrees/validation-5-6-7",
+      "head": "fbec4a5877832d9ce5b4dd99868a9bb24381ff2b",
+      "detached": true,
+      "uncommitted": true,
+      "applicationSHA256Matches": {
+        "apps/web/src/app/broadcast.css": true,
+        "apps/web/src/app/stitch-gm.css": true,
+        "apps/web/src/app/stitch-lab.css": true,
+        "apps/web/src/app/tokens.css": true,
+        "apps/web/src/components/broadcast-feed.tsx": true,
+        "apps/web/src/components/broadcast-overlay.tsx": true,
+        "apps/web/src/components/creator-laboratory.tsx": true,
+        "apps/web/src/components/game-action.tsx": true,
+        "apps/web/src/components/gm-game-panel.tsx": true,
+        "apps/web/src/components/official-laboratory.tsx": true,
+        "apps/web/src/components/play-panel.tsx": true,
+        "apps/web/src/components/public-session.tsx": true,
+        "apps/web/src/components/session-layout-editor.tsx": true,
+        "apps/web/src/components/session-room.tsx": true,
+        "apps/web/src/components/stream-preview.tsx": true,
+        "apps/web/src/components/undercover-layout-editor.tsx": true,
+        "apps/web/src/components/undercover-room.tsx": true,
+        "apps/web/src/lib/broadcast-presentation.ts": true
+      }
+    },
+    "sourceTreesClean": {
+      "block-5-gm": true,
+      "block-6-broadcast": true,
+      "block-7-lab": true
+    }
+  },
+  "mergeOrder": [
+    {
+      "block": 5,
+      "mergeCommit": "4782a30ac753208d837e38b37ed86e7e5025a57f",
+      "unitTestsPassed": 197,
+      "strictTypeScript": "PASS",
+      "productionBuild": "PASS",
+      "targetedBrowserChecks": [
+        {
+          "suite": "gm",
+          "passed": 6
+        },
+        {
+          "suite": "design",
+          "passed": 12
+        }
+      ],
+      "globalChecksAfterThirdMerge": false
+    },
+    {
+      "block": 6,
+      "mergeCommit": "754441ff5d4f918fa0418f8acebca6bcc0bfbff6",
+      "unitTestsPassed": 197,
+      "strictTypeScript": "PASS",
+      "productionBuild": "PASS",
+      "targetedBrowserChecks": [
+        {
+          "suite": "broadcast",
+          "passed": 9
+        },
+        {
+          "suite": "gm",
+          "passed": 2
+        }
+      ],
+      "globalChecksAfterThirdMerge": false
+    },
+    {
+      "block": 7,
+      "mergeCommit": "905b647aedd4a6e78b8144938e72199cd71c4eae",
+      "unitTestsPassed": 197,
+      "strictTypeScript": "PASS",
+      "productionBuild": "PASS",
+      "targetedBrowserChecks": [],
+      "globalChecksAfterThirdMerge": true
+    }
+  ],
+  "manualConflicts": [],
+  "automaticallyReconciled": ["apps/web/src/app/tokens.css"],
+  "additionalFunctionalChanges": false,
+  "applicationMatchesPreviouslyTestedCopySHA256": {
+    "apps/web/src/app/broadcast.css": "67cb8c92957aa2be2e2aa8cffc290522ffea6c0a28bf4b2bebb515f8f788942a",
+    "apps/web/src/app/stitch-gm.css": "bdb1741a4e291a35fe4d59e0be59a4fcbd5cbdcb0a7c650491948cd8a79956fc",
+    "apps/web/src/app/stitch-lab.css": "bb41923512ce632acea5440de3e3ad0c85bfb57f3b2ce188c00f0bdab23ab6a5",
+    "apps/web/src/app/tokens.css": "fe797f6e06488099ff56217988892bf2c3567ff831b3d7d93c4a1c6829a3c247",
+    "apps/web/src/components/broadcast-feed.tsx": "37a4a1d507e09f94f06d8a9e7ea2391ad2f981378447a6e8b90095aa82776008",
+    "apps/web/src/components/broadcast-overlay.tsx": "8e86aff5871eff7845e65444e8c03c0922aba35349d540c5357de1a4e9805b87",
+    "apps/web/src/components/creator-laboratory.tsx": "c0cb90e20ed5052dbb6ed587db57e57e44c101cf394b320b59ac1436eaa57ab7",
+    "apps/web/src/components/game-action.tsx": "54874e1f8cde85eabeb112021f0e96300576669740943df31d53527053b44c46",
+    "apps/web/src/components/gm-game-panel.tsx": "8d8015d5da40ac1462d2557626df7c09b32683bc3341bf17daea6c3d7b8725c4",
+    "apps/web/src/components/official-laboratory.tsx": "aa64d23b21b354ad5bc6d0727adf6afd8bac803d32626f5a9c4eb481019a87f5",
+    "apps/web/src/components/play-panel.tsx": "235b92826c55f1780d730dfd3aa1fe8103ad537b7c45212467f0d6359d3720c2",
+    "apps/web/src/components/public-session.tsx": "a850799c4bb1b719ad76440a49b4e7a6bf1513902b3504ee7e1a0d2f0b79fd84",
+    "apps/web/src/components/session-layout-editor.tsx": "5f1f6f209c3f25d76bcbf39c5c73646668214a59253bd1420592026930bd577d",
+    "apps/web/src/components/session-room.tsx": "41465cc3a80caedd84c3a6f01e89726f55cf6e85499d9c6c758a7ffa4fae6ad0",
+    "apps/web/src/components/stream-preview.tsx": "65daef0a20c0ab742a640f833fc397bc4e815d2bb55919a3d9b59dac0edf9e3a",
+    "apps/web/src/components/undercover-layout-editor.tsx": "ffb8c17ed6c180c238b2d2206f9567aba9fc475f6434f221215c912c7886b159",
+    "apps/web/src/components/undercover-room.tsx": "af4f749c0fc65aa0a29265f474740e4e1e0b2ef0cc73ff6c8a6c82c156a1bc92",
+    "apps/web/src/lib/broadcast-presentation.ts": "3872daedbacc91840bee6dc0aa874cf8645a7983a1196d05125aa78a01cba9df"
+  },
+  "approvedArtifactSHA256ChecksPassed": 129,
+  "globalBrowserResults": [
+    {
+      "group": "canonical-isolated",
+      "suite": "legacy",
+      "commit": "905b647aedd4a6e78b8144938e72199cd71c4eae",
+      "exit_code": 0,
+      "passed": 60,
+      "failed": 0,
+      "httpPort": 3000,
+      "serverPort": 4000,
+      "log": "xt-integration-global-legacy-isolated.log"
+    },
+    {
+      "group": "legacy",
+      "suite": "lab-dev",
+      "commit": "905b647aedd4a6e78b8144938e72199cd71c4eae",
+      "exit_code": 0,
+      "passed": 6,
+      "failed": 0,
+      "seconds": 62.6,
+      "log": "xt-integration-global-lab-dev.log",
+      "httpPort": 3100,
+      "serverPort": 4100
+    },
+    {
+      "group": "canonical",
+      "suite": "stitch-gm",
+      "commit": "905b647aedd4a6e78b8144938e72199cd71c4eae",
+      "exit_code": 0,
+      "passed": 6,
+      "failed": 0,
+      "seconds": 258.3,
+      "log": "xt-integration-global-stitch-gm.log",
+      "httpPort": 3000,
+      "serverPort": 4000
+    },
+    {
+      "group": "canonical",
+      "suite": "design",
+      "commit": "905b647aedd4a6e78b8144938e72199cd71c4eae",
+      "exit_code": 0,
+      "passed": 12,
+      "failed": 0,
+      "seconds": 53.8,
+      "log": "xt-integration-global-design.log",
+      "httpPort": 3000,
+      "serverPort": 4000
+    },
+    {
+      "group": "canonical",
+      "suite": "e2e",
+      "commit": "905b647aedd4a6e78b8144938e72199cd71c4eae",
+      "exit_code": 0,
+      "passed": 42,
+      "failed": 0,
+      "seconds": 117.6,
+      "log": "xt-integration-global-e2e.log",
+      "httpPort": 3000,
+      "serverPort": 4000
+    },
+    {
+      "group": "broadcast",
+      "suite": "games",
+      "commit": "905b647aedd4a6e78b8144938e72199cd71c4eae",
+      "exit_code": 0,
+      "passed": 12,
+      "failed": 0,
+      "seconds": 247.6,
+      "log": "xt-integration-global-games.log",
+      "httpPort": 3301,
+      "serverPort": 4301
+    },
+    {
+      "group": "broadcast",
+      "suite": "stitch-broadcast",
+      "commit": "905b647aedd4a6e78b8144938e72199cd71c4eae",
+      "exit_code": 0,
+      "passed": 9,
+      "failed": 0,
+      "seconds": 164.3,
+      "log": "xt-integration-global-stitch-broadcast.log",
+      "httpPort": 3301,
+      "serverPort": 4301
+    },
+    {
+      "group": "broadcast",
+      "suite": "layout",
+      "commit": "905b647aedd4a6e78b8144938e72199cd71c4eae",
+      "exit_code": 0,
+      "passed": 6,
+      "failed": 0,
+      "seconds": 68.7,
+      "log": "xt-integration-global-layout.log",
+      "httpPort": 3301,
+      "serverPort": 4301
+    },
+    {
+      "group": "experiences",
+      "suite": "stream",
+      "commit": "905b647aedd4a6e78b8144938e72199cd71c4eae",
+      "exit_code": 0,
+      "passed": 9,
+      "failed": 0,
+      "seconds": 128.2,
+      "log": "xt-integration-global-stream.log",
+      "httpPort": 3302,
+      "serverPort": 4302
+    },
+    {
+      "group": "experiences",
+      "suite": "stitch-lab",
+      "commit": "905b647aedd4a6e78b8144938e72199cd71c4eae",
+      "exit_code": 0,
+      "passed": 12,
+      "failed": 0,
+      "seconds": 129.0,
+      "log": "xt-integration-global-stitch-lab.log",
+      "httpPort": 3302,
+      "serverPort": 4302
+    },
+    {
+      "group": "experiences",
+      "suite": "ux",
+      "commit": "905b647aedd4a6e78b8144938e72199cd71c4eae",
+      "exit_code": 0,
+      "passed": 12,
+      "failed": 0,
+      "seconds": 123.7,
+      "log": "xt-integration-global-ux.log",
+      "httpPort": 3302,
+      "serverPort": 4302
+    },
+    {
+      "group": "experiences",
+      "suite": "home",
+      "commit": "905b647aedd4a6e78b8144938e72199cd71c4eae",
+      "exit_code": 0,
+      "passed": 16,
+      "failed": 0,
+      "seconds": 39.9,
+      "log": "xt-integration-global-home.log",
+      "httpPort": 3302,
+      "serverPort": 4302
+    },
+    {
+      "group": "experiences",
+      "suite": "players",
+      "commit": "905b647aedd4a6e78b8144938e72199cd71c4eae",
+      "exit_code": 0,
+      "passed": 16,
+      "failed": 0,
+      "seconds": 181.9,
+      "log": "xt-integration-global-players.log",
+      "httpPort": 3302,
+      "serverPort": 4302
+    }
+  ],
+  "distinctBrowserCasesPassed": 218,
+  "unitIntegrationCasesPassed": 197,
+  "parallelAttemptLegacy": {
+    "group": "legacy",
+    "suite": "legacy",
+    "commit": "905b647aedd4a6e78b8144938e72199cd71c4eae",
+    "exit_code": 1,
+    "passed": 16,
+    "failed": 4,
+    "seconds": 189.3,
+    "log": "xt-integration-global-legacy.log",
+    "httpPort": 3303,
+    "serverPort": 4303,
+    "diagnosis": "Four timeout failures during parallel execution (5-second assertions / 30-second tests). Original assertions, delays and application code unchanged; subsequent isolated original-config run passed all 60 cases."
+  },
+  "retryResultsCountedAgain": false,
+  "productionOrMainMerge": false,
+  "deployed": false,
+  "physicalIPhoneSafariOBSForNewUI": "NOT_RUN"
+}

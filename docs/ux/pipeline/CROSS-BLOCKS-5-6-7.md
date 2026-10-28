@@ -1,5 +1,9 @@
 # Intégration croisée des blocs 5, 6 et 7
 
+> Bilan historique des vérifications avant fusion. Les trois blocs ont ensuite été
+> réunis sur `integration/blocks-5-6-7`, après autorisation explicite. Voir le
+> [bilan de la version intégrée](../../INTEGRATION-BLOCKS-5-6-7.md).
+
 Les 43 références humaines APPROVED du commit `fbec4a5` ont été appliquées aux trois
 worktrees en conservant leurs commits d’audit. Aucun appel Stitch n’est nécessaire.
 Les `approved.png`, HTML et rendus de référence restent intacts : **129 empreintes

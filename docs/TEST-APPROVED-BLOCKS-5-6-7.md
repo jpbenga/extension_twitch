@@ -4,40 +4,26 @@ Les designs ont été validés humainement. Ce guide concerne la nouvelle implé
 qui reste à essayer sur un véritable iPhone et dans OBS. Le premier workflow OBS
 antérieur reste validé pour le parcours déjà observé.
 
-## Ouvrir la bonne version
+## Ouvrir la version intégrée
 
-Les branches `ux/block-5-gm`, `ux/block-6-broadcast` et `ux/block-7-lab` restent
-séparées. Chacune porte sa refonte ; aucune fusion ni aucun déploiement n’est effectué.
-Pour essayer les trois nouvelles présentations simultanément sur le Mac, il faudra
-une version de test les réunissant après instruction explicite. La validation
-croisée Cloud utilise une copie temporaire, sans fusion de ces branches.
+Les blocs 5 (régie), 6 (Broadcast / OBS) et 7 (laboratoire) sont maintenant réunis
+sur `integration/blocks-5-6-7`. Les branches `ux/block-*` sont conservées comme
+provenance. Utilisez la branche d’intégration pour essayer tout le parcours.
+Voir le [bilan de fusion et de validation](INTEGRATION-BLOCKS-5-6-7.md).
 
-Choisissez la branche selon la présentation à tester :
-
-| Branche                | Nouvelle présentation disponible       |
-| ---------------------- | -------------------------------------- |
-| `ux/block-5-gm`        | Régie GM                               |
-| `ux/block-6-broadcast` | Spectateur, aperçu, OBS et disposition |
-| `ux/block-7-lab`       | Laboratoire et accès multi-rôles       |
-
-Pour récupérer par exemple la régie, dans le dossier du projet :
+Arrêtez d’abord l’ancien serveur avec **Ctrl+C** dans son terminal, puis copiez :
 
 ```sh
-git fetch origin
-git switch ux/block-5-gm
-git pull --ff-only
-```
-
-Remplacez uniquement le nom de branche pour tester un autre bloc. Si Git signale des
-modifications locales, conservez-les avant de changer de branche.
-Depuis la branche choisie :
-
-```sh
-nvm use 24
-npm ci
+cd ~/extension-twitch-studio-4b &&
+git fetch origin &&
+git switch integration/blocks-5-6-7 &&
+git pull --ff-only &&
+nvm use 24 &&
+npm ci &&
 npm run dev:lan
 ```
 
+Si Git signale des modifications locales, conservez-les avant de changer de branche.
 Gardez le terminal ouvert. Ouvrez l’adresse affichée sur l’ordinateur et l’iPhone,
 sur le même Wi-Fi de confiance. L’adresse du conteneur Cloud ne remplace pas cette
 adresse locale. Aucun compte Twitch n’est nécessaire.
