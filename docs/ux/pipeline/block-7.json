@@ -1,0 +1,66 @@
+{
+  "block": 7,
+  "name": "Lab / QA",
+  "status": "READY_TO_MERGE",
+  "stitchProjectId": "8710675424358674545",
+  "stitchProjectName": "Extension Twitch UX — Block 7 — Lab",
+  "designScreens": [
+    "64f7cbad24324dc9b84e7f38d623e521",
+    "20b629654f334e3ab4f56ab000ccedaa",
+    "6aba92598d7347de831c725b9082e5ae",
+    "e12ac0762b674a46a71fabbd3101e379",
+    "466000430ac54eacab2ae45c89eac5dd",
+    "15365f53b46e46b5932eeb5d6b1041f7",
+    "12831149329146105505"
+  ],
+  "approvedScreens": [
+    {
+      "screenId": "64f7cbad24324dc9b84e7f38d623e521",
+      "slug": "lab-main-desktop",
+      "directory": "docs/ux/redesign/lab-main-desktop"
+    },
+    {
+      "screenId": "20b629654f334e3ab4f56ab000ccedaa",
+      "slug": "lab-main-mobile",
+      "directory": "docs/ux/redesign/lab-main-mobile"
+    },
+    {
+      "screenId": "6aba92598d7347de831c725b9082e5ae",
+      "slug": "lab-compare-desktop",
+      "directory": "docs/ux/redesign/lab-compare-desktop"
+    },
+    {
+      "screenId": "e12ac0762b674a46a71fabbd3101e379",
+      "slug": "lab-access-desktop",
+      "directory": "docs/ux/redesign/lab-access-desktop"
+    },
+    {
+      "screenId": "466000430ac54eacab2ae45c89eac5dd",
+      "slug": "lab-restart-desktop",
+      "directory": "docs/ux/redesign/lab-restart-desktop"
+    },
+    {
+      "screenId": "15365f53b46e46b5932eeb5d6b1041f7",
+      "slug": "lab-resume-desktop",
+      "directory": "docs/ux/redesign/lab-resume-desktop"
+    },
+    {
+      "screenId": "12831149329146105505",
+      "slug": "lab-unavailable-desktop",
+      "directory": "docs/ux/redesign/lab-unavailable-desktop"
+    }
+  ],
+  "branch": "ux/block-7-lab",
+  "worktree": "/workspace/ux-worktrees/block-7-lab",
+  "lastUpdate": "2026-10-28T20:14:24.358941+00:00",
+  "blockers": [],
+  "notes": [
+    "Validation humaine des 7 références exacte reçue ; artefacts APPROVED inchangés.",
+    "Intégration et captures terminées ; 197 tests unitaires/intégration, TypeScript et build réussis.",
+    "12 nouveaux parcours navigateur validés dans la copie croisée ; 218 cas navigateur distincts passent au total.",
+    "Vérifications croisées et contrôles des branches séparées réussis. Aucun blocage technique identifié ; aucune fusion ni aucun déploiement. Les nouveaux rendus iPhone/Safari/OBS restent à vérifier humainement."
+  ],
+  "deliveryReport": "BLOCK-7-DELIVERY.md",
+  "captureIndex": "block-7-captures.json",
+  "crossValidation": "cross-validation.json"
+}

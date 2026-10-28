@@ -1,0 +1,587 @@
+/* B7 QA envelope only: no effect on normal GM/player/public routes or OBS. */
+.stitch-page.stitch-lab {
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  overflow-wrap: anywhere;
+}
+.stitch-lab .lab-stitch-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 64px;
+  padding: 12px max(24px, env(safe-area-inset-right)) 12px
+    max(24px, env(safe-area-inset-left));
+  border-bottom: 1px solid var(--home-border);
+}
+.lab-stitch-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--home-ink);
+  text-decoration: none;
+  min-height: 44px;
+}
+.lab-stitch-monogram {
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--home-control-border);
+  background: var(--home-raised);
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  color: var(--home-primary);
+  font-family: "Home Space Grotesk", sans-serif;
+}
+.lab-stitch-brand small,
+.lab-stitch-brand strong {
+  display: block;
+  line-height: 1.35;
+  font-size: 13px;
+}
+.lab-stitch-brand small {
+  color: var(--home-muted);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+.lab-stitch-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  font-size: 13px;
+}
+.lab-stitch-new,
+.lab-stitch-layout-link {
+  color: var(--home-muted);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-underline-offset: 4px;
+}
+.stitch-lab .lab-stitch-content {
+  flex: 1;
+  width: min(760px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 32px 0;
+}
+.stitch-lab.is-wide .lab-stitch-content {
+  width: min(1344px, calc(100% - 64px));
+}
+.lab-stitch-title {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.stitch-lab .lab-stitch-title h1 {
+  font-size: clamp(24px, 3vw, 34px);
+}
+.stitch-lab .stitch-kicker {
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--home-lilac);
+}
+.lab-stitch-card,
+.lab-stitch-disclosure,
+.stitch-lab .lab-role-view,
+.stitch-lab .lab-stitch-public {
+  border: 1px solid var(--home-border);
+  border-radius: 12px;
+  background: var(--home-surface);
+  min-width: 0;
+}
+.lab-stitch-card {
+  padding: 20px;
+}
+.lab-stitch-main-column,
+.lab-stitch-workspace {
+  display: grid;
+  gap: 24px;
+  min-width: 0;
+}
+.lab-stitch-perspective {
+  display: grid;
+  gap: 16px;
+}
+.lab-stitch-selector {
+  display: grid;
+  grid-template-columns: 1fr minmax(180px, 320px);
+  gap: 16px;
+  align-items: center;
+}
+.lab-stitch-selector label {
+  font-size: 12px;
+  font-family: "Home Space Grotesk", sans-serif;
+  font-weight: 600;
+  color: var(--home-muted);
+  letter-spacing: 0.04em;
+}
+.stitch-lab .lab-stitch-selector select {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 10px 14px;
+  border-color: var(--home-control-border);
+}
+.stitch-lab .lab-stitch-identity {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 16px;
+  margin: 0;
+  min-height: 44px;
+  border: 0;
+  border-left: 2px solid var(--home-primary);
+  background: var(--home-raised);
+  color: var(--home-ink);
+  font-size: 13px;
+}
+.lab-stitch-identity > svg {
+  color: var(--home-primary);
+}
+.lab-stitch-private-label {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--home-muted);
+}
+.lab-stitch-shortcuts {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-top: 4px;
+  border-top: 1px solid var(--home-border);
+}
+.stitch-lab .lab-stitch-shortcuts .copy-block {
+  margin: 0;
+  min-width: 0;
+}
+.stitch-lab .lab-stitch-shortcuts :is(button, a) {
+  min-height: 44px;
+  padding: 10px 12px;
+  font-size: 13px;
+  font-weight: 500;
+}
+.stitch-lab .lab-stitch-compare {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  min-height: 44px;
+  color: var(--home-muted);
+  font-size: 13px;
+  cursor: pointer;
+}
+.stitch-lab .lab-stitch-compare input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--home-primary);
+}
+.stitch-lab .lab-stitch-stage {
+  display: grid;
+  gap: 24px;
+  min-width: 0;
+}
+.stitch-lab .lab-stitch-stage > .lab-role-view {
+  padding: 24px;
+  margin: 0;
+}
+.stitch-lab .lab-role-view > .connection-badge {
+  margin: 0 0 14px;
+  font-size: 13px;
+  padding: 4px 8px;
+}
+.stitch-lab .lab-role-view > .connection-badge.connected {
+  color: var(--color-success);
+}
+.stitch-lab .lab-role-view .play-panel {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+/* The embedded GM uses B5's real controls, with the compact QA composition. */
+.stitch-lab .gm-game-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+.stitch-lab .gm-action-card {
+  min-height: 0;
+}
+.stitch-lab .gm-roster {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  counter-reset: lab-player;
+}
+.stitch-lab .gm-roster li {
+  display: block;
+  position: relative;
+}
+.stitch-lab .gm-roster li::before {
+  counter-increment: lab-player;
+  content: counter(lab-player);
+  display: block;
+  margin-bottom: 8px;
+  color: var(--home-muted);
+  font-size: 12px;
+}
+.stitch-lab .gm-roster :is(.gm-avatar, .gm-presence, .gm-player-status) {
+  display: none;
+}
+.stitch-lab .lab-role-view .game-phase {
+  margin-top: 0;
+}
+.stitch-lab .lab-role-view .play-toolbar button {
+  min-height: 48px;
+}
+.lab-stitch-disclosures {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  min-width: 0;
+}
+.stitch-lab .lab-stitch-disclosure {
+  padding: 0;
+  margin: 0;
+}
+.lab-stitch-disclosure > summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  min-height: 54px;
+  cursor: pointer;
+  list-style: none;
+  color: var(--home-ink);
+  font-size: 14px;
+}
+.lab-stitch-disclosure > summary::-webkit-details-marker {
+  display: none;
+}
+.lab-stitch-disclosure > summary > svg {
+  width: 16px;
+  height: 16px;
+  color: var(--home-lilac);
+  transition: transform 150ms ease;
+}
+.lab-stitch-disclosure[open] > summary > svg {
+  transform: rotate(90deg);
+}
+.lab-stitch-disclosure > summary > span {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--home-muted);
+}
+.lab-stitch-disclosure-body {
+  padding: 20px;
+  border-top: 1px solid var(--home-border);
+  display: grid;
+  gap: 16px;
+}
+.stitch-lab .lab-stitch-callout {
+  display: flex;
+  gap: 12px;
+  align-items: start;
+  padding: 12px 16px;
+  border: 1px solid var(--home-border);
+  border-radius: 8px;
+  background: var(--home-bg);
+  color: var(--home-muted);
+  font-size: 13px;
+}
+.lab-stitch-callout > svg {
+  color: var(--home-lilac);
+}
+.lab-stitch-callout strong {
+  color: var(--home-ink);
+}
+.lab-stitch-access-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 12px 16px;
+  border: 1px solid var(--home-border);
+  border-radius: 8px;
+  min-width: 0;
+}
+.lab-stitch-access-row > div:first-child {
+  min-width: 0;
+}
+.lab-stitch-access-row strong {
+  font-size: 14px;
+}
+.lab-stitch-access-row p {
+  font-size: 13px;
+  margin-top: 4px;
+}
+.stitch-lab .lab-stitch-access-row .stitch-button,
+.stitch-lab .lab-stitch-access-row .copy-block button {
+  min-height: 44px;
+  padding: 10px 12px;
+  font-size: 13px;
+  font-weight: 500;
+}
+.lab-stitch-row-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.stitch-lab .lab-stitch-row-actions .copy-block {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+}
+.stitch-lab .lab-stitch-probe-result {
+  display: flex;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--color-success);
+  border-radius: 8px;
+  background: var(--home-bg);
+  color: var(--home-ink);
+  font-size: 13px;
+}
+.lab-stitch-probe-result svg {
+  color: var(--color-success);
+}
+.stitch-lab.has-open-tools:not(.is-preparing) .lab-stitch-stage {
+  display: none;
+}
+.stitch-lab .lab-stitch-public {
+  display: block;
+  padding: 24px;
+}
+.lab-stitch-public-title {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--home-border);
+}
+.lab-stitch-public-title p,
+.lab-stitch-public-title > span {
+  font-size: 12px;
+  color: var(--home-muted);
+}
+.lab-stitch-public-title > span {
+  white-space: nowrap;
+  background: var(--home-raised);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+.stitch-lab .lab-stitch-unavailable {
+  width: min(580px, calc(100% - 32px));
+  margin: auto;
+  padding: 64px 0;
+  display: grid;
+  gap: 16px;
+}
+.lab-stitch-unavailable .lab-stitch-card {
+  padding: 40px;
+  display: grid;
+  gap: 24px;
+}
+.stitch-lab .lab-stitch-unavailable h1 {
+  font-size: 28px;
+}
+.lab-stitch-lock {
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--home-border);
+  border-radius: 8px;
+  color: var(--home-lilac);
+  background: var(--home-raised);
+  display: grid;
+  place-items: center;
+}
+.lab-stitch-unavailable .stitch-button {
+  justify-self: start;
+}
+.stitch-lab .lab-stitch-security {
+  display: flex;
+  align-items: start;
+  gap: 12px;
+  border-top: 1px solid var(--home-border);
+  padding-top: 24px;
+  font-size: 13px;
+}
+.lab-stitch-security strong {
+  color: var(--home-ink);
+}
+.stitch-lab .lab-stitch-note {
+  font-size: 13px;
+  text-align: center;
+  color: var(--home-muted);
+}
+.lab-stitch-footer {
+  border-top: 1px solid var(--home-border);
+  padding: 16px max(16px, env(safe-area-inset-right))
+    max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  font-size: 12px;
+  text-align: center;
+  color: var(--home-muted);
+}
+.stitch-lab .lab-stitch-resume {
+  display: grid;
+  gap: 24px;
+}
+.lab-stitch-resume > p {
+  font-size: 13px;
+}
+@media (min-width: 1000px) {
+  .stitch-lab .lab-stitch-header {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+  .stitch-lab .lab-stitch-stage.is-comparing {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.2fr);
+    align-items: start;
+  }
+  .stitch-lab.is-preparing .lab-stitch-workspace {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.85fr);
+    align-items: start;
+  }
+  .stitch-lab.is-preparing .lab-stitch-stage {
+    display: none;
+  }
+}
+@media (max-width: 999px) {
+  .stitch-lab .lab-stitch-compare,
+  .stitch-lab .lab-stitch-public {
+    display: none;
+  }
+  .stitch-lab.is-wide .lab-stitch-content {
+    width: calc(100% - 32px);
+  }
+  .stitch-lab .lab-stitch-stage.is-comparing {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .stitch-lab .lab-stitch-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 16px;
+    padding: 16px max(16px, env(safe-area-inset-right)) 12px
+      max(16px, env(safe-area-inset-left));
+  }
+  .lab-stitch-header-actions {
+    display: contents;
+  }
+  .lab-stitch-brand {
+    grid-column: 1;
+    grid-row: 1;
+    white-space: nowrap;
+  }
+  .lab-stitch-header-actions > .theme-control {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .lab-stitch-new {
+    grid-column: 1 / -1;
+    justify-self: end;
+    font-size: 12px;
+    flex-basis: 100%;
+    justify-content: flex-end;
+  }
+  .stitch-lab .gm-roster {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .stitch-lab .lab-stitch-content {
+    padding: 24px 0;
+  }
+  .lab-stitch-title {
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .lab-stitch-title > p {
+    font-size: 14px;
+  }
+  .lab-stitch-card,
+  .stitch-lab .lab-stitch-stage > .lab-role-view {
+    padding: 16px;
+  }
+  .lab-stitch-selector {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+  .lab-stitch-shortcuts {
+    border-top: 0;
+    display: grid;
+  }
+  .stitch-lab .lab-stitch-shortcuts :is(button, a) {
+    width: 100%;
+  }
+  .stitch-lab .lab-stitch-identity {
+    padding: 10px;
+    font-size: 12px;
+  }
+  .lab-stitch-private-label {
+    font-size: 11px;
+    margin-left: 0;
+  }
+  .lab-stitch-disclosure > summary {
+    padding: 14px 16px;
+    gap: 8px;
+  }
+  .lab-stitch-disclosure > summary > span {
+    font-size: 11px;
+  }
+  .lab-stitch-disclosure-body {
+    padding: 16px;
+  }
+  .lab-stitch-access-row {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+  }
+  .lab-stitch-row-actions {
+    justify-content: flex-start;
+  }
+  .lab-stitch-unavailable .lab-stitch-card {
+    padding: 24px;
+  }
+  .stitch-lab .lab-stitch-unavailable {
+    padding: 40px 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lab-stitch-disclosure > summary > svg {
+    transition: none;
+  }
+}
+/* The embedded B4 companion shares the QA header and appearance control. */
+.stitch-lab .stitch-embedded,
+.stitch-lab .stitch-embedded > .stitch-phone {
+  min-height: 0;
+  max-width: none;
+  padding: 0;
+  background: transparent;
+}
+.stitch-lab .stitch-embedded .stitch-header,
+.stitch-lab .stitch-embedded .stitch-companion-tools {
+  display: none;
+}
+.stitch-lab .stitch-embedded .stitch-player-main {
+  margin: 16px 0;
+}
+body:has(.stitch-lab) .stitch-dialog .ui-button-primary {
+  background: var(--home-primary);
+  border-color: var(--home-primary);
+  color: var(--home-on-primary);
+}
+body:has(.stitch-lab) .stitch-dialog .dialog-actions {
+  flex-direction: row-reverse;
+}

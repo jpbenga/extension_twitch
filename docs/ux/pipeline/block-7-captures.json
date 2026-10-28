@@ -1,0 +1,80 @@
+{
+  "block": 7,
+  "status": "IMPLEMENTATION_CAPTURE",
+  "date": "2026-10-28",
+  "engine": "Chromium",
+  "referenceCommit": "fbec4a5877832d9ce5b4dd99868a9bb24381ff2b",
+  "method": "Real server API/SSE, separate test identities and disposable SQLite databases. Full-page browser captures; OBS captures are transparent 1920 × 1080. B7 captures use the temporary combined test copy; no branch merged.",
+  "screens": [
+    {
+      "screenId": "64f7cbad24324dc9b84e7f38d623e521",
+      "slug": "lab-main-desktop",
+      "approved": "docs/ux/redesign/lab-main-desktop/approved.png",
+      "implementation": "docs/ux/redesign/lab-main-desktop/implementation-desktop.png",
+      "width": 1440,
+      "height": 1513,
+      "fullPage": true,
+      "sha256": "2991f7343a6ea1a320ec6b57c8966bfff57d9aa4c0be37a3c18287d40c725bdf"
+    },
+    {
+      "screenId": "20b629654f334e3ab4f56ab000ccedaa",
+      "slug": "lab-main-mobile",
+      "approved": "docs/ux/redesign/lab-main-mobile/approved.png",
+      "implementation": "docs/ux/redesign/lab-main-mobile/implementation-mobile.png",
+      "width": 390,
+      "height": 1681,
+      "fullPage": true,
+      "sha256": "897f29de98bf42b0b8e5b5e9636fd43aabe295d6949acb4a52cac7c20fc4b678"
+    },
+    {
+      "screenId": "6aba92598d7347de831c725b9082e5ae",
+      "slug": "lab-compare-desktop",
+      "approved": "docs/ux/redesign/lab-compare-desktop/approved.png",
+      "implementation": "docs/ux/redesign/lab-compare-desktop/implementation-desktop.png",
+      "width": 1440,
+      "height": 1345,
+      "fullPage": true,
+      "sha256": "f6158b1b0a30352bd2621136751fa1d3acae450d3b60b4be967a267acc1a11d6"
+    },
+    {
+      "screenId": "e12ac0762b674a46a71fabbd3101e379",
+      "slug": "lab-access-desktop",
+      "approved": "docs/ux/redesign/lab-access-desktop/approved.png",
+      "implementation": "docs/ux/redesign/lab-access-desktop/implementation-desktop.png",
+      "width": 1440,
+      "height": 2026,
+      "fullPage": true,
+      "sha256": "6723d691f605bf5287971150ab4986651acf13de8cca65ba6f50cfdc034bdc3f"
+    },
+    {
+      "screenId": "466000430ac54eacab2ae45c89eac5dd",
+      "slug": "lab-restart-desktop",
+      "approved": "docs/ux/redesign/lab-restart-desktop/approved.png",
+      "implementation": "docs/ux/redesign/lab-restart-desktop/implementation-desktop.png",
+      "width": 1440,
+      "height": 1000,
+      "fullPage": true,
+      "sha256": "24af4e9875bb87127ddd8c1b007745f234c09c50934788bde956cc1b0bd04b76"
+    },
+    {
+      "screenId": "15365f53b46e46b5932eeb5d6b1041f7",
+      "slug": "lab-resume-desktop",
+      "approved": "docs/ux/redesign/lab-resume-desktop/approved.png",
+      "implementation": "docs/ux/redesign/lab-resume-desktop/implementation-desktop.png",
+      "width": 1440,
+      "height": 2017,
+      "fullPage": true,
+      "sha256": "c322b6caa7bce6009a7490c9246554f3193f82b9ca09798dfa84067803479c9f"
+    },
+    {
+      "screenId": "12831149329146105505",
+      "slug": "lab-unavailable-desktop",
+      "approved": "docs/ux/redesign/lab-unavailable-desktop/approved.png",
+      "implementation": "docs/ux/redesign/lab-unavailable-desktop/implementation-desktop.png",
+      "width": 1440,
+      "height": 1000,
+      "fullPage": true,
+      "sha256": "38b1387a21355fce84aae62d533ddcc5cad1ae038579184516d154ba167e0275"
+    }
+  ]
+}

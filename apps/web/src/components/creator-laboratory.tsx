@@ -21,6 +21,7 @@ import { requestMessage } from "../lib/session-client";
 import { SpectatorTest } from "./spectator-test";
 import { BroadcastFeed } from "./broadcast-feed";
 import { CopyLink } from "./copy-link";
+import { OfficialLaboratory } from "./official-laboratory";
 export function CreatorLaboratory({
   id,
   context = "creator",
@@ -57,7 +58,13 @@ export function CreatorLaboratory({
     setLoaded(true);
   }, [id]);
   function changeRole(next: string) {
-    sessionStorage.setItem(`xt:lab-perspective:${id}`, next);
+    try {
+      sessionStorage.setItem(`xt:lab-perspective:${id}`, next);
+    } catch {
+      setError(
+        "Ce point de vue reste utilisable, mais ne pourra pas être retrouvé après rechargement dans cet onglet.",
+      );
+    }
     setRole(next);
   }
   async function run(task: (d: CreatorLab) => Promise<CreatorLab>) {
@@ -67,7 +74,11 @@ export function CreatorLaboratory({
     setError("");
     setNotice("");
     try {
-      const next = await task(structuredClone(lab));
+      // A dialog can retain an older callback after an uncertain response.
+      // Reload the persisted receipt before retrying instead of restarting from
+      // the stale React snapshot captured when the confirmation opened.
+      const current = readLab(id) ?? lab;
+      const next = await task(structuredClone(current));
       saveLab(next);
       setLab(next);
       return true;
@@ -92,6 +103,34 @@ export function CreatorLaboratory({
   }
   const person = lab?.players.find((p) => `player:${p.id}` === role),
     audience = role as SessionAudience;
+  if (["play"].includes(context))
+    return (
+      <OfficialLaboratory
+        id={id}
+        lab={lab}
+        loaded={loaded}
+        role={role}
+        changeRole={changeRole}
+        compare={compare}
+        setCompare={setCompare}
+        busy={busy}
+        error={error}
+        notice={notice}
+        run={run}
+        setNotice={setNotice}
+        setError={setError}
+      >
+        {lab && (
+          <LabView
+            key={`${id}:${audience}`}
+            id={id}
+            audience={audience}
+            lab={lab}
+            onPrepared={() => setLab({ ...lab, ready: true })}
+          />
+        )}
+      </OfficialLaboratory>
+    );
   return (
     <CreatorFrame context={context}>
       <div className={context === "play" ? "lab-focused" : ""}>
@@ -488,7 +527,7 @@ function LabView({
       {view &&
         (audience === "public" ? (
           <>
-            <PublicSession view={view} standalone />
+            <PublicSession view={view} />
             <SpectatorTest id={id} />
           </>
         ) : (
