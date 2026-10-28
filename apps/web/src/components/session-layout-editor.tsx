@@ -11,7 +11,9 @@ import {
   type UndercoverLayout,
 } from "@extension-twitch/contracts/undercover-layout";
 import { useSession } from "../lib/use-session";
-import { ProductFrame } from "./product-frame";
+import { ThemeControl } from "./application-theme";
+import "../app/stitch-surfaces.css";
+import "../app/brand-fonts.css";
 import { UndercoverLayoutEditor } from "./undercover-layout-editor";
 import { useConfirm } from "./ui/feedback";
 
@@ -96,145 +98,149 @@ export function SessionLayoutEditor({ id }: { id: string }) {
   const view =
     publicSession.view?.audience === "public" ? publicSession.view : null;
   return (
-    <ProductFrame>
-      <div className="creator-page-title">
-        <div>
-          <span className="eyebrow">UNDERCOVER · RENDU SPECTATEUR</span>
-          <h1>Votre overlay</h1>
-          <p className="lobby-hint">
-            Thème de l’émission :{" "}
-            {
-              officialThemes.find(
-                (t) =>
-                  t.id ===
-                  (gm.view?.broadcastTheme ?? historicalBroadcastTheme),
-              )?.name
-            }
-            . Conservé pour cette partie ; choisissez un autre thème lors d’une
-            nouvelle préparation.
-          </p>
-          <p role="status">
+    <main className="stitch-page broadcast-workbench broadcast-layout-page">
+      <div className="broadcast-workbench-inner">
+        <div className="broadcast-layout-navigation">
+          <Link className="broadcast-back-link" href={`/sessions/${id}/gm`}>
+            ← Retour à la régie
+          </Link>
+          <ThemeControl />
+        </div>
+        <header className="broadcast-page-heading">
+          <div>
+            <h1>Votre overlay</h1>
+            <p>
+              Thème de l’émission :{" "}
+              {
+                officialThemes.find(
+                  (t) =>
+                    t.id ===
+                    (gm.view?.broadcastTheme ?? historicalBroadcastTheme),
+                )?.name
+              }
+            </p>
+            <small>
+              Conservé pour cette partie · indépendant de l’apparence de
+              l’application
+            </small>
+          </div>
+          <p role="status" className="broadcast-save-state">
             {!draft
               ? "Ouverture de la disposition…"
               : dirty
                 ? "Modifications non enregistrées"
                 : "Disposition enregistrée dans la partie"}
           </p>
-        </div>
-        <Link className="text-link" href={`/sessions/${id}/gm`}>
-          Retour à la régie
-        </Link>
-        <Link className="text-link" href={`/play/lab/${id}`}>
-          Retour au laboratoire
-        </Link>
-      </div>
-      {gm.error && (
-        <p className="lobby-error" role="alert">
-          {gm.error}
-        </p>
-      )}
-      {error && (
-        <p className="lobby-error" role="alert">
-          {error}
-        </p>
-      )}
-      {notice && (
-        <p className="lobby-notice" role="status">
-          {notice}
-        </p>
-      )}
-      {conflict && (
-        <div className="lobby-warning" role="alert">
-          <p>
-            La disposition a été modifiée dans un autre onglet. Vos changements
-            sont conservés ici et ne peuvent pas écraser l’autre disposition.
-            Notez vos ajustements, puis chargez la disposition enregistrée pour
-            les réappliquer.
+        </header>
+        {gm.error && (
+          <p className="lobby-error" role="alert">
+            {gm.error}
           </p>
-          <button
-            type="button"
-            className="secondary-button"
-            disabled={gm.busy || gm.retryAvailable}
-            onClick={() =>
-              void confirm({
-                title: "Charger la disposition enregistrée ?",
-                description:
-                  "Vos ajustements locaux seront remplacés. La partie ne change pas.",
-                confirmLabel: "Charger la disposition",
-                onConfirm: () => {
-                  setDraft({ layout: remote, base: remote });
-                  return true;
-                },
-              })
-            }
-          >
-            Charger la disposition enregistrée
-          </button>
-        </div>
-      )}
-      {gm.view?.audience === "gm" &&
-      gm.view.gameId === "undercover" &&
-      view &&
-      draft ? (
-        <>
-          <UndercoverLayoutEditor
-            layout={draft.layout}
-            onChange={(layout) => {
-              setDraft({ ...draft, layout });
-              setNotice("");
-            }}
-            view={view}
-            connection={publicSession.connection}
-            disabled={gm.busy || gm.retryAvailable}
-          />
-          <div className="layout-actions">
+        )}
+        {error && (
+          <p className="lobby-error" role="alert">
+            {error}
+          </p>
+        )}
+        {notice && (
+          <p className="lobby-notice" role="status">
+            {notice}
+          </p>
+        )}
+        {conflict && (
+          <div className="lobby-warning" role="alert">
+            <p>
+              La disposition a été modifiée dans un autre onglet. Vos
+              changements sont conservés ici et ne peuvent pas écraser l’autre
+              disposition. Notez vos ajustements, puis chargez la disposition
+              enregistrée pour les réappliquer.
+            </p>
             <button
               type="button"
-              className="primary-button"
-              disabled={
-                gm.busy ||
-                (conflict && !gm.retryAvailable) ||
-                (!dirty && !gm.retryAvailable)
-              }
-              onClick={() => void save()}
-            >
-              {gm.busy
-                ? "Enregistrement…"
-                : gm.retryAvailable
-                  ? "Réessayer l’enregistrement"
-                  : "Enregistrer la disposition"}
-            </button>
-            <a
               className="secondary-button"
-              href={`/sessions/${id}/stream`}
-              target="_blank"
-              rel="noopener noreferrer"
+              disabled={gm.busy || gm.retryAvailable}
+              onClick={() =>
+                void confirm({
+                  title: "Charger la disposition enregistrée ?",
+                  presentation: "stitch",
+                  description:
+                    "Vos ajustements locaux seront remplacés. La partie ne change pas.",
+                  confirmLabel: "Charger la disposition",
+                  onConfirm: () => {
+                    setDraft({ layout: remote, base: remote });
+                    return true;
+                  },
+                })
+              }
             >
-              Aperçu de l’émission ↗
-            </a>
-            <a
-              className="text-link"
-              href={`/sessions/${id}/obs`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Source OBS transparente ↗
-            </a>
+              Charger la disposition enregistrée
+            </button>
           </div>
-          <p className="lobby-hint">
-            Les ajustements restent privés jusqu’à l’enregistrement. Après
-            enregistrement, la même URL OBS affiche la nouvelle disposition,
-            sans réinitialiser le jeu.
-          </p>
-        </>
-      ) : (
-        gm.connection !== "denied" && (
-          <p>
-            Ouverture de la disposition… Un accès privé Game Master est
-            nécessaire.
-          </p>
-        )
-      )}
-    </ProductFrame>
+        )}
+        {gm.view?.audience === "gm" &&
+        gm.view.gameId === "undercover" &&
+        view &&
+        draft ? (
+          <>
+            <UndercoverLayoutEditor
+              layout={draft.layout}
+              onChange={(layout) => {
+                setDraft({ ...draft, layout });
+                setNotice("");
+              }}
+              view={view}
+              connection={publicSession.connection}
+              disabled={gm.busy || gm.retryAvailable}
+            />
+            <div className="layout-actions">
+              <button
+                type="button"
+                className="primary-button"
+                disabled={
+                  gm.busy ||
+                  (conflict && !gm.retryAvailable) ||
+                  (!dirty && !gm.retryAvailable)
+                }
+                onClick={() => void save()}
+              >
+                {gm.busy
+                  ? "Enregistrement…"
+                  : gm.retryAvailable
+                    ? "Réessayer l’enregistrement"
+                    : "Enregistrer la disposition"}
+              </button>
+              <a
+                className="secondary-button"
+                href={`/sessions/${id}/stream`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Aperçu de l’émission ↗
+              </a>
+              <a
+                className="text-link"
+                href={`/sessions/${id}/obs`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Source OBS transparente ↗
+              </a>
+            </div>
+            <p className="lobby-hint">
+              Les ajustements restent privés jusqu’à l’enregistrement. Après
+              enregistrement, la même URL OBS affiche la nouvelle disposition,
+              sans réinitialiser le jeu.
+            </p>
+          </>
+        ) : (
+          gm.connection !== "denied" && (
+            <p>
+              Ouverture de la disposition… Un accès privé Game Master est
+              nécessaire.
+            </p>
+          )
+        )}
+      </div>
+    </main>
   );
 }

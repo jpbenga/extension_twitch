@@ -1,31 +1,39 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ProductFrame } from "./product-frame";
+import {
+  officialThemes,
+  historicalBroadcastTheme,
+  type ThemeId,
+} from "@extension-twitch/contracts/themes";
 import { BroadcastFeed } from "./broadcast-feed";
 import { CopyLink } from "./copy-link";
 import { SegmentedControl } from "./ui/primitives";
 import { SpectatorTest } from "./spectator-test";
+import "../app/brand-fonts.css";
 export function StreamPreview({ id }: { id: string }) {
   const [mode, setMode] = useState("scene"),
-    [origin, setOrigin] = useState("");
+    [origin, setOrigin] = useState(""),
+    [broadcastTheme, setBroadcastTheme] = useState<ThemeId>(
+      historicalBroadcastTheme,
+    );
   useEffect(() => setOrigin(window.location.origin), []);
   return (
-    <ProductFrame>
-      <div className="stream-preview-shell">
-        <div className="creator-page-title">
+    <main className="stitch-page broadcast-workbench broadcast-preview-page">
+      <div className="broadcast-workbench-inner stream-preview-shell">
+        <Link href={`/play/lab/${id}`} className="broadcast-back-link">
+          ← Retour au laboratoire
+        </Link>
+        <header className="broadcast-page-heading">
           <div>
-            <span className="eyebrow">PRÉVISUALISATION · 16:9</span>
             <h1>Aperçu de l’émission</h1>
-            <p>
-              Scène fictive, véritable plateau synchronisé. Aucun flux Twitch ou
-              vidéo réelle.
-            </p>
+            <p>Scène fictive · aucun flux Twitch</p>
           </div>
-          <Link href={`/play/lab/${id}`} className="text-link">
-            Retour au laboratoire
-          </Link>
-        </div>
+          <small>
+            Thème public :{" "}
+            {officialThemes.find((theme) => theme.id === broadcastTheme)?.name}
+          </small>
+        </header>
         <SegmentedControl
           label="Fond de la prévisualisation"
           value={mode}
@@ -35,22 +43,27 @@ export function StreamPreview({ id }: { id: string }) {
             { value: "transparent", label: "Overlay seul" },
           ]}
         />
-        <div className={mode === "transparent" ? "broadcast-checker" : ""}>
-          <BroadcastFeed id={id} scene={mode === "scene"} />
+        <div
+          className={`broadcast-preview-canvas ${mode === "transparent" ? "broadcast-checker" : ""}`}
+        >
+          <BroadcastFeed
+            id={id}
+            scene={mode === "scene"}
+            onTheme={setBroadcastTheme}
+          />
         </div>
-        <p className="lobby-hint">
-          Le damier sert uniquement à vérifier la transparence. La source OBS
-          conserve le fond transparent ; seuls les panneaux du jeu sont
-          visibles.
+        <p className="broadcast-caption">
+          Miniature 16:9 · même plateau public que la source OBS.
         </p>
         <details className="stream-tools">
           <summary>Utiliser ce plateau dans OBS</summary>
-          <section className="lobby-panel">
+          <section className="broadcast-tool-card">
             <h2>Source navigateur OBS</h2>
-            <p>1920 × 1080 · même rendu et données publiques que cet aperçu.</p>
+            <p>1920 × 1080 · fond transparent.</p>
             <CopyLink
               label="URL publique de l’overlay OBS"
               value={`${origin}/sessions/${id}/obs`}
+              buttonLabel="Copier l’URL OBS"
             />
             <a
               className="secondary-button"
@@ -60,6 +73,10 @@ export function StreamPreview({ id }: { id: string }) {
             >
               Ouvrir l’overlay seul ↗
             </a>
+            <p className="broadcast-caption">
+              Le décor et le damier de cet aperçu restent en dehors de la source
+              OBS.
+            </p>
           </section>
         </details>
         <details className="stream-tools">
@@ -67,6 +84,6 @@ export function StreamPreview({ id }: { id: string }) {
           <SpectatorTest id={id} />
         </details>
       </div>
-    </ProductFrame>
+    </main>
   );
 }

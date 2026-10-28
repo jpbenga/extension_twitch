@@ -1,0 +1,276 @@
+{
+  "block": 6,
+  "name": "Broadcast / Spectateur / OBS",
+  "status": "READY_TO_MERGE",
+  "stitchProjectId": "10132472591870592947",
+  "stitchProjectName": "Extension Twitch UX — Block 6 — Broadcast",
+  "designScreens": [
+    {
+      "screenId": "5180594610240066342",
+      "projectId": "10132472591870592947",
+      "slug": "broadcast-obs-preparation",
+      "surface": "Attendre la distribution sur le plateau public · OBS",
+      "status": "APPROVED",
+      "directory": "docs/ux/redesign/broadcast-obs-preparation",
+      "approvedImage": "approved.png",
+      "approvedHtml": "approved.html",
+      "spec": "SPEC.md",
+      "referenceViewportImage": "reference-transparent-1920.png",
+      "captureViewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "stitchUrl": "https://stitch.withgoogle.com/projects/10132472591870592947?node-id=5180594610240066342"
+    },
+    {
+      "screenId": "15234760056600880163",
+      "projectId": "10132472591870592947",
+      "slug": "broadcast-obs-discussion",
+      "surface": "Mettre en évidence le joueur courant et la progression orale · OBS",
+      "status": "APPROVED",
+      "directory": "docs/ux/redesign/broadcast-obs-discussion",
+      "approvedImage": "approved.png",
+      "approvedHtml": "approved.html",
+      "spec": "SPEC.md",
+      "referenceViewportImage": "reference-transparent-1920.png",
+      "captureViewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "stitchUrl": "https://stitch.withgoogle.com/projects/10132472591870592947?node-id=15234760056600880163"
+    },
+    {
+      "screenId": "14540847010751378625",
+      "projectId": "10132472591870592947",
+      "slug": "broadcast-obs-vote",
+      "surface": "Montrer la participation au vote sans révéler les choix · OBS",
+      "status": "APPROVED",
+      "directory": "docs/ux/redesign/broadcast-obs-vote",
+      "approvedImage": "approved.png",
+      "approvedHtml": "approved.html",
+      "spec": "SPEC.md",
+      "referenceViewportImage": "reference-transparent-1920.png",
+      "captureViewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "stitchUrl": "https://stitch.withgoogle.com/projects/10132472591870592947?node-id=14540847010751378625"
+    },
+    {
+      "screenId": "8284643245660127207",
+      "projectId": "10132472591870592947",
+      "slug": "broadcast-obs-elimination",
+      "surface": "Afficher une élimination et les voix publiquement résolues · OBS",
+      "status": "APPROVED",
+      "directory": "docs/ux/redesign/broadcast-obs-elimination",
+      "approvedImage": "approved.png",
+      "approvedHtml": "approved.html",
+      "spec": "SPEC.md",
+      "referenceViewportImage": "reference-transparent-1920.png",
+      "captureViewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "stitchUrl": "https://stitch.withgoogle.com/projects/10132472591870592947?node-id=8284643245660127207"
+    },
+    {
+      "screenId": "10166693569404062547",
+      "projectId": "10132472591870592947",
+      "slug": "broadcast-obs-tie",
+      "surface": "Afficher une égalité sans inventer de nouvelle règle · OBS",
+      "status": "APPROVED",
+      "directory": "docs/ux/redesign/broadcast-obs-tie",
+      "approvedImage": "approved.png",
+      "approvedHtml": "approved.html",
+      "spec": "SPEC.md",
+      "referenceViewportImage": "reference-transparent-1920.png",
+      "captureViewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "stitchUrl": "https://stitch.withgoogle.com/projects/10132472591870592947?node-id=10166693569404062547"
+    },
+    {
+      "screenId": "11645902411572347225",
+      "projectId": "10132472591870592947",
+      "slug": "broadcast-obs-victory",
+      "surface": "Présenter le résultat global et les révélations autorisées en fin · OBS",
+      "status": "APPROVED",
+      "directory": "docs/ux/redesign/broadcast-obs-victory",
+      "approvedImage": "approved.png",
+      "approvedHtml": "approved.html",
+      "spec": "SPEC.md",
+      "referenceViewportImage": "reference-transparent-1920.png",
+      "captureViewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "stitchUrl": "https://stitch.withgoogle.com/projects/10132472591870592947?node-id=11645902411572347225"
+    },
+    {
+      "screenId": "13503278689603029654",
+      "projectId": "10132472591870592947",
+      "slug": "broadcast-obs-draw",
+      "surface": "Présenter une fin à la limite des manches · OBS",
+      "status": "APPROVED",
+      "directory": "docs/ux/redesign/broadcast-obs-draw",
+      "approvedImage": "approved.png",
+      "approvedHtml": "approved.html",
+      "spec": "SPEC.md",
+      "referenceViewportImage": "reference-transparent-1920.png",
+      "captureViewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "stitchUrl": "https://stitch.withgoogle.com/projects/10132472591870592947?node-id=13503278689603029654"
+    },
+    {
+      "screenId": "6480344334821852281",
+      "projectId": "10132472591870592947",
+      "slug": "broadcast-spectator-desktop",
+      "surface": "Suivre la partie sur un plateau public responsive · Desktop",
+      "status": "APPROVED",
+      "directory": "docs/ux/redesign/broadcast-spectator-desktop",
+      "approvedImage": "approved.png",
+      "approvedHtml": "approved.html",
+      "spec": "SPEC.md",
+      "referenceViewportImage": "reference-desktop-1440.png",
+      "captureViewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "stitchUrl": "https://stitch.withgoogle.com/projects/10132472591870592947?node-id=6480344334821852281"
+    },
+    {
+      "screenId": "14539924185403909224",
+      "projectId": "10132472591870592947",
+      "slug": "broadcast-spectator-mobile",
+      "surface": "Suivre le joueur courant sur téléphone · Mobile",
+      "status": "APPROVED",
+      "directory": "docs/ux/redesign/broadcast-spectator-mobile",
+      "approvedImage": "approved.png",
+      "approvedHtml": "approved.html",
+      "spec": "SPEC.md",
+      "referenceViewportImage": "reference-mobile-390.png",
+      "captureViewport": {
+        "width": 390,
+        "height": 844
+      },
+      "stitchUrl": "https://stitch.withgoogle.com/projects/10132472591870592947?node-id=14539924185403909224"
+    },
+    {
+      "screenId": "17913833612662065697",
+      "projectId": "10132472591870592947",
+      "slug": "broadcast-stream-preview-desktop",
+      "surface": "Vérifier la diffusion sur une scène fictive · Desktop",
+      "status": "APPROVED",
+      "directory": "docs/ux/redesign/broadcast-stream-preview-desktop",
+      "approvedImage": "approved.png",
+      "approvedHtml": "approved.html",
+      "spec": "SPEC.md",
+      "referenceViewportImage": "reference-desktop-1440.png",
+      "captureViewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "stitchUrl": "https://stitch.withgoogle.com/projects/10132472591870592947?node-id=17913833612662065697"
+    },
+    {
+      "screenId": "16837080339606998775",
+      "projectId": "10132472591870592947",
+      "slug": "broadcast-stream-preview-mobile",
+      "surface": "Contrôler le cadrage 16:9 et ouvrir les outils OBS sur mobile · Mobile",
+      "status": "APPROVED",
+      "directory": "docs/ux/redesign/broadcast-stream-preview-mobile",
+      "approvedImage": "approved.png",
+      "approvedHtml": "approved.html",
+      "spec": "SPEC.md",
+      "referenceViewportImage": "reference-mobile-390.png",
+      "captureViewport": {
+        "width": 390,
+        "height": 844
+      },
+      "stitchUrl": "https://stitch.withgoogle.com/projects/10132472591870592947?node-id=16837080339606998775"
+    },
+    {
+      "screenId": "16716479521615247860",
+      "projectId": "10132472591870592947",
+      "slug": "broadcast-layout-desktop",
+      "surface": "Ajuster la géométrie des sept blocs publics · Desktop",
+      "status": "APPROVED",
+      "directory": "docs/ux/redesign/broadcast-layout-desktop",
+      "approvedImage": "approved.png",
+      "approvedHtml": "approved.html",
+      "spec": "SPEC.md",
+      "referenceViewportImage": "reference-desktop-1440.png",
+      "captureViewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "stitchUrl": "https://stitch.withgoogle.com/projects/10132472591870592947?node-id=16716479521615247860"
+    },
+    {
+      "screenId": "14317748143534499916",
+      "projectId": "10132472591870592947",
+      "slug": "broadcast-layout-mobile",
+      "surface": "Ajuster le layout avec des champs tactiles bornés · Mobile",
+      "status": "APPROVED",
+      "directory": "docs/ux/redesign/broadcast-layout-mobile",
+      "approvedImage": "approved.png",
+      "approvedHtml": "approved.html",
+      "spec": "SPEC.md",
+      "referenceViewportImage": "reference-mobile-390.png",
+      "captureViewport": {
+        "width": 390,
+        "height": 844
+      },
+      "stitchUrl": "https://stitch.withgoogle.com/projects/10132472591870592947?node-id=14317748143534499916"
+    },
+    {
+      "screenId": "17206795688804889669",
+      "projectId": "10132472591870592947",
+      "slug": "broadcast-layout-conflict",
+      "surface": "Protéger les ajustements locaux en cas de modification concurrente · Desktop",
+      "status": "APPROVED",
+      "directory": "docs/ux/redesign/broadcast-layout-conflict",
+      "approvedImage": "approved.png",
+      "approvedHtml": "approved.html",
+      "spec": "SPEC.md",
+      "referenceViewportImage": "reference-desktop-1440.png",
+      "captureViewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "stitchUrl": "https://stitch.withgoogle.com/projects/10132472591870592947?node-id=17206795688804889669"
+    }
+  ],
+  "approvedScreens": [
+    "5180594610240066342",
+    "15234760056600880163",
+    "14540847010751378625",
+    "8284643245660127207",
+    "10166693569404062547",
+    "11645902411572347225",
+    "13503278689603029654",
+    "6480344334821852281",
+    "14539924185403909224",
+    "17913833612662065697",
+    "16837080339606998775",
+    "16716479521615247860",
+    "14317748143534499916",
+    "17206795688804889669"
+  ],
+  "branch": "ux/block-6-broadcast",
+  "worktree": "/workspace/ux-worktrees/block-6-broadcast",
+  "lastUpdate": "2026-10-28T20:14:24.358353+00:00",
+  "blockers": [],
+  "notes": [
+    "Validation humaine des 14 références exacte reçue ; artefacts APPROVED inchangés.",
+    "Intégration et captures terminées ; 197 tests unitaires/intégration, TypeScript et build réussis.",
+    "9 nouveaux parcours navigateur validés dans la copie croisée ; 218 cas navigateur distincts passent au total.",
+    "Vérifications croisées et contrôles des branches séparées réussis. Aucun blocage technique identifié ; aucune fusion ni aucun déploiement. Les nouveaux rendus iPhone/Safari/OBS restent à vérifier humainement."
+  ],
+  "deliveryReport": "BLOCK-6-DELIVERY.md",
+  "captureIndex": "block-6-captures.json",
+  "crossValidation": "cross-validation.json"
+}

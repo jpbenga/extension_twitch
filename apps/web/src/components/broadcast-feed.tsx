@@ -1,5 +1,8 @@
 "use client";
-import { historicalBroadcastTheme } from "@extension-twitch/contracts/themes";
+import {
+  historicalBroadcastTheme,
+  type ThemeId,
+} from "@extension-twitch/contracts/themes";
 import { useEffect, useRef, useState } from "react";
 import { useSession } from "../lib/use-session";
 import {
@@ -11,9 +14,11 @@ import { BroadcastOverlay } from "./broadcast-overlay";
 export function BroadcastFeed({
   id,
   scene = false,
+  onTheme,
 }: {
   id: string;
   scene?: boolean;
+  onTheme?: (theme: ThemeId) => void;
 }) {
   const session = useSession(id, "public");
   const cursor = useRef<PublicCursor | null>(null),
@@ -23,6 +28,9 @@ export function BroadcastFeed({
     session.view?.audience === "public" && session.view.sessionId === id
       ? session.view
       : null;
+  useEffect(() => {
+    if (view) onTheme?.(view.broadcastTheme ?? historicalBroadcastTheme);
+  }, [view?.broadcastTheme, !!view, onTheme]);
   useEffect(() => {
     if (session.connection !== "connected" || !view) {
       clearTimeout(timer.current);

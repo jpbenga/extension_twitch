@@ -10,6 +10,11 @@ import type { PublicSessionView } from "@extension-twitch/contracts/sessions";
 import { publicEventsForRun } from "../lib/public-cues";
 import type { PublicCue } from "../lib/public-cues";
 import { GameValues } from "./game-values";
+import {
+  publicPlayerStatus,
+  publicResult,
+} from "../lib/broadcast-presentation";
+import "../app/brand-fonts.css";
 
 /** One renderer for stream preview, comparison and OBS. Public projections only. */
 export function BroadcastOverlay({
@@ -68,8 +73,11 @@ export function BroadcastOverlay({
     >
       <header className="broadcast-heading" {...widget("header")}>
         <div>
-          <span className="broadcast-brand">XT · SHOWTIME</span>
-          <h2>{game?.title ?? view?.title ?? "Extension Twitch Studio"}</h2>
+          <h2 title={game?.title ?? view?.title}>
+            {view?.gameId === "undercover"
+              ? "UNDERCOVER"
+              : (game?.title ?? view?.title ?? "Extension Twitch Studio")}
+          </h2>
         </div>
         <span
           className={`broadcast-connection ${connection}`}
@@ -87,6 +95,9 @@ export function BroadcastOverlay({
         </span>
       </header>
       <div className="broadcast-phase" {...widget("phase")}>
+        {!(play?.turns && game?.phase.id === "discussion") && (
+          <span className="broadcast-widget-label">Phase</span>
+        )}
         <strong>
           {play?.turns && game?.phase.id === "discussion"
             ? `Tour d’indices ${play.turns.round} / ${play.turns.total}`
@@ -110,8 +121,10 @@ export function BroadcastOverlay({
                 <span className="broadcast-speaker">
                   Au tour de {name(play.turns.current ?? "")}
                 </span>
-                {play.turns.completed.length} / {play.turns.order.length}{" "}
-                passages confirmés
+                <span className="broadcast-progress-count">
+                  {play.turns.completed.length} / {play.turns.order.length}{" "}
+                  passages confirmés
+                </span>
               </>
             )}
           </p>
@@ -142,54 +155,64 @@ export function BroadcastOverlay({
               }
         }
       >
-        {ordered.map((p, i) => (
-          <article
-            key={p.id}
-            style={
-              layout && cards[i]
-                ? {
-                    left: `${cards[i]!.x}%`,
-                    top: `${cards[i]!.y}%`,
-                    width: `${cards[i]!.width}%`,
-                    height: `${cards[i]!.height}%`,
-                    fontSize: `${Math.max(0.65, Math.min(1.4, ((layout.widgets.players.height * cards[i]!.height) / 100 / 1920) * 18))}cqw`,
-                  }
-                : undefined
-            }
-            data-player={p.id}
-            data-active={p.active}
-            className={!p.active ? "broadcast-eliminated" : ""}
-          >
-            <strong>{name(p.id)}</strong>
-            <span>
-              {!p.active
-                ? "Éliminé"
-                : ballot?.status === "open"
-                  ? ballot.voted.includes(p.id)
-                    ? "A voté"
-                    : "Vote attendu"
-                  : play?.turns?.current === p.id
-                    ? "À son tour"
-                    : play?.turns?.completed.includes(p.id)
-                      ? "Indice donné"
-                      : play?.dealt
-                        ? "En jeu"
-                        : "En attente"}
-            </span>
-            {p.role && <small>{p.role}</small>}
-            {ballot?.status === "resolved" && (
-              <span>
-                {ballot.tallies.find((t) => t.participantId === p.id)?.count ??
-                  0}{" "}
-                voix
-              </span>
-            )}
-          </article>
-        ))}
+        {ordered.map((p, i) => {
+          const card = cards[i];
+          const cardHeight =
+            layout && card
+              ? (layout.widgets.players.height * card.height) / 100
+              : undefined;
+          const compact = cardHeight !== undefined && cardHeight < 90;
+          return (
+            <article
+              key={p.id}
+              style={
+                layout && cards[i]
+                  ? {
+                      left: `${cards[i]!.x}%`,
+                      top: `${cards[i]!.y}%`,
+                      width: `${cards[i]!.width}%`,
+                      height: `${cards[i]!.height}%`,
+                      fontSize: `${Math.max(0.4, Math.min(1.4, (cardHeight! / 1920) * (compact ? 22 : 15)))}cqw`,
+                    }
+                  : undefined
+              }
+              data-player={p.id}
+              data-compact={compact}
+              data-active={p.active}
+              data-current={
+                game?.phase.id === "discussion" &&
+                play?.turns?.current === p.id &&
+                !play.turns.complete
+              }
+              className={!p.active ? "broadcast-eliminated" : ""}
+            >
+              <small className="broadcast-player-number">
+                {String(
+                  roster.findIndex((player) => player.id === p.id) + 1,
+                ).padStart(2, "0")}
+              </small>
+              <strong title={name(p.id)}>{name(p.id)}</strong>
+              <span>{publicPlayerStatus(play, p.id, p.active)}</span>
+              {(p.role || ballot?.status === "resolved") && (
+                <small className="broadcast-player-details">
+                  {p.role}
+                  {p.role && ballot?.status === "resolved" ? " · " : ""}
+                  {ballot?.status === "resolved" && (
+                    <>
+                      {ballot.tallies.find((t) => t.participantId === p.id)
+                        ?.count ?? 0}{" "}
+                      voix
+                    </>
+                  )}
+                </small>
+              )}
+            </article>
+          );
+        })}
       </div>
       {layout && (
         <div className="broadcast-vote" {...widget("vote")}>
-          <strong>Vote</strong>
+          <strong className="broadcast-widget-label">Vote</strong>
           <p data-testid="broadcast-votes">
             {ballot
               ? `${ballot.voted.length} / ${ballot.eligible.length} votes reçus`
@@ -202,27 +225,18 @@ export function BroadcastOverlay({
         {...widget("result")}
         aria-live="polite"
       >
+        <span className="broadcast-widget-label">
+          {play?.outcome
+            ? "Résultat final · Informations révélées"
+            : "Résultat"}
+        </span>
         {play?.outcome ? (
-          <h3>{play.outcome.label}</h3>
-        ) : ballot?.status === "open" ? (
-          <p data-testid={layout ? undefined : "broadcast-votes"}>
-            {ballot.voted.length} / {ballot.eligible.length} votes reçus
-          </p>
-        ) : ballot?.status === "resolved" ? (
-          <p>
-            {ballot.tied
-              ? "Égalité : personne n’est éliminé."
-              : ballot.eliminated
-                ? `${name(ballot.eliminated)} est éliminé.`
-                : "Scrutin terminé."}
-          </p>
+          <h3>{publicResult(play, name)}</h3>
         ) : (
           <p>
-            {play?.dealt
-              ? "Les indices sont donnés à voix haute."
-              : view
-                ? "Le Game Master prépare la partie."
-                : "Chargement des informations publiques…"}
+            {view
+              ? publicResult(play, name)
+              : "Chargement des informations publiques…"}
           </p>
         )}
         {game && (
@@ -234,6 +248,7 @@ export function BroadcastOverlay({
         {...widget("events")}
         aria-label="Événements publics"
       >
+        <span className="broadcast-widget-label">Événements publics</span>
         <ol>
           {view &&
             publicEventsForRun(view).map((event) => (

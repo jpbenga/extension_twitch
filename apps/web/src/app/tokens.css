@@ -209,3 +209,15 @@
   --home-badge: #453b2c;
   --home-ambient: #65523d;
 }
+
+/* Public broadcast palette is pinned to the session theme, never the private app preference. */
+.broadcast-overlay[data-theme="neon-show"],
+.broadcast-spectator[data-theme="neon-show"] {
+  --broadcast-bg: #0c0c1f;
+  --broadcast-panel: #1a1a2d;
+  --broadcast-raised: #28283c;
+  --broadcast-ink: #e2e0fb;
+  --broadcast-muted: #b7a8d4;
+  --broadcast-border: #48405f;
+  --broadcast-highlight: #c8f323;
+}
