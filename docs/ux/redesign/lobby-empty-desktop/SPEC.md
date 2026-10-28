@@ -21,12 +21,21 @@ Validation: attestation humaine explicite par --approved ; aucun statut Stitch d
 
 ## Functional intent
 
-À renseigner pendant la validation UX.
+Inviter les participants dans un salon Undercover encore vide. Le lien d’invitation est l’action dominante.
 
 ## Existing behaviour to preserve
 
-À renseigner avant l’implémentation.
+Vue GM authentifiée, sans publicGame. Invitation et code proviennent de joinUrl/invitationCode. Copier conserve le repli HTTP LAN existant ; Partager apparaît seulement si navigator.share est disponible. Préparer reste désactivé tant que l’effectif ne respecte pas les minimum/maximum serveur. Aucun joueur fictif n’est ajouté par cette page.
 
 ## Notes
 
 Design explicitement validé avant implémentation.
+
+## Contraintes communes
+
+Référence visuelle APPROVED conservée sans modification. La maquette ne crée pas
+de nouvelle permission. Préserver les trois thèmes existants, leur préférence locale
+et l’indépendance du thème OBS. Chargement, erreurs et reconnexion restent réels ;
+les commandes sont suspendues si le flux est déconnecté ou une réponse incertaine.
+Voir [le bilan d’intégration](../LOBBY-PLAYER-IMPLEMENTATION.md) pour les écarts,
+les captures réelles et les scénarios de validation.

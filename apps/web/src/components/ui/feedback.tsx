@@ -19,6 +19,7 @@ export type ConfirmOptions = {
   confirmLabel?: string;
   cancelLabel?: string;
   tone?: "neutral" | "warning" | "danger" | "vote";
+  presentation?: "stitch";
   onConfirm?: () => void | boolean | Promise<unknown>;
 };
 type Confirm = (options: ConfirmOptions) => Promise<boolean>;
@@ -191,7 +192,7 @@ export function FeedbackProvider({ children }: { children: ReactNode }) {
           <dialog
             ref={dialog}
             tabIndex={-1}
-            className={`confirm-dialog tone-${options.tone ?? "neutral"}`}
+            className={`confirm-dialog tone-${options.tone ?? "neutral"}${options.presentation === "stitch" ? " stitch-dialog" : ""}`}
             aria-modal="true"
             aria-labelledby={titleId}
             aria-describedby={descriptionId}

@@ -4,6 +4,7 @@ import { useConfirm } from "./ui/feedback";
 import { useLegacyTools } from "./legacy-tools";
 import Link from "next/link";
 import { PlayPanel } from "./play-panel";
+import { UndercoverCompanion } from "./undercover-companion";
 import { useEffect, useState, type FormEvent } from "react";
 import {
   gameDefinitionSchema,
@@ -55,6 +56,20 @@ export function GamePanel({
   }, [legacyTools, view.audience, "game" in view && view.game?.runId]);
   if (view.audience === "public") return null;
   const game = view.game;
+  if (
+    !legacyTools &&
+    view.audience === "player" &&
+    game?.definitionId === "undercover" &&
+    game.play
+  )
+    return (
+      <UndercoverCompanion
+        embedded
+        view={view}
+        locked={locked}
+        send={(action) => (action ? send(action) : Promise.resolve(false))}
+      />
+    );
   const install = (definition: GameDefinition) =>
     void send({
       type: "game.configure",

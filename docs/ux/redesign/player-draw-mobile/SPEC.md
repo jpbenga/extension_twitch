@@ -21,12 +21,21 @@ Validation: attestation humaine explicite par --approved ; aucun statut Stitch d
 
 ## Functional intent
 
-À renseigner pendant la validation UX.
+Afficher le nul réel causé par la limite de manches.
 
 ## Existing behaviour to preserve
 
-À renseigner avant l’implémentation.
+Le moteur publie outcome.id = round-limit ; ne pas supposer un identifiant draw. Afficher le résultat global et les révélations finales fournies. Ce n’est ni une victoire ni une défaite personnelle. Aucun passage automatique à une nouvelle partie.
 
 ## Notes
 
 Design explicitement validé avant implémentation.
+
+## Contraintes communes
+
+Référence visuelle APPROVED conservée sans modification. La maquette ne crée pas
+de nouvelle permission. Préserver les trois thèmes existants, leur préférence locale
+et l’indépendance du thème OBS. Chargement, erreurs et reconnexion restent réels ;
+les commandes sont suspendues si le flux est déconnecté ou une réponse incertaine.
+Voir [le bilan d’intégration](../LOBBY-PLAYER-IMPLEMENTATION.md) pour les écarts,
+les captures réelles et les scénarios de validation.

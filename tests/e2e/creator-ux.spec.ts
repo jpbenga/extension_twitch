@@ -225,7 +225,7 @@ test("launching a game invites real participants without opening its editor", as
   await player.goto(url);
   await player.getByLabel("Votre nom", { exact: true }).fill("Camille");
   await player
-    .getByRole("button", { name: "Rejoindre la session", exact: true })
+    .getByRole("button", { name: "Rejoindre la partie", exact: true })
     .click();
   await expect(player.getByTestId("session-connection")).toHaveText(
     "Synchronisé",

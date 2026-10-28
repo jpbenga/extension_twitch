@@ -165,7 +165,7 @@ test("inline invitation rejects malformed input and joins a real session through
       .getByLabel("Votre nom", { exact: true })
       .fill("Invité accueil");
     await player
-      .getByRole("button", { name: "Rejoindre la session", exact: true })
+      .getByRole("button", { name: "Rejoindre la partie", exact: true })
       .click();
     await expect(player.locator('[data-experience="player"]')).toBeVisible();
     await expect(page.locator(".lobby-players").first()).toContainText(

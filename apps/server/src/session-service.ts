@@ -185,6 +185,19 @@ export class SessionService {
                 definitionId: state.preparedGame.definition.id,
                 definitionVersion: state.preparedGame.definition.version,
                 ...preparationPlayerLimits(state.preparedGame),
+                ...(state.preparedGame.definition.id === "undercover" &&
+                typeof state.preparedGame.configuration?.["clue-rounds"] ===
+                  "number" &&
+                Number.isInteger(
+                  state.preparedGame.configuration["clue-rounds"],
+                ) &&
+                state.preparedGame.configuration["clue-rounds"] >= 1 &&
+                state.preparedGame.configuration["clue-rounds"] <= 5
+                  ? {
+                      clueRounds:
+                        state.preparedGame.configuration["clue-rounds"],
+                    }
+                  : {}),
               },
             }
           : {}),

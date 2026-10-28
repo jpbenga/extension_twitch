@@ -10,6 +10,8 @@ import {
 } from "@extension-twitch/contracts/sessions";
 import { gameIdSchema } from "@extension-twitch/contracts";
 import { invitationInputError, parseInvitationCode } from "../lib/invitation";
+import { StitchHeader } from "./stitch-frame";
+import { HomeIcon } from "./home-icon";
 import {
   accessKey,
   commandId,
@@ -43,6 +45,7 @@ export function SessionEntry({
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
+  const [invitationUnavailable, setInvitationUnavailable] = useState(false);
   const [busy, setBusy] = useState(false);
   const [uncertain, setUncertain] = useState(false);
   const pending = useRef<PendingEntry | null>(null);
@@ -87,6 +90,7 @@ export function SessionEntry({
     inFlight.current = true;
     setBusy(true);
     setError("");
+    setInvitationUnavailable(false);
     try {
       const input = joining
         ? joinSessionSchema.parse({ requestId: commandId(), name })
@@ -114,6 +118,12 @@ export function SessionEntry({
           : `/sessions/${result.sessionId}/gm`,
       );
     } catch (failure) {
+      if (
+        joining &&
+        failure instanceof RequestFailure &&
+        failure.code === "INVITATION_NOT_FOUND"
+      )
+        setInvitationUnavailable(true);
       if (failure instanceof RequestFailure && failure.status < 500) {
         pending.current = null;
         sessionStorage.removeItem(pendingKey);
@@ -141,6 +151,82 @@ export function SessionEntry({
     }
     window.location.assign(`/join/${encodeURIComponent(value)}`);
   }
+
+  if (joining)
+    return (
+      <main className="stitch-page stitch-companion" data-experience="arrival">
+        <div className="stitch-phone">
+          <StitchHeader />
+          {invitationUnavailable ? (
+            <section className="stitch-access-body">
+              <span className="stitch-symbol">
+                <HomeIcon name="key" />
+              </span>
+              <h1>Invitation indisponible</h1>
+              <p>
+                Cette invitation est inconnue ou a été renouvelée. Demandez un
+                nouveau lien au Game Master.
+              </p>
+              <Link href="/join" className="stitch-button stitch-primary">
+                Saisir une autre invitation
+                <HomeIcon name="arrow" />
+              </Link>
+              <Link href="/" className="stitch-quiet">
+                Retour à l’accueil
+              </Link>
+            </section>
+          ) : (
+            <section className="stitch-arrival">
+              <h1>Rejoindre la partie</h1>
+              <p>Choisissez un nom reconnaissable.</p>
+              <form onSubmit={(event) => void submit(event)}>
+                <label htmlFor="player-name">
+                  Votre nom <small>1–32 caractères</small>
+                </label>
+                <input
+                  id="player-name"
+                  aria-label="Votre nom"
+                  name="playerName"
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
+                  minLength={1}
+                  maxLength={32}
+                  required
+                  autoComplete="nickname"
+                  disabled={busy || uncertain}
+                  aria-invalid={!!error}
+                  aria-describedby={error ? "join-error" : undefined}
+                />
+                {error && (
+                  <p
+                    id="join-error"
+                    className="stitch-error lobby-error"
+                    role="alert"
+                  >
+                    {error}
+                  </p>
+                )}
+                <button
+                  className="stitch-button stitch-primary"
+                  disabled={busy}
+                  aria-busy={busy}
+                >
+                  {busy
+                    ? "Enregistrement…"
+                    : uncertain
+                      ? "Réessayer la même demande"
+                      : "Rejoindre la partie"}
+                  <HomeIcon name="arrow" />
+                </button>
+              </form>
+              <p className="stitch-footnote">
+                Sans compte. Votre accès reste dans cet onglet.
+              </p>
+            </section>
+          )}
+        </div>
+      </main>
+    );
 
   return (
     <main className="session-home session-shell">

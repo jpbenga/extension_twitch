@@ -344,6 +344,9 @@ describe("closed official product API, preserving the legacy engine and data", (
     });
     await stop();
     await start();
+    const prepared = await gm(id);
+    expect(prepared.preparedGame?.clueRounds).toBe(3);
+    expect(JSON.stringify(prepared)).not.toMatch(/SECRETCIVIL|SECRETINTRUS/);
     await joinPlayers(id);
     expect((await install(id, { "clue-rounds": 1 })).status).toBe(400);
     expect((await install(id, { arbitrary: 1 })).status).toBe(400);

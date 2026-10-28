@@ -1,16 +1,33 @@
 # Design System: accueil Extension Twitch
 
+## Extension validée — salon et compagnon Undercover
+
+Les 21 références APPROVED des blocs 3 et 4 reprennent le même langage. Le salon
+utilise une grille invitation / inscrits sur ordinateur, puis une colonne sur
+mobile, avec une seule action dominante selon l'effectif. Le compagnon réduit la
+largeur de lecture à 390 px et donne la priorité au mot, au tour oral, au vote ou
+au résultat selon l'état serveur. Cartes sobres à rayon de 12 px, cibles de 44–48 px
+et disclosures secondaires pour conserver les détails et accès privés. Le dialogue
+de vote reprend les surfaces indigo/lilas et la confirmation citron. Pas d'animation
+permanente ni de nouvelle direction artistique.
+
+Les tokens `--home-*` sont partagés par `.home-page`, `.stitch-page` et
+`.stitch-dialog`, sans élargir leur portée au GM ou à OBS. Les polices locales sont
+mutualisées dans `brand-fonts.css`. Voir le [bilan d'intégration](LOBBY-PLAYER-IMPLEMENTATION.md).
+
 ## 1. Visual Theme & Atmosphere
 
 Références : les deux accueils APPROVED de ce dossier, puis leurs SPEC fonctionnelles.
 Ambiance jeu de déduction, indigo/aubergine, lilas et bouton citron. Densité équilibrée,
 une action dominante, illustration intégrée à la carte. Cette direction concerne
-l’accueil uniquement. Elle ne remplace pas les tokens des régies et de l’émission.
+l’accueil et les surfaces Lobby/Joueur explicitement approuvées. Elle ne remplace
+pas les tokens des régies et de l’émission.
 La décision utilisateur sur les accents prévaut sur une recommandation générique de palette.
 
 ## 2. Color Palette & Roles
 
-Tokens `--home-*` centralisés dans `apps/web/src/app/tokens.css`, sous `.home-page`.
+Tokens `--home-*` centralisés dans `apps/web/src/app/tokens.css`, sous `.home-page`,
+`.stitch-page` et `.stitch-dialog`.
 Neon Show est la direction de référence : fond `#0C0C1F`, carte `#1A1A2D`, surface
 surélevée `#28283C`, texte `#E2E0FB`, secondaire `#B7A8D4`, lilas `#CEBDFF`, action
 citron `#C8F323` avec texte `#171E00`. Bord de contrôle `#7E7199`, ajusté pour le contraste.

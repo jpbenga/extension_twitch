@@ -7,6 +7,9 @@ respectivement des projets `6846916727190844173` et `16851612906193292413`.
 Leur [guide de synchronisation groupée](BLOCKS-3-4.md) utilise les 21 IDs précis
 validés. Le défaut des commandes historiques reste le projet ci-dessus.
 
+Les 21 références ont été reçues au commit `3c2e704`. Voir le
+[bilan de leur intégration, les captures et le guide humain](LOBBY-PLAYER-IMPLEMENTATION.md).
+
 ```text
 écran actuel → Stitch BEFORE → itération Stitch → validation humaine APPROVED
 → synchronisation locale → Git → Codex Cloud → implémentation de l’écran

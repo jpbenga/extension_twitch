@@ -146,6 +146,7 @@ export const gmSessionSchema = z.strictObject({
       definitionVersion: z.string(),
       minimumPlayers: z.number().int().min(1).optional(),
       maximumPlayers: z.number().int().min(1).max(32).optional(),
+      clueRounds: z.number().int().min(1).max(5).optional(),
     })
     .optional(),
   invitationCode: invitationCodeSchema,

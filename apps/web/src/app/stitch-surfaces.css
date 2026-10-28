@@ -1,0 +1,1060 @@
+@import "./brand-fonts.css";
+
+/* Approved Lobby / Player surfaces. Never applied to the GM game or OBS. */
+.stitch-page {
+  width: 100%;
+  min-width: 0;
+  min-height: 100svh;
+  color: var(--home-ink);
+  background: var(--home-bg);
+  font:
+    400 16px/1.6 "Home DM Sans",
+    sans-serif;
+  color-scheme: dark;
+}
+.stitch-page :is(h1, h2, h3, p, ul, ol) {
+  margin: 0;
+}
+.stitch-page
+  :is(
+    h1,
+    h2,
+    h3,
+    button,
+    summary,
+    .stitch-brand,
+    .stitch-kicker,
+    .stitch-pill
+  ) {
+  font-family: "Home Space Grotesk", sans-serif;
+}
+.stitch-page :is(h1, h2, h3) {
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
+.stitch-page h1 {
+  font-size: 28px;
+  font-weight: 700;
+}
+.stitch-page h2 {
+  font-size: 20px;
+}
+.stitch-page p {
+  color: var(--home-muted);
+}
+.stitch-page :is(button, a, input, select, summary):focus-visible,
+.stitch-dialog :focus-visible {
+  outline: 3px solid var(--home-lilac);
+  outline-offset: 3px;
+}
+.stitch-page svg {
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+.stitch-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 64px;
+  padding: 12px max(16px, env(safe-area-inset-right)) 12px
+    max(16px, env(safe-area-inset-left));
+  border-bottom: 1px solid var(--home-border);
+}
+.stitch-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--home-lilac);
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  min-height: 44px;
+}
+.stitch-brand > svg {
+  width: 26px;
+  height: 26px;
+}
+.stitch-brand small {
+  display: block;
+  font:
+    400 12px/1.3 "Home DM Sans",
+    sans-serif;
+  color: var(--home-muted);
+  letter-spacing: normal;
+}
+.stitch-page .theme-control {
+  color: var(--home-lilac);
+  z-index: 15;
+  font-size: 13px;
+}
+.stitch-page .theme-control summary {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  min-height: 44px;
+}
+.stitch-page .theme-control > div {
+  background: var(--home-raised);
+  color: var(--home-ink);
+  border-color: var(--home-control-border);
+}
+.stitch-page .theme-control p {
+  font-size: 13px;
+}
+.stitch-quiet {
+  color: var(--home-muted);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 13px;
+  text-decoration: none;
+}
+.stitch-page .stitch-button,
+.stitch-page .copy-block button,
+.stitch-page .copy-block a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 12px 18px;
+  border: 1px solid var(--home-control-border);
+  border-radius: 8px;
+  background: var(--home-raised);
+  color: var(--home-lilac);
+  font:
+    600 15px/1.4 "Home Space Grotesk",
+    sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
+  transition:
+    background 140ms ease,
+    transform 140ms ease;
+}
+.stitch-page .stitch-primary {
+  border-color: var(--home-primary);
+  background: var(--home-primary);
+  color: var(--home-on-primary);
+}
+.stitch-page button:disabled {
+  background: var(--home-surface);
+  color: var(--home-muted);
+  border-color: var(--home-border);
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+.stitch-page button:not(:disabled):active {
+  transform: translateY(1px);
+}
+.stitch-page :is(input, select) {
+  font: inherit;
+  font-size: 16px;
+  border: 1px solid var(--home-control-border);
+  border-radius: 8px;
+  min-height: 48px;
+  background: var(--home-bg);
+  color: var(--home-ink);
+  min-width: 0;
+  width: 100%;
+  padding: 12px 14px;
+}
+.stitch-page input[aria-invalid="true"] {
+  border-color: var(--home-error);
+}
+.stitch-feedback {
+  font-size: 11px;
+  color: var(--home-muted);
+  margin: 8px 0 16px;
+}
+.stitch-page .session-connection {
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--home-muted);
+  font-size: 11px;
+}
+.stitch-page .session-connection.connected {
+  color: var(--color-success);
+}
+.stitch-page .stitch-error {
+  color: var(--home-error);
+  background: color-mix(in srgb, var(--home-error) 8%, var(--home-bg));
+  border: 1px solid var(--home-error);
+  border-radius: 8px;
+  padding: 12px;
+  margin: 8px 0;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+.stitch-page .stitch-error button {
+  margin-top: 12px;
+}
+.stitch-card {
+  border: 1px solid var(--home-border);
+  border-radius: 12px;
+  background: var(--home-surface);
+  padding: 24px;
+  min-width: 0;
+}
+.stitch-kicker {
+  color: var(--home-lilac);
+  font:
+    600 12px/1.5 "Home Space Grotesk",
+    sans-serif;
+  letter-spacing: 0.09em;
+}
+.stitch-page h2.stitch-kicker {
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+.stitch-pill {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--home-border);
+  border-radius: 999px;
+  padding: 3px 10px;
+  background: var(--home-raised);
+  color: var(--home-muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.stitch-page .stitch-hint,
+.stitch-page .stitch-footnote {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--home-muted);
+}
+.stitch-page .stitch-footnote {
+  text-align: center;
+  margin: 12px 0;
+}
+.stitch-page .stitch-disclosure {
+  border: 1px solid var(--home-border);
+  border-radius: 12px;
+  background: var(--home-surface);
+}
+.stitch-disclosure > summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 12px 16px;
+  list-style: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--home-muted);
+}
+.stitch-disclosure > summary::-webkit-details-marker {
+  display: none;
+}
+.stitch-disclosure > summary > span {
+  flex: 1;
+}
+.stitch-disclosure > summary > svg:last-child {
+  width: 16px;
+  height: 16px;
+  transition: transform 140ms;
+}
+.stitch-disclosure[open] > summary > svg:last-child {
+  transform: rotate(90deg);
+}
+.stitch-disclosure-content {
+  padding: 8px 16px 16px;
+  border-top: 1px solid var(--home-border);
+  font-size: 14px;
+}
+.stitch-disclosure-content > .copy-block {
+  margin-top: 12px;
+}
+.stitch-page .copy-block {
+  gap: 12px;
+}
+.stitch-page .copy-block label {
+  font-size: 13px;
+  color: var(--home-muted);
+  display: grid;
+  gap: 8px;
+}
+.stitch-page .copy-block input {
+  font-size: 14px;
+  overflow: hidden;
+}
+.stitch-page .copy-block small {
+  color: var(--home-muted);
+}
+.stitch-lobby-content {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 16px 24px 48px;
+}
+.stitch-lobby[data-ready="false"] .stitch-lobby-content {
+  max-width: 944px;
+}
+.stitch-lobby[data-ready="false"] .stitch-lobby-grid {
+  grid-template-columns: 7fr 5fr;
+}
+.stitch-lobby-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 30px;
+}
+.stitch-lobby-title h1 {
+  font-size: 40px;
+  margin: 8px 0 10px;
+}
+.stitch-counters {
+  display: flex;
+  gap: 6px;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-shrink: 0;
+  color: var(--home-muted);
+}
+.stitch-counters small {
+  font-size: 12px;
+}
+.stitch-lobby-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: stretch;
+}
+.stitch-invitation {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-content: start;
+  gap: 18px 12px;
+}
+.stitch-invitation > h2 {
+  grid-column: 1/-1;
+  grid-row: 1;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--home-border);
+}
+.stitch-invitation > .stitch-hint {
+  grid-column: 1/-1;
+}
+.stitch-invitation .copy-block {
+  display: contents;
+}
+.stitch-invitation .copy-block label {
+  grid-row: 2;
+  grid-column: 1/-1;
+}
+.stitch-invitation .copy-block > button {
+  grid-row: 4;
+  grid-column: 1;
+}
+.stitch-invitation .copy-block > small {
+  grid-row: 5;
+  grid-column: 1/-1;
+}
+.stitch-code {
+  grid-row: 3;
+  grid-column: 1/-1;
+  display: grid;
+  gap: 8px;
+  color: var(--home-muted);
+  font-size: 13px;
+}
+.stitch-code strong {
+  font:
+    700 18px/1.5 "Home Space Grotesk",
+    sans-serif;
+  color: var(--home-lilac);
+  letter-spacing: 0.06em;
+  padding: 10px 14px;
+  background: var(--home-raised);
+  border: 1px solid var(--home-border);
+  border-radius: 8px;
+  overflow-wrap: anywhere;
+}
+.stitch-share {
+  grid-row: 4;
+  grid-column: 2;
+}
+.stitch-lobby[data-ready="false"] .stitch-invitation .copy-block > button {
+  background: var(--home-primary);
+  border-color: var(--home-primary);
+  color: var(--home-on-primary);
+}
+.stitch-card-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--home-border);
+  font-size: 12px;
+  color: var(--home-muted);
+}
+.stitch-page .stitch-roster {
+  display: block;
+  padding: 0;
+  list-style: none;
+  margin: 0;
+}
+.stitch-page .stitch-roster li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 0;
+  border-bottom: 1px solid var(--home-border);
+  background: none;
+  padding: 12px 0;
+  border-radius: 0;
+  min-width: 0;
+}
+.stitch-roster li > div {
+  flex: 1;
+  min-width: 0;
+}
+.stitch-roster strong {
+  display: block;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+.stitch-roster small {
+  display: block;
+  color: var(--home-muted);
+  font-size: 12px;
+}
+.stitch-page .stitch-roster .stitch-online {
+  color: var(--color-success);
+}
+.stitch-avatar {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border: 1px solid var(--home-border);
+  border-radius: 8px;
+  background: var(--home-raised);
+  color: var(--home-lilac);
+}
+.stitch-roster .stitch-pill {
+  font-size: 11px;
+  text-align: center;
+  flex-shrink: 0;
+  padding: 3px 7px;
+}
+.stitch-ready {
+  color: var(--color-success);
+  border-color: color-mix(in srgb, var(--color-success) 40%, transparent);
+  background: color-mix(in srgb, var(--color-success) 12%, var(--home-surface));
+}
+.stitch-page .stitch-roster .stitch-empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px dashed var(--home-border);
+  border-radius: 8px;
+  min-height: 196px;
+  padding: 24px;
+  text-align: center;
+}
+.stitch-empty > svg {
+  width: 40px;
+  height: 40px;
+  color: var(--home-lilac);
+  margin: 8px;
+}
+.stitch-empty p {
+  font-size: 14px;
+}
+.stitch-participants > .stitch-hint {
+  margin-top: 12px;
+}
+.stitch-lobby-settings {
+  grid-column: 1/-1;
+  display: grid;
+  gap: 12px;
+  order: 4;
+}
+.stitch-lobby-prepare {
+  grid-column: 1/-1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+.stitch-lobby-prepare > div:last-child {
+  max-width: 340px;
+  text-align: right;
+}
+.stitch-lobby-prepare .stitch-hint {
+  margin-top: 8px;
+}
+.stitch-lobby-prepare p:not(.stitch-hint) {
+  color: var(--home-ink);
+  font-weight: 600;
+  margin-top: 6px;
+}
+.stitch-phone {
+  width: 100%;
+  max-width: 390px;
+  margin: 0 auto;
+  padding: 0 max(16px, env(safe-area-inset-right))
+    max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+.stitch-phone > .stitch-header {
+  padding: 10px 0;
+  min-height: 64px;
+}
+.stitch-identity {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--home-border);
+  background: var(--home-surface);
+  font-size: 12px;
+  color: var(--home-muted);
+  max-width: 50%;
+  overflow-wrap: anywhere;
+}
+.stitch-identity > span {
+  color: var(--home-primary);
+}
+.stitch-companion-tools {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+.stitch-companion-tools > .theme-control {
+  justify-self: end;
+}
+.stitch-player-game {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.stitch-page .game-phase {
+  font-size: 12px;
+  color: var(--home-muted);
+  text-align: center;
+  padding: 4px 12px;
+  border: 1px solid var(--home-border);
+  border-radius: 999px;
+  background: var(--home-surface);
+  align-self: center;
+  margin: 12px 0;
+  letter-spacing: 0;
+}
+.stitch-player-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  flex: 1;
+  margin: 24px 0;
+  min-height: 0;
+}
+.stitch-player-main > h1 {
+  text-align: center;
+}
+.stitch-page .personal-card {
+  background: var(--home-surface);
+  border-color: var(--home-border);
+  color: var(--home-ink);
+  margin: 0;
+}
+.stitch-secret-full {
+  text-align: center;
+  padding: 24px;
+}
+.stitch-secret-full h2 {
+  color: var(--home-muted);
+  font-size: 18px;
+}
+.stitch-secret-full p {
+  font-size: 12px;
+  margin-top: 6px;
+}
+.stitch-page .game-values {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+.stitch-page .game-values article {
+  background: none;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+.stitch-secret-full .game-values strong {
+  font:
+    700 40px/1.2 "Home Space Grotesk",
+    sans-serif;
+  color: var(--home-ink);
+  display: block;
+  padding: 44px 0;
+  overflow-wrap: anywhere;
+}
+.stitch-secret .stitch-button {
+  width: 100%;
+}
+.stitch-secret-compact {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+}
+.stitch-secret-compact .stitch-button {
+  width: auto;
+  flex-shrink: 0;
+  font-size: 13px;
+  padding: 10px 12px;
+}
+.stitch-secret-compact h2 {
+  font-size: 14px;
+}
+.stitch-secret-compact .game-values strong {
+  font-size: 20px;
+  overflow-wrap: anywhere;
+}
+.stitch-secret-compact p {
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.stitch-secret small {
+  color: var(--home-muted);
+  font-size: 12px;
+}
+.stitch-symbol {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--home-border);
+  background: var(--home-raised);
+  color: var(--home-lilac);
+  flex-shrink: 0;
+}
+.stitch-symbol > svg {
+  width: 24px;
+  height: 24px;
+}
+.stitch-turn {
+  text-align: center;
+  padding: 24px 18px;
+}
+.stitch-turn > .stitch-symbol {
+  margin: 0 auto 20px;
+}
+.stitch-turn h1 {
+  font-size: 24px;
+}
+.stitch-turn p {
+  margin-top: 12px;
+}
+.stitch-turn .turn-current {
+  font-size: 16px;
+  padding: 0;
+  border: 0;
+  background: none;
+  margin-top: 12px;
+}
+.stitch-turn-compact {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  gap: 14px;
+  padding: 16px;
+}
+.stitch-turn-compact > .stitch-symbol {
+  margin: 0;
+  width: 36px;
+  height: 36px;
+}
+.stitch-turn-compact h1 {
+  font-size: 14px;
+  letter-spacing: 0;
+}
+.stitch-turn-compact p.turn-current {
+  font-size: 12px;
+  margin-top: 3px;
+}
+.stitch-player-details {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+.stitch-result {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
+}
+.stitch-result > .stitch-symbol {
+  margin-bottom: 8px;
+}
+.stitch-result h1 {
+  font-size: 26px;
+}
+.stitch-result h2 {
+  color: var(--home-lilac);
+  font-size: 20px;
+}
+.stitch-result h2.stitch-draw-reason {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: normal;
+  color: var(--home-muted);
+}
+.stitch-vote-count {
+  padding-top: 16px;
+  border-top: 1px solid var(--home-border);
+  width: 100%;
+  font-size: 13px;
+}
+.stitch-vote > h1 {
+  font-size: 24px;
+  text-align: center;
+}
+.stitch-vote > p {
+  text-align: center;
+  font-size: 14px;
+  margin: 12px 0 24px;
+}
+.stitch-vote fieldset {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  min-width: 0;
+}
+.stitch-candidates {
+  display: grid;
+  gap: 12px;
+}
+.stitch-candidates > label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  min-height: 64px;
+  border: 1px solid var(--home-border);
+  border-radius: 12px;
+  background: var(--home-surface);
+  cursor: pointer;
+}
+.stitch-candidates label.selected {
+  border-color: var(--home-lilac);
+  background: var(--home-raised);
+}
+.stitch-candidates > label > span:nth-child(2) {
+  flex: 1;
+  overflow-wrap: anywhere;
+}
+.stitch-candidates input[type="radio"] {
+  appearance: auto;
+  width: 20px;
+  min-height: 20px;
+  height: 20px;
+  padding: 0;
+  margin: 0;
+  flex-shrink: 0;
+  accent-color: var(--home-lilac);
+}
+.stitch-vote fieldset > .stitch-button {
+  width: 100%;
+  margin-top: 24px;
+}
+.stitch-final-words {
+  width: 100%;
+  border-top: 1px solid var(--home-border);
+  padding-top: 24px;
+  margin-top: 8px;
+}
+.stitch-final-words h3 {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--home-muted);
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+}
+.stitch-final-words > div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  text-align: left;
+}
+.stitch-final-words article {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  background: var(--home-bg);
+  border: 1px solid var(--home-border);
+  border-radius: 8px;
+  min-width: 0;
+}
+.stitch-final-words span {
+  font-size: 13px;
+  color: var(--home-muted);
+}
+.stitch-final-words strong {
+  font-size: 20px;
+  overflow-wrap: anywhere;
+}
+.stitch-tallies p {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 0;
+}
+.stitch-events {
+  padding: 16px 0 0 16px;
+  color: var(--home-muted);
+  font-size: 12px;
+}
+.stitch-waiting {
+  padding: 28px 0;
+}
+.stitch-waiting > p {
+  margin: 12px 0 24px;
+}
+.stitch-ready-action {
+  margin-top: auto;
+  padding-top: 32px;
+}
+.stitch-ready-action > .stitch-button {
+  width: 100%;
+}
+.stitch-ready-action > .stitch-hint {
+  text-align: center;
+  margin-top: 10px;
+}
+.stitch-arrival {
+  padding-top: 28px;
+}
+.stitch-arrival > p {
+  margin: 12px 0 24px;
+}
+.stitch-arrival form {
+  display: grid;
+  gap: 12px;
+}
+.stitch-arrival label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--home-ink);
+  gap: 8px;
+}
+.stitch-arrival label small {
+  font-size: 12px;
+  color: var(--home-muted);
+}
+.stitch-arrival form > .stitch-button {
+  width: 100%;
+  margin-top: 20px;
+}
+.stitch-access-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 32px 0;
+}
+.stitch-access-body .stitch-button {
+  width: 100%;
+}
+.stitch-access-body .stitch-quiet {
+  align-self: center;
+}
+.stitch-embedded {
+  border-radius: 12px;
+}
+.stitch-embedded > .stitch-phone {
+  min-height: 720px;
+}
+.stitch-dialog {
+  font:
+    400 16px/1.6 "Home DM Sans",
+    sans-serif;
+  background: var(--home-surface);
+  color: var(--home-ink);
+  border-color: var(--home-border);
+  border-radius: 20px;
+}
+.stitch-dialog .dialog-symbol {
+  display: none;
+}
+.stitch-dialog h2 {
+  font:
+    700 20px/1.3 "Home Space Grotesk",
+    sans-serif;
+  margin: 8px 0 12px;
+}
+.stitch-dialog > p {
+  color: var(--home-muted);
+  font-size: 14px;
+}
+.stitch-dialog .ui-button-vote {
+  background: var(--home-primary);
+  border-color: var(--home-primary);
+  color: var(--home-on-primary);
+  font-family: "Home Space Grotesk", sans-serif;
+}
+.stitch-dialog .dialog-actions button {
+  border-radius: 8px;
+}
+.stitch-dialog .ui-button-secondary {
+  color: var(--home-ink);
+  background: var(--home-raised);
+  border-color: var(--home-control-border);
+}
+.stitch-dialog::backdrop {
+  backdrop-filter: blur(4px);
+}
+@media (max-width: 767px) {
+  .stitch-lobby-content {
+    padding: 8px 16px max(16px, env(safe-area-inset-bottom));
+  }
+  .stitch-lobby-title {
+    gap: 8px;
+    margin-bottom: 24px;
+    align-items: flex-start;
+  }
+  .stitch-lobby-title h1 {
+    font-size: 28px;
+  }
+  .stitch-lobby-title > div > p {
+    display: none;
+  }
+  .stitch-counters {
+    align-self: flex-end;
+    margin-bottom: 8px;
+  }
+  .stitch-counters .stitch-pill {
+    font-size: 11px;
+    padding: 2px 7px;
+  }
+  .stitch-lobby-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .stitch-card {
+    padding: 16px;
+  }
+  .stitch-lobby[data-ready="true"] .stitch-invitation {
+    order: 2;
+  }
+  .stitch-participants {
+    order: 1;
+  }
+  .stitch-lobby[data-ready="false"] .stitch-invitation {
+    order: 0;
+  }
+  .stitch-lobby-settings {
+    order: 3;
+    gap: 8px;
+  }
+  .stitch-lobby-prepare {
+    order: 4;
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+    display: block;
+    background: var(--home-bg);
+    padding: 12px 0 max(12px, env(safe-area-inset-bottom));
+    border-width: 1px 0 0;
+    border-radius: 0;
+    margin-top: 12px;
+  }
+  .stitch-lobby-prepare > div:last-child {
+    max-width: none;
+    text-align: center;
+  }
+  .stitch-lobby-prepare .stitch-kicker {
+    display: none;
+  }
+  .stitch-lobby-prepare > div:first-child p {
+    font-size: 12px;
+    font-weight: 400;
+    margin: 0 0 10px;
+  }
+  .stitch-lobby-prepare .stitch-button {
+    width: 100%;
+  }
+  .stitch-page .stitch-roster li {
+    padding: 10px 0;
+  }
+  .stitch-invitation {
+    gap: 12px;
+  }
+  .stitch-invitation .copy-block > button {
+    padding-inline: 12px;
+    font-size: 13px;
+  }
+  .stitch-share button {
+    font-size: 13px;
+    padding-inline: 12px;
+  }
+}
+@media (max-width: 359px) {
+  .stitch-header {
+    gap: 8px;
+  }
+  .stitch-brand {
+    font-size: 13px;
+    gap: 6px;
+  }
+  .stitch-header .theme-control summary > svg {
+    display: none;
+  }
+  .stitch-secret-compact {
+    flex-wrap: wrap;
+  }
+  .stitch-roster li {
+    flex-wrap: wrap;
+  }
+  .stitch-roster .stitch-pill {
+    font-size: 10px;
+  }
+  .stitch-counters small {
+    font-size: 10px;
+  }
+}
+body[data-keyboard-open="true"] .stitch-lobby-prepare {
+  position: static;
+}
+@media (max-height: 600px) {
+  .stitch-lobby-prepare {
+    position: static;
+  }
+}
+@media (hover: hover) {
+  .stitch-page .stitch-button:not(:disabled):hover {
+    filter: brightness(1.08);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stitch-page *,
+  .stitch-dialog * {
+    transition: none;
+    animation: none;
+  }
+}

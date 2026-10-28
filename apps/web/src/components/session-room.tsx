@@ -13,6 +13,7 @@ import { useConfirm } from "./ui/feedback";
 import { UndercoverRoom } from "./undercover-room";
 import { ThemeControl } from "./application-theme";
 import { Badge } from "./ui/primitives";
+import { AccessRequired } from "./stitch-frame";
 type RoomPane = "session" | "players" | "game" | "board";
 const sections: { id: RoomPane; label: string }[] = [
   { id: "session", label: "Session" },
@@ -90,6 +91,8 @@ export function SessionRoom({
       ? `${gm ? new URL(gm.publicUrl).origin : window.location.origin}/sessions/${id}/${gm ? "gm" : `player/${me?.id}`}#access=${token}`
       : "";
   const playing = !!view?.publicGame;
+  if (!legacyTools && audience.startsWith("player:") && !view)
+    return <AccessRequired error={error} connection={connection} />;
   if (
     !legacyTools &&
     view &&

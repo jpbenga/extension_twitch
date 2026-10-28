@@ -155,7 +155,9 @@
     color-mix(in srgb, var(--color-background) 80%, transparent);
 }
 
-/* Approved Stitch homepage: visual tokens are scoped to this surface only. */
+/* Approved Stitch surfaces only: homepage, official lobby and player companion. */
+.stitch-page,
+.stitch-dialog,
 .home-page {
   --home-bg: #0c0c1f;
   --home-surface: #1a1a2d;
@@ -172,6 +174,8 @@
   --home-shadow: 0 12px 32px -8px #05051180;
   --home-ambient: #4f319c;
 }
+[data-theme="broadcast-studio"] .stitch-page,
+[data-theme="broadcast-studio"] .stitch-dialog,
 [data-theme="broadcast-studio"] .home-page {
   --home-bg: #131d27;
   --home-surface: #1d2b38;
@@ -186,6 +190,8 @@
   --home-badge: #1f4458;
   --home-ambient: #22516b;
 }
+[data-theme="on-air-premium"] .stitch-page,
+[data-theme="on-air-premium"] .stitch-dialog,
 [data-theme="on-air-premium"] .home-page {
   --home-bg: #191d24;
   --home-surface: #242a34;

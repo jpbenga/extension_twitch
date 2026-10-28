@@ -26,7 +26,7 @@ async function join(context: BrowserContext, url: string, name: string) {
   await p.goto(url);
   await p.getByLabel("Votre nom", { exact: true }).fill(name);
   await p
-    .getByRole("button", { name: "Rejoindre la session", exact: true })
+    .getByRole("button", { name: "Rejoindre la partie", exact: true })
     .click();
   await expect(p.getByTestId("session-connection")).toHaveText("Synchronisé");
   return p;

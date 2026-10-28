@@ -96,9 +96,7 @@ async function durableMarkup(page: Page) {
 }
 async function vote(page: Page, target: string) {
   await page.getByRole("radio", { name: target, exact: true }).check();
-  await page
-    .getByRole("button", { name: "Confirmer mon vote", exact: true })
-    .click();
+  await page.getByRole("button", { name: "Voter", exact: true }).click();
   await acceptConfirmation(page);
   await expect(
     page.getByRole("status").filter({ hasText: /Votre vote pour/ }),

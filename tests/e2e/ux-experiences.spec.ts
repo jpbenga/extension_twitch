@@ -223,7 +223,7 @@ test("six experiences run a real invited game with a focused GM, private compani
       await p.goto(invitation);
       await p.getByLabel("Votre nom", { exact: true }).fill(`Invité ${i}`);
       await p
-        .getByRole("button", { name: "Rejoindre la session", exact: true })
+        .getByRole("button", { name: "Rejoindre la partie", exact: true })
         .click();
       await expect(p.getByTestId("session-connection")).toHaveText(
         "Synchronisé",
@@ -345,7 +345,7 @@ test("six experiences run a real invited game with a focused GM, private compani
         exact: true,
       }).check();
       await players[i]!.getByRole("button", {
-        name: "Confirmer mon vote",
+        name: "Voter",
         exact: true,
       }).click();
       await acceptConfirmation(players[i]!);

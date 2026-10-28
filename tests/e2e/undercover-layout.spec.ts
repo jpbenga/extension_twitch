@@ -160,7 +160,7 @@ test("configure a real Undercover game, adjust the shared layout, play to a resu
         exact: true,
       }).check();
       await players[i]!.getByRole("button", {
-        name: "Confirmer mon vote",
+        name: "Voter",
         exact: true,
       }).click();
       await acceptConfirmation(players[i]!);

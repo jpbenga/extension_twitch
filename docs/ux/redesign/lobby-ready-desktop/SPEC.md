@@ -21,12 +21,21 @@ Validation: attestation humaine explicite par --approved ; aucun statut Stitch d
 
 ## Functional intent
 
-À renseigner pendant la validation UX.
+Vérifier les inscrits puis préparer la partie. La préparation devient l’action dominante dès que l’effectif est valide.
 
 ## Existing behaviour to preserve
 
-À renseigner avant l’implémentation.
+La validité utilise preparedGame.minimumPlayers/maximumPlayers, issus de la répartition serveur. Le statut Prêt est facultatif ; les hors ligne restent inscrits. game.use-prepared ferme les inscriptions et fige l’effectif, sans distribuer les mots. Le résumé affiche clueRounds depuis les métadonnées GM, jamais une valeur fictive ou les mots secrets.
 
 ## Notes
 
 Design explicitement validé avant implémentation.
+
+## Contraintes communes
+
+Référence visuelle APPROVED conservée sans modification. La maquette ne crée pas
+de nouvelle permission. Préserver les trois thèmes existants, leur préférence locale
+et l’indépendance du thème OBS. Chargement, erreurs et reconnexion restent réels ;
+les commandes sont suspendues si le flux est déconnecté ou une réponse incertaine.
+Voir [le bilan d’intégration](../LOBBY-PLAYER-IMPLEMENTATION.md) pour les écarts,
+les captures réelles et les scénarios de validation.

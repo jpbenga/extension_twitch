@@ -15,18 +15,17 @@ Les IDs exacts, projets, surfaces et dossiers de destination sont recensés dans
 - Joueur : projet `16851612906193292413`, 13 écrans.
 - Accueil et préparation Undercover : projet `7117487747163082855`, inchangé.
 
-## Obstacle actuel : références non transférées
+## Références transférées — obstacle levé
 
-La branche distante `feat/stitch-homepage`, au commit `b841caa`, contient les
-références APPROVED de l'accueil et de la préparation Undercover. Elle ne contient
-pas encore les captures et exports HTML des blocs 3 et 4. Le chemin fourni dans le
-compte rendu, `/Users/chloe/Documents/ChatGPT/Extension twitch/design/blocks-3-4/`,
-désigne le Mac du testeur ; il n'est pas monté dans le Cloud.
+Le commit `3c2e704` de `feat/stitch-lobby-player` contient les 21 captures et
+exports HTML reçus depuis le Mac du testeur. Ils ont été récupérés dans le Cloud.
+Le préparatif précédent (`ba77ed8`) était bloqué par leur absence ; ce blocage
+est levé. Voir le [bilan d'intégration et les captures réelles](LOBBY-PLAYER-IMPLEMENTATION.md).
 
-L'autorisation d'intégrer est acquise, mais une intégration fidèle exige les
-artefacts visuels. Aucun écran React n'a été modifié en leur absence. Les
-références ne sont pas recréées à partir des seuls intitulés. Aucun accès Stitch
-n'est effectué depuis le Cloud.
+Les références ne sont pas recréées à partir des seuls intitulés. Aucun accès
+Stitch n'est effectué depuis le Cloud. La commande ci-dessous reste disponible
+pour resynchroniser les mêmes références, mais n'est plus une étape à effectuer
+pour tester la livraison intégrée.
 
 ## Export local en une commande
 
@@ -84,6 +83,6 @@ pont utilisent des fixtures et ne prouvent pas l'accès réel à ces deux projet
 - Garder le moteur, SQLite/SSE, les accès distincts, les trois thèmes et
   l'indépendance de l'overlay public.
 
-Les captures réelles, la comparaison visuelle, les tests de parcours et le guide
-de validation iPhone seront fournis avec l'intégration, après réception des
-références. Aucun test sur iPhone physique n'est revendiqué par ce préparatif.
+Les captures réelles, la comparaison visuelle, les tests et le guide iPhone sont
+référencés dans le bilan d'intégration. Aucun test sur iPhone physique n'est
+revendiqué par l'agent.

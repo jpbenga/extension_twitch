@@ -21,12 +21,21 @@ Validation: attestation humaine explicite par --approved ; aucun statut Stitch d
 
 ## Functional intent
 
-À renseigner pendant la validation UX.
+Comprendre qui parle et attendre son tour.
 
 ## Existing behaviour to preserve
 
-À renseigner avant l’implémentation.
+Le joueur courant et la progression viennent de play.turns, actualisés par SSE. Les indices restent oraux ; le joueur ne confirme pas lui-même son passage. Les anciennes parties sans tours structurés restent lisibles sans fabriquer de progression.
 
 ## Notes
 
 Design explicitement validé avant implémentation.
+
+## Contraintes communes
+
+Référence visuelle APPROVED conservée sans modification. La maquette ne crée pas
+de nouvelle permission. Préserver les trois thèmes existants, leur préférence locale
+et l’indépendance du thème OBS. Chargement, erreurs et reconnexion restent réels ;
+les commandes sont suspendues si le flux est déconnecté ou une réponse incertaine.
+Voir [le bilan d’intégration](../LOBBY-PLAYER-IMPLEMENTATION.md) pour les écarts,
+les captures réelles et les scénarios de validation.

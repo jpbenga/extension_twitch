@@ -38,7 +38,7 @@ async function joinPlayer(context: BrowserContext, url: string, name: string) {
   await page.goto(url);
   await page.getByLabel("Votre nom", { exact: true }).fill(name);
   await page
-    .getByRole("button", { name: "Rejoindre la session", exact: true })
+    .getByRole("button", { name: "Rejoindre la partie", exact: true })
     .click();
   await expect(page).toHaveURL(/\/player\/[^/]+$/);
   await expect(page.getByTestId("session-connection")).toHaveText(
@@ -190,9 +190,10 @@ test("private recovery works in another browser and unrelated tabs do not inheri
       "Identité distincte",
     );
     await expect(player.locator('[data-experience="player"]')).toBeVisible();
-    await expect(
-      player.getByRole("heading", { name: "Identité distincte", exact: true }),
-    ).toBeVisible();
+    await expect(player.locator(".stitch-identity")).toBeVisible();
+    await expect(player.locator(".stitch-identity")).toContainText(
+      "Identité distincte",
+    );
     await expect(
       player.getByRole("button", { name: "Réinitialiser le salon" }),
     ).toHaveCount(0);

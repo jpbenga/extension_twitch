@@ -1,18 +1,5 @@
+@import "./brand-fonts.css";
 /* The approved homepage only. No application/OBS token is overwritten. */
-@font-face {
-  font-family: "Home Space Grotesk";
-  src: url("/home/spacegrotesk.ttf") format("truetype");
-  font-weight: 400 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Home DM Sans";
-  src: url("/home/dmsans.ttf") format("truetype");
-  font-weight: 400 700;
-  font-style: normal;
-  font-display: swap;
-}
 .home-page {
   /* Neon Show is the approved indigo / lilac / citron direction. */
   color: var(--home-ink);

@@ -86,9 +86,7 @@ async function demo(page: Page) {
 }
 async function vote(page: Page, target: string) {
   await page.getByRole("radio", { name: target, exact: true }).check();
-  await page
-    .getByRole("button", { name: "Confirmer mon vote", exact: true })
-    .click();
+  await page.getByRole("button", { name: "Voter", exact: true }).click();
   await acceptConfirmation(page);
   await expect(
     page.getByRole("status").filter({ hasText: /Votre vote pour/ }),
@@ -193,7 +191,7 @@ test("Undercover plays several real rounds to a final victory, with private card
       );
       await expect(
         eliminated.getByRole("button", {
-          name: "Confirmer mon vote",
+          name: "Voter",
           exact: true,
         }),
       ).toHaveCount(0);
@@ -275,7 +273,7 @@ test("ties, a disconnected player's return and GM delegation use the same privat
       .filter({ hasText: /Votre vote pour Joueur démo 2/ }),
   ).toBeVisible();
   await expect(
-    one.getByRole("button", { name: "Confirmer mon vote", exact: true }),
+    one.getByRole("button", { name: "Voter", exact: true }),
   ).toHaveCount(0);
   await gm
     .getByText("Voter pour un joueur sans interface", { exact: true })
@@ -376,7 +374,7 @@ test("real invitees join without accounts, see a server refusal for insufficient
       await p.goto(invitation);
       await p.getByLabel("Votre nom", { exact: true }).fill(`Invité réel ${i}`);
       await p
-        .getByRole("button", { name: "Rejoindre la session", exact: true })
+        .getByRole("button", { name: "Rejoindre la partie", exact: true })
         .click();
       await expect(p.getByTestId("session-connection")).toHaveText(
         "Synchronisé",

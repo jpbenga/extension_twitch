@@ -12,6 +12,9 @@ import { GamePanel } from "./game-panel";
 import { BroadcastFeed } from "./broadcast-feed";
 import { Badge } from "./ui/primitives";
 import { useConfirm } from "./ui/feedback";
+import { StitchLobby } from "./stitch-lobby";
+import { UndercoverCompanion } from "./undercover-companion";
+import { supportsUndercoverCompanion } from "../lib/undercover-companion";
 
 type Send = (action?: LobbyAction) => Promise<boolean>;
 export function UndercoverRoom({
@@ -32,11 +35,7 @@ export function UndercoverRoom({
   privateUrl: string;
 }) {
   const confirm = useConfirm(),
-    gm = view.audience === "gm" ? view : null,
-    me =
-      view.audience === "player"
-        ? view.participants.find((p) => p.id === view.participantId)
-        : null;
+    gm = view.audience === "gm" ? view : null;
   const [pane, setPane] = useState("game"),
     [rename, setRename] = useState("");
   const playing = !!view.publicGame,
@@ -107,7 +106,7 @@ export function UndercoverRoom({
       <ThemeControl />
     </header>
   );
-  if (!gm)
+  if (view.audience === "player" && !supportsUndercoverCompanion(view.game))
     return (
       <main
         className="session-shell experience-shell companion-shell"
@@ -116,55 +115,13 @@ export function UndercoverRoom({
         {head}
         {feedback}
         <div className="companion-identity">
-          <div>
-            <span className="eyebrow">UNDERCOVER</span>
-            <h1>{me?.name ?? "Votre partie"}</h1>
-            {view.title !== "Undercover" && (
-              <p className="lobby-hint">{view.title}</p>
-            )}
-          </div>
-          <Badge
-            tone={
-              play?.roster.find((p) => p.id === me?.id)?.active === false
-                ? "vote"
-                : "success"
-            }
-          >
-            {!play?.dealt
-              ? "En attente"
-              : play.roster.find((p) => p.id === me?.id)?.active === false
-                ? "Éliminé"
-                : "En jeu"}
-          </Badge>
+          <h1>
+            {view.participants.find((p) => p.id === view.participantId)?.name ??
+              "Votre partie"}
+          </h1>
+          <p>{view.title}</p>
         </div>
-        {playing ? (
-          <GamePanel view={view} locked={locked} send={send} />
-        ) : (
-          <section className="lobby-panel">
-            <h2>
-              {me?.ready ? "Vous êtes prêt." : "Bienvenue dans la partie"}
-            </h2>
-            <p>
-              Le Game Master prépare Undercover. Gardez cette page ouverte :
-              votre mot apparaîtra ici.
-            </p>
-            <button
-              className="primary-button"
-              disabled={locked}
-              onClick={() =>
-                void send({ type: "participant.ready", ready: !me?.ready })
-              }
-            >
-              {me?.ready ? "Je ne suis plus prêt" : "Je suis prêt"}
-            </button>
-          </section>
-        )}
-        {!playing && (
-          <details className="operation-secondary">
-            <summary>Qui participe ?</summary>
-            <Roster view={view} />
-          </details>
-        )}
+        <GamePanel view={view} locked={locked} send={send} />
         <details className="operation-secondary">
           <summary>Conserver mon accès joueur</summary>
           <CopyLink
@@ -175,105 +132,29 @@ export function UndercoverRoom({
         </details>
       </main>
     );
-  const minimumPlayers = gm?.preparedGame?.minimumPlayers ?? 3,
-    maximumPlayers = gm?.preparedGame?.maximumPlayers ?? 12;
-  if (!playing && gm.preparedGame)
+  if (view.audience === "player")
     return (
-      <main className="session-shell experience-shell" data-experience="salon">
-        {head}
-        {feedback}
-        <div className="saloon-intro">
-          <div>
-            <span className="eyebrow">UNDERCOVER</span>
-            <h1>Votre salon</h1>
-            <p>Invitez vos joueurs, puis préparez la partie.</p>
-          </div>
-        </div>
-        <div className="saloon-main">
-          <section>
-            <CopyLink
-              label="Invitation des joueurs"
-              value={gm.joinUrl}
-              buttonLabel="Copier le lien d’invitation"
-            />
-            <ShareInvitation url={gm.joinUrl} />
-            <p className="invitation-code">
-              Code : <strong>{gm.invitationCode}</strong>
-            </p>
-            <div className="saloon-count">
-              {gm.participants.length} joueur(s) inscrit(s)
-            </div>
-            <p className="lobby-hint">
-              {gm.participants.filter((p) => p.connected).length} connecté(s)
-              actuellement. Le statut Prêt est un repère, pas une obligation.
-            </p>
-            <Roster view={gm} />
-            <button
-              className="primary-button"
-              disabled={
-                locked ||
-                gm.participants.length < minimumPlayers ||
-                gm.participants.length > maximumPlayers
-              }
-              onClick={() => void send({ type: "game.use-prepared" })}
-            >
-              Préparer la partie
-            </button>
-            <p className="lobby-hint">
-              {minimumPlayers}–{maximumPlayers} joueurs pour votre répartition.
-              Cette étape ferme les inscriptions ; vous distribuerez les mots
-              juste après.
-            </p>
-          </section>
-          <aside>
-            <details className="operation-secondary">
-              <summary>Gérer les invités</summary>
-              <Roster
-                view={gm}
-                remove={(id) =>
-                  void confirm({
-                    title: "Retirer ce joueur ?",
-                    description:
-                      "Son accès sera révoqué. Il devra être invité à nouveau pour revenir.",
-                    confirmLabel: "Retirer le joueur",
-                    tone: "danger",
-                    onConfirm: () =>
-                      send({ type: "participant.remove", participantId: id }),
-                  })
-                }
-                disabled={locked}
-              />
-              <button
-                className="secondary-button"
-                disabled={locked}
-                onClick={() =>
-                  void send({
-                    type: "session.admission",
-                    open: !gm.admissionOpen,
-                  })
-                }
-              >
-                {gm.admissionOpen
-                  ? "Fermer les invitations"
-                  : "Ouvrir les invitations"}
-              </button>
-            </details>
-            <details className="operation-secondary">
-              <summary>Ma régie et mon plateau</summary>
-              <CopyLink
-                label="Accès privé GM — ne pas partager avec les joueurs"
-                value={privateUrl}
-                privateLink
-              />
-              <CopyLink
-                label="Source OBS transparente"
-                value={`${new URL(gm.publicUrl).origin}/sessions/${view.sessionId}/obs`}
-              />
-            </details>
-          </aside>
-        </div>
-      </main>
+      <UndercoverCompanion
+        view={view}
+        locked={locked}
+        send={send}
+        privateUrl={privateUrl}
+        feedback={{ connection, error, busy, retryAvailable }}
+      />
     );
+  if (gm && !playing && gm.preparedGame)
+    return (
+      <StitchLobby
+        view={gm}
+        connection={connection}
+        error={error}
+        busy={busy}
+        retryAvailable={retryAvailable}
+        send={send}
+        privateUrl={privateUrl}
+      />
+    );
+  if (!gm) return null;
   return (
     <main className="session-shell experience-shell" data-experience="gm">
       {head}
@@ -458,35 +339,5 @@ function Roster({
         <li>Aucun joueur inscrit. Partagez votre invitation.</li>
       )}
     </ul>
-  );
-}
-function ShareInvitation({ url }: { url: string }) {
-  const [available, setAvailable] = useState(false),
-    [error, setError] = useState("");
-  useEffect(() => setAvailable(typeof navigator.share === "function"), []);
-  if (!available) return null;
-  return (
-    <>
-      <button
-        className="secondary-button"
-        onClick={async () => {
-          try {
-            await navigator.share({
-              title: "Rejoindre ma partie Undercover",
-              url,
-            });
-            setError("");
-          } catch (e) {
-            if (!(e instanceof DOMException && e.name === "AbortError"))
-              setError(
-                "Le partage n’a pas abouti. Utilisez Copier le lien d’invitation.",
-              );
-          }
-        }}
-      >
-        Partager l’invitation
-      </button>
-      {error && <p role="status">{error}</p>}
-    </>
   );
 }
