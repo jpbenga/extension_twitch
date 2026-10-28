@@ -1,6 +1,9 @@
 import {
   openUndercoverOptions,
   openLabAccess,
+  selectedLabHref,
+  openLabPlayers,
+  openLabTools,
   openBroadcastHelp,
 } from "./undercover-helpers.js";
 import {
@@ -23,19 +26,7 @@ const test = base.extend<{ views: (name: string) => Promise<Page> }>({
     try {
       await use(async (name) => {
         await role(page, name);
-        const details = page.locator("details").filter({
-          has: page.locator("summary", {
-            hasText: "Ouvrir cette vue sur un autre écran",
-          }),
-        });
-        if ((await details.getAttribute("open")) === null)
-          await details.locator("summary").click();
-        const href = await page
-          .getByRole("link", {
-            name: "Ouvrir la vue sélectionnée",
-            exact: true,
-          })
-          .getAttribute("href");
+        const href = await selectedLabHref(page);
         const context = await browser.newContext({
           viewport: page.viewportSize(),
         });
@@ -224,6 +215,7 @@ test("Undercover plays several real rounds to a final victory, with private card
     path: info.outputPath("undercover-public-final.png"),
     fullPage: true,
   });
+  await openLabTools(page);
   await page
     .getByRole("button", { name: "Recommencer le test", exact: true })
     .click();
@@ -574,11 +566,7 @@ test("Jouer separates creation, prepares three isolated players and transfers th
     await expect(page.locator(".turn-current")).not.toContainText(
       "C’est à vous",
     );
-    const details = page.getByText(
-      "Accès individuels des joueurs de démonstration",
-      { exact: true },
-    );
-    await details.click();
+    await openLabPlayers(page);
     const players: Page[] = [];
     for (let i = 1; i <= 3; i++) {
       const href = await page

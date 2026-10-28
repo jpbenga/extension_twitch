@@ -1,3 +1,4 @@
+import { selectedLabHref } from "./undercover-helpers.js";
 import { acceptConfirmation } from "./dialog-helpers.js";
 import { expect, type Page } from "@playwright/test";
 import type { GameDefinition } from "@extension-twitch/contracts/game-definition";
@@ -67,19 +68,9 @@ export async function role(page: Page, name: string) {
 }
 export async function externalView(page: Page, name: string) {
   await role(page, name);
-  const details = page.locator("details").filter({
-    has: page.locator("summary", {
-      hasText: "Ouvrir cette vue sur un autre écran",
-    }),
-  });
-  if ((await details.getAttribute("open")) === null)
-    await details.locator("summary").click();
-  const link = page.getByRole("link", {
-    name: "Ouvrir la vue sélectionnée",
-    exact: true,
-  });
+  const href = await selectedLabHref(page);
   const next = await page.context().newPage();
-  await next.goto((await link.getAttribute("href"))!);
+  await next.goto(href);
   await expect(
     name === "Spectateur"
       ? next.getByRole("status").first()

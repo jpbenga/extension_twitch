@@ -1,6 +1,7 @@
 import {
   openUndercoverOptions,
   openLabAccess,
+  openLabPlayers,
   openBroadcastHelp,
 } from "./undercover-helpers.js";
 import {
@@ -72,13 +73,7 @@ async function gmLink(page: Page) {
     .getAttribute("href"))!;
 }
 async function playerLink(page: Page, n: number) {
-  const details = page.locator("details").filter({
-    has: page.locator("summary", {
-      hasText: "Accès individuels des joueurs de démonstration",
-    }),
-  });
-  if ((await details.getAttribute("open")) === null)
-    await details.locator("summary").click();
+  await openLabPlayers(page);
   return (await page
     .getByRole("link", { name: `Ouvrir Joueur ${n} séparément`, exact: true })
     .getAttribute("href"))!;
