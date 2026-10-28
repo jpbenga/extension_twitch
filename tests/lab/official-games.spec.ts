@@ -1,3 +1,4 @@
+import { launchPrepareDemo } from "../e2e/undercover-helpers.js";
 import { completeClues } from "../e2e/turn-helpers.js";
 import { acceptConfirmation } from "../e2e/dialog-helpers.js";
 import { test, expect } from "@playwright/test";
@@ -11,12 +12,7 @@ test("Undercover's real mobile lab has no development, hydration or browser erro
     if (["warning", "error"].includes(m.type())) issues.push(m.text());
   });
   await page.goto("/creator/play");
-  await page
-    .getByRole("button", {
-      name: "Lancer une partie de démonstration",
-      exact: true,
-    })
-    .click();
+  await launchPrepareDemo(page);
   await expect(
     page.getByLabel("Perspective du laboratoire", { exact: true }),
   ).toBeVisible();

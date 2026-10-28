@@ -1,3 +1,8 @@
+import {
+  launchPrepareDemo,
+  openPrepareBroadcast,
+  openPrepareDemo,
+} from "./undercover-helpers.js";
 import { openGmReplay } from "./undercover-helpers.js";
 import { openLabAccess, openLabPlayers } from "./undercover-helpers.js";
 import { test, expect, type Page, type BrowserContext } from "@playwright/test";
@@ -9,15 +14,11 @@ const widget = (p: Page, id: string) =>
   rendered(p).locator(`[data-widget="${id}"]`);
 async function start(page: Page, count = 3) {
   await page.goto("/play/undercover");
+  await openPrepareDemo(page);
   await page
     .getByLabel("Joueurs de démonstration", { exact: true })
     .fill(String(count));
-  await page
-    .getByRole("button", {
-      name: "Lancer une partie de démonstration",
-      exact: true,
-    })
-    .click();
+  await launchPrepareDemo(page);
   await expect(page).toHaveURL(/\/play\/lab\//);
   await expect(page.getByTestId("session-connection")).toHaveText(
     "Synchronisé",
@@ -59,11 +60,12 @@ test("configure a real Undercover game, adjust the shared layout, play to a resu
   browser,
 }, info) => {
   await page.goto("/play/undercover");
+  await openPrepareDemo(page);
   await page.getByLabel("Joueurs de démonstration", { exact: true }).fill("3");
   await expect(page.getByLabel("Règles actives")).toContainText(
     "2 civils et 1 Undercover",
   );
-  await page.getByText("Personnaliser l’overlay", { exact: true }).click();
+  await openPrepareBroadcast(page);
   await page
     .getByLabel("Disposition de départ", { exact: true })
     .selectOption("bottom");
@@ -75,15 +77,10 @@ test("configure a real Undercover game, adjust the shared layout, play to a resu
   await page.getByLabel("Résultat · Hauteur", { exact: true }).fill("390");
   const resultStyle = await widget(page, "result").getAttribute("style");
   await page.reload();
-  await page.getByText("Personnaliser l’overlay", { exact: true }).click();
+  await openPrepareBroadcast(page);
   await expect(widget(page, "result")).toHaveAttribute("style", resultStyle!);
   await assertBounds(page);
-  await page
-    .getByRole("button", {
-      name: "Lancer une partie de démonstration",
-      exact: true,
-    })
-    .click();
+  await launchPrepareDemo(page);
   await expect(page).toHaveURL(/\/play\/lab\//);
   const id = page.url().split("/").pop()!;
   await openLabAccess(page);

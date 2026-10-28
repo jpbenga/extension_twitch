@@ -1,3 +1,4 @@
+import { launchPrepareDemo, openPrepareDemo } from "./undercover-helpers.js";
 import { openGmReplay } from "./undercover-helpers.js";
 import {
   openUndercoverOptions,
@@ -42,6 +43,7 @@ const test = base.extend<{
 });
 async function demo(page: Page, count = 3, long = false) {
   await page.goto("/play/undercover");
+  await openPrepareDemo(page);
   await page
     .getByLabel("Joueurs de démonstration", { exact: true })
     .fill(String(count));
@@ -52,12 +54,7 @@ async function demo(page: Page, count = 3, long = false) {
   await page
     .getByLabel("Mot des Undercover", { exact: true })
     .fill(long ? "U".repeat(80) : "SECRET INTRUS");
-  await page
-    .getByRole("button", {
-      name: "Lancer une partie de démonstration",
-      exact: true,
-    })
-    .click();
+  await launchPrepareDemo(page);
   await expect(page).toHaveURL(/\/play\/lab\//);
   await expect(page.getByTestId("session-connection")).toHaveText(
     "Synchronisé",

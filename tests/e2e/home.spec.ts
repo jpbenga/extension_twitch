@@ -1,3 +1,4 @@
+import { launchPrepareDemo, openPrepareDemo } from "./undercover-helpers.js";
 import { test, expect, type Page } from "@playwright/test";
 
 const prepare = (page: Page) =>
@@ -32,13 +33,9 @@ async function theme(page: Page, value: string) {
 }
 async function demo(page: Page) {
   await page.goto("/play/undercover");
+  await openPrepareDemo(page);
   await page.getByLabel("Joueurs de démonstration", { exact: true }).fill("3");
-  await page
-    .getByRole("button", {
-      name: "Lancer une partie de démonstration",
-      exact: true,
-    })
-    .click();
+  await launchPrepareDemo(page);
   await expect(page).toHaveURL(/\/play\/lab\//);
   await expect(page.getByTestId("session-connection")).toHaveText(
     "Synchronisé",
@@ -96,7 +93,10 @@ test("approved homepage has real preparation, disclosures and three persistent t
   await prepare(page).click();
   await expect(page).toHaveURL(/\/play\/undercover$/);
   await expect(
-    page.getByRole("heading", { name: "Préparer Undercover", exact: true }),
+    page.getByRole("heading", {
+      name: /Préparer (?:votre |la )partie/,
+      exact: true,
+    }),
   ).toBeVisible();
   expect(writes).toEqual([]);
 });
@@ -106,12 +106,10 @@ test("inline invitation rejects malformed input and joins a real session through
   browser,
 }, info) => {
   await page.goto("/play/undercover");
-  await page
-    .getByLabel("Comment souhaitez-vous jouer ?", { exact: true })
-    .selectOption("invite");
+
   await page
     .getByRole("button", {
-      name: "Créer une partie avec mes invités",
+      name: "Préparer la partie",
       exact: true,
     })
     .click();

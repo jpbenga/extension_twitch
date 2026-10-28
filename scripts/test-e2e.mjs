@@ -18,7 +18,9 @@ for (let i = 0; i < args.length; i++) {
 }
 const projects = requested.length
   ? requested
-  : forwarded.some((a) => /playwright\.(ux|home|players)\.config/.test(a))
+  : forwarded.some((a) =>
+        /playwright\.(ux|home|players|prepare)\.config/.test(a),
+      )
     ? ["desktop", "tablet", "mobile", "small"]
     : ["desktop", "tablet", "mobile"];
 if (
@@ -32,6 +34,7 @@ if (
 // Keep each suite’s screenshots and traces independent, including the approved Stitch blocks.
 const outputSuite =
   [
+    "prepare",
     "players",
     "home",
     "ux",

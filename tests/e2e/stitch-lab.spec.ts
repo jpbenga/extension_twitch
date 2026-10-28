@@ -1,38 +1,29 @@
+import {
+  launchPrepareDemo,
+  openPrepareBroadcast,
+  openUndercoverOptions,
+} from "./undercover-helpers.js";
 import { test, expect, type Page, type TestInfo } from "@playwright/test";
 import { join } from "node:path";
 
-async function openOptions(page: Page) {
-  const panel = page.locator("details").filter({
-    has: page.locator("summary", {
-      hasText: "Mots et options supplémentaires",
-    }),
-  });
-  if (!(await panel.getAttribute("open")))
-    await panel.locator(":scope > summary").click();
-}
 async function createLab(page: Page, start = true) {
   await page.goto("/play/undercover");
   await page.evaluate(() =>
     localStorage.setItem("xt:theme:application", "neon-show"),
   );
   await page.reload();
-  await openOptions(page);
+  await openUndercoverOptions(page);
   await page
     .getByLabel("Mot des civils", { exact: true })
     .fill("Phare confidentiel");
   await page
     .getByLabel("Mot des Undercover", { exact: true })
     .fill("Balise confidentielle");
-  await page.getByText("Personnaliser l’overlay", { exact: true }).click();
+  await openPrepareBroadcast(page);
   await page
     .getByLabel("Thème de l’émission", { exact: true })
     .selectOption("neon-show");
-  await page
-    .getByRole("button", {
-      name: "Lancer une partie de démonstration",
-      exact: true,
-    })
-    .click();
+  await launchPrepareDemo(page);
   await expect(page).toHaveURL(/\/play\/lab\//);
   await expect(page.getByTestId("session-connection")).toHaveText(
     "Synchronisé",
@@ -449,12 +440,7 @@ test("interrupted preparation resumes the same server session and missing local 
     }
     await route.continue();
   });
-  await page
-    .getByRole("button", {
-      name: "Lancer une partie de démonstration",
-      exact: true,
-    })
-    .click();
+  await launchPrepareDemo(page);
   await expect(page).toHaveURL(/\/play\/lab\//);
   const id = page.url().split("/").pop()!;
   await expect(

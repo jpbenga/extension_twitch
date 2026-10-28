@@ -22,7 +22,10 @@ import {
 } from "@extension-twitch/contracts/themes";
 import { BroadcastThemeSelect } from "./application-theme";
 import { NumberInput } from "./creator-fields";
-import { ProductFrame } from "./product-frame";
+import { HomeIcon } from "./home-icon";
+import { ThemeControl } from "./application-theme";
+import "../app/stitch-surfaces.css";
+import "../app/prepare-undercover.css";
 import {
   post,
   commandId,
@@ -60,6 +63,11 @@ export function OfficialGameSetup() {
   const [busy, setBusy] = useState(false),
     [error, setError] = useState("");
   const [ready, setReady] = useState(false);
+  const [pendingMode, setPendingMode] = useState<Pending["mode"] | null>(null);
+  const errorBox = useRef<HTMLParagraphElement>(null);
+  useEffect(() => {
+    if (error) errorBox.current?.focus();
+  }, [error]);
   useEffect(() => {
     try {
       const waiting = sessionStorage.getItem(pendingKey);
@@ -67,6 +75,7 @@ export function OfficialGameSetup() {
         const attempt = JSON.parse(waiting) as Pending;
         setSettings(undercoverSettingsSchema.parse(attempt.settings));
         setMode(attempt.mode);
+        setPendingMode(attempt.mode);
         setCount(attempt.count);
         if (attempt.broadcastTheme)
           setBroadcastTheme(themeIdSchema.parse(attempt.broadcastTheme));
@@ -141,7 +150,7 @@ export function OfficialGameSetup() {
       setError("La disposition ne peut pas être conservée dans cet onglet.");
     }
   }
-  async function launch() {
+  async function launch(launchMode: Pending["mode"]) {
     if (flight.current) return;
     setError("");
     const parsed = undercoverSettingsSchema.safeParse(settings);
@@ -152,11 +161,10 @@ export function OfficialGameSetup() {
       return;
     }
     if (
-      mode === "quick" &&
-      (!Number.isInteger(count) ||
-        count < 3 ||
-        count > 12 ||
-        settings["undercover-count"] * 2 >= count)
+      !Number.isInteger(count) ||
+      count < 3 ||
+      count > 12 ||
+      (launchMode === "quick" && settings["undercover-count"] * 2 >= count)
     ) {
       setError(
         "Prévoyez de 3 à 12 joueurs, avec moins d’Undercover que de civils.",
@@ -166,7 +174,15 @@ export function OfficialGameSetup() {
     flight.current = true;
     setBusy(true);
     try {
-      const raw = sessionStorage.getItem(pendingKey);
+      let raw: string | null;
+      try {
+        raw = sessionStorage.getItem(pendingKey);
+      } catch {
+        setError(
+          "Le stockage de cet onglet est indisponible. Autorisez-le avant de lancer une partie.",
+        );
+        return;
+      }
       const saved: Pending | null = raw ? (JSON.parse(raw) as Pending) : null;
       // Uncertain responses must be retried with the exact request and credential.
       if (
@@ -180,7 +196,7 @@ export function OfficialGameSetup() {
         }) !==
           JSON.stringify({
             settings: parsed.data,
-            mode,
+            mode: launchMode,
             count,
             overlayLayout,
             broadcastTheme,
@@ -200,12 +216,21 @@ export function OfficialGameSetup() {
         requestId: commandId(),
         token: randomToken(),
         settings: parsed.data,
-        mode,
+        mode: launchMode,
         count,
         overlayLayout,
         broadcastTheme,
       };
-      sessionStorage.setItem(pendingKey, JSON.stringify(attempt));
+      try {
+        sessionStorage.setItem(pendingKey, JSON.stringify(attempt));
+      } catch {
+        setError(
+          "La préparation ne peut pas être conservée dans cet onglet. Autorisez le stockage puis réessayez.",
+        );
+        return;
+      }
+      setMode(attempt.mode);
+      setPendingMode(attempt.mode);
       const access = sessionAccessSchema.parse(
         await post("/official-games/undercover/sessions", attempt.token, {
           requestId: attempt.requestId,
@@ -233,6 +258,7 @@ export function OfficialGameSetup() {
       };
       saveLab(lab);
       sessionStorage.removeItem(pendingKey);
+      setPendingMode(null);
       try {
         await prepareLab(lab);
       } catch {
@@ -244,8 +270,14 @@ export function OfficialGameSetup() {
           : `/play/lab/${lab.sessionId}`,
       );
     } catch (e) {
-      if (e instanceof RequestFailure && e.status < 500)
-        sessionStorage.removeItem(pendingKey);
+      if (e instanceof RequestFailure && e.status < 500) {
+        try {
+          sessionStorage.removeItem(pendingKey);
+          setPendingMode(null);
+        } catch {
+          // Keep the uncertain receipt when storage cannot confirm its removal.
+        }
+      }
       setError(
         requestMessage(
           e,
@@ -258,62 +290,284 @@ export function OfficialGameSetup() {
     }
   }
   return (
-    <ProductFrame>
-      <div className="configuration-shell">
-        <div className="creator-page-title">
-          <div>
-            <span className="eyebrow">JOUER · PRÉPARER UNE PARTIE</span>
-            <h1>Préparer Undercover</h1>
-            <p>Choisissez quelques réglages, puis prenez les commandes.</p>
-          </div>
-          <Link href="/play" className="text-link">
-            Changer de jeu
+    <main
+      className="stitch-page prepare-undercover"
+      data-experience="preparation"
+    >
+      <header className="stitch-header">
+        <div className="prepare-header-inner">
+          <Link href="/" className="stitch-brand">
+            <span className="prepare-brand-mark">
+              <HomeIcon name="game" />
+            </span>
+            <span>Extension Twitch</span>
           </Link>
+          <ThemeControl icon={<HomeIcon name="palette" />} />
         </div>
-        <section className="lobby-panel official-game-card game-undercover">
-          <span className="eyebrow">CLASSIQUE · MOTS SECRETS ET DÉDUCTION</span>
-          <details>
-            <summary>Comment se déroule cette partie ?</summary>
-            <p>
-              Mots privés → indices oraux → vote unique → résultat. Pas de vote
-              pour soi. Une égalité n’élimine personne. Les civils gagnent quand
-              tous les Undercover sont éliminés ; les Undercover gagnent à la
-              parité. Les camps sont révélés après élimination, les mots
-              seulement à la fin. La limite de manches peut conduire à une
-              partie nulle.
-            </p>
-          </details>
-          {error && (
-            <p role="alert" className="lobby-error">
-              {error}
-            </p>
-          )}
-
-          <form
-            className="lobby-form"
-            onSubmit={(e) => {
-              e.preventDefault();
-              void launch();
-            }}
+      </header>
+      <div className="prepare-workspace">
+        <nav className="prepare-back" aria-label="Fil d’Ariane">
+          <Link href="/play">
+            <span aria-hidden="true">‹</span>
+            <span className="prepare-desktop-label">Tous les jeux</span>
+            <span className="prepare-mobile-label">Undercover</span>
+          </Link>
+          <span className="prepare-desktop-label">/ &nbsp; Undercover</span>
+        </nav>
+        <div className="prepare-intro">
+          <h1>
+            <span className="prepare-desktop-label">Préparer votre partie</span>
+            <span className="prepare-mobile-label">Préparer la partie</span>
+          </h1>
+          <p>Quelques réglages, puis vous pourrez inviter vos joueurs.</p>
+        </div>
+        {error && (
+          <p
+            ref={errorBox}
+            tabIndex={-1}
+            className="lobby-error prepare-error"
+            role="alert"
           >
-            <div className="configuration-essential">
-              <label>
-                Comment souhaitez-vous jouer ?
-                <select
-                  aria-label="Comment souhaitez-vous jouer ?"
-                  value={mode}
-                  onChange={(e) =>
-                    setMode(e.target.value as "quick" | "invite")
-                  }
-                  disabled={busy}
-                >
-                  <option value="quick">
-                    Tester seul avec des joueurs de démonstration
-                  </option>
-                  <option value="invite">Inviter de vrais participants</option>
-                </select>
-              </label>
-              {mode === "quick" ? (
+            {error}
+          </p>
+        )}
+        {pendingMode && !busy && (
+          <p className="prepare-pending" role="status">
+            Une préparation{" "}
+            {pendingMode === "quick"
+              ? "de démonstration "
+              : "avec des invités "}
+            attend sa confirmation. Reprenez-la sans créer une nouvelle demande.
+          </p>
+        )}
+        <form
+          className="prepare-form"
+          onInvalidCapture={(e) => {
+            let disclosure = (e.target as HTMLElement).closest("details");
+            while (disclosure) {
+              disclosure.open = true;
+              disclosure = disclosure.parentElement?.closest("details") ?? null;
+            }
+          }}
+          onSubmit={(e) => {
+            e.preventDefault();
+            void launch(pendingMode ?? "invite");
+          }}
+        >
+          <div className="prepare-controls">
+            <fieldset className="prepare-essentials" disabled={!ready || busy}>
+              <legend className="prepare-sr-only">
+                Réglages de la partie Undercover
+              </legend>
+              <div className="prepare-setting">
+                <div className="prepare-setting-title">
+                  <span>Participants</span>
+                  <small>3 à 12</small>
+                </div>
+                <div className="prepare-stepper">
+                  <button
+                    type="button"
+                    aria-label="Diminuer le nombre de participants"
+                    disabled={count <= 3}
+                    onClick={() => setCount(Math.max(3, count - 1))}
+                  >
+                    −
+                  </button>
+                  <div>
+                    <NumberInput
+                      label="Participants prévus"
+                      min={3}
+                      max={12}
+                      value={count}
+                      onChange={setCount}
+                      disabled={busy}
+                    />
+                    <span>prévus</span>
+                  </div>
+                  <button
+                    type="button"
+                    aria-label="Augmenter le nombre de participants"
+                    disabled={count >= 12}
+                    onClick={() => setCount(Math.min(12, count + 1))}
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+              <fieldset className="prepare-setting prepare-clues">
+                <legend className="prepare-sr-only">
+                  Tours d’indices avant chaque vote
+                </legend>
+                <div className="prepare-setting-title">
+                  <span>Tours d’indices</span>
+                  <small>avant chaque vote</small>
+                </div>
+                <div className="prepare-segments">
+                  {[1, 2, 3, 4, 5].map((value) => (
+                    <label key={value}>
+                      <input
+                        type="radio"
+                        name="clue-rounds"
+                        aria-label={`${value} ${value === 1 ? "tour" : "tours"} d’indices`}
+                        checked={settings["clue-rounds"] === value}
+                        onChange={() => change("clue-rounds", value)}
+                      />
+                      <span>{value}</span>
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
+              <div className="prepare-setting">
+                <div className="prepare-setting-title">Mode</div>
+                <div className="prepare-mode">
+                  <strong>Classique</strong>
+                  <p>Mode standard d’Undercover.</p>
+                </div>
+              </div>
+            </fieldset>
+            <div className="prepare-options">
+              <details className="prepare-option" data-prepare-option="roles">
+                <summary>
+                  Rôles et distribution <HomeIcon name="chevron" />
+                </summary>
+                <div className="prepare-option-body">
+                  <label>
+                    Nombre d’Undercover
+                    <NumberInput
+                      label="Nombre d’Undercover"
+                      min={1}
+                      max={5}
+                      value={settings["undercover-count"]}
+                      onChange={(v) => change("undercover-count", v)}
+                      disabled={busy}
+                    />
+                  </label>
+                  <p>
+                    Au moins {settings["undercover-count"] * 2 + 1} joueurs pour
+                    cette répartition. L’effectif réel sera vérifié au salon.
+                    Jusqu’à {maximumUndercover(count)} Undercover pour {count}{" "}
+                    participants prévus.
+                  </p>
+                  <label>
+                    Maximum de manches
+                    <NumberInput
+                      label="Maximum de manches"
+                      min={1}
+                      max={30}
+                      value={settings["round-limit"]}
+                      onChange={(v) => change("round-limit", v)}
+                      disabled={busy}
+                    />
+                    <small>
+                      De 1 à 30, puis partie nulle si aucun camp n’a gagné.
+                    </small>
+                  </label>
+                  <details className="prepare-rules">
+                    <summary>Comment se déroule cette partie ?</summary>
+                    <p>
+                      Mots privés → indices oraux → vote unique → résultat. Pas
+                      de vote pour soi. Une égalité n’élimine personne. Les
+                      civils gagnent quand tous les Undercover sont éliminés ;
+                      les Undercover gagnent à la parité. Les camps sont révélés
+                      après élimination, les mots seulement à la fin. La
+                      distribution est aléatoire, sans rôle blanc ni répartition
+                      manuelle.
+                    </p>
+                  </details>
+                </div>
+              </details>
+              <details className="prepare-option" data-prepare-option="words">
+                <summary>
+                  Mots <HomeIcon name="chevron" />
+                </summary>
+                <div className="prepare-option-body">
+                  <p>
+                    Informations privées, réservées à la préparation GM.
+                    Choisissez deux mots différents.
+                  </p>
+                  <label>
+                    Mot des civils
+                    <input
+                      aria-label="Mot des civils"
+                      value={settings["civil-word"]}
+                      maxLength={80}
+                      onChange={(e) => change("civil-word", e.target.value)}
+                      disabled={busy}
+                    />
+                  </label>
+                  <label>
+                    Mot des Undercover
+                    <input
+                      aria-label="Mot des Undercover"
+                      value={settings["undercover-word"]}
+                      maxLength={80}
+                      onChange={(e) =>
+                        change("undercover-word", e.target.value)
+                      }
+                      disabled={busy}
+                    />
+                  </label>
+                </div>
+              </details>
+              <details
+                className="prepare-option layout-setup-section"
+                data-prepare-option="broadcast"
+              >
+                <summary>
+                  Plateau de diffusion <HomeIcon name="chevron" />
+                </summary>
+                <div className="prepare-option-body">
+                  <p>
+                    Ces noms sont des exemples de disposition. Aucun joueur
+                    n’est créé ici. Vos ajustements sont conservés dans cet
+                    onglet, puis enregistrés avec la partie.
+                  </p>
+                  <BroadcastThemeSelect
+                    value={broadcastTheme}
+                    disabled={busy}
+                    onChange={(theme) => {
+                      setBroadcastTheme(theme);
+                      try {
+                        sessionStorage.setItem(
+                          "xt:official:undercover:broadcast-theme",
+                          theme,
+                        );
+                      } catch {
+                        setError(
+                          "Le thème de l’émission ne peut pas être conservé dans cet onglet.",
+                        );
+                      }
+                    }}
+                  />
+                  <p className="prepare-mobile-label">
+                    Sur cet aperçu, utilisez les réglages ci-dessous pour
+                    ajuster les blocs.
+                  </p>
+                  <UndercoverLayoutEditor
+                    layout={overlayLayout}
+                    onChange={changeLayout}
+                    view={{
+                      ...layoutPreparationPreview(count),
+                      broadcastTheme,
+                    }}
+                    disabled={busy}
+                  />
+                </div>
+              </details>
+            </div>
+            <details
+              className="prepare-laboratory"
+              data-prepare-option="laboratory"
+            >
+              <summary>
+                Tester avec le laboratoire <HomeIcon name="chevron" />
+              </summary>
+              <div className="prepare-option-body">
+                <p>
+                  Un essai séparé avec des joueurs de démonstration et de
+                  véritables accès. Pour vos invités, utilisez « Préparer la
+                  partie ».
+                </p>
                 <label>
                   Joueurs de démonstration
                   <NumberInput
@@ -325,149 +579,70 @@ export function OfficialGameSetup() {
                     disabled={busy}
                   />
                 </label>
-              ) : (
-                <p>
-                  Partagez l’invitation, attendez vos 3 à 12 joueurs, puis
-                  préparez la partie depuis la régie.
-                </p>
-              )}
-              <label>
-                Tours d’indices avant chaque vote
-                <NumberInput
-                  label="Tours d’indices avant chaque vote"
-                  min={1}
-                  max={5}
-                  value={settings["clue-rounds"]}
-                  onChange={(value) => change("clue-rounds", value)}
-                  disabled={busy}
-                />
-                <small>
-                  De 1 à 5. Chaque joueur actif parle une fois par tour.
-                </small>
-              </label>
-            </div>{" "}
-            <section className="rule-recap" aria-label="Règles actives">
-              <strong>Votre format de partie</strong>
-              <p>
-                {mode === "quick"
-                  ? `${count} joueurs prévus : ${count - settings["undercover-count"]} civils et ${settings["undercover-count"]} Undercover. Jusqu’à ${maximumUndercover(count)} Undercover pour cet effectif.`
-                  : `Invités : prévoyez au moins ${settings["undercover-count"] * 2 + 1} joueurs pour ${settings["undercover-count"]} Undercover. L’effectif réel sera contrôlé avant préparation.`}
-              </p>
-              <p>
-                {settings["clue-rounds"]} tours d’indices avant chaque vote ·
-                vote unique sans vote pour soi · égalité sans élimination ·{" "}
-                {settings["round-limit"]} manches maximum.
-              </p>
-              <small>
-                La répartition manuelle, le rôle blanc et les autres règles de
-                vote ne sont pas disponibles.
-              </small>
-            </section>
-            <details className="configuration-options">
-              <summary>Mots et options supplémentaires</summary>{" "}
-              <label>
-                Mot des civils
-                <input
-                  aria-label="Mot des civils"
-                  value={settings["civil-word"]}
-                  maxLength={80}
-                  onChange={(e) => change("civil-word", e.target.value)}
-                  disabled={busy}
-                />
-                <small>Information privée, réservée à la préparation GM.</small>
-              </label>
-              <label>
-                Mot des Undercover
-                <input
-                  aria-label="Mot des Undercover"
-                  value={settings["undercover-word"]}
-                  maxLength={80}
-                  onChange={(e) => change("undercover-word", e.target.value)}
-                  disabled={busy}
-                />
-              </label>
-              <label>
-                Nombre d’Undercover
-                <NumberInput
-                  label="Nombre d’Undercover"
-                  min={1}
-                  max={5}
-                  value={settings["undercover-count"]}
-                  onChange={(value) => change("undercover-count", value)}
-                  disabled={busy}
-                />
-                <small>
-                  De 1 à 5, toujours moins que les civils. La répartition
-                  affichée ci-dessus doit rester valide.
-                </small>
-              </label>
-              <details>
-                <summary>Limite de la partie</summary>
-                <label>
-                  Maximum de manches
-                  <NumberInput
-                    label="Maximum de manches"
-                    min={1}
-                    max={30}
-                    value={settings["round-limit"]}
-                    onChange={(value) => change("round-limit", value)}
-                    disabled={busy}
-                  />
-                  <small>
-                    De 1 à 30, puis partie nulle si aucun camp n’a gagné.
-                  </small>
-                </label>
-              </details>
-            </details>{" "}
-            <details className="layout-setup-section">
-              <summary>Personnaliser l’overlay</summary>
-              <p>
-                Ces noms sont des exemples pour préparer la disposition ; aucune
-                partie n’est encore démarrée. Les vrais participants et
-                événements apparaîtront après le lancement.
-              </p>
-              <p className="lobby-hint">
-                Vos ajustements sont conservés automatiquement dans cet onglet.
-                Lancez la partie pour les enregistrer avec elle.
-              </p>
-              <BroadcastThemeSelect
-                value={broadcastTheme}
-                disabled={busy}
-                onChange={(theme) => {
-                  setBroadcastTheme(theme);
-                  try {
-                    sessionStorage.setItem(
-                      "xt:official:undercover:broadcast-theme",
-                      theme,
-                    );
-                  } catch {
-                    setError(
-                      "Le thème de l’émission ne peut pas être conservé dans cet onglet.",
-                    );
+                <button
+                  type="button"
+                  className="stitch-button"
+                  disabled={
+                    !ready ||
+                    busy ||
+                    (pendingMode !== null && pendingMode !== "quick")
                   }
-                }}
-              />
-              <UndercoverLayoutEditor
-                layout={overlayLayout}
-                onChange={changeLayout}
-                view={{ ...layoutPreparationPreview(count), broadcastTheme }}
-                disabled={busy}
-              />
+                  onClick={(e) => {
+                    if (e.currentTarget.form?.reportValidity())
+                      void launch("quick");
+                  }}
+                >
+                  Lancer une partie de démonstration
+                </button>
+              </div>
             </details>
+          </div>
+          <aside className="prepare-summary" aria-label="Votre partie">
+            <div className="prepare-summary-heading">
+              <span>Votre partie</span>
+              <h2>Undercover</h2>
+            </div>
+            <dl>
+              <div>
+                <dt>Format :</dt>
+                <dd>Classique</dd>
+              </div>
+              <div>
+                <dt>Effectif prévu :</dt>
+                <dd>
+                  {count}{" "}
+                  <span className="prepare-desktop-label">participants</span>
+                  <span className="prepare-mobile-label">
+                    participants prévus
+                  </span>
+                </dd>
+              </div>
+              <div>
+                <dt>Rythme :</dt>
+                <dd>
+                  {settings["clue-rounds"]}{" "}
+                  {settings["clue-rounds"] === 1 ? "tour" : "tours"} d’indices
+                </dd>
+              </div>
+            </dl>
+            <span className="prepare-mobile-label prepare-summary-mode">
+              Classique
+            </span>
             <button
-              className="primary-button"
+              className="stitch-button stitch-primary prepare-submit"
               disabled={!ready || busy}
               aria-busy={busy}
             >
               {busy
                 ? "Préparation de la partie…"
-                : mode === "quick"
-                  ? "Lancer une partie de démonstration"
-                  : "Créer une partie avec mes invités"}
+                : pendingMode
+                  ? "Reprendre la préparation"
+                  : "Préparer la partie"}
+              <HomeIcon name="arrow" />
             </button>
-          </form>
-        </section>
+          </aside>
+        </form>
       </div>
-    </ProductFrame>
+    </main>
   );
 }

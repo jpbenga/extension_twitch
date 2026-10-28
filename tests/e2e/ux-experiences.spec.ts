@@ -1,3 +1,8 @@
+import {
+  launchPrepareDemo,
+  openPrepareBroadcast,
+  openPrepareDemo,
+} from "./undercover-helpers.js";
 import { openGmReplay } from "./undercover-helpers.js";
 import { test, expect, type Page, type BrowserContext } from "@playwright/test";
 import { completeClues } from "./turn-helpers.js";
@@ -61,25 +66,21 @@ test("three app themes persist, remain keyboard accessible and never alter the i
     .getByRole("link", { name: "Préparer une partie Undercover", exact: true })
     .click();
   await expect(page.getByLabel("Mot des civils", { exact: true })).toBeHidden();
+  await openPrepareDemo(page);
   await page.getByLabel("Joueurs de démonstration", { exact: true }).fill("3");
-  await page.getByText("Personnaliser l’overlay", { exact: true }).click();
+  await openPrepareBroadcast(page);
   await page
     .getByLabel("Thème de l’émission", { exact: true })
     .selectOption("neon-show");
   await expect(overlay(page)).toHaveAttribute("data-theme", "neon-show");
   await page.reload();
-  await page.getByText("Personnaliser l’overlay", { exact: true }).click();
+  await openPrepareBroadcast(page);
   await expect(
     page.getByLabel("Thème de l’émission", { exact: true }),
   ).toHaveValue("neon-show");
   await chooseTheme(page, "broadcast-studio");
   await expect(overlay(page)).toHaveAttribute("data-theme", "neon-show");
-  await page
-    .getByRole("button", {
-      name: "Lancer une partie de démonstration",
-      exact: true,
-    })
-    .click();
+  await launchPrepareDemo(page);
   await expect(page).toHaveURL(/\/play\/lab\//);
   const id = page.url().split("/").pop()!;
   await expect(
@@ -199,12 +200,10 @@ test("six experiences run a real invited game with a focused GM, private compani
       path: info.outputPath("configuration.png"),
       fullPage: true,
     });
-    await page
-      .getByLabel("Comment souhaitez-vous jouer ?", { exact: true })
-      .selectOption("invite");
+
     await page
       .getByRole("button", {
-        name: "Créer une partie avec mes invités",
+        name: "Préparer la partie",
         exact: true,
       })
       .click();
@@ -452,7 +451,10 @@ test("a browser without stored preferences has a deterministic default and unava
       })
       .click();
     await expect(
-      p.getByRole("heading", { name: "Préparer Undercover", exact: true }),
+      p.getByRole("heading", {
+        name: /Préparer (?:votre |la )partie/,
+        exact: true,
+      }),
     ).toBeVisible();
   } finally {
     await blocked.close();

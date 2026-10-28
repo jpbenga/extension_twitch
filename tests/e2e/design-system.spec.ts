@@ -1,15 +1,11 @@
+import { launchPrepareDemo } from "./undercover-helpers.js";
 import { openGmReplay } from "./undercover-helpers.js";
 import { selectedLabHref } from "./undercover-helpers.js";
 import { test, expect, type Page } from "@playwright/test";
 import { acceptConfirmation } from "./dialog-helpers.js";
 async function gmView(page: Page) {
   await page.goto("/play/undercover");
-  await page
-    .getByRole("button", {
-      name: "Lancer une partie de démonstration",
-      exact: true,
-    })
-    .click();
+  await launchPrepareDemo(page);
   await expect(
     page.getByLabel("Perspective du laboratoire", { exact: true }),
   ).toBeVisible();
@@ -242,12 +238,7 @@ test("Jouer stays legible on a small phone and private access copying has a real
       parseFloat(await field.evaluate((e) => getComputedStyle(e).fontSize)),
     ).toBeGreaterThanOrEqual(16);
   expect(await widthFits(page)).toBe(true);
-  await page
-    .getByRole("button", {
-      name: "Lancer une partie de démonstration",
-      exact: true,
-    })
-    .click();
+  await launchPrepareDemo(page);
   await expect(page.getByTestId("session-connection")).toHaveText(
     "Synchronisé",
   );

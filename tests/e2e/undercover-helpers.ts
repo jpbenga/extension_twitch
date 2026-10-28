@@ -1,6 +1,19 @@
 import { expect, type Page } from "@playwright/test";
 /** Open only product disclosures, retaining the old maintenance screens' routes. */
+async function openPrepareSection(page: Page, name: string) {
+  const panel = page.locator(`[data-prepare-option="${name}"]`);
+  if (await panel.count()) {
+    if ((await panel.getAttribute("open")) === null)
+      await panel.locator(":scope > summary").click();
+    return true;
+  }
+  return false;
+}
 export async function openUndercoverOptions(page: Page) {
+  if (await openPrepareSection(page, "words")) {
+    await openPrepareSection(page, "roles");
+    return;
+  }
   const panel = page.locator("details").filter({
     has: page.locator("summary", {
       hasText: "Mots et options supplémentaires",
@@ -8,6 +21,22 @@ export async function openUndercoverOptions(page: Page) {
   });
   if ((await panel.count()) && (await panel.getAttribute("open")) === null)
     await panel.locator(":scope > summary").click();
+}
+export async function openPrepareDemo(page: Page) {
+  await openPrepareSection(page, "laboratory");
+}
+export async function launchPrepareDemo(page: Page) {
+  await openPrepareDemo(page);
+  await page
+    .getByRole("button", {
+      name: "Lancer une partie de démonstration",
+      exact: true,
+    })
+    .click();
+}
+export async function openPrepareBroadcast(page: Page) {
+  if (await openPrepareSection(page, "broadcast")) return;
+  await page.getByText("Personnaliser l’overlay", { exact: true }).click();
 }
 export async function openLabAccess(page: Page) {
   const panel = page.locator("details").filter({

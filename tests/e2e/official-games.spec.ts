@@ -1,3 +1,4 @@
+import { launchPrepareDemo, openPrepareDemo } from "./undercover-helpers.js";
 import { openGmReplay } from "./undercover-helpers.js";
 import {
   openUndercoverOptions,
@@ -55,12 +56,7 @@ async function demo(page: Page) {
   await page
     .getByLabel("Mot des Undercover", { exact: true })
     .fill("Mot intrus de test");
-  await page
-    .getByRole("button", {
-      name: "Lancer une partie de démonstration",
-      exact: true,
-    })
-    .click();
+  await launchPrepareDemo(page);
   await expect(page).toHaveURL(/\/play\/lab\//);
   await expect(
     page.getByLabel("Perspective du laboratoire", { exact: true }),
@@ -353,12 +349,10 @@ test("real invitees join without accounts, see a server refusal for insufficient
   const contexts: BrowserContext[] = [];
   try {
     await page.goto("/play/undercover");
-    await page
-      .getByLabel("Comment souhaitez-vous jouer ?", { exact: true })
-      .selectOption("invite");
+
     await page
       .getByRole("button", {
-        name: "Créer une partie avec mes invités",
+        name: "Préparer la partie",
         exact: true,
       })
       .click();
@@ -482,17 +476,13 @@ test("Jouer separates creation, prepares three isolated players and transfers th
       .click();
     await expect(page).toHaveURL(/\/play\/undercover$/);
     await expect(
-      page.getByLabel("Tours d’indices avant chaque vote", { exact: true }),
-    ).toHaveValue("2");
+      page.getByRole("radio", { name: "2 tours d’indices", exact: true }),
+    ).toBeChecked();
+    await openPrepareDemo(page);
     await page
       .getByLabel("Joueurs de démonstration", { exact: true })
       .fill("3");
-    await page
-      .getByRole("button", {
-        name: "Lancer une partie de démonstration",
-        exact: true,
-      })
-      .click();
+    await launchPrepareDemo(page);
     await expect(page).toHaveURL(/\/play\/lab\//);
     const labUrl = page.url();
     await role(page, "Joueur 2");
