@@ -539,16 +539,7 @@ body:has(.obs-output) {
   font-family: "Home DM Sans", sans-serif;
   color: var(--broadcast-ink);
 }
-.broadcast-overlay[data-theme="neon-show"],
-.broadcast-spectator[data-theme="neon-show"] {
-  --broadcast-bg: #0c0c1f;
-  --broadcast-panel: #1a1a2d;
-  --broadcast-raised: #28283c;
-  --broadcast-ink: #e2e0fb;
-  --broadcast-muted: #b7a8d4;
-  --broadcast-border: #48405f;
-  --broadcast-highlight: #c8f323;
-}
+
 .broadcast-overlay :is(h2, h3, strong),
 .broadcast-spectator :is(h1, h2, h3, strong) {
   font-family: "Home Space Grotesk", sans-serif;
@@ -723,10 +714,16 @@ body:has(.obs-output) {
   padding-left: 1.3cqw;
   color: var(--broadcast-muted);
   font-size: 1.05cqw;
-  line-height: 1.4;
+  line-height: 1.2;
 }
 .broadcast-overlay .broadcast-events li {
-  margin: 0.15cqw 0;
+  margin: 0;
+}
+.broadcast-overlay.has-layout > .broadcast-events {
+  padding-block: 0.65cqw;
+}
+.broadcast-overlay .broadcast-events .broadcast-widget-label {
+  margin-bottom: 0;
 }
 
 /* Responsive public reader, intentionally different from the fixed 16:9 renderer. */
@@ -1315,4 +1312,60 @@ body:has(.obs-output) {
   min-height: 100svh;
   display: block;
   margin: 0;
+}
+/* Keep compatibility hooks without inheriting the old public-reader columns. */
+.public-session-page .real-stage.broadcast-spectator .spectator-main {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px;
+}
+.broadcast-spectator .spectator-header {
+  font-size: 14px;
+  letter-spacing: normal;
+}
+.broadcast-spectator .spectator-main .spectator-kicker {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+.broadcast-workbench {
+  font-size: 16px;
+}
+.broadcast-workbench .broadcast-page-heading h1 {
+  font-size: 36px;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.broadcast-workbench .creator-check {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.broadcast-workbench .layout-target:not(.is-selected) .layout-resize {
+  opacity: 0.3;
+}
+.broadcast-workbench
+  .layout-target:not(.is-selected)
+  .layout-resize:is(:hover, :focus-visible) {
+  opacity: 1;
+}
+.broadcast-demo-scene > span {
+  display: none;
+}
+.broadcast-demo-scene .demo-presenter {
+  width: 16%;
+  height: 52%;
+  aspect-ratio: auto;
+  left: 42%;
+  top: auto;
+  bottom: 8%;
+  border: 0;
+  border-radius: 45% 45% 10% 10%;
+  opacity: 0.5;
+}
+@media (max-width: 700px) {
+  .public-session-page .real-stage.broadcast-spectator .spectator-main {
+    gap: 20px;
+  }
+  .broadcast-workbench .broadcast-page-heading h1 {
+    font-size: 28px;
+  }
 }

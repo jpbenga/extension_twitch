@@ -18,13 +18,21 @@ export function publicResult(play: PublicPlay, name: (id: string) => string) {
   if (play?.outcome) return play.outcome.label;
   const ballot = play?.ballot;
   if (ballot?.status === "open") return "Les votes sont en cours.";
-  if (ballot?.status === "resolved")
-    return ballot.tied
-      ? "Égalité : personne n’est éliminé."
-      : ballot.eliminated
-        ? `${name(ballot.eliminated)} est éliminé.`
-        : "Scrutin terminé.";
+  if (ballot?.status === "resolved") return publicBallotResult(play, name);
   return play?.dealt
     ? "Les indices sont donnés à voix haute."
     : "Le Game Master prépare la partie.";
+}
+
+/** A resolved ballot remains readable even when it also ended the game. */
+export function publicBallotResult(
+  play: PublicPlay,
+  name: (id: string) => string,
+) {
+  const ballot = play?.ballot;
+  return ballot?.tied
+    ? "Égalité : personne n’est éliminé."
+    : ballot?.eliminated
+      ? `${name(ballot.eliminated)} est éliminé.`
+      : "Scrutin terminé.";
 }

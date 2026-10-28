@@ -5,6 +5,7 @@ import { PlaySummary } from "./play-panel";
 import { findGame } from "../lib/demo";
 import {
   publicPlayerStatus,
+  publicBallotResult,
   publicResult,
 } from "../lib/broadcast-presentation";
 import { publicEventsForRun } from "../lib/public-cues";
@@ -53,20 +54,22 @@ export function PublicSession({
         </strong>
         <span className="spectator-kicker">Plateau public</span>
         <span className="spectator-sr-only">{phase}</span>
-        <span
-          className={`spectator-connection ${connection}`}
-          role="status"
-          data-testid="session-connection"
-        >
-          <i aria-hidden="true" />
-          {connection === "connected"
-            ? "Synchronisé"
-            : connection === "reconnecting"
-              ? "Reconnexion…"
-              : connection === "denied"
-                ? "Plateau indisponible"
-                : "Connexion…"}
-        </span>
+        {standalone && (
+          <span
+            className={`spectator-connection ${connection}`}
+            role="status"
+            data-testid="session-connection"
+          >
+            <i aria-hidden="true" />
+            {connection === "connected"
+              ? "Synchronisé"
+              : connection === "reconnecting"
+                ? "Reconnexion…"
+                : connection === "denied"
+                  ? "Plateau indisponible"
+                  : "Connexion…"}
+          </span>
+        )}
       </header>
       <div className="spectator-main play-summary">
         <div className="spectator-hero real-stage-title">
@@ -179,7 +182,9 @@ export function PublicSession({
                 ? `${ballot.voted.length} / ${ballot.eligible.length} votes reçus`
                 : "Pas de vote en cours"}
             </p>
-            {ballot?.status === "resolved" && <p>{publicResult(play, name)}</p>}
+            {ballot?.status === "resolved" && (
+              <p>{publicBallotResult(play, name)}</p>
+            )}
           </section>
           <section className="spectator-card">
             <h2 className="spectator-kicker">Événements publics</h2>
