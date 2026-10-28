@@ -1,0 +1,355 @@
+<!DOCTYPE html><html class="dark" lang="fr"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>GM Session Settings — Mobile — v1</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-container": "#1e1e31",
+            "tertiary-fixed": "#eaddff",
+            "error-container": "#93000a",
+            "secondary-fixed": "#e8ddff",
+            "inverse-surface": "#e2e0fb",
+            "inverse-primary": "#526600",
+            "surface-container-highest": "#333348",
+            "primary": "#ffffff",
+            "on-tertiary-fixed-variant": "#4c4066",
+            "on-tertiary-fixed": "#201538",
+            "tertiary-container": "#eaddff",
+            "surface-bright": "#37374c",
+            "secondary-container": "#4e4079",
+            "primary-container": "#c8f323",
+            "on-surface": "#e2e0fb",
+            "surface-container-high": "#28283c",
+            "on-background": "#e2e0fb",
+            "surface-dim": "#111125",
+            "on-tertiary": "#352a4e",
+            "on-secondary": "#35275e",
+            "on-error-container": "#ffdad6",
+            "outline": "#8f937a",
+            "surface-tint": "#aed500",
+            "outline-variant": "#444934",
+            "tertiary-fixed-dim": "#cfbfec",
+            "surface": "#111125",
+            "error": "#ffb4ab",
+            "background": "#111125",
+            "primary-fixed": "#c8f323",
+            "on-secondary-fixed-variant": "#4c3e76",
+            "on-surface-variant": "#c5c9ad",
+            "tertiary": "#ffffff",
+            "on-tertiary-container": "#6b5e86",
+            "on-secondary-container": "#c0aff0",
+            "secondary-fixed-dim": "#cebdff",
+            "on-primary-fixed": "#171e00",
+            "on-primary-container": "#576c00",
+            "on-error": "#690005",
+            "inverse-on-surface": "#2f2e43",
+            "surface-container-lowest": "#0c0c1f",
+            "on-primary": "#293500",
+            "primary-fixed-dim": "#aed500",
+            "surface-container-low": "#1a1a2d",
+            "on-secondary-fixed": "#1f1048",
+            "secondary": "#cebdff",
+            "on-primary-fixed-variant": "#3d4d00",
+            "surface-variant": "#333348"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xl": "2rem",
+            "space-sm": "0.5rem",
+            "space-lg": "1.25rem",
+            "gutter": "1rem",
+            "margin": "1rem",
+            "gutter-desktop": "1.5rem",
+            "space-xs": "0.25rem",
+            "margin-desktop": "2rem",
+            "space-md": "0.75rem",
+            "margin-tablet": "1.5rem"
+          },
+          "fontFamily": {
+            "body-lg": ["DM Sans"],
+            "headline-lg-mobile": ["Space Grotesk"],
+            "display-lg-mobile": ["Space Grotesk"],
+            "label-sm": ["DM Sans"],
+            "label-lg": ["DM Sans"],
+            "label-md": ["DM Sans"],
+            "body-sm": ["DM Sans"],
+            "display-lg": ["Space Grotesk"],
+            "headline-md": ["Space Grotesk"],
+            "headline-sm": ["Space Grotesk"],
+            "headline-lg": ["Space Grotesk"],
+            "title-md": ["Space Grotesk"],
+            "body-md": ["DM Sans"]
+          },
+          "fontSize": {
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.06em", "fontWeight": "700" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "700" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "500" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "title-md": ["16px", { "lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "body-md": ["15px", { "lineHeight": "22px", "fontWeight": "400" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      background-color: #0c0c1f;
+      color: #e2e0fb;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    /* Ambient glow & cyber-neon studio subtle highlights */
+    .neon-citron-halo {
+      box-shadow: 0 0 16px rgba(200, 243, 35, 0.4);
+    }
+    .neon-subtle-glow {
+      box-shadow: 0 8px 32px rgba(12, 12, 31, 0.8), 0 0 12px rgba(206, 189, 255, 0.05);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  <style data-b5-material-repair="">.b5-modal-card{width:100%;max-width:520px;max-height:calc(100svh - 48px);overflow:auto;background:#1A1A2D;color:#E2E0FB;border:1px solid #7E7199;border-radius:12px;padding:28px;box-shadow:0 20px 60px #0006;}.b5-modal-card h2{font-size:24px;line-height:32px;margin:0 0 20px;}.b5-modal-card p{font-size:16px;line-height:24px;color:#B7A8D4;margin:0 0 16px;}.b5-modal-actions{display:flex;gap:12px;justify-content:flex-end;margin-top:28px;}.b5-cancel,.b5-confirm{border-radius:8px;min-height:48px;padding:12px 18px;font-weight:600;}.b5-cancel{border:1px solid #7E7199;background:#28283C;color:#E2E0FB;}.b5-confirm{background:#C8F323;color:#171E00;}.b5-danger{background:#FFB4AB;color:#690005;}[role=dialog]{position:fixed!important;inset:0!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:16px!important;background:rgba(12,12,31,.85)!important;z-index:100!important;}@media(max-width:600px){.b5-modal-card{padding:22px;}.b5-modal-actions{flex-direction:column;}.b5-confirm{order:-1;}}body{background:#0C0C1F!important;color:#E2E0FB;font-family:'DM Sans',sans-serif;}h1,h2,h3,button,summary,label,[class*=font-label],[class*=font-headline]{font-family:'Space Grotesk',sans-serif;}.text-on-surface-variant,.text-secondary-fixed-dim,.text-text-muted{color:#B7A8D4!important;}.b5-disclosure-content{padding:16px;display:grid;gap:12px;color:#B7A8D4;font-size:14px;}.b5-secondary,.b5-input{background:#28283C;color:#E2E0FB;border:1px solid #7E7199;border-radius:8px;padding:10px 14px;}.b5-input{display:block;width:100%;margin-top:8px;}button, summary, input, select, a[role="button"] { min-height: 44px; } button:focus-visible, summary:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid #CEBDFF; outline-offset: 3px; } @media(max-width:600px){button,summary,input,select,a[role="button"]{min-height:48px;} input,select,textarea{font-size:16px!important;} button{white-space:normal;}}</style><style data-b5-controls>a{min-height:44px;display:inline-flex;align-items:center;}nav a{justify-content:center;}button{min-width:44px;}nav .bg-primary-container{background:#28283C!important;color:#CEBDFF!important;box-shadow:none!important;}@media(max-width:600px){a{min-height:48px;}}</style></head>
+<body class="bg-surface-container-lowest text-on-surface antialiased font-body-md min-h-screen flex justify-center selection:bg-primary-container selection:text-on-primary-fixed">
+<!-- Device Frame Simulation Container (Mobile 390px responsive) -->
+<main class="w-full max-w-[390px] min-h-screen bg-surface-container-lowest flex flex-col relative pb-12 shadow-2xl">
+<!-- Top Status / Twitch Extension Bar -->
+<header class="sticky top-0 z-40 bg-surface-container-low/95 backdrop-blur-md px-margin py-space-sm flex items-center justify-between shadow-[0_8px_32px_rgba(12,12,31,0.8)]">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high border border-secondary/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">sports_esports</span>
+</div>
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-[13px] tracking-wider text-primary font-bold">EXTENSION TWITCH</span>
+<span class="px-1.5 py-0.5 rounded text-[9px] font-label-sm font-bold bg-primary-container/20 text-primary-container border border-primary-container/40">RÉGIE</span>
+</div>
+<p class="font-body-sm text-[11px] text-secondary-fixed-dim leading-none">Meneur de jeu</p>
+</div>
+</div>
+<!-- Apparence Selector Modal Trigger -->
+<div class="relative">
+<button class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-surface-container-high border border-secondary/20 hover:border-secondary/40 text-secondary-fixed-dim transition-colors duration-150 active:scale-95" id="themeMenuBtn">
+<span class="material-symbols-outlined text-[16px] text-primary-container">sensors</span>
+<span class="font-label-md text-label-md">Apparence</span>
+<span class="material-symbols-outlined text-[14px]">expand_more</span>
+</button>
+<!-- Dropdown Menu -->
+<div class="hidden absolute right-0 mt-2 w-44 rounded-xl bg-surface-container-high border border-secondary/20 shadow-2xl p-1.5 z-50" id="themeMenuDropdown">
+<div class="px-2.5 py-1.5 text-[10px] font-label-sm text-secondary-fixed-dim border-b border-secondary/10">STATION VISUELLE</div>
+<button class="w-full text-left px-2.5 py-2 rounded-lg text-[12px] font-label-md text-primary flex items-center justify-between bg-surface-container-low text-primary-container">
+<span>Broadcast Studio</span>
+<span class="material-symbols-outlined text-[14px]">check</span>
+</button>
+<button class="w-full text-left px-2.5 py-2 rounded-lg text-[12px] font-label-md text-on-surface hover:bg-surface-container-low transition-colors">
+<span>Neon Show</span>
+</button>
+<button class="w-full text-left px-2.5 py-2 rounded-lg text-[12px] font-label-md text-on-surface hover:bg-surface-container-low transition-colors">
+<span>On Air Premium</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Inner Content Area -->
+<div class="px-margin pt-space-md flex flex-col gap-space-lg">
+<!-- Quiet Return Navigation Link -->
+<div class="flex items-center justify-between">
+<a class="inline-flex items-center gap-1.5 text-secondary-fixed-dim hover:text-primary transition-colors text-label-md font-label-md active:scale-95 group" href="#">
+<span class="material-symbols-outlined text-[16px] group-hover:-translate-x-0.5 transition-transform">arrow_back</span>
+<span>Revenir à la partie</span>
+</a>
+<!-- Live Status Pill -->
+<div class="flex items-center gap-2 px-2.5 py-1 rounded-full bg-surface-container border border-secondary/15">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-container opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary-container"></span>
+</span>
+
+</div>
+</div>
+<!-- Screen Title & Context Subtext -->
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+
+<span class="px-1.5 py-0.5 rounded text-[10px] font-label-sm font-bold bg-primary-container/15 text-primary-container border border-primary-container/30">En cours</span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">Accès et réglages</h1>
+<p class="font-body-sm text-body-sm text-secondary-fixed-dim leading-snug">Gestion de la session privée régie et configuration de diffusion.</p>
+</div>
+<!-- Segment Navigation Tabs -->
+<nav aria-label="Sections régie" class="grid grid-cols-3 gap-1.5 p-1 bg-surface-container rounded-xl border border-secondary/10">
+<button class="h-11 rounded-lg font-headline-sm text-label-md font-bold flex items-center justify-center gap-1.5 bg-primary-container text-on-primary-fixed shadow-sm active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[16px]">sports_esports</span>
+<span>Partie</span>
+</button>
+<button class="h-11 rounded-lg font-headline-sm text-label-md font-semibold flex items-center justify-center gap-1.5 text-secondary-fixed-dim hover:text-primary active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[16px]">group</span>
+<span>Joueurs</span>
+</button>
+<button class="h-11 rounded-lg font-headline-sm text-label-md font-semibold flex items-center justify-center gap-1.5 text-secondary-fixed-dim hover:text-primary active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[16px]">grid_view</span>
+<span>Plateau ↗</span>
+</button>
+</nav>
+<!-- CARD 1: Accès Privé Game Master -->
+<section class="bg-surface-container-low rounded-xl p-space-md border border-secondary/15 neon-subtle-glow flex flex-col gap-space-sm">
+<div class="flex items-start justify-between">
+<div class="space-y-0.5">
+<h2 class="font-headline-sm text-[17px] font-bold text-primary flex items-center gap-1.5">
+<span>Accès privé Game Master</span>
+</h2>
+<div class="flex items-center gap-1 text-primary-container font-label-sm text-[11px]">
+<span class="material-symbols-outlined text-[14px]">security</span>
+<span>Ne pas partager avec les joueurs</span>
+</div>
+</div>
+
+</div>
+<div class="relative mt-1">
+<label class="sr-only" for="gm-url-input">URL Régie Privée</label>
+<div class="flex items-center bg-surface-container-lowest border border-secondary/25 rounded-lg px-3 py-2.5 focus-within:border-secondary">
+<span class="material-symbols-outlined text-secondary-fixed-dim text-[16px] mr-2">vpn_key</span>
+<input class="w-full bg-transparent border-0 p-0 text-[14px] font-mono text-on-surface focus:ring-0 tracking-wider focus:outline-none" id="gm-url-input" readonly="" type="text" value="••••••••••••">
+<button class="text-secondary-fixed-dim hover:text-secondary p-1 -mr-1 active:scale-90 transition-transform" id="toggleMaskBtn" title="Afficher/Masquer le lien">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</div>
+</div>
+<button class="w-full h-12 rounded-lg bg-surface-container-high border border-secondary/20 hover:border-secondary/40 text-on-surface font-title-md text-[14px] font-semibold flex items-center justify-center gap-2 active:scale-98 transition-all" id="copyGmBtn">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+<span id="copyTextSpan">Copier mon accès GM</span>
+</button>
+</section>
+<!-- CARD 2: Nom de la session (Dominant Action Card) -->
+<section class="bg-surface-container-low rounded-xl p-space-md border border-secondary/15 neon-subtle-glow flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-sm text-[17px] font-bold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[20px]">tune</span>
+<span>Paramètres d’émission</span>
+</h2>
+
+</div>
+<div class="space-y-1.5">
+<div class="flex justify-between items-center">
+<label class="font-label-md text-label-md text-on-surface font-semibold" for="session-name">Nom de l’émission</label>
+<span class="text-[11px] font-label-sm text-secondary-fixed-dim" id="charCounter">17 / 32 caractères</span>
+</div>
+<div class="relative">
+<input class="w-full h-11 bg-surface-container-lowest rounded-lg border border-secondary/30 text-on-surface px-3 font-body-md text-[16px] focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" id="session-name" maxlength="32" type="text" value="Soirée Undercover">
+</div>
+</div>
+<!-- Dominant Primary Action Button -->
+<button class="w-full h-12 rounded-lg bg-primary-container text-on-primary-fixed font-headline-sm text-title-md font-bold flex items-center justify-center gap-2 active:scale-[0.98] transition-all hover:neon-citron-halo" id="renameBtn">
+<span class="material-symbols-outlined text-[20px]">save</span>
+<span>Renommer la session</span>
+</button>
+</section>
+<!-- CARD 3: Disclosures Collapsed -->
+<section class="flex flex-col gap-2.5">
+<!-- Disclosure 1 -->
+<details class="group bg-surface-container-low rounded-xl border border-secondary/10 overflow-hidden transition-all">
+<summary class="list-none p-3.5 flex items-center justify-between cursor-pointer active:bg-surface-container/60">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-secondary text-[20px]">lock_person</span>
+<div>
+<p class="font-title-md text-[14px] font-semibold text-primary">Informations privées du GM</p>
+<p class="font-body-sm text-[12px] text-secondary-fixed-dim">Mots et attributions tenus secrets</p>
+</div>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="text-[11px] font-label-sm text-secondary font-bold group-open:hidden">Afficher</span>
+<span class="material-symbols-outlined text-secondary-fixed-dim text-[18px] group-open:rotate-180 transition-transform">expand_more</span>
+</div>
+</summary>
+
+<div class="b5-disclosure-content"><p>Informations privées du GM — hors du plateau public.</p><p>Civils : Phare · Undercover : Balise</p><p>Alex : Civil · Lou : Undercover · Sam : Civil · Noa : Civil</p></div></details>
+<!-- Disclosure 2 -->
+<details class="group bg-surface-container-low rounded-xl border border-secondary/10 overflow-hidden transition-all">
+<summary class="list-none p-3.5 flex items-center justify-between cursor-pointer active:bg-surface-container/60">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-secondary text-[20px]">receipt_long</span>
+<div>
+<p class="font-title-md text-[14px] font-semibold text-primary">Journal de la partie</p>
+<p class="font-body-sm text-[12px] text-secondary-fixed-dim">Historique des votes &amp; éliminations</p>
+</div>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="text-[11px] font-label-sm text-secondary font-bold group-open:hidden">Afficher</span>
+<span class="material-symbols-outlined text-secondary-fixed-dim text-[18px] group-open:rotate-180 transition-transform">expand_more</span>
+</div>
+</summary>
+
+<div class="b5-disclosure-content"><p>Événements de la partie.</p></div></details>
+</section>
+<!-- CARD 4: Actions Sensibles de Session -->
+<section class="bg-surface-container-low rounded-xl p-space-md border border-secondary/15 flex flex-col gap-space-md">
+<div>
+<h2 class="font-headline-sm text-[17px] font-bold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-[20px]">warning</span>
+<span>Zone de session</span>
+</h2>
+<p class="font-body-sm text-[12px] text-secondary-fixed-dim">Actions administratives à effet immédiat sur le flux de jeu.</p>
+</div>
+<!-- Rejouer Cette Partie -->
+<div class="space-y-1.5">
+<button class="w-full h-12 rounded-lg bg-surface-container-high border border-secondary/25 hover:border-secondary/40 text-on-surface font-title-md text-[14px] font-semibold flex items-center justify-center gap-2 active:scale-98 transition-all">
+<span class="material-symbols-outlined text-[18px]">replay</span>
+<span>Rejouer cette partie</span>
+</button>
+<p class="font-body-sm text-[11px] text-secondary-fixed-dim px-1">
+            Conserve les joueurs et leurs accès. Ouvre une confirmation.
+          </p>
+</div>
+<!-- Réinitialiser le salon -->
+<div class="space-y-1.5 pt-1 border-t border-secondary/10">
+<button class="w-full h-12 rounded-lg bg-error-container/20 border border-error/30 hover:bg-error-container/30 text-error font-title-md text-[14px] font-semibold flex items-center justify-center gap-2 active:scale-98 transition-all">
+<span class="material-symbols-outlined text-[18px]">delete_forever</span>
+<span>Réinitialiser le salon</span>
+</button>
+<p class="font-body-sm text-[11px] text-secondary-fixed-dim px-1">
+            Retire tous les joueurs et révoque leurs accès. Ouvre une confirmation.
+          </p>
+</div>
+</section>
+<!-- Confirmation Overlay Toast / Sheet Simulator (Modal) -->
+
+<!-- Discreet Footer Note -->
+
+</div>
+</main>
+<!-- Interactive Logic Scripts -->
+
+</body></html>

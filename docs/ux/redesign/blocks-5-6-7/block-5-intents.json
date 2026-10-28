@@ -1,0 +1,464 @@
+[
+  {
+    "slug": "gm-distribution-desktop",
+    "functionalIntent": "Distribuer les mots et démarrer la partie Undercover avec l’effectif déjà préparé.",
+    "existingBehaviour": "Après game.use-prepared, l’effectif est figé mais aucun mot n’est encore distribué. La commande game.action / deal distribue aléatoirement et atomiquement côté serveur puis ouvre la discussion.",
+    "implementationNotes": "Conserver une seule action dominante « Distribuer les mots et commencer ». Ne pas la confondre avec « Préparer la partie » du Bloc 3. Le GM n’appartient à aucun camp. Utiliser les actions autorisées de la projection et les reçus existants, sans reproduire de logique de distribution dans le navigateur. Toutes les commandes sont verrouillées en attente, reçu incertain ou déconnexion ; le réessai réutilise l’identité de commande existante. À 1440 px : préserver le shell stable et la hiérarchie de la référence, sans grand canevas vide imposé à l’application.",
+    "acceptanceCriteria": [
+      "Les inscrits restent identiques et les inscriptions fermées.",
+      "Un seul envoi de deal déclenche la distribution et la discussion autoritaires.",
+      "Les informations privées sont repliées et le plateau ne reçoit aucun secret.",
+      "La navigation Partie / Joueurs / Plateau et les fonctions secondaires restent accessibles."
+    ],
+    "captureViewport": {
+      "width": 1440,
+      "height": 1000,
+      "fullPage": true,
+      "approvedResponsiveImage": {
+        "width": 1440,
+        "height": 1000
+      }
+    }
+  },
+  {
+    "slug": "gm-distribution-mobile",
+    "functionalIntent": "Distribuer les mots et démarrer la partie Undercover avec l’effectif déjà préparé.",
+    "existingBehaviour": "Après game.use-prepared, l’effectif est figé mais aucun mot n’est encore distribué. La commande game.action / deal distribue aléatoirement et atomiquement côté serveur puis ouvre la discussion.",
+    "implementationNotes": "Conserver une seule action dominante « Distribuer les mots et commencer ». Ne pas la confondre avec « Préparer la partie » du Bloc 3. Le GM n’appartient à aucun camp. Utiliser les actions autorisées de la projection et les reçus existants, sans reproduire de logique de distribution dans le navigateur. Toutes les commandes sont verrouillées en attente, reçu incertain ou déconnexion ; le réessai réutilise l’identité de commande existante. À 390 px : colonne fluide, cibles 44–48 px, champs 16 px, safe-area, aucune largeur horizontale ; le contenu doit rester accessible sous les éléments fixes et le zoom doit être autorisé.",
+    "acceptanceCriteria": [
+      "Les inscrits restent identiques et les inscriptions fermées.",
+      "Un seul envoi de deal déclenche la distribution et la discussion autoritaires.",
+      "Les informations privées sont repliées et le plateau ne reçoit aucun secret.",
+      "La navigation Partie / Joueurs / Plateau et les fonctions secondaires restent accessibles."
+    ],
+    "captureViewport": {
+      "width": 390,
+      "height": 844,
+      "fullPage": true,
+      "approvedResponsiveImage": {
+        "width": 390,
+        "height": 982
+      }
+    }
+  },
+  {
+    "slug": "gm-discussion-desktop",
+    "functionalIntent": "Identifier le joueur courant et confirmer son passage oral, puis passer au suivant.",
+    "existingBehaviour": "Le moteur expose l’ordre, le joueur courant, les passages confirmés et le tour d’indices. game.action / confirm-clue avance après un indice oral. Deux tours sont prévus par défaut, configurables de 1 à 5 ; le dernier passage permet ensuite d’ouvrir le vote.",
+    "implementationNotes": "Mettre le joueur courant et la progression au premier plan. Aucun microphone, champ d’indice, compte à rebours ni confirmation automatique liée à la présence. Distinguer « Manche N » de « Tour d’indices N / total » ; corriger Tour 2 / Manche 2 dans la copie de production sans nouvelle maquette. Toutes les commandes sont verrouillées en attente, reçu incertain ou déconnexion ; le réessai réutilise l’identité de commande existante. À 1440 px : préserver le shell stable et la hiérarchie de la référence, sans grand canevas vide imposé à l’application.",
+    "acceptanceCriteria": [
+      "Le bouton confirme uniquement le passage courant via confirm-clue.",
+      "Ordre et progression se mettent à jour depuis la projection après réponse serveur.",
+      "Le second tour réutilise le même patron ; aucun vote n’est ouvert prématurément.",
+      "Le journal et les informations privées GM demeurent disponibles en disclosures."
+    ],
+    "captureViewport": {
+      "width": 1440,
+      "height": 1000,
+      "fullPage": true,
+      "approvedResponsiveImage": {
+        "width": 1440,
+        "height": 1000
+      }
+    }
+  },
+  {
+    "slug": "gm-discussion-mobile",
+    "functionalIntent": "Identifier le joueur courant et confirmer son passage oral, puis passer au suivant.",
+    "existingBehaviour": "Le moteur expose l’ordre, le joueur courant, les passages confirmés et le tour d’indices. game.action / confirm-clue avance après un indice oral. Deux tours sont prévus par défaut, configurables de 1 à 5 ; le dernier passage permet ensuite d’ouvrir le vote.",
+    "implementationNotes": "Mettre le joueur courant et la progression au premier plan. Aucun microphone, champ d’indice, compte à rebours ni confirmation automatique liée à la présence. Distinguer « Manche N » de « Tour d’indices N / total » ; corriger Tour 2 / Manche 2 dans la copie de production sans nouvelle maquette. Toutes les commandes sont verrouillées en attente, reçu incertain ou déconnexion ; le réessai réutilise l’identité de commande existante. À 390 px : colonne fluide, cibles 44–48 px, champs 16 px, safe-area, aucune largeur horizontale ; le contenu doit rester accessible sous les éléments fixes et le zoom doit être autorisé.",
+    "acceptanceCriteria": [
+      "Le bouton confirme uniquement le passage courant via confirm-clue.",
+      "Ordre et progression se mettent à jour depuis la projection après réponse serveur.",
+      "Le second tour réutilise le même patron ; aucun vote n’est ouvert prématurément.",
+      "Le journal et les informations privées GM demeurent disponibles en disclosures."
+    ],
+    "captureViewport": {
+      "width": 390,
+      "height": 844,
+      "fullPage": true,
+      "approvedResponsiveImage": {
+        "width": 390,
+        "height": 1011
+      }
+    }
+  },
+  {
+    "slug": "gm-open-vote-desktop",
+    "functionalIntent": "Ouvrir le scrutin lorsque tous les tours d’indices requis sont terminés.",
+    "existingBehaviour": "game.action / open-vote ouvre le scrutin et passe en phase vote. Le moteur refuse toute ouverture avant l’achèvement des tours d’indices configurés.",
+    "implementationNotes": "L’action « Ouvrir les votes » devient dominante uniquement quand la projection l’autorise. Afficher une progression terminée et des libellés distinguant manche et tours d’indices. Ne pas ajouter de bouton de contournement ou de vote anticipé. Toutes les commandes sont verrouillées en attente, reçu incertain ou déconnexion ; le réessai réutilise l’identité de commande existante. À 1440 px : préserver le shell stable et la hiérarchie de la référence, sans grand canevas vide imposé à l’application.",
+    "acceptanceCriteria": [
+      "L’ouverture reste refusée avant tous les passages requis.",
+      "Après le dernier passage, open-vote est disponible et crée le scrutin autoritaire.",
+      "Le vote s’ouvre pour les seuls joueurs actifs éligibles.",
+      "Les états réseau verrouillent l’envoi sans perdre les données de la partie."
+    ],
+    "captureViewport": {
+      "width": 1440,
+      "height": 1000,
+      "fullPage": true,
+      "approvedResponsiveImage": {
+        "width": 1440,
+        "height": 1000
+      }
+    }
+  },
+  {
+    "slug": "gm-open-vote-mobile",
+    "functionalIntent": "Ouvrir le scrutin lorsque tous les tours d’indices requis sont terminés.",
+    "existingBehaviour": "game.action / open-vote ouvre le scrutin et passe en phase vote. Le moteur refuse toute ouverture avant l’achèvement des tours d’indices configurés.",
+    "implementationNotes": "L’action « Ouvrir les votes » devient dominante uniquement quand la projection l’autorise. Afficher une progression terminée et des libellés distinguant manche et tours d’indices. Ne pas ajouter de bouton de contournement ou de vote anticipé. Toutes les commandes sont verrouillées en attente, reçu incertain ou déconnexion ; le réessai réutilise l’identité de commande existante. À 390 px : colonne fluide, cibles 44–48 px, champs 16 px, safe-area, aucune largeur horizontale ; le contenu doit rester accessible sous les éléments fixes et le zoom doit être autorisé.",
+    "acceptanceCriteria": [
+      "L’ouverture reste refusée avant tous les passages requis.",
+      "Après le dernier passage, open-vote est disponible et crée le scrutin autoritaire.",
+      "Le vote s’ouvre pour les seuls joueurs actifs éligibles.",
+      "Les états réseau verrouillent l’envoi sans perdre les données de la partie."
+    ],
+    "captureViewport": {
+      "width": 390,
+      "height": 844,
+      "fullPage": true,
+      "approvedResponsiveImage": {
+        "width": 390,
+        "height": 1040
+      }
+    }
+  },
+  {
+    "slug": "gm-vote-desktop",
+    "functionalIntent": "Suivre la participation au scrutin et proposer la révélation lorsque tous les votes sont reçus.",
+    "existingBehaviour": "Chaque actif vote une fois pour un autre actif, sans abstention ni modification. La projection expose éligibles et votants ; game.action / resolve exige tous les votes. Le GM peut voter par délégation via game.player-action pour un joueur éligible qui n’a pas encore voté.",
+    "implementationNotes": "Montrer reçu / éligible et « A voté » / « Vote attendu », pas les choix individuels ni les totaux par cible avant résolution. Le patron couvre vote partiel et complet ; révélation indisponible tant que partiel. Préserver le formulaire délégué réel replié, ses choix autorisés et la confirmation irréversible ; aucun parcours QA. Toutes les commandes sont verrouillées en attente, reçu incertain ou déconnexion ; le réessai réutilise l’identité de commande existante. À 1440 px : préserver le shell stable et la hiérarchie de la référence, sans grand canevas vide imposé à l’application.",
+    "acceptanceCriteria": [
+      "La révélation reste impossible lorsqu’un vote manque.",
+      "La délégation exclut les joueurs déjà votants et l’auto-vote, sans permettre un deuxième vote.",
+      "Le vote complet donne accès à la confirmation de résolution.",
+      "Aucune cible individuelle ni agrégation prématurée n’apparaît dans le suivi ou le plateau."
+    ],
+    "captureViewport": {
+      "width": 1440,
+      "height": 1000,
+      "fullPage": true,
+      "approvedResponsiveImage": {
+        "width": 1440,
+        "height": 1001
+      }
+    }
+  },
+  {
+    "slug": "gm-vote-mobile",
+    "functionalIntent": "Suivre la participation au scrutin et proposer la révélation lorsque tous les votes sont reçus.",
+    "existingBehaviour": "Chaque actif vote une fois pour un autre actif, sans abstention ni modification. La projection expose éligibles et votants ; game.action / resolve exige tous les votes. Le GM peut voter par délégation via game.player-action pour un joueur éligible qui n’a pas encore voté.",
+    "implementationNotes": "Montrer reçu / éligible et « A voté » / « Vote attendu », pas les choix individuels ni les totaux par cible avant résolution. Le patron couvre vote partiel et complet ; révélation indisponible tant que partiel. Préserver le formulaire délégué réel replié, ses choix autorisés et la confirmation irréversible ; aucun parcours QA. Toutes les commandes sont verrouillées en attente, reçu incertain ou déconnexion ; le réessai réutilise l’identité de commande existante. À 390 px : colonne fluide, cibles 44–48 px, champs 16 px, safe-area, aucune largeur horizontale ; le contenu doit rester accessible sous les éléments fixes et le zoom doit être autorisé.",
+    "acceptanceCriteria": [
+      "La révélation reste impossible lorsqu’un vote manque.",
+      "La délégation exclut les joueurs déjà votants et l’auto-vote, sans permettre un deuxième vote.",
+      "Le vote complet donne accès à la confirmation de résolution.",
+      "Aucune cible individuelle ni agrégation prématurée n’apparaît dans le suivi ou le plateau."
+    ],
+    "captureViewport": {
+      "width": 390,
+      "height": 844,
+      "fullPage": true,
+      "approvedResponsiveImage": {
+        "width": 390,
+        "height": 1145
+      }
+    }
+  },
+  {
+    "slug": "gm-vote-result-desktop",
+    "functionalIntent": "Lire le résultat du vote et, si la partie continue, lancer la manche suivante.",
+    "existingBehaviour": "La résolution publie le décompte agrégé. Le premier non ex æquo est éliminé et son camp devient public ; une égalité n’élimine personne. Hors fin autoritaire, game.action / next ouvre la manche suivante en discussion.",
+    "implementationNotes": "Réutiliser ce patron pour élimination et égalité avec la copie correspondante. Ne révéler aucun mot avant la fin. « Commencer la manche suivante » reste l’unique action dominante si next est autorisé. Harmoniser « Manche » et « Tour d’indices » ; une légende « Tour 2 » sous « Manche 2 » n’est pas à recopier. Toutes les commandes sont verrouillées en attente, reçu incertain ou déconnexion ; le réessai réutilise l’identité de commande existante. À 1440 px : préserver le shell stable et la hiérarchie de la référence, sans grand canevas vide imposé à l’application.",
+    "acceptanceCriteria": [
+      "Élimination, camp public et décompte correspondent exactement au résultat serveur.",
+      "En cas d’égalité, aucun joueur n’est affiché éliminé.",
+      "next n’est proposé qu’en l’absence de victoire ou nul terminant la partie.",
+      "Les mots restent privés jusqu’au résultat final."
+    ],
+    "captureViewport": {
+      "width": 1440,
+      "height": 1000,
+      "fullPage": true,
+      "approvedResponsiveImage": {
+        "width": 1440,
+        "height": 1000
+      }
+    }
+  },
+  {
+    "slug": "gm-vote-result-mobile",
+    "functionalIntent": "Lire le résultat du vote et, si la partie continue, lancer la manche suivante.",
+    "existingBehaviour": "La résolution publie le décompte agrégé. Le premier non ex æquo est éliminé et son camp devient public ; une égalité n’élimine personne. Hors fin autoritaire, game.action / next ouvre la manche suivante en discussion.",
+    "implementationNotes": "Réutiliser ce patron pour élimination et égalité avec la copie correspondante. Ne révéler aucun mot avant la fin. « Commencer la manche suivante » reste l’unique action dominante si next est autorisé. Harmoniser « Manche » et « Tour d’indices » ; une légende « Tour 2 » sous « Manche 2 » n’est pas à recopier. Toutes les commandes sont verrouillées en attente, reçu incertain ou déconnexion ; le réessai réutilise l’identité de commande existante. À 390 px : colonne fluide, cibles 44–48 px, champs 16 px, safe-area, aucune largeur horizontale ; le contenu doit rester accessible sous les éléments fixes et le zoom doit être autorisé.",
+    "acceptanceCriteria": [
+      "Élimination, camp public et décompte correspondent exactement au résultat serveur.",
+      "En cas d’égalité, aucun joueur n’est affiché éliminé.",
+      "next n’est proposé qu’en l’absence de victoire ou nul terminant la partie.",
+      "Les mots restent privés jusqu’au résultat final."
+    ],
+    "captureViewport": {
+      "width": 390,
+      "height": 844,
+      "fullPage": true,
+      "approvedResponsiveImage": {
+        "width": 390,
+        "height": 1187
+      }
+    }
+  },
+  {
+    "slug": "gm-final-desktop",
+    "functionalIntent": "Présenter le résultat global final et permettre un rejeu confirmé avec les mêmes accès.",
+    "existingBehaviour": "Victoire Civils, victoire Undercover ou nul à la limite des manches sont calculés par le serveur. Les révélations finales autorisées deviennent disponibles. game.restart efface votes, éliminations et résultats tout en conservant participants et accès.",
+    "implementationNotes": "Adapter le même patron aux trois résultats, sans qualifier le GM de gagnant/perdant ni inventer score, XP ou nouvelle règle. Le bouton de rejeu ouvre sa confirmation dédiée. La manche suivante n’est plus disponible. Garder les états finaux conformes à la projection. Toutes les commandes sont verrouillées en attente, reçu incertain ou déconnexion ; le réessai réutilise l’identité de commande existante. À 1440 px : préserver le shell stable et la hiérarchie de la référence, sans grand canevas vide imposé à l’application.",
+    "acceptanceCriteria": [
+      "Vainqueur ou nul vient du serveur et toutes les révélations restent bornées à la projection.",
+      "Le GM reste neutre, sans camp personnel.",
+      "Rejouer ouvre un dialogue et conserve les accès après confirmation.",
+      "Aucun CTA de manche suivante n’est offert en état terminé."
+    ],
+    "captureViewport": {
+      "width": 1440,
+      "height": 1000,
+      "fullPage": true,
+      "approvedResponsiveImage": {
+        "width": 1440,
+        "height": 1045
+      }
+    }
+  },
+  {
+    "slug": "gm-final-mobile",
+    "functionalIntent": "Présenter le résultat global final et permettre un rejeu confirmé avec les mêmes accès.",
+    "existingBehaviour": "Victoire Civils, victoire Undercover ou nul à la limite des manches sont calculés par le serveur. Les révélations finales autorisées deviennent disponibles. game.restart efface votes, éliminations et résultats tout en conservant participants et accès.",
+    "implementationNotes": "Adapter le même patron aux trois résultats, sans qualifier le GM de gagnant/perdant ni inventer score, XP ou nouvelle règle. Le bouton de rejeu ouvre sa confirmation dédiée. La manche suivante n’est plus disponible. Garder les états finaux conformes à la projection. Toutes les commandes sont verrouillées en attente, reçu incertain ou déconnexion ; le réessai réutilise l’identité de commande existante. À 390 px : colonne fluide, cibles 44–48 px, champs 16 px, safe-area, aucune largeur horizontale ; le contenu doit rester accessible sous les éléments fixes et le zoom doit être autorisé.",
+    "acceptanceCriteria": [
+      "Vainqueur ou nul vient du serveur et toutes les révélations restent bornées à la projection.",
+      "Le GM reste neutre, sans camp personnel.",
+      "Rejouer ouvre un dialogue et conserve les accès après confirmation.",
+      "Aucun CTA de manche suivante n’est offert en état terminé."
+    ],
+    "captureViewport": {
+      "width": 390,
+      "height": 844,
+      "fullPage": true,
+      "approvedResponsiveImage": {
+        "width": 390,
+        "height": 1446
+      }
+    }
+  },
+  {
+    "slug": "gm-players-desktop",
+    "functionalIntent": "Vérifier l’effectif, l’état de jeu et la présence réseau pendant la partie.",
+    "existingBehaviour": "L’onglet Joueurs lit les participants inscrits, leur présence et l’état actif/éliminé de la projection publique. L’effectif reste figé pendant la partie ; les états de connexion ne constituent ni un vote ni un indice.",
+    "implementationNotes": "Distinguer inscrit, connecté/hors ligne et en jeu/éliminé. Préserver les identités réelles et l’ordre métier. Aucun ajout, retrait, réordre ou vote depuis cette liste. L’accès au vote délégué reste dans le patron Vote. Toutes les commandes sont verrouillées en attente, reçu incertain ou déconnexion ; le réessai réutilise l’identité de commande existante. À 1440 px : préserver le shell stable et la hiérarchie de la référence, sans grand canevas vide imposé à l’application.",
+    "acceptanceCriteria": [
+      "Un joueur hors ligne reste inscrit et conserve son état de jeu.",
+      "Aucun changement de présence ne confirme un indice ou un vote.",
+      "Le nombre affiché correspond aux participants réels.",
+      "La navigation Partie / Joueurs / Plateau reste identique aux autres écrans GM."
+    ],
+    "captureViewport": {
+      "width": 1440,
+      "height": 1000,
+      "fullPage": true,
+      "approvedResponsiveImage": {
+        "width": 1440,
+        "height": 1000
+      }
+    }
+  },
+  {
+    "slug": "gm-players-mobile",
+    "functionalIntent": "Vérifier l’effectif, l’état de jeu et la présence réseau pendant la partie.",
+    "existingBehaviour": "L’onglet Joueurs lit les participants inscrits, leur présence et l’état actif/éliminé de la projection publique. L’effectif reste figé pendant la partie ; les états de connexion ne constituent ni un vote ni un indice.",
+    "implementationNotes": "Distinguer inscrit, connecté/hors ligne et en jeu/éliminé. Préserver les identités réelles et l’ordre métier. Aucun ajout, retrait, réordre ou vote depuis cette liste. L’accès au vote délégué reste dans le patron Vote. Toutes les commandes sont verrouillées en attente, reçu incertain ou déconnexion ; le réessai réutilise l’identité de commande existante. À 390 px : colonne fluide, cibles 44–48 px, champs 16 px, safe-area, aucune largeur horizontale ; le contenu doit rester accessible sous les éléments fixes et le zoom doit être autorisé.",
+    "acceptanceCriteria": [
+      "Un joueur hors ligne reste inscrit et conserve son état de jeu.",
+      "Aucun changement de présence ne confirme un indice ou un vote.",
+      "Le nombre affiché correspond aux participants réels.",
+      "La navigation Partie / Joueurs / Plateau reste identique aux autres écrans GM."
+    ],
+    "captureViewport": {
+      "width": 390,
+      "height": 844,
+      "fullPage": true,
+      "approvedResponsiveImage": {
+        "width": 390,
+        "height": 1157
+      }
+    }
+  },
+  {
+    "slug": "gm-settings-desktop",
+    "functionalIntent": "Conserver son accès privé, renommer la session et retrouver les fonctions secondaires sensibles.",
+    "existingBehaviour": "UndercoverRoom propose le lien privé GM masqué/copiable, session.rename avec titre requis limité à 32 caractères, session.reset avec confirmation, et les liens publics d’aperçu/éditeur/source OBS dans Plateau. PlayPanel conserve secrets GM, journal et rejeu. ThemeControl règle la préférence privée du navigateur.",
+    "implementationNotes": "Organiser ces fonctions dans des disclosures secondaires. Conserver la différence entre rejeu et reset et les permissions serveur. Les trois apparences existantes restent Broadcast Studio, Neon Show et On Air Premium ; aucun changement du thème public OBS. Ne pas supprimer les secrets GM autorisés sous prétexte de confidentialité publique : ils sont uniquement repliés et étiquetés privés. Toutes les commandes sont verrouillées en attente, reçu incertain ou déconnexion ; le réessai réutilise l’identité de commande existante. À 1440 px : préserver le shell stable et la hiérarchie de la référence, sans grand canevas vide imposé à l’application.",
+    "acceptanceCriteria": [
+      "Le lien GM est masqué et jamais présenté comme invitation publique.",
+      "Renommer valide le titre requis et la limite de 32 caractères, sans changer l’identité de session.",
+      "Le reset ouvre la confirmation distincte révoquant les accès.",
+      "Journal, informations privées, rejeu et les trois thèmes restent retrouvables ; le thème OBS ne change pas."
+    ],
+    "captureViewport": {
+      "width": 1440,
+      "height": 1000,
+      "fullPage": true,
+      "approvedResponsiveImage": {
+        "width": 1440,
+        "height": 1207
+      }
+    }
+  },
+  {
+    "slug": "gm-settings-mobile",
+    "functionalIntent": "Conserver son accès privé, renommer la session et retrouver les fonctions secondaires sensibles.",
+    "existingBehaviour": "UndercoverRoom propose le lien privé GM masqué/copiable, session.rename avec titre requis limité à 32 caractères, session.reset avec confirmation, et les liens publics d’aperçu/éditeur/source OBS dans Plateau. PlayPanel conserve secrets GM, journal et rejeu. ThemeControl règle la préférence privée du navigateur.",
+    "implementationNotes": "Organiser ces fonctions dans des disclosures secondaires. Conserver la différence entre rejeu et reset et les permissions serveur. Les trois apparences existantes restent Broadcast Studio, Neon Show et On Air Premium ; aucun changement du thème public OBS. Ne pas supprimer les secrets GM autorisés sous prétexte de confidentialité publique : ils sont uniquement repliés et étiquetés privés. Toutes les commandes sont verrouillées en attente, reçu incertain ou déconnexion ; le réessai réutilise l’identité de commande existante. À 390 px : colonne fluide, cibles 44–48 px, champs 16 px, safe-area, aucune largeur horizontale ; le contenu doit rester accessible sous les éléments fixes et le zoom doit être autorisé.",
+    "acceptanceCriteria": [
+      "Le lien GM est masqué et jamais présenté comme invitation publique.",
+      "Renommer valide le titre requis et la limite de 32 caractères, sans changer l’identité de session.",
+      "Le reset ouvre la confirmation distincte révoquant les accès.",
+      "Journal, informations privées, rejeu et les trois thèmes restent retrouvables ; le thème OBS ne change pas."
+    ],
+    "captureViewport": {
+      "width": 390,
+      "height": 844,
+      "fullPage": true,
+      "approvedResponsiveImage": {
+        "width": 390,
+        "height": 1253
+      }
+    }
+  },
+  {
+    "slug": "gm-reveal-confirm-desktop",
+    "functionalIntent": "Confirmer la publication irréversible du résultat d’un scrutin complet.",
+    "existingBehaviour": "L’action resolve a confirmation: true et passe par le système useConfirm / ActionForm existant. Elle ne peut être exécutée qu’après participation complète. Le serveur décide élimination, égalité, révélation du camp et éventuelle fin.",
+    "implementationNotes": "Conserver le dialogue accessible partagé et une action d’annulation sans effet. Expliquer la publication et les révélations autorisées sans promettre la fin ou une élimination en cas d’égalité. Ce dialogue n’autorise pas la diffusion des mots avant la fin. Ne pas utiliser window.confirm. Toutes les commandes sont verrouillées en attente, reçu incertain ou déconnexion ; le réessai réutilise l’identité de commande existante. À 1440 px : préserver le shell stable et la hiérarchie de la référence, sans grand canevas vide imposé à l’application.",
+    "acceptanceCriteria": [
+      "Annuler ne produit aucune commande.",
+      "Confirmer envoie une seule commande resolve via le reçu existant.",
+      "Le dialogue n’est pas un moyen de contourner un scrutin incomplet.",
+      "Focus, Escape, retour de focus et verrouillage pendant envoi restent accessibles."
+    ],
+    "captureViewport": {
+      "width": 1440,
+      "height": 1000,
+      "fullPage": true,
+      "approvedResponsiveImage": {
+        "width": 1440,
+        "height": 1000
+      }
+    }
+  },
+  {
+    "slug": "gm-reveal-confirm-mobile",
+    "functionalIntent": "Confirmer la publication irréversible du résultat d’un scrutin complet.",
+    "existingBehaviour": "L’action resolve a confirmation: true et passe par le système useConfirm / ActionForm existant. Elle ne peut être exécutée qu’après participation complète. Le serveur décide élimination, égalité, révélation du camp et éventuelle fin.",
+    "implementationNotes": "Conserver le dialogue accessible partagé et une action d’annulation sans effet. Expliquer la publication et les révélations autorisées sans promettre la fin ou une élimination en cas d’égalité. Ce dialogue n’autorise pas la diffusion des mots avant la fin. Ne pas utiliser window.confirm. Toutes les commandes sont verrouillées en attente, reçu incertain ou déconnexion ; le réessai réutilise l’identité de commande existante. À 390 px : colonne fluide, cibles 44–48 px, champs 16 px, safe-area, aucune largeur horizontale ; le contenu doit rester accessible sous les éléments fixes et le zoom doit être autorisé.",
+    "acceptanceCriteria": [
+      "Annuler ne produit aucune commande.",
+      "Confirmer envoie une seule commande resolve via le reçu existant.",
+      "Le dialogue n’est pas un moyen de contourner un scrutin incomplet.",
+      "Focus, Escape, retour de focus et verrouillage pendant envoi restent accessibles."
+    ],
+    "captureViewport": {
+      "width": 390,
+      "height": 844,
+      "fullPage": true,
+      "approvedResponsiveImage": {
+        "width": 390,
+        "height": 998
+      }
+    }
+  },
+  {
+    "slug": "gm-restart-confirm-desktop",
+    "functionalIntent": "Confirmer le rejeu en conservant les joueurs et leurs accès.",
+    "existingBehaviour": "Le bouton de rejeu appelle useConfirm puis game.restart avec le runId. Les votes, éliminations et résultats sont effacés ; les participants et leurs liens d’accès sont conservés. La partie revient avant distribution.",
+    "implementationNotes": "Énoncer explicitement les conséquences. Ne pas appeler session.reset et ne pas rediriger vers un nouvel essai ou une nouvelle identité. Conserver le même dialogue partagé que la régie réelle et le laboratoire quand pertinent, sans dupliquer la logique de commande. Toutes les commandes sont verrouillées en attente, reçu incertain ou déconnexion ; le réessai réutilise l’identité de commande existante. À 1440 px : préserver le shell stable et la hiérarchie de la référence, sans grand canevas vide imposé à l’application.",
+    "acceptanceCriteria": [
+      "Annuler conserve la partie intacte.",
+      "Confirmer envoie une seule commande game.restart avec le bon runId.",
+      "Tous les accès et identités des participants restent valides.",
+      "Les anciens votes et résultats disparaissent et une nouvelle distribution est nécessaire."
+    ],
+    "captureViewport": {
+      "width": 1440,
+      "height": 1000,
+      "fullPage": true,
+      "approvedResponsiveImage": {
+        "width": 1440,
+        "height": 1000
+      }
+    }
+  },
+  {
+    "slug": "gm-restart-confirm-mobile",
+    "functionalIntent": "Confirmer le rejeu en conservant les joueurs et leurs accès.",
+    "existingBehaviour": "Le bouton de rejeu appelle useConfirm puis game.restart avec le runId. Les votes, éliminations et résultats sont effacés ; les participants et leurs liens d’accès sont conservés. La partie revient avant distribution.",
+    "implementationNotes": "Énoncer explicitement les conséquences. Ne pas appeler session.reset et ne pas rediriger vers un nouvel essai ou une nouvelle identité. Conserver le même dialogue partagé que la régie réelle et le laboratoire quand pertinent, sans dupliquer la logique de commande. Toutes les commandes sont verrouillées en attente, reçu incertain ou déconnexion ; le réessai réutilise l’identité de commande existante. À 390 px : colonne fluide, cibles 44–48 px, champs 16 px, safe-area, aucune largeur horizontale ; le contenu doit rester accessible sous les éléments fixes et le zoom doit être autorisé.",
+    "acceptanceCriteria": [
+      "Annuler conserve la partie intacte.",
+      "Confirmer envoie une seule commande game.restart avec le bon runId.",
+      "Tous les accès et identités des participants restent valides.",
+      "Les anciens votes et résultats disparaissent et une nouvelle distribution est nécessaire."
+    ],
+    "captureViewport": {
+      "width": 390,
+      "height": 844,
+      "fullPage": true,
+      "approvedResponsiveImage": {
+        "width": 390,
+        "height": 844
+      }
+    }
+  },
+  {
+    "slug": "gm-reset-confirm-desktop",
+    "functionalIntent": "Confirmer la réinitialisation irréversible du salon et la révocation des accès joueurs.",
+    "existingBehaviour": "UndercoverRoom ouvre une confirmation de danger avant session.reset. Les joueurs sont retirés et leurs accès révoqués ; cette action est distincte du rejeu qui conserve les accès.",
+    "implementationNotes": "Conserver une confirmation clairement nommée « Réinitialiser le salon » et une annulation simple. Ne pas employer les mots « Rejouer » ou « Recommencer » pour cette commande. Le contrôle demeure secondaire, réservé au GM, soumis aux permissions et reçus existants. Toutes les commandes sont verrouillées en attente, reçu incertain ou déconnexion ; le réessai réutilise l’identité de commande existante. À 1440 px : préserver le shell stable et la hiérarchie de la référence, sans grand canevas vide imposé à l’application.",
+    "acceptanceCriteria": [
+      "Annuler ne retire aucun joueur et ne révoque aucun accès.",
+      "Confirmer utilise uniquement session.reset et attend son reçu autoritaire.",
+      "Les anciens accès joueurs sont refusés après reset.",
+      "Le dialogue mentionne le retrait des joueurs et la révocation, distincts du rejeu."
+    ],
+    "captureViewport": {
+      "width": 1440,
+      "height": 1000,
+      "fullPage": true,
+      "approvedResponsiveImage": {
+        "width": 1440,
+        "height": 1061
+      }
+    }
+  },
+  {
+    "slug": "gm-reset-confirm-mobile",
+    "functionalIntent": "Confirmer la réinitialisation irréversible du salon et la révocation des accès joueurs.",
+    "existingBehaviour": "UndercoverRoom ouvre une confirmation de danger avant session.reset. Les joueurs sont retirés et leurs accès révoqués ; cette action est distincte du rejeu qui conserve les accès.",
+    "implementationNotes": "Conserver une confirmation clairement nommée « Réinitialiser le salon » et une annulation simple. Ne pas employer les mots « Rejouer » ou « Recommencer » pour cette commande. Le contrôle demeure secondaire, réservé au GM, soumis aux permissions et reçus existants. Toutes les commandes sont verrouillées en attente, reçu incertain ou déconnexion ; le réessai réutilise l’identité de commande existante. À 390 px : colonne fluide, cibles 44–48 px, champs 16 px, safe-area, aucune largeur horizontale ; le contenu doit rester accessible sous les éléments fixes et le zoom doit être autorisé.",
+    "acceptanceCriteria": [
+      "Annuler ne retire aucun joueur et ne révoque aucun accès.",
+      "Confirmer utilise uniquement session.reset et attend son reçu autoritaire.",
+      "Les anciens accès joueurs sont refusés après reset.",
+      "Le dialogue mentionne le retrait des joueurs et la révocation, distincts du rejeu."
+    ],
+    "captureViewport": {
+      "width": 390,
+      "height": 844,
+      "fullPage": true,
+      "approvedResponsiveImage": {
+        "width": 390,
+        "height": 844
+      }
+    }
+  }
+]
