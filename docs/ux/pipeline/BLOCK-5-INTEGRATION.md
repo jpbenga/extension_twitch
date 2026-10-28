@@ -1,6 +1,10 @@
-# Bloc 5 — préparation de l’intégration GM
+# Bloc 5 — audit initial et suivi d’intégration GM
 
-État : **BLOCKED**, et non livré. Branche `ux/block-5-gm`, base `73562c1`.
+**Mise à jour après transfert** : les 22 références APPROVED sont maintenant disponibles au commit `de673b1`. Le checkpoint UI est en TESTING, avec 197 tests unitaires/intégration et TypeScript strict réussis. Les tests navigateur et captures sont en cours ; aucun statut READY_TO_MERGE revendiqué. Le bilan final suivra dans ce document.
+
+La section suivante conserve l’audit antérieur au transfert ; son blocage documentaire est résolu.
+
+État historique : **BLOCKED**, et non livré. Branche `ux/block-5-gm`, base `73562c1`.
 La validation humaine du projet Stitch `11936034876302496963` est acquise dans la
 demande du 28 octobre 2026. Aucun nouveau design ni nouvel accord UX n’est demandé.
 

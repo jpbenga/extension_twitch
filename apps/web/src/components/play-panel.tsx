@@ -12,6 +12,7 @@ import type {
 } from "@extension-twitch/contracts/sessions";
 import { ActionForm } from "./game-action";
 import { GameValues } from "./game-values";
+import { GmGamePanel } from "./gm-game-panel";
 type Send = (action: LobbyAction) => Promise<void | boolean>;
 const nameFor = (view: SessionView, id: string) =>
   view.participants.find((p) => p.id === id)?.name ?? "Joueur";
@@ -302,6 +303,16 @@ export function PlayPanel({
   const active = play.roster.find((p) => p.id === me)?.active;
   const ballot = play.ballot;
   useEffect(() => setProxy(""), [play.round]);
+  if (gm && view.audience === "gm" && game.definitionId === "undercover")
+    return (
+      <GmGamePanel
+        view={view}
+        game={game}
+        locked={locked}
+        send={send}
+        hideRestart={hideRestart}
+      />
+    );
   const personalCard = me ? (
     <section className="personal-card" aria-label="Votre carte privée">
       <span className="eyebrow">

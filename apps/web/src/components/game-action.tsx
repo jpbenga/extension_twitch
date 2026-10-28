@@ -11,10 +11,12 @@ export function ActionForm({
   runId,
   locked,
   send,
+  stitch = false,
 }: {
   action: GameProjection["actions"][number];
   runId: string;
   locked: boolean;
+  stitch?: boolean;
   send: (action: LobbyAction) => Promise<void | boolean>;
 }) {
   const confirm = useConfirm();
@@ -33,10 +35,19 @@ export function ActionForm({
     if (action.confirmation)
       await confirm({
         title: action.label + " ?",
-        description:
-          "Les effets de cette action seront appliqués à la partie et les informations prévues pourront être révélées.",
-        confirmLabel: action.label,
-        tone: "warning",
+        description: stitch
+          ? "Le décompte sera publié. Le joueur seul en tête sera éliminé et son camp révélé. En cas d’égalité, personne ne sera éliminé."
+          : "Les effets de cette action seront appliqués à la partie et les informations prévues pourront être révélées.",
+        ...(stitch
+          ? {
+              consequences: [
+                "Si la partie se termine, les mots et tous les camps seront révélés.",
+              ],
+              presentation: "stitch" as const,
+            }
+          : {}),
+        confirmLabel: stitch ? "Révéler le résultat" : action.label,
+        tone: stitch ? "neutral" : "warning",
         onConfirm: execute,
       });
     else await execute();
