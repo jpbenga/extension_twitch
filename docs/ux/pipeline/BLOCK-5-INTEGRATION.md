@@ -1,5 +1,8 @@
 # Bloc 5 — audit initial et suivi d’intégration GM
 
+> Audit historique conservé. Le blocage de transfert décrit ci-dessous a été levé
+> par la livraison documentaire `fbec4a5`. Voir le [bilan d’intégration actuel](BLOCK-5-DELIVERY.md).
+
 **Mise à jour après transfert** : les 22 références APPROVED sont maintenant disponibles au commit `de673b1`. Le checkpoint UI est en TESTING, avec 197 tests unitaires/intégration et TypeScript strict réussis. Les tests navigateur et captures sont en cours ; aucun statut READY_TO_MERGE revendiqué. Le bilan final suivra dans ce document.
 
 La section suivante conserve l’audit antérieur au transfert ; son blocage documentaire est résolu.

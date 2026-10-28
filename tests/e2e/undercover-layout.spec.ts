@@ -1,4 +1,5 @@
-import { openLabAccess } from "./undercover-helpers.js";
+import { openGmReplay } from "./undercover-helpers.js";
+import { openLabAccess, openLabPlayers } from "./undercover-helpers.js";
 import { test, expect, type Page, type BrowserContext } from "@playwright/test";
 import { acceptConfirmation } from "./dialog-helpers.js";
 import { completeClues } from "./turn-helpers.js";
@@ -92,11 +93,7 @@ test("configure a real Undercover game, adjust the shared layout, play to a resu
       exact: true,
     })
     .getAttribute("href"))!;
-  await page
-    .getByText("Accès individuels des joueurs de démonstration", {
-      exact: true,
-    })
-    .click();
+  await openLabPlayers(page);
   const links = await Promise.all(
     [1, 2, 3].map((i) =>
       page
@@ -181,6 +178,7 @@ test("configure a real Undercover game, adjust the shared layout, play to a resu
     expect(
       await obs.evaluate(() => getComputedStyle(document.body).backgroundColor),
     ).toBe("rgba(0, 0, 0, 0)");
+    await openGmReplay(gm);
     await gm
       .getByRole("button", { name: "Rejouer cette partie", exact: true })
       .click();

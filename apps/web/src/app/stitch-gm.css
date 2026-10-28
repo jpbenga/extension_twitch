@@ -650,3 +650,10 @@ main.gm-studio:has(.gm-settings[open]) .gm-settings > .gm-disclosure-body {
 .gm-settings-back {
   margin-bottom: 20px;
 }
+
+/* Portal styling belongs to the private GM shell; public/OBS themes stay independent. */
+body:has(main.gm-studio) .stitch-dialog.tone-neutral .ui-button-primary {
+  background: var(--home-primary);
+  border-color: var(--home-primary);
+  color: var(--home-on-primary);
+}

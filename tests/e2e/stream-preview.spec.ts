@@ -1,6 +1,8 @@
+import { openGmReplay } from "./undercover-helpers.js";
 import {
   openUndercoverOptions,
   openLabAccess,
+  openLabPlayers,
   openBroadcastHelp,
 } from "./undercover-helpers.js";
 import {
@@ -72,13 +74,7 @@ async function gmLink(page: Page) {
     .getAttribute("href"))!;
 }
 async function playerLink(page: Page, n: number) {
-  const details = page.locator("details").filter({
-    has: page.locator("summary", {
-      hasText: "Accès individuels des joueurs de démonstration",
-    }),
-  });
-  if ((await details.getAttribute("open")) === null)
-    await details.locator("summary").click();
+  await openLabPlayers(page);
   return (await page
     .getByRole("link", { name: `Ouvrir Joueur ${n} séparément`, exact: true })
     .getAttribute("href"))!;
@@ -217,6 +213,7 @@ test("a complete real Undercover show shares one public renderer between preview
     path: info.outputPath("obs-final-transparent.png"),
     omitBackground: true,
   });
+  await openGmReplay(gm);
   await gm
     .getByRole("button", { name: "Rejouer cette partie", exact: true })
     .click();

@@ -1,0 +1,230 @@
+{
+  "block": 5,
+  "status": "IMPLEMENTATION_CAPTURE",
+  "date": "2026-10-28",
+  "engine": "Chromium",
+  "referenceCommit": "fbec4a5877832d9ce5b4dd99868a9bb24381ff2b",
+  "method": "Real server API/SSE, separate test identities and disposable SQLite databases. Full-page browser captures; OBS captures are transparent 1920 × 1080. B7 captures use the temporary combined test copy; no branch merged.",
+  "screens": [
+    {
+      "screenId": "4748605395910424442",
+      "slug": "gm-distribution-desktop",
+      "approved": "docs/ux/redesign/gm-distribution-desktop/approved.png",
+      "implementation": "docs/ux/redesign/gm-distribution-desktop/implementation-desktop.png",
+      "width": 1440,
+      "height": 1053,
+      "fullPage": true,
+      "sha256": "c545a6851798aab59fc6eb1c191852ee0c95ace0a7b941d9e86c46c0c61ea9ab"
+    },
+    {
+      "screenId": "12546587580834232912",
+      "slug": "gm-distribution-mobile",
+      "approved": "docs/ux/redesign/gm-distribution-mobile/approved.png",
+      "implementation": "docs/ux/redesign/gm-distribution-mobile/implementation-mobile.png",
+      "width": 390,
+      "height": 1273,
+      "fullPage": true,
+      "sha256": "3fe253a4df1b7992e3cb302fd0efa7ada8954c2505cc1c2f2f6ce956370da4b2"
+    },
+    {
+      "screenId": "14255636269363992144",
+      "slug": "gm-discussion-desktop",
+      "approved": "docs/ux/redesign/gm-discussion-desktop/approved.png",
+      "implementation": "docs/ux/redesign/gm-discussion-desktop/implementation-desktop.png",
+      "width": 1440,
+      "height": 1043,
+      "fullPage": true,
+      "sha256": "657705d22c635b3815fa0b3861a15ea8c64529f33ca1ff269ed84dc7781e6410"
+    },
+    {
+      "screenId": "4748605395910425523",
+      "slug": "gm-discussion-mobile",
+      "approved": "docs/ux/redesign/gm-discussion-mobile/approved.png",
+      "implementation": "docs/ux/redesign/gm-discussion-mobile/implementation-mobile.png",
+      "width": 390,
+      "height": 1255,
+      "fullPage": true,
+      "sha256": "5372d41eace699b4bd6f838ec738051f140fb548b18c68962f7e96b919e626e4"
+    },
+    {
+      "screenId": "3619269997911621594",
+      "slug": "gm-open-vote-desktop",
+      "approved": "docs/ux/redesign/gm-open-vote-desktop/approved.png",
+      "implementation": "docs/ux/redesign/gm-open-vote-desktop/implementation-desktop.png",
+      "width": 1440,
+      "height": 1043,
+      "fullPage": true,
+      "sha256": "4ab05d906ccc1acfc5baff4e6db2aeaeec896f33e54dc9944c099e1e3144a2f3"
+    },
+    {
+      "screenId": "7936486053927704401",
+      "slug": "gm-open-vote-mobile",
+      "approved": "docs/ux/redesign/gm-open-vote-mobile/approved.png",
+      "implementation": "docs/ux/redesign/gm-open-vote-mobile/implementation-mobile.png",
+      "width": 390,
+      "height": 1254,
+      "fullPage": true,
+      "sha256": "18ed49636debe6f40c27beb6ec397e1e182ac03a92d75b508d0bc6edbbc1d22c"
+    },
+    {
+      "screenId": "6819393873932687793",
+      "slug": "gm-vote-desktop",
+      "approved": "docs/ux/redesign/gm-vote-desktop/approved.png",
+      "implementation": "docs/ux/redesign/gm-vote-desktop/implementation-desktop.png",
+      "width": 1440,
+      "height": 1089,
+      "fullPage": true,
+      "sha256": "2dabc1768cad70231915a7e699184267c376807ab53485ec94369ad7bedde10b"
+    },
+    {
+      "screenId": "6465139537118349617",
+      "slug": "gm-vote-mobile",
+      "approved": "docs/ux/redesign/gm-vote-mobile/approved.png",
+      "implementation": "docs/ux/redesign/gm-vote-mobile/implementation-mobile.png",
+      "width": 390,
+      "height": 1286,
+      "fullPage": true,
+      "sha256": "0dd2ca7351f93f1786b2b54fd9363b285de584d122c1990a328788654550db99"
+    },
+    {
+      "screenId": "10785877862233376543",
+      "slug": "gm-vote-result-desktop",
+      "approved": "docs/ux/redesign/gm-vote-result-desktop/approved.png",
+      "implementation": "docs/ux/redesign/gm-vote-result-desktop/implementation-desktop.png",
+      "width": 1440,
+      "height": 1061,
+      "fullPage": true,
+      "sha256": "4a37a95190f78185c7f7a670585c2077aaa10f17f96231ac45897f393b2d1614"
+    },
+    {
+      "screenId": "13624688543223233419",
+      "slug": "gm-vote-result-mobile",
+      "approved": "docs/ux/redesign/gm-vote-result-mobile/approved.png",
+      "implementation": "docs/ux/redesign/gm-vote-result-mobile/implementation-mobile.png",
+      "width": 390,
+      "height": 1262,
+      "fullPage": true,
+      "sha256": "b20e93a723c76cb5b1a919c05b44e4ac30c244b6a04c910fdc66ad97c8c7afac"
+    },
+    {
+      "screenId": "15914122444161597271",
+      "slug": "gm-final-desktop",
+      "approved": "docs/ux/redesign/gm-final-desktop/approved.png",
+      "implementation": "docs/ux/redesign/gm-final-desktop/implementation-desktop.png",
+      "width": 1440,
+      "height": 1140,
+      "fullPage": true,
+      "sha256": "f9fa0268514caa43c08f14919f149cf35df6a64a45b3740faeb73df1e6975aec"
+    },
+    {
+      "screenId": "16346440702236190738",
+      "slug": "gm-final-mobile",
+      "approved": "docs/ux/redesign/gm-final-mobile/approved.png",
+      "implementation": "docs/ux/redesign/gm-final-mobile/implementation-mobile.png",
+      "width": 390,
+      "height": 1523,
+      "fullPage": true,
+      "sha256": "af481b2bb505989622ff053a6587255babc5c71a757518ca449b781f27c64c31"
+    },
+    {
+      "screenId": "2317685032850690371",
+      "slug": "gm-players-desktop",
+      "approved": "docs/ux/redesign/gm-players-desktop/approved.png",
+      "implementation": "docs/ux/redesign/gm-players-desktop/implementation-desktop.png",
+      "width": 1440,
+      "height": 1000,
+      "fullPage": true,
+      "sha256": "e47eee23a0a7ac3daaa387710aecb1a30eb60cb63dc6693b07a528c18cc34208"
+    },
+    {
+      "screenId": "16290725861665464450",
+      "slug": "gm-players-mobile",
+      "approved": "docs/ux/redesign/gm-players-mobile/approved.png",
+      "implementation": "docs/ux/redesign/gm-players-mobile/implementation-mobile.png",
+      "width": 390,
+      "height": 1255,
+      "fullPage": true,
+      "sha256": "8a82c213c82a93ebda78c5ccafd114e5902e20fc539a1b1bc78417d50ec3ecc1"
+    },
+    {
+      "screenId": "646664438643247707",
+      "slug": "gm-settings-desktop",
+      "approved": "docs/ux/redesign/gm-settings-desktop/approved.png",
+      "implementation": "docs/ux/redesign/gm-settings-desktop/implementation-desktop.png",
+      "width": 1440,
+      "height": 1293,
+      "fullPage": true,
+      "sha256": "6762ed60668553da2d008fa057543ec249ec2ab8e8a3d55629d290673ab3bc4a"
+    },
+    {
+      "screenId": "11545104283831130276",
+      "slug": "gm-settings-mobile",
+      "approved": "docs/ux/redesign/gm-settings-mobile/approved.png",
+      "implementation": "docs/ux/redesign/gm-settings-mobile/implementation-mobile.png",
+      "width": 390,
+      "height": 1644,
+      "fullPage": true,
+      "sha256": "b15b95e9489548229018c060701b74e51d02e80cde089d4a29af120e9ea7dbb2"
+    },
+    {
+      "screenId": "8576805565582557266",
+      "slug": "gm-reveal-confirm-desktop",
+      "approved": "docs/ux/redesign/gm-reveal-confirm-desktop/approved.png",
+      "implementation": "docs/ux/redesign/gm-reveal-confirm-desktop/implementation-desktop.png",
+      "width": 1440,
+      "height": 1089,
+      "fullPage": true,
+      "sha256": "50e264cc3f61afc4fab47683e2fa6e44e30da01f547c6092ccc43177fccb3eb8"
+    },
+    {
+      "screenId": "12057866864672599328",
+      "slug": "gm-reveal-confirm-mobile",
+      "approved": "docs/ux/redesign/gm-reveal-confirm-mobile/approved.png",
+      "implementation": "docs/ux/redesign/gm-reveal-confirm-mobile/implementation-mobile.png",
+      "width": 390,
+      "height": 1286,
+      "fullPage": true,
+      "sha256": "f71bb0b48d5b61c0df673d474881537f19317867dda3ae31ab2e7f1ed3fc1a1a"
+    },
+    {
+      "screenId": "18070633581580327668",
+      "slug": "gm-restart-confirm-desktop",
+      "approved": "docs/ux/redesign/gm-restart-confirm-desktop/approved.png",
+      "implementation": "docs/ux/redesign/gm-restart-confirm-desktop/implementation-desktop.png",
+      "width": 1440,
+      "height": 1293,
+      "fullPage": true,
+      "sha256": "f35fcb28de4bac83f656c36961f99bb6f74f95c9985b66187e0aa207c73fd8c4"
+    },
+    {
+      "screenId": "1716362227008769434",
+      "slug": "gm-restart-confirm-mobile",
+      "approved": "docs/ux/redesign/gm-restart-confirm-mobile/approved.png",
+      "implementation": "docs/ux/redesign/gm-restart-confirm-mobile/implementation-mobile.png",
+      "width": 390,
+      "height": 1644,
+      "fullPage": true,
+      "sha256": "844ccfd4470ba04f265a8981ee72d9c31a3b378ddc02224fb4f171cfb8a0287c"
+    },
+    {
+      "screenId": "1984237665935802616",
+      "slug": "gm-reset-confirm-desktop",
+      "approved": "docs/ux/redesign/gm-reset-confirm-desktop/approved.png",
+      "implementation": "docs/ux/redesign/gm-reset-confirm-desktop/implementation-desktop.png",
+      "width": 1440,
+      "height": 1293,
+      "fullPage": true,
+      "sha256": "2e1aa35608a821034dbaf6e6d0eb0f27601df3a545a4144c6edfea8b9fddf1c8"
+    },
+    {
+      "screenId": "3389502206259627851",
+      "slug": "gm-reset-confirm-mobile",
+      "approved": "docs/ux/redesign/gm-reset-confirm-mobile/approved.png",
+      "implementation": "docs/ux/redesign/gm-reset-confirm-mobile/implementation-mobile.png",
+      "width": 390,
+      "height": 1644,
+      "fullPage": true,
+      "sha256": "0067d44e26da0c84aa8378d224bbe9b5a88dd43e8de62b04109ea763cf213338"
+    }
+  ]
+}
