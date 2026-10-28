@@ -74,7 +74,11 @@ export function CreatorLaboratory({
     setError("");
     setNotice("");
     try {
-      const next = await task(structuredClone(lab));
+      // A dialog can retain an older callback after an uncertain response.
+      // Reload the persisted receipt before retrying instead of restarting from
+      // the stale React snapshot captured when the confirmation opened.
+      const current = readLab(id) ?? lab;
+      const next = await task(structuredClone(current));
       saveLab(next);
       setLab(next);
       return true;

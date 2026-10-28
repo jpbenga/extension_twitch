@@ -244,6 +244,33 @@ test("the private QA shell keeps one real identity, preserves it on reload and c
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBe(true);
+  await page
+    .getByLabel("Perspective du laboratoire", { exact: true })
+    .selectOption("public");
+  await expect(page.locator(".lab-identity")).toContainText(
+    "Vous incarnez le Spectateur",
+  );
+  await expect(page.getByTestId("session-connection")).toHaveText(
+    "Synchronisé",
+  );
+  await expect(page.locator(".lab-role-view")).not.toContainText(
+    /Phare confidentiel|Balise confidentielle/,
+  );
+  await expect(page.locator(".lab-role-view .stitch-secret")).toHaveCount(0);
+  await page
+    .getByRole("button", { name: "Incarner Joueur 1", exact: true })
+    .click();
+  await expect(page.locator(".lab-identity")).toContainText(
+    "Vous incarnez Joueur 1",
+  );
+  await expect(
+    page.getByLabel("Perspective du laboratoire", { exact: true }),
+  ).toBeFocused();
+  await expect(page.locator(".lab-role-view")).toBeVisible();
+  await expect(page.locator(".lab-role-view #game")).toHaveAttribute(
+    "data-audience",
+    "player",
+  );
   expect(errors).toEqual([]);
 });
 
@@ -325,6 +352,14 @@ test("the custom restart cancels, traps focus and reuses an uncertain receipt wh
   await expect(
     dialog.getByRole("button", { name: "Annuler", exact: true }),
   ).toBeFocused();
+  await page.keyboard.press("Tab");
+  await expect(
+    dialog.getByRole("button", { name: "Recommencer", exact: true }),
+  ).toBeFocused();
+  await page.keyboard.press("Shift+Tab");
+  await expect(
+    dialog.getByRole("button", { name: "Annuler", exact: true }),
+  ).toBeFocused();
   await capture(page, info, "lab-restart-desktop");
   await dialog.getByRole("button", { name: "Annuler", exact: true }).click();
   await expect(dialog).toHaveCount(0);
@@ -366,12 +401,13 @@ test("the custom restart cancels, traps focus and reuses an uncertain receipt wh
       sessionStorage.getItem(`xt:creator:lab:${sessionId}`)!,
     );
     return await Promise.all(
-      lab.players.map(async (p: { id: string; token: string }) =>
-        (
-          await fetch(`/api/server/sessions/${sessionId}/private`, {
-            headers: { Authorization: `Bearer ${p.token}` },
-          })
-        ).status(),
+      lab.players.map(
+        async (p: { id: string; token: string }) =>
+          (
+            await fetch(`/api/server/sessions/${sessionId}/private`, {
+              headers: { Authorization: `Bearer ${p.token}` },
+            })
+          ).status,
       ),
     );
   }, id);
