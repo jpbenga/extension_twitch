@@ -1,0 +1,23 @@
+{
+  "block": 7,
+  "name": "Lab / QA",
+  "status": "BLOCKED",
+  "stitchProjectId": "8710675424358674545",
+  "stitchProjectName": "Extension Twitch UX — Block 7 — Lab",
+  "designScreens": [],
+  "approvedScreens": [],
+  "branch": "ux/block-7-lab",
+  "worktree": "/workspace/ux-worktrees/block-7-lab",
+  "lastUpdate": "2026-10-28T18:18:11Z",
+  "blockers": [
+    "Les captures APPROVED, les Screen IDs et les rapports/SPEC du projet B7 ne sont pas présents dans le checkout audité au commit 73562c1.",
+    "Aucun outil MCP Google Stitch n’est exposé dans le runtime actuel pour lire le projet et récupérer ces références."
+  ],
+  "notes": [
+    "Validation humaine explicite de B7 reçue le 28 octobre 2026 ; aucune nouvelle validation UX n’est demandée.",
+    "L’absence d’identifiants dans approvedScreens signifie références non reçues, et non approbation refusée.",
+    "Audit fonctionnel effectué ; aucune interface, règle, projection, route ou donnée modifiée.",
+    "Source fonctionnelle : base 73562c1. Intégration et captures suspendues jusqu’à réception des références exactes par Git ou un accès Stitch opérationnel.",
+    "Voir BLOCK-7-INTEGRATION.md pour les composants, invariants, dépendances partagées et vérifications à exécuter."
+  ]
+}
