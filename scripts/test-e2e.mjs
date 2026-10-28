@@ -29,6 +29,23 @@ if (
   console.error("Projet attendu : desktop, tablet, mobile ou small.");
   process.exit(1);
 }
+// Keep each suite’s screenshots and traces independent, including the approved Stitch blocks.
+const outputSuite =
+  [
+    "players",
+    "home",
+    "ux",
+    "layout",
+    "games",
+    "design",
+    "legacy",
+    "stream",
+    "stitch-gm",
+    "stitch-broadcast",
+    "stitch-lab",
+  ].find((name) =>
+    forwarded.some((arg) => arg.includes(`playwright.${name}.config`)),
+  ) ?? "e2e";
 let active;
 for (const signal of ["SIGINT", "SIGTERM"])
   process.on(signal, () => {
@@ -45,7 +62,7 @@ for (const project of projects) {
         cli,
         "test",
         `--project=${project}`,
-        `--output=test-results/${forwarded.some((a) => a.includes("playwright.players.config")) ? "players" : forwarded.some((a) => a.includes("playwright.home.config")) ? "home" : forwarded.some((a) => a.includes("playwright.ux.config")) ? "ux" : forwarded.some((a) => a.includes("playwright.layout.config")) ? "layout" : forwarded.some((a) => a.includes("playwright.games.config")) ? "games" : forwarded.some((a) => a.includes("playwright.design.config")) ? "design" : forwarded.some((a) => a.includes("playwright.legacy.config")) ? "legacy" : forwarded.some((a) => a.includes("playwright.stream.config")) ? "stream" : "e2e"}/${project}`,
+        `--output=test-results/${outputSuite}/${project}`,
         ...forwarded,
       ],
       { stdio: "inherit" },

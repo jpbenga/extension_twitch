@@ -1,3 +1,4 @@
+import { openGmReplay } from "./undercover-helpers.js";
 import {
   openUndercoverOptions,
   openLabAccess,
@@ -123,7 +124,7 @@ test("Undercover plays several real rounds to a final victory, with private card
   });
   await expect(observer.locator("body")).not.toContainText("Mot civil de test");
   await expect(observer.locator(".real-stage-title")).toContainText(
-    "4 joueurs actifs",
+    /4 (?:participants|joueurs actifs)/,
   );
   await expect(
     players[0]!.getByRole("button", { name: "Je suis prêt", exact: true }),
@@ -299,9 +300,9 @@ test("ties, a disconnected player's return and GM delegation use the same privat
   await delegated("Joueur démo 3", "Joueur démo 4");
   await delegated("Joueur démo 4", "Joueur démo 1");
   await resolve(gm);
-  await expect(observer.locator(".spectator-round")).toContainText(
-    "Égalité : personne n’est éliminé.",
-  );
+  await expect(
+    observer.locator(".play-vote-result, .spectator-round"),
+  ).toContainText("Égalité : personne n’est éliminé.");
   await expect(observer.locator(".is-eliminated")).toHaveCount(0);
   await gm
     .getByText("Informations privées du Game Master", { exact: true })
@@ -334,6 +335,7 @@ test("ties, a disconnected player's return and GM delegation use the same privat
   await expect(gm.locator("#game .game-phase")).toContainText(
     "Partie terminée",
   );
+  await openGmReplay(gm);
   await gm
     .getByRole("button", { name: "Rejouer cette partie", exact: true })
     .click();
@@ -671,9 +673,19 @@ test("Jouer separates creation, prepares three isolated players and transfers th
       });
     }
     await completeClues(gm);
-    await expect(
-      observer.getByRole("heading", { name: "Indices terminés", exact: true }),
-    ).toBeVisible();
+    // The approved spectator and the preserved pre-B6 reader expose the same completion.
+    if (await observer.locator(".broadcast-spectator").count())
+      await expect(
+        observer.getByRole("heading", {
+          name: "Indices terminés",
+          exact: true,
+        }),
+      ).toBeVisible();
+    else
+      await expect(observer.locator(".turn-progress")).toHaveAttribute(
+        "data-complete",
+        "true",
+      );
     await gm
       .getByRole("button", { name: "Ouvrir les votes", exact: true })
       .click();
@@ -689,6 +701,7 @@ test("Jouer separates creation, prepares three isolated players and transfers th
       path: info.outputPath("multidevice-gm-mobile.png"),
       fullPage: true,
     });
+    await openGmReplay(gm);
     await gm
       .getByRole("button", { name: "Rejouer cette partie", exact: true })
       .click();

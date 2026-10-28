@@ -54,6 +54,21 @@ export async function openLabTools(page: Page) {
   if ((await panel.count()) && (await panel.getAttribute("open")) === null)
     await panel.locator(":scope > summary").click();
 }
+/** Replay is primary after the result and secondary in the access/settings screen during play. */
+export async function openGmReplay(page: Page) {
+  const replay = page.getByRole("button", {
+    name: "Rejouer cette partie",
+    exact: true,
+  });
+  if (await replay.isVisible()) return;
+  const settings = page.locator(".gm-room-secondary .gm-settings");
+  if (
+    (await settings.count()) &&
+    (await settings.getAttribute("open")) === null
+  )
+    await settings.locator(":scope > summary").click();
+  await expect(replay).toBeVisible();
+}
 export async function openBroadcastHelp(page: Page) {
   const panel = page.locator("details").filter({
     has: page.locator("summary", {

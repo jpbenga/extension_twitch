@@ -1,3 +1,4 @@
+import { openGmReplay } from "./undercover-helpers.js";
 import {
   openUndercoverOptions,
   openLabAccess,
@@ -212,6 +213,7 @@ test("a complete real Undercover show shares one public renderer between preview
     path: info.outputPath("obs-final-transparent.png"),
     omitBackground: true,
   });
+  await openGmReplay(gm);
   await gm
     .getByRole("button", { name: "Rejouer cette partie", exact: true })
     .click();

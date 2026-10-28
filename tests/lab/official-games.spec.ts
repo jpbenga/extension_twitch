@@ -40,9 +40,11 @@ test("Undercover's real mobile lab has no development, hydration or browser erro
     page.getByRole("status").filter({ hasText: /Votre vote pour/ }),
   ).toBeVisible();
   await role(page, "Spectateur");
-  await expect(page.locator(".play-vote-result")).toContainText(
-    "1 / 4 votes reçus",
-  );
-  await expect(page.locator(".game-values")).not.toContainText("Phare");
+  await expect(
+    page.locator(
+      ".play-vote-result, .broadcast-spectator .spectator-footer section:first-child",
+    ),
+  ).toContainText("1 / 4 votes reçus");
+  await expect(page.locator(".lab-role-view")).not.toContainText("Phare");
   expect(issues).toEqual([]);
 });

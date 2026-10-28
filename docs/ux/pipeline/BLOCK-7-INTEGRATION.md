@@ -1,5 +1,8 @@
 # Bloc 7 — préparation de l’intégration Lab / QA
 
+> Audit historique conservé. Le blocage de transfert décrit ci-dessous a été levé
+> par la livraison documentaire `fbec4a5`. Voir le [bilan d’intégration actuel](BLOCK-7-DELIVERY.md).
+
 État : **BLOCKED — références visuelles non reçues**. Base auditée : `73562c1`.
 Branche isolée : `ux/block-7-lab`. Projet Stitch : `8710675424358674545`.
 

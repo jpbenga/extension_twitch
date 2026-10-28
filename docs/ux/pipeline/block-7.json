@@ -1,7 +1,7 @@
 {
   "block": 7,
   "name": "Lab / QA",
-  "status": "INTEGRATING",
+  "status": "READY_TO_MERGE",
   "stitchProjectId": "8710675424358674545",
   "stitchProjectName": "Extension Twitch UX — Block 7 — Lab",
   "designScreens": [
@@ -52,11 +52,15 @@
   ],
   "branch": "ux/block-7-lab",
   "worktree": "/workspace/ux-worktrees/block-7-lab",
-  "lastUpdate": "2026-10-28T18:58:17Z",
+  "lastUpdate": "2026-10-28T20:14:24.358941+00:00",
   "blockers": [],
   "notes": [
-    "Validation humaine explicite reçue ; 7 références APPROVED synchronisées au commit documentaire 1a533c3.",
-    "Shell QA en cours d’intégration ; logique et API de partie inchangées, comparatif BroadcastFeed public indépendant.",
-    "Les résultats et captures seront consignés après les vérifications."
-  ]
+    "Validation humaine des 7 références exacte reçue ; artefacts APPROVED inchangés.",
+    "Intégration et captures terminées ; 197 tests unitaires/intégration, TypeScript et build réussis.",
+    "12 nouveaux parcours navigateur validés dans la copie croisée ; 218 cas navigateur distincts passent au total.",
+    "Vérifications croisées et contrôles des branches séparées réussis. Aucun blocage technique identifié ; aucune fusion ni aucun déploiement. Les nouveaux rendus iPhone/Safari/OBS restent à vérifier humainement."
+  ],
+  "deliveryReport": "BLOCK-7-DELIVERY.md",
+  "captureIndex": "block-7-captures.json",
+  "crossValidation": "cross-validation.json"
 }

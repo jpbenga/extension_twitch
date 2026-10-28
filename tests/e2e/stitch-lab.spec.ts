@@ -23,6 +23,10 @@ async function createLab(page: Page, start = true) {
   await page
     .getByLabel("Mot des Undercover", { exact: true })
     .fill("Balise confidentielle");
+  await page.getByText("Personnaliser l’overlay", { exact: true }).click();
+  await page
+    .getByLabel("Thème de l’émission", { exact: true })
+    .selectOption("neon-show");
   await page
     .getByRole("button", {
       name: "Lancer une partie de démonstration",
@@ -257,6 +261,7 @@ test("the private QA shell keeps one real identity, preserves it on reload and c
     /Phare confidentiel|Balise confidentielle/,
   );
   await expect(page.locator(".lab-role-view .stitch-secret")).toHaveCount(0);
+  await section(page, "Accès aux vues");
   await page
     .getByRole("button", { name: "Incarner Joueur 1", exact: true })
     .click();

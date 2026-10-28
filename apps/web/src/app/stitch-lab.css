@@ -207,6 +207,32 @@
   background: transparent;
   box-shadow: none;
 }
+/* The embedded GM uses B5's real controls, with the compact QA composition. */
+.stitch-lab .gm-game-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+.stitch-lab .gm-action-card {
+  min-height: 0;
+}
+.stitch-lab .gm-roster {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  counter-reset: lab-player;
+}
+.stitch-lab .gm-roster li {
+  display: block;
+  position: relative;
+}
+.stitch-lab .gm-roster li::before {
+  counter-increment: lab-player;
+  content: counter(lab-player);
+  display: block;
+  margin-bottom: 8px;
+  color: var(--home-muted);
+  font-size: 12px;
+}
+.stitch-lab .gm-roster :is(.gm-avatar, .gm-presence, .gm-player-status) {
+  display: none;
+}
 .stitch-lab .lab-role-view .game-phase {
   margin-top: 0;
 }
@@ -443,20 +469,34 @@
 }
 @media (max-width: 600px) {
   .stitch-lab .lab-stitch-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
     align-items: start;
     gap: 16px;
     padding: 16px max(16px, env(safe-area-inset-right)) 12px
       max(16px, env(safe-area-inset-left));
   }
   .lab-stitch-header-actions {
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    gap: 8px;
+    display: contents;
+  }
+  .lab-stitch-brand {
+    grid-column: 1;
+    grid-row: 1;
+    white-space: nowrap;
+  }
+  .lab-stitch-header-actions > .theme-control {
+    grid-column: 2;
+    grid-row: 1;
   }
   .lab-stitch-new {
+    grid-column: 1 / -1;
+    justify-self: end;
     font-size: 12px;
     flex-basis: 100%;
     justify-content: flex-end;
+  }
+  .stitch-lab .gm-roster {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .stitch-lab .lab-stitch-content {
     padding: 24px 0;
