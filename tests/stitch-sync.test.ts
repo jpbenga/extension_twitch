@@ -18,6 +18,10 @@ import {
   type Runner,
   type SyncOptions,
 } from "../scripts/stitch-sync.js";
+import {
+  approvedBlocks,
+  syncApprovedBlocks,
+} from "../scripts/stitch-sync-blocks-3-4.js";
 
 // A generated 1×1 image, never a purported Stitch design or auth credential.
 const png = Buffer.from(
@@ -139,8 +143,78 @@ describe("local read-only Stitch bridge", () => {
       ["--screen", "123", "--slug", "ok", "--approved", "--approved"],
       ["--screen", "123", "--slug", "ok", "--approved", "--token", "example"],
       ["--screen", "--slug", "ok", "--approved"],
+      [
+        "--screen",
+        "123",
+        "--slug",
+        "ok",
+        "--project",
+        "https://example.org",
+        "--approved",
+      ],
     ])
       expect(() => parseOptions(args)).toThrow();
+  });
+
+  it.each(["6846916727190844173", "16851612906193292413"])(
+    "exports an explicitly selected project %s without changing the local default",
+    async (project) => {
+      const parsed = parseOptions([
+        "--project",
+        project,
+        "--screen",
+        "test-screen-id",
+        "--slug",
+        "player-secret-mobile",
+        "--approved",
+      ]);
+      const { runner, calls } = cli({
+        project: { name: `projects/${project}` },
+        screen: {
+          name: `projects/${project}/screens/test-screen-id`,
+          projectId: project,
+        },
+      });
+      await syncScreen(parsed, root, runner);
+      expect(await file("SPEC.md")).toContain(`Project ID: ${project}`);
+      expect(
+        calls
+          .filter((c) => c[1] === "screen")
+          .every((c) => c[c.indexOf("--project") + 1] === project),
+      ).toBe(true);
+      expect(await readFile(join(root, ".stitch.json"), "utf8")).toBe(
+        JSON.stringify({ project: stitchProject }),
+      );
+    },
+  );
+
+  it("does not accept a screen from the default project when another project was requested", async () => {
+    const project = "6846916727190844173";
+    await expect(
+      syncScreen(
+        options({ project }),
+        root,
+        cli({ project: { id: project }, screen: { projectId: stitchProject } })
+          .runner,
+      ),
+    ).rejects.toThrow("identité");
+    expect(await readdir(base)).toEqual(["SCREENS.md"]);
+  });
+
+  it("requires --replace before reusing a slug for the same screen ID in another project", async () => {
+    await syncScreen(options(), root, cli().runner);
+    const before = await file("SPEC.md");
+    const project = "6846916727190844173";
+    const { runner } = cli({
+      project: { id: project },
+      screen: { projectId: project },
+    });
+    await expect(
+      syncScreen(options({ project }), root, runner),
+    ).rejects.toThrow("autre écran");
+    expect(await file("SPEC.md")).toBe(before);
+    await syncScreen(options({ project, replace: true }), root, runner);
+    expect(await file("SPEC.md")).toContain(`Project ID: ${project}`);
   });
 
   it("writes a real image fixture, the exact HTML and metadata using only read commands", async () => {
@@ -359,7 +433,7 @@ describe("local read-only Stitch bridge", () => {
     await syncScreen(options(), root, cli().runner);
     await writeFile(
       join(base, options().slug, "SPEC.md"),
-      "# Mes notes\nScreen ID: test-screen-id\nTexte à préserver.",
+      `# Mes notes\nProject ID: ${stitchProject}\nScreen ID: test-screen-id\nTexte à préserver.`,
     );
     const existing = await file("SPEC.md");
     await expect(syncScreen(options(), root, cli().runner)).rejects.toThrow(
@@ -391,5 +465,63 @@ describe("local read-only Stitch bridge", () => {
     await expect(runStitch(["--version"], root)).rejects.toThrow(
       "CLI Stitch absente",
     );
+  });
+});
+
+describe("approved Lobby and Player batch", () => {
+  it("requires explicit approval before issuing any export", async () => {
+    const sync = vi.fn();
+    await expect(syncApprovedBlocks([], sync, () => {})).rejects.toThrow(
+      "--approved",
+    );
+    await expect(
+      syncApprovedBlocks(["--approved", "--replace"], sync, () => {}),
+    ).rejects.toThrow("--approved");
+    expect(sync).not.toHaveBeenCalled();
+  });
+
+  it("exports all 21 exact approved screens sequentially with their distinct project identities", async () => {
+    const seen: SyncOptions[] = [];
+    let inFlight = false;
+    const result = await syncApprovedBlocks(
+      ["--approved"],
+      async (options) => {
+        expect(inFlight).toBe(false);
+        inFlight = true;
+        await Promise.resolve();
+        seen.push(options);
+        inFlight = false;
+        return { directory: options.slug, image: "approved.png", warnings: [] };
+      },
+      () => {},
+    );
+    expect(result).toEqual({ completed: 21, failed: [] });
+    expect(new Set(seen.map((o) => o.slug)).size).toBe(21);
+    expect(seen.map((o) => [o.project, o.screen])).toEqual(
+      approvedBlocks.flatMap((b) => b.screens.map((s) => [b.project, s[0]])),
+    );
+    expect(
+      seen.slice(0, 8).every((o) => o.project === "6846916727190844173"),
+    ).toBe(true);
+    expect(
+      seen.slice(8).every((o) => o.project === "16851612906193292413"),
+    ).toBe(true);
+    expect(seen.every((o) => o.approved && !o.replace)).toBe(true);
+  });
+
+  it("continues after an unavailable screen, reports partial success and redacts raw failures", async () => {
+    const reports: string[] = [];
+    const result = await syncApprovedBlocks(
+      ["--approved"],
+      async (options) => {
+        if (options.slug === "player-secret-mobile")
+          throw new Error("raw authentication diagnostic must not be shown");
+        return { directory: options.slug, image: "approved.png", warnings: [] };
+      },
+      (message) => reports.push(message),
+    );
+    expect(result).toEqual({ completed: 20, failed: ["player-secret-mobile"] });
+    expect(reports.join("\n")).toContain("20/21");
+    expect(reports.join("\n")).not.toContain("raw authentication diagnostic");
   });
 });

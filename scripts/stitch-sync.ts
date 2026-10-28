@@ -29,6 +29,7 @@ const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 export class SyncError extends Error {}
 export type Runner = (args: string[], cwd: string) => Promise<string>;
 export interface SyncOptions {
+  project?: string;
   screen: string;
   slug: string;
   surface: string;
@@ -41,6 +42,7 @@ const help = `Synchroniser un écran explicitement validé, sans modifier Stitch
 npm run stitch:sync -- --screen <ID> --slug <nom-du-dossier> --approved
 
 Options :
+  --project <ID>    Projet de cet écran (défaut : ${stitchProject}).
   --surface <texte>  Description dans le registre (ex. « Accueil · Mobile »).
   --replace          Autoriser un nouvel ID dans un dossier déjà synchronisé.
   --help             Afficher cette aide.
@@ -65,12 +67,13 @@ export function parseOptions(args: string[]): SyncOptions {
     used.add(arg);
     if (arg === "--approved") result.approved = true;
     else if (arg === "--replace") result.replace = true;
-    else if (["--screen", "--slug", "--surface"].includes(arg)) {
+    else if (["--screen", "--slug", "--surface", "--project"].includes(arg)) {
       const value = args[++i];
       if (!value || value.startsWith("--"))
         throw new SyncError("Chaque option doit avoir une valeur.");
       if (arg === "--screen") result.screen = value;
       else if (arg === "--slug") result.slug = value;
+      else if (arg === "--project") result.project = value;
       else result.surface = value;
     } else throw new SyncError("Option inconnue. Consultez --help.");
   }
@@ -79,6 +82,10 @@ export function parseOptions(args: string[]): SyncOptions {
 }
 
 function validateOptions(options: SyncOptions) {
+  if (options.project !== undefined && !/^\d{1,100}$/.test(options.project))
+    throw new SyncError(
+      "--project doit contenir un Project ID numérique, pas une URL.",
+    );
   if (!options.approved)
     throw new SyncError(
       "Validez cet écran humainement, puis ajoutez --approved pour l’attester.",
@@ -167,6 +174,7 @@ function resource(
   value: Record<string, unknown>,
   kind: string,
   expected: string,
+  projectId = stitchProject,
 ) {
   const name = value.name;
   if (
@@ -176,8 +184,8 @@ function resource(
       name !==
         (kind === "project"
           ? `projects/${expected}`
-          : `projects/${stitchProject}/screens/${expected}`)) ||
-    (value.projectId !== undefined && value.projectId !== stitchProject) ||
+          : `projects/${projectId}/screens/${expected}`)) ||
+    (value.projectId !== undefined && String(value.projectId) !== projectId) ||
     (value.id === undefined && name === undefined)
   )
     throw new SyncError(
@@ -277,6 +285,7 @@ export async function syncScreen(
   run: Runner = runStitch,
 ): Promise<{ directory: string; image: string; warnings: string[] }> {
   validateOptions(options);
+  const projectId = options.project ?? stitchProject;
   const config = await optionalFile(join(root, ".stitch.json"));
   if (config) {
     let binding: unknown;
@@ -308,9 +317,9 @@ export async function syncScreen(
       "Stitch n’est pas authentifié ici. Exécutez stitch login sur votre machine locale ; ne transférez pas les credentials vers le Cloud.",
     );
   const project = json(
-    await run(["get", "project", stitchProject, "--json", "--no-cache"], root),
+    await run(["get", "project", projectId, "--json", "--no-cache"], root),
   );
-  resource(project, "project", stitchProject);
+  resource(project, "project", projectId, projectId);
   const payload = json(
     await run(
       [
@@ -318,7 +327,7 @@ export async function syncScreen(
         "screen",
         options.screen,
         "--project",
-        stitchProject,
+        projectId,
         "--json",
         "--no-cache",
       ],
@@ -326,7 +335,7 @@ export async function syncScreen(
     ),
   );
   const screen = object(payload.screen) ? payload.screen : payload;
-  resource(screen, "screen", options.screen);
+  resource(screen, "screen", options.screen, projectId);
   const title = safeText(screen.title);
   const base = join(root, "docs", "ux", "redesign");
   await safeDirectories(root, ["docs", "ux", "redesign"]);
@@ -353,7 +362,11 @@ export async function syncScreen(
       oldSpec = (await optionalFile(specPath))?.toString("utf8");
     if (oldSpec) {
       const previousId = oldSpec.match(/^Screen ID: (\S+)$/m)?.[1];
-      if (previousId !== options.screen && !options.replace)
+      const previousProject = oldSpec.match(/^Project ID: (\S+)$/m)?.[1];
+      if (
+        (previousId !== options.screen || previousProject !== projectId) &&
+        !options.replace
+      )
         throw new SyncError(
           "Ce dossier référence un autre écran. Choisissez un nouveau slug ou utilisez --replace après validation.",
         );
@@ -366,7 +379,7 @@ export async function syncScreen(
           "screen",
           options.screen,
           "--project",
-          stitchProject,
+          projectId,
           "--format",
           "png",
           "--output",
@@ -401,7 +414,7 @@ export async function syncScreen(
               "screen",
               options.screen,
               "--project",
-              stitchProject,
+              projectId,
               "--format",
               "html",
               "--output",
@@ -434,7 +447,7 @@ export async function syncScreen(
         );
       }
     }
-    const reference = `Status: APPROVED\n\n## Stitch\n\nProject ID: ${stitchProject}\nScreen ID: ${options.screen}\nScreen title: ${markdown(title)}\nCLI version: ${version}\n\n## Reference\n\n- [${image}](${image})${html ? "\n- [approved.html](approved.html)" : ""}\n\nValidation: attestation humaine explicite par --approved ; aucun statut Stitch déduit.`;
+    const reference = `Status: APPROVED\n\n## Stitch\n\nProject ID: ${projectId}\nScreen ID: ${options.screen}\nScreen title: ${markdown(title)}\nCLI version: ${version}\n\n## Reference\n\n- [${image}](${image})${html ? "\n- [approved.html](approved.html)" : ""}\n\nValidation: attestation humaine explicite par --approved ; aucun statut Stitch déduit.`;
     const initial = `# ${markdown(title)}\n\n${referenceStart}\n${referenceEnd}\n\n## Functional intent\n\nÀ renseigner pendant la validation UX.\n\n## Existing behaviour to preserve\n\nÀ renseigner avant l’implémentation.\n\n## Notes\n\nDesign explicitement validé avant implémentation.\n`;
     const spec = await format(
       replaceBlock(oldSpec ?? initial, referenceStart, referenceEnd, reference),

@@ -2,6 +2,11 @@
 
 Projet : **Extension Twitch UX Redesign**, `7117487747163082855`.
 
+Les blocs Lobby et Joueur, validés humainement le 28 octobre 2026, proviennent
+respectivement des projets `6846916727190844173` et `16851612906193292413`.
+Leur [guide de synchronisation groupée](BLOCKS-3-4.md) utilise les 21 IDs précis
+validés. Le défaut des commandes historiques reste le projet ci-dessus.
+
 ```text
 écran actuel → Stitch BEFORE → itération Stitch → validation humaine APPROVED
 → synchronisation locale → Git → Codex Cloud → implémentation de l’écran
@@ -28,6 +33,12 @@ Remplacez `<SCREEN_ID>` par l’identifiant de **l’écran précis que vous ave
 `--approved` est votre attestation de validation humaine ; ce n’est pas un statut
 que le script prétend vérifier auprès de Stitch. Un titre contenant APPROVED ne
 suffit pas à lui seul. Un ID ne sélectionne jamais automatiquement une nouvelle génération.
+
+Pour un écran issu d'un autre projet, ajoutez `--project <PROJECT_ID>` : cette option
+est transmise explicitement à chaque lecture et téléchargement. Elle ne réécrit
+pas `.stitch.json` et ne change pas le projet par défaut. Le projet et l'écran
+retournés sont contrôlés, et un changement de projet dans un dossier déjà exporté
+exige `--replace`, même si le Screen ID est identique.
 
 Vous pouvez préciser la surface dans le registre :
 
