@@ -1,0 +1,22 @@
+{
+  "block": 5,
+  "name": "GM Control Room",
+  "status": "BLOCKED",
+  "stitchProjectId": "11936034876302496963",
+  "stitchProjectName": "Extension Twitch UX — Block 5 — GM",
+  "designScreens": [],
+  "approvedScreens": [],
+  "branch": "ux/block-5-gm",
+  "worktree": "/workspace/ux-worktrees/block-5-gm",
+  "lastUpdate": "2026-10-28T18:17:19+00:00",
+  "blockers": [
+    "Les captures APPROVED, Screen IDs et SPEC du projet B5 ne sont pas présents dans les références Git disponibles.",
+    "Aucun outil MCP Stitch appelable dans cet environnement pour récupérer ces références."
+  ],
+  "notes": [
+    "Validation humaine explicite du Bloc 5 reçue dans la demande d’intégration du 28 octobre 2026 ; aucune nouvelle validation UX demandée.",
+    "Les tableaux de Screen IDs restent vides car ces identifiants ne sont pas fournis ; cela ne remet pas en cause la validation humaine.",
+    "Base vérifiée : 73562c1 ; audit de code uniquement, aucune modification de l’interface ou de la logique métier.",
+    "Audit et plan de reprise : BLOCK-5-INTEGRATION.md."
+  ]
+}
