@@ -2,6 +2,7 @@ import {
   launchPrepareDemo,
   openPrepareBroadcast,
   openPrepareDemo,
+  openUndercoverOptions,
 } from "./undercover-helpers.js";
 import { openGmReplay } from "./undercover-helpers.js";
 import { openLabAccess, openLabPlayers } from "./undercover-helpers.js";
@@ -62,6 +63,7 @@ test("configure a real Undercover game, adjust the shared layout, play to a resu
   await page.goto("/play/undercover");
   await openPrepareDemo(page);
   await page.getByLabel("Joueurs de démonstration", { exact: true }).fill("3");
+  await openUndercoverOptions(page);
   await expect(page.getByLabel("Règles actives")).toContainText(
     "2 civils et 1 Undercover",
   );

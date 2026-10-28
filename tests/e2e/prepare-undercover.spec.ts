@@ -38,7 +38,7 @@ async function fits(page: Page) {
   ).not.toMatch(/user-scalable=no|maximum-scale=1(?:,|$)/);
   for (const el of await page
     .locator(
-      ".prepare-undercover button:visible,.prepare-undercover summary:visible,.prepare-segments label",
+      ".prepare-undercover button:visible,.prepare-undercover a:visible,.prepare-undercover summary:visible,.prepare-segments label",
     )
     .all())
     expect(

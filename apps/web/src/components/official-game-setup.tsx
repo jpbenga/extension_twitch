@@ -442,12 +442,21 @@ export function OfficialGameSetup() {
                       disabled={busy}
                     />
                   </label>
-                  <p>
-                    Au moins {settings["undercover-count"] * 2 + 1} joueurs pour
-                    cette répartition. L’effectif réel sera vérifié au salon.
-                    Jusqu’à {maximumUndercover(count)} Undercover pour {count}{" "}
-                    participants prévus.
-                  </p>
+                  <section aria-label="Règles actives">
+                    {settings["undercover-count"] * 2 < count && (
+                      <p>
+                        {count - settings["undercover-count"]} civils et{" "}
+                        {settings["undercover-count"]} Undercover pour
+                        l’effectif prévu.
+                      </p>
+                    )}
+                    <p>
+                      Au moins {settings["undercover-count"] * 2 + 1} joueurs
+                      pour cette répartition. L’effectif réel sera vérifié au
+                      salon. Jusqu’à {maximumUndercover(count)} Undercover pour{" "}
+                      {count} participants prévus.
+                    </p>
+                  </section>
                   <label>
                     Maximum de manches
                     <NumberInput

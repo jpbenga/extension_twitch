@@ -16,6 +16,7 @@
   min-height: 72px;
 }
 .prepare-undercover .stitch-brand {
+  min-height: 44px;
   font-size: 18px;
   letter-spacing: -0.02em;
   color: var(--home-ink);
@@ -470,10 +471,18 @@
     flex-wrap: wrap;
     gap: 2px 8px;
     margin: 0;
-    font-size: 11px;
+    font-size: 12px;
   }
   .prepare-summary dl > div {
     display: block;
+  }
+  .prepare-summary dl > div:last-child::before {
+    content: "·";
+    padding-right: 8px;
+    color: var(--home-lilac);
+  }
+  .prepare-summary dl > div:last-child {
+    display: flex;
   }
   .prepare-summary dt,
   .prepare-summary dl > div:first-child {
@@ -483,7 +492,7 @@
     text-align: left;
   }
   .prepare-summary-mode {
-    font-size: 11px;
+    font-size: 12px;
     align-self: center;
     color: var(--home-muted);
   }
@@ -555,5 +564,12 @@
 @media (max-width: 767px) {
   .prepare-undercover .layout-handles {
     display: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .prepare-summary dl,
+  .prepare-summary-mode {
+    font-size: 11px;
   }
 }
