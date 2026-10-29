@@ -114,6 +114,7 @@ export async function uploadPreparationImages(
     .object({
       undercoverPreparation: z
         .object({
+          id: z.uuid(),
           contents: z.object({
             a: z.object({ id: z.uuid() }),
             b: z.object({ id: z.uuid() }),
@@ -123,7 +124,8 @@ export async function uploadPreparationImages(
     })
     .passthrough()
     .parse(raw);
-  if (!parsed.undercoverPreparation) return result;
+  if (!parsed.undercoverPreparation || parsed.undercoverPreparation.id !== p.id)
+    return result;
   for (const side of ["a", "b"] as const) {
     const image = p.contents[side].imageId;
     if (!image) continue;

@@ -1,4 +1,5 @@
 "use client";
+import { PrivateContentImage } from "./private-content-image";
 import { useEffect, useState } from "react";
 import type {
   LobbyAction,
@@ -164,6 +165,11 @@ function CompanionGame({
                     <article>
                       <span className="sr-only">{ownWord.label}</span>
                       <strong>{String(ownWord.value)}</strong>
+                      <PrivateContentImage
+                        content={view.personalContent}
+                        sessionId={view.sessionId}
+                        participantId={view.participantId}
+                      />
                     </article>
                   )}
                 </div>

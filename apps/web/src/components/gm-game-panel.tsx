@@ -1,4 +1,5 @@
 "use client";
+import { UndercoverSeriesControls } from "./undercover-series-controls";
 
 import { useEffect, useState, type ReactNode, type FormEvent } from "react";
 import type {
@@ -620,7 +621,12 @@ export function GmGamePanel({
               />
             ))}
             {play.outcome && !hideRestart && (
-              <GmReplay game={game} send={send} locked={locked} primary />
+              <GmReplay
+                game={game}
+                send={send}
+                locked={locked}
+                primary={!view.undercoverPreparation}
+              />
             )}
             {!game.actions.length && !play.outcome && (
               <p className="gm-footnote">
@@ -639,6 +645,9 @@ export function GmGamePanel({
         </div>
         <GmRoster view={view} game={game} mode="game" />
       </div>
+      {view.undercoverPreparation && (
+        <UndercoverSeriesControls view={view} locked={locked} send={send} />
+      )}
       <div className="gm-secondary">
         <GmDelegatedVote view={view} game={game} locked={locked} send={send} />
         {!hideSecondary && (

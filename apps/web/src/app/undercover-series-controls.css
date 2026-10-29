@@ -1,0 +1,51 @@
+.gm-series-controls {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  margin: 20px 0;
+}
+.gm-series-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--home-muted, var(--color-text-secondary));
+  font-size: 14px;
+}
+.gm-series-line a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  color: var(--home-lilac, var(--color-action-primary));
+}
+.gm-series-buttons,
+.gm-series-pages {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.gm-series-controls button {
+  min-height: 48px;
+  max-width: 100%;
+}
+.gm-series-controls .gm-series-next {
+  width: 100%;
+}
+@media (max-width: 600px) {
+  .gm-series-buttons {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .gm-series-pages {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .gm-series-line {
+    display: grid;
+  }
+  .gm-series-controls button {
+    width: 100%;
+  }
+}
