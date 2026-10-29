@@ -66,7 +66,9 @@ test("three app themes persist, remain keyboard accessible and never alter the i
   await page
     .getByRole("link", { name: "Préparer une partie Undercover", exact: true })
     .click();
-  await expect(page.getByLabel("Mot des civils", { exact: true })).toBeHidden();
+  await expect(
+    page.getByLabel("Nom du contenu A", { exact: true }),
+  ).toBeHidden();
   await openPrepareDemo(page);
   await page.getByLabel("Joueurs de démonstration", { exact: true }).fill("3");
   await openPrepareBroadcast(page);
@@ -448,7 +450,7 @@ test("a browser without stored preferences has a deterministic default and unava
       .click();
     await expect(
       p.getByRole("heading", {
-        name: /Préparer (?:votre |la )partie/,
+        name: /Préparer (?:votre |la |une )partie/,
         exact: true,
       }),
     ).toBeVisible();

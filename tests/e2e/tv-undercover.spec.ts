@@ -175,7 +175,17 @@ async function capture(
   transparent = true,
 ) {
   await p.evaluate(() => document.fonts.ready);
-  return p.screenshot({
+  expect(
+    await root(p)
+      .locator(".tv-round > span")
+      .first()
+      .evaluate((e) => {
+        const r = e.getBoundingClientRect(),
+          p = e.parentElement!.getBoundingClientRect();
+        return r.left >= p.left - 1 && r.right <= p.right + 1;
+      }),
+  ).toBe(true);
+  const result = await p.screenshot({
     path:
       process.env.CAPTURE_TV === "1"
         ? `docs/ux/implementation/undercover-tv/${name}.png`
@@ -183,6 +193,20 @@ async function capture(
     omitBackground: transparent,
     animations: "disabled",
   });
+  if (
+    process.env.CAPTURE_TV === "1" &&
+    ["b3-duo-alpha", "b8-final-reveal-alpha"].includes(name)
+  ) {
+    const viewport = p.viewportSize()!;
+    await p.setViewportSize({ width: 390, height: 220 });
+    await p.screenshot({
+      path: `docs/ux/implementation/undercover-tv/${name}-twitch390.png`,
+      omitBackground: true,
+      animations: "disabled",
+    });
+    await p.setViewportSize(viewport);
+  }
+  return result;
 }
 async function alpha(p: Page, b: Buffer) {
   expect(b[25]).toBe(6);

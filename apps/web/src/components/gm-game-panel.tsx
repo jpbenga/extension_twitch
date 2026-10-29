@@ -260,6 +260,7 @@ export function GmReplay({
   const confirm = useConfirm();
   return (
     <button
+      data-focus-key="gm-replay"
       className={
         primary ? "primary-button gm-primary" : "secondary-button gm-replay"
       }

@@ -163,7 +163,7 @@ test("lost preparation acknowledgements reuse the same official receipt instead 
     },
   );
   await launchPrepareDemo(page);
-  await expect(page.locator(".lobby-error[role=alert]")).toContainText(
+  await expect(page.locator(".series-error [role=alert]")).toContainText(
     "La préparation n’a pas été confirmée",
   );
   await page.reload();

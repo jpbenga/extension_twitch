@@ -1,6 +1,7 @@
 /* Approved Undercover A1–A6 only. Public broadcast styling stays independent. */
 .series-studio {
   min-height: 100svh;
+  overflow-wrap: anywhere;
 }
 .series-studio .stitch-header {
   padding: 0 24px;

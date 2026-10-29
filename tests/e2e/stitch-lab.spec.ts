@@ -164,7 +164,17 @@ test("the private QA shell keeps one real identity, preserves it on reload and c
     await expect(
       mirror.locator('[data-renderer="broadcast-v1"]'),
     ).toBeVisible();
-    await expect(mirror.locator("[data-widget]")).toHaveCount(7);
+    await expect(
+      mirror.locator('[data-renderer="broadcast-v1"]'),
+    ).toHaveAttribute("data-layout-version", "2");
+    expect(
+      await mirror
+        .locator("[data-widget]")
+        .evaluateAll((nodes) =>
+          nodes.map((node) => node.getAttribute("data-widget")),
+        ),
+    ).toEqual(["header", "phase", "round", "players"]);
+    await expect(mirror.locator(".tv-speaker")).toContainText("Joueur démo 1");
     await expect(mirror).not.toContainText(
       /Phare confidentiel|Balise confidentielle/,
     );

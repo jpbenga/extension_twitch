@@ -651,7 +651,7 @@ test("Jouer separates creation, prepares three isolated players and transfers th
         .check();
       await expect(page.getByLabel("Plateau public comparatif")).toBeVisible();
       await expect(
-        page.getByLabel("Plateau public comparatif").locator(".game-values"),
+        page.getByLabel("Plateau public comparatif"),
       ).not.toContainText(/Phare|Fusée/);
       await page.screenshot({
         path: info.outputPath("multidevice-comparison.png"),

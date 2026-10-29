@@ -53,7 +53,7 @@ export function makeSeriesAttempt(
     mode: "invite",
     count: p.count,
     settings: validatedPreparation(p),
-    overlayLayout: p.overlayLayout,
+    overlayLayout: structuredClone(p.overlayLayout),
     broadcastTheme: p.broadcastTheme,
     preparation: {
       id: p.id,

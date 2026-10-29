@@ -100,6 +100,18 @@ export async function openPrepareBroadcast(page: Page) {
       .or(page.getByText("Personnaliser l’overlay", { exact: true }))
       .first(),
   ).toBeAttached();
+  const restoredOptions = page.locator(".series-editor-settings");
+  if (
+    (await restoredOptions.count()) &&
+    (await restoredOptions.getAttribute("open")) === null
+  )
+    await restoredOptions.locator(":scope > summary").click();
+  await expect(
+    page
+      .locator('[data-prepare-option="broadcast"]')
+      .or(page.getByText("Personnaliser l’overlay", { exact: true }))
+      .first(),
+  ).toBeAttached();
   if (await openPrepareSection(page, "broadcast")) return;
   await page.getByText("Personnaliser l’overlay", { exact: true }).click();
 }

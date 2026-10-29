@@ -219,9 +219,12 @@ export function UndercoverTvOverlay({
       {widget(
         "round",
         <>
-          <span>
-            {play?.dealt ? active : roster.length} joueurs
-            {play?.dealt && active !== roster.length ? " actifs" : ""}
+          <span
+            aria-label={`${play?.dealt ? active : roster.length} joueurs ${play?.dealt ? "actifs " : ""}sur ${roster.length}`}
+          >
+            {play?.dealt && active !== roster.length
+              ? `${active} en jeu`
+              : `${roster.length} joueurs`}
           </span>
           <span className="tv-connection" data-testid="broadcast-connection">
             {connection === "connected"

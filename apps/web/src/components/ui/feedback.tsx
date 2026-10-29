@@ -61,7 +61,7 @@ export function FeedbackProvider({ children }: { children: ReactNode }) {
         : lastPointer.current;
     originScope.current =
       opener.current?.closest<HTMLElement>(
-        "#game,.dedicated-editor,.session-shell",
+        "#game,.dedicated-editor,.session-shell,.experience-shell,.stitch-page",
       ) ?? null;
     setError("");
     setBusy(false);
@@ -83,21 +83,38 @@ export function FeedbackProvider({ children }: { children: ReactNode }) {
     resolve?.(accepted);
     const target = opener.current;
     const scope = originScope.current;
-    requestAnimationFrame(() => {
-      if (target?.isConnected && !target.hasAttribute("disabled"))
-        target.focus({ preventScroll: true });
-      else {
-        const fallback =
-          (scope?.isConnected
-            ? scope.querySelector<HTMLElement>(".game-phase,h1,h2")
-            : null) ?? document.querySelector<HTMLElement>("main h1");
-        if (fallback) {
-          fallback.tabIndex = -1;
-          fallback.focus({ preventScroll: true });
-        }
+    const key = target?.dataset.focusKey;
+    const restore = (attempt = 0) => {
+      // An async command may finish one render before its opener is re-enabled.
+      // Do not steal focus if another confirmation has already been opened.
+      if (resolver.current) return;
+      const candidate = target?.isConnected
+        ? target
+        : key && scope?.isConnected
+          ? scope.querySelector<HTMLElement>(
+              `[data-focus-key="${CSS.escape(key)}"]`,
+            )
+          : null;
+      if (candidate?.hasAttribute("disabled") && attempt < 3) {
+        requestAnimationFrame(() => restore(attempt + 1));
+        return;
       }
-    });
+      if (candidate && !candidate.hasAttribute("disabled")) {
+        candidate.focus({ preventScroll: true });
+        if (document.activeElement === candidate) return;
+      }
+      const fallback =
+        (scope?.isConnected
+          ? scope.querySelector<HTMLElement>(".game-phase,h1,h2")
+          : null) ?? document.querySelector<HTMLElement>("main h1");
+      if (fallback) {
+        fallback.tabIndex = -1;
+        fallback.focus({ preventScroll: true });
+      }
+    };
+    requestAnimationFrame(() => restore());
   }
+
   useEffect(() => {
     // Safari touch activation does not always focus a button before its click.
     const remember = (event: PointerEvent) => {

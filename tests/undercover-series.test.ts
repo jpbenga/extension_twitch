@@ -79,7 +79,10 @@ describe("durable Undercover editorial preparations", () => {
     future.contents.a.name = "Futur secret non diffusé";
     series.preparations.push(preparation, future);
     const attempt = makeSeriesAttempt(series, preparation, 0, randomToken());
+    const layoutWidth = preparation.overlayLayout.widgets.players.width;
+    preparation.overlayLayout.widgets.players.width = 1200;
     preparation.contents.a.name = "Modification ultérieure";
+    expect(attempt.overlayLayout!.widgets.players.width).toBe(layoutWidth);
     expect(attempt.snapshot!.contents.a.name).toBe("Phare");
     expect(attempt.settings["civil-word"]).toBe("Phare");
     expect(attempt.preparation!.series).toEqual({

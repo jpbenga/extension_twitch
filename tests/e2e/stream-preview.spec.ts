@@ -1,3 +1,4 @@
+import { createUndercoverLayout } from "@extension-twitch/contracts/undercover-layout";
 import { launchPrepareDemo, openPrepareDemo } from "./undercover-helpers.js";
 import { openGmReplay } from "./undercover-helpers.js";
 import {
@@ -76,6 +77,17 @@ async function playerLink(page: Page, n: number) {
     .getByRole("link", { name: `Ouvrir Joueur ${n} séparément`, exact: true })
     .getAttribute("href"))!;
 }
+// Keep complete legacy broadcast/reconnection coverage; TV v2 publication is covered by tv-undercover.spec.ts.
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(
+    (layout) =>
+      sessionStorage.setItem(
+        "xt:official:undercover:layout",
+        JSON.stringify(layout),
+      ),
+    createUndercoverLayout(),
+  );
+});
 const overlay = (page: Page) =>
   page.getByLabel("Overlay public de l’émission", { exact: true });
 const synced = async (page: Page) =>

@@ -266,13 +266,11 @@ test("missing optional images preserve text, reconnect independently and open on
   await page
     .getByRole("button", { name: "Reconnecter l’image", exact: true })
     .click();
-  await page
-    .getByLabel("Image du contenu A", { exact: true })
-    .setInputFiles({
-      name: "reconnexion.png",
-      mimeType: "image/png",
-      buffer: await picture(page, "#665588"),
-    });
+  await page.getByLabel("Image du contenu A", { exact: true }).setInputFiles({
+    name: "reconnexion.png",
+    mimeType: "image/png",
+    buffer: await picture(page, "#665588"),
+  });
   await expect(page.locator(".series-editor-grid img")).toHaveCount(2);
   await page
     .getByRole("button", { name: "Enregistrer la partie", exact: true })
@@ -595,4 +593,35 @@ test("the real series connects an invited game, isolated private media, public p
   } finally {
     await Promise.all(contexts.map((c) => c.close()));
   }
+});
+
+test("eighty-character content names keep the preparation and its mobile confirmation reachable", async ({
+  page,
+}, info) => {
+  await start(page);
+  await editContents(page, "C".repeat(80), "U".repeat(80));
+  await expect
+    .poll(() =>
+      page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
+    )
+    .toBe(true);
+  const save = page.getByRole("button", {
+    name: "Enregistrer la partie",
+    exact: true,
+  });
+  await expect(save).toBeEnabled();
+  if (info.project.name === "mobile") await shot(page, info, "a2-long-names");
+  await save.click();
+  await expect(
+    page.getByRole("heading", { name: "Préparer une partie", exact: true }),
+  ).toBeVisible();
+  await page
+    .getByRole("button", { name: "Ajouter à la série", exact: true })
+    .click();
+  await expect(page.locator(".series-runlist>li")).toHaveCount(1);
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
 });
