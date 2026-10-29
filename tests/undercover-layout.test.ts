@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import {
   createUndercoverLayout,
+  createUndercoverTvLayout,
+  widgetMinimumsFor,
   undercoverLayoutSchema,
   layoutPresets,
   constrainWidget,
@@ -52,7 +54,7 @@ describe("bounded Undercover layout and public slot geometry", () => {
     }
     const layout = createUndercoverLayout();
     for (const extension of [
-      { schemaVersion: 2 },
+      { schemaVersion: 3 },
       { url: "https://invalid.example" },
       { css: "position:fixed" },
     ])
@@ -126,5 +128,46 @@ describe("bounded Undercover layout and public slot geometry", () => {
     expect(
       Array.from({ length: 10 }, (_, i) => maximumUndercover(i + 3)),
     ).toEqual([1, 1, 2, 2, 3, 3, 4, 4, 5, 5]);
+  });
+});
+
+describe("versioned TV geometry without migration of saved layouts", () => {
+  it("opts in to smaller TV capsules while preserving every historical default and custom rectangle", () => {
+    const legacy = createUndercoverLayout("lateral");
+    legacy.widgets.phase.x = 72;
+    const before = structuredClone(legacy);
+    for (const p of layoutPresets) {
+      const next = createUndercoverTvLayout(p.id);
+      expect(next.schemaVersion).toBe(2);
+      expect(undercoverLayoutSchema.parse(next)).toEqual(next);
+      expect(layoutOverlaps(next)).toEqual([]);
+      expect(Object.keys(next.widgets)).toEqual(widgetIds);
+    }
+    expect(undercoverLayoutSchema.parse(legacy)).toEqual(before);
+    expect(createUndercoverLayout().schemaVersion).toBe(1);
+    expect(createUndercoverLayout().widgets.header.height).toBe(110);
+  });
+  it("keeps version-specific minimums through numeric, keyboard and pointer constraints", () => {
+    const tiny = { x: -20, y: 2000, width: 20, height: 20 };
+    expect(constrainWidget("header", tiny, 2)).toEqual({
+      x: 24,
+      y: 992,
+      width: 280,
+      height: 64,
+    });
+    expect(constrainWidget("header", tiny, 1)).toEqual({
+      x: 24,
+      y: 956,
+      width: 480,
+      height: 100,
+    });
+    expect(widgetMinimumsFor(1).phase.height).toBe(140);
+    expect(widgetMinimumsFor(2).phase.height).toBe(64);
+    const tv = createUndercoverTvLayout();
+    tv.widgets.phase.height = 63;
+    expect(undercoverLayoutSchema.safeParse(tv).success).toBe(false);
+    const old = createUndercoverLayout();
+    old.widgets.phase.height = 64;
+    expect(undercoverLayoutSchema.safeParse(old).success).toBe(false);
   });
 });

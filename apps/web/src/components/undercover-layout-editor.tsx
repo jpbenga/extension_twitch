@@ -11,12 +11,13 @@ import {
 } from "react";
 import {
   createUndercoverLayout,
+  createUndercoverTvLayout,
   constrainWidget,
   layoutPresets,
   layoutOverlaps,
   widgetIds,
   widgetLabels,
-  widgetMinimums,
+  widgetMinimumsFor,
   type UndercoverLayout,
   type WidgetId,
   type LayoutRect,
@@ -83,6 +84,7 @@ export function UndercoverLayoutEditor({
       next.widgets[selected as WidgetId] = constrainWidget(
         selected as WidgetId,
         proposed,
+        origin.schemaVersion,
       );
       onChange(next);
     }
@@ -250,7 +252,11 @@ export function UndercoverLayoutEditor({
                     "Les positions actuelles seront remplacées par cette disposition. Les règles et les joueurs sont conservés.",
                   confirmLabel: "Utiliser cette disposition",
                   onConfirm: () => {
-                    onChange(createUndercoverLayout(preset));
+                    onChange(
+                      layout.schemaVersion === 2
+                        ? createUndercoverTvLayout(preset)
+                        : createUndercoverLayout(preset),
+                    );
                     return true;
                   },
                 });
@@ -278,7 +284,11 @@ export function UndercoverLayoutEditor({
                 "Seule la disposition change. Les joueurs et la partie sont conservés.",
               confirmLabel: "Rétablir",
               onConfirm: () => {
-                onChange(createUndercoverLayout());
+                onChange(
+                  layout.schemaVersion === 2
+                    ? createUndercoverTvLayout()
+                    : createUndercoverLayout(),
+                );
                 return true;
               },
             })
@@ -380,7 +390,7 @@ export function UndercoverLayoutEditor({
                     slot === null
                       ? field === "x" || field === "y"
                         ? 24
-                        : widgetMinimums[id][field]
+                        : widgetMinimumsFor(layout.schemaVersion)[id][field]
                       : field === "width"
                         ? 12
                         : field === "height"

@@ -31,12 +31,28 @@ export const widgetMinimums: Record<
   result: { width: 600, height: 200 },
   events: { width: 480, height: 120 },
 };
+/** TV presets reduce geometry only for explicitly versioned layouts. */
+export const tvWidgetMinimums: Record<
+  WidgetId,
+  { width: number; height: number }
+> = {
+  header: { width: 280, height: 64 },
+  phase: { width: 280, height: 64 },
+  round: { width: 200, height: 64 },
+  players: { width: 480, height: 196 },
+  vote: { width: 480, height: 144 },
+  result: { width: 600, height: 196 },
+  events: { width: 480, height: 64 },
+};
+export function widgetMinimumsFor(version: 1 | 2) {
+  return version === 2 ? tvWidgetMinimums : widgetMinimums;
+}
 const rectSchema = z
   .strictObject({
     x: z.number().int().min(24).max(1896),
     y: z.number().int().min(24).max(1056),
     width: z.number().int().min(100).max(1872),
-    height: z.number().int().min(80).max(1032),
+    height: z.number().int().min(64).max(1032),
   })
   .refine(
     (r) => r.x + r.width <= 1896 && r.y + r.height <= 1056,
@@ -56,7 +72,7 @@ const cardSchema = z
   );
 export const undercoverLayoutSchema = z
   .strictObject({
-    schemaVersion: z.literal(1),
+    schemaVersion: z.union([z.literal(1), z.literal(2)]),
     gameId: z.literal("undercover"),
     widgets: z.strictObject({
       header: rectSchema,
@@ -82,7 +98,7 @@ export const undercoverLayoutSchema = z
   .superRefine((v, ctx) => {
     for (const id of widgetIds) {
       const r = v.widgets[id],
-        min = widgetMinimums[id];
+        min = widgetMinimumsFor(v.schemaVersion)[id];
       if (r.width < min.width || r.height < min.height)
         ctx.addIssue({
           code: "custom",
@@ -156,9 +172,51 @@ export function createUndercoverLayout(
   }
   return undercoverLayoutSchema.parse(l);
 }
+/** New sessions may opt in. Historical/custom v1 layouts are never rewritten. */
+export function createUndercoverTvLayout(
+  preset: LayoutPreset = "balanced",
+): UndercoverLayout {
+  const l = base();
+  l.schemaVersion = 2;
+  l.widgets = {
+    header: rect(40, 36, 405, 94),
+    phase: rect(445, 36, 560, 94),
+    round: rect(1590, 40, 290, 88),
+    players: rect(216, 840, 1488, 196),
+    vote: rect(600, 856, 720, 180),
+    result: rect(216, 786, 1488, 250),
+    events: rect(600, 950, 720, 86),
+  };
+  l.players.mode = "horizontal";
+  if (preset === "bottom") {
+    l.widgets.players = rect(40, 840, 1840, 196);
+    l.widgets.result = rect(250, 630, 1420, 196);
+    l.widgets.vote = rect(600, 666, 720, 160);
+    l.widgets.events = rect(600, 950, 720, 86);
+  }
+  if (preset === "lateral") {
+    l.widgets.players = rect(40, 360, 480, 676);
+    l.widgets.vote = rect(600, 856, 720, 180);
+    l.widgets.result = rect(580, 786, 1300, 250);
+    l.widgets.events = rect(600, 950, 720, 86);
+    l.players.mode = "vertical";
+  }
+  if (preset === "centered") {
+    l.widgets.header = rect(400, 36, 405, 94);
+    l.widgets.phase = rect(805, 36, 560, 94);
+    l.widgets.round = rect(1580, 40, 300, 88);
+    l.widgets.players = rect(216, 840, 1488, 196);
+  }
+  return undercoverLayoutSchema.parse(l);
+}
+
 /** Pure bounds helper, also used by keyboard/numeric and pointer edits. */
-export function constrainWidget(id: WidgetId, r: LayoutRect): LayoutRect {
-  const min = widgetMinimums[id];
+export function constrainWidget(
+  id: WidgetId,
+  r: LayoutRect,
+  version: 1 | 2 = 1,
+): LayoutRect {
+  const min = widgetMinimumsFor(version)[id];
   const width = Math.max(min.width, Math.min(1872, Math.round(r.width)));
   const height = Math.max(min.height, Math.min(1032, Math.round(r.height)));
   return {
@@ -171,6 +229,13 @@ export function constrainWidget(id: WidgetId, r: LayoutRect): LayoutRect {
 export function layoutOverlaps(l: UndercoverLayout): string[] {
   return widgetIds.flatMap((a, i) =>
     widgetIds.slice(i + 1).flatMap((b) => {
+      // TV lower-thirds are mutually exclusive by state; their shared space is intentional.
+      if (
+        l.schemaVersion === 2 &&
+        ["players", "vote", "result", "events"].includes(a) &&
+        ["players", "vote", "result", "events"].includes(b)
+      )
+        return [];
       const r = l.widgets[a],
         s = l.widgets[b];
       return r.x < s.x + s.width &&
