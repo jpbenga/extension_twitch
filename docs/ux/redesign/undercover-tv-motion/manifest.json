@@ -1,0 +1,325 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "humanApproved": true,
+  "sourceCommit": "d27458974b4c763e2911952b5295b4b0deae893d",
+  "projectId": "14258025772148928156",
+  "screens": [
+    {
+      "key": "m01",
+      "title": "PROPOSAL — B1 — Micro-animations / joueur actif — Motion v1",
+      "screenId": "14602014474137269033",
+      "url": "https://stitch.withgoogle.com/projects/14258025772148928156?node-id=14602014474137269033",
+      "role": "Un accent bref pour signaler le changement ; le nom reste ensuite immobile.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "htmlKind": "Native downloaded Stitch storyboard HTML. Animated prototypes are separate.",
+      "artifacts": {
+        "png": {
+          "path": "screens/m01/approved.png",
+          "sha256": "5819f8ad3310f180f217d9b148c08c9feb536618e1fd9b2c2cd415007d379cdb"
+        },
+        "html": {
+          "path": "screens/m01/approved.html",
+          "sha256": "8ddb9c162d73155aaf46ec343f4db199783b85a7c8ac7509977ee96f2bc10c58"
+        }
+      }
+    },
+    {
+      "key": "m02",
+      "title": "PROPOSAL — B2 — Transitions d’état — Motion v1",
+      "screenId": "15619381745333075967",
+      "url": "https://stitch.withgoogle.com/projects/14258025772148928156?node-id=15619381745333075967",
+      "role": "Attente → discussion → vote → résultat → nouveau cycle d’élimination, avec la même paire.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "htmlKind": "Native downloaded Stitch storyboard HTML. Animated prototypes are separate.",
+      "artifacts": {
+        "png": {
+          "path": "screens/m02/approved.png",
+          "sha256": "6823128e126d055d68252501371213aa743fbccf5b832bd72cac793be82b5922"
+        },
+        "html": {
+          "path": "screens/m02/approved.html",
+          "sha256": "d34f8ef9f13248092d327d1344ff124d431688c2d97017aa5bb828dcd14411ca"
+        }
+      }
+    },
+    {
+      "key": "m03",
+      "title": "PROPOSAL — B3 / B4 — Duo anonyme — Motion v1",
+      "screenId": "7295270360872508224",
+      "url": "https://stitch.withgoogle.com/projects/14258025772148928156?node-id=7295270360872508224",
+      "role": "Deux contenus, aucune affectation. Les cartes se retirent pour rendre la place à la vidéo.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "htmlKind": "Native downloaded Stitch storyboard HTML. Animated prototypes are separate.",
+      "artifacts": {
+        "png": {
+          "path": "screens/m03/approved.png",
+          "sha256": "a31f80eb85a74960f4a7a53289cf539db158ca8cb944946f6434001658b3eb6d"
+        },
+        "html": {
+          "path": "screens/m03/approved.html",
+          "sha256": "e49aecdccffeaab990e0cd167474b8771006822fd31dc441eb19a80c8a0552f4"
+        }
+      }
+    },
+    {
+      "key": "m04",
+      "title": "PROPOSAL — B5 — Affectations visibles / 3 joueurs — Motion v1",
+      "screenId": "4740627376000196088",
+      "url": "https://stitch.withgoogle.com/projects/14258025772148928156?node-id=4740627376000196088",
+      "role": "Même géométrie TV. Trois cartes publiées entrent en décalage court.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "htmlKind": "Native downloaded Stitch storyboard HTML. Animated prototypes are separate.",
+      "artifacts": {
+        "png": {
+          "path": "screens/m04/approved.png",
+          "sha256": "5b0850f6cf7b03a1e2575a862c6063d7c7e76eb29fff9ee18288e2b9080c8a6e"
+        },
+        "html": {
+          "path": "screens/m04/approved.html",
+          "sha256": "43736ecf94f8ffe58f00bbfee9dc0682a1a7c17c0a4e64edae2eac3c48f93375"
+        }
+      }
+    },
+    {
+      "key": "m05",
+      "title": "PROPOSAL — B5 — Affectations visibles / 6 joueurs — Motion v1",
+      "screenId": "17922085973328146983",
+      "url": "https://stitch.withgoogle.com/projects/14258025772148928156?node-id=17922085973328146983",
+      "role": "Deux pages de trois ; aucune carte n’est rétrécie.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "htmlKind": "Native downloaded Stitch storyboard HTML. Animated prototypes are separate.",
+      "artifacts": {
+        "png": {
+          "path": "screens/m05/approved.png",
+          "sha256": "93de5035440d159950fa780eeed3410f40d823b92089493682402232279b17be"
+        },
+        "html": {
+          "path": "screens/m05/approved.html",
+          "sha256": "ee29ef07ca42adfab6da794dd3c64a09d07f94a68ee360745176660c3037ab64"
+        }
+      }
+    },
+    {
+      "key": "m06",
+      "title": "PROPOSAL — B5 — Affectations visibles / 12 joueurs — Motion v1",
+      "screenId": "18128086243884041892",
+      "url": "https://stitch.withgoogle.com/projects/14258025772148928156?node-id=18128086243884041892",
+      "role": "Quatre pages de trois, numéros stables et gestion du nom long.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "htmlKind": "Native downloaded Stitch storyboard HTML. Animated prototypes are separate.",
+      "artifacts": {
+        "png": {
+          "path": "screens/m06/approved.png",
+          "sha256": "45d64b9d66de82c60208963f63674b2843700c1c555cc2aae8ea9cd1e980536e"
+        },
+        "html": {
+          "path": "screens/m06/approved.html",
+          "sha256": "d0d8e7a10559b102be1b269f4926a09f654ac024dab77d4252c0fece9e872c44"
+        }
+      }
+    },
+    {
+      "key": "m07",
+      "title": "PROPOSAL — B6 — Vote / progression / clôture — Motion v1",
+      "screenId": "15839688811367935863",
+      "url": "https://stitch.withgoogle.com/projects/14258025772148928156?node-id=15839688811367935863",
+      "role": "Seul le nombre de votes reçus est public. Les choix individuels restent absents.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "htmlKind": "Native downloaded Stitch storyboard HTML. Animated prototypes are separate.",
+      "artifacts": {
+        "png": {
+          "path": "screens/m07/approved.png",
+          "sha256": "317b71a0fb3a4de1ce021392b12adbe063a0896c74ebb84ab5d8a8268789e5b9"
+        },
+        "html": {
+          "path": "screens/m07/approved.html",
+          "sha256": "7d02e60a417b66c039ba01f96f67a60057355d394108255c16f5fbe16d7266fc"
+        }
+      }
+    },
+    {
+      "key": "m08",
+      "title": "PROPOSAL — B7 — Élimination — Motion v1",
+      "screenId": "14910631011227398925",
+      "url": "https://stitch.withgoogle.com/projects/14258025772148928156?node-id=14910631011227398925",
+      "role": "Un moment court, puis une note durable. Aucun camp secret ajouté.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "htmlKind": "Native downloaded Stitch storyboard HTML. Animated prototypes are separate.",
+      "artifacts": {
+        "png": {
+          "path": "screens/m08/approved.png",
+          "sha256": "28b7faa7026b196fe11b8d1f1bcd85392dfa3eb67ade9d15e72670fd59d24251"
+        },
+        "html": {
+          "path": "screens/m08/approved.html",
+          "sha256": "d3fa9433a60ec00738d397783a3b7fd6d147dd5142aedbbd1f92504422349df1"
+        }
+      }
+    },
+    {
+      "key": "m09",
+      "title": "PROPOSAL — B8 — Égalité — Motion v1",
+      "screenId": "9862667806713904965",
+      "url": "https://stitch.withgoogle.com/projects/14258025772148928156?node-id=9862667806713904965",
+      "role": "Aucun joueur éliminé. Un état exceptionnel, sobre et bref.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "htmlKind": "Native downloaded Stitch storyboard HTML. Animated prototypes are separate.",
+      "artifacts": {
+        "png": {
+          "path": "screens/m09/approved.png",
+          "sha256": "31b290cd5a3f610b9d333e01544a4db0d146a4bfdbfbf69c12d3a8f4dad8fcec"
+        },
+        "html": {
+          "path": "screens/m09/approved.html",
+          "sha256": "2870b5329d4e27f4b22c5c346bed71f1d560a84a045354750c422951b93b557c"
+        }
+      }
+    },
+    {
+      "key": "m10",
+      "title": "PROPOSAL — B9 — Révélation finale autorisée — Motion v1",
+      "screenId": "17397664564815022200",
+      "url": "https://stitch.withgoogle.com/projects/14258025772148928156?node-id=17397664564815022200",
+      "role": "Les camps apparaissent uniquement dans une projection finale séparée.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "htmlKind": "Native downloaded Stitch storyboard HTML. Animated prototypes are separate.",
+      "artifacts": {
+        "png": {
+          "path": "screens/m10/approved.png",
+          "sha256": "b1fbbe059c934be0730027c343a8bb3664bb2a114ec7b79fba7454799ea2a4df"
+        },
+        "html": {
+          "path": "screens/m10/approved.html",
+          "sha256": "d921553bb45637faf1455304085ff667ad4b9f1568dd1d50547327a5afb38d9b"
+        }
+      }
+    },
+    {
+      "key": "m11",
+      "title": "PROPOSAL — B9 — Victoire / état durable — Motion v1",
+      "screenId": "17519895206917221127",
+      "url": "https://stitch.withgoogle.com/projects/14258025772148928156?node-id=17519895206917221127",
+      "role": "L’accent citron existant porte le résultat ; aucun feu d’artifice ou effet plein écran.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "htmlKind": "Native downloaded Stitch storyboard HTML. Animated prototypes are separate.",
+      "artifacts": {
+        "png": {
+          "path": "screens/m11/approved.png",
+          "sha256": "0a85774c8541b06ef45100d11e61a62e9e7b5fdc309593d4cc8769498f7117e4"
+        },
+        "html": {
+          "path": "screens/m11/approved.html",
+          "sha256": "ae10886b4400c26509ba2309984abfb6ee93368b427242b232fac9db766dad38"
+        }
+      }
+    },
+    {
+      "key": "m12",
+      "title": "PROPOSAL — B10 — Manche suivante — Motion v1",
+      "screenId": "8368665799330953436",
+      "url": "https://stitch.withgoogle.com/projects/14258025772148928156?node-id=8368665799330953436",
+      "role": "Attendre le GM, puis montrer une nouvelle paire seulement quand elle est autorisée.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "htmlKind": "Native downloaded Stitch storyboard HTML. Animated prototypes are separate.",
+      "artifacts": {
+        "png": {
+          "path": "screens/m12/approved.png",
+          "sha256": "a865bb1134a2262e1ba32395d87b96a73080e5fc023a9bf96c075338b7918483"
+        },
+        "html": {
+          "path": "screens/m12/approved.html",
+          "sha256": "f91b81d00e132a0cd78da4fcff0a5dc400b0695762c1cfe47d9658aee8c79476"
+        }
+      }
+    }
+  ],
+  "supersededScreens": [
+    {
+      "key": "m07",
+      "screenId": "7059224676118189422",
+      "status": "SUPERSEDED",
+      "reason": "12/12 counter stability correction; not a new visual direction."
+    }
+  ],
+  "videos": [
+    {
+      "path": "videos/01-duo-vote-resultats-normal.webm",
+      "role": "Transitions, Duo, vote et résultats — normal",
+      "bytes": 864763,
+      "sha256": "7d446f173655ceb9fe55181562f7f5f27e5a7a01f575e338dd3f25b2712fba91"
+    },
+    {
+      "path": "videos/02-duo-vote-resultats-reduced.webm",
+      "role": "Transitions, Duo, vote et résultats — mouvement réduit",
+      "bytes": 663638,
+      "sha256": "ba574f34299d5ce92d02c50c2c4e7e173c158f6d272720fe8af558f91ec6b39b"
+    },
+    {
+      "path": "videos/03-affectations-3-6-12-normal.webm",
+      "role": "Affectations3,6,12 — normal",
+      "bytes": 936875,
+      "sha256": "9fb75652d23c3f6da51689ab7b6342497dcb3fbfab9aed54f9740666d5a3c905"
+    },
+    {
+      "path": "videos/04-affectations-12-reduced.webm",
+      "role": "Affectations12 — mouvement réduit",
+      "bytes": 410705,
+      "sha256": "9a42cc00522622e993c52258a3e3d76d10ddb96c08681e44144ef5d489b4b2e9"
+    },
+    {
+      "path": "videos/05-revelation-victoire-normal.webm",
+      "role": "Révélation, victoire, état durable et suivante — normal",
+      "bytes": 452693,
+      "sha256": "bfe3b066d0c3e826c0157cbd027e95eecde55ef9b35d45c720dd62af45635f2f"
+    },
+    {
+      "path": "videos/06-revelation-victoire-reduced.webm",
+      "role": "Révélation, victoire, état durable et suivante — réduit",
+      "bytes": 333987,
+      "sha256": "ac22b21f56217e8dccbdd42a2e090a8211208cdb7726a0012fa37f176b894565"
+    },
+    {
+      "path": "videos/07-nouvelle-manche-autorisee.webm",
+      "role": "Nouvelle paire explicitement autorisée",
+      "bytes": 99624,
+      "sha256": "b4ff1d55df67e5fb44a21a2a0c2b45d80f228ad47009a8dcc8f3ed337090d838"
+    },
+    {
+      "path": "videos/08-vote12-normal-puis-reduced.webm",
+      "role": "Vote12 complet — normal puis vrai média réduit",
+      "bytes": 298900,
+      "sha256": "db91eca41db20632b66a0378204ae24705d76faaf29aa6b3d47be9bc347ce576"
+    }
+  ],
+  "prototypes": [
+    "duo-anonyme.html",
+    "affectations-visibles.html",
+    "resultat-final-autorise.html",
+    "manche-suivante-autorisee.html"
+  ]
+}

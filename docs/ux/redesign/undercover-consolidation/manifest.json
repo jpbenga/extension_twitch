@@ -1,0 +1,639 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "humanApproved": true,
+  "sourceCommit": "d27458974b4c763e2911952b5295b4b0deae893d",
+  "projectId": "10111200334509943764",
+  "screens": [
+    {
+      "key": "ac1-desktop",
+      "title": "Préparer une manche",
+      "screenId": "10799724319586057959",
+      "url": "https://stitch.withgoogle.com/projects/10111200334509943764?node-id=10799724319586057959",
+      "role": "Préparer une paire avec priorité aux contenus et boutons image explicites.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "mapping": "A1 actuel + contrôles médias A2",
+      "backendHypothesis": false,
+      "device": "desktop",
+      "code": "AC1",
+      "stitchTitle": "PROPOSAL — AC1 — Préparer une manche — Desktop — v1",
+      "htmlKind": "Companion responsive design HTML; native Stitch resource is the approved PNG. No application implementation.",
+      "artifacts": {
+        "png": {
+          "path": "screens/ac1-desktop/approved.png",
+          "sha256": "317d4b4c87ce453fd6e403548a113188434fe55dfb65bdae07fcc349fde4c670"
+        },
+        "html": {
+          "path": "screens/ac1-desktop/approved.html",
+          "sha256": "3599286526b70cfd0787c2d32274294c907d23ed4d6d1c6f1cbe844d098400bc"
+        }
+      }
+    },
+    {
+      "key": "ac1-mobile",
+      "title": "Préparer une manche",
+      "screenId": "11127904455832831212",
+      "url": "https://stitch.withgoogle.com/projects/10111200334509943764?node-id=11127904455832831212",
+      "role": "Préparer une paire avec priorité aux contenus et boutons image explicites.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "mapping": "A1 actuel + contrôles médias A2",
+      "backendHypothesis": false,
+      "device": "mobile",
+      "code": "AC1",
+      "stitchTitle": "PROPOSAL — AC1 — Préparer une manche — Mobile — v1",
+      "htmlKind": "Companion responsive design HTML; native Stitch resource is the approved PNG. No application implementation.",
+      "artifacts": {
+        "png": {
+          "path": "screens/ac1-mobile/approved.png",
+          "sha256": "53048f7ed0f937a2d00b3af986fa9c5426489c0026cd4e85586401101a866a8e"
+        },
+        "html": {
+          "path": "screens/ac1-mobile/approved.html",
+          "sha256": "da1ae55045258f785170dfb8a8847b78c1020bf5f79e226b6cba91e7eb1be920"
+        }
+      }
+    },
+    {
+      "key": "ac2-desktop",
+      "title": "Ma partie Undercover",
+      "screenId": "6190494999432650411",
+      "url": "https://stitch.withgoogle.com/projects/10111200334509943764?node-id=6190494999432650411",
+      "role": "Nommer, ordonner, modifier, dupliquer et retirer les manches ; accéder aux autres parties.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "mapping": "A3 actuel renommé sans perte de capacité",
+      "backendHypothesis": false,
+      "device": "desktop",
+      "code": "AC2",
+      "stitchTitle": "PROPOSAL — AC2 — Ma partie Undercover — Desktop — v1",
+      "htmlKind": "Companion responsive design HTML; native Stitch resource is the approved PNG. No application implementation.",
+      "artifacts": {
+        "png": {
+          "path": "screens/ac2-desktop/approved.png",
+          "sha256": "6b1f44390931641daf9b5e695d2cbacf4ab179dc4eb419487d0d5463dd3378a1"
+        },
+        "html": {
+          "path": "screens/ac2-desktop/approved.html",
+          "sha256": "bab50d41567b9ba4edbc86b1532df4fe61f4e4874b60f37a0bdfd4684e39e381"
+        }
+      }
+    },
+    {
+      "key": "ac2-mobile",
+      "title": "Ma partie Undercover",
+      "screenId": "6782448745670581428",
+      "url": "https://stitch.withgoogle.com/projects/10111200334509943764?node-id=6782448745670581428",
+      "role": "Nommer, ordonner, modifier, dupliquer et retirer les manches ; accéder aux autres parties.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "mapping": "A3 actuel renommé sans perte de capacité",
+      "backendHypothesis": false,
+      "device": "mobile",
+      "code": "AC2",
+      "stitchTitle": "PROPOSAL — AC2 — Ma partie Undercover — Mobile — v1",
+      "htmlKind": "Companion responsive design HTML; native Stitch resource is the approved PNG. No application implementation.",
+      "artifacts": {
+        "png": {
+          "path": "screens/ac2-mobile/approved.png",
+          "sha256": "49b01b7623e1884bd1065b540626ff7cb274aeb57adc7f84497e054984f8505b"
+        },
+        "html": {
+          "path": "screens/ac2-mobile/approved.html",
+          "sha256": "a813b031c5fe8a77ed6b418202ea007abe0c7e8551ff738661adae111dbe7571"
+        }
+      }
+    },
+    {
+      "key": "ac3-desktop",
+      "title": "Modifier une manche",
+      "screenId": "9651573331645606325",
+      "url": "https://stitch.withgoogle.com/projects/10111200334509943764?node-id=9651573331645606325",
+      "role": "Éditer indépendamment les contenus et conserver les contrôles média existants.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "mapping": "A2 actuel",
+      "backendHypothesis": false,
+      "device": "desktop",
+      "code": "AC3",
+      "stitchTitle": "PROPOSAL — AC3 — Modifier une manche — Desktop — v1",
+      "htmlKind": "Companion responsive design HTML; native Stitch resource is the approved PNG. No application implementation.",
+      "artifacts": {
+        "png": {
+          "path": "screens/ac3-desktop/approved.png",
+          "sha256": "b82bc1df9b84a86b4fdbf12cf23b5c8da72cde2aa9f2997221e0bde3367abcc9"
+        },
+        "html": {
+          "path": "screens/ac3-desktop/approved.html",
+          "sha256": "0c79925133728ae53af3ce55a425d1de111e0c9f2501bb70d0ffaba56ed76c69"
+        }
+      }
+    },
+    {
+      "key": "ac3-mobile",
+      "title": "Modifier une manche",
+      "screenId": "15702686537556742762",
+      "url": "https://stitch.withgoogle.com/projects/10111200334509943764?node-id=15702686537556742762",
+      "role": "Éditer indépendamment les contenus et conserver les contrôles média existants.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "mapping": "A2 actuel",
+      "backendHypothesis": false,
+      "device": "mobile",
+      "code": "AC3",
+      "stitchTitle": "PROPOSAL — AC3 — Modifier une manche — Mobile — v1",
+      "htmlKind": "Companion responsive design HTML; native Stitch resource is the approved PNG. No application implementation.",
+      "artifacts": {
+        "png": {
+          "path": "screens/ac3-mobile/approved.png",
+          "sha256": "623afe5a60437b6766c56d6f10f27f70f915b425980cdbdc1a6195d4a13e5e31"
+        },
+        "html": {
+          "path": "screens/ac3-mobile/approved.html",
+          "sha256": "d8749d0d803385da4a13c75c47100287671c86f3a8254c60f8ef9b179c408966"
+        }
+      }
+    },
+    {
+      "key": "ac4-desktop",
+      "title": "Réutiliser une manche",
+      "screenId": "11974821631520811112",
+      "url": "https://stitch.withgoogle.com/projects/10111200334509943764?node-id=11974821631520811112",
+      "role": "Retrouver et copier une ancienne paire, puis modifier seulement ce qui est utile.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "mapping": "A4 actuel",
+      "backendHypothesis": false,
+      "device": "desktop",
+      "code": "AC4",
+      "stitchTitle": "PROPOSAL — AC4 — Réutiliser une manche — Desktop — v1",
+      "htmlKind": "Companion responsive design HTML; native Stitch resource is the approved PNG. No application implementation.",
+      "artifacts": {
+        "png": {
+          "path": "screens/ac4-desktop/approved.png",
+          "sha256": "a6b051d9c6df012f76bcdf1269984f14d30a679b3eff84f606435cce75c1c56b"
+        },
+        "html": {
+          "path": "screens/ac4-desktop/approved.html",
+          "sha256": "5ca948368d490375ab9d6fab67e1e769d459ee281985dc5a3f1b0aa81535ab50"
+        }
+      }
+    },
+    {
+      "key": "ac4-mobile",
+      "title": "Réutiliser une manche",
+      "screenId": "2753791321668628263",
+      "url": "https://stitch.withgoogle.com/projects/10111200334509943764?node-id=2753791321668628263",
+      "role": "Retrouver et copier une ancienne paire, puis modifier seulement ce qui est utile.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "mapping": "A4 actuel",
+      "backendHypothesis": false,
+      "device": "mobile",
+      "code": "AC4",
+      "stitchTitle": "PROPOSAL — AC4 — Réutiliser une manche — Mobile — v1",
+      "htmlKind": "Companion responsive design HTML; native Stitch resource is the approved PNG. No application implementation.",
+      "artifacts": {
+        "png": {
+          "path": "screens/ac4-mobile/approved.png",
+          "sha256": "35c8b90be95e130b0fe70ad1a8ff3843c9e8c22a52b6dbc822f765ee0508891c"
+        },
+        "html": {
+          "path": "screens/ac4-mobile/approved.html",
+          "sha256": "d88de9ae1f7c8409d585c50d9ebebc08714015932830414f96e3d01b40994865"
+        }
+      }
+    },
+    {
+      "key": "ac5-desktop",
+      "title": "Image indisponible",
+      "screenId": "2121032367128062301",
+      "url": "https://stitch.withgoogle.com/projects/10111200334509943764?node-id=2121032367128062301",
+      "role": "Reconnecter une image sans bloquer les textes, la manche ou la partie.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "mapping": "A5 actuel",
+      "backendHypothesis": false,
+      "device": "desktop",
+      "code": "AC5",
+      "stitchTitle": "PROPOSAL — AC5 — Image indisponible — Desktop — v1",
+      "htmlKind": "Companion responsive design HTML; native Stitch resource is the approved PNG. No application implementation.",
+      "artifacts": {
+        "png": {
+          "path": "screens/ac5-desktop/approved.png",
+          "sha256": "52773f0ef944d5a1cb2cf3110c5e3b8b0a675159976b7f6079f1189c8172a244"
+        },
+        "html": {
+          "path": "screens/ac5-desktop/approved.html",
+          "sha256": "7a1803d7ad925bdb4bfa1f7ea29ec07ca6f9e54a30d712ac7417a153052963ad"
+        }
+      }
+    },
+    {
+      "key": "ac5-mobile",
+      "title": "Image indisponible",
+      "screenId": "16744822500271047799",
+      "url": "https://stitch.withgoogle.com/projects/10111200334509943764?node-id=16744822500271047799",
+      "role": "Reconnecter une image sans bloquer les textes, la manche ou la partie.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "mapping": "A5 actuel",
+      "backendHypothesis": false,
+      "device": "mobile",
+      "code": "AC5",
+      "stitchTitle": "PROPOSAL — AC5 — Image indisponible — Mobile — v1",
+      "htmlKind": "Companion responsive design HTML; native Stitch resource is the approved PNG. No application implementation.",
+      "artifacts": {
+        "png": {
+          "path": "screens/ac5-mobile/approved.png",
+          "sha256": "85bb53dcf5cf5f25bf4b4db08828404c05a7f0286655007a3d94f195b2b2bbcd"
+        },
+        "html": {
+          "path": "screens/ac5-mobile/approved.html",
+          "sha256": "9a3913b1b7e7b300e0dcf9509bcdd204dde6d736114bf29e845f98899623bc64"
+        }
+      }
+    },
+    {
+      "key": "ac6-desktop",
+      "title": "Vérifier la partie",
+      "screenId": "5966563440130101435",
+      "url": "https://stitch.withgoogle.com/projects/10111200334509943764?node-id=5966563440130101435",
+      "role": "Vérifier chaque manche puis ouvrir le salon sans distribution implicite.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "mapping": "A6 actuel",
+      "backendHypothesis": false,
+      "device": "desktop",
+      "code": "AC6",
+      "stitchTitle": "PROPOSAL — AC6 — Vérifier la partie — Desktop — v1",
+      "htmlKind": "Companion responsive design HTML; native Stitch resource is the approved PNG. No application implementation.",
+      "artifacts": {
+        "png": {
+          "path": "screens/ac6-desktop/approved.png",
+          "sha256": "dd5c7219097f83cf3e0f44883d9a6164703770270f81fdfbd7a348f64bd9542b"
+        },
+        "html": {
+          "path": "screens/ac6-desktop/approved.html",
+          "sha256": "d65528a11455ea48ce810a9935cfa973e9a2377edd8a31b0f19446bd8ffe9366"
+        }
+      }
+    },
+    {
+      "key": "ac6-mobile",
+      "title": "Vérifier la partie",
+      "screenId": "14098877930165555928",
+      "url": "https://stitch.withgoogle.com/projects/10111200334509943764?node-id=14098877930165555928",
+      "role": "Vérifier chaque manche puis ouvrir le salon sans distribution implicite.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "mapping": "A6 actuel",
+      "backendHypothesis": false,
+      "device": "mobile",
+      "code": "AC6",
+      "stitchTitle": "PROPOSAL — AC6 — Vérifier la partie — Mobile — v1",
+      "htmlKind": "Companion responsive design HTML; native Stitch resource is the approved PNG. No application implementation.",
+      "artifacts": {
+        "png": {
+          "path": "screens/ac6-mobile/approved.png",
+          "sha256": "d321c2c97b9f80a61a4f9382508248ed75dfc153dd461fd23d45662c1709f99e"
+        },
+        "html": {
+          "path": "screens/ac6-mobile/approved.html",
+          "sha256": "a806477a3705078ef8b35696ee85664054a6aeb17630ab492a5107bd223182e9"
+        }
+      }
+    },
+    {
+      "key": "ac7-desktop",
+      "title": "Diffusion simple",
+      "screenId": "18172383942395181227",
+      "url": "https://stitch.withgoogle.com/projects/10111200334509943764?node-id=18172383942395181227",
+      "role": "Exposer le preset TV et le mode public ; reléguer l’éditeur existant aux ajustements avancés.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "mapping": "Nouveau point d’entrée ; renderer B6 conservé",
+      "backendHypothesis": false,
+      "device": "desktop",
+      "code": "AC7",
+      "stitchTitle": "PROPOSAL — AC7 — Diffusion simple — Desktop — v1",
+      "htmlKind": "Companion responsive design HTML; native Stitch resource is the approved PNG. No application implementation.",
+      "artifacts": {
+        "png": {
+          "path": "screens/ac7-desktop/approved.png",
+          "sha256": "df6964c42f55dea4f6e8603fd85252d4f353c5f5ae4ccf3a2f65b083be6f4f26"
+        },
+        "html": {
+          "path": "screens/ac7-desktop/approved.html",
+          "sha256": "47eac3c746a3004d4b55d51014719bd99beea0efd0ed6cba90b26430f6786484"
+        }
+      }
+    },
+    {
+      "key": "ac7-mobile",
+      "title": "Diffusion simple",
+      "screenId": "953953591291783281",
+      "url": "https://stitch.withgoogle.com/projects/10111200334509943764?node-id=953953591291783281",
+      "role": "Exposer le preset TV et le mode public ; reléguer l’éditeur existant aux ajustements avancés.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "mapping": "Nouveau point d’entrée ; renderer B6 conservé",
+      "backendHypothesis": false,
+      "device": "mobile",
+      "code": "AC7",
+      "stitchTitle": "PROPOSAL — AC7 — Diffusion simple — Mobile — v1",
+      "htmlKind": "Companion responsive design HTML; native Stitch resource is the approved PNG. No application implementation.",
+      "artifacts": {
+        "png": {
+          "path": "screens/ac7-mobile/approved.png",
+          "sha256": "ce4c1fc1ba43d19050a363aa0d06c662073b61c3cfc1fa6bc4011b91dcc5c889"
+        },
+        "html": {
+          "path": "screens/ac7-mobile/approved.html",
+          "sha256": "32951c07b25f7529da81020c1b46abb858cc7995f0148642ad35296442b5cd37"
+        }
+      }
+    },
+    {
+      "key": "ac8-desktop",
+      "title": "Adopter le nouvel habillage",
+      "screenId": "14001232631970840304",
+      "url": "https://stitch.withgoogle.com/projects/10111200334509943764?node-id=14001232631970840304",
+      "role": "Adopter explicitement TV pour un ancien layout sans écrasement silencieux.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "mapping": "Nouveau ; anciens layouts compatibles conservés",
+      "backendHypothesis": false,
+      "device": "desktop",
+      "code": "AC8",
+      "stitchTitle": "PROPOSAL — AC8 — Adopter le nouvel habillage — Desktop — v1",
+      "htmlKind": "Companion responsive design HTML; native Stitch resource is the approved PNG. No application implementation.",
+      "artifacts": {
+        "png": {
+          "path": "screens/ac8-desktop/approved.png",
+          "sha256": "85aedc2dfde153e28fc2148382495a3515b938340d5848446cbb5f935bfcccf1"
+        },
+        "html": {
+          "path": "screens/ac8-desktop/approved.html",
+          "sha256": "0e0ecc2e0f31400be0b009478307a2bd3c1f1553af3c095258e19999879264c5"
+        }
+      }
+    },
+    {
+      "key": "ac8-mobile",
+      "title": "Adopter le nouvel habillage",
+      "screenId": "12436787788887020343",
+      "url": "https://stitch.withgoogle.com/projects/10111200334509943764?node-id=12436787788887020343",
+      "role": "Adopter explicitement TV pour un ancien layout sans écrasement silencieux.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "mapping": "Nouveau ; anciens layouts compatibles conservés",
+      "backendHypothesis": false,
+      "device": "mobile",
+      "code": "AC8",
+      "stitchTitle": "PROPOSAL — AC8 — Adopter le nouvel habillage — Mobile — v1",
+      "htmlKind": "Companion responsive design HTML; native Stitch resource is the approved PNG. No application implementation.",
+      "artifacts": {
+        "png": {
+          "path": "screens/ac8-mobile/approved.png",
+          "sha256": "922526969840c2f5c2ccbf705f5b77616e02d9cac8f74ab119bee2d1a7c99afb"
+        },
+        "html": {
+          "path": "screens/ac8-mobile/approved.html",
+          "sha256": "6a2b858f495941a8523bdf3fcdf4fc4a65c199320c2399b051376d3de990f302"
+        }
+      }
+    },
+    {
+      "key": "ac9-desktop",
+      "title": "Menu de partie",
+      "screenId": "10496543921698593942",
+      "url": "https://stitch.withgoogle.com/projects/10111200334509943764?node-id=10496543921698593942",
+      "role": "Ajouter un menu secondaire à la régie existante et clarifier Partie, Manche et Cycle. Étude ciblée sur contexte simplifié : ne remplace pas la régie B5.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "mapping": "Extension ciblée B5 ; pas de refonte intégrale",
+      "backendHypothesis": true,
+      "device": "desktop",
+      "code": "AC9",
+      "stitchTitle": "PROPOSAL — FOCUS — AC9 — Menu de partie — Desktop — v1",
+      "htmlKind": "Companion responsive design HTML; native Stitch resource is the approved PNG. No application implementation.",
+      "artifacts": {
+        "png": {
+          "path": "screens/ac9-desktop/approved.png",
+          "sha256": "aecb05cd81c3e6135eb634ded4281c283410653abc6068799312d2d9761d9058"
+        },
+        "html": {
+          "path": "screens/ac9-desktop/approved.html",
+          "sha256": "45227755c7811fff72f59d2136424f34f95ae05723c772f52f7a040b98282530"
+        }
+      }
+    },
+    {
+      "key": "ac9-mobile",
+      "title": "Menu de partie",
+      "screenId": "14074471760111286395",
+      "url": "https://stitch.withgoogle.com/projects/10111200334509943764?node-id=14074471760111286395",
+      "role": "Ajouter un menu secondaire à la régie existante et clarifier Partie, Manche et Cycle. Étude ciblée sur contexte simplifié : ne remplace pas la régie B5.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "mapping": "Extension ciblée B5 ; pas de refonte intégrale",
+      "backendHypothesis": true,
+      "device": "mobile",
+      "code": "AC9",
+      "stitchTitle": "PROPOSAL — FOCUS — AC9 — Menu de partie — Mobile — v1",
+      "htmlKind": "Companion responsive design HTML; native Stitch resource is the approved PNG. No application implementation.",
+      "artifacts": {
+        "png": {
+          "path": "screens/ac9-mobile/approved.png",
+          "sha256": "9d873efc5c724fdec5bf6461a9fddb69b8f87e3fa3e99448ca23c6a0f6f48565"
+        },
+        "html": {
+          "path": "screens/ac9-mobile/approved.html",
+          "sha256": "b0c29d585d90aa7094246de4d17b7ac245ec3b342efd82e62ba866e75aaf8bf2"
+        }
+      }
+    },
+    {
+      "key": "ac10-desktop",
+      "title": "Partie en pause",
+      "screenId": "2434876282202865785",
+      "url": "https://stitch.withgoogle.com/projects/10111200334509943764?node-id=2434876282202865785",
+      "role": "Montrer une pause réversible et une action Reprendre, sans inventer de conséquences serveur. Étude ciblée sur contexte simplifié : ne remplace pas la régie B5.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "mapping": "Nouveau état B5 hypothétique",
+      "backendHypothesis": true,
+      "device": "desktop",
+      "code": "AC10",
+      "stitchTitle": "PROPOSAL — FOCUS — AC10 — Partie en pause — Desktop — v1",
+      "htmlKind": "Companion responsive design HTML; native Stitch resource is the approved PNG. No application implementation.",
+      "artifacts": {
+        "png": {
+          "path": "screens/ac10-desktop/approved.png",
+          "sha256": "f042a51f77f8589283833e5b01b6b7bcc8a5c3bd9501714219b45c717234ccc5"
+        },
+        "html": {
+          "path": "screens/ac10-desktop/approved.html",
+          "sha256": "7981f82429d0cb985a9b61e74f9f1601cfef21a4e1d943c7e9d2ee783c3eea00"
+        }
+      }
+    },
+    {
+      "key": "ac10-mobile",
+      "title": "Partie en pause",
+      "screenId": "1175177204272375976",
+      "url": "https://stitch.withgoogle.com/projects/10111200334509943764?node-id=1175177204272375976",
+      "role": "Montrer une pause réversible et une action Reprendre, sans inventer de conséquences serveur. Étude ciblée sur contexte simplifié : ne remplace pas la régie B5.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "mapping": "Nouveau état B5 hypothétique",
+      "backendHypothesis": true,
+      "device": "mobile",
+      "code": "AC10",
+      "stitchTitle": "PROPOSAL — FOCUS — AC10 — Partie en pause — Mobile — v1",
+      "htmlKind": "Companion responsive design HTML; native Stitch resource is the approved PNG. No application implementation.",
+      "artifacts": {
+        "png": {
+          "path": "screens/ac10-mobile/approved.png",
+          "sha256": "41c8cc709649f1100cc5ee3d002edf88d73443df8e17a91dc739b3c4ea6b14f0"
+        },
+        "html": {
+          "path": "screens/ac10-mobile/approved.html",
+          "sha256": "576e0fd8004848d1af8a718cd3d71feb9884b3ce8d2c72a031990d804e566183"
+        }
+      }
+    },
+    {
+      "key": "ac11-mobile",
+      "title": "Terminer une manche",
+      "screenId": "4669800090653848944",
+      "url": "https://stitch.withgoogle.com/projects/10111200334509943764?node-id=4669800090653848944",
+      "role": "Confirmer la fin anticipée de la manche en cours, distincte de toute la partie.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "mapping": "Patron confirmation existant ; nouvelle intention",
+      "backendHypothesis": true,
+      "device": "mobile",
+      "code": "AC11",
+      "stitchTitle": "PROPOSAL — AC11 — Terminer une manche — Mobile — v1",
+      "htmlKind": "Companion responsive design HTML; native Stitch resource is the approved PNG. No application implementation.",
+      "artifacts": {
+        "png": {
+          "path": "screens/ac11-mobile/approved.png",
+          "sha256": "e3c97373dfa454ff6e4c33ab6fbf5b987edd5eec2b45e130ed80bc413b880b99"
+        },
+        "html": {
+          "path": "screens/ac11-mobile/approved.html",
+          "sha256": "2fbf232ff7b3f7fbddac44f79a15112a94983c95cdbda4983e7e3f65823fabc0"
+        }
+      }
+    },
+    {
+      "key": "ac12-mobile",
+      "title": "Terminer toute la partie",
+      "screenId": "17719171853329139058",
+      "url": "https://stitch.withgoogle.com/projects/10111200334509943764?node-id=17719171853329139058",
+      "role": "Confirmer la clôture volontaire de tout le contenant préparé.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "mapping": "Patron confirmation existant ; nouvelle intention",
+      "backendHypothesis": true,
+      "device": "mobile",
+      "code": "AC12",
+      "stitchTitle": "PROPOSAL — AC12 — Terminer toute la partie — Mobile — v1",
+      "htmlKind": "Companion responsive design HTML; native Stitch resource is the approved PNG. No application implementation.",
+      "artifacts": {
+        "png": {
+          "path": "screens/ac12-mobile/approved.png",
+          "sha256": "21be976066d8e6bbbbeaa1c76584d87b58d419948b172761ade0961bae158e63"
+        },
+        "html": {
+          "path": "screens/ac12-mobile/approved.html",
+          "sha256": "383ab00fb5715eb3bbe414b14c97de1726f4c6b8408e2fb843b9bf3900782d99"
+        }
+      }
+    },
+    {
+      "key": "ac13-mobile",
+      "title": "Abandonner la partie",
+      "screenId": "1506107117586628862",
+      "url": "https://stitch.withgoogle.com/projects/10111200334509943764?node-id=1506107117586628862",
+      "role": "Confirmer une sortie exceptionnelle distincte du reset salon.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "mapping": "Patron confirmation existant ; nouvelle intention",
+      "backendHypothesis": true,
+      "device": "mobile",
+      "code": "AC13",
+      "stitchTitle": "PROPOSAL — AC13 — Abandonner la partie — Mobile — v1",
+      "htmlKind": "Companion responsive design HTML; native Stitch resource is the approved PNG. No application implementation.",
+      "artifacts": {
+        "png": {
+          "path": "screens/ac13-mobile/approved.png",
+          "sha256": "b27c8ce565b6896a24eba84cc42902dbf375ca97a5074aea4faebc5886baf98f"
+        },
+        "html": {
+          "path": "screens/ac13-mobile/approved.html",
+          "sha256": "770535c88986e3a7f4556af75d167f7448966703c7669381485dcc2c8b27f185"
+        }
+      }
+    },
+    {
+      "key": "ac14-mobile",
+      "title": "Retirer une manche",
+      "screenId": "12627752459277758418",
+      "url": "https://stitch.withgoogle.com/projects/10111200334509943764?node-id=12627752459277758418",
+      "role": "Préserver la confirmation du retrait depuis le conducteur.",
+      "status": "APPROVED",
+      "humanApproved": true,
+      "resourceVerified": true,
+      "mapping": "Confirmation existante conservée",
+      "backendHypothesis": false,
+      "device": "mobile",
+      "code": "AC14",
+      "stitchTitle": "PROPOSAL — AC14 — Retirer une manche — Mobile — v1",
+      "htmlKind": "Companion responsive design HTML; native Stitch resource is the approved PNG. No application implementation.",
+      "artifacts": {
+        "png": {
+          "path": "screens/ac14-mobile/approved.png",
+          "sha256": "b772ea9ec7fdaa62f0ec7a19c202679603807a5a9a79c5c949ad1688b00e9229"
+        },
+        "html": {
+          "path": "screens/ac14-mobile/approved.html",
+          "sha256": "b494f3e2f8c0b36b29781f85ec259af2cce099c822b935c2e5301d14fad736eb"
+        }
+      }
+    }
+  ],
+  "supersededScreens": [
+    {
+      "screenId": "53d458a964c2422987c225e3019b095b",
+      "status": "SUPERSEDED"
+    }
+  ]
+}

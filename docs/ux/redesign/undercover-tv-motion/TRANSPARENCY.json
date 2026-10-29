@@ -1,0 +1,342 @@
+[
+  {
+    "file": "proofs/assignments-12-normal-alpha.png",
+    "mode": "RGBA",
+    "size": [
+      1920,
+      1080
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 79.82
+  },
+  {
+    "file": "proofs/assignments-12-reduced-alpha.png",
+    "mode": "RGBA",
+    "size": [
+      1920,
+      1080
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 79.82
+  },
+  {
+    "file": "proofs/assignments-3-normal-alpha.png",
+    "mode": "RGBA",
+    "size": [
+      1920,
+      1080
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 80.99
+  },
+  {
+    "file": "proofs/assignments-3-reduced-alpha.png",
+    "mode": "RGBA",
+    "size": [
+      1920,
+      1080
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 80.99
+  },
+  {
+    "file": "proofs/assignments-6-normal-alpha.png",
+    "mode": "RGBA",
+    "size": [
+      1920,
+      1080
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 79.9
+  },
+  {
+    "file": "proofs/assignments-6-reduced-alpha.png",
+    "mode": "RGBA",
+    "size": [
+      1920,
+      1080
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 79.9
+  },
+  {
+    "file": "proofs/duo-3-normal-alpha.png",
+    "mode": "RGBA",
+    "size": [
+      1920,
+      1080
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 85.43
+  },
+  {
+    "file": "proofs/duo-3-reduced-alpha.png",
+    "mode": "RGBA",
+    "size": [
+      1920,
+      1080
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 85.43
+  },
+  {
+    "file": "proofs/durable-3-normal-alpha.png",
+    "mode": "RGBA",
+    "size": [
+      1920,
+      1080
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 92.61
+  },
+  {
+    "file": "proofs/durable-3-reduced-alpha.png",
+    "mode": "RGBA",
+    "size": [
+      1920,
+      1080
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 92.61
+  },
+  {
+    "file": "proofs/elimination-3-normal-alpha.png",
+    "mode": "RGBA",
+    "size": [
+      1920,
+      1080
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 88.22
+  },
+  {
+    "file": "proofs/elimination-3-reduced-alpha.png",
+    "mode": "RGBA",
+    "size": [
+      1920,
+      1080
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 88.22
+  },
+  {
+    "file": "proofs/manual-reduced-micro-alpha.png",
+    "mode": "RGBA",
+    "size": [
+      1920,
+      1080
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 94.55
+  },
+  {
+    "file": "proofs/micro-3-normal-alpha.png",
+    "mode": "RGBA",
+    "size": [
+      1920,
+      1080
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 89.38
+  },
+  {
+    "file": "proofs/micro-3-reduced-alpha.png",
+    "mode": "RGBA",
+    "size": [
+      1920,
+      1080
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 89.38
+  },
+  {
+    "file": "proofs/next-3-normal-alpha.png",
+    "mode": "RGBA",
+    "size": [
+      1920,
+      1080
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 83.91
+  },
+  {
+    "file": "proofs/next-3-reduced-alpha.png",
+    "mode": "RGBA",
+    "size": [
+      1920,
+      1080
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 83.91
+  },
+  {
+    "file": "proofs/reveal-3-normal-alpha.png",
+    "mode": "RGBA",
+    "size": [
+      1920,
+      1080
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 77.24
+  },
+  {
+    "file": "proofs/reveal-3-reduced-alpha.png",
+    "mode": "RGBA",
+    "size": [
+      1920,
+      1080
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 77.24
+  },
+  {
+    "file": "proofs/tie-3-normal-alpha.png",
+    "mode": "RGBA",
+    "size": [
+      1920,
+      1080
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 87.45
+  },
+  {
+    "file": "proofs/tie-3-reduced-alpha.png",
+    "mode": "RGBA",
+    "size": [
+      1920,
+      1080
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 87.45
+  },
+  {
+    "file": "proofs/transitions-cycle-alpha.png",
+    "mode": "RGBA",
+    "size": [
+      1920,
+      1080
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 89.38
+  },
+  {
+    "file": "proofs/twitch-12-page4-390.png",
+    "mode": "RGBA",
+    "size": [
+      390,
+      220
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 78.76
+  },
+  {
+    "file": "proofs/twitch-duo-390.png",
+    "mode": "RGBA",
+    "size": [
+      390,
+      220
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 84.87
+  },
+  {
+    "file": "proofs/twitch-vote-390.png",
+    "mode": "RGBA",
+    "size": [
+      390,
+      220
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 87.21
+  },
+  {
+    "file": "proofs/victory-3-normal-alpha.png",
+    "mode": "RGBA",
+    "size": [
+      1920,
+      1080
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 88.46
+  },
+  {
+    "file": "proofs/victory-3-reduced-alpha.png",
+    "mode": "RGBA",
+    "size": [
+      1920,
+      1080
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 88.46
+  },
+  {
+    "file": "proofs/vote-12-normal-alpha.png",
+    "mode": "RGBA",
+    "size": [
+      1920,
+      1080
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 88.32
+  },
+  {
+    "file": "proofs/vote-12-reduced-alpha.png",
+    "mode": "RGBA",
+    "size": [
+      1920,
+      1080
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 88.32
+  },
+  {
+    "file": "proofs/vote12-closed-alpha.png",
+    "mode": "RGBA",
+    "size": [
+      1920,
+      1080
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 88.32
+  },
+  {
+    "file": "proofs/vote12-complete-normal-390.png",
+    "mode": "RGBA",
+    "size": [
+      390,
+      220
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 87.8
+  },
+  {
+    "file": "proofs/vote12-complete-normal-alpha.png",
+    "mode": "RGBA",
+    "size": [
+      1920,
+      1080
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 88.32
+  },
+  {
+    "file": "proofs/vote12-complete-reduced-390.png",
+    "mode": "RGBA",
+    "size": [
+      390,
+      220
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 87.8
+  },
+  {
+    "file": "proofs/vote12-complete-reduced-alpha.png",
+    "mode": "RGBA",
+    "size": [
+      1920,
+      1080
+    ],
+    "centerAlpha": 0,
+    "transparentPercent": 88.32
+  }
+]

@@ -1,0 +1,322 @@
+[
+  {
+    "state": {
+      "state": "vote",
+      "people": 12,
+      "page": 0,
+      "speaker": 0,
+      "votes": 0,
+      "reduced": false,
+      "projection": "anonymous"
+    },
+    "event": {
+      "x": 600,
+      "y": 856,
+      "width": 720,
+      "height": 180,
+      "top": 856,
+      "right": 1320,
+      "bottom": 1036,
+      "left": 600
+    },
+    "counter": {
+      "x": 646.984375,
+      "y": 930,
+      "width": 626.03125,
+      "height": 70.390625,
+      "top": 930,
+      "right": 1273.015625,
+      "bottom": 1000.390625,
+      "left": 646.984375
+    },
+    "font": "64px"
+  },
+  {
+    "state": {
+      "state": "vote",
+      "people": 12,
+      "page": 0,
+      "speaker": 0,
+      "votes": 9,
+      "reduced": false,
+      "projection": "anonymous"
+    },
+    "event": {
+      "x": 600,
+      "y": 856,
+      "width": 720,
+      "height": 180,
+      "top": 856,
+      "right": 1320,
+      "bottom": 1036,
+      "left": 600
+    },
+    "counter": {
+      "x": 646.984375,
+      "y": 930,
+      "width": 626.03125,
+      "height": 70.390625,
+      "top": 930,
+      "right": 1273.015625,
+      "bottom": 1000.390625,
+      "left": 646.984375
+    },
+    "font": "64px"
+  },
+  {
+    "state": {
+      "state": "vote",
+      "people": 12,
+      "page": 0,
+      "speaker": 0,
+      "votes": 10,
+      "reduced": false,
+      "projection": "anonymous"
+    },
+    "event": {
+      "x": 600,
+      "y": 856,
+      "width": 720,
+      "height": 180,
+      "top": 856,
+      "right": 1320,
+      "bottom": 1036,
+      "left": 600
+    },
+    "counter": {
+      "x": 646.984375,
+      "y": 930,
+      "width": 626.03125,
+      "height": 70.390625,
+      "top": 930,
+      "right": 1273.015625,
+      "bottom": 1000.390625,
+      "left": 646.984375
+    },
+    "font": "64px"
+  },
+  {
+    "state": {
+      "state": "vote",
+      "people": 12,
+      "page": 0,
+      "speaker": 0,
+      "votes": 11,
+      "reduced": false,
+      "projection": "anonymous"
+    },
+    "event": {
+      "x": 600,
+      "y": 856,
+      "width": 720,
+      "height": 180,
+      "top": 856,
+      "right": 1320,
+      "bottom": 1036,
+      "left": 600
+    },
+    "counter": {
+      "x": 646.984375,
+      "y": 930,
+      "width": 626.03125,
+      "height": 70.390625,
+      "top": 930,
+      "right": 1273.015625,
+      "bottom": 1000.390625,
+      "left": 646.984375
+    },
+    "font": "64px"
+  },
+  {
+    "state": {
+      "state": "vote",
+      "people": 12,
+      "page": 0,
+      "speaker": 0,
+      "votes": 12,
+      "reduced": false,
+      "projection": "anonymous"
+    },
+    "event": {
+      "x": 600,
+      "y": 856,
+      "width": 720,
+      "height": 180,
+      "top": 856,
+      "right": 1320,
+      "bottom": 1036,
+      "left": 600
+    },
+    "counter": {
+      "x": 646.984375,
+      "y": 930,
+      "width": 626.03125,
+      "height": 70.390625,
+      "top": 930,
+      "right": 1273.015625,
+      "bottom": 1000.390625,
+      "left": 646.984375
+    },
+    "font": "64px"
+  },
+  {
+    "state": {
+      "state": "vote",
+      "people": 12,
+      "page": 0,
+      "speaker": 0,
+      "votes": 0,
+      "reduced": true,
+      "projection": "anonymous"
+    },
+    "event": {
+      "x": 600,
+      "y": 856,
+      "width": 720,
+      "height": 180,
+      "top": 856,
+      "right": 1320,
+      "bottom": 1036,
+      "left": 600
+    },
+    "counter": {
+      "x": 646.984375,
+      "y": 930,
+      "width": 626.03125,
+      "height": 70.390625,
+      "top": 930,
+      "right": 1273.015625,
+      "bottom": 1000.390625,
+      "left": 646.984375
+    },
+    "font": "64px"
+  },
+  {
+    "state": {
+      "state": "vote",
+      "people": 12,
+      "page": 0,
+      "speaker": 0,
+      "votes": 9,
+      "reduced": true,
+      "projection": "anonymous"
+    },
+    "event": {
+      "x": 600,
+      "y": 856,
+      "width": 720,
+      "height": 180,
+      "top": 856,
+      "right": 1320,
+      "bottom": 1036,
+      "left": 600
+    },
+    "counter": {
+      "x": 646.984375,
+      "y": 930,
+      "width": 626.03125,
+      "height": 70.390625,
+      "top": 930,
+      "right": 1273.015625,
+      "bottom": 1000.390625,
+      "left": 646.984375
+    },
+    "font": "64px"
+  },
+  {
+    "state": {
+      "state": "vote",
+      "people": 12,
+      "page": 0,
+      "speaker": 0,
+      "votes": 10,
+      "reduced": true,
+      "projection": "anonymous"
+    },
+    "event": {
+      "x": 600,
+      "y": 856,
+      "width": 720,
+      "height": 180,
+      "top": 856,
+      "right": 1320,
+      "bottom": 1036,
+      "left": 600
+    },
+    "counter": {
+      "x": 646.984375,
+      "y": 930,
+      "width": 626.03125,
+      "height": 70.390625,
+      "top": 930,
+      "right": 1273.015625,
+      "bottom": 1000.390625,
+      "left": 646.984375
+    },
+    "font": "64px"
+  },
+  {
+    "state": {
+      "state": "vote",
+      "people": 12,
+      "page": 0,
+      "speaker": 0,
+      "votes": 11,
+      "reduced": true,
+      "projection": "anonymous"
+    },
+    "event": {
+      "x": 600,
+      "y": 856,
+      "width": 720,
+      "height": 180,
+      "top": 856,
+      "right": 1320,
+      "bottom": 1036,
+      "left": 600
+    },
+    "counter": {
+      "x": 646.984375,
+      "y": 930,
+      "width": 626.03125,
+      "height": 70.390625,
+      "top": 930,
+      "right": 1273.015625,
+      "bottom": 1000.390625,
+      "left": 646.984375
+    },
+    "font": "64px"
+  },
+  {
+    "state": {
+      "state": "vote",
+      "people": 12,
+      "page": 0,
+      "speaker": 0,
+      "votes": 12,
+      "reduced": true,
+      "projection": "anonymous"
+    },
+    "event": {
+      "x": 600,
+      "y": 856,
+      "width": 720,
+      "height": 180,
+      "top": 856,
+      "right": 1320,
+      "bottom": 1036,
+      "left": 600
+    },
+    "counter": {
+      "x": 646.984375,
+      "y": 930,
+      "width": 626.03125,
+      "height": 70.390625,
+      "top": 930,
+      "right": 1273.015625,
+      "bottom": 1000.390625,
+      "left": 646.984375
+    },
+    "font": "64px"
+  }
+]

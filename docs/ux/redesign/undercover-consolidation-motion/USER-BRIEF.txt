@@ -1,0 +1,719 @@
+> Archive de conception et de vérification. La validation visuelle du 29 octobre 2026 est acquise ; APPROVAL.json et manifest.json définissent le lot approuvé. Les anciens statuts AWAITING_APPROVAL décrivent les étapes précédentes.
+
+Nous venons de terminer un audit exhaustif de l'application Extension Twitch Studio.
+
+Ne redessine pas toute l'application.
+
+Les surfaces suivantes sont considérées comme acquises et ne doivent pas être refaites dans leur ensemble :
+
+- accueil ;
+- lobby ;
+- compagnon joueur ;
+- confirmations accessibles existantes ;
+- renderer Undercover TV Broadcast léger ;
+- états Broadcast déjà APPROVED.
+
+Nous voulons maintenant lancer DEUX CHANTIERS STITCH PARALLÈLES.
+
+Chaque chantier doit progresser indépendamment et s'arrêter à :
+
+`AWAITING_APPROVAL`
+
+Aucune intégration React.
+Aucun changement de backend.
+Aucune implémentation Codex.
+Aucune publication.
+
+---
+
+# CHANTIER A — CONSOLIDATION UX UNDERCOVER
+
+## Contexte
+
+L'application est fonctionnelle mais juxtapose encore plusieurs générations d'interface.
+
+L'audit a notamment établi :
+
+- le parcours Undercover principal fonctionne réellement ;
+- plusieurs préparations peuvent déjà être enregistrées, ordonnées, dupliquées et réutilisées ;
+- les images A/B existent réellement ;
+- le nouveau Broadcast TV existe réellement ;
+- le vocabulaire actuel `Série / Partie / Manche` crée une ambiguïté ;
+- les réglages Broadcast avancés encombrent encore la préparation ;
+- certaines sorties/navigation sont insuffisantes ;
+- pause, fin anticipée et abandon n'existent pas encore fonctionnellement.
+
+Nous voulons consolider l'UX sans détruire les capacités existantes.
+
+---
+
+## A0 — MODÈLE MENTAL À EXPLORER
+
+La cible produit devient :
+
+```text
+Jeu
+Undercover
+
+↓
+
+Partie
+Expérience complète préparée par le Game Master
+
+↓
+
+Manches préparées
+
+Manche 1
+Sasuke / Itachi
+
+Manche 2
+Messi / Ronaldo
+
+Manche 3
+Paris / Londres
+
+↓
+
+Cycle d'élimination
+Même paire, joueurs encore actifs
+
+↓
+
+Tours d'indices
+Tour 1
+Tour 2
+
+↓
+
+Vote
+```
+
+Le mot `Cycle` est une hypothèse de vocabulaire.
+
+Tu peux proposer une meilleure appellation si elle est immédiatement compréhensible.
+
+En revanche :
+
+NE PAS utiliser le même mot `manche` pour :
+
+1. une paire Sasuke / Itachi ;
+2. un nouveau cycle indices + vote avec la même paire.
+
+La distinction doit être immédiatement compréhensible.
+
+---
+
+# A1 — ÉCRAN PRINCIPAL DE PRÉPARATION
+
+Reprendre l'écran `/play/undercover`.
+
+Objectif :
+
+> préparer rapidement UNE manche.
+
+La priorité visuelle doit devenir les contenus.
+
+Exemple d'intention :
+
+```text
+← Ma partie Undercover
+
+Manche 1
+
+Contenu A
+[ IMAGE SASUKE ]
+Sasuke
+[ Remplacer l'image ]
+
+Contenu B
+[ IMAGE ITACHI ]
+Itachi
+[ Remplacer l'image ]
+
+Participants
+3
+
+Tours d'indices
+2
+
+Options
+>
+
+[ Ajouter cette manche ]
+```
+
+Le CTA image doit clairement ressembler à UNE ACTION.
+
+Éviter les liens ambigus tels que :
+
+`Modifier les contenus`
+
+si l'utilisateur ne comprend pas qu'ils sont cliquables.
+
+Préférer selon le contexte :
+
+`Ajouter une image`
+`Choisir une image`
+`Remplacer l'image`
+`Modifier`
+
+avec une vraie affordance de bouton.
+
+---
+
+# A2 — MA PARTIE UNDERCOVER
+
+Remplacer le modèle mental actuel :
+
+`Ma série`
+
+par :
+
+`Ma partie Undercover`
+
+L'écran doit montrer immédiatement :
+
+```text
+Ma partie Undercover
+
+3 manches préparées
+
+1  Sasuke / Itachi
+2  Messi / Ronaldo
+3  Paris / Londres
+
+[ + Ajouter une manche ]
+
+[ Vérifier la partie ]
+```
+
+Fonctions existantes à préserver :
+
+- nommer le contenant ;
+- ajouter ;
+- modifier ;
+- réordonner ;
+- dupliquer ;
+- retirer avec confirmation ;
+- réutiliser une préparation précédente ;
+- état image disponible / indisponible.
+
+Ne supprime aucune de ces capacités.
+
+---
+
+# A3 — MODIFIER UNE MANCHE
+
+Réutiliser les capacités déjà présentes dans A2 actuel :
+
+- deux grandes images ;
+- deux contenus indépendants ;
+- remplacer ;
+- reconnecter ;
+- retirer une image ;
+- texte conservé lorsque l'image est indisponible.
+
+Ne réinvente pas les contrôles média.
+
+Le principe utilisateur reste :
+
+> je choisis une image → terminé.
+
+Aucun jargon :
+
+- IndexedDB ;
+- OPFS ;
+- blob ;
+- cache ;
+- mediaId ;
+- relay ;
+- serveur temporaire.
+
+---
+
+# A4 — IMAGE INDISPONIBLE
+
+Conserver une expérience non bloquante.
+
+Exemple :
+
+```text
+Image indisponible sur cet appareil
+
+Sasuke
+Le texte est toujours disponible.
+
+[ Reconnecter l'image ]
+```
+
+La partie doit rester compréhensible.
+
+---
+
+# A5 — VÉRIFIER LA PARTIE
+
+Créer une vue de synthèse très simple :
+
+```text
+Ma partie Undercover
+
+Manche 1
+Sasuke / Itachi
+Prête
+
+Manche 2
+Messi / Ronaldo
+Prête
+
+Manche 3
+Paris / Londres
+Image à reconnecter
+
+[ Ouvrir le salon ]
+```
+
+L'ouverture du salon :
+
+- ne distribue pas les contenus ;
+- ne démarre pas automatiquement la partie.
+
+---
+
+# A6 — BROADCAST DANS LA PRÉPARATION
+
+Le Broadcast TV moderne existe déjà.
+
+NE LE REDESSINE PAS.
+
+Le problème est son exposition.
+
+La préparation normale ne doit plus être dominée par :
+
+- le damier ;
+- les coordonnées ;
+- les sept blocs ;
+- les presets techniques ;
+- l'éditeur complet de disposition.
+
+Créer une hiérarchie beaucoup plus simple.
+
+Exemple :
+
+```text
+Diffusion
+
+Habillage TV
+[ Aperçu ]
+
+Mode public
+Duo anonyme ▾
+
+Ajustements avancés >
+```
+
+`Ajustements avancés` peut conduire à l'éditeur existant.
+
+Les 7 blocs et les dispositions personnalisées doivent être conservés.
+
+Ils deviennent une capacité avancée, pas le cœur de la préparation.
+
+---
+
+# A7 — ADOPTION DU NOUVEAU TV BROADCAST
+
+Certaines anciennes parties ou préférences peuvent encore utiliser l'ancien layout.
+
+Concevoir une expérience explicite et non destructive.
+
+Exemple d'intention :
+
+```text
+Nouvel habillage TV disponible
+
+Votre disposition actuelle est conservée.
+
+[ Voir le nouvel habillage ]
+[ Utiliser cet habillage ]
+```
+
+Ne jamais écraser silencieusement une disposition personnalisée.
+
+Le nouveau Broadcast doit néanmoins apparaître comme le choix normal pour une nouvelle préparation.
+
+---
+
+# A8 — NAVIGATION
+
+Chaque écran profond doit répondre immédiatement à :
+
+> Où suis-je ?
+> Comment revenir ?
+
+Proposer une convention cohérente desktop/mobile.
+
+Exemples :
+
+```text
+← Ma partie Undercover
+Modifier la manche
+```
+
+ou :
+
+```text
+← Régie
+Aperçu de l'émission
+```
+
+Ne crée pas un fil d'Ariane desktop massif si un simple retour contextuel suffit.
+
+---
+
+# A9 — CYCLE DE VIE GM
+
+Concevoir les états UX, SANS prétendre que le backend existe déjà.
+
+Les capacités suivantes sont actuellement absentes fonctionnellement :
+
+- mettre en pause ;
+- reprendre ;
+- terminer volontairement avant le résultat automatique ;
+- terminer l'ensemble de la partie préparée ;
+- abandonner / annuler.
+
+Nous voulons explorer leur UX.
+
+Différencier clairement :
+
+## Mettre en pause
+
+Action réversible.
+
+L'expérience pourrait indiquer aux joueurs et au public :
+
+`Partie en pause`
+
+Le backend devra ultérieurement définir quelles commandes sont bloquées.
+
+## Terminer la partie
+
+Clôture volontaire.
+
+Conserver l'historique disponible.
+
+## Annuler / abandonner
+
+Sortie exceptionnelle.
+
+Ne pas la confondre avec :
+
+`Réinitialiser le salon`
+
+Créer des confirmations accessibles et sobres.
+
+Ne définis pas de conséquences serveur non validées.
+
+Documente les hypothèses qui devront être arbitrées avant intégration.
+
+---
+
+# A10 — MENU DE PARTIE
+
+Explorer un menu secondaire discret dans la régie GM.
+
+Par exemple :
+
+```text
+•••
+
+Mettre en pause
+Retour à ma partie
+Terminer la partie
+```
+
+Les actions destructrices restent visuellement secondaires jusqu'à confirmation.
+
+---
+
+# A11 — CATALOGUE /PLAY
+
+L'écran `/play` appartient encore visuellement à une génération précédente.
+
+Créer uniquement si cette route reste utile comme écran distinct.
+
+Objectif :
+
+- continuité avec l'accueil premium ;
+- Undercover disponible ;
+- futurs jeux clairement annoncés ;
+- aucun second parcours concurrent pour préparer Undercover.
+
+Ne refais pas l'accueil.
+
+---
+
+# CHANTIER B — MOTION SYSTEM UNDERCOVER TV
+
+Le renderer TV léger existant est conservé.
+
+Nous voulons maintenant définir son langage d'animation.
+
+Principe :
+
+> La vidéo est le contenu principal.
+> L'overlay est une surcouche télévisuelle discrète.
+
+Les animations doivent rester :
+
+- courtes ;
+- lisibles ;
+- élégantes ;
+- contextuelles ;
+- jamais envahissantes ;
+- compatibles avec Twitch mobile ;
+- compatibles `prefers-reduced-motion`.
+
+---
+
+# B1 — NIVEAU 1 : MICRO-ANIMATIONS
+
+Explorer :
+
+- glow léger sur joueur actif ;
+- pulsation discrète d'un état actif ;
+- apparition douce d'un badge ;
+- compteur de votes avec transition légère ;
+- changement de texte sans saut visuel.
+
+Éviter :
+
+- bounce excessif ;
+- shake ;
+- néons permanents agressifs ;
+- clignotements.
+
+---
+
+# B2 — NIVEAU 2 : TRANSITIONS D'ÉTAT
+
+Documenter entrée et sortie pour :
+
+- attente → discussion ;
+- joueur actif suivant ;
+- discussion → vote ;
+- vote → résultat ;
+- résultat → nouveau cycle ;
+- fin d'une manche → manche suivante.
+
+Exemple :
+
+```text
+Discussion
+fade / slide léger
+
+↓
+
+Vote
+ancien badge sort
+nouveau badge entre
+```
+
+---
+
+# B3 — NIVEAU 3 : MOMENTS TV
+
+Moments plus expressifs mais rares :
+
+- Duo anonyme ;
+- égalité ;
+- élimination ;
+- révélation finale ;
+- victoire ;
+- transition vers la manche suivante.
+
+Exemple Duo :
+
+```text
+carte A entre doucement à gauche
+carte B entre doucement à droite
+
+VS apparaît
+
+2–3 secondes
+
+l'ensemble se réduit vers son état compact
+```
+
+---
+
+# B4 — DUO ANONYME
+
+Conserver strictement la confidentialité.
+
+Afficher :
+
+- les deux contenus ;
+- leurs images.
+
+Ne jamais révéler l'affectation des joueurs.
+
+Définir :
+
+- apparition ;
+- durée ;
+- retrait ;
+- état compact éventuel.
+
+---
+
+# B5 — AFFECTATIONS VISIBLES
+
+Animation des cartes joueur → contenu.
+
+Prévoir :
+
+- 3 joueurs ;
+- 6 joueurs ;
+- 12 joueurs.
+
+Ne pas simplement réduire 12 cartes identiques jusqu'à devenir illisibles.
+
+Respecter la pagination / logique compacte existante.
+
+---
+
+# B6 — VOTE
+
+Explorer :
+
+- ouverture du vote ;
+- votes reçus ;
+- progression ;
+- clôture.
+
+Le vote ne doit jamais recouvrir inutilement les visages.
+
+---
+
+# B7 — ÉLIMINATION
+
+Moment TV court.
+
+Exemples possibles :
+
+- carte isolée ;
+- baisse d'opacité des autres ;
+- ligne accentuée ;
+- sortie douce.
+
+Pas d'effet agressif.
+
+---
+
+# B8 — ÉGALITÉ
+
+État exceptionnel clairement identifiable mais bref.
+
+---
+
+# B9 — RÉVÉLATION / VICTOIRE
+
+Le moment le plus expressif.
+
+Mais rester cohérent avec une production TV premium.
+
+Une animation de révélation peut être plus forte, puis laisser place à un état final durable.
+
+Important :
+
+l'ouverture tardive d'un overlay ne doit pas forcément rejouer une animation historique.
+
+Concevoir séparément :
+
+`transition événementielle`
+
+et :
+
+`état durable après événement`.
+
+---
+
+# B10 — MANCHE SUIVANTE
+
+Créer une transition courte.
+
+Exemple :
+
+```text
+Manche suivante
+
+Messi
+VS
+Ronaldo
+```
+
+puis retour vers le HUD minimal.
+
+---
+
+# LIVRABLES CHANTIER A
+
+Produire uniquement les écrans réellement nécessaires.
+
+Desktop + mobile lorsque pertinent.
+
+Donner :
+
+- Project ID ;
+- Screen IDs ;
+- nom de chaque écran ;
+- décision UX principale ;
+- mapping avec A1–A6 existants ;
+- écrans nouveaux ;
+- éléments conservés ;
+- hypothèses nécessitant une décision backend.
+
+Terminer par :
+
+`UNDERCOVER_CONSOLIDATION_STATUS: AWAITING_APPROVAL`
+
+---
+
+# LIVRABLES CHANTIER B
+
+Ne te limite pas à des captures statiques.
+
+Pour chaque état, fournir une petite fiche Motion :
+
+```text
+État :
+Élément :
+Entrée :
+Durée :
+Maintien :
+Sortie :
+Reduced motion :
+```
+
+Créer les propositions visuelles nécessaires pour comprendre le mouvement.
+
+Donner :
+
+- Project ID ;
+- Screen IDs ;
+- états couverts ;
+- règles Motion ;
+- adaptations 3–12 joueurs ;
+- comportements reduced-motion.
+
+Terminer par :
+
+`UNDERCOVER_MOTION_STATUS: AWAITING_APPROVAL`
+
+---
+
+Ne touche pas au code de l'application.
+Ne demande pas de réimplémenter les écrans déjà corrects.
+Ne recrée pas le Broadcast TV existant.
+Arrête les deux chantiers à la validation humaine.
