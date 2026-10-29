@@ -221,3 +221,12 @@ archive statique sans activation ni hébergement backend automatique. La disponi
 réelle dans Twitch et sur mobile reste à vérifier avec les comptes autorisés ; voir
 TWITCH-LOCAL-TEST.md. Aucun changement des règles Undercover ou du cycle de vie
 produit demandé dans l’audit précédent n’est inclus dans ce chantier.
+
+## Recette locale consolidée — 29 octobre 2026
+
+La branche `qa/undercover-local-validation` réunit les préparations multi-manches,
+la consolidation UX/Motion TV et Twitch Local Test. Partie = conducteur préparé ;
+Manche = paire ; Cycle d’élimination = nouveaux indices/vote avec la même paire.
+Aucune règle ou migration n’est ajoutée pour cette convergence. Le guide courant est
+[LOCAL-QA-GUIDE.md](LOCAL-QA-GUIDE.md), accompagné d’une checklist humaine vierge
+et des limites connues ; les guides antérieurs restent des livraisons historiques.

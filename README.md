@@ -1,5 +1,12 @@
 # Extension Twitch Studio
 
+**Recette humaine actuelle :** branche `qa/undercover-local-validation`, réunissant
+Undercover, consolidation UX/Motion TV et Twitch Local Test.
+[Guide unique Mac + iPhone](docs/LOCAL-QA-GUIDE.md) ·
+[Checklist à remplir](docs/LOCAL-QA-CHECKLIST.md) ·
+[Limites connues](docs/LOCAL-QA-KNOWN-ISSUES.md) ·
+[Bilan de convergence](docs/LOCAL-QA-CONVERGENCE.md).
+
 Une plateforme de jeux interactifs prêts à jouer pour les streamers : choisissez
 un jeu officiel, configurez quelques paramètres, invitez vos joueurs et animez
 la partie depuis votre téléphone. Régie mobile, interfaces privées et plateau
@@ -35,7 +42,7 @@ est celle affichée chez vous. Gardez le terminal ouvert, `Ctrl+C` pour arrêter
 Aucun compte Twitch, secret, paiement ou service externe nécessaire.
 
 **Séries Undercover :** Choisir un jeu → Undercover → régler une partie →
-Ajouter à la série → Vérifier la série → Ouvrir le salon. Invitez ensuite vos joueurs ;
+Ajouter cette manche → Vérifier la partie → Ouvrir le salon. Invitez ensuite vos joueurs ;
 la distribution reste une commande GM distincte. Aucun joueur fictif n’est ajouté.
 Les préparations et images facultatives se conservent sur cet appareil.
 [Guide série + iPhone + OBS](docs/TEST-UNDERCOVER-SERIES-TV.md) ·
@@ -131,9 +138,10 @@ fermés par défaut. Les sessions v1/v2/v3 restent exécutables.
 
 Un seul processus Node et SQLite sont supportés. Toujours pas de compte vérifié,
 récupération par e-mail, expiration automatique des capacités, paywall ou facturation.
-Pas de PWA installable, extension Twitch publiée, minuteur, import de médias ou
+Pas de PWA installable, extension Twitch publiée, minuteur, hébergement permanent de médias ou
 éditeur universel d’overlays. La disposition Undercover est personnalisable. Les assets restent des références validées non téléchargées.
-Les maquettes `/demo`, `/player`, `/overlay` restent fictives, hors navigation principale.
+Les anciennes démonstrations `/demo` et `/overlay` restent fictives, hors navigation principale.
+`/player` redirige vers la vraie invitation `/join`.
 `/design-system` est réservé au développement. `/lab` et les anciens éditeurs sont
 réservés au mode de maintenance local explicite décrit dans [STAGE-6.md](docs/STAGE-6.md).
 

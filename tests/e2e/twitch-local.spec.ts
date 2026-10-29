@@ -170,9 +170,16 @@ async function screenshot(p: Page, info: TestInfo, name: string) {
   await p.evaluate(() => document.fonts.ready);
   await p.screenshot({
     path:
-      process.env.CAPTURE_TWITCH === "1"
-        ? `docs/screenshots/twitch-local/${name}-${info.project.name}.png`
-        : info.outputPath(`${name}.png`),
+      process.env.CAPTURE_LOCAL_QA === "1" &&
+      info.project.name === "desktop" &&
+      [
+        "config-automated-helper-fixture",
+        "duo-images-automated-helper-fixture",
+      ].includes(name)
+        ? `docs/screenshots/local-qa/15-twitch-${name}.png`
+        : process.env.CAPTURE_TWITCH === "1"
+          ? `docs/screenshots/twitch-local/${name}-${info.project.name}.png`
+          : info.outputPath(`${name}.png`),
     omitBackground: true,
     fullPage: true,
     animations: "disabled",

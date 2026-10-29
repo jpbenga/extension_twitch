@@ -34,6 +34,7 @@ if (
 // Keep each suite’s screenshots and traces independent, including the approved Stitch blocks.
 const outputSuite =
   [
+    "local-qa",
     "consolidation",
     "motion",
     "series",

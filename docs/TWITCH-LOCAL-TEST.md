@@ -1,5 +1,9 @@
 # Tester Undercover dans une extension Twitch
 
+**Version de recette actuelle :** suivez d’abord [le guide commun Mac + iPhone](LOCAL-QA-GUIDE.md)
+sur `qa/undercover-local-validation`. Les détails Twitch ci-dessous restent applicables ;
+la branche historique `feat/twitch-local-test` ne contient pas à elle seule la consolidation UX/Motion.
+
 Cette livraison prépare **Local Test**, sans Review, Release, publication ni émission vidéo. Twitch affiche les informations publiques de votre véritable partie ; la régie et les joueurs gardent leurs interfaces habituelles.
 
 **Commencez par le type Panel.** Il permet de tester la surface d’extension sous le lecteur de la chaîne, sans faire du live vidéo le prérequis du scénario. Il ne superpose pas l’habillage à une vidéo. L’entrée Video Overlay utilise le même renderer, mais sa présence au-dessus du lecteur Twitch peut nécessiter une chaîne en direct : ce test est séparé et n’est pas déclenché ici.
@@ -13,7 +17,7 @@ Les exemples officiels Twitch documentent cette distinction. L’affichage effec
 ```bash
 cd ~/extension-twitch-studio-4b
 git fetch origin
-git switch feat/twitch-local-test
+git switch qa/undercover-local-validation
 git pull --ff-only
 nvm use 24
 npm ci
@@ -134,7 +138,7 @@ Pour observer une élimination **avant** une fin de jeu, utilisez cinq joueurs. 
 | 7     | Ouvrir les votes.                                                                              | Compteur public des votes, sans choix individuels privés.                                                                                      |
 | 8     | Voter depuis chaque compagnon.                                                                 | Progression des votes ; le serveur confirme les actions.                                                                                       |
 | 9     | Révéler le résultat depuis le GM.                                                              | Égalité ou élimination ; si victoire/nul atteint, révélation finale autorisée et résultat.                                                     |
-| 10    | Si aucune victoire : commencer le cycle suivant, refaire indices et vote.                      | Même paire ; les éliminés ne votent plus. Le bouton actuel s’appelle « Commencer la manche suivante ».                                         |
+| 10    | Si aucune victoire : commencer le cycle suivant, refaire indices et vote.                      | Même paire ; les éliminés ne votent plus. Le bouton actuel s’appelle « Commencer un nouveau cycle ».                                           |
 | 11    | Atteindre la victoire.                                                                         | Révélation temporaire puis résultat durable. Recharger ne rejoue pas l’ancienne animation.                                                     |
 | 12    | Rejouer depuis la régie, confirmer.                                                            | Préparation remise à zéro, mêmes accès joueurs, pas de secrets réaffichés automatiquement.                                                     |
 | 13    | Ou choisir la préparation suivante sur l’appareil qui conserve la série, après résultat final. | Même salon, attente de distribution de la nouvelle paire ; aucune révélation anticipée.                                                        |

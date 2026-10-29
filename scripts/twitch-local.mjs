@@ -1,4 +1,5 @@
 import { spawn } from "node:child_process";
+import { localQaUrls } from "./local-qa-urls.mjs";
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { createServer } from "node:net";
@@ -65,7 +66,7 @@ async function available(p, h) {
 }
 try {
   await available(port, host);
-  await available(webPort, gmHost);
+  await available(webPort, "0.0.0.0");
   await available(serverPort, "127.0.0.1");
 } catch {
   console.error(
@@ -132,7 +133,7 @@ try {
       SERVER_HOST: "127.0.0.1",
       SERVER_PORT: String(serverPort),
       SERVER_ORIGIN: `http://127.0.0.1:${serverPort}`,
-      WEB_HOST: gmHost,
+      WEB_HOST: "0.0.0.0",
       PORT: String(webPort),
       PUBLIC_ORIGIN: `http://${gmHost}:${webPort}`,
     },
@@ -142,6 +143,9 @@ try {
   app.on("exit", (code) => {
     if (!ending) void shutdown(code ?? 1);
   });
+  console.log(
+    localQaUrls(`http://${gmHost}:${webPort}`, `https://${host}:${port}`),
+  );
   console.log(
     `\nTWITCH LOCAL TEST — aucun live émis\nTesting Base URI: https://${host}:${port}/\nPanel Viewer Path: panel.html\nMobile Path: mobile.html\nConfig Path: config.html\nLive Config Path: live_config.html (facultatif)\nVideo Overlay Path: video_overlay.html (test vidéo séparé)\nServeur public HTTPS à associer: https://${host}:${port}\nGM / préparation: http://${gmHost}:${webPort}/play/undercover\nJoueurs: liens d’invitation de la régie\n\nGardez ce terminal ouvert. Le bundle Twitch se reconstruit automatiquement ; rechargez l’extension dans Twitch après une modification. Pas de faux Helper hors Twitch.\n`,
   );

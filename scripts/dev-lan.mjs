@@ -1,5 +1,7 @@
 import { networkInterfaces } from "node:os";
 import { spawn } from "node:child_process";
+import { createServer } from "node:net";
+import { localQaUrls } from "./local-qa-urls.mjs";
 
 const privateIpv4 = (host) =>
   /^(10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.)/.test(host) &&
@@ -39,7 +41,36 @@ if (
   );
   process.exit(1);
 }
-console.log(`Régie sur le réseau local : ${origin.origin}`);
+const webPort = Number(origin.port || 80),
+  serverPort = Number(process.env.SERVER_PORT ?? 4000);
+if (
+  ![webPort, serverPort].every(
+    (p) => Number.isInteger(p) && p >= 1024 && p <= 65535,
+  ) ||
+  webPort === serverPort
+) {
+  console.error(
+    "PORT et SERVER_PORT doivent être deux ports distincts entre 1024 et 65535.",
+  );
+  process.exit(1);
+}
+try {
+  for (const [port, host] of [
+    [webPort, "0.0.0.0"],
+    [serverPort, "127.0.0.1"],
+  ])
+    await new Promise((resolve, reject) => {
+      const s = createServer();
+      s.once("error", reject);
+      s.listen(port, host, () => s.close(resolve));
+    });
+} catch {
+  console.error(
+    "Un port est déjà occupé. Arrêtez l’ancien serveur avec Ctrl+C. Aucun processus existant n’a été arrêté.",
+  );
+  process.exit(1);
+}
+console.log(localQaUrls(origin.origin));
 console.log(
   "Ordinateur et iPhone sur le même réseau de confiance. Ne pas rediriger ce port sur Internet.",
 );
@@ -52,19 +83,35 @@ const child = spawn(
   ["run", "dev"],
   {
     stdio: "inherit",
+    detached: process.platform !== "win32",
     env: {
       ...process.env,
       PUBLIC_ORIGIN: origin.origin,
-      WEB_HOST: origin.hostname,
+      WEB_HOST: "0.0.0.0",
+      SERVER_HOST: "127.0.0.1",
+      SERVER_PORT: String(serverPort),
+      SERVER_ORIGIN: `http://127.0.0.1:${serverPort}`,
       PORT: origin.port || "80",
     },
   },
 );
-process.on("SIGTERM", () => child.kill("SIGTERM"));
+let ending = false;
+function shutdown() {
+  if (ending) return;
+  ending = true;
+  if (!child.pid) return;
+  try {
+    process.kill(-child.pid, "SIGTERM");
+  } catch {
+    child.kill("SIGTERM");
+  }
+}
+process.once("SIGINT", shutdown);
+process.once("SIGTERM", shutdown);
 child.on("error", () => {
   console.error("Impossible de lancer npm.");
   process.exitCode = 1;
 });
 child.on("exit", (code, signal) => {
-  process.exitCode = code ?? (signal === "SIGINT" ? 0 : 1);
+  process.exitCode = ending ? 0 : (code ?? (signal === "SIGINT" ? 0 : 1));
 });

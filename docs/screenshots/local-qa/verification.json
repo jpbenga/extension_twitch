@@ -1,0 +1,300 @@
+{
+  "date": "2026-10-29",
+  "branch": "qa/undercover-local-validation",
+  "mergeCommit": "7838f4cce14691b7ee3681500939bf7593ca565d",
+  "captureProvenance": "Real running application after merge, with QA launcher and test additions; no visual component changes after merge.",
+  "browser": "Chromium installed at /usr/bin/chromium",
+  "browserTestsPassed": 225,
+  "browserTestsFailed": 0,
+  "suites": [
+    {
+      "suite": "e2e",
+      "command": "node scripts/test-e2e.mjs",
+      "exitCode": 0,
+      "passed": 42,
+      "seconds": 58.6
+    },
+    {
+      "suite": "consolidation",
+      "command": "node scripts/test-e2e.mjs --config=playwright.consolidation.config.ts",
+      "exitCode": 0,
+      "passed": 9,
+      "seconds": 32.0
+    },
+    {
+      "suite": "motion",
+      "command": "node scripts/test-e2e.mjs --config=playwright.motion.config.ts --project=desktop",
+      "exitCode": 0,
+      "passed": 6,
+      "seconds": 52.7
+    },
+    {
+      "suite": "prepare",
+      "command": "node scripts/test-e2e.mjs --config=playwright.prepare.config.ts",
+      "exitCode": 0,
+      "passed": 20,
+      "seconds": 53.4
+    },
+    {
+      "suite": "series",
+      "command": "node scripts/test-e2e.mjs --config=playwright.series.config.ts --project=desktop --project=tablet --project=mobile --project=small",
+      "exitCode": 0,
+      "passed": 24,
+      "seconds": 115.0
+    },
+    {
+      "suite": "stitch-gm",
+      "command": "node scripts/test-e2e.mjs --config=playwright.stitch-gm.config.ts",
+      "exitCode": 0,
+      "passed": 6,
+      "seconds": 188.0
+    },
+    {
+      "suite": "players",
+      "command": "node scripts/test-e2e.mjs --config=playwright.players.config.ts",
+      "exitCode": 0,
+      "passed": 16,
+      "seconds": 170.0
+    },
+    {
+      "suite": "layout",
+      "command": "node scripts/test-e2e.mjs --config=playwright.layout.config.ts",
+      "exitCode": 0,
+      "passed": 6,
+      "seconds": 60.6
+    },
+    {
+      "suite": "design",
+      "command": "node scripts/test-e2e.mjs --config=playwright.design.config.ts",
+      "exitCode": 0,
+      "passed": 12,
+      "seconds": 25.4
+    },
+    {
+      "suite": "home",
+      "command": "node scripts/test-e2e.mjs --config=playwright.home.config.ts",
+      "exitCode": 0,
+      "passed": 16,
+      "seconds": 31.5
+    },
+    {
+      "suite": "stitch-lab",
+      "command": "node scripts/test-e2e.mjs --config=playwright.stitch-lab.config.ts",
+      "exitCode": 0,
+      "passed": 12,
+      "seconds": 57.5
+    },
+    {
+      "suite": "tv",
+      "command": "node scripts/test-e2e.mjs --config=playwright.tv.config.ts --project=desktop",
+      "exitCode": 0,
+      "passed": 4,
+      "seconds": 18.5
+    },
+    {
+      "suite": "stream",
+      "command": "node scripts/test-e2e.mjs --config=playwright.stream.config.ts",
+      "exitCode": 0,
+      "passed": 9,
+      "seconds": 58.5
+    },
+    {
+      "suite": "ux",
+      "command": "node scripts/test-e2e.mjs --config=playwright.ux.config.ts",
+      "exitCode": 0,
+      "passed": 12,
+      "seconds": 73.9
+    },
+    {
+      "suite": "games",
+      "command": "node scripts/test-e2e.mjs --config=playwright.games.config.ts",
+      "exitCode": 0,
+      "passed": 12,
+      "seconds": 145.2
+    },
+    {
+      "suite": "stitch-broadcast",
+      "command": "node scripts/test-e2e.mjs --config=playwright.stitch-broadcast.config.ts",
+      "exitCode": 0,
+      "passed": 9,
+      "seconds": 95.3
+    },
+    {
+      "suite": "twitch",
+      "command": "CAPTURE_LOCAL_QA=1 npm run test:twitch",
+      "passed": 9,
+      "exitCode": 0
+    },
+    {
+      "suite": "local-qa",
+      "command": "CAPTURE_LOCAL_QA=1 node scripts/test-e2e.mjs --config=playwright.local-qa.config.ts --project=desktop",
+      "passed": 1,
+      "exitCode": 0
+    }
+  ],
+  "captures": [
+    {
+      "file": "01-home.png",
+      "width": 1440,
+      "height": 1000,
+      "mode": "RGB",
+      "sha256": "9bb5e2cdd5eeb05e625a015961c73e742ca7f1ad441b3682782ec242f64e4eb0"
+    },
+    {
+      "file": "02-prepare.png",
+      "width": 1440,
+      "height": 1445,
+      "mode": "RGB",
+      "sha256": "818078bf0bd78bfe24347022b96972211ad95390e1b120798980cbe688cee6c4"
+    },
+    {
+      "file": "03-multi-manches.png",
+      "width": 1440,
+      "height": 1244,
+      "mode": "RGB",
+      "sha256": "4487e55acdf926d30fa2e8d4fe7d61da3e6dd0243c522e9b47a9e92a7992cb22"
+    },
+    {
+      "file": "04-content-editor.png",
+      "width": 1440,
+      "height": 1235,
+      "mode": "RGB",
+      "sha256": "d8742a513b6c3e673dd4a22c7c15e1753612784d38a407609f93b533b14042af"
+    },
+    {
+      "file": "05-lobby.png",
+      "width": 1440,
+      "height": 1000,
+      "mode": "RGB",
+      "sha256": "3203536eee854a4cc2fc20510578b2b645c65550848418a8c2cffa40314f09fc"
+    },
+    {
+      "file": "06-gm-discussion-mobile.png",
+      "width": 390,
+      "height": 1602,
+      "mode": "RGB",
+      "sha256": "06dd51893b475ca6aaccb9a5e16a83f69a8ca8c6fe88692ec70835351bcece22"
+    },
+    {
+      "file": "07-player-mobile.png",
+      "width": 390,
+      "height": 1025,
+      "mode": "RGB",
+      "sha256": "9ede3c8b90fa6ec530ca530e7a86c912b9bdd3d635757c9e6657194952335339"
+    },
+    {
+      "file": "08-public.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGB",
+      "sha256": "aae55d266f0dc6a6d86a5d72211c22b8fcbf14686f3135efe74a051b7d95db84"
+    },
+    {
+      "file": "09-duo-obs-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "6aaab31e1c7d49581b62f35ca41565ba1350ec89bdd8cb198d82d199038a5568",
+      "alphaRange": [0, 255],
+      "centerAlpha": 0
+    },
+    {
+      "file": "10-assignments-obs-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "cb8182750d21131a9aafce91b68c1625eacde4f97b6d2a798e1f5ccc1fe862dd",
+      "alphaRange": [0, 255],
+      "centerAlpha": 0
+    },
+    {
+      "file": "11-vote-obs-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "ae1387fd5d11b1090189c180330b4224bec72a70699e96183ec295f2a97c7107",
+      "alphaRange": [0, 255],
+      "centerAlpha": 0
+    },
+    {
+      "file": "12-final-obs-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "11a6cf58c29e730e2d00ff4f06ab978e1b38166a94a1cefffedb141fb23b2ebf",
+      "alphaRange": [0, 255],
+      "centerAlpha": 0
+    },
+    {
+      "file": "13-stream-preview.png",
+      "width": 1440,
+      "height": 1346,
+      "mode": "RGB",
+      "sha256": "ea495ce711821ea62a8edf61d53a9d76bb9d7049be3d1c65c08be68dd13b4cbc"
+    },
+    {
+      "file": "14-advanced-layout.png",
+      "width": 1440,
+      "height": 1135,
+      "mode": "RGB",
+      "sha256": "f6e2f42d49726f6d0148240129b78c4d713808ffb58279060796b91bbbdbb70b"
+    },
+    {
+      "file": "15-twitch-config-automated-helper-fixture.png",
+      "width": 1440,
+      "height": 1000,
+      "mode": "RGBA",
+      "sha256": "65de898f9d3ed20545cf2c1991fb16e4f0b87f2a785d30fe63c58c3a196b3b70"
+    },
+    {
+      "file": "15-twitch-duo-images-automated-helper-fixture.png",
+      "width": 1440,
+      "height": 1000,
+      "mode": "RGBA",
+      "sha256": "e690eb3921a514401d65b47690436768dad3eeb8cf611ec82ad176f4395013b9"
+    }
+  ],
+  "physicalIphoneTested": false,
+  "physicalObsTested": false,
+  "authenticatedTwitchTested": false,
+  "approvedReferencesModified": false,
+  "globalCheck": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "unitIntegrationTestsPassed": 229,
+    "unitIntegrationTestFiles": 28,
+    "strictTypeScript": "PASS",
+    "format": "PASS",
+    "buildWebServerPackagesAndTwitch": "PASS"
+  },
+  "certificateProbe": {
+    "command": "PATH=/tmp/xt-qa-tools:$PATH CAROOT=/tmp/xt-qa-ca TRUST_STORES=none npm run twitch:cert",
+    "result": "PASS with real mkcert and isolated test CA; no Mac system trust claimed; no keys committed"
+  },
+  "launcherProbe": {
+    "command": "LOCAL_QA_CA_CERT=/tmp/xt-qa-ca/rootCA.pem node tests/manual-probes/local-qa-runtime.mjs",
+    "result": "PASS; Cloud browser LAN proxy limitation recorded separately",
+    "evidence": "runtime-verification.json"
+  },
+  "hostedTestArchive": {
+    "command": "npm run twitch:package",
+    "exitCode": 0,
+    "entryCount": 12,
+    "entries": [
+      "index.html",
+      "panel.html",
+      "mobile.html",
+      "video_overlay.html",
+      "config.html",
+      "live_config.html",
+      "viewer.js",
+      "viewer.css",
+      "config.js",
+      "config.css",
+      "home/spacegrotesk.ttf",
+      "home/dmsans.ttf"
+    ],
+    "sha256": "7a7f924da78ed599441d457015ff8fe32ec5a220422a05ebd99a4c897be293b5",
+    "uploaded": false
+  }
+}

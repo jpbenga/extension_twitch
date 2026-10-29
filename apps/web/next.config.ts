@@ -26,6 +26,7 @@ const config: NextConfig = {
   // Keep the user-authored repository instructions as the single source.
   agentRules: false,
   allowedDevOrigins: [
+    "localhost",
     "127.0.0.1",
     ...(process.env.PUBLIC_ORIGIN
       ? [new URL(process.env.PUBLIC_ORIGIN).hostname]

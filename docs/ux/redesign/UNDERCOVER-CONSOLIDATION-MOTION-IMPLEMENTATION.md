@@ -1,5 +1,10 @@
 # Undercover — consolidation UX et Motion TV intégrés
 
+**Note du 29 octobre 2026 :** ce bilan décrit sa livraison d’origine. Elle est désormais
+réunie à Twitch Local Test sur `qa/undercover-local-validation` ; voir le
+[bilan de convergence](../../LOCAL-QA-CONVERGENCE.md) et le
+[guide de recette actuel](../../LOCAL-QA-GUIDE.md). Les résultats historiques ci-dessous restent datés.
+
 Branche : `feat/undercover-consolidation-motion`. Base applicative : `d27458974b4c763e2911952b5295b4b0deae893d`, contenant les intégrations précédentes, préparations, médias et TV v2. Le commit documentaire demandé `98f52867bd970e9f1b4b343371926b6883f4e553` a été importé par cherry-pick (`3c9e1af`). Ses références restent inchangées. Aucun accès Stitch ou Mac, aucune génération de maquette.
 
 Le chantier `feat/twitch-local-test` reste séparé. Ni fusion vers main, ni déploiement, ni publication Twitch.

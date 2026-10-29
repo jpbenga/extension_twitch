@@ -1,0 +1,24 @@
+{
+  "lanInterface": "172.26.91.254",
+  "webPort": 3100,
+  "apiPort": 4100,
+  "twitchPort": 8443,
+  "physicalIphone": false,
+  "physicalObs": false,
+  "authenticatedTwitch": false,
+  "checks": {
+    "portOccupiedRefusedWithoutKillingExistingListener": true,
+    "lanAndLocalhostPages": true,
+    "mobileChromiumAndLiveSse": true,
+    "anonymousLanSse": true,
+    "authorizedLanMedia": true,
+    "liveLanSseUpdate": true,
+    "lanShutdownReleasesPorts": true,
+    "sqliteRestartAndPrivateCapability": true,
+    "authorizedHttpsMedia": true,
+    "trustedHttpsViewerConfigAndFinalMotion": true,
+    "publicOnlyHttpsHttpAndSse": true,
+    "twitchShutdownReleasesPorts": true
+  },
+  "lanBrowserState": "BLOCKED_BY_CLOUD_PROXY"
+}
