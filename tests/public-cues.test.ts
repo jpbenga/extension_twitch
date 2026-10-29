@@ -5,6 +5,7 @@ import {
 } from "@extension-twitch/contracts/sessions";
 import {
   nextPublicCue,
+  publicCueDuration,
   publicEventsForRun,
 } from "../apps/web/src/lib/public-cues.js";
 const snapshot = (
@@ -100,4 +101,56 @@ it("keeps the last three public events of the current run", () => {
   expect(publicEventsForRun(view).map((event) => event.version)).toEqual([
     5, 7, 8,
   ]);
+});
+
+it("publishes a live TV content moment only once and never replays it on reconnect", () => {
+  const first = nextPublicCue(null, snapshot(1), 1);
+  const view = snapshot(2, "undercover.publish");
+  view.undercoverBroadcast = {
+    mode: "duo",
+    revision: 1,
+    page: 0,
+    transition: false,
+    contents: [
+      { id: "00000000-0000-4000-8000-000000000002", label: "Phare" },
+      { id: "00000000-0000-4000-8000-000000000003", label: "Balise" },
+    ],
+  };
+  const next = nextPublicCue(first.cursor, view, 1);
+  expect(next.cue?.kind).toBe("content");
+  expect(publicCueDuration(next.cue!, true)).toBe(8000);
+  expect(publicCueDuration(next.cue!, false)).toBe(2600);
+  expect(nextPublicCue(next.cursor, view, 1).cue).toBeNull();
+  expect(nextPublicCue(next.cursor, view, 2).cue).toBeNull();
+  expect(nextPublicCue(null, view, 1).cue).toBeNull();
+});
+it("keeps a next preparation transition separate from disclosure and preserves historical timing", () => {
+  const first = nextPublicCue(null, snapshot(1), 1);
+  const view = snapshot(2, "undercover.next");
+  view.undercoverBroadcast = {
+    mode: "none",
+    revision: 0,
+    page: 0,
+    transition: true,
+  };
+  const next = nextPublicCue(first.cursor, view, 1).cue!;
+  expect(next.kind).toBe("next");
+  expect(next.message).toBe("La prochaine partie attend le Game Master.");
+  expect(publicCueDuration(next, true)).toBe(5000);
+  expect(publicCueDuration({ ...next, kind: "result" }, true)).toBe(9000);
+  expect(publicCueDuration({ ...next, kind: "result" }, false)).toBe(2600);
+  expect(view.undercoverBroadcast).not.toHaveProperty("contents");
+});
+it("does not animate a hidden publication as if it had revealed content", () => {
+  const first = nextPublicCue(null, snapshot(1), 1);
+  const view = snapshot(2, "undercover.publish");
+  view.undercoverBroadcast = {
+    mode: "none",
+    revision: 2,
+    page: 0,
+    transition: false,
+  };
+  const cue = nextPublicCue(first.cursor, view, 1).cue!;
+  expect(cue.kind).toBe("event");
+  expect(cue.message).toContain("retirés");
 });

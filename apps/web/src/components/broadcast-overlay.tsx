@@ -15,6 +15,7 @@ import {
   publicResult,
 } from "../lib/broadcast-presentation";
 import "../app/brand-fonts.css";
+import { UndercoverTvOverlay } from "./undercover-tv-overlay";
 
 /** One renderer for stream preview, comparison and OBS. Public projections only. */
 export function BroadcastOverlay({
@@ -56,6 +57,15 @@ export function BroadcastOverlay({
         } as CSSProperties)
       : undefined,
   });
+  if (view?.gameId === "undercover" && layout?.schemaVersion === 2)
+    return (
+      <UndercoverTvOverlay
+        view={view}
+        connection={connection}
+        cue={cue}
+        layout={layout}
+      />
+    );
   const ordered = layout
     ? layout.players.order.flatMap((i) => (roster[i] ? [roster[i]!] : []))
     : roster;

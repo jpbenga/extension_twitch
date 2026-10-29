@@ -558,7 +558,8 @@ body:has(.obs-output) {
   border: 1px solid var(--broadcast-border);
   border-radius: 0.65cqw;
 }
-.broadcast-overlay.has-layout > [data-widget]:not(.broadcast-roster) {
+.broadcast-overlay.has-layout:not(.broadcast-tv)
+  > [data-widget]:not(.broadcast-roster) {
   padding: 1.15cqw 1.25cqw;
 }
 .broadcast-overlay .broadcast-heading h2 {

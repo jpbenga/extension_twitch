@@ -6,7 +6,7 @@ export interface PublicCursor {
 export interface PublicCue {
   id: number;
   message: string;
-  kind: "phase" | "vote" | "result" | "event";
+  kind: "phase" | "vote" | "result" | "event" | "content" | "next";
 }
 /** A new connection establishes a baseline. Never play its history or presence-only snapshots. */
 export function nextPublicCue(
@@ -25,7 +25,16 @@ export function nextPublicCue(
   const play = after?.play;
   let message = event.message,
     kind: PublicCue["kind"] = "event";
-  if (event.type === "game.restart" || event.type === "session.reset")
+  if (event.type === "undercover.next") {
+    message = "La prochaine partie attend le Game Master.";
+    kind = "next";
+  } else if (event.type === "undercover.publish") {
+    message =
+      view.undercoverBroadcast?.mode === "none"
+        ? "Les contenus ont été retirés du plateau."
+        : "Les contenus autorisés sont affichés.";
+    kind = view.undercoverBroadcast?.mode === "none" ? "event" : "content";
+  } else if (event.type === "game.restart" || event.type === "session.reset")
     message = "La partie a été réinitialisée.";
   else if (play?.outcome && !before?.play?.outcome) {
     message = play.outcome.label;
@@ -57,9 +66,24 @@ export function publicEventsForRun(view: PublicSessionView) {
     [...view.events]
       .reverse()
       .find((event) =>
-        ["game.configure", "game.restart", "session.reset"].includes(
-          event.type,
-        ),
+        [
+          "game.configure",
+          "game.restart",
+          "session.reset",
+          "undercover.next",
+        ].includes(event.type),
       )?.version ?? 0;
   return view.events.filter((event) => event.version >= boundary).slice(-3);
+}
+
+/** Longer lower thirds belong only to opt-in TV layouts, not archived overlays. */
+export function publicCueDuration(cue: PublicCue, tv = false) {
+  if (!tv) return 2600;
+  return cue.kind === "content"
+    ? 8000
+    : cue.kind === "result"
+      ? 9000
+      : cue.kind === "next"
+        ? 5000
+        : 2600;
 }

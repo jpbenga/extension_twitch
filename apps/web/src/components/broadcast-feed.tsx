@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { useSession } from "../lib/use-session";
 import {
   nextPublicCue,
+  publicCueDuration,
   type PublicCursor,
   type PublicCue,
 } from "../lib/public-cues";
@@ -47,7 +48,11 @@ export function BroadcastFeed({
     const next = nextPublicCue(cursor.current, view, session.streamEpoch);
     cursor.current = next.cursor;
     setCue(next.cue);
-    if (next.cue) timer.current = setTimeout(() => setCue(null), 2600);
+    if (next.cue)
+      timer.current = setTimeout(
+        () => setCue(null),
+        publicCueDuration(next.cue, view.overlayLayout?.schemaVersion === 2),
+      );
   }, [view, session.streamEpoch, session.connection]);
   useEffect(() => () => clearTimeout(timer.current), []);
   return (
