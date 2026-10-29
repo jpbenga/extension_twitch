@@ -90,6 +90,10 @@ Routes `/sessions/:id/media/:contentId` derrière le relais web `/api/server` :
 - GET : GM, joueur autorisé à son propre contenu après distribution, ou contenu
   effectivement publié par le serveur. Chaque lecture est autorisée à nouveau.
 
+Ce relais convient à un serveur unique. Une exploitation à plusieurs instances
+nécessitera un routage cohérent ou un relais temporaire partagé à concevoir ; aucun
+service externe n’est introduit ici.
+
 Les réponses sont `private, no-store`, avec MIME PNG, sans credential dans les URL.
 Les médias expirés disparaissent des projections et reviennent au redépôt. Après un
 redémarrage serveur, les textes et identités restent persistants ; les images demandent

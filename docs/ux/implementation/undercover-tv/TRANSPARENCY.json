@@ -1,0 +1,176 @@
+{
+  "source": "Actual application, Playwright Chromium, omitBackground=true; not a physical OBS test",
+  "captures": [
+    {
+      "file": "b1-waiting-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "centerAlpha": 0,
+      "fullyTransparentPercent": 94.55,
+      "sha256": "d250c0a26a9a2177f922e63e7bfd7bd09ba0ba7e13246bbd05a0c578b888c4c0"
+    },
+    {
+      "file": "b10-next-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "centerAlpha": 0,
+      "fullyTransparentPercent": 83.91,
+      "sha256": "cfdf0e34b00fb84a212b376d09eefe2cc3c9298b300a5fb370c3d6407217431a"
+    },
+    {
+      "file": "b11-twelve-player-focus-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "centerAlpha": 0,
+      "fullyTransparentPercent": 84.87,
+      "sha256": "98de18b04859775aaebec0c925b7442147db03b4ef0926a0d97f4a67cac19c50"
+    },
+    {
+      "file": "b12-first-page-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "centerAlpha": 0,
+      "fullyTransparentPercent": 79.8,
+      "sha256": "1bf55bcca4e6ed1f6e3bf7c631c853151a7099f107d79e0f706bf9e858fe25bf"
+    },
+    {
+      "file": "b13-last-page-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "centerAlpha": 0,
+      "fullyTransparentPercent": 79.57,
+      "sha256": "9a72e909114ed06ebe6809c995a8e1d1e82f1d4ffd90b2b51487c353060dcd22"
+    },
+    {
+      "file": "b13-twitch390-alpha.png",
+      "width": 390,
+      "height": 220,
+      "mode": "RGBA",
+      "centerAlpha": 0,
+      "fullyTransparentPercent": 79.34,
+      "sha256": "e7d07115145d1dc11171d5f32d9e2563ef2b4256913c96155fc68267350ab64e"
+    },
+    {
+      "file": "b14-text-fallback-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "centerAlpha": 0,
+      "fullyTransparentPercent": 85.47,
+      "sha256": "8827665a7fa1ceb96c476e48f1e47b2d2d5022bbbd4f8659b4393b5ded2cb14a"
+    },
+    {
+      "file": "b2-discussion-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "centerAlpha": 0,
+      "fullyTransparentPercent": 89.38,
+      "sha256": "a277d481b4e71bb25b5087907df5859838c36eec0b579e695c86bc990a4d48b1"
+    },
+    {
+      "file": "b3-duo-alpha-twitch390.png",
+      "width": 390,
+      "height": 220,
+      "mode": "RGBA",
+      "centerAlpha": 0,
+      "fullyTransparentPercent": 85.36,
+      "sha256": "2bb546d45f374cd1a24835a49d8585fe9ed5ac15823fc2475a91e407fed49eee"
+    },
+    {
+      "file": "b3-duo-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "centerAlpha": 0,
+      "fullyTransparentPercent": 85.47,
+      "sha256": "f715134038a6b80239666f8c3866ca687c516bd35005e8f9f073fd0c7e279b0a"
+    },
+    {
+      "file": "b4-assignments-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "centerAlpha": 0,
+      "fullyTransparentPercent": 80.98,
+      "sha256": "dd73e377104966128f567f6b5cfa99092c2d97d8a738671bb2075c9e5a6c1db5"
+    },
+    {
+      "file": "b5-vote-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "centerAlpha": 0,
+      "fullyTransparentPercent": 88.77,
+      "sha256": "298f1ae0c4afb793615e8e4c32a5fb33a1d2a1db8addcdd4f772bc8885b7604b"
+    },
+    {
+      "file": "b6-durable-elimination-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "centerAlpha": 0,
+      "fullyTransparentPercent": 93.15,
+      "sha256": "f52e876ed08edae44d42ea697535747e160edc24cd40f032c45be64b68e12e83"
+    },
+    {
+      "file": "b6-elimination-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "centerAlpha": 0,
+      "fullyTransparentPercent": 86.82,
+      "sha256": "05518d82ea36978cf9975bef2afee18739faffe3800ed15fc36c174d732d2260"
+    },
+    {
+      "file": "b7-draw-reveal-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "centerAlpha": 0,
+      "fullyTransparentPercent": 77.23,
+      "sha256": "a3f162dd160fe0066e2705f8429e46a772ee10214315be495e6f01b1162de00f"
+    },
+    {
+      "file": "b7-tie-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "centerAlpha": 0,
+      "fullyTransparentPercent": 84.19,
+      "sha256": "d5ccf901c51a23515ebaf9a8beeb23045caf8595d359cafe5afd8539ff14c21a"
+    },
+    {
+      "file": "b8-final-reveal-alpha-twitch390.png",
+      "width": 390,
+      "height": 220,
+      "mode": "RGBA",
+      "centerAlpha": 0,
+      "fullyTransparentPercent": 77.2,
+      "sha256": "c42099e5e3cb5284d84621c43ed8104b7510e32efd78af89a5ac1d20d1f6aee3"
+    },
+    {
+      "file": "b8-final-reveal-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "centerAlpha": 0,
+      "fullyTransparentPercent": 77.23,
+      "sha256": "9ea8f903e9b76308275178eec0ebb2082f472e27184d05b46ead77ecbd53899d"
+    },
+    {
+      "file": "b9-durable-result-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "centerAlpha": 0,
+      "fullyTransparentPercent": 92.61,
+      "sha256": "85d0f49bbeb7cba528a6e4dec7c7765bb921a940f8d9292ed9a1300f39a78ea1"
+    }
+  ]
+}

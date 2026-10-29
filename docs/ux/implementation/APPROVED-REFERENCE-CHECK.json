@@ -1,0 +1,422 @@
+{
+  "approvedCount": 28,
+  "referenceCommit": "738fb44",
+  "screens": [
+    {
+      "screenId": "15550170936144471061",
+      "key": "a1-desktop",
+      "assets": {
+        "approvedPng": {
+          "path": "docs/ux/redesign/undercover-next/a1-desktop/approved.png",
+          "sha256": "d2fd3a00762da3a8f1dd8937595b2996f50cd12c2518c3df1cd7e90a9e1f4fb1"
+        },
+        "approvedHtml": {
+          "path": "docs/ux/redesign/undercover-next/a1-desktop/approved.html",
+          "sha256": "5a918ef33790b002d9c63d166b7977eb35d7959748e42ccf29ca72c84f96a1e1"
+        },
+        "responsiveHtml": {
+          "path": "docs/ux/redesign/undercover-next/a1-desktop/responsive/approved.html",
+          "sha256": "5a918ef33790b002d9c63d166b7977eb35d7959748e42ccf29ca72c84f96a1e1"
+        }
+      }
+    },
+    {
+      "screenId": "8698932679578854180",
+      "key": "a1-mobile",
+      "assets": {
+        "approvedPng": {
+          "path": "docs/ux/redesign/undercover-next/a1-mobile/approved.png",
+          "sha256": "f08dda9c10d23df926f18cf1eb32ffafd7cc1be146bd7fbaaab484bc6fd01c18"
+        },
+        "responsiveHtml": {
+          "path": "docs/ux/redesign/undercover-next/a1-mobile/responsive/approved.html",
+          "sha256": "c91606d49c36fc4e2f66fdff6d831523e40120a3045db40ec731ddb9197c3992"
+        }
+      }
+    },
+    {
+      "screenId": "1841638244159572388",
+      "key": "a2-desktop",
+      "assets": {
+        "approvedPng": {
+          "path": "docs/ux/redesign/undercover-next/a2-desktop/approved.png",
+          "sha256": "e2dc9d556376461dbc9881fb405330cffd30b1b504067fb6e5ac1a6717dffbb3"
+        },
+        "approvedHtml": {
+          "path": "docs/ux/redesign/undercover-next/a2-desktop/approved.html",
+          "sha256": "6be650bee6a522564afa55b38af4335821c8bdc1c0c50db0e2f2d32f02404cf7"
+        },
+        "responsiveHtml": {
+          "path": "docs/ux/redesign/undercover-next/a2-desktop/responsive/approved.html",
+          "sha256": "6be650bee6a522564afa55b38af4335821c8bdc1c0c50db0e2f2d32f02404cf7"
+        }
+      }
+    },
+    {
+      "screenId": "4339420279877736649",
+      "key": "a2-mobile",
+      "assets": {
+        "approvedPng": {
+          "path": "docs/ux/redesign/undercover-next/a2-mobile/approved.png",
+          "sha256": "9d710cfc5f95829f332ac7c790e819e63898162693d0b8f495f63717038b49bb"
+        },
+        "responsiveHtml": {
+          "path": "docs/ux/redesign/undercover-next/a2-mobile/responsive/approved.html",
+          "sha256": "0cb3221cf7bb963ccf7104a2ff31b1bebbdf42199d1a49d7ccc33d25bda8632e"
+        }
+      }
+    },
+    {
+      "screenId": "7360708926785982691",
+      "key": "a5-desktop",
+      "assets": {
+        "approvedPng": {
+          "path": "docs/ux/redesign/undercover-next/a5-desktop/approved.png",
+          "sha256": "2094546b4aa5035b20d855a0e9deed162b8e29b7f81695de6f5be97d4c2ab340"
+        },
+        "approvedHtml": {
+          "path": "docs/ux/redesign/undercover-next/a5-desktop/approved.html",
+          "sha256": "605f10348afb2ff8cd4c7e9741791dc226656e6f4974b613f3da6a274327c879"
+        },
+        "responsiveHtml": {
+          "path": "docs/ux/redesign/undercover-next/a5-desktop/responsive/approved.html",
+          "sha256": "605f10348afb2ff8cd4c7e9741791dc226656e6f4974b613f3da6a274327c879"
+        }
+      }
+    },
+    {
+      "screenId": "11696425283968743710",
+      "key": "a5-mobile",
+      "assets": {
+        "approvedPng": {
+          "path": "docs/ux/redesign/undercover-next/a5-mobile/approved.png",
+          "sha256": "fee5b3b374987c0fff672b7e69831dc38982b0449be338a72d6df88615661072"
+        },
+        "responsiveHtml": {
+          "path": "docs/ux/redesign/undercover-next/a5-mobile/responsive/approved.html",
+          "sha256": "bde4b1281d214150bdb2c377108b3ca317f3931b93d63d78e8ff825d6e173829"
+        }
+      }
+    },
+    {
+      "screenId": "14795817732173201235",
+      "key": "a3-desktop",
+      "assets": {
+        "approvedPng": {
+          "path": "docs/ux/redesign/undercover-stream-set/../undercover-stream-set/a3-desktop/approved.png",
+          "sha256": "985a74e2eaab76790d69dc8785b18eee473cd75c16d0b4185245757689167106"
+        },
+        "approvedHtml": {
+          "path": "docs/ux/redesign/undercover-stream-set/../undercover-stream-set/a3-desktop/approved.html",
+          "sha256": "db612d9e5e40a91de2de9b1ab290a7ec75cf4e8a571557d0e6ab4299c9ba65f2"
+        },
+        "responsiveHtml": {
+          "path": "docs/ux/redesign/undercover-stream-set/../undercover-stream-set/a3-desktop/responsive/approved.html",
+          "sha256": "db612d9e5e40a91de2de9b1ab290a7ec75cf4e8a571557d0e6ab4299c9ba65f2"
+        }
+      }
+    },
+    {
+      "screenId": "11696425283968742110",
+      "key": "a3-mobile",
+      "assets": {
+        "approvedPng": {
+          "path": "docs/ux/redesign/undercover-stream-set/../undercover-stream-set/a3-mobile/approved.png",
+          "sha256": "54403016ada5579ea3c1b60808888d0b54fed7fca1f3194d2f2a0b4b9a16e885"
+        },
+        "responsiveHtml": {
+          "path": "docs/ux/redesign/undercover-stream-set/../undercover-stream-set/a3-mobile/responsive/approved.html",
+          "sha256": "e91371a2f15a9b12380edc39619036d71fabcb93c50c2f0ff1dd547db0d94a2d"
+        }
+      }
+    },
+    {
+      "screenId": "11602921577934756531",
+      "key": "a4-desktop",
+      "assets": {
+        "approvedPng": {
+          "path": "docs/ux/redesign/undercover-stream-set/../undercover-stream-set/a4-desktop/approved.png",
+          "sha256": "10018da3412026be461efef5fa0c9789d0964889c9f598463cd0c4dfd37fede8"
+        },
+        "approvedHtml": {
+          "path": "docs/ux/redesign/undercover-stream-set/../undercover-stream-set/a4-desktop/approved.html",
+          "sha256": "5cd783a5cd6162f011124a60fad6338c17e0cc7fe5c7112a0c6e992c96fa6f99"
+        },
+        "responsiveHtml": {
+          "path": "docs/ux/redesign/undercover-stream-set/../undercover-stream-set/a4-desktop/responsive/approved.html",
+          "sha256": "5cd783a5cd6162f011124a60fad6338c17e0cc7fe5c7112a0c6e992c96fa6f99"
+        }
+      }
+    },
+    {
+      "screenId": "7441701879859976594",
+      "key": "a4-mobile",
+      "assets": {
+        "approvedPng": {
+          "path": "docs/ux/redesign/undercover-stream-set/../undercover-stream-set/a4-mobile/approved.png",
+          "sha256": "f058b6ca8e36a60bf466b5251777e6f0aff5574f5c53551e1249205bc0fc0c5f"
+        },
+        "responsiveHtml": {
+          "path": "docs/ux/redesign/undercover-stream-set/../undercover-stream-set/a4-mobile/responsive/approved.html",
+          "sha256": "263c78c37648ffe9c69b0531aace5820cf48f3e92482027861004308cb27099f"
+        }
+      }
+    },
+    {
+      "screenId": "17639353948556659950",
+      "key": "a6-desktop",
+      "assets": {
+        "approvedPng": {
+          "path": "docs/ux/redesign/undercover-stream-set/../undercover-stream-set/a6-desktop/approved.png",
+          "sha256": "a869656d38bc5058dd28792b4f07e4df67fb28cec7db8f587a26747e1f543b3e"
+        },
+        "approvedHtml": {
+          "path": "docs/ux/redesign/undercover-stream-set/../undercover-stream-set/a6-desktop/approved.html",
+          "sha256": "71c7b7f30d17d05db4f8b246f958ed65396a5f2d0c2aef7e55f5c1749d66e4fa"
+        },
+        "responsiveHtml": {
+          "path": "docs/ux/redesign/undercover-stream-set/../undercover-stream-set/a6-desktop/responsive/approved.html",
+          "sha256": "71c7b7f30d17d05db4f8b246f958ed65396a5f2d0c2aef7e55f5c1749d66e4fa"
+        }
+      }
+    },
+    {
+      "screenId": "3387371104757900127",
+      "key": "a6-mobile",
+      "assets": {
+        "approvedPng": {
+          "path": "docs/ux/redesign/undercover-stream-set/../undercover-stream-set/a6-mobile/approved.png",
+          "sha256": "d170ac8cf14634910566caf3edc75c58921e7612049bd44f33d81bf08f50007f"
+        },
+        "responsiveHtml": {
+          "path": "docs/ux/redesign/undercover-stream-set/../undercover-stream-set/a6-mobile/responsive/approved.html",
+          "sha256": "b91d9706b632ea2dc9b7fc8f38b4abd0834cd76e1f003e79df7ee53c84269b2a"
+        }
+      }
+    },
+    {
+      "screenId": "2926658225915648351",
+      "key": "b1",
+      "assets": {
+        "approvedPng": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b1/approved.png",
+          "sha256": "17d85a740f6646b3e7d6536054d7cbeff34371650e86453b41bd493435723677"
+        },
+        "approvedHtml": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b1/approved.html",
+          "sha256": "69bc9b47d03c6d7fafbf88aaf084afe4ddb9a1bdb8547756880f151ed59967a2"
+        }
+      }
+    },
+    {
+      "screenId": "14944524881897440628",
+      "key": "b2",
+      "assets": {
+        "approvedPng": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b2/approved.png",
+          "sha256": "9c28dbb95f6f2f659dcea721f6e672f07a777f32e3203cb050f7322a4e54e6bd"
+        },
+        "approvedHtml": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b2/approved.html",
+          "sha256": "c6fbbe9d575b6707331fc94979a04cb6ed58cdf986b25cd00b804a2ef98a87ee"
+        }
+      }
+    },
+    {
+      "screenId": "15069575678936846215",
+      "key": "b3",
+      "assets": {
+        "approvedPng": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b3/approved.png",
+          "sha256": "9a017ab782732a146fa2346fb49379ba9fb21798262cfe0ed2d2fddff5ff82b1"
+        },
+        "approvedHtml": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b3/approved.html",
+          "sha256": "3190df388bec7217131c89e3e2cc7333c4846787fcea0c29c59986e9d8698ff5"
+        }
+      }
+    },
+    {
+      "screenId": "6025148913150011551",
+      "key": "b4",
+      "assets": {
+        "approvedPng": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b4/approved.png",
+          "sha256": "ca3640f1bde455cb86102742b0fe7f46587e4adbce9902fcc1b10770c4c8c519"
+        },
+        "approvedHtml": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b4/approved.html",
+          "sha256": "e3a757dba8177e33b71b38e44fbad79d3622f59fe05d137311e81984198d4035"
+        }
+      }
+    },
+    {
+      "screenId": "1197725242887580661",
+      "key": "b5",
+      "assets": {
+        "approvedPng": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b5/approved.png",
+          "sha256": "3794900baaed84ef9ad91d77b960e61734d85dcf3af9c51a8602dcd2fc9752d7"
+        },
+        "approvedHtml": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b5/approved.html",
+          "sha256": "b2517bb85d9fb9e6757777670e128c1f8573a6f837068659b19f97c5c991cc83"
+        }
+      }
+    },
+    {
+      "screenId": "8588339416176039518",
+      "key": "b6",
+      "assets": {
+        "approvedPng": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b6/approved.png",
+          "sha256": "8e7e21609de53f0a3872dc966a55942099eb49ea52077ce484ad8ce4e94671c6"
+        },
+        "approvedHtml": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b6/approved.html",
+          "sha256": "caec765622796d14fe60c50f53a73b7111bd39328fb6bf41b9fc98e3dbff437b"
+        }
+      }
+    },
+    {
+      "screenId": "5416295497078556769",
+      "key": "b7",
+      "assets": {
+        "approvedPng": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b7/approved.png",
+          "sha256": "004806f1269df946ba654e64da02134ef6a620b37190da4d8a3e009228c89c76"
+        },
+        "approvedHtml": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b7/approved.html",
+          "sha256": "7cd82a3aa08fc2aaaf7acf5b3d26bc9a7e2ea1cce9fe63a0ec3b829a1daa2bbf"
+        }
+      }
+    },
+    {
+      "screenId": "5659817327027131476",
+      "key": "b8",
+      "assets": {
+        "approvedPng": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b8/approved.png",
+          "sha256": "d93738dc903c16c956f95b02bafdd0a30e7304576490d244dd7b2f83bf120a9f"
+        },
+        "approvedHtml": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b8/approved.html",
+          "sha256": "f1440a777b640735229631e8d8ba03ae407fe902be5a6ff503813e491596ee52"
+        }
+      }
+    },
+    {
+      "screenId": "11072318426252518079",
+      "key": "b9",
+      "assets": {
+        "approvedPng": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b9/approved.png",
+          "sha256": "6dd312a421212aa28b9a2822a7aa1c93c18d72c952d3abc39b5aa0f8f103b258"
+        },
+        "approvedHtml": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b9/approved.html",
+          "sha256": "10839b7ba6fbbdb8cf6f091a9271e6331330a04e7fad7d8c8b0f8a62eb0dc25d"
+        }
+      }
+    },
+    {
+      "screenId": "12222903864227055358",
+      "key": "b10",
+      "assets": {
+        "approvedPng": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b10/approved.png",
+          "sha256": "789c9ed3714695fce0eed3cb7edcd98e4bbec8696d0a5a67751d251969c6127d"
+        },
+        "approvedHtml": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b10/approved.html",
+          "sha256": "5185a91f7097e3959ff2ed9da137fcb87ed54219a0127e16db38b1da66fa77ea"
+        }
+      }
+    },
+    {
+      "screenId": "821597574017839675",
+      "key": "b11",
+      "assets": {
+        "approvedPng": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b11/approved.png",
+          "sha256": "9015e22b2dc34eaceab0ae1fe42b04c9d6e1977853d13504f697df64b08479c6"
+        },
+        "approvedHtml": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b11/approved.html",
+          "sha256": "5d79991fc472da51a5db45963e264267d95ffcde01e8abf19f6a556d01bed86f"
+        }
+      }
+    },
+    {
+      "screenId": "16010188935926390018",
+      "key": "b12",
+      "assets": {
+        "approvedPng": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b12/approved.png",
+          "sha256": "aaba7cc79f8ad2dcd92754866f506ab653a34fca3dd79915a6bf15c70973ac2b"
+        },
+        "approvedHtml": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b12/approved.html",
+          "sha256": "a75e9eee02454cefd83a431273a077697706a00ccf93210a286b6def6240353b"
+        }
+      }
+    },
+    {
+      "screenId": "8433765196767106252",
+      "key": "b13",
+      "assets": {
+        "approvedPng": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b13/approved.png",
+          "sha256": "a82b882be1e3374e35590b7372175d63ad2c4d2968745a215e3a37222d22c058"
+        },
+        "approvedHtml": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b13/approved.html",
+          "sha256": "8f1f8689f778223808f934c89145e857488f4c167c2f96cdf3366ba843c38644"
+        }
+      }
+    },
+    {
+      "screenId": "3436903299241750254",
+      "key": "b14",
+      "assets": {
+        "approvedPng": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b14/approved.png",
+          "sha256": "2260687333de65265aa9811c22db0106fcbd729acc712db8b711923657be4b93"
+        },
+        "approvedHtml": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b14/approved.html",
+          "sha256": "cf7f5b74c9cff70266f88807da298067ecf7027a6e804d8d14ae6aebb0663872"
+        }
+      }
+    },
+    {
+      "screenId": "3519635256591020907",
+      "key": "b3-overlay",
+      "assets": {
+        "approvedPng": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b3-overlay/approved.png",
+          "sha256": "884ec74a6af57d345ec22ca3e8f852b3edb9e6da721eb66de35c45552f8a2405"
+        },
+        "approvedHtml": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b3-overlay/approved.html",
+          "sha256": "34cf2233e672ff3d7a68cbe19b795deb6d560325115040a9940d0c3c42203afa"
+        }
+      }
+    },
+    {
+      "screenId": "16665675289758535496",
+      "key": "b4-overlay",
+      "assets": {
+        "approvedPng": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b4-overlay/approved.png",
+          "sha256": "68fc3e8abe3e8027dfd1664002c6bc8a676002d024d50e5aee9c7811bb53d812"
+        },
+        "approvedHtml": {
+          "path": "docs/ux/redesign/undercover-tv-broadcast/../undercover-tv-broadcast/b4-overlay/approved.html",
+          "sha256": "37beefbb4de344a7b499d9afeb1f0c8021966cefe3cb208feb8fa225796b1966"
+        }
+      }
+    }
+  ]
+}

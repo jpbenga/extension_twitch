@@ -1,5 +1,23 @@
 # Jalon 7 — personnalisation du layout de l’overlay Undercover
 
+## Extension TV approuvée — versions conservées
+
+Les nouvelles préparations utilisent `createUndercoverTvLayout()` et un layout
+`schemaVersion: 2`, avec sept blocs et quatre presets adaptés aux capsules et aux
+apparitions TV. Les anciens layouts `schemaVersion: 1`, y compris personnalisés,
+restent inchangés : `createUndercoverLayout()` conserve ses valeurs historiques.
+
+Le renderer partagé choisit explicitement sa présentation d’après cette version.
+Les blocs TV s’affichent selon les événements réellement publics ; leur absence
+momentanée du plateau n’enlève pas leurs réglages dans l’éditeur. Les minima de
+`constrainWidget` dépendent de la version. Aucun layout enregistré n’est remplacé
+sans la confirmation existante de l’utilisateur.
+
+Les données des contenus et leurs associations restent des projections serveur,
+pas des paramètres de position. Voir [séries et broadcast](UNDERCOVER-SERIES-BROADCAST.md)
+et [guide humain actuel](TEST-UNDERCOVER-SERIES-TV.md). Les sections historiques
+ci-dessous restent applicables aux layouts v1.
+
 ## Base et périmètre
 
 Base vérifiée : `4183dce`, `feat/stream-preview-obs`, propre et identique à la tête

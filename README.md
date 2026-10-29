@@ -11,12 +11,13 @@ victoire et rejeu. Enchères et Qui est l’espion sont en préparation, **non j
 L’ancien Studio Créateur libre est retiré de l’expérience. Ses données et les
 anciennes parties sont conservées. Les comptes et abonnements ne sont pas encore livrés.
 
-**Version intégrée B5/B6/B7 :** branche `integration/blocks-5-6-7`.
-[Bilan et commandes de récupération](docs/INTEGRATION-BLOCKS-5-6-7.md) ·
-[Guide iPhone, ordinateur et OBS](docs/TEST-APPROVED-BLOCKS-5-6-7.md).
+**Préparation en séries et broadcast TV Undercover :** branche
+`feat/undercover-stream-series-tv`.
+[Guide iPhone, ordinateur et OBS](docs/TEST-UNDERCOVER-SERIES-TV.md) ·
+[Bilan, tests et captures réelles](docs/ux/implementation/UNDERCOVER-SERIES-TV-DELIVERY.md).
 
-**Bloc 2 — Préparer Undercover :** [guide de test](docs/TEST-PREPARE-UNDERCOVER.md) ·
-[bilan et captures](docs/ux/redesign/PREPARE-UNDERCOVER-IMPLEMENTATION.md).
+Base conservée : intégration B2/B5/B6/B7, avec son
+[bilan historique](docs/INTEGRATION-BLOCKS-5-6-7.md).
 
 ## Lancer et tester
 
@@ -52,21 +53,22 @@ n’est pas accessible. Un cloud distant exige une adresse HTTPS protégée adap
 l’hébergement : aucune exposition Internet n’est créée par ce dépôt. Ne redirigez pas
 le port du serveur de développement vers Internet.
 
-| URL                                     | Usage                                                                         |
-| --------------------------------------- | ----------------------------------------------------------------------------- |
-| `/`                                     | Accueil simple, reprise de la dernière partie GM accessible dans cet onglet   |
-| `/play`                                 | Fiches des trois jeux officiels et statut réel de disponibilité               |
-| `/play/undercover`                      | Mots, répartition, tours d’indices, limite de manches ; démo ou vrais invités |
-| `/play/lab/<id>`                        | Laboratoire privé GM / joueurs démo / spectateur, accès iPhone                |
-| `/sessions/<id>/gm`                     | Régie, avec lien privé GM requis                                              |
-| `/join`, `/join/<code>`                 | Invitation sans compte                                                        |
-| `/sessions/<id>/player/<participantId>` | Vue privée individuelle                                                       |
-| `/sessions/<id>/stream`                 | Aperçu d’émission : scène fictive et véritable overlay                        |
-| `/sessions/<id>/obs`                    | Source navigateur OBS transparente, même rendu public                         |
-| `/sessions/<id>/public`                 | Plateau public synchronisé, navigateur ou source OBS 1920×1080                |
+| URL                                     | Usage                                                                       |
+| --------------------------------------- | --------------------------------------------------------------------------- |
+| `/`                                     | Accueil simple, reprise de la dernière partie GM accessible dans cet onglet |
+| `/play`                                 | Fiches des trois jeux officiels et statut réel de disponibilité             |
+| `/play/undercover`                      | Séries locales, contenus, réglages autorisés ; salon invité ou laboratoire  |
+| `/play/lab/<id>`                        | Laboratoire privé GM / joueurs démo / spectateur, accès iPhone              |
+| `/sessions/<id>/gm`                     | Régie, avec lien privé GM requis                                            |
+| `/join`, `/join/<code>`                 | Invitation sans compte                                                      |
+| `/sessions/<id>/player/<participantId>` | Vue privée individuelle                                                     |
+| `/sessions/<id>/stream`                 | Aperçu d’émission : scène fictive et véritable overlay                      |
+| `/sessions/<id>/obs`                    | Source navigateur OBS transparente, même rendu public                       |
+| `/sessions/<id>/public`                 | Plateau public synchronisé, navigateur ou source OBS 1920×1080              |
 
-L’accueil ne promet pas un historique de compte. La reprise et les réglages locaux
-sont propres à l’onglet ; les parties sont persistées en SQLite. Conservez les liens
+L’accueil ne promet pas un historique de compte. La reprise rapide dépend de l’accès
+GM conservé dans l’onglet. Les séries et leurs images restent dans le navigateur de
+préparation ; les parties sont persistées en SQLite. Conservez les liens
 privés de récupération pour un autre appareil. Les liens d’éditeur historiques
 redirigent vers le catalogue ; les anciens liens de laboratoire restent redirigés
 vers leur partie. Aucun ancien brouillon n’est effacé.

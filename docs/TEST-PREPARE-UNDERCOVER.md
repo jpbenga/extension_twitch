@@ -1,3 +1,7 @@
+> Guide historique du Bloc 2. La préparation en séries approuvée remplace désormais
+> son action initiale. Pour l’interface actuelle, utilisez le
+> [guide séries + iPhone + OBS](TEST-UNDERCOVER-SERIES-TV.md).
+
 # Tester la préparation Undercover — Bloc 2
 
 ## Ouvrir l’application
