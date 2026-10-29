@@ -1,0 +1,726 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "projectId": "17376000961075708568",
+  "approvalRecord": "../undercover-next/APPROVAL.json",
+  "pathBase": "manifest-directory",
+  "sourceManifestSha256": "d46643ac44c7c0de8862d59885c6a001a95f72262e73b8e12ed1f8461be39ad4",
+  "applicationBaseCommit": "5a7a2f233f6bd10de28f66ace4b155ab8647f5db",
+  "implementationStarted": false,
+  "sourceApplicationModified": false,
+  "screens": [
+    {
+      "title": "AFTER — B1 Attente — OBS 1920x1080 — v1",
+      "screenId": "2926658225915648351",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=2926658225915648351",
+      "key": "b1",
+      "projectId": "17376000961075708568",
+      "status": "APPROVED",
+      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "role": "Attente légère avant distribution : capsule seule.",
+      "files": {
+        "approvedHtml": {
+          "path": "b1/approved.html",
+          "sha256": "69bc9b47d03c6d7fafbf88aaf084afe4ddb9a1bdb8547756880f151ed59967a2",
+          "bytes": 1581544
+        },
+        "approvedPng": {
+          "path": "b1/approved.png",
+          "sha256": "17d85a740f6646b3e7d6536054d7cbeff34371650e86453b41bd493435723677",
+          "bytes": 9358208
+        },
+        "transparentHtml": {
+          "path": "b1/overlay/approved.html",
+          "sha256": "fd594811a3a2316347d620d0de990b030b70f743d500377ee7291fe5df310efa",
+          "bytes": 506792
+        },
+        "transparentPng": {
+          "path": "b1/alpha.png",
+          "sha256": "6a12cf608d0dcf81170146a24ec420fe5f4137a7f54254fe06b7b0c39f6da85f",
+          "bytes": 44121
+        },
+        "contextPng": {
+          "path": "b1/context.png",
+          "sha256": "d547e5b3567b88e25fd028b621d166fd322a2e18e6c65ad24a60d7c2e2daae2d",
+          "bytes": 2478726
+        },
+        "twitch390Png": {
+          "path": "b1/twitch390.png",
+          "sha256": "e3c2f60ee4e74718b99589e523e532bb6bdadaa3a488df97386e96d89fe76b6e",
+          "bytes": 170914
+        }
+      },
+      "state": "B1",
+      "projection": "anonymous",
+      "overlayOnly": false,
+      "spec": "b1/SPEC.md"
+    },
+    {
+      "title": "AFTER — B2 Discussion — OBS 1920x1080 — v1",
+      "screenId": "14944524881897440628",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=14944524881897440628",
+      "key": "b2",
+      "projectId": "17376000961075708568",
+      "status": "APPROVED",
+      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "role": "Joueur courant et tour, sans contenu privé.",
+      "files": {
+        "approvedHtml": {
+          "path": "b2/approved.html",
+          "sha256": "c6fbbe9d575b6707331fc94979a04cb6ed58cdf986b25cd00b804a2ef98a87ee",
+          "bytes": 1581758
+        },
+        "approvedPng": {
+          "path": "b2/approved.png",
+          "sha256": "9c28dbb95f6f2f659dcea721f6e672f07a777f32e3203cb050f7322a4e54e6bd",
+          "bytes": 9039383
+        },
+        "transparentHtml": {
+          "path": "b2/overlay/approved.html",
+          "sha256": "66873348728e229c1e83a45ee9fc40342a2c72e3e7ca961e53de52f567c12179",
+          "bytes": 507006
+        },
+        "transparentPng": {
+          "path": "b2/alpha.png",
+          "sha256": "4cde3979b0593c6b6fa69306d8afda07e4891a4231563e337786b767df8dc140",
+          "bytes": 63707
+        },
+        "contextPng": {
+          "path": "b2/context.png",
+          "sha256": "149f88420374bf9e01923c60d65847fa541a5a487278de0a1fc40253f2e2c9ab",
+          "bytes": 2406979
+        },
+        "twitch390Png": {
+          "path": "b2/twitch390.png",
+          "sha256": "3934cd94a90a199982dfc27bd3c622dc277f1cd9449a9b1c78650398a3bd590f",
+          "bytes": 167931
+        }
+      },
+      "state": "B2",
+      "projection": "anonymous",
+      "overlayOnly": false,
+      "spec": "b2/SPEC.md"
+    },
+    {
+      "title": "AFTER — B3 Duo anonyme — OBS 1920x1080 — v1",
+      "screenId": "15069575678936846215",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=15069575678936846215",
+      "key": "b3",
+      "projectId": "17376000961075708568",
+      "status": "APPROVED",
+      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "role": "Deux contenus publics, aucune affectation.",
+      "files": {
+        "approvedHtml": {
+          "path": "b3/approved.html",
+          "sha256": "3190df388bec7217131c89e3e2cc7333c4846787fcea0c29c59986e9d8698ff5",
+          "bytes": 3357619
+        },
+        "approvedPng": {
+          "path": "b3/approved.png",
+          "sha256": "9a017ab782732a146fa2346fb49379ba9fb21798262cfe0ed2d2fddff5ff82b1",
+          "bytes": 9575573
+        },
+        "transparentHtml": {
+          "path": "b3/overlay/approved.html",
+          "sha256": "34cf2233e672ff3d7a68cbe19b795deb6d560325115040a9940d0c3c42203afa",
+          "bytes": 2282867
+        },
+        "transparentPng": {
+          "path": "b3/alpha.png",
+          "sha256": "3acc65a2945b09ad0348c34645dcdcf65b378ad9e2ec4600adf0714d4bd1f408",
+          "bytes": 340679
+        },
+        "contextPng": {
+          "path": "b3/context.png",
+          "sha256": "816f26597ec07141c0930729863369533a1364e8f67f872202963b3a7f2c4b83",
+          "bytes": 2541159
+        },
+        "twitch390Png": {
+          "path": "b3/twitch390.png",
+          "sha256": "ab402907655c7e4e870b9a4eab0ea0f51813216bb286aae66908d91ed8ba983d",
+          "bytes": 174077
+        }
+      },
+      "state": "B3",
+      "projection": "anonymous",
+      "overlayOnly": false,
+      "spec": "b3/SPEC.md"
+    },
+    {
+      "title": "AFTER — B4 Affectations visibles — OBS 1920x1080 — v1",
+      "screenId": "6025148913150011551",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=6025148913150011551",
+      "key": "b4",
+      "projectId": "17376000961075708568",
+      "status": "APPROVED",
+      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "role": "Projection explicitement publique des affectations.",
+      "files": {
+        "approvedHtml": {
+          "path": "b4/approved.html",
+          "sha256": "e3a757dba8177e33b71b38e44fbad79d3622f59fe05d137311e81984198d4035",
+          "bytes": 4313555
+        },
+        "approvedPng": {
+          "path": "b4/approved.png",
+          "sha256": "ca3640f1bde455cb86102742b0fe7f46587e4adbce9902fcc1b10770c4c8c519",
+          "bytes": 9156359
+        },
+        "transparentHtml": {
+          "path": "b4/overlay/approved.html",
+          "sha256": "37beefbb4de344a7b499d9afeb1f0c8021966cefe3cb208feb8fa225796b1966",
+          "bytes": 3238803
+        },
+        "transparentPng": {
+          "path": "b4/alpha.png",
+          "sha256": "0f9a11e1ea700ff4c9b5c04b7fdeecb028d91751b38f4cd7b50905f5587126c0",
+          "bytes": 270919
+        },
+        "contextPng": {
+          "path": "b4/context.png",
+          "sha256": "a4c4bec848f957c119336c4c483b60d189588351a35fd206c3a162301e6f87a2",
+          "bytes": 2394210
+        },
+        "twitch390Png": {
+          "path": "b4/twitch390.png",
+          "sha256": "47c67a9b6fa0ba139ac5ba7ca4a1090126c0b2ab8d0af6b5e7057c9f9aaa000c",
+          "bytes": 172257
+        }
+      },
+      "state": "B4",
+      "projection": "assigned",
+      "overlayOnly": false,
+      "spec": "b4/SPEC.md"
+    },
+    {
+      "title": "AFTER — B5 Vote — OBS 1920x1080 — v1",
+      "screenId": "1197725242887580661",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=1197725242887580661",
+      "key": "b5",
+      "projectId": "17376000961075708568",
+      "status": "APPROVED",
+      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "role": "Participation, sans choix individuels.",
+      "files": {
+        "approvedHtml": {
+          "path": "b5/approved.html",
+          "sha256": "b2517bb85d9fb9e6757777670e128c1f8573a6f837068659b19f97c5c991cc83",
+          "bytes": 1581649
+        },
+        "approvedPng": {
+          "path": "b5/approved.png",
+          "sha256": "3794900baaed84ef9ad91d77b960e61734d85dcf3af9c51a8602dcd2fc9752d7",
+          "bytes": 9076493
+        },
+        "transparentHtml": {
+          "path": "b5/overlay/approved.html",
+          "sha256": "d41019ac036c4ce9d782a7648f3d46e280740c67903616462c47de874b82272c",
+          "bytes": 506897
+        },
+        "transparentPng": {
+          "path": "b5/alpha.png",
+          "sha256": "24057e41398d3621d9272e993e4b7de10ea67642f84350253e65752ab3aee105",
+          "bytes": 67439
+        },
+        "contextPng": {
+          "path": "b5/context.png",
+          "sha256": "43607fec817e63dbf200190e111cc5cb9441c4ade56c0f0dca8b289266e49e19",
+          "bytes": 2424526
+        },
+        "twitch390Png": {
+          "path": "b5/twitch390.png",
+          "sha256": "54dfef8cc5c2a910a52abf687a47007108c4963f0302aa491b90344cc2a88160",
+          "bytes": 169680
+        }
+      },
+      "state": "B5",
+      "projection": "anonymous",
+      "overlayOnly": false,
+      "spec": "b5/SPEC.md"
+    },
+    {
+      "title": "AFTER — B6 Élimination — OBS 1920x1080 — v1",
+      "screenId": "8588339416176039518",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=8588339416176039518",
+      "key": "b6",
+      "projectId": "17376000961075708568",
+      "status": "APPROVED",
+      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "role": "Camp révélé à la résolution, aucun mot prématuré.",
+      "files": {
+        "approvedHtml": {
+          "path": "b6/approved.html",
+          "sha256": "caec765622796d14fe60c50f53a73b7111bd39328fb6bf41b9fc98e3dbff437b",
+          "bytes": 1581688
+        },
+        "approvedPng": {
+          "path": "b6/approved.png",
+          "sha256": "8e7e21609de53f0a3872dc966a55942099eb49ea52077ce484ad8ce4e94671c6",
+          "bytes": 8860961
+        },
+        "transparentHtml": {
+          "path": "b6/overlay/approved.html",
+          "sha256": "371c18a3958295d0dc6d52b2b2f1fea12e2ccf8b7bb356b7499fa7a1ff00ff92",
+          "bytes": 506936
+        },
+        "transparentPng": {
+          "path": "b6/alpha.png",
+          "sha256": "cb38b0b3550bb757f7fd887a21d70a1080be7028df50830fdc1778aaca0e015a",
+          "bytes": 68437
+        },
+        "contextPng": {
+          "path": "b6/context.png",
+          "sha256": "2b7e1074f26acdcac252f0ae0f4f6e266852f348d574e3fea9551b887b9f45ea",
+          "bytes": 2377367
+        },
+        "twitch390Png": {
+          "path": "b6/twitch390.png",
+          "sha256": "47ffae46ce4273a5dd9e374ca38fea8ce34b64c8900e5902793ad4645068e18d",
+          "bytes": 167094
+        }
+      },
+      "state": "B6",
+      "projection": "resolved",
+      "overlayOnly": false,
+      "spec": "b6/SPEC.md"
+    },
+    {
+      "title": "AFTER — B7 Égalité — OBS 1920x1080 — v1",
+      "screenId": "5416295497078556769",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=5416295497078556769",
+      "key": "b7",
+      "projectId": "17376000961075708568",
+      "status": "APPROVED",
+      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "role": "Égalité sans nouvelle règle inventée.",
+      "files": {
+        "approvedHtml": {
+          "path": "b7/approved.html",
+          "sha256": "7cd82a3aa08fc2aaaf7acf5b3d26bc9a7e2ea1cce9fe63a0ec3b829a1daa2bbf",
+          "bytes": 1581670
+        },
+        "approvedPng": {
+          "path": "b7/approved.png",
+          "sha256": "004806f1269df946ba654e64da02134ef6a620b37190da4d8a3e009228c89c76",
+          "bytes": 8996972
+        },
+        "transparentHtml": {
+          "path": "b7/overlay/approved.html",
+          "sha256": "f2c44fb3684c1c5982b0731c3aa16eae11ed67bb53e016415b0a493002ee7d93",
+          "bytes": 506918
+        },
+        "transparentPng": {
+          "path": "b7/alpha.png",
+          "sha256": "55abec507f508e90b88b9eb1eea8628ff871e4a5ab13c257537db028e3175c31",
+          "bytes": 71645
+        },
+        "contextPng": {
+          "path": "b7/context.png",
+          "sha256": "dbbf4595b03b57e799dfa45e5c53891664d79bb712a7cc1ac002b8dc2f4a0565",
+          "bytes": 2406694
+        },
+        "twitch390Png": {
+          "path": "b7/twitch390.png",
+          "sha256": "ed2e21a454a9ca7e3e635b42016aa46faa7d858fdd09e8967b46df318cc28570",
+          "bytes": 169367
+        }
+      },
+      "state": "B7",
+      "projection": "anonymous",
+      "overlayOnly": false,
+      "spec": "b7/SPEC.md"
+    },
+    {
+      "title": "AFTER — B8 Révélation finale — OBS 1920x1080 — v1",
+      "screenId": "5659817327027131476",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=5659817327027131476",
+      "key": "b8",
+      "projectId": "17376000961075708568",
+      "status": "APPROVED",
+      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "role": "Après résultat final autorisant camps et mots.",
+      "files": {
+        "approvedHtml": {
+          "path": "b8/approved.html",
+          "sha256": "f1440a777b640735229631e8d8ba03ae407fe902be5a6ff503813e491596ee52",
+          "bytes": 4313614
+        },
+        "approvedPng": {
+          "path": "b8/approved.png",
+          "sha256": "d93738dc903c16c956f95b02bafdd0a30e7304576490d244dd7b2f83bf120a9f",
+          "bytes": 8903851
+        },
+        "transparentHtml": {
+          "path": "b8/overlay/approved.html",
+          "sha256": "2833b464f8bb7e704b5df3286381ba3094eb5a5d617eb3b9c5b98831e86caa79",
+          "bytes": 3238862
+        },
+        "transparentPng": {
+          "path": "b8/alpha.png",
+          "sha256": "545077d31cc3a230bee3e9019846ceb26c82e5f748b98f4bf533b1e0f826e313",
+          "bytes": 296788
+        },
+        "contextPng": {
+          "path": "b8/context.png",
+          "sha256": "c175190805b1a860e07839f0dc22374243fd3d6dcbfc1f37760f9065f9327517",
+          "bytes": 2338166
+        },
+        "twitch390Png": {
+          "path": "b8/twitch390.png",
+          "sha256": "e6d07388698969b71c9f6f2f3681a818b5e3a626a5991a1419fe71435d041d17",
+          "bytes": 170513
+        }
+      },
+      "state": "B8",
+      "projection": "final",
+      "overlayOnly": false,
+      "spec": "b8/SPEC.md"
+    },
+    {
+      "title": "AFTER — B9 Victoire — OBS 1920x1080 — v1",
+      "screenId": "11072318426252518079",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=11072318426252518079",
+      "key": "b9",
+      "projectId": "17376000961075708568",
+      "status": "APPROVED",
+      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "role": "Résultat final temporaire et proportionné.",
+      "files": {
+        "approvedHtml": {
+          "path": "b9/approved.html",
+          "sha256": "10839b7ba6fbbdb8cf6f091a9271e6331330a04e7fad7d8c8b0f8a62eb0dc25d",
+          "bytes": 1581717
+        },
+        "approvedPng": {
+          "path": "b9/approved.png",
+          "sha256": "6dd312a421212aa28b9a2822a7aa1c93c18d72c952d3abc39b5aa0f8f103b258",
+          "bytes": 8767777
+        },
+        "transparentHtml": {
+          "path": "b9/overlay/approved.html",
+          "sha256": "d91f2893b3d2f4a59d18323eeedd2f0440677cbce9c2dae98a2a866797197a64",
+          "bytes": 506965
+        },
+        "transparentPng": {
+          "path": "b9/alpha.png",
+          "sha256": "2114ba08d2d8da3097d0d7b1834222f227373a55278abc7cd27195c9f23fde27",
+          "bytes": 77947
+        },
+        "contextPng": {
+          "path": "b9/context.png",
+          "sha256": "5aa1ad3f387829d77cd6d671f49f2c2b905f6516bcac6dd7fc2fafea31843fb8",
+          "bytes": 2356301
+        },
+        "twitch390Png": {
+          "path": "b9/twitch390.png",
+          "sha256": "a59fa20d7d796dcf726c93e02214f44f5e640e8c979bbb419134971e19d5de17",
+          "bytes": 166724
+        }
+      },
+      "state": "B9",
+      "projection": "resolved",
+      "overlayOnly": false,
+      "spec": "b9/SPEC.md"
+    },
+    {
+      "title": "AFTER — B10 Partie suivante — OBS 1920x1080 — v1",
+      "screenId": "12222903864227055358",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=12222903864227055358",
+      "key": "b10",
+      "projectId": "17376000961075708568",
+      "status": "APPROVED",
+      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "role": "Transition visuelle après commande GM, pas de lancement implicite.",
+      "files": {
+        "approvedHtml": {
+          "path": "b10/approved.html",
+          "sha256": "5185a91f7097e3959ff2ed9da137fcb87ed54219a0127e16db38b1da66fa77ea",
+          "bytes": 1581730
+        },
+        "approvedPng": {
+          "path": "b10/approved.png",
+          "sha256": "789c9ed3714695fce0eed3cb7edcd98e4bbec8696d0a5a67751d251969c6127d",
+          "bytes": 8823885
+        },
+        "transparentHtml": {
+          "path": "b10/overlay/approved.html",
+          "sha256": "9e74e9fb94314addd5d1d4ed4d892e4bacac64bf2d02f4cf646693757a0d8b5f",
+          "bytes": 506978
+        },
+        "transparentPng": {
+          "path": "b10/alpha.png",
+          "sha256": "b6444bb60ee1d8aa543043f3a71ebe0b2727f6ed53c742d9bf21d1ab4d9a3a55",
+          "bytes": 81825
+        },
+        "contextPng": {
+          "path": "b10/context.png",
+          "sha256": "e51376766e674e1e9566a964e77fea1fc77782f9585fbf3ba7a671ca30efe8ec",
+          "bytes": 2371205
+        },
+        "twitch390Png": {
+          "path": "b10/twitch390.png",
+          "sha256": "c38da41c0a39ca0fe94ab7a4209a610a977d2647d5e6da8d8d38b3c0821dc0d2",
+          "bytes": 168034
+        }
+      },
+      "state": "B10",
+      "projection": "anonymous",
+      "overlayOnly": false,
+      "spec": "b10/SPEC.md"
+    },
+    {
+      "title": "AFTER — B11 12 joueurs — discussion — OBS 1920x1080 — v1",
+      "screenId": "821597574017839675",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=821597574017839675",
+      "key": "b11",
+      "projectId": "17376000961075708568",
+      "status": "APPROVED",
+      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "role": "Focus actif, nom long avec ellipse et numéro stable.",
+      "files": {
+        "approvedHtml": {
+          "path": "b11/approved.html",
+          "sha256": "5d79991fc472da51a5db45963e264267d95ffcde01e8abf19f6a556d01bed86f",
+          "bytes": 1581838
+        },
+        "approvedPng": {
+          "path": "b11/approved.png",
+          "sha256": "9015e22b2dc34eaceab0ae1fe42b04c9d6e1977853d13504f697df64b08479c6",
+          "bytes": 8788964
+        },
+        "transparentHtml": {
+          "path": "b11/overlay/approved.html",
+          "sha256": "8fbb4e4b35758dda9b71574d900392134f3cebeed6e7a00b54726f126f1ef114",
+          "bytes": 507086
+        },
+        "transparentPng": {
+          "path": "b11/alpha.png",
+          "sha256": "15a123cf647211c781ee72ec5ac94b15108ed2b37dfbff402f6412e5b3b4f475",
+          "bytes": 78819
+        },
+        "contextPng": {
+          "path": "b11/context.png",
+          "sha256": "086a39c1d4092f5498e8f9b82b5e462b5edca0a4a61695be1ead9d6b2e282fb4",
+          "bytes": 2348350
+        },
+        "twitch390Png": {
+          "path": "b11/twitch390.png",
+          "sha256": "2eda99647d03c6350593856db69a73dce891be40a4939a8b9b397f4fe92a061b",
+          "bytes": 166608
+        }
+      },
+      "state": "B11",
+      "projection": "anonymous",
+      "overlayOnly": false,
+      "spec": "b11/SPEC.md"
+    },
+    {
+      "title": "AFTER — B12 12 joueurs — groupe 1 — OBS 1920x1080 — v1",
+      "screenId": "16010188935926390018",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=16010188935926390018",
+      "key": "b12",
+      "projectId": "17376000961075708568",
+      "status": "APPROVED",
+      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "role": "Affectations par trois, groupe 1 sur 4.",
+      "files": {
+        "approvedHtml": {
+          "path": "b12/approved.html",
+          "sha256": "a75e9eee02454cefd83a431273a077697706a00ccf93210a286b6def6240353b",
+          "bytes": 4313619
+        },
+        "approvedPng": {
+          "path": "b12/approved.png",
+          "sha256": "aaba7cc79f8ad2dcd92754866f506ab653a34fca3dd79915a6bf15c70973ac2b",
+          "bytes": 9145432
+        },
+        "transparentHtml": {
+          "path": "b12/overlay/approved.html",
+          "sha256": "b1073f6d6fef993a6bb99aa5174ec6de421fee77adafe9d630e81580c65a0b82",
+          "bytes": 3238867
+        },
+        "transparentPng": {
+          "path": "b12/alpha.png",
+          "sha256": "8c75cda721ded6ec6f7ed010e737e446978f3a8c24395b559cd78559e0251b52",
+          "bytes": 286580
+        },
+        "contextPng": {
+          "path": "b12/context.png",
+          "sha256": "0b8c2bef134fc7ce07ab0f8cc2b72d2d4bd5b632617be840cb8a1315676e8b38",
+          "bytes": 2387721
+        },
+        "twitch390Png": {
+          "path": "b12/twitch390.png",
+          "sha256": "5ad19a96403d1d76f87ac3e1fb01b9a218bdceab31c49b072992a0d392a9f6e4",
+          "bytes": 172416
+        }
+      },
+      "state": "B12",
+      "projection": "assigned",
+      "overlayOnly": false,
+      "spec": "b12/SPEC.md"
+    },
+    {
+      "title": "AFTER — B13 12 joueurs — groupe 4 — OBS 1920x1080 — v1",
+      "screenId": "8433765196767106252",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=8433765196767106252",
+      "key": "b13",
+      "projectId": "17376000961075708568",
+      "status": "APPROVED",
+      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "role": "Dernier groupe, noms longs et 12e place.",
+      "files": {
+        "approvedHtml": {
+          "path": "b13/approved.html",
+          "sha256": "8f1f8689f778223808f934c89145e857488f4c167c2f96cdf3366ba843c38644",
+          "bytes": 4313720
+        },
+        "approvedPng": {
+          "path": "b13/approved.png",
+          "sha256": "a82b882be1e3374e35590b7372175d63ad2c4d2968745a215e3a37222d22c058",
+          "bytes": 9103829
+        },
+        "transparentHtml": {
+          "path": "b13/overlay/approved.html",
+          "sha256": "ec219ab5b9fd4484195fee3b38566e934ba44db54d7817e2ba0ee61c3db02ebc",
+          "bytes": 3238968
+        },
+        "transparentPng": {
+          "path": "b13/alpha.png",
+          "sha256": "1f0f45d27a477bf1518952ec7249d576c11757703bfcbd82019984ebd2541d56",
+          "bytes": 290193
+        },
+        "contextPng": {
+          "path": "b13/context.png",
+          "sha256": "74c885acb5d6a44cf4bfccca885c0dd7dcf150e103b259c4c955c7086e10177c",
+          "bytes": 2389698
+        },
+        "twitch390Png": {
+          "path": "b13/twitch390.png",
+          "sha256": "c60b28f6650f19217aa09687cd870e0e5907a66442dfa041ba207cdf11aa081e",
+          "bytes": 173070
+        }
+      },
+      "state": "B13",
+      "projection": "assigned",
+      "overlayOnly": false,
+      "spec": "b13/SPEC.md"
+    },
+    {
+      "title": "AFTER — B14 Duo sans image — OBS 1920x1080 — v1",
+      "screenId": "3436903299241750254",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=3436903299241750254",
+      "key": "b14",
+      "projectId": "17376000961075708568",
+      "status": "APPROVED",
+      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "role": "Texte valide sans image, aucune erreur technique publique.",
+      "files": {
+        "approvedHtml": {
+          "path": "b14/approved.html",
+          "sha256": "cf7f5b74c9cff70266f88807da298067ecf7027a6e804d8d14ae6aebb0663872",
+          "bytes": 2401886
+        },
+        "approvedPng": {
+          "path": "b14/approved.png",
+          "sha256": "2260687333de65265aa9811c22db0106fcbd729acc712db8b711923657be4b93",
+          "bytes": 9100481
+        },
+        "transparentHtml": {
+          "path": "b14/overlay/approved.html",
+          "sha256": "4ef1ff8faf12da1d670b86cdfc4c66bc118a447d5caa36a854cd407c9454ddbd",
+          "bytes": 1327134
+        },
+        "transparentPng": {
+          "path": "b14/alpha.png",
+          "sha256": "779ab31936ca1bc25e947702030cfb76b2ff5d3bdf67c58936030290cb565a55",
+          "bytes": 207285
+        },
+        "contextPng": {
+          "path": "b14/context.png",
+          "sha256": "84dd4e1126d8d5e8dcc41ccf675ede9916ed12ee5fde15f8cb84d1f565f99d05",
+          "bytes": 2426896
+        },
+        "twitch390Png": {
+          "path": "b14/twitch390.png",
+          "sha256": "b909d313d31ae106e499c50a8d92df085573fe13be6473bc0c01373b9a0fb0fa",
+          "bytes": 168264
+        }
+      },
+      "state": "B14",
+      "projection": "anonymous",
+      "overlayOnly": false,
+      "spec": "b14/SPEC.md"
+    }
+  ],
+  "alphaScreens": [
+    {
+      "title": "OVERLAY ONLY — B3 — Transparent OBS 1920x1080 — v1",
+      "screenId": "3519635256591020907",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=3519635256591020907",
+      "key": "b3-overlay",
+      "projectId": "17376000961075708568",
+      "status": "APPROVED",
+      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "role": "Overlay seul de la projection publique correspondante.",
+      "files": {
+        "approvedHtml": {
+          "path": "b3-overlay/approved.html",
+          "sha256": "34cf2233e672ff3d7a68cbe19b795deb6d560325115040a9940d0c3c42203afa",
+          "bytes": 2282867
+        },
+        "approvedPng": {
+          "path": "b3-overlay/approved.png",
+          "sha256": "884ec74a6af57d345ec22ca3e8f852b3edb9e6da721eb66de35c45552f8a2405",
+          "bytes": 1236369
+        },
+        "transparentPng": {
+          "path": "b3-overlay/alpha.png",
+          "sha256": "3acc65a2945b09ad0348c34645dcdcf65b378ad9e2ec4600adf0714d4bd1f408",
+          "bytes": 340679
+        }
+      },
+      "state": "B3",
+      "projection": "anonymous",
+      "overlayOnly": true,
+      "spec": "b3-overlay/SPEC.md"
+    },
+    {
+      "title": "OVERLAY ONLY — B4 — Transparent OBS 1920x1080 — v1",
+      "screenId": "16665675289758535496",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=16665675289758535496",
+      "key": "b4-overlay",
+      "projectId": "17376000961075708568",
+      "status": "APPROVED",
+      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "role": "Overlay seul de la projection publique correspondante.",
+      "files": {
+        "approvedHtml": {
+          "path": "b4-overlay/approved.html",
+          "sha256": "37beefbb4de344a7b499d9afeb1f0c8021966cefe3cb208feb8fa225796b1966",
+          "bytes": 3238803
+        },
+        "approvedPng": {
+          "path": "b4-overlay/approved.png",
+          "sha256": "68fc3e8abe3e8027dfd1664002c6bc8a676002d024d50e5aee9c7811bb53d812",
+          "bytes": 1180932
+        },
+        "transparentPng": {
+          "path": "b4-overlay/alpha.png",
+          "sha256": "0f9a11e1ea700ff4c9b5c04b7fdeecb028d91751b38f4cd7b50905f5587126c0",
+          "bytes": 270919
+        }
+      },
+      "state": "B4",
+      "projection": "assigned",
+      "overlayOnly": true,
+      "spec": "b4-overlay/SPEC.md"
+    }
+  ],
+  "limitations": [
+    "Static visual references only; functional integration remains to be implemented.",
+    "Human visual approval is explicit and recorded; no physical OBS/iPhone test is implied.",
+    "HTML and PNG exported byte-for-byte; only documentation/manifest paths are portable adaptations."
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "approval": "explicit human approval, exact same 28 IDs",
+  "screenCount": 28,
+  "nativePngCount": 28,
+  "nativeHtmlScreenCount": 22,
+  "responsiveHtmlCount": 12,
+  "transparentRgba1920x1080States": 14,
+  "fileHashes": "all file entries match source-copy SHA-256 and byte count",
+  "htmlOffline": true,
+  "htmlScriptCount": 0,
+  "markdownLinksResolve": true,
+  "machinePaths": 0,
+  "credentialPatterns": 0,
+  "applicationCodeChanged": false,
+  "sourceBaseCommit": "5a7a2f233f6bd10de28f66ace4b155ab8647f5db",
+  "existingBridgeTests": {
+    "file": "tests/stitch-sync.test.ts",
+    "passed": 28
+  },
+  "notes": [
+    "No new production code, tests, authentication, schema or gameplay changed.",
+    "Six mobile Stitch resources are PNG references; authored responsive HTML is separately identified.",
+    "Stitch native PNGs are flattened; RGBA files are separate browser transparency evidence.",
+    "No physical OBS or iPhone testing performed for this documentation export."
+  ]
+}

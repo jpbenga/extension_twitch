@@ -1,0 +1,200 @@
+[
+  {
+    "key": "B1",
+    "images": true,
+    "topBounds": 130.09375,
+    "lowerBounds": 1036,
+    "words": [],
+    "horizontal": 1920
+  },
+  {
+    "key": "B2",
+    "images": true,
+    "topBounds": 130.09375,
+    "lowerBounds": 873.015625,
+    "words": [],
+    "horizontal": 1920
+  },
+  {
+    "key": "B3",
+    "images": true,
+    "topBounds": 130.09375,
+    "lowerBounds": 840,
+    "words": [
+      {
+        "text": "Sasuke",
+        "width": 442,
+        "scroll": 442
+      },
+      {
+        "text": "Itachi",
+        "width": 442,
+        "scroll": 442
+      }
+    ],
+    "horizontal": 1920
+  },
+  {
+    "key": "B4",
+    "images": true,
+    "topBounds": 130.09375,
+    "lowerBounds": 840,
+    "words": [
+      {
+        "text": "Sasuke",
+        "width": 452,
+        "scroll": 452
+      },
+      {
+        "text": "Sasuke",
+        "width": 452,
+        "scroll": 452
+      },
+      {
+        "text": "Itachi",
+        "width": 452,
+        "scroll": 452
+      }
+    ],
+    "horizontal": 1920
+  },
+  {
+    "key": "B5",
+    "images": true,
+    "topBounds": 130.09375,
+    "lowerBounds": 856.421875,
+    "words": [],
+    "horizontal": 1920
+  },
+  {
+    "key": "B6",
+    "images": true,
+    "topBounds": 130.09375,
+    "lowerBounds": 785.421875,
+    "words": [],
+    "horizontal": 1920
+  },
+  {
+    "key": "B7",
+    "images": true,
+    "topBounds": 130.09375,
+    "lowerBounds": 856.421875,
+    "words": [],
+    "horizontal": 1920
+  },
+  {
+    "key": "B8",
+    "images": true,
+    "topBounds": 130.09375,
+    "lowerBounds": 786,
+    "words": [
+      {
+        "text": "Sasuke",
+        "width": 452,
+        "scroll": 452
+      },
+      {
+        "text": "Sasuke",
+        "width": 452,
+        "scroll": 452
+      },
+      {
+        "text": "Itachi",
+        "width": 452,
+        "scroll": 452
+      }
+    ],
+    "horizontal": 1920
+  },
+  {
+    "key": "B9",
+    "images": true,
+    "topBounds": 130.09375,
+    "lowerBounds": 785.421875,
+    "words": [],
+    "horizontal": 1920
+  },
+  {
+    "key": "B10",
+    "images": true,
+    "topBounds": 130.09375,
+    "lowerBounds": 785.421875,
+    "words": [],
+    "horizontal": 1920
+  },
+  {
+    "key": "B11",
+    "images": true,
+    "topBounds": 130.09375,
+    "lowerBounds": 873.015625,
+    "words": [],
+    "horizontal": 1920
+  },
+  {
+    "key": "B12",
+    "images": true,
+    "topBounds": 130.09375,
+    "lowerBounds": 840,
+    "words": [
+      {
+        "text": "Sasuke",
+        "width": 452,
+        "scroll": 452
+      },
+      {
+        "text": "Itachi",
+        "width": 452,
+        "scroll": 452
+      },
+      {
+        "text": "Sasuke",
+        "width": 452,
+        "scroll": 452
+      }
+    ],
+    "horizontal": 1920
+  },
+  {
+    "key": "B13",
+    "images": true,
+    "topBounds": 130.09375,
+    "lowerBounds": 840,
+    "words": [
+      {
+        "text": "Sasuke",
+        "width": 452,
+        "scroll": 452
+      },
+      {
+        "text": "Sasuke",
+        "width": 452,
+        "scroll": 452
+      },
+      {
+        "text": "Itachi",
+        "width": 452,
+        "scroll": 452
+      }
+    ],
+    "horizontal": 1920
+  },
+  {
+    "key": "B14",
+    "images": true,
+    "topBounds": 130.09375,
+    "lowerBounds": 840,
+    "words": [
+      {
+        "text": "Sasuke",
+        "width": 233,
+        "scroll": 233
+      },
+      {
+        "text": "Itachi",
+        "width": 442,
+        "scroll": 442
+      }
+    ],
+    "horizontal": 1920
+  }
+]

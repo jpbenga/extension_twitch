@@ -1,0 +1,586 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "projectId": "6522040318627629456",
+  "approvalRecord": "../undercover-next/APPROVAL.json",
+  "pathBase": "manifest-directory",
+  "sourceManifestSha256": "70e7d88ed8c20fafd2993f044eab72d28e991809367b9dfecddc1e2eab7b3f87",
+  "applicationBaseCommit": "5a7a2f233f6bd10de28f66ace4b155ab8647f5db",
+  "implementationStarted": false,
+  "sourceApplicationModified": false,
+  "screens": [
+    {
+      "title": "PROPOSAL — A1 — Préparation Undercover — Desktop — v2",
+      "screenId": "15550170936144471061",
+      "url": "https://stitch.withgoogle.com/projects/6522040318627629456?node-id=15550170936144471061",
+      "key": "a1-desktop",
+      "projectId": "6522040318627629456",
+      "status": "APPROVED",
+      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "role": "Régler les paramètres essentiels et ajouter une partie à la série.",
+      "files": {
+        "approvedPng": {
+          "path": "a1-desktop/approved.png",
+          "sha256": "d2fd3a00762da3a8f1dd8937595b2996f50cd12c2518c3df1cd7e90a9e1f4fb1",
+          "bytes": 333038
+        },
+        "approvedHtml": {
+          "path": "a1-desktop/approved.html",
+          "sha256": "5a918ef33790b002d9c63d166b7977eb35d7959748e42ccf29ca72c84f96a1e1",
+          "bytes": 2292901
+        },
+        "responsiveHtml": {
+          "path": "a1-desktop/responsive/approved.html",
+          "sha256": "5a918ef33790b002d9c63d166b7977eb35d7959748e42ccf29ca72c84f96a1e1",
+          "bytes": 2292901
+        },
+        "viewportPng": {
+          "path": "a1-desktop/viewport.png",
+          "sha256": "7bfef347aa3f431d161e1e048dcd1a632e5df272ded8a7e8fb3981b557f6aafe",
+          "bytes": 98501
+        },
+        "fullpagePng": {
+          "path": "a1-desktop/fullpage.png",
+          "sha256": "589cf86a63408dc5747d103e9c094eab0b1abbec8f276ebdcfdbffb8c8a3a23f",
+          "bytes": 106629
+        }
+      },
+      "code": "A1",
+      "device": "desktop",
+      "label": "Préparation Undercover",
+      "spec": "a1-desktop/SPEC.md",
+      "nativeArtifactType": "HTML mockup",
+      "supersededScreenIdsExcluded": ["2015b0d2af984be5bfb358999a2ca980"]
+    },
+    {
+      "title": "PROPOSAL — A1 — Préparation Undercover — Mobile — v3",
+      "screenId": "8698932679578854180",
+      "url": "https://stitch.withgoogle.com/projects/6522040318627629456?node-id=8698932679578854180",
+      "key": "a1-mobile",
+      "projectId": "6522040318627629456",
+      "status": "APPROVED",
+      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "role": "Régler les paramètres essentiels et ajouter une partie à la série.",
+      "files": {
+        "approvedPng": {
+          "path": "a1-mobile/approved.png",
+          "sha256": "f08dda9c10d23df926f18cf1eb32ffafd7cc1be146bd7fbaaab484bc6fd01c18",
+          "bytes": 66244
+        },
+        "responsiveHtml": {
+          "path": "a1-mobile/responsive/approved.html",
+          "sha256": "c91606d49c36fc4e2f66fdff6d831523e40120a3045db40ec731ddb9197c3992",
+          "bytes": 2292900
+        },
+        "viewportPng": {
+          "path": "a1-mobile/viewport.png",
+          "sha256": "189b8ff1187f57057a5c2efb293cf98e038b60679bdd7b8802a2b668975dc33e",
+          "bytes": 44414
+        },
+        "fullpagePng": {
+          "path": "a1-mobile/fullpage.png",
+          "sha256": "215014fc8352b7cb4c54594d5f3715a2e6bcd817fe53e29caad40d23477a631d",
+          "bytes": 57808
+        },
+        "bottomViewportPng": {
+          "path": "a1-mobile/viewport-bottom.png",
+          "sha256": "5dd65a5b923779019de633e7fd35f059b6e006c43ad0ebd3865d6de72f0b5148",
+          "bytes": 48270
+        },
+        "mobileCompletePng": {
+          "path": "a1-mobile/mobile-complete.png",
+          "sha256": "f08dda9c10d23df926f18cf1eb32ffafd7cc1be146bd7fbaaab484bc6fd01c18",
+          "bytes": 66244
+        }
+      },
+      "code": "A1",
+      "device": "mobile",
+      "label": "Préparation Undercover",
+      "spec": "a1-mobile/SPEC.md",
+      "nativeArtifactType": "mobile full-scroll PNG reference",
+      "supersededScreenIdsExcluded": [
+        "8300d5fb36c64bbb9375b2491eb2741c",
+        "12413318279201537653"
+      ]
+    },
+    {
+      "title": "PROPOSAL — A2 — Éditeur de partie — Desktop — v2",
+      "screenId": "1841638244159572388",
+      "url": "https://stitch.withgoogle.com/projects/6522040318627629456?node-id=1841638244159572388",
+      "key": "a2-desktop",
+      "projectId": "6522040318627629456",
+      "status": "APPROVED",
+      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "role": "Modifier indépendamment les noms et les images des deux contenus.",
+      "files": {
+        "approvedPng": {
+          "path": "a2-desktop/approved.png",
+          "sha256": "e2dc9d556376461dbc9881fb405330cffd30b1b504067fb6e5ac1a6717dffbb3",
+          "bytes": 1731394
+        },
+        "approvedHtml": {
+          "path": "a2-desktop/approved.html",
+          "sha256": "6be650bee6a522564afa55b38af4335821c8bdc1c0c50db0e2f2d32f02404cf7",
+          "bytes": 2291832
+        },
+        "responsiveHtml": {
+          "path": "a2-desktop/responsive/approved.html",
+          "sha256": "6be650bee6a522564afa55b38af4335821c8bdc1c0c50db0e2f2d32f02404cf7",
+          "bytes": 2291832
+        },
+        "viewportPng": {
+          "path": "a2-desktop/viewport.png",
+          "sha256": "11644f61f8f349fd38e96589ed6e1181f871e0d847777df7d1322b6ebece4487",
+          "bytes": 468707
+        },
+        "fullpagePng": {
+          "path": "a2-desktop/fullpage.png",
+          "sha256": "7fb591fc89d974b9de142d821bece4077b65f070a63bdfbc53a7e12480b7c452",
+          "bytes": 469152
+        }
+      },
+      "code": "A2",
+      "device": "desktop",
+      "label": "Éditeur de partie",
+      "spec": "a2-desktop/SPEC.md",
+      "nativeArtifactType": "HTML mockup",
+      "supersededScreenIdsExcluded": ["e7b8f8c348b74b5aab9f18a00ce588ff"]
+    },
+    {
+      "title": "PROPOSAL — A2 — Éditeur de partie — Mobile — v3",
+      "screenId": "4339420279877736649",
+      "url": "https://stitch.withgoogle.com/projects/6522040318627629456?node-id=4339420279877736649",
+      "key": "a2-mobile",
+      "projectId": "6522040318627629456",
+      "status": "APPROVED",
+      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "role": "Modifier indépendamment les noms et les images des deux contenus.",
+      "files": {
+        "approvedPng": {
+          "path": "a2-mobile/approved.png",
+          "sha256": "9d710cfc5f95829f332ac7c790e819e63898162693d0b8f495f63717038b49bb",
+          "bytes": 306717
+        },
+        "responsiveHtml": {
+          "path": "a2-mobile/responsive/approved.html",
+          "sha256": "0cb3221cf7bb963ccf7104a2ff31b1bebbdf42199d1a49d7ccc33d25bda8632e",
+          "bytes": 2291831
+        },
+        "viewportPng": {
+          "path": "a2-mobile/viewport.png",
+          "sha256": "6bd1ca88f43ecb998026d329772df5ab8c78f4069e5eafb246fc53e122f6f2a6",
+          "bytes": 165044
+        },
+        "fullpagePng": {
+          "path": "a2-mobile/fullpage.png",
+          "sha256": "afa3d14d638f201aadcefff9d35e0113e3c1fc82ff8d90ec822a8e26643c5daf",
+          "bytes": 303476
+        },
+        "bottomViewportPng": {
+          "path": "a2-mobile/viewport-bottom.png",
+          "sha256": "788317e6036785c0c2a5f3b7b282eccca60ccc49910364ede028712f7f10d05e",
+          "bytes": 181782
+        },
+        "mobileCompletePng": {
+          "path": "a2-mobile/mobile-complete.png",
+          "sha256": "9d710cfc5f95829f332ac7c790e819e63898162693d0b8f495f63717038b49bb",
+          "bytes": 306717
+        }
+      },
+      "code": "A2",
+      "device": "mobile",
+      "label": "Éditeur de partie",
+      "spec": "a2-mobile/SPEC.md",
+      "nativeArtifactType": "mobile full-scroll PNG reference",
+      "supersededScreenIdsExcluded": [
+        "6881ed5d3de344d0bfc7b990b9528e24",
+        "13768977787158649210"
+      ]
+    },
+    {
+      "title": "PROPOSAL — A3 — Série préparée — Desktop — v3",
+      "screenId": "14795817732173201235",
+      "url": "https://stitch.withgoogle.com/projects/6522040318627629456?node-id=14795817732173201235",
+      "key": "a3-desktop",
+      "projectId": "6522040318627629456",
+      "status": "APPROVED",
+      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "role": "Ordonner et gérer le conducteur de parties préparées.",
+      "files": {
+        "approvedPng": {
+          "path": "a3-desktop/approved.png",
+          "sha256": "985a74e2eaab76790d69dc8785b18eee473cd75c16d0b4185245757689167106",
+          "bytes": 263623
+        },
+        "approvedHtml": {
+          "path": "a3-desktop/approved.html",
+          "sha256": "db612d9e5e40a91de2de9b1ab290a7ec75cf4e8a571557d0e6ab4299c9ba65f2",
+          "bytes": 2295318
+        },
+        "responsiveHtml": {
+          "path": "a3-desktop/responsive/approved.html",
+          "sha256": "db612d9e5e40a91de2de9b1ab290a7ec75cf4e8a571557d0e6ab4299c9ba65f2",
+          "bytes": 2295318
+        },
+        "viewportPng": {
+          "path": "a3-desktop/viewport.png",
+          "sha256": "919bfe24d936547814d0402309333b4e09ba68b69781e022ce4d3bf7b6b7a4ab",
+          "bytes": 86601
+        },
+        "fullpagePng": {
+          "path": "a3-desktop/fullpage.png",
+          "sha256": "919bfe24d936547814d0402309333b4e09ba68b69781e022ce4d3bf7b6b7a4ab",
+          "bytes": 86601
+        }
+      },
+      "code": "A3",
+      "device": "desktop",
+      "label": "Série préparée",
+      "spec": "a3-desktop/SPEC.md",
+      "nativeArtifactType": "HTML mockup",
+      "supersededScreenIdsExcluded": [
+        "d5771ac18d6c423b8d0e044eac6d8d4b",
+        "15447882881288295263"
+      ]
+    },
+    {
+      "title": "PROPOSAL — A3 — Série préparée — Mobile — v3",
+      "screenId": "11696425283968742110",
+      "url": "https://stitch.withgoogle.com/projects/6522040318627629456?node-id=11696425283968742110",
+      "key": "a3-mobile",
+      "projectId": "6522040318627629456",
+      "status": "APPROVED",
+      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "role": "Ordonner et gérer le conducteur de parties préparées.",
+      "files": {
+        "approvedPng": {
+          "path": "a3-mobile/approved.png",
+          "sha256": "54403016ada5579ea3c1b60808888d0b54fed7fca1f3194d2f2a0b4b9a16e885",
+          "bytes": 59442
+        },
+        "responsiveHtml": {
+          "path": "a3-mobile/responsive/approved.html",
+          "sha256": "e91371a2f15a9b12380edc39619036d71fabcb93c50c2f0ff1dd547db0d94a2d",
+          "bytes": 2295317
+        },
+        "viewportPng": {
+          "path": "a3-mobile/viewport.png",
+          "sha256": "d2139535e328df788a86b52114aaca846660c576177b28674ac93df1d25c4496",
+          "bytes": 39758
+        },
+        "fullpagePng": {
+          "path": "a3-mobile/fullpage.png",
+          "sha256": "b72ef9aadc6689c8959512bcd62cdb31b7e551eb0b37f8900754bfd7998d7eb1",
+          "bytes": 57142
+        },
+        "bottomViewportPng": {
+          "path": "a3-mobile/viewport-bottom.png",
+          "sha256": "197fdd6dfad0dca375a2797fff238bb266cc11a16ccba0230af5421727af66fb",
+          "bytes": 35950
+        },
+        "mobileCompletePng": {
+          "path": "a3-mobile/mobile-complete.png",
+          "sha256": "54403016ada5579ea3c1b60808888d0b54fed7fca1f3194d2f2a0b4b9a16e885",
+          "bytes": 59442
+        }
+      },
+      "code": "A3",
+      "device": "mobile",
+      "label": "Série préparée",
+      "spec": "a3-mobile/SPEC.md",
+      "nativeArtifactType": "mobile full-scroll PNG reference",
+      "supersededScreenIdsExcluded": [
+        "2142ca2ba06a441cb2f5cdde710128f7",
+        "16697666619555127216"
+      ]
+    },
+    {
+      "title": "PROPOSAL — A4 — Réutiliser une partie — Desktop — v2",
+      "screenId": "11602921577934756531",
+      "url": "https://stitch.withgoogle.com/projects/6522040318627629456?node-id=11602921577934756531",
+      "key": "a4-desktop",
+      "projectId": "6522040318627629456",
+      "status": "APPROVED",
+      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "role": "Retrouver une ancienne paire et en créer une copie partiellement modifiable.",
+      "files": {
+        "approvedPng": {
+          "path": "a4-desktop/approved.png",
+          "sha256": "10018da3412026be461efef5fa0c9789d0964889c9f598463cd0c4dfd37fede8",
+          "bytes": 522035
+        },
+        "approvedHtml": {
+          "path": "a4-desktop/approved.html",
+          "sha256": "5cd783a5cd6162f011124a60fad6338c17e0cc7fe5c7112a0c6e992c96fa6f99",
+          "bytes": 2292160
+        },
+        "responsiveHtml": {
+          "path": "a4-desktop/responsive/approved.html",
+          "sha256": "5cd783a5cd6162f011124a60fad6338c17e0cc7fe5c7112a0c6e992c96fa6f99",
+          "bytes": 2292160
+        },
+        "viewportPng": {
+          "path": "a4-desktop/viewport.png",
+          "sha256": "334e19c903b0c73a63a15c62a13048214373ef68ba9f6bf52d4030480a404d22",
+          "bytes": 166325
+        },
+        "fullpagePng": {
+          "path": "a4-desktop/fullpage.png",
+          "sha256": "800194be4cdbc57a59161880043822a5691b889b541df869319fc7a9f27cb003",
+          "bytes": 166294
+        }
+      },
+      "code": "A4",
+      "device": "desktop",
+      "label": "Réutiliser une partie",
+      "spec": "a4-desktop/SPEC.md",
+      "nativeArtifactType": "HTML mockup",
+      "supersededScreenIdsExcluded": ["011df2d5c3924b34903b3fa423ab89d9"]
+    },
+    {
+      "title": "PROPOSAL — A4 — Réutiliser une partie — Mobile — v3",
+      "screenId": "7441701879859976594",
+      "url": "https://stitch.withgoogle.com/projects/6522040318627629456?node-id=7441701879859976594",
+      "key": "a4-mobile",
+      "projectId": "6522040318627629456",
+      "status": "APPROVED",
+      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "role": "Retrouver une ancienne paire et en créer une copie partiellement modifiable.",
+      "files": {
+        "approvedPng": {
+          "path": "a4-mobile/approved.png",
+          "sha256": "f058b6ca8e36a60bf466b5251777e6f0aff5574f5c53551e1249205bc0fc0c5f",
+          "bytes": 259006
+        },
+        "responsiveHtml": {
+          "path": "a4-mobile/responsive/approved.html",
+          "sha256": "263c78c37648ffe9c69b0531aace5820cf48f3e92482027861004308cb27099f",
+          "bytes": 2292159
+        },
+        "viewportPng": {
+          "path": "a4-mobile/viewport.png",
+          "sha256": "74a41ae8508e19fcd658db7cdfe297aae9a52713659c824ae723cec2d12c845e",
+          "bytes": 43517
+        },
+        "fullpagePng": {
+          "path": "a4-mobile/fullpage.png",
+          "sha256": "a7b8c1752b38c42ea2710435aba5f61b2c68bdaeca804bc77953458ce8dd909a",
+          "bytes": 247763
+        },
+        "bottomViewportPng": {
+          "path": "a4-mobile/viewport-bottom.png",
+          "sha256": "9c531d315148c70f1c5a9ff0c933898780590e33e2d5c6c8496ab7e9eb9957d5",
+          "bytes": 205184
+        },
+        "mobileCompletePng": {
+          "path": "a4-mobile/mobile-complete.png",
+          "sha256": "f058b6ca8e36a60bf466b5251777e6f0aff5574f5c53551e1249205bc0fc0c5f",
+          "bytes": 259006
+        }
+      },
+      "code": "A4",
+      "device": "mobile",
+      "label": "Réutiliser une partie",
+      "spec": "a4-mobile/SPEC.md",
+      "nativeArtifactType": "mobile full-scroll PNG reference",
+      "supersededScreenIdsExcluded": [
+        "3bf7a97369a549da92dd3bc52bb5cb91",
+        "18343236484812061629"
+      ]
+    },
+    {
+      "title": "PROPOSAL — A5 — Image à reconnecter — Desktop — v2",
+      "screenId": "7360708926785982691",
+      "url": "https://stitch.withgoogle.com/projects/6522040318627629456?node-id=7360708926785982691",
+      "key": "a5-desktop",
+      "projectId": "6522040318627629456",
+      "status": "APPROVED",
+      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "role": "Reconnecter une image facultative sans perdre les textes et réglages.",
+      "files": {
+        "approvedPng": {
+          "path": "a5-desktop/approved.png",
+          "sha256": "2094546b4aa5035b20d855a0e9deed162b8e29b7f81695de6f5be97d4c2ab340",
+          "bytes": 963124
+        },
+        "approvedHtml": {
+          "path": "a5-desktop/approved.html",
+          "sha256": "605f10348afb2ff8cd4c7e9741791dc226656e6f4974b613f3da6a274327c879",
+          "bytes": 1336267
+        },
+        "responsiveHtml": {
+          "path": "a5-desktop/responsive/approved.html",
+          "sha256": "605f10348afb2ff8cd4c7e9741791dc226656e6f4974b613f3da6a274327c879",
+          "bytes": 1336267
+        },
+        "viewportPng": {
+          "path": "a5-desktop/viewport.png",
+          "sha256": "06417c78ee3df4f49d71953352185acdd262490aac0723b5b7306bd5d6dc59d5",
+          "bytes": 276107
+        },
+        "fullpagePng": {
+          "path": "a5-desktop/fullpage.png",
+          "sha256": "9ed405633f25b446298c0446c781caad64928fbe6dc17fbd09329e2e3d0786ea",
+          "bytes": 276593
+        }
+      },
+      "code": "A5",
+      "device": "desktop",
+      "label": "Image à reconnecter",
+      "spec": "a5-desktop/SPEC.md",
+      "nativeArtifactType": "HTML mockup",
+      "supersededScreenIdsExcluded": ["ce6f1d236145484797a81669c8d9f226"]
+    },
+    {
+      "title": "PROPOSAL — A5 — Image à reconnecter — Mobile — v3",
+      "screenId": "11696425283968743710",
+      "url": "https://stitch.withgoogle.com/projects/6522040318627629456?node-id=11696425283968743710",
+      "key": "a5-mobile",
+      "projectId": "6522040318627629456",
+      "status": "APPROVED",
+      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "role": "Reconnecter une image facultative sans perdre les textes et réglages.",
+      "files": {
+        "approvedPng": {
+          "path": "a5-mobile/approved.png",
+          "sha256": "fee5b3b374987c0fff672b7e69831dc38982b0449be338a72d6df88615661072",
+          "bytes": 179802
+        },
+        "responsiveHtml": {
+          "path": "a5-mobile/responsive/approved.html",
+          "sha256": "bde4b1281d214150bdb2c377108b3ca317f3931b93d63d78e8ff825d6e173829",
+          "bytes": 1336266
+        },
+        "viewportPng": {
+          "path": "a5-mobile/viewport.png",
+          "sha256": "84f21f28f056f4dc5604b997d9e2d94f0f8bf048252a5edf6a56f4d96476b8eb",
+          "bytes": 37295
+        },
+        "fullpagePng": {
+          "path": "a5-mobile/fullpage.png",
+          "sha256": "1016d552f54d3cabe5e28d29ead27fdd32d4b1cfcf26d683d74a65cb11669077",
+          "bytes": 176162
+        },
+        "bottomViewportPng": {
+          "path": "a5-mobile/viewport-bottom.png",
+          "sha256": "df9a611ce9be980bba21fd503c20e98223a9ac4e0e830f60b2a837c5023dcd9a",
+          "bytes": 153170
+        },
+        "mobileCompletePng": {
+          "path": "a5-mobile/mobile-complete.png",
+          "sha256": "fee5b3b374987c0fff672b7e69831dc38982b0449be338a72d6df88615661072",
+          "bytes": 179802
+        }
+      },
+      "code": "A5",
+      "device": "mobile",
+      "label": "Image à reconnecter",
+      "spec": "a5-mobile/SPEC.md",
+      "nativeArtifactType": "mobile full-scroll PNG reference",
+      "supersededScreenIdsExcluded": [
+        "4daf85124ea04cd9b46df7101cd6b5cf",
+        "7964217310177308330"
+      ]
+    },
+    {
+      "title": "PROPOSAL — A6 — Série prête — Desktop — v2",
+      "screenId": "17639353948556659950",
+      "url": "https://stitch.withgoogle.com/projects/6522040318627629456?node-id=17639353948556659950",
+      "key": "a6-desktop",
+      "projectId": "6522040318627629456",
+      "status": "APPROVED",
+      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "role": "Vérifier la série prête puis ouvrir le salon d’invitation sans distribuer.",
+      "files": {
+        "approvedPng": {
+          "path": "a6-desktop/approved.png",
+          "sha256": "a869656d38bc5058dd28792b4f07e4df67fb28cec7db8f587a26747e1f543b3e",
+          "bytes": 267218
+        },
+        "approvedHtml": {
+          "path": "a6-desktop/approved.html",
+          "sha256": "71c7b7f30d17d05db4f8b246f958ed65396a5f2d0c2aef7e55f5c1749d66e4fa",
+          "bytes": 516555
+        },
+        "responsiveHtml": {
+          "path": "a6-desktop/responsive/approved.html",
+          "sha256": "71c7b7f30d17d05db4f8b246f958ed65396a5f2d0c2aef7e55f5c1749d66e4fa",
+          "bytes": 516555
+        },
+        "viewportPng": {
+          "path": "a6-desktop/viewport.png",
+          "sha256": "0ec9ef852053ec7c6dc640c947190b724e9613fb7fb42e50362be594cdb276ed",
+          "bytes": 90373
+        },
+        "fullpagePng": {
+          "path": "a6-desktop/fullpage.png",
+          "sha256": "2db5dc5b3975398b097ae6c2b6d53c1bedad71d727834608123cd2f43fa1b624",
+          "bytes": 97606
+        }
+      },
+      "code": "A6",
+      "device": "desktop",
+      "label": "Série prête",
+      "spec": "a6-desktop/SPEC.md",
+      "nativeArtifactType": "HTML mockup",
+      "supersededScreenIdsExcluded": ["3b56b4bc1aa24f17b107fb41b7b8de21"]
+    },
+    {
+      "title": "PROPOSAL — A6 — Série prête — Mobile — v3",
+      "screenId": "3387371104757900127",
+      "url": "https://stitch.withgoogle.com/projects/6522040318627629456?node-id=3387371104757900127",
+      "key": "a6-mobile",
+      "projectId": "6522040318627629456",
+      "status": "APPROVED",
+      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "role": "Vérifier la série prête puis ouvrir le salon d’invitation sans distribuer.",
+      "files": {
+        "approvedPng": {
+          "path": "a6-mobile/approved.png",
+          "sha256": "d170ac8cf14634910566caf3edc75c58921e7612049bd44f33d81bf08f50007f",
+          "bytes": 72525
+        },
+        "responsiveHtml": {
+          "path": "a6-mobile/responsive/approved.html",
+          "sha256": "b91d9706b632ea2dc9b7fc8f38b4abd0834cd76e1f003e79df7ee53c84269b2a",
+          "bytes": 516554
+        },
+        "viewportPng": {
+          "path": "a6-mobile/viewport.png",
+          "sha256": "b9e98365687cdd3b43d23ad928c6b182af8c2d5c86dd81dfebf0577ad87488fe",
+          "bytes": 53416
+        },
+        "fullpagePng": {
+          "path": "a6-mobile/fullpage.png",
+          "sha256": "d66fb76df4ef2a92d088046a79d2f3dfda367ec6ca910cab02f94a4ab3ff020c",
+          "bytes": 71790
+        },
+        "bottomViewportPng": {
+          "path": "a6-mobile/viewport-bottom.png",
+          "sha256": "fac6e83acb022a5f6f71980bae184400e9015028b8c18c465a84b7b7173c9f23",
+          "bytes": 45860
+        },
+        "mobileCompletePng": {
+          "path": "a6-mobile/mobile-complete.png",
+          "sha256": "d170ac8cf14634910566caf3edc75c58921e7612049bd44f33d81bf08f50007f",
+          "bytes": 72525
+        }
+      },
+      "code": "A6",
+      "device": "mobile",
+      "label": "Série prête",
+      "spec": "a6-mobile/SPEC.md",
+      "nativeArtifactType": "mobile full-scroll PNG reference",
+      "supersededScreenIdsExcluded": [
+        "6f9814697859474182fdf2ebed9d472a",
+        "5416295497078557650"
+      ]
+    }
+  ],
+  "alphaScreens": [],
+  "limitations": [
+    "Static visual references only; functional integration remains to be implemented.",
+    "Human visual approval is explicit and recorded; no physical OBS/iPhone test is implied.",
+    "HTML and PNG exported byte-for-byte; only documentation/manifest paths are portable adaptations."
+  ]
+}

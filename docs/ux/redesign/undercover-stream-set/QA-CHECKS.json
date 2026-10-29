@@ -1,0 +1,178 @@
+[
+  {
+    "key": "a1-desktop",
+    "width": 1440,
+    "scrollWidth": 1440,
+    "smallTargets": [],
+    "images": [
+      {
+        "loaded": true
+      },
+      {
+        "loaded": true
+      }
+    ],
+    "otherReorderButtons": 0,
+    "text": "Extension Twitch\nUndercover\nStream du 30 octobre\nPréparer une partie\n\nQuelques réglages, puis ajoutez-la à votre série.\n\nParticipants\n3 à 12\n4\nTours d’indices\n1\n2\n3\n4\n5\nMode\nClassique\nVos contenus\nContenu A\nSasuke\nContenu B\nItachi\nModifier les contenus\n\nLes images de cette préparation sont disponibles sur cet appareil.\n\nRôles et distribution\nPlateau de diffusion\nVotre partie\nParticipants prévus\n4\nTours d’indices\n2\nMode\nClassique\nSasuke / Itachi\nAjouter à la série "
+  },
+  {
+    "key": "a1-mobile",
+    "width": 390,
+    "scrollWidth": 390,
+    "smallTargets": [],
+    "images": [
+      {
+        "loaded": true
+      },
+      {
+        "loaded": true
+      }
+    ],
+    "otherReorderButtons": 0,
+    "text": "Extension Twitch\nStream du 30 octobre\nPréparer une partie\n\nQuelques réglages, puis ajoutez-la à votre série.\n\nParticipants\n3 à 12\n4\nTours d’indices\n1\n2\n3\n4\n5\nMode\nClassique\nVos contenus\nContenu A\nSasuke\nContenu B\nItachi\nModifier les contenus\n\nLes images de cette préparation sont disponibles sur cet appareil.\n\nRôles et distribution\nPlateau de diffusion\n\n4 joueurs · 2 tours · Classique\n\nAjouter à la série "
+  },
+  {
+    "key": "a2-desktop",
+    "width": 1440,
+    "scrollWidth": 1440,
+    "smallTargets": [],
+    "images": [
+      {
+        "loaded": true
+      },
+      {
+        "loaded": true
+      }
+    ],
+    "otherReorderButtons": 0,
+    "text": "Extension Twitch\nUndercover\nRetour à la série\nSasuke / Itachi\n\nPartie 4 · Modifiez un nom, une image, ou les deux.\n\nContenu A\nNom du contenu A\nRemplacer l’image\nRetirer l’image\nContenu B\nNom du contenu B\nRemplacer l’image\nRetirer l’image\n\nLes images de cette préparation sont disponibles sur cet appareil.\n\nEnregistrer la partie "
+  },
+  {
+    "key": "a2-mobile",
+    "width": 390,
+    "scrollWidth": 390,
+    "smallTargets": [],
+    "images": [
+      {
+        "loaded": true
+      },
+      {
+        "loaded": true
+      }
+    ],
+    "otherReorderButtons": 0,
+    "text": "Extension Twitch\nRetour à la série\nSasuke / Itachi\n\nPartie 4 · Modifiez un nom, une image, ou les deux.\n\nContenu A\nNom du contenu A\nRemplacer l’image\nRetirer l’image\nContenu B\nNom du contenu B\nRemplacer l’image\nRetirer l’image\n\nLes images de cette préparation sont disponibles sur cet appareil.\n\nEnregistrer la partie "
+  },
+  {
+    "key": "a3-desktop",
+    "width": 1440,
+    "scrollWidth": 1440,
+    "smallTargets": [],
+    "images": [
+      {
+        "loaded": true
+      },
+      {
+        "loaded": true
+      }
+    ],
+    "firstUp": true,
+    "lastDown": true,
+    "otherReorderButtons": 6,
+    "text": "Extension Twitch\nUndercover\nUndercover\n\n4 parties · À votre rythme, dans votre ordre.\n\n1\nSasuke / Itachi\nPrête\nModifier\n2\nMessi / Ronaldo\nPrête · sans image\nModifier\nDupliquer\nRetirer\n3\nParis / Londres\nPrête\nModifier\n4\niPhone / Android\nPrête\nModifier\n Ajouter une partie\nRéutiliser une ancienne partie\n\nLes images de cette préparation sont disponibles sur cet appareil.\n\nVérifier la série "
+  },
+  {
+    "key": "a3-mobile",
+    "width": 390,
+    "scrollWidth": 390,
+    "smallTargets": [],
+    "images": [
+      {
+        "loaded": true
+      },
+      {
+        "loaded": true
+      }
+    ],
+    "firstUp": true,
+    "lastDown": true,
+    "otherReorderButtons": 6,
+    "text": "Extension Twitch\nUndercover\n\n4 parties · À votre rythme, dans votre ordre.\n\n1\nSasuke / Itachi\nPrête\nModifier\n2\nMessi / Ronaldo\nPrête · sans image\nModifier\nDupliquer\nRetirer\n3\nParis / Londres\nPrête\nModifier\n4\niPhone / Android\nPrête\nModifier\n Ajouter une partie\nRéutiliser une ancienne partie\n\nLes images de cette préparation sont disponibles sur cet appareil.\n\nVérifier la série "
+  },
+  {
+    "key": "a4-desktop",
+    "width": 1440,
+    "scrollWidth": 1440,
+    "smallTargets": [],
+    "images": [
+      {
+        "loaded": true
+      },
+      {
+        "loaded": true
+      }
+    ],
+    "otherReorderButtons": 0,
+    "text": "Extension Twitch\nUndercover\nRetour à la série\nReprendre une ancienne partie\n\nRetrouvez une paire. Gardez ce qui vous plaît.\n\nSasuke / Itachi\nStream du 24 octobre\nMessi / Ronaldo\nStream du 21 octobre\nParis / Londres\nStream du 18 octobre\nUne copie pour votre série\n\nModifiez seulement ce dont vous avez besoin.\n\nContenu A\nContenu B\n\nLa partie d’origine reste intacte.\n\nLes images de cette préparation sont disponibles sur cet appareil.\n\nAjouter cette partie "
+  },
+  {
+    "key": "a4-mobile",
+    "width": 390,
+    "scrollWidth": 390,
+    "smallTargets": [],
+    "images": [
+      {
+        "loaded": true
+      },
+      {
+        "loaded": true
+      }
+    ],
+    "otherReorderButtons": 0,
+    "text": "Extension Twitch\nRetour à la série\nReprendre une ancienne partie\n\nRetrouvez une paire. Gardez ce qui vous plaît.\n\nSasuke / Itachi\nStream du 24 octobre\nMessi / Ronaldo\nStream du 21 octobre\nParis / Londres\nStream du 18 octobre\nUne copie pour votre série\n\nModifiez seulement ce dont vous avez besoin.\n\nContenu A\nContenu B\n\nLa partie d’origine reste intacte.\n\nLes images de cette préparation sont disponibles sur cet appareil.\n\nSasuke / Itachi · copie modifiable\n\nAjouter cette partie "
+  },
+  {
+    "key": "a5-desktop",
+    "width": 1440,
+    "scrollWidth": 1440,
+    "smallTargets": [],
+    "images": [
+      {
+        "loaded": true
+      }
+    ],
+    "otherReorderButtons": 0,
+    "text": "Extension Twitch\nUndercover\nRetour à la série\nSasuke / Itachi\n\nVos textes et réglages sont conservés.\n\nContenu A\nNom du contenu A\n\nImage indisponible\nsur cet appareil\n\nChoisir une image\nContinuer sans cette image\nContenu B\nNom du contenu B\nRemplacer l’image\nRetirer l’image\n\nPréparez et lancez cette série depuis le même appareil pour conserver vos images.\n\nEnregistrer la partie "
+  },
+  {
+    "key": "a5-mobile",
+    "width": 390,
+    "scrollWidth": 390,
+    "smallTargets": [],
+    "images": [
+      {
+        "loaded": true
+      }
+    ],
+    "otherReorderButtons": 0,
+    "text": "Extension Twitch\nRetour à la série\nSasuke / Itachi\n\nVos textes et réglages sont conservés.\n\nContenu A\nNom du contenu A\n\nImage indisponible\nsur cet appareil\n\nChoisir une image\nContinuer sans cette image\nContenu B\nNom du contenu B\nRemplacer l’image\nRetirer l’image\n\nPréparez et lancez cette série depuis le même appareil pour conserver vos images.\n\nEnregistrer la partie "
+  },
+  {
+    "key": "a6-desktop",
+    "width": 1440,
+    "scrollWidth": 1440,
+    "smallTargets": [],
+    "images": [],
+    "otherReorderButtons": 0,
+    "text": "Extension Twitch\nUndercover\nRetour à la série\nVotre série est prête\n\nUn dernier regard, puis place aux invitations.\n\nStream du 30 octobre\n\n10 parties prêtes\n\n4 participants prévus · 2 tours d’indices · Classique\n\n 9 parties avec leurs images disponibles\n\n1 image à reconnecter · facultatif\n\nReconnecter l’image\nVotre programme\n1\nSasuke / Itachi\nPrête\n2\nMessi / Ronaldo\nPrête\n3\nParis / Londres\nPrête\nVoir les 10 parties\n\nLes images de cette préparation sont disponibles sur cet appareil.\n\nPrêt pour vos joueurs\n\nVous inviterez ensuite vos joueurs. Les mots seront distribués plus tard.\n\nL’image à reconnecter ne bloque pas votre série.\n\nOuvrir le salon "
+  },
+  {
+    "key": "a6-mobile",
+    "width": 390,
+    "scrollWidth": 390,
+    "smallTargets": [],
+    "images": [],
+    "otherReorderButtons": 0,
+    "text": "Extension Twitch\nRetour à la série\nVotre série est prête\n\nUn dernier regard, puis place aux invitations.\n\nStream du 30 octobre\n\n10 parties prêtes\n\n4 participants prévus · 2 tours d’indices · Classique\n\n 9 parties avec leurs images disponibles\n\n1 image à reconnecter · facultatif\n\nReconnecter l’image\nVotre programme\n1\nSasuke / Itachi\nPrête\n2\nMessi / Ronaldo\nPrête\n3\nParis / Londres\nPrête\nVoir les 10 parties\n\nLes images de cette préparation sont disponibles sur cet appareil.\n\nVous inviterez ensuite vos joueurs. Les mots seront distribués plus tard.\n\n10 parties prêtes · images facultatives\n\nOuvrir le salon "
+  }
+]

@@ -1,0 +1,100 @@
+[
+  {
+    "file": "../b1/alpha.png",
+    "size": [1920, 1080],
+    "mode": "RGBA",
+    "transparentPct": 92.67,
+    "centerAlpha": 0
+  },
+  {
+    "file": "../b10/alpha.png",
+    "size": [1920, 1080],
+    "mode": "RGBA",
+    "transparentPct": 78.66,
+    "centerAlpha": 0
+  },
+  {
+    "file": "../b11/alpha.png",
+    "size": [1920, 1080],
+    "mode": "RGBA",
+    "transparentPct": 75.56,
+    "centerAlpha": 0
+  },
+  {
+    "file": "../b12/alpha.png",
+    "size": [1920, 1080],
+    "mode": "RGBA",
+    "transparentPct": 75.62,
+    "centerAlpha": 0
+  },
+  {
+    "file": "../b13/alpha.png",
+    "size": [1920, 1080],
+    "mode": "RGBA",
+    "transparentPct": 75.29,
+    "centerAlpha": 0
+  },
+  {
+    "file": "../b14/alpha.png",
+    "size": [1920, 1080],
+    "mode": "RGBA",
+    "transparentPct": 82.15,
+    "centerAlpha": 0
+  },
+  {
+    "file": "../b2/alpha.png",
+    "size": [1920, 1080],
+    "mode": "RGBA",
+    "transparentPct": 82.66,
+    "centerAlpha": 0
+  },
+  {
+    "file": "../b3/alpha.png",
+    "size": [1920, 1080],
+    "mode": "RGBA",
+    "transparentPct": 82.15,
+    "centerAlpha": 0
+  },
+  {
+    "file": "../b4/alpha.png",
+    "size": [1920, 1080],
+    "mode": "RGBA",
+    "transparentPct": 77.71,
+    "centerAlpha": 0
+  },
+  {
+    "file": "../b5/alpha.png",
+    "size": [1920, 1080],
+    "mode": "RGBA",
+    "transparentPct": 83.97,
+    "centerAlpha": 0
+  },
+  {
+    "file": "../b6/alpha.png",
+    "size": [1920, 1080],
+    "mode": "RGBA",
+    "transparentPct": 80.49,
+    "centerAlpha": 0
+  },
+  {
+    "file": "../b7/alpha.png",
+    "size": [1920, 1080],
+    "mode": "RGBA",
+    "transparentPct": 81.81,
+    "centerAlpha": 0
+  },
+  {
+    "file": "../b8/alpha.png",
+    "size": [1920, 1080],
+    "mode": "RGBA",
+    "transparentPct": 75.57,
+    "centerAlpha": 0
+  },
+  {
+    "file": "../b9/alpha.png",
+    "size": [1920, 1080],
+    "mode": "RGBA",
+    "transparentPct": 77.89,
+    "centerAlpha": 0
+  }
+]
