@@ -14,6 +14,23 @@ const mediaPath = new RegExp(
   `^/api/server/sessions/${uuid}/media/${uuid}$`,
   "i",
 );
+function isTwitchEmbeddingOrigin(value: string | undefined) {
+  if (!value) return false;
+  try {
+    const origin = new URL(value);
+    return (
+      origin.protocol === "https:" &&
+      !origin.username &&
+      !origin.password &&
+      (origin.hostname === "twitch.tv" ||
+        origin.hostname.endsWith(".twitch.tv") ||
+        origin.hostname === "twitch.tech" ||
+        origin.hostname.endsWith(".twitch.tech"))
+    );
+  } catch {
+    return false;
+  }
+}
 export function allowedPublicPath(path: string, query: string) {
   return (
     (publicPath.test(path) && !query) ||
@@ -151,13 +168,38 @@ export function createTwitchGateway(options: {
     // Twitch appends its runtime context (anchor, language, mode, state, …)
     // to extension iframe URLs. Static asset selection remains pathname-only;
     // the query is intentionally ignored rather than forwarded anywhere.
-    if (!file || req.method === "OPTIONS") {
+    if (!file) {
       reject(404);
       return;
     }
+    if (req.method === "OPTIONS") {
+      const origin = req.headers.origin;
+      const requestedMethod = String(
+        req.headers["access-control-request-method"] ?? "",
+      );
+      if (
+        !isTwitchEmbeddingOrigin(origin) ||
+        !["GET", "HEAD"].includes(requestedMethod) ||
+        req.headers["access-control-request-private-network"] !== "true"
+      ) {
+        reject(403);
+        return;
+      }
+      res.setHeader("Access-Control-Allow-Origin", origin!);
+      res.setHeader("Access-Control-Allow-Methods", "GET, HEAD");
+      res.setHeader("Access-Control-Allow-Private-Network", "true");
+      res.setHeader("Vary", "Origin");
+      res.writeHead(204);
+      res.end();
+      return;
+    }
+    if (isTwitchEmbeddingOrigin(req.headers.origin)) {
+      res.setHeader("Access-Control-Allow-Origin", req.headers.origin!);
+      res.setHeader("Vary", "Origin");
+    }
     res.setHeader(
       "Content-Security-Policy",
-      "default-src 'none'; script-src 'self' https://extension-files.twitch.tv; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https:; frame-ancestors 'self' https://twitch.tv https://*.twitch.tv https://*.ext-twitch.tv; base-uri 'none'; object-src 'none'; form-action 'none'",
+      "default-src 'none'; script-src 'self' https://extension-files.twitch.tv; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https:; frame-ancestors 'self' https://twitch.tv https://*.twitch.tv https://*.ext-twitch.tv https://*.twitch.tech; base-uri 'none'; object-src 'none'; form-action 'none'",
     );
     const path = join(options.dist, file[0]);
     void stat(path)

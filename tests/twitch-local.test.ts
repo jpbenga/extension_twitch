@@ -219,6 +219,9 @@ describe("HTTPS public-only Twitch gateway with the actual game backend", () => 
     expect(r.status).toBe(200);
     expect(r.headers["x-frame-options"]).toBeUndefined();
     expect(r.headers["content-security-policy"]).toContain("frame-ancestors");
+    expect(r.headers["content-security-policy"]).toContain(
+      "https://*.twitch.tech",
+    );
     expect(r.headers["content-security-policy"]).not.toContain("unsafe-eval");
 
     const twitchConfig = await get(
@@ -226,6 +229,35 @@ describe("HTTPS public-only Twitch gateway with the actual game backend", () => 
     );
     expect(twitchConfig.status).toBe(200);
     expect(twitchConfig.body).toContain("Configuration fixture");
+  });
+  it("answers Chrome private-network preflights for Twitch iframe assets only", async () => {
+    const allowed = await get(
+      "/config.html?anchor=config&mode=config",
+      {
+        Origin: "https://dashboard.twitch.tv",
+        "Access-Control-Request-Method": "GET",
+        "Access-Control-Request-Private-Network": "true",
+      },
+      "OPTIONS",
+    );
+    expect(allowed.status).toBe(204);
+    expect(allowed.headers["access-control-allow-origin"]).toBe(
+      "https://dashboard.twitch.tv",
+    );
+    expect(allowed.headers["access-control-allow-private-network"]).toBe(
+      "true",
+    );
+
+    const denied = await get(
+      "/config.html?anchor=config&mode=config",
+      {
+        Origin: "https://example.com",
+        "Access-Control-Request-Method": "GET",
+        "Access-Control-Request-Private-Network": "true",
+      },
+      "OPTIONS",
+    );
+    expect(denied.status).toBe(403);
   });
   it("never forwards private, command, invitation, credentials or arbitrary filesystem routes", async () => {
     for (const p of [
