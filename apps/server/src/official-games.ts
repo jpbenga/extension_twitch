@@ -24,5 +24,6 @@ export function prepareOfficialSession(
       ...(input.overlayLayout ? { overlayLayout: input.overlayLayout } : {}),
       ...(input.broadcastTheme ? { broadcastTheme: input.broadcastTheme } : {}),
     },
+    input.preparation,
   );
 }

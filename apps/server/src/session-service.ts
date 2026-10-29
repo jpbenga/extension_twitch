@@ -1,3 +1,13 @@
+import { TemporaryMediaRelay } from "./temporary-media.js";
+import {
+  makeUndercoverStream,
+  decideUndercoverStream,
+  projectUndercoverStream,
+  personalUndercoverContent,
+  authorizeMedia,
+} from "./undercover-stream.js";
+import type { UndercoverPreparationRef } from "@extension-twitch/contracts/undercover-stream";
+import { undercoverSettingsSchema } from "@extension-twitch/contracts/official-games";
 import { createHash, randomBytes, randomUUID } from "node:crypto";
 import {
   projectGame,
@@ -32,7 +42,9 @@ interface Subscription {
 
 export class SessionService {
   private readonly streams = new Map<string, Set<Subscription>>();
+  readonly media = new TemporaryMediaRelay((id) => this.broadcast(id));
   shutdown() {
+    this.media.close();
     for (const group of this.streams.values()) group.clear();
     this.streams.clear();
   }
@@ -45,21 +57,36 @@ export class SessionService {
     token: string,
     input: z.infer<typeof createSessionSchema>,
     prepared?: PreparedGame,
+    preparation?: UndercoverPreparationRef,
   ) {
     const hash = hashValue(token);
+    const creation = preparation
+      ? { input, prepared, preparation }
+      : prepared
+        ? { input, prepared }
+        : input;
     return this.store.transaction(() => {
       const scope = `create:${hash}`;
       const prior = this.store.receipt(
         scope,
         input.requestId,
-        fingerprint(prepared ? { input, prepared } : input),
+        fingerprint(creation),
       );
       if (prior) {
         this.store.authorize(prior.sessionId, hash);
         return prior;
       }
+      if (preparation && this.store.seriesSession(hash, preparation.series.id))
+        throw new SessionError("SERIES_ALREADY_PREPARED", 409);
+      const stream = preparation
+        ? makeUndercoverStream(
+            preparation,
+            undercoverSettingsSchema.parse(prepared?.configuration),
+          )
+        : undefined;
       const state = recordEvent(
         {
+          ...(stream ? { undercoverStream: stream } : {}),
           ...(prepared ? { preparedGame: structuredClone(prepared) } : {}),
           ...(prepared?.broadcastTheme
             ? { broadcastTheme: prepared.broadcastTheme }
@@ -84,11 +111,13 @@ export class SessionService {
       );
       this.store.save(state, hashValue(state.invitationCode), true);
       this.store.grant(state.id, hash, { role: "gm" });
+      if (preparation)
+        this.store.bindSeries(hash, preparation.series.id, state.id);
       const result = { sessionId: state.id };
       this.store.acknowledge(
         scope,
         input.requestId,
-        fingerprint(prepared ? { input, prepared } : input),
+        fingerprint(creation),
         result,
       );
       return result;
@@ -141,6 +170,7 @@ export class SessionService {
 
   command(id: string, token: string, input: LobbyCommand) {
     const hash = hashValue(token);
+    let applied = false;
     this.store.transaction(() => {
       const actor = this.store.authorize(id, hash);
       const scope = `command:${id}:${hash}`;
@@ -149,10 +179,32 @@ export class SessionService {
       const state = this.store.load(id);
       if (state.version !== input.expectedVersion)
         throw new SessionError("VERSION_CONFLICT", 409);
-      const next = decideLobby(state, actor, input.command, {
-        at: new Date().toISOString(),
-        nextInvitationCode: invitation(),
-      });
+      const at = new Date().toISOString();
+      let next =
+        input.command.type === "undercover.next" ||
+        input.command.type === "undercover.publish"
+          ? decideUndercoverStream(state, actor, input.command, at)
+          : decideLobby(state, actor, input.command, {
+              at,
+              nextInvitationCode: invitation(),
+            });
+      if (input.command.type === "game.restart" && next.undercoverStream)
+        next = {
+          ...next,
+          undercoverStream: {
+            ...next.undercoverStream,
+            publication: "none",
+            page: 0,
+            transition: false,
+            revision: next.undercoverStream.revision + 1,
+          },
+        };
+      if (input.command.type === "session.reset") {
+        const { undercoverStream: _old, ...base } = next;
+        next = base;
+        this.store.unbindSeries(id);
+      }
+      applied = true;
       this.store.save(next, hashValue(next.invitationCode));
       if (input.command.type === "participant.remove")
         this.store.revoke(id, input.command.participantId);
@@ -161,6 +213,12 @@ export class SessionService {
         sessionId: id,
       });
     });
+    if (
+      applied &&
+      (input.command.type === "undercover.next" ||
+        input.command.type === "session.reset")
+    )
+      this.media.clearSession(id);
     this.broadcast(id);
     return this.view(id, hash);
   }
@@ -173,11 +231,20 @@ export class SessionService {
         subscription.playerId ? [subscription.playerId] : [],
       ),
     );
-    const publicView = projectPublicSession(state, connected);
+    const projections = projectUndercoverStream(state, this.media);
+    const publicView = {
+      ...projectPublicSession(state, connected),
+      ...(projections.publicView
+        ? { undercoverBroadcast: projections.publicView }
+        : {}),
+    };
     if (actor?.role === "gm")
       return sessionViewSchema.parse({
         ...publicView,
         audience: "gm",
+        ...(projections.gmView
+          ? { undercoverPreparation: projections.gmView }
+          : {}),
         ...(state.preparedGame
           ? {
               preparedGame: {
@@ -210,12 +277,39 @@ export class SessionService {
       return sessionViewSchema.parse({
         ...publicView,
         audience: "player",
+        ...(personalUndercoverContent(state, actor, this.media)
+          ? {
+              personalContent: personalUndercoverContent(
+                state,
+                actor,
+                this.media,
+              ),
+            }
+          : {}),
         ...(state.gameRun ? { game: projectGame(state.gameRun, actor) } : {}),
         participantId: actor.participantId,
       });
     return sessionViewSchema.parse(publicView);
   }
 
+  assertMediaWrite(id: string, token: string, contentId: string) {
+    const actor = this.store.authorize(id, hashValue(token));
+    if (actor.role !== "gm") throw new SessionError("FORBIDDEN", 403);
+    authorizeMedia(this.store.load(id), actor, contentId);
+  }
+  uploadMedia(id: string, token: string, contentId: string, bytes: Buffer) {
+    this.assertMediaWrite(id, token, contentId);
+    this.media.put(id, contentId, bytes);
+    this.broadcast(id);
+    return this.view(id, hashValue(token));
+  }
+  readMedia(id: string, token: string | null, contentId: string) {
+    const actor = token ? this.store.authorize(id, hashValue(token)) : null;
+    authorizeMedia(this.store.load(id), actor, contentId);
+    const entry = this.media.get(id, contentId);
+    if (!entry) throw new SessionError("MEDIA_EXPIRED", 410);
+    return entry.bytes;
+  }
   subscribe(id: string, token: string | null, send: Subscription["send"]) {
     const hash = token === null ? null : hashValue(token);
     const initial = this.view(id, hash);

@@ -41,3 +41,22 @@ export function json(response: ServerResponse, value: unknown, status = 200) {
   });
   response.end(JSON.stringify(value));
 }
+
+export async function readPng(
+  request: IncomingMessage,
+  limit: number,
+): Promise<Buffer> {
+  if (request.headers["content-type"]?.split(";")[0]?.trim() !== "image/png")
+    throw new SessionError("IMAGE_PNG_REQUIRED", 415);
+  if (Number(request.headers["content-length"]) > limit)
+    throw new SessionError("IMAGE_TOO_LARGE", 413);
+  const chunks: Buffer[] = [];
+  let length = 0;
+  for await (const chunk of request.iterator({ destroyOnReturn: false })) {
+    const bytes = Buffer.isBuffer(chunk) ? chunk : Buffer.from(String(chunk));
+    length += bytes.length;
+    if (length > limit) throw new SessionError("IMAGE_TOO_LARGE", 413);
+    chunks.push(bytes);
+  }
+  return Buffer.concat(chunks);
+}

@@ -257,7 +257,7 @@ describe("private creator workspaces over real HTTP and SQLite", () => {
     view = studioViewSchema.parse(await response.json());
     await stop();
     const db = new DatabaseSync(join(directory, "studio.sqlite"));
-    expect(db.prepare("PRAGMA user_version").get()?.user_version).toBe(2);
+    expect(db.prepare("PRAGMA user_version").get()?.user_version).toBe(3);
     db.close();
     expect(
       readFileSync(join(directory, "studio.sqlite")).toString(),

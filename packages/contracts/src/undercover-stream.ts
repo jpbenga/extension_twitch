@@ -20,7 +20,9 @@ export const undercoverImageSchema = z.strictObject({
   id: z.uuid(),
   url: z
     .string()
-    .regex(/^\/api\/server\/sessions\/[a-f0-9-]{36}\/media\/[a-f0-9-]{36}$/),
+    .regex(
+      /^\/api\/server\/sessions\/[a-f0-9-]{36}\/media\/[a-f0-9-]{36}(?:\?v=[a-f0-9]{12})?$/,
+    ),
 });
 export const undercoverContentSchema = z.strictObject({
   id: z.uuid(),

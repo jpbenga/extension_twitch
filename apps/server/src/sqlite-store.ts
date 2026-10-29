@@ -19,7 +19,7 @@ export class SqliteStore {
       "PRAGMA foreign_keys=ON; PRAGMA journal_mode=WAL; PRAGMA busy_timeout=5000;",
     );
     const version = this.db.prepare("PRAGMA user_version").get()?.user_version;
-    if (typeof version !== "number" || version > 2)
+    if (typeof version !== "number" || version > 3)
       throw new Error("Unsupported database schema");
     this.transaction(() =>
       this.db.exec(`
@@ -45,7 +45,12 @@ export class SqliteStore {
         workspace_id TEXT NOT NULL REFERENCES creator_workspaces(id), command_id TEXT NOT NULL,
         fingerprint TEXT NOT NULL, PRIMARY KEY(workspace_id,command_id)
       );
-      PRAGMA user_version=2;
+      CREATE TABLE IF NOT EXISTS undercover_series (
+        owner_hash TEXT NOT NULL, series_id TEXT NOT NULL,
+        session_id TEXT NOT NULL REFERENCES sessions(id),
+        PRIMARY KEY(owner_hash,series_id)
+      );
+      PRAGMA user_version=3;
     `),
     );
   }
@@ -67,6 +72,26 @@ export class SqliteStore {
       .get(id);
     if (!row) throw new SessionError("SESSION_NOT_FOUND", 404);
     return JSON.parse(String(row.state)) as LobbyState;
+  }
+  seriesSession(ownerHash: string, seriesId: string): string | null {
+    const row = this.db
+      .prepare(
+        "SELECT session_id FROM undercover_series WHERE owner_hash=? AND series_id=?",
+      )
+      .get(ownerHash, seriesId);
+    return row ? String(row.session_id) : null;
+  }
+  bindSeries(ownerHash: string, seriesId: string, sessionId: string) {
+    this.db
+      .prepare(
+        "INSERT INTO undercover_series(owner_hash,series_id,session_id) VALUES(?,?,?)",
+      )
+      .run(ownerHash, seriesId, sessionId);
+  }
+  unbindSeries(sessionId: string) {
+    this.db
+      .prepare("DELETE FROM undercover_series WHERE session_id=?")
+      .run(sessionId);
   }
   findInvitation(hash: string): LobbyState {
     const row = this.db

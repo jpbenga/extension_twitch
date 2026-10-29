@@ -1,3 +1,4 @@
+import { UNDERCOVER_IMAGE_MAX_BYTES } from "@extension-twitch/contracts/undercover-stream";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import {
   createSessionSchema,
@@ -7,7 +8,7 @@ import {
   sessionIdSchema,
 } from "@extension-twitch/contracts/sessions";
 import { gameExamples, SessionError } from "@extension-twitch/engine";
-import { credential, readJson, json } from "./http-utils.js";
+import { credential, readJson, readPng, json } from "./http-utils.js";
 import { CreatorApi } from "./creator-api.js";
 import { CreatorService } from "./creator-service.js";
 import { ZodError } from "zod";
@@ -107,6 +108,45 @@ export class SessionApi {
         this.service.view(spectator[1]!, null); // Same public availability check as the board.
         json(response, readOnlySpectators);
         return;
+      }
+      const media = /^\/sessions\/([^/]+)\/media\/([^/]+)$/.exec(path);
+      if (
+        media &&
+        sessionIdSchema.safeParse(media[1]).success &&
+        sessionIdSchema.safeParse(media[2]).success
+      ) {
+        const id = media[1]!,
+          contentId = media[2]!;
+        if (method === "POST") {
+          const token = credential(request);
+          this.limit(`media:${id}:${hashValue(token)}`, 30);
+          this.service.assertMediaWrite(id, token, contentId);
+          json(
+            response,
+            this.service.uploadMedia(
+              id,
+              token,
+              contentId,
+              await readPng(request, UNDERCOVER_IMAGE_MAX_BYTES),
+            ),
+          );
+          return;
+        }
+        if (method === "GET") {
+          const token = request.headers.authorization
+            ? credential(request)
+            : null;
+          const bytes = this.service.readMedia(id, token, contentId);
+          response.writeHead(200, {
+            "Content-Type": "image/png",
+            "Content-Length": bytes.length,
+            "Cache-Control": "private, no-store",
+            "Content-Security-Policy": "default-src 'none'; sandbox",
+          });
+          response.end(bytes);
+          return;
+        }
+        throw new SessionError("NOT_FOUND", 404);
       }
       const session =
         /^\/sessions\/([^/]+)\/(public|private|commands)(\/events)?$/.exec(

@@ -9,3 +9,8 @@ AGENTS.md
 docs/PRODUCT.md
 # Preserve the exact visual reference exported by Stitch.
 docs/ux/redesign/**/approved.html
+
+# Immutable imported Stitch references (native exports and embedded resources)
+docs/ux/redesign/undercover-next/
+docs/ux/redesign/undercover-stream-set/
+docs/ux/redesign/undercover-tv-broadcast/
