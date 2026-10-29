@@ -1,10 +1,12 @@
 "use client";
+import { commandId } from "./session-client";
 import { useEffect, useRef, useState } from "react";
 import {
   loadSeriesLibrary,
   saveSeriesLibrary,
   SeriesStorageError,
   type SeriesLibrary,
+  copyPreparation,
 } from "./undercover-series";
 
 export function useUndercoverSeries() {
@@ -14,6 +16,7 @@ export function useUndercoverSeries() {
   const current = useRef<SeriesLibrary | null>(null);
   const queue = useRef<Promise<void>>(Promise.resolve());
   const failed = useRef(false);
+  const persistedRevision = useRef(0);
   useEffect(() => {
     let active = true;
     void loadSeriesLibrary()
@@ -50,6 +53,7 @@ export function useUndercoverSeries() {
     const operation = queue.current.then(async () => {
       if (failed.current) throw new SeriesStorageError("unavailable");
       await saveSeriesLibrary(next, previous.revision);
+      persistedRevision.current = next.revision;
     });
     queue.current = operation
       .catch((e) => {
@@ -73,7 +77,8 @@ export function useUndercoverSeries() {
   async function retry() {
     if (!current.current) return;
     const saved = await loadSeriesLibrary();
-    if (saved.revision !== current.current.revision - 1) {
+    await queue.current;
+    if (saved.revision !== persistedRevision.current) {
       setError(
         "Une autre version est enregistrée. Conservez vos changements dans une nouvelle série avant de recharger.",
       );
@@ -82,6 +87,37 @@ export function useUndercoverSeries() {
     const value = await saveSeriesLibrary(current.current, saved.revision);
     failed.current = false;
     current.current = value;
+    persistedRevision.current = value.revision;
+    setLibrary(value);
+    setError("");
+  }
+  async function copyUnsaved() {
+    if (!current.current) return;
+    await queue.current;
+    const stored = await loadSeriesLibrary();
+    const ours = current.current.series.find(
+      (s) => s.id === current.current!.selectedSeriesId,
+    );
+    if (!ours) return;
+    const { active: _active, pending: _pending, token: _token, ...base } = ours;
+    const copy = {
+      ...structuredClone(base),
+      id: commandId(),
+      title: `${ours.title} (copie)`.slice(0, 80),
+      preparations: ours.preparations.map(copyPreparation),
+      draft: copyPreparation(ours.draft),
+    };
+    const value = await saveSeriesLibrary(
+      {
+        ...stored,
+        selectedSeriesId: copy.id,
+        series: [...stored.series, copy],
+      },
+      stored.revision,
+    );
+    failed.current = false;
+    current.current = value;
+    persistedRevision.current = value.revision;
     setLibrary(value);
     setError("");
   }
@@ -92,6 +128,7 @@ export function useUndercoverSeries() {
     error,
     reload,
     retry,
+    copyUnsaved,
     flush: () => queue.current,
   };
 }

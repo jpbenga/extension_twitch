@@ -1,3 +1,4 @@
+import { commandId } from "./session-client";
 import { z } from "zod";
 import {
   undercoverSettingsSchema,
@@ -77,7 +78,7 @@ export function newPreparation(
   settings = undercoverSettingsSchema.parse({}),
 ): UndercoverPreparation {
   return {
-    id: crypto.randomUUID(),
+    id: commandId(),
     title: "",
     count: 4,
     settings,
@@ -105,7 +106,7 @@ export function copyPreparation(
   p: UndercoverPreparation,
 ): UndercoverPreparation {
   return {
-    id: crypto.randomUUID(),
+    id: commandId(),
     title: p.title,
     count: p.count,
     settings: structuredClone(p.settings),
@@ -117,7 +118,7 @@ export function copyPreparation(
 }
 export function newSeries(title = "Ma série Undercover"): UndercoverSeries {
   return {
-    id: crypto.randomUUID(),
+    id: commandId(),
     title,
     preparations: [],
     draft: newPreparation(),
@@ -248,7 +249,7 @@ export async function saveSeriesImage(blob: Blob): Promise<string> {
   if (blob.type !== "image/png" || blob.size > imageLimit)
     throw new SeriesStorageError("quota");
   const db = await opening(),
-    id = crypto.randomUUID();
+    id = commandId();
   try {
     await new Promise<void>((resolve, reject) => {
       const tx = db.transaction("images", "readwrite");

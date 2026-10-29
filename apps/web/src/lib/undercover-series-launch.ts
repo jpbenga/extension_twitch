@@ -6,7 +6,7 @@ import {
   accessTokenSchema,
   sessionAccessSchema,
 } from "@extension-twitch/contracts/sessions";
-import { post, readResponse } from "./session-client";
+import { commandId, post, readResponse } from "./session-client";
 import { prepareLab, saveLab, type CreatorLab } from "./creator-lab";
 import {
   getSeriesImage,
@@ -48,7 +48,7 @@ export function makeSeriesAttempt(
 ): SeriesAttempt {
   return {
     snapshot: structuredClone(p),
-    requestId: crypto.randomUUID(),
+    requestId: commandId(),
     token,
     mode: "invite",
     count: p.count,
