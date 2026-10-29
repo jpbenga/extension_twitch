@@ -35,6 +35,10 @@
     "./themes": {
       "types": "./dist/themes.d.ts",
       "import": "./dist/themes.js"
+    },
+    "./undercover-stream": {
+      "types": "./dist/undercover-stream.d.ts",
+      "import": "./dist/undercover-stream.js"
     }
   },
   "scripts": {

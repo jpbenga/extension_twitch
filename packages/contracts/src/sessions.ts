@@ -1,3 +1,11 @@
+import { undercoverSettingsSchema } from "./official-games.js";
+import {
+  undercoverPreparationRefSchema,
+  undercoverPublicationSchema,
+  undercoverBroadcastSchema,
+  undercoverPreparedViewSchema,
+  undercoverContentSchema,
+} from "./undercover-stream.js";
 import { z } from "zod";
 import { themeIdSchema } from "./themes.js";
 import { undercoverLayoutSchema } from "./undercover-layout.js";
@@ -32,6 +40,16 @@ export const joinSessionSchema = z.strictObject({
 });
 
 export const lobbyActionSchema = z.discriminatedUnion("type", [
+  z.strictObject({
+    type: z.literal("undercover.publish"),
+    mode: undercoverPublicationSchema,
+    page: z.number().int().min(0).max(3).optional(),
+  }),
+  z.strictObject({
+    type: z.literal("undercover.next"),
+    settings: undercoverSettingsSchema,
+    preparation: undercoverPreparationRefSchema,
+  }),
   z.strictObject({ type: z.literal("participant.ready"), ready: z.boolean() }),
   z.strictObject({ type: z.literal("session.rename"), title: displayName }),
   z.strictObject({ type: z.literal("session.admission"), open: z.boolean() }),
@@ -86,6 +104,8 @@ export const lobbyEventSchema = z.strictObject({
   version: z.number().int().positive(),
   at: z.iso.datetime(),
   type: z.enum([
+    "undercover.publish",
+    "undercover.next",
     "session.created",
     "overlay.configure",
     "participant.joined",
@@ -110,6 +130,7 @@ export const publicParticipantSchema = z.strictObject({
   connected: z.boolean(),
 });
 const viewFields = {
+  undercoverBroadcast: undercoverBroadcastSchema.optional(),
   broadcastTheme: themeIdSchema.optional(),
   overlayLayout: undercoverLayoutSchema.optional(),
   publicGame: gameProjectionSchema
@@ -138,6 +159,7 @@ export const publicSessionSchema = z.strictObject({
 export const gmSessionSchema = z.strictObject({
   ...viewFields,
   audience: z.literal("gm"),
+  undercoverPreparation: undercoverPreparedViewSchema.optional(),
   game: gameProjectionSchema.optional(),
   preparedGame: z
     .strictObject({
@@ -156,6 +178,7 @@ export const gmSessionSchema = z.strictObject({
 export const playerSessionSchema = z.strictObject({
   ...viewFields,
   audience: z.literal("player"),
+  personalContent: undercoverContentSchema.optional(),
   game: gameProjectionSchema.optional(),
   participantId: z.uuid(),
 });

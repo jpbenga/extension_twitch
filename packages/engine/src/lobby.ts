@@ -1,3 +1,4 @@
+import type { UndercoverStreamState } from "@extension-twitch/contracts/undercover-stream";
 import type { ThemeId } from "@extension-twitch/contracts/themes";
 import {
   undercoverLayoutSchema,
@@ -34,6 +35,7 @@ export interface PreparedGame {
   assets: AssetBinding[];
 }
 export interface LobbyState {
+  undercoverStream?: UndercoverStreamState;
   broadcastTheme?: ThemeId;
   overlayLayout?: UndercoverLayout;
   preparedGame?: PreparedGame;
@@ -193,6 +195,10 @@ export function decideLobby(
   }
   if (actor.role !== "gm") throw new SessionError("FORBIDDEN", 403);
   switch (action.type) {
+    // Product preparation/media orchestration belongs to the authenticated session service.
+    case "undercover.publish":
+    case "undercover.next":
+      throw new SessionError("FORBIDDEN", 403);
     case "game.use-prepared": {
       if (!state.preparedGame) throw new SessionError("NO_GAME", 409);
       if (

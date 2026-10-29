@@ -1,3 +1,4 @@
+import { undercoverPreparationRefSchema } from "./undercover-stream.js";
 import { z } from "zod";
 import { themeIdSchema } from "./themes.js";
 import { undercoverLayoutSchema } from "./undercover-layout.js";
@@ -20,6 +21,7 @@ export const undercoverSettingsSchema = z
 export type UndercoverSettings = z.infer<typeof undercoverSettingsSchema>;
 export const officialSessionSchema = z.strictObject({
   requestId: z.uuid(),
+  preparation: undercoverPreparationRefSchema.optional(),
   settings: undercoverSettingsSchema,
   overlayLayout: undercoverLayoutSchema.optional(),
   broadcastTheme: themeIdSchema.optional(),
