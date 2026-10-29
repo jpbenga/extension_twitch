@@ -154,6 +154,10 @@ describe("HTTPS public-only Twitch gateway with the actual game backend", () => 
       join(directory, "panel.html"),
       "<!doctype html><title>Fixture</title>",
     );
+    writeFileSync(
+      join(directory, "config.html"),
+      "<!doctype html><title>Configuration fixture</title>",
+    );
     store = new SqliteStore(":memory:");
     service = new SessionService(store, "http://127.0.0.1:3000");
     api = createApp(service);
@@ -216,6 +220,12 @@ describe("HTTPS public-only Twitch gateway with the actual game backend", () => 
     expect(r.headers["x-frame-options"]).toBeUndefined();
     expect(r.headers["content-security-policy"]).toContain("frame-ancestors");
     expect(r.headers["content-security-policy"]).not.toContain("unsafe-eval");
+
+    const twitchConfig = await get(
+      "/config.html?anchor=config&language=fr&mode=config&state=testing",
+    );
+    expect(twitchConfig.status).toBe(200);
+    expect(twitchConfig.body).toContain("Configuration fixture");
   });
   it("never forwards private, command, invitation, credentials or arbitrary filesystem routes", async () => {
     for (const p of [

@@ -148,7 +148,10 @@ export function createTwitchGateway(options: {
       return;
     }
     const file = files.get(url.pathname);
-    if (!file || url.search || req.method === "OPTIONS") {
+    // Twitch appends its runtime context (anchor, language, mode, state, …)
+    // to extension iframe URLs. Static asset selection remains pathname-only;
+    // the query is intentionally ignored rather than forwarded anywhere.
+    if (!file || req.method === "OPTIONS") {
       reject(404);
       return;
     }
