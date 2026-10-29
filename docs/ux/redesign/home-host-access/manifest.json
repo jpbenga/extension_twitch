@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "humanApproved": true,
+  "projectId": "7117487747163082855",
+  "approvalRecord": "APPROVAL.json",
+  "applicationBaseCommit": "57f6f02848724ba0eba5af448af888471713c365",
+  "implementationStarted": false,
+  "sourceApplicationModified": false,
+  "approvedHtml": "approved.html",
+  "beforeReference": "reference/before.png",
+  "handoff": "HANDOFF.md",
+  "spec": "SPEC.md",
+  "qualityEvidence": ["QA.json", "REVIEW.md", "DOCUMENTATION-CHECK.md"],
+  "supersededScreenIdsExcluded": ["0a4ed460215a4a298e57455110069fea"],
+  "screens": [
+    {
+      "key": "live-desktop",
+      "device": "desktop",
+      "role": "Authorized current game: open the GM control room and retain access to prepared games.",
+      "title": "PROPOSAL — Accueil — Partie en cours — Desktop — v1",
+      "screenId": "12808420961637518022",
+      "url": "https://stitch.withgoogle.com/projects/7117487747163082855?node-id=12808420961637518022",
+      "file": {
+        "path": "screens/live-desktop.png",
+        "sha256": "c44aa9eff62d17848e3d02a49a43301074d253b551f798886c9c64e4dc899bbd",
+        "bytes": 420525
+      }
+    },
+    {
+      "key": "live-mobile",
+      "device": "mobile",
+      "role": "Authorized current game on a one-hand mobile layout.",
+      "title": "PROPOSAL — Accueil — Partie en cours — Mobile — v1",
+      "screenId": "15869293504868770608",
+      "url": "https://stitch.withgoogle.com/projects/7117487747163082855?node-id=15869293504868770608",
+      "file": {
+        "path": "screens/live-mobile.png",
+        "sha256": "600bc05dc43b2ac8e36af03195022452f399af174fa9ea9efabdc68f40dd71a7",
+        "bytes": 182586
+      }
+    },
+    {
+      "key": "empty-desktop",
+      "device": "desktop",
+      "role": "First visit: prepare a game without inventing a current session.",
+      "title": "PROPOSAL — Accueil — Première visite — Desktop — v1",
+      "screenId": "17138499846574791502",
+      "url": "https://stitch.withgoogle.com/projects/7117487747163082855?node-id=17138499846574791502",
+      "file": {
+        "path": "screens/empty-desktop.png",
+        "sha256": "7c2853cc9820edf202cb50014c4d906dfeda62b2e3cb7b3ee9071a019b909db6",
+        "bytes": 401917
+      }
+    },
+    {
+      "key": "empty-mobile",
+      "device": "mobile",
+      "role": "First visit on mobile with the game preparation as the dominant action.",
+      "title": "PROPOSAL — Accueil — Première visite — Mobile — v1",
+      "screenId": "1530838904113415362",
+      "url": "https://stitch.withgoogle.com/projects/7117487747163082855?node-id=1530838904113415362",
+      "file": {
+        "path": "screens/empty-mobile.png",
+        "sha256": "3f917c79c9c1cc58b22ba7f6d4fde2c13e68500da56c26fe4e436e1674d09878",
+        "bytes": 182100
+      }
+    },
+    {
+      "key": "theme-desktop",
+      "device": "desktop",
+      "role": "Open application theme popover with the three existing private themes.",
+      "title": "PROPOSAL — Thème — Sélecteur ouvert — Desktop — v1",
+      "screenId": "16085048505469292242",
+      "url": "https://stitch.withgoogle.com/projects/7117487747163082855?node-id=16085048505469292242",
+      "file": {
+        "path": "screens/theme-desktop.png",
+        "sha256": "d068aa246620c875c552f4b9221474ab37fbb4c13f685872a2132f06ff6a5de5",
+        "bytes": 440846
+      }
+    },
+    {
+      "key": "theme-mobile",
+      "device": "mobile",
+      "role": "Focused mobile theme sheet with immediate selection and dismissal.",
+      "title": "PROPOSAL — Thème — Sélecteur ouvert — Mobile — v1",
+      "screenId": "11298174379680081132",
+      "url": "https://stitch.withgoogle.com/projects/7117487747163082855?node-id=11298174379680081132",
+      "file": {
+        "path": "screens/theme-mobile.png",
+        "sha256": "87f528f3b8829a94f34d0d4af44db66b293d3707bb39ab28cbc7cdd4240beb56",
+        "bytes": 47331
+      }
+    },
+    {
+      "key": "host-desktop",
+      "device": "desktop",
+      "role": "Open host navigation to prepared games, authorized GM control and broadcast.",
+      "title": "PROPOSAL — Espace animateur — Navigation ouverte — Desktop — v1",
+      "screenId": "273287362999373699",
+      "url": "https://stitch.withgoogle.com/projects/7117487747163082855?node-id=273287362999373699",
+      "file": {
+        "path": "screens/host-desktop.png",
+        "sha256": "d241a48ebe83183083b53f7e12f663ed30a0d08bda5c10f99bca5e9bb80eddd5",
+        "bytes": 444313
+      }
+    },
+    {
+      "key": "host-mobile",
+      "device": "mobile",
+      "role": "Focused mobile host navigation sheet without a new dashboard.",
+      "title": "PROPOSAL — Espace animateur — Navigation ouverte — Mobile — v1",
+      "screenId": "10415891108119039135",
+      "url": "https://stitch.withgoogle.com/projects/7117487747163082855?node-id=10415891108119039135",
+      "file": {
+        "path": "screens/host-mobile.png",
+        "sha256": "b50ccd744166bfb32cc666311c2f1f90937e82d5eb49b5815f46cc44e39aaafd",
+        "bytes": 50802
+      }
+    }
+  ]
+}

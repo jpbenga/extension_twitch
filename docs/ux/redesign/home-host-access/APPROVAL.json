@@ -1,0 +1,64 @@
+{
+  "status": "APPROVED",
+  "humanApproved": true,
+  "approvalType": "explicit human visual approval",
+  "userMessage": "OK, je valide. Du coup, je valide ce qui a été fait. J'ai regardé, c'est conforme à ce que j'attends.",
+  "recordedAt": "2026-10-29T21:06:52+01:00",
+  "projectId": "7117487747163082855",
+  "screenCount": 8,
+  "approvalScope": "The exact eight final Stitch references listed in manifest.json, together with the interaction and state contract in approved.html, SPEC.md and HANDOFF.md. No superseded or unlisted Stitch generation is approved.",
+  "implementationStarted": false,
+  "sourceApplicationModified": false,
+  "functionalSyncPerformed": false,
+  "remoteStitchStatusChanged": false,
+  "screens": [
+    {
+      "key": "live-desktop",
+      "screenId": "12808420961637518022",
+      "title": "PROPOSAL — Accueil — Partie en cours — Desktop — v1",
+      "url": "https://stitch.withgoogle.com/projects/7117487747163082855?node-id=12808420961637518022"
+    },
+    {
+      "key": "live-mobile",
+      "screenId": "15869293504868770608",
+      "title": "PROPOSAL — Accueil — Partie en cours — Mobile — v1",
+      "url": "https://stitch.withgoogle.com/projects/7117487747163082855?node-id=15869293504868770608"
+    },
+    {
+      "key": "empty-desktop",
+      "screenId": "17138499846574791502",
+      "title": "PROPOSAL — Accueil — Première visite — Desktop — v1",
+      "url": "https://stitch.withgoogle.com/projects/7117487747163082855?node-id=17138499846574791502"
+    },
+    {
+      "key": "empty-mobile",
+      "screenId": "1530838904113415362",
+      "title": "PROPOSAL — Accueil — Première visite — Mobile — v1",
+      "url": "https://stitch.withgoogle.com/projects/7117487747163082855?node-id=1530838904113415362"
+    },
+    {
+      "key": "theme-desktop",
+      "screenId": "16085048505469292242",
+      "title": "PROPOSAL — Thème — Sélecteur ouvert — Desktop — v1",
+      "url": "https://stitch.withgoogle.com/projects/7117487747163082855?node-id=16085048505469292242"
+    },
+    {
+      "key": "theme-mobile",
+      "screenId": "11298174379680081132",
+      "title": "PROPOSAL — Thème — Sélecteur ouvert — Mobile — v1",
+      "url": "https://stitch.withgoogle.com/projects/7117487747163082855?node-id=11298174379680081132"
+    },
+    {
+      "key": "host-desktop",
+      "screenId": "273287362999373699",
+      "title": "PROPOSAL — Espace animateur — Navigation ouverte — Desktop — v1",
+      "url": "https://stitch.withgoogle.com/projects/7117487747163082855?node-id=273287362999373699"
+    },
+    {
+      "key": "host-mobile",
+      "screenId": "10415891108119039135",
+      "title": "PROPOSAL — Espace animateur — Navigation ouverte — Mobile — v1",
+      "url": "https://stitch.withgoogle.com/projects/7117487747163082855?node-id=10415891108119039135"
+    }
+  ]
+}

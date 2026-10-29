@@ -21,6 +21,12 @@ Les tokens `--home-*` sont partagés par `.home-page`, `.stitch-page` et
 `.stitch-dialog`, sans élargir leur portée au GM ou à OBS. Les polices locales sont
 mutualisées dans `brand-fonts.css`. Voir le [bilan d'intégration](LOBBY-PLAYER-IMPLEMENTATION.md).
 
+L’extension d’accueil approuvée ajoute un accès permanent mais compact à l’espace
+animateur, sans créer un dashboard ni un compte. Le bloc de reprise n’expose qu’une
+action justifiée par l’état réel : préparer, continuer une préparation locale,
+ouvrir le salon ou ouvrir la régie après vérification serveur. Le contrôle partagé
+porte désormais le libellé « Thème » et se ferme dès qu’un choix est appliqué.
+
 ## 1. Visual Theme & Atmosphere
 
 Références : les deux accueils APPROVED de ce dossier, puis leurs SPEC fonctionnelles.
@@ -54,16 +60,20 @@ locaux et licences OFL conservées ; aucun CDN de police nécessaire. Titre desk
 Carte de jeu : rayon 12 px, illustration en arrière-plan, badges secondaires,
 texte séparé des commandes. Commandes : rayon 8 px, cibles d’au moins 44 px, focus
 visible de 3 px. Une reprise validée remplace la préparation comme action dominante.
-Découvrir et l’aide au lien privé sont des disclosures accessibles. Apparence réutilise
-le contrôle existant. Les erreurs d’invitation restent intégrées au formulaire.
+Découvrir et l’aide au lien privé sont des disclosures accessibles. « Thème »
+réutilise les trois choix privés existants avec un indicateur sélectionné non fondé
+uniquement sur la couleur. « Espace animateur » est une navigation compacte vers les
+préparations, une régie autorisée et la diffusion, jamais un nouveau tableau de bord.
+Les erreurs d’invitation restent intégrées au formulaire.
 
 ## 5. Layout Principles
 
 Desktop : contenu maximum 1440 px, marges 48 px aux grandes largeurs, grille 7/5,
 carte principale de hauteur minimale 440 px, deux panneaux d’accès superposés.
-Mobile : une colonne, marges 16 px, bandeau d’illustration 128 px, en-tête compact.
+Mobile : une colonne, marges 16 px, illustration pleine dans la carte, en-tête compact.
 Les hauteurs s’adaptent aux contenus ouverts et aux erreurs. Une reprise disponible
-vient avant la carte dans le DOM et sur mobile. Pas de largeur 390 px imposée à tous
+vient avant la carte dans le DOM et sur mobile. Les menus Thème et Espace animateur
+deviennent des feuilles focalisées sans largeur horizontale. Pas de largeur 390 px imposée à tous
 les appareils, ni de marges reproduisant le canevas vide du PNG Stitch mobile.
 Le catalogue reste accessible discrètement en pied de page.
 
@@ -72,11 +82,14 @@ Le catalogue reste accessible discrètement en pied de page.
 Transitions brèves sur les commandes, sans boucle décorative, animation permanente
 ou attente artificielle. Respect de prefers-reduced-motion. Aucun changement de phase
 ou de score simulé. Les états de vérification concernent seulement une référence GM
-réellement présente ; pas de panneau permanent de diagnostic.
+réellement présente ; pas de panneau permanent de diagnostic. Thème et Espace animateur
+se ferment par choix, fermeture explicite, clic extérieur ou Échap ; le focus revient
+au déclencheur et l’arrière-plan mobile est inerte pendant une feuille modale.
 
 ## 7. Anti-Patterns (Banned)
 
 Ne pas copier le CDN Tailwind, les boutons inertes, l’interdiction du zoom ou le faux
-état de reprise de l’export. Pas d’historique de compte inventé, de jeu à venir cliquable,
-de secrets GM dans l’illustration, de changement de thème OBS ou de refonte des autres
-surfaces. L’illustration ne détermine jamais les règles ni l’état de la partie.
+état de reprise de l’export. Pas d’historique de compte inventé, de dashboard animateur,
+de destination GM sans autorisation, de jeu à venir cliquable, de secrets GM dans
+l’illustration, de changement de thème OBS ou de refonte des autres surfaces.
+L’illustration ne détermine jamais les règles ni l’état de la partie.
