@@ -1,0 +1,750 @@
+[
+  {
+    "key": "micro-entry",
+    "targetMs": 80,
+    "entryFrame": true,
+    "observed": {
+      "state": {
+        "state": "micro",
+        "people": 3,
+        "page": 0,
+        "speaker": 0,
+        "votes": 0,
+        "reduced": false,
+        "projection": "anonymous"
+      },
+      "animations": [
+        {
+          "currentTime": 80,
+          "playState": "paused",
+          "timing": {
+            "delay": 0,
+            "direction": "normal",
+            "duration": 180,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        },
+        {
+          "currentTime": 80,
+          "playState": "paused",
+          "timing": {
+            "delay": 0,
+            "direction": "normal",
+            "duration": 240,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        },
+        {
+          "currentTime": 80,
+          "playState": "paused",
+          "timing": {
+            "delay": 0,
+            "direction": "normal",
+            "duration": 140,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        },
+        {
+          "currentTime": 80,
+          "playState": "paused",
+          "timing": {
+            "delay": 40,
+            "direction": "normal",
+            "duration": 180,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "key": "duo-entry",
+    "targetMs": 80,
+    "entryFrame": true,
+    "observed": {
+      "state": {
+        "state": "duo",
+        "people": 3,
+        "page": 0,
+        "speaker": 0,
+        "votes": 0,
+        "reduced": false,
+        "projection": "anonymous"
+      },
+      "animations": [
+        {
+          "currentTime": 80,
+          "playState": "paused",
+          "timing": {
+            "delay": 0,
+            "direction": "normal",
+            "duration": 240,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        },
+        {
+          "currentTime": 80,
+          "playState": "paused",
+          "timing": {
+            "delay": 40,
+            "direction": "normal",
+            "duration": 240,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        },
+        {
+          "currentTime": 80,
+          "playState": "paused",
+          "timing": {
+            "delay": 80,
+            "direction": "normal",
+            "duration": 180,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        },
+        {
+          "currentTime": 80,
+          "playState": "paused",
+          "timing": {
+            "delay": 40,
+            "direction": "normal",
+            "duration": 180,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "key": "duo-out",
+    "targetMs": 3040,
+    "entryFrame": false,
+    "observed": {
+      "state": {
+        "state": "discussion",
+        "people": 3,
+        "page": 0,
+        "speaker": 0,
+        "votes": 0,
+        "reduced": false,
+        "projection": "anonymous"
+      },
+      "animations": [
+        {
+          "currentTime": 220,
+          "playState": "finished",
+          "timing": {
+            "delay": 40,
+            "direction": "normal",
+            "duration": 180,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        },
+        {
+          "currentTime": 180,
+          "playState": "finished",
+          "timing": {
+            "delay": 0,
+            "direction": "normal",
+            "duration": 180,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "key": "assignment3-entry",
+    "targetMs": 80,
+    "entryFrame": true,
+    "observed": {
+      "state": {
+        "state": "assignments",
+        "people": 3,
+        "page": 0,
+        "speaker": 0,
+        "votes": 0,
+        "reduced": false,
+        "projection": "assignments"
+      },
+      "animations": [
+        {
+          "currentTime": 80,
+          "playState": "paused",
+          "timing": {
+            "delay": 0,
+            "direction": "normal",
+            "duration": 240,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        },
+        {
+          "currentTime": 80,
+          "playState": "paused",
+          "timing": {
+            "delay": 40,
+            "direction": "normal",
+            "duration": 240,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        },
+        {
+          "currentTime": 80,
+          "playState": "paused",
+          "timing": {
+            "delay": 80,
+            "direction": "normal",
+            "duration": 240,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        },
+        {
+          "currentTime": 80,
+          "playState": "paused",
+          "timing": {
+            "delay": 0,
+            "direction": "normal",
+            "duration": 140,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        },
+        {
+          "currentTime": 80,
+          "playState": "paused",
+          "timing": {
+            "delay": 40,
+            "direction": "normal",
+            "duration": 180,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "key": "assignment6-last",
+    "targetMs": 3400,
+    "entryFrame": false,
+    "observed": {
+      "state": {
+        "state": "assignments",
+        "people": 6,
+        "page": 1,
+        "speaker": 0,
+        "votes": 0,
+        "reduced": false,
+        "projection": "assignments"
+      },
+      "animations": [
+        {
+          "currentTime": 220,
+          "playState": "finished",
+          "timing": {
+            "delay": 40,
+            "direction": "normal",
+            "duration": 180,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        },
+        {
+          "currentTime": 240,
+          "playState": "finished",
+          "timing": {
+            "delay": 0,
+            "direction": "normal",
+            "duration": 240,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        },
+        {
+          "currentTime": 279.99999999999994,
+          "playState": "finished",
+          "timing": {
+            "delay": 40,
+            "direction": "normal",
+            "duration": 240,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        },
+        {
+          "currentTime": 320,
+          "playState": "finished",
+          "timing": {
+            "delay": 80,
+            "direction": "normal",
+            "duration": 240,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "key": "assignment12-last",
+    "targetMs": 10000,
+    "entryFrame": false,
+    "observed": {
+      "state": {
+        "state": "assignments",
+        "people": 12,
+        "page": 3,
+        "speaker": 0,
+        "votes": 0,
+        "reduced": false,
+        "projection": "assignments"
+      },
+      "animations": [
+        {
+          "currentTime": 220,
+          "playState": "finished",
+          "timing": {
+            "delay": 40,
+            "direction": "normal",
+            "duration": 180,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        },
+        {
+          "currentTime": 240,
+          "playState": "finished",
+          "timing": {
+            "delay": 0,
+            "direction": "normal",
+            "duration": 240,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        },
+        {
+          "currentTime": 279.99999999999994,
+          "playState": "finished",
+          "timing": {
+            "delay": 40,
+            "direction": "normal",
+            "duration": 240,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        },
+        {
+          "currentTime": 320,
+          "playState": "finished",
+          "timing": {
+            "delay": 80,
+            "direction": "normal",
+            "duration": 240,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "key": "vote-progress",
+    "targetMs": 1600,
+    "entryFrame": false,
+    "observed": {
+      "state": {
+        "state": "vote",
+        "people": 3,
+        "page": 0,
+        "speaker": 0,
+        "votes": 1,
+        "reduced": false,
+        "projection": "anonymous"
+      },
+      "animations": [
+        {
+          "currentTime": 180,
+          "playState": "finished",
+          "timing": {
+            "delay": 0,
+            "direction": "normal",
+            "duration": 180,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        },
+        {
+          "currentTime": 220,
+          "playState": "finished",
+          "timing": {
+            "delay": 40,
+            "direction": "normal",
+            "duration": 180,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        },
+        {
+          "currentTime": 140,
+          "playState": "finished",
+          "timing": {
+            "delay": 0,
+            "direction": "normal",
+            "duration": 140,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "key": "vote-closed",
+    "targetMs": 3400,
+    "entryFrame": false,
+    "observed": {
+      "state": {
+        "state": "vote-closed",
+        "people": 3,
+        "page": 0,
+        "speaker": 0,
+        "votes": 3,
+        "reduced": false,
+        "projection": "anonymous"
+      },
+      "animations": [
+        {
+          "currentTime": 220,
+          "playState": "finished",
+          "timing": {
+            "delay": 40,
+            "direction": "normal",
+            "duration": 180,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        },
+        {
+          "currentTime": 180,
+          "playState": "finished",
+          "timing": {
+            "delay": 0,
+            "direction": "normal",
+            "duration": 180,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "key": "elimination-durable",
+    "targetMs": 3000,
+    "entryFrame": false,
+    "observed": {
+      "state": {
+        "state": "elimination-durable",
+        "people": 3,
+        "page": 0,
+        "speaker": 0,
+        "votes": 0,
+        "reduced": false,
+        "projection": "anonymous"
+      },
+      "animations": [
+        {
+          "currentTime": 220,
+          "playState": "finished",
+          "timing": {
+            "delay": 40,
+            "direction": "normal",
+            "duration": 180,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        },
+        {
+          "currentTime": 180,
+          "playState": "finished",
+          "timing": {
+            "delay": 0,
+            "direction": "normal",
+            "duration": 180,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "key": "tie-durable",
+    "targetMs": 3000,
+    "entryFrame": false,
+    "observed": {
+      "state": {
+        "state": "tie-durable",
+        "people": 3,
+        "page": 0,
+        "speaker": 0,
+        "votes": 0,
+        "reduced": false,
+        "projection": "anonymous"
+      },
+      "animations": [
+        {
+          "currentTime": 220,
+          "playState": "finished",
+          "timing": {
+            "delay": 40,
+            "direction": "normal",
+            "duration": 180,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        },
+        {
+          "currentTime": 180,
+          "playState": "finished",
+          "timing": {
+            "delay": 0,
+            "direction": "normal",
+            "duration": 180,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "key": "new-cycle",
+    "targetMs": 400,
+    "entryFrame": false,
+    "observed": {
+      "state": {
+        "state": "cycle",
+        "people": 3,
+        "page": 0,
+        "speaker": 0,
+        "votes": 0,
+        "reduced": false,
+        "projection": "anonymous"
+      },
+      "animations": [
+        {
+          "currentTime": 180,
+          "playState": "finished",
+          "timing": {
+            "delay": 0,
+            "direction": "normal",
+            "duration": 180,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        },
+        {
+          "currentTime": 220,
+          "playState": "finished",
+          "timing": {
+            "delay": 40,
+            "direction": "normal",
+            "duration": 180,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "key": "next-authorized",
+    "targetMs": 500,
+    "entryFrame": false,
+    "observed": {
+      "state": {
+        "state": "duo",
+        "people": 3,
+        "page": 0,
+        "speaker": 0,
+        "votes": 0,
+        "reduced": false,
+        "projection": "anonymous"
+      },
+      "animations": [
+        {
+          "currentTime": 240,
+          "playState": "finished",
+          "timing": {
+            "delay": 0,
+            "direction": "normal",
+            "duration": 240,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        },
+        {
+          "currentTime": 279.99999999999994,
+          "playState": "finished",
+          "timing": {
+            "delay": 40,
+            "direction": "normal",
+            "duration": 240,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        },
+        {
+          "currentTime": 260,
+          "playState": "finished",
+          "timing": {
+            "delay": 80,
+            "direction": "normal",
+            "duration": 180,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        },
+        {
+          "currentTime": 220,
+          "playState": "finished",
+          "timing": {
+            "delay": 40,
+            "direction": "normal",
+            "duration": 180,
+            "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+            "endDelay": 0,
+            "fill": "both",
+            "iterationStart": 0,
+            "iterations": 1
+          }
+        }
+      ]
+    }
+  }
+]

@@ -83,3 +83,46 @@ Ne pas implémenter une référence dont les intentions fonctionnelles ne sont p
 
 Les entrées sont ajoutées ou actualisées par `npm run stitch:sync`. Les captures
 actuelles/before seront inventoriées séparément ; aucun ZIP n’est importé automatiquement.
+
+## Consolidation Undercover et Motion — validation du 29 octobre 2026
+
+Références finales APPROVED, distinctes des générations superseded. Voir [approbation et périmètre](undercover-consolidation-motion/APPROVAL.json) et [handoff](undercover-consolidation-motion/HANDOFF.md).
+
+| Écran | Projet | Statut | Screen ID | Référence locale |
+|---|---|---|---|---|
+| ac1-desktop — Préparer une manche | 10111200334509943764 | APPROVED | 10799724319586057959 | [ac1-desktop](undercover-consolidation/screens/ac1-desktop/SPEC.md) |
+| ac1-mobile — Préparer une manche | 10111200334509943764 | APPROVED | 11127904455832831212 | [ac1-mobile](undercover-consolidation/screens/ac1-mobile/SPEC.md) |
+| ac2-desktop — Ma partie Undercover | 10111200334509943764 | APPROVED | 6190494999432650411 | [ac2-desktop](undercover-consolidation/screens/ac2-desktop/SPEC.md) |
+| ac2-mobile — Ma partie Undercover | 10111200334509943764 | APPROVED | 6782448745670581428 | [ac2-mobile](undercover-consolidation/screens/ac2-mobile/SPEC.md) |
+| ac3-desktop — Modifier une manche | 10111200334509943764 | APPROVED | 9651573331645606325 | [ac3-desktop](undercover-consolidation/screens/ac3-desktop/SPEC.md) |
+| ac3-mobile — Modifier une manche | 10111200334509943764 | APPROVED | 15702686537556742762 | [ac3-mobile](undercover-consolidation/screens/ac3-mobile/SPEC.md) |
+| ac4-desktop — Réutiliser une manche | 10111200334509943764 | APPROVED | 11974821631520811112 | [ac4-desktop](undercover-consolidation/screens/ac4-desktop/SPEC.md) |
+| ac4-mobile — Réutiliser une manche | 10111200334509943764 | APPROVED | 2753791321668628263 | [ac4-mobile](undercover-consolidation/screens/ac4-mobile/SPEC.md) |
+| ac5-desktop — Image indisponible | 10111200334509943764 | APPROVED | 2121032367128062301 | [ac5-desktop](undercover-consolidation/screens/ac5-desktop/SPEC.md) |
+| ac5-mobile — Image indisponible | 10111200334509943764 | APPROVED | 16744822500271047799 | [ac5-mobile](undercover-consolidation/screens/ac5-mobile/SPEC.md) |
+| ac6-desktop — Vérifier la partie | 10111200334509943764 | APPROVED | 5966563440130101435 | [ac6-desktop](undercover-consolidation/screens/ac6-desktop/SPEC.md) |
+| ac6-mobile — Vérifier la partie | 10111200334509943764 | APPROVED | 14098877930165555928 | [ac6-mobile](undercover-consolidation/screens/ac6-mobile/SPEC.md) |
+| ac7-desktop — Diffusion simple | 10111200334509943764 | APPROVED | 18172383942395181227 | [ac7-desktop](undercover-consolidation/screens/ac7-desktop/SPEC.md) |
+| ac7-mobile — Diffusion simple | 10111200334509943764 | APPROVED | 953953591291783281 | [ac7-mobile](undercover-consolidation/screens/ac7-mobile/SPEC.md) |
+| ac8-desktop — Adopter le nouvel habillage | 10111200334509943764 | APPROVED | 14001232631970840304 | [ac8-desktop](undercover-consolidation/screens/ac8-desktop/SPEC.md) |
+| ac8-mobile — Adopter le nouvel habillage | 10111200334509943764 | APPROVED | 12436787788887020343 | [ac8-mobile](undercover-consolidation/screens/ac8-mobile/SPEC.md) |
+| ac9-desktop — Menu de partie | 10111200334509943764 | APPROVED | 10496543921698593942 | [ac9-desktop](undercover-consolidation/screens/ac9-desktop/SPEC.md) |
+| ac9-mobile — Menu de partie | 10111200334509943764 | APPROVED | 14074471760111286395 | [ac9-mobile](undercover-consolidation/screens/ac9-mobile/SPEC.md) |
+| ac10-desktop — Partie en pause | 10111200334509943764 | APPROVED | 2434876282202865785 | [ac10-desktop](undercover-consolidation/screens/ac10-desktop/SPEC.md) |
+| ac10-mobile — Partie en pause | 10111200334509943764 | APPROVED | 1175177204272375976 | [ac10-mobile](undercover-consolidation/screens/ac10-mobile/SPEC.md) |
+| ac11-mobile — Terminer une manche | 10111200334509943764 | APPROVED | 4669800090653848944 | [ac11-mobile](undercover-consolidation/screens/ac11-mobile/SPEC.md) |
+| ac12-mobile — Terminer toute la partie | 10111200334509943764 | APPROVED | 17719171853329139058 | [ac12-mobile](undercover-consolidation/screens/ac12-mobile/SPEC.md) |
+| ac13-mobile — Abandonner la partie | 10111200334509943764 | APPROVED | 1506107117586628862 | [ac13-mobile](undercover-consolidation/screens/ac13-mobile/SPEC.md) |
+| ac14-mobile — Retirer une manche | 10111200334509943764 | APPROVED | 12627752459277758418 | [ac14-mobile](undercover-consolidation/screens/ac14-mobile/SPEC.md) |
+| m01 — PROPOSAL — B1 — Micro-animations / joueur actif — Motion v1 | 14258025772148928156 | APPROVED | 14602014474137269033 | [m01](undercover-tv-motion/screens/m01/SPEC.md) |
+| m02 — PROPOSAL — B2 — Transitions d’état — Motion v1 | 14258025772148928156 | APPROVED | 15619381745333075967 | [m02](undercover-tv-motion/screens/m02/SPEC.md) |
+| m03 — PROPOSAL — B3 / B4 — Duo anonyme — Motion v1 | 14258025772148928156 | APPROVED | 7295270360872508224 | [m03](undercover-tv-motion/screens/m03/SPEC.md) |
+| m04 — PROPOSAL — B5 — Affectations visibles / 3 joueurs — Motion v1 | 14258025772148928156 | APPROVED | 4740627376000196088 | [m04](undercover-tv-motion/screens/m04/SPEC.md) |
+| m05 — PROPOSAL — B5 — Affectations visibles / 6 joueurs — Motion v1 | 14258025772148928156 | APPROVED | 17922085973328146983 | [m05](undercover-tv-motion/screens/m05/SPEC.md) |
+| m06 — PROPOSAL — B5 — Affectations visibles / 12 joueurs — Motion v1 | 14258025772148928156 | APPROVED | 18128086243884041892 | [m06](undercover-tv-motion/screens/m06/SPEC.md) |
+| m07 — PROPOSAL — B6 — Vote / progression / clôture — Motion v1 | 14258025772148928156 | APPROVED | 15839688811367935863 | [m07](undercover-tv-motion/screens/m07/SPEC.md) |
+| m08 — PROPOSAL — B7 — Élimination — Motion v1 | 14258025772148928156 | APPROVED | 14910631011227398925 | [m08](undercover-tv-motion/screens/m08/SPEC.md) |
+| m09 — PROPOSAL — B8 — Égalité — Motion v1 | 14258025772148928156 | APPROVED | 9862667806713904965 | [m09](undercover-tv-motion/screens/m09/SPEC.md) |
+| m10 — PROPOSAL — B9 — Révélation finale autorisée — Motion v1 | 14258025772148928156 | APPROVED | 17397664564815022200 | [m10](undercover-tv-motion/screens/m10/SPEC.md) |
+| m11 — PROPOSAL — B9 — Victoire / état durable — Motion v1 | 14258025772148928156 | APPROVED | 17519895206917221127 | [m11](undercover-tv-motion/screens/m11/SPEC.md) |
+| m12 — PROPOSAL — B10 — Manche suivante — Motion v1 | 14258025772148928156 | APPROVED | 8368665799330953436 | [m12](undercover-tv-motion/screens/m12/SPEC.md) |

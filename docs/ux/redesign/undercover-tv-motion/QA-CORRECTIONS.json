@@ -1,0 +1,56 @@
+{
+  "manual": {
+    "display": "none",
+    "glowAnimations": 0,
+    "transforms": []
+  },
+  "finalPage": {
+    "state": {
+      "state": "reveal",
+      "people": 12,
+      "page": 1,
+      "speaker": 0,
+      "votes": 0,
+      "reduced": false,
+      "projection": "final"
+    },
+    "camps": [
+      "Civil",
+      "Civil",
+      "Undercover"
+    ],
+    "players": [
+      "#4 Alexandre-Louis",
+      "#5 Maya",
+      "#6 Rayan"
+    ]
+  },
+  "transition": {
+    "state": "cycle",
+    "people": 3,
+    "page": 0,
+    "speaker": 1,
+    "votes": 3,
+    "reduced": false,
+    "projection": "anonymous"
+  },
+  "next": {
+    "state": "waiting",
+    "people": 3,
+    "page": 0,
+    "speaker": 0,
+    "votes": 0,
+    "reduced": false,
+    "projection": "final"
+  },
+  "authorized": {
+    "keys": [
+      "kind",
+      "contents"
+    ],
+    "words": [
+      "Messi",
+      "Ronaldo"
+    ]
+  }
+}

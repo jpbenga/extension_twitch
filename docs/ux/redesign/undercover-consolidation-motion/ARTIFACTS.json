@@ -1,0 +1,1287 @@
+{
+  "screenCount": 36,
+  "humanApproved": true,
+  "status": "APPROVED",
+  "files": [
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/APPROVAL.json",
+      "bytes": 1364,
+      "sha256": "3df9962acac07151a037f2a06a94cb89ab79d89d8b16a6590e5e2f6c009402e4"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/DECISIONS.md",
+      "bytes": 7027,
+      "sha256": "1ba6c8e132648d265078a84358d3350bc55be5b63db50465f9f5a731e127e3b0"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/QA.md",
+      "bytes": 2681,
+      "sha256": "d8325cc2509c2e1fa8a6bf8bdcad7fec4da04ee6160fa6e13bb0f3507e404e3d"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/README.md",
+      "bytes": 7628,
+      "sha256": "50330c77fdd62cc2224c5b7bde6ddeca8a80c01fc2eb7ce5406f3deb4299ca6c"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/manifest.json",
+      "bytes": 27684,
+      "sha256": "7ecd0ecbac585d28dc5037f9555def5f6b0334c3dc2ab5a16a6675ff1c04d797"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/proofs/dialog-confirmation.json",
+      "bytes": 2596,
+      "sha256": "4d403c4d4ba0f02662b17cfaf9fc3e6274018d67a7d143c446918586e1a56907"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/proofs/qa.json",
+      "bytes": 16444,
+      "sha256": "fe7783fa9b0dd98b66a3577f9ab8749741bc9a73d9137f639acdeeed7db295c9"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac1-desktop/SPEC.md",
+      "bytes": 544,
+      "sha256": "ec2f766848aa8dc3beadb795e40aa6d94d006ca26cef97d98ec7f089bd06f57d"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac1-desktop/approved.html",
+      "bytes": 2294208,
+      "sha256": "3599286526b70cfd0787c2d32274294c907d23ed4d6d1c6f1cbe844d098400bc"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac1-desktop/approved.png",
+      "bytes": 473791,
+      "sha256": "317d4b4c87ce453fd6e403548a113188434fe55dfb65bdae07fcc349fde4c670"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac1-desktop/viewport.png",
+      "bytes": 467392,
+      "sha256": "b2e58a02a44e76f6ec1b10919cfff5b69412dceb5e4374795a3279746440a23b"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac1-mobile/SPEC.md",
+      "bytes": 544,
+      "sha256": "e52649ffd7d9cc093720042c338cff793c66d5843ac74a5414fe5cc3f5b1a81e"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac1-mobile/approved.html",
+      "bytes": 2294207,
+      "sha256": "da1ae55045258f785170dfb8a8847b78c1020bf5f79e226b6cba91e7eb1be920"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac1-mobile/approved.png",
+      "bytes": 311536,
+      "sha256": "53048f7ed0f937a2d00b3af986fa9c5426489c0026cd4e85586401101a866a8e"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac1-mobile/mobile-complete.png",
+      "bytes": 311536,
+      "sha256": "53048f7ed0f937a2d00b3af986fa9c5426489c0026cd4e85586401101a866a8e"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac1-mobile/viewport-bottom.png",
+      "bytes": 38867,
+      "sha256": "814d0a007b3c547cf265011fd9d42d661e01c59040e99c014f6923bf49a7a25f"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac1-mobile/viewport.png",
+      "bytes": 159474,
+      "sha256": "79fd02fe20afae0ec07c3ad74b8813cc7d371bdce544fc809904b83bd14eb948"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac10-desktop/SPEC.md",
+      "bytes": 624,
+      "sha256": "dcee7b89ee0b16bf6a7851fac6fe77b0d587ac61596f2e06b531385bcff8115a"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac10-desktop/approved.html",
+      "bytes": 517377,
+      "sha256": "7981f82429d0cb985a9b61e74f9f1601cfef21a4e1d943c7e9d2ee783c3eea00"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac10-desktop/approved.png",
+      "bytes": 57575,
+      "sha256": "f042a51f77f8589283833e5b01b6b7bcc8a5c3bd9501714219b45c717234ccc5"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac10-desktop/viewport.png",
+      "bytes": 57575,
+      "sha256": "f042a51f77f8589283833e5b01b6b7bcc8a5c3bd9501714219b45c717234ccc5"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac10-mobile/SPEC.md",
+      "bytes": 624,
+      "sha256": "364ac00f8a60322f165d38303de1019f4867914bba02b7f7d64068d7a8990866"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac10-mobile/approved.html",
+      "bytes": 517376,
+      "sha256": "576e0fd8004848d1af8a718cd3d71feb9884b3ce8d2c72a031990d804e566183"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac10-mobile/approved.png",
+      "bytes": 46523,
+      "sha256": "41c8cc709649f1100cc5ee3d002edf88d73443df8e17a91dc739b3c4ea6b14f0"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac10-mobile/mobile-complete.png",
+      "bytes": 46523,
+      "sha256": "41c8cc709649f1100cc5ee3d002edf88d73443df8e17a91dc739b3c4ea6b14f0"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac10-mobile/viewport-bottom.png",
+      "bytes": 32579,
+      "sha256": "404754e4a8d7f1b7f648c2512a8ef8cfa5b760c1e875a8e913c4b5c8bfffc94d"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac10-mobile/viewport.png",
+      "bytes": 43792,
+      "sha256": "c2b27fdde1e1f1e89c374285a8ff346f8d8bd1720c674b5048e83389fcbc45d4"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac11-mobile/SPEC.md",
+      "bytes": 562,
+      "sha256": "a4b47bdcf996f430e848d936390d76d144ef9acd2bfe5f9fa44ad4805eadf957"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac11-mobile/approved.html",
+      "bytes": 517920,
+      "sha256": "2fbf232ff7b3f7fbddac44f79a15112a94983c95cdbda4983e7e3f65823fabc0"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac11-mobile/approved.png",
+      "bytes": 49917,
+      "sha256": "e3c97373dfa454ff6e4c33ab6fbf5b987edd5eec2b45e130ed80bc413b880b99"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac11-mobile/confirmation-320.png",
+      "bytes": 43446,
+      "sha256": "d69f4f5850e24b2c4fb5df8fd566370e792e37916ca6a3bfc322828efdf711ed"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac11-mobile/viewport-bottom.png",
+      "bytes": 40540,
+      "sha256": "7311b56cd1b5f6b42f9bdac2ef1ab4c8d10d443d0565323619de765b2fd74fec"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac11-mobile/viewport.png",
+      "bytes": 46068,
+      "sha256": "b23c043e4c40edcd14e1a2a9dd28978c4b6cb4523eabcbd32ca9ed449fd849b3"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac12-mobile/SPEC.md",
+      "bytes": 552,
+      "sha256": "dc885f33ebd7f6420bd448f825b6e40bb450311da1febb15630f372c5f9bd634"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac12-mobile/approved.html",
+      "bytes": 517975,
+      "sha256": "383ab00fb5715eb3bbe414b14c97de1726f4c6b8408e2fb843b9bf3900782d99"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac12-mobile/approved.png",
+      "bytes": 52421,
+      "sha256": "21be976066d8e6bbbbeaa1c76584d87b58d419948b172761ade0961bae158e63"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac12-mobile/confirmation-320.png",
+      "bytes": 47198,
+      "sha256": "8c57b9c5a1ca43e05e151571df48661fd72a5e79dba5ce24e4a845a2f7a8ee98"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac12-mobile/viewport-bottom.png",
+      "bytes": 43294,
+      "sha256": "f96b769106b82b1b4a5aeae54616a156a6998b546cf85c4cfb2d999d05f5f1cd"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac12-mobile/viewport.png",
+      "bytes": 48563,
+      "sha256": "41645e6ac73b66e48e7df105f69f351cf33192f738f22e15a8b2b1491d39352c"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac13-mobile/SPEC.md",
+      "bytes": 544,
+      "sha256": "afff899683c790b8d6c1d5af235321cf74e4656009116a0112ed1f4b010c0d99"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac13-mobile/approved.html",
+      "bytes": 517918,
+      "sha256": "770535c88986e3a7f4556af75d167f7448966703c7669381485dcc2c8b27f185"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac13-mobile/approved.png",
+      "bytes": 50973,
+      "sha256": "b27c8ce565b6896a24eba84cc42902dbf375ca97a5074aea4faebc5886baf98f"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac13-mobile/confirmation-320.png",
+      "bytes": 43526,
+      "sha256": "a5fe34a526856ee00e7463a844ebcd3d2ab0c90cbe95495d5f6678d2e81aad10"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac13-mobile/viewport-bottom.png",
+      "bytes": 41600,
+      "sha256": "a508ab7063f0b6b9bbccca8895ca4146a48c0997315173e23434e16e6be81df6"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac13-mobile/viewport.png",
+      "bytes": 47105,
+      "sha256": "00a0740a32f72479772ea7d56268d784c65952d0f7fa9f35221df9cb918e2e89"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac14-mobile/SPEC.md",
+      "bytes": 525,
+      "sha256": "af72c9ca2da27c8c39f47c35e4e8aa919f03cc3b31f6bd0269fe87e87e0139c5"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac14-mobile/approved.html",
+      "bytes": 2295800,
+      "sha256": "b494f3e2f8c0b36b29781f85ec259af2cce099c822b935c2e5301d14fad736eb"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac14-mobile/approved.png",
+      "bytes": 39527,
+      "sha256": "b772ea9ec7fdaa62f0ec7a19c202679603807a5a9a79c5c949ad1688b00e9229"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac14-mobile/confirmation-320.png",
+      "bytes": 36688,
+      "sha256": "91147ef8f311d3648eec729d9626e8378d3635f2a587d016d3f66166bb84f675"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac14-mobile/viewport-bottom.png",
+      "bytes": 39527,
+      "sha256": "b772ea9ec7fdaa62f0ec7a19c202679603807a5a9a79c5c949ad1688b00e9229"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac14-mobile/viewport.png",
+      "bytes": 39527,
+      "sha256": "b772ea9ec7fdaa62f0ec7a19c202679603807a5a9a79c5c949ad1688b00e9229"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac2-desktop/SPEC.md",
+      "bytes": 567,
+      "sha256": "c91f1cd0f8d1310f28848509dbbedbc38161306f4fc41b3a11a7fca0919787b1"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac2-desktop/approved.html",
+      "bytes": 2296117,
+      "sha256": "bab50d41567b9ba4edbc86b1532df4fe61f4e4874b60f37a0bdfd4684e39e381"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac2-desktop/approved.png",
+      "bytes": 90225,
+      "sha256": "6b1f44390931641daf9b5e695d2cbacf4ab179dc4eb419487d0d5463dd3378a1"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac2-desktop/viewport.png",
+      "bytes": 89705,
+      "sha256": "7f1fba4e7bd1cb0288fc94139c25350ddebdcd509a41445acabd33157e4481ab"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac2-mobile/SPEC.md",
+      "bytes": 567,
+      "sha256": "57e28f8fb4a4b91e2e03a5c06a1c90073147f2965e96f4677c39b14015eaa44e"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac2-mobile/approved.html",
+      "bytes": 2296116,
+      "sha256": "a813b031c5fe8a77ed6b418202ea007abe0c7e8551ff738661adae111dbe7571"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac2-mobile/approved.png",
+      "bytes": 67207,
+      "sha256": "49b01b7623e1884bd1065b540626ff7cb274aeb57adc7f84497e054984f8505b"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac2-mobile/mobile-complete.png",
+      "bytes": 67207,
+      "sha256": "49b01b7623e1884bd1065b540626ff7cb274aeb57adc7f84497e054984f8505b"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac2-mobile/viewport-bottom.png",
+      "bytes": 43029,
+      "sha256": "fbc84af4d6ff165e3f519911cbf64207bb77fbb783470302c1c95d993785b437"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac2-mobile/viewport.png",
+      "bytes": 41516,
+      "sha256": "d6a1bb85cbc026e0e810e92f1e2255722168f60aaf0940a867b29621e6ac4d66"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac3-desktop/SPEC.md",
+      "bytes": 524,
+      "sha256": "72fb687c9cdc2ff154d473d4832e8bfe307248a8e3f93e31db51ff196d4074cb"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac3-desktop/approved.html",
+      "bytes": 2294258,
+      "sha256": "0c79925133728ae53af3ce55a425d1de111e0c9f2501bb70d0ffaba56ed76c69"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac3-desktop/approved.png",
+      "bytes": 460547,
+      "sha256": "b82bc1df9b84a86b4fdbf12cf23b5c8da72cde2aa9f2997221e0bde3367abcc9"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac3-desktop/viewport.png",
+      "bytes": 459027,
+      "sha256": "4ff81b2ea86542c4a8a265c34bc15ab8eec3cd44ef0c33b2f22559cd63583205"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac3-mobile/SPEC.md",
+      "bytes": 525,
+      "sha256": "b5e5ec400ea4972c9d2321f28fd4222c9b8b6ff84140b7010c8bd9bb205cc3f4"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac3-mobile/approved.html",
+      "bytes": 2294257,
+      "sha256": "d8749d0d803385da4a13c75c47100287671c86f3a8254c60f8ef9b179c408966"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac3-mobile/approved.png",
+      "bytes": 304571,
+      "sha256": "623afe5a60437b6766c56d6f10f27f70f915b425980cdbdc1a6195d4a13e5e31"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac3-mobile/mobile-complete.png",
+      "bytes": 304571,
+      "sha256": "623afe5a60437b6766c56d6f10f27f70f915b425980cdbdc1a6195d4a13e5e31"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac3-mobile/viewport-bottom.png",
+      "bytes": 145835,
+      "sha256": "84dc44dad191d5e20b6e4c94e3259e3b9aadd56eb9e46359acaeefa8fbf53d2b"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac3-mobile/viewport.png",
+      "bytes": 159253,
+      "sha256": "24ab31d348e650211583e5763e7e6170773805c6fd24ebd7ac76f66993ddea50"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac4-desktop/SPEC.md",
+      "bytes": 527,
+      "sha256": "4b8468dbb0be009f8928613fed866f3a18eb6209c92bef2ee1c7e0723ed945a3"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac4-desktop/approved.html",
+      "bytes": 2293113,
+      "sha256": "5ca948368d490375ab9d6fab67e1e769d459ee281985dc5a3f1b0aa81535ab50"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac4-desktop/approved.png",
+      "bytes": 195860,
+      "sha256": "a6b051d9c6df012f76bcdf1269984f14d30a679b3eff84f606435cce75c1c56b"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac4-desktop/viewport.png",
+      "bytes": 195823,
+      "sha256": "5a48a8c89d0cc750d0aab6e3c9360851a037cbb14df9f10375a7f9f1be275a44"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac4-mobile/SPEC.md",
+      "bytes": 526,
+      "sha256": "253bb62c57dfc5b918ad22196ee58a3e11bdf947f5617052a21fb30d2b3fc8f0"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac4-mobile/approved.html",
+      "bytes": 2293112,
+      "sha256": "d88de9ae1f7c8409d585c50d9ebebc08714015932830414f96e3d01b40994865"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac4-mobile/approved.png",
+      "bytes": 125080,
+      "sha256": "35c8b90be95e130b0fe70ad1a8ff3843c9e8c22a52b6dbc822f765ee0508891c"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac4-mobile/mobile-complete.png",
+      "bytes": 125080,
+      "sha256": "35c8b90be95e130b0fe70ad1a8ff3843c9e8c22a52b6dbc822f765ee0508891c"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac4-mobile/viewport-bottom.png",
+      "bytes": 107186,
+      "sha256": "861d1391a959ffd6ee53683874822bea4f77cd0ba9435f7c4137f9f8e525924f"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac4-mobile/viewport.png",
+      "bytes": 111856,
+      "sha256": "b05432d688fc5c4a6ff2483c344a8a46690137254c19195844b6a65207109b9e"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac5-desktop/SPEC.md",
+      "bytes": 511,
+      "sha256": "8e87701f9eca389a3ec968f7b8ffc857e791d50fcde60ec5adff2e3579b0f8e7"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac5-desktop/approved.html",
+      "bytes": 1337782,
+      "sha256": "7a1803d7ad925bdb4bfa1f7ea29ec07ca6f9e54a30d712ac7417a153052963ad"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac5-desktop/approved.png",
+      "bytes": 269707,
+      "sha256": "52773f0ef944d5a1cb2cf3110c5e3b8b0a675159976b7f6079f1189c8172a244"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac5-desktop/viewport.png",
+      "bytes": 269707,
+      "sha256": "52773f0ef944d5a1cb2cf3110c5e3b8b0a675159976b7f6079f1189c8172a244"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac5-mobile/SPEC.md",
+      "bytes": 512,
+      "sha256": "a7f620356c05d5f4876ca4985f21748ff2d05ceb1693f324f8b46026baa90b9c"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac5-mobile/approved.html",
+      "bytes": 1337781,
+      "sha256": "9a3913b1b7e7b300e0dcf9509bcdd204dde6d736114bf29e845f98899623bc64"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac5-mobile/approved.png",
+      "bytes": 176146,
+      "sha256": "85bb53dcf5cf5f25bf4b4db08828404c05a7f0286655007a3d94f195b2b2bbcd"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac5-mobile/mobile-complete.png",
+      "bytes": 176146,
+      "sha256": "85bb53dcf5cf5f25bf4b4db08828404c05a7f0286655007a3d94f195b2b2bbcd"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac5-mobile/viewport-bottom.png",
+      "bytes": 148490,
+      "sha256": "173c257fa671f952f8f2a4f0bea64856cd05dde7202ee3d0beb6530d0283a20a"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac5-mobile/viewport.png",
+      "bytes": 41729,
+      "sha256": "a7d28b25845671704e38bb11f11e711dd748fb1a0c251b4ee4043468d0af8572"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac6-desktop/SPEC.md",
+      "bytes": 515,
+      "sha256": "f1506f83e9c6f4a8b14e21af480df4729e870bbbb5d29b5d7453eb76245bbddd"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac6-desktop/approved.html",
+      "bytes": 2293320,
+      "sha256": "d65528a11455ea48ce810a9935cfa973e9a2377edd8a31b0f19446bd8ffe9366"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac6-desktop/approved.png",
+      "bytes": 86813,
+      "sha256": "dd5c7219097f83cf3e0f44883d9a6164703770270f81fdfbd7a348f64bd9542b"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac6-desktop/viewport.png",
+      "bytes": 86813,
+      "sha256": "dd5c7219097f83cf3e0f44883d9a6164703770270f81fdfbd7a348f64bd9542b"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac6-mobile/SPEC.md",
+      "bytes": 516,
+      "sha256": "eec32e28c03f22cfb8ddcdb8a4582bfd6d95c230ee506492561af1798f2304d0"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac6-mobile/approved.html",
+      "bytes": 2293319,
+      "sha256": "a806477a3705078ef8b35696ee85664054a6aeb17630ab492a5107bd223182e9"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac6-mobile/approved.png",
+      "bytes": 58596,
+      "sha256": "d321c2c97b9f80a61a4f9382508248ed75dfc153dd461fd23d45662c1709f99e"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac6-mobile/mobile-complete.png",
+      "bytes": 58596,
+      "sha256": "d321c2c97b9f80a61a4f9382508248ed75dfc153dd461fd23d45662c1709f99e"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac6-mobile/viewport-bottom.png",
+      "bytes": 45515,
+      "sha256": "da10c22ed97297b826c9dfc3ba7e9046634c85a13464c1f102e3e8922b0379bd"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac6-mobile/viewport.png",
+      "bytes": 45662,
+      "sha256": "e41f4cd9af1f0958bd18f8e11f4a263aac89d454c2aa3a8e44d0a10dfbb378c3"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac7-desktop/SPEC.md",
+      "bytes": 578,
+      "sha256": "24a25131ba1ea85cea0484c3d043db3dc299da22ea20154e9862eded9654c05d"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac7-desktop/approved.html",
+      "bytes": 666908,
+      "sha256": "47eac3c746a3004d4b55d51014719bd99beea0efd0ed6cba90b26430f6786484"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac7-desktop/approved.png",
+      "bytes": 86470,
+      "sha256": "df6964c42f55dea4f6e8603fd85252d4f353c5f5ae4ccf3a2f65b083be6f4f26"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac7-desktop/viewport.png",
+      "bytes": 72097,
+      "sha256": "06ddc22136fce50ce3a7180589f5ca41fa3c7c6de163bb47d3761c18e365e677"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac7-mobile/SPEC.md",
+      "bytes": 576,
+      "sha256": "2a8cabdd1080129d745ed1444d320c8350d625bbe0c93fca8f13db57773dcdb6"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac7-mobile/approved.html",
+      "bytes": 666907,
+      "sha256": "32951c07b25f7529da81020c1b46abb858cc7995f0148642ad35296442b5cd37"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac7-mobile/approved.png",
+      "bytes": 55805,
+      "sha256": "ce4c1fc1ba43d19050a363aa0d06c662073b61c3cfc1fa6bc4011b91dcc5c889"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac7-mobile/mobile-complete.png",
+      "bytes": 55805,
+      "sha256": "ce4c1fc1ba43d19050a363aa0d06c662073b61c3cfc1fa6bc4011b91dcc5c889"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac7-mobile/viewport-bottom.png",
+      "bytes": 45307,
+      "sha256": "38c8c8c3f5f7473156ec44e6a6a9825f0895eda476b6c5409034d7e6e9a126a8"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac7-mobile/viewport.png",
+      "bytes": 44974,
+      "sha256": "88250b43a76a014ebe1be82ab55ba90ab2bca1a54f10e09cdebfa5368322e5c1"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac8-desktop/SPEC.md",
+      "bytes": 565,
+      "sha256": "f99966f2f18fc502e6bbcc615944c2f2ebdcf5a75eb02844951496bf7a0bf5ac"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac8-desktop/approved.html",
+      "bytes": 666818,
+      "sha256": "0e0ecc2e0f31400be0b009478307a2bd3c1f1553af3c095258e19999879264c5"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac8-desktop/approved.png",
+      "bytes": 86108,
+      "sha256": "85aedc2dfde153e28fc2148382495a3515b938340d5848446cbb5f935bfcccf1"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac8-desktop/viewport.png",
+      "bytes": 86108,
+      "sha256": "85aedc2dfde153e28fc2148382495a3515b938340d5848446cbb5f935bfcccf1"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac8-mobile/SPEC.md",
+      "bytes": 565,
+      "sha256": "2ad7ad5a1ccdd376b0142a10098b66c11439f52aa30c391fc9f75917595df4e9"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac8-mobile/approved.html",
+      "bytes": 666817,
+      "sha256": "6a2b858f495941a8523bdf3fcdf4fc4a65c199320c2399b051376d3de990f302"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac8-mobile/approved.png",
+      "bytes": 64273,
+      "sha256": "922526969840c2f5c2ccbf705f5b77616e02d9cac8f74ab119bee2d1a7c99afb"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac8-mobile/mobile-complete.png",
+      "bytes": 64273,
+      "sha256": "922526969840c2f5c2ccbf705f5b77616e02d9cac8f74ab119bee2d1a7c99afb"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac8-mobile/viewport-bottom.png",
+      "bytes": 44444,
+      "sha256": "446cb142b0cd625d0d9f5880e7e0ccaf8a5959034e42028eec19e5628ddd47cb"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac8-mobile/viewport.png",
+      "bytes": 41309,
+      "sha256": "772b84f1cc9f08abcd5b47c5777b78fd2f018744c1deddd019ed0e87ffcfef5d"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac9-desktop/SPEC.md",
+      "bytes": 635,
+      "sha256": "b6e9e9b968923d4d6520545214448d631597edd2856025056d8a7daa0945fb7b"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac9-desktop/approved.html",
+      "bytes": 517526,
+      "sha256": "45227755c7811fff72f59d2136424f34f95ae05723c772f52f7a040b98282530"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac9-desktop/approved.png",
+      "bytes": 67168,
+      "sha256": "aecb05cd81c3e6135eb634ded4281c283410653abc6068799312d2d9761d9058"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac9-desktop/viewport.png",
+      "bytes": 67168,
+      "sha256": "aecb05cd81c3e6135eb634ded4281c283410653abc6068799312d2d9761d9058"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac9-mobile/SPEC.md",
+      "bytes": 635,
+      "sha256": "043ed70a7d1ef5fa21eafa7f4da53a9b85870e72f73193c8d4430b301da7eb5c"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac9-mobile/approved.html",
+      "bytes": 517525,
+      "sha256": "b0c29d585d90aa7094246de4d17b7ac245ec3b342efd82e62ba866e75aaf8bf2"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac9-mobile/approved.png",
+      "bytes": 54375,
+      "sha256": "9d873efc5c724fdec5bf6461a9fddb69b8f87e3fa3e99448ca23c6a0f6f48565"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac9-mobile/mobile-complete.png",
+      "bytes": 54375,
+      "sha256": "9d873efc5c724fdec5bf6461a9fddb69b8f87e3fa3e99448ca23c6a0f6f48565"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac9-mobile/viewport-bottom.png",
+      "bytes": 28692,
+      "sha256": "0f8dfe263453524483485a8e5257c61023c57e860a030d4d661b0eec4b3736a3"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation/screens/ac9-mobile/viewport.png",
+      "bytes": 44615,
+      "sha256": "e82210c469ed0315ea7ae15d3cd155d04b146e35098975d0fa4746153befa148"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/APPROVAL.json",
+      "bytes": 1036,
+      "sha256": "1044cf47e32b6dbf371424270e1e2ba9b82e84ac2643f74e347895a97effec86"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/DESIGN.md",
+      "bytes": 2681,
+      "sha256": "9018e0854337d0e2ad2a296a6c5ed102feceb6e28c8c04954539480cac5c909e"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/KEYFRAMES.json",
+      "bytes": 18482,
+      "sha256": "d6b7a8a31ae608399924e6ab3613cf6909b57a232fb209fc2ad93cb24901397f"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/MOTION-SPECS.md",
+      "bytes": 10083,
+      "sha256": "fb9f35076d6d7ddf39b1a67372d7daff4fcfef3a870b52998a4aed59225d1ce2"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/QA-CORRECTIONS.json",
+      "bytes": 887,
+      "sha256": "773fa39896e8a1db6f00e34ab6a7d52448ff678501ce3957ccbabcbe50f56a5a"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/QA-VOTE12.json",
+      "bytes": 5943,
+      "sha256": "3bc04195057573914d34c989bc064b77baf540ffd94f5e542da5ab4b484df1d0"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/QA.json",
+      "bytes": 21197,
+      "sha256": "d186ee41377a40a712505895fde7f07a27c4e5607258a74e79e7efe9cd1af605"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/QA.md",
+      "bytes": 3861,
+      "sha256": "4d3fe31241adc57af05f6f44c646b8fb8bb2f694b484d6a47f98fad092bc63d5"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/README.md",
+      "bytes": 4391,
+      "sha256": "7b84523a2d49db026e5998d00170d7be1c30487fd24c82a2c7c50c49e4c2f31b"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/TRANSPARENCY.json",
+      "bytes": 5992,
+      "sha256": "6c87bd776f054b02a62ead206d9d0c224a2ef9285919c62cc0fd1cfdf9b3e112"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/affectations-visibles.html",
+      "bytes": 2306922,
+      "sha256": "745c8d9fd4d8160b7f4da1b8eff9f2f89cfcb1dc05e06de73f3964d6cac1559f"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/dmsans.ttf",
+      "bytes": 240164,
+      "sha256": "8cd08d97e89c24d0aa92edd2f0f4c8ee6195eee9b7c9f154865a58b02f0c1c0d"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/duo-anonyme.html",
+      "bytes": 2306221,
+      "sha256": "7961f2c6c74f239b8d8c585119dd94868a83fdc6aeac83ab50667323565a48da"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/frames/assignment12-last.png",
+      "bytes": 288890,
+      "sha256": "50c8109f71b80cedae5c9de0db124117d9f3bb1a0859c36bc4b778a0cc2b283f"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/frames/assignment3-entry.png",
+      "bytes": 286747,
+      "sha256": "38457d67508ff9aa9409209b6e42e0e50b44d42309cbf9017aa1870027244655"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/frames/assignment6-last.png",
+      "bytes": 289429,
+      "sha256": "903e96a756e56610538831882f77b2ba3bfa1976bc34c38007ff406dc12734f3"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/frames/duo-entry.png",
+      "bytes": 335173,
+      "sha256": "537cff2a04a31222df470f15643de3a89c9879cf21ac2687f4f7332f60f056df"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/frames/duo-out.png",
+      "bytes": 53507,
+      "sha256": "9b16cfce298ed871357d00314df635a7608cbe12c19fc081091c0a9b2fedee14"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/frames/elimination-durable.png",
+      "bytes": 44644,
+      "sha256": "ef5aa423a9291e41544d363148bc7f816a46b0ba5a89e5938ea65fb204d639a6"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/frames/micro-entry.png",
+      "bytes": 60587,
+      "sha256": "b151324729a9dc6d279cc8f6aa7b6204ef9be56ab762d843a00b84a5b25bec10"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/frames/new-cycle.png",
+      "bytes": 53507,
+      "sha256": "9b16cfce298ed871357d00314df635a7608cbe12c19fc081091c0a9b2fedee14"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/frames/next-authorized.png",
+      "bytes": 64961,
+      "sha256": "628417cb0e85cb165128d083778eefcb97366689df6a849d95c6fa125a676afa"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/frames/tie-durable.png",
+      "bytes": 49298,
+      "sha256": "b4e9ecd63e01a0c8adad80beeb744561ebce04114330a948d4bbb1e934a123f0"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/frames/vote-closed.png",
+      "bytes": 54915,
+      "sha256": "b6c403527267b60f065b324d097ec582a389a7f69d768967460d2d4ac2520fe7"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/frames/vote-progress.png",
+      "bytes": 55961,
+      "sha256": "d76d493b52077a8800f66735afc75f977dc3194c561985d0793aee0aa8b3b537"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/index.html",
+      "bytes": 2306221,
+      "sha256": "7961f2c6c74f239b8d8c585119dd94868a83fdc6aeac83ab50667323565a48da"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/itachi.png",
+      "bytes": 615051,
+      "sha256": "fc3e59c2c24325376545d6939ad0268b701135ebc17fe19c72688b0ab2ea715f"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/manche-suivante-autorisee.html",
+      "bytes": 530409,
+      "sha256": "e6d93abe02bfcf8881ee3eeb5e0b968ce5124ac415f1f475c3b4d6ebc1d83a29"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/manifest.json",
+      "bytes": 13186,
+      "sha256": "1601894c80c7846c029a02725e9ea770d517a36bded98c3313672a296e44f766"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/assignments-12-normal-alpha.png",
+      "bytes": 286356,
+      "sha256": "60c1de91f69e2a04f0b4c583c3832c4e1ff1172b2b9d6d2847ded251b1a34a62"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/assignments-12-reduced-alpha.png",
+      "bytes": 286356,
+      "sha256": "60c1de91f69e2a04f0b4c583c3832c4e1ff1172b2b9d6d2847ded251b1a34a62"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/assignments-3-normal-alpha.png",
+      "bytes": 277150,
+      "sha256": "9f9fb7fb54dd4b5990dcf522c4ec4d3f56be0b2b631a5178a25eec383698455d"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/assignments-3-reduced-alpha.png",
+      "bytes": 277150,
+      "sha256": "9f9fb7fb54dd4b5990dcf522c4ec4d3f56be0b2b631a5178a25eec383698455d"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/assignments-6-normal-alpha.png",
+      "bytes": 287096,
+      "sha256": "33bbee020c62eaa3839babe34c0841be8fa1b8c43faa6b79c1cbb529e36c7619"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/assignments-6-reduced-alpha.png",
+      "bytes": 287096,
+      "sha256": "33bbee020c62eaa3839babe34c0841be8fa1b8c43faa6b79c1cbb529e36c7619"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/duo-3-normal-alpha.png",
+      "bytes": 333462,
+      "sha256": "16068d4ca7ef229b817b2703bbc14fa1c2d7e8f9b9b1e5a9814817c325ee0003"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/duo-3-reduced-alpha.png",
+      "bytes": 332794,
+      "sha256": "a088bcebae2e0b412c9eb843dcb7b16c79a90cafd5a749138a82d25d3e68156b"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/durable-3-normal-alpha.png",
+      "bytes": 50997,
+      "sha256": "59804fa065ab5df5d4eac33738ad3ca6098c481f070314a851a4ecc2aa7f415b"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/durable-3-reduced-alpha.png",
+      "bytes": 50997,
+      "sha256": "59804fa065ab5df5d4eac33738ad3ca6098c481f070314a851a4ecc2aa7f415b"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/elimination-3-normal-alpha.png",
+      "bytes": 51701,
+      "sha256": "615a7287d367b29561b7645f0fb31cf3d2a5ff10c29f369e65e7340c882c5f47"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/elimination-3-reduced-alpha.png",
+      "bytes": 51701,
+      "sha256": "615a7287d367b29561b7645f0fb31cf3d2a5ff10c29f369e65e7340c882c5f47"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/final-page2-12.png",
+      "bytes": 250293,
+      "sha256": "6b029404355fed363e3879eaedcc766fa5d90c8cafdd23004b26ab47df33bbd7"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/manual-reduced-micro-alpha.png",
+      "bytes": 40992,
+      "sha256": "5d638c9df5670ccfe3f6f2d83914ed0934901e22a39c2f9b554ace69d44f300c"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/micro-3-normal-alpha.png",
+      "bytes": 53256,
+      "sha256": "65dc746fb2c893890a96c230e7bf4b6e86713fa79c58f7100e3886554ba64c61"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/micro-3-reduced-alpha.png",
+      "bytes": 53256,
+      "sha256": "65dc746fb2c893890a96c230e7bf4b6e86713fa79c58f7100e3886554ba64c61"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/next-3-normal-alpha.png",
+      "bytes": 64121,
+      "sha256": "7b814aa025aba4d0f31c0aa0c52040e6b235216938d16b3df82bd5ec34c95eea"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/next-3-reduced-alpha.png",
+      "bytes": 64121,
+      "sha256": "7b814aa025aba4d0f31c0aa0c52040e6b235216938d16b3df82bd5ec34c95eea"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/reveal-3-normal-alpha.png",
+      "bytes": 307006,
+      "sha256": "9865dcae6c520652f46b4f5a1c6c87c735c53d81fbc1b04f6b44619e04808699"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/reveal-3-reduced-alpha.png",
+      "bytes": 307006,
+      "sha256": "9865dcae6c520652f46b4f5a1c6c87c735c53d81fbc1b04f6b44619e04808699"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/tie-3-normal-alpha.png",
+      "bytes": 52931,
+      "sha256": "ce607ec27a62d27a5237146099727cd04a37306ac92648e16ad700efe1930cac"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/tie-3-reduced-alpha.png",
+      "bytes": 52931,
+      "sha256": "ce607ec27a62d27a5237146099727cd04a37306ac92648e16ad700efe1930cac"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/transitions-cycle-alpha.png",
+      "bytes": 55234,
+      "sha256": "389976832f46846c7ba427bb6237a6d23c5cccf9f1ce6b32643987866a19a65d"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/twitch-12-page4-390.png",
+      "bytes": 32895,
+      "sha256": "512ca17ae4a22eb3564503efbf0ba2cd9ac0ce05145d35e53981baf605361064"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/twitch-duo-390.png",
+      "bytes": 26347,
+      "sha256": "c4b2470a55582fb1984d8724dbcb693ad4972a63f1bedfe371da0f21a2509d58"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/twitch-vote-390.png",
+      "bytes": 9797,
+      "sha256": "8db99bf9fcd52fc182a7b8340ea06da9367a2197f7b06c91a0a117dcde5d1a65"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/twitch390-12.png",
+      "bytes": 124354,
+      "sha256": "f9aee587dd2cc48aef4d87f639995ec552a0cc58708e7bb13e05812eb5e67211"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/victory-3-normal-alpha.png",
+      "bytes": 57652,
+      "sha256": "c842cad8fff962165c4ac2590138d5849cd1a92f3e6525cb3142cd4426a0256d"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/victory-3-reduced-alpha.png",
+      "bytes": 57652,
+      "sha256": "c842cad8fff962165c4ac2590138d5849cd1a92f3e6525cb3142cd4426a0256d"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/video-normal-frame.png",
+      "bytes": 56335,
+      "sha256": "e53035e20ba68ecee8d373451d80a563f5b2e470b903f9adfee295ec90423f09"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/vote-12-normal-alpha.png",
+      "bytes": 54235,
+      "sha256": "f9870de8deab3a33f252c9ec7370e84311ccca560d0d6d2ea0cee0d6da727f8b"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/vote-12-reduced-alpha.png",
+      "bytes": 54235,
+      "sha256": "f9870de8deab3a33f252c9ec7370e84311ccca560d0d6d2ea0cee0d6da727f8b"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/vote12-closed-alpha.png",
+      "bytes": 54673,
+      "sha256": "2d11c1a71d66b79ec735af9eb9bd469f8e161333a652d9af38f2bef7d148974e"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/vote12-complete-normal-390.png",
+      "bytes": 9560,
+      "sha256": "5170900b0e0f51d9a75a3870b30c8135684051f9ab68fec6973ccbbd2f916aee"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/vote12-complete-normal-alpha.png",
+      "bytes": 54146,
+      "sha256": "36be8f8fc3a9ea7030351ac1ba27e3466dcd49a9bcaa51f997207bd5458eab37"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/vote12-complete-reduced-390.png",
+      "bytes": 9560,
+      "sha256": "5170900b0e0f51d9a75a3870b30c8135684051f9ab68fec6973ccbbd2f916aee"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/proofs/vote12-complete-reduced-alpha.png",
+      "bytes": 54146,
+      "sha256": "36be8f8fc3a9ea7030351ac1ba27e3466dcd49a9bcaa51f997207bd5458eab37"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/prototype.css",
+      "bytes": 515081,
+      "sha256": "8aa5f768cd87600c41c57e6729403f5a794a9ad3b5bdb638db1af2608cb697a0"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/resultat-final-autorise.html",
+      "bytes": 2306761,
+      "sha256": "506ade6c317d47297c3b9229cc4375257655b885d5e8fd884a8f6320f969c79f"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/runtime.js",
+      "bytes": 11680,
+      "sha256": "6eed2045725b55d7562f2b67a8c822ed917acd8b8d6f830bbd8a6ce81187ffc5"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/sasuke.png",
+      "bytes": 716759,
+      "sha256": "3bdfead941a1b5db9c359a1081f773466253a8e274a99c18ede73047af73d852"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m01/SPEC.md",
+      "bytes": 615,
+      "sha256": "ef19c7b97a81a553eff17348f613721dbabd194697324bd7b26839167fe33633"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m01/approved.html",
+      "bytes": 479379,
+      "sha256": "8ddb9c162d73155aaf46ec343f4db199783b85a7c8ac7509977ee96f2bc10c58"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m01/approved.png",
+      "bytes": 603463,
+      "sha256": "5819f8ad3310f180f217d9b148c08c9feb536618e1fd9b2c2cd415007d379cdb"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m02/SPEC.md",
+      "bytes": 632,
+      "sha256": "690de2512786d7c4e2a379547b31b80dc9f9697a2483aa2da8553451fd0febad"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m02/approved.html",
+      "bytes": 462076,
+      "sha256": "d34f8ef9f13248092d327d1344ff124d431688c2d97017aa5bb828dcd14411ca"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m02/approved.png",
+      "bytes": 595064,
+      "sha256": "6823128e126d055d68252501371213aa743fbccf5b832bd72cac793be82b5922"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m03/SPEC.md",
+      "bytes": 616,
+      "sha256": "4d06180e6bb169c145f3a8c1a6d383379a0cfc0bc5e479cd1610ffabb45fde2c"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m03/approved.html",
+      "bytes": 1592710,
+      "sha256": "e49aecdccffeaab990e0cd167474b8771006822fd31dc441eb19a80c8a0552f4"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m03/approved.png",
+      "bytes": 1373431,
+      "sha256": "a31f80eb85a74960f4a7a53289cf539db158ca8cb944946f6434001658b3eb6d"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m04/SPEC.md",
+      "bytes": 613,
+      "sha256": "dbacfded682c21769dee98232a129862011f41ee39d625caf684fae15bcc6bea"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m04/approved.html",
+      "bytes": 1378003,
+      "sha256": "43736ecf94f8ffe58f00bbfee9dc0682a1a7c17c0a4e64edae2eac3c48f93375"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m04/approved.png",
+      "bytes": 1524163,
+      "sha256": "5b0850f6cf7b03a1e2575a862c6063d7c7e76eb29fff9ee18288e2b9080c8a6e"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m05/SPEC.md",
+      "bytes": 596,
+      "sha256": "17937d70c2c6c77a86594ef8a6c8364fddfadc20e37654e193c5c23b1718bb35"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m05/approved.html",
+      "bytes": 1411145,
+      "sha256": "ee29ef07ca42adfab6da794dd3c64a09d07f94a68ee360745176660c3037ab64"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m05/approved.png",
+      "bytes": 602682,
+      "sha256": "93de5035440d159950fa780eeed3410f40d823b92089493682402232279b17be"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m06/SPEC.md",
+      "bytes": 606,
+      "sha256": "418ebfee7059fe70642f34f58ebb7ef16a2e0a429e95ab11dd02115195dbb3df"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m06/approved.html",
+      "bytes": 1408783,
+      "sha256": "d0d8e7a10559b102be1b269f4926a09f654ac024dab77d4252c0fece9e872c44"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m06/approved.png",
+      "bytes": 1471262,
+      "sha256": "45d64b9d66de82c60208963f63674b2843700c1c555cc2aae8ea9cd1e980536e"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m07/SPEC.md",
+      "bytes": 619,
+      "sha256": "3cf565014c5c29135098c167558466e3e3038177214dedc5e3c9bd625770a2e1"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m07/approved.html",
+      "bytes": 474921,
+      "sha256": "7d02e60a417b66c039ba01f96f67a60057355d394108255c16f5fbe16d7266fc"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m07/approved.png",
+      "bytes": 629356,
+      "sha256": "317b71a0fb3a4de1ce021392b12adbe063a0896c74ebb84ab5d8a8268789e5b9"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m08/SPEC.md",
+      "bytes": 587,
+      "sha256": "3c0307a88a932361cf3f24121c91799d7f9f58cab5c579c868ebee43a140e220"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m08/approved.html",
+      "bytes": 453912,
+      "sha256": "d3fa9433a60ec00738d397783a3b7fd6d147dd5142aedbbd1f92504422349df1"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m08/approved.png",
+      "bytes": 581067,
+      "sha256": "28b7faa7026b196fe11b8d1f1bcd85392dfa3eb67ade9d15e72670fd59d24251"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m09/SPEC.md",
+      "bytes": 578,
+      "sha256": "7abff0f66380765b5c429ebdfb40410ba95097ae7f313064e41c96805b82415d"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m09/approved.html",
+      "bytes": 463376,
+      "sha256": "2870b5329d4e27f4b22c5c346bed71f1d560a84a045354750c422951b93b557c"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m09/approved.png",
+      "bytes": 592829,
+      "sha256": "31b290cd5a3f610b9d333e01544a4db0d146a4bfdbfbf69c12d3a8f4dad8fcec"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m10/SPEC.md",
+      "bytes": 610,
+      "sha256": "cbf490dac9695b02948691d21a022b10a3df771b8891da31615e746ad6254ae0"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m10/approved.html",
+      "bytes": 1139936,
+      "sha256": "d921553bb45637faf1455304085ff667ad4b9f1568dd1d50547327a5afb38d9b"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m10/approved.png",
+      "bytes": 1540720,
+      "sha256": "b1fbbe059c934be0730027c343a8bb3664bb2a114ec7b79fba7454799ea2a4df"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m11/SPEC.md",
+      "bytes": 626,
+      "sha256": "914c102c5ef96a7187239004f04884513755d0f036a45ce08dd914347b8c682a"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m11/approved.html",
+      "bytes": 474991,
+      "sha256": "ae10886b4400c26509ba2309984abfb6ee93368b427242b232fac9db766dad38"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m11/approved.png",
+      "bytes": 616465,
+      "sha256": "0a85774c8541b06ef45100d11e61a62e9e7b5fdc309593d4cc8769498f7117e4"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m12/SPEC.md",
+      "bytes": 608,
+      "sha256": "b4c57f116734c7da5febc6894989256ca556ff3c8bd2571afc419b4aa178bebf"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m12/approved.html",
+      "bytes": 514209,
+      "sha256": "f91b81d00e132a0cd78da4fcff0a5dc400b0695762c1cfe47d9658aee8c79476"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/screens/m12/approved.png",
+      "bytes": 668972,
+      "sha256": "a865bb1134a2262e1ba32395d87b96a73080e5fc023a9bf96c075338b7918483"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/spacegrotesk.ttf",
+      "bytes": 136676,
+      "sha256": "acad6de1fc93436f5c0f1f4137751ef04f1aea3063e7036535970ffcfbd79f72"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/videos/01-duo-vote-resultats-normal.webm",
+      "bytes": 864763,
+      "sha256": "7d446f173655ceb9fe55181562f7f5f27e5a7a01f575e338dd3f25b2712fba91"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/videos/02-duo-vote-resultats-reduced.webm",
+      "bytes": 663638,
+      "sha256": "ba574f34299d5ce92d02c50c2c4e7e173c158f6d272720fe8af558f91ec6b39b"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/videos/03-affectations-3-6-12-normal.webm",
+      "bytes": 936875,
+      "sha256": "9fb75652d23c3f6da51689ab7b6342497dcb3fbfab9aed54f9740666d5a3c905"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/videos/04-affectations-12-reduced.webm",
+      "bytes": 410705,
+      "sha256": "9a42cc00522622e993c52258a3e3d76d10ddb96c08681e44144ef5d489b4b2e9"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/videos/05-revelation-victoire-normal.webm",
+      "bytes": 452693,
+      "sha256": "bfe3b066d0c3e826c0157cbd027e95eecde55ef9b35d45c720dd62af45635f2f"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/videos/06-revelation-victoire-reduced.webm",
+      "bytes": 333987,
+      "sha256": "ac22b21f56217e8dccbdd42a2e090a8211208cdb7726a0012fa37f176b894565"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/videos/07-nouvelle-manche-autorisee.webm",
+      "bytes": 99624,
+      "sha256": "b4ff1d55df67e5fb44a21a2a0c2b45d80f228ad47009a8dcc8f3ed337090d838"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/videos/08-vote12-normal-puis-reduced.webm",
+      "bytes": 298900,
+      "sha256": "db91eca41db20632b66a0378204ae24705d76faaf29aa6b3d47be9bc347ce576"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-tv-motion/videos.html",
+      "bytes": 2070,
+      "sha256": "729dc456561472b174571ec4563f753118453b8a5c5783f92fb56d2f11edc204"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation-motion/APPROVAL.json",
+      "bytes": 1976,
+      "sha256": "b6e416cdf9b561112a6046784f06eea28a86ba3cf6c99c9e65058ad4617c94ae"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation-motion/CODEX-PROMPT.md",
+      "bytes": 1800,
+      "sha256": "63b43345a144d94ac02e710c8d54c4ed364e1c855fd4079be8bcc0394bc80a83"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation-motion/DOCUMENTATION-CHECK.md",
+      "bytes": 13721,
+      "sha256": "0285734e5467c05740ca697495072bec7ba49238ed17575ae41bcf683e11f224"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation-motion/HANDOFF.md",
+      "bytes": 6584,
+      "sha256": "1f8c409fa0704d332b66bc85df3fb30b75be4fbd9535d6422b9bfc06cb8a6246"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation-motion/README.md",
+      "bytes": 923,
+      "sha256": "c72a8318e0d7903fc94caafab026483a68b359a646e2982edbfad73753fcfc08"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation-motion/REVIEW.md",
+      "bytes": 8616,
+      "sha256": "189aeb21494f12b0787356edb471ca25ebe816ce85372770a7db69e88af921e6"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation-motion/TERMINOLOGY-AND-OPEN-DECISIONS.md",
+      "bytes": 4909,
+      "sha256": "eb7eaf4a3b204b3083d4d826141b0bcd8128d69f2e0862a4f11685ca62243c39"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation-motion/USER-BRIEF.txt",
+      "bytes": 12227,
+      "sha256": "7d77b5bb445cc9693f61dbde49e83cea3aaa9ab86bfa6367f8a641f3cbe6240f"
+    },
+    {
+      "path": "docs/ux/redesign/undercover-consolidation-motion/manifest.json",
+      "bytes": 1976,
+      "sha256": "b6e416cdf9b561112a6046784f06eea28a86ba3cf6c99c9e65058ad4617c94ae"
+    }
+  ]
+}

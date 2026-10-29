@@ -1,0 +1,130 @@
+[
+  {
+    "code": "AC11",
+    "width": 320,
+    "scrollWidth": 320,
+    "title": "Terminer cette manche ?",
+    "titleBounds": {
+      "left": 36,
+      "right": 238,
+      "top": 263.109375,
+      "bottom": 322.890625
+    },
+    "closeLeft": 248,
+    "noOverlap": true,
+    "titleInside": true,
+    "role": "alertdialog"
+  },
+  {
+    "code": "AC11",
+    "width": 390,
+    "scrollWidth": 390,
+    "title": "Terminer cette manche ?",
+    "titleBounds": {
+      "left": 36,
+      "right": 308,
+      "top": 290.046875,
+      "bottom": 319.9375
+    },
+    "closeLeft": 318,
+    "noOverlap": true,
+    "titleInside": true,
+    "role": "alertdialog"
+  },
+  {
+    "code": "AC12",
+    "width": 320,
+    "scrollWidth": 320,
+    "title": "Terminer toute la partie ?",
+    "titleBounds": {
+      "left": 36,
+      "right": 238,
+      "top": 251.109375,
+      "bottom": 310.890625
+    },
+    "closeLeft": 248,
+    "noOverlap": true,
+    "titleInside": true,
+    "role": "alertdialog"
+  },
+  {
+    "code": "AC12",
+    "width": 390,
+    "scrollWidth": 390,
+    "title": "Terminer toute la partie ?",
+    "titleBounds": {
+      "left": 36,
+      "right": 308,
+      "top": 278.046875,
+      "bottom": 307.9375
+    },
+    "closeLeft": 318,
+    "noOverlap": true,
+    "titleInside": true,
+    "role": "alertdialog"
+  },
+  {
+    "code": "AC13",
+    "width": 320,
+    "scrollWidth": 320,
+    "title": "Abandonner la partie ?",
+    "titleBounds": {
+      "left": 36,
+      "right": 238,
+      "top": 263.109375,
+      "bottom": 322.890625
+    },
+    "closeLeft": 248,
+    "noOverlap": true,
+    "titleInside": true,
+    "role": "alertdialog"
+  },
+  {
+    "code": "AC13",
+    "width": 390,
+    "scrollWidth": 390,
+    "title": "Abandonner la partie ?",
+    "titleBounds": {
+      "left": 36,
+      "right": 308,
+      "top": 290.046875,
+      "bottom": 319.9375
+    },
+    "closeLeft": 318,
+    "noOverlap": true,
+    "titleInside": true,
+    "role": "alertdialog"
+  },
+  {
+    "code": "AC14",
+    "width": 320,
+    "scrollWidth": 320,
+    "title": "Retirer cette manche ?",
+    "titleBounds": {
+      "left": 36,
+      "right": 238,
+      "top": 275.109375,
+      "bottom": 334.890625
+    },
+    "closeLeft": 248,
+    "noOverlap": true,
+    "titleInside": true,
+    "role": "alertdialog"
+  },
+  {
+    "code": "AC14",
+    "width": 390,
+    "scrollWidth": 390,
+    "title": "Retirer cette manche ?",
+    "titleBounds": {
+      "left": 36,
+      "right": 308,
+      "top": 302.046875,
+      "bottom": 331.9375
+    },
+    "closeLeft": 318,
+    "noOverlap": true,
+    "titleInside": true,
+    "role": "alertdialog"
+  }
+]

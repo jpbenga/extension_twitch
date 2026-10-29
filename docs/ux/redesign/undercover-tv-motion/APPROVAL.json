@@ -1,0 +1,26 @@
+{
+  "status": "APPROVED",
+  "humanApproved": true,
+  "approvedOn": "2026-10-29",
+  "timezone": "Europe/Paris",
+  "evidence": "Donc je valide tout visuellement. Fais le nécessaire pour que je puisse ensuite demander à Codex d'intégrer ce que tu as fait, les modifications qu'on a mises en place.",
+  "approvalKind": "Explicit human visual approval in this chat",
+  "projectId": "14258025772148928156",
+  "screenIds": [
+    "14602014474137269033",
+    "15619381745333075967",
+    "7295270360872508224",
+    "4740627376000196088",
+    "17922085973328146983",
+    "18128086243884041892",
+    "15839688811367935863",
+    "14910631011227398925",
+    "9862667806713904965",
+    "17397664564815022200",
+    "17519895206917221127",
+    "8368665799330953436"
+  ],
+  "backendDecisionsApproved": false,
+  "applicationIntegrationPerformed": false,
+  "note": "Approval covers the exact final references and associated prototypes/videos. Superseded generations excluded. Original design snapshots may retain historical AWAITING_APPROVAL labels."
+}

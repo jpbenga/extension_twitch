@@ -14,6 +14,8 @@ Les **43 références APPROVED des blocs 5, 6 et 7** sont disponibles dans ce d�
 
 Les **28 références APPROVED Undercover A/B** sont désormais disponibles dans [le dossier de reprise Cloud](undercover-next/README.md) : séries de stream et Broadcast TV. L’approbation humaine est acquise ; les captures, HTML, preuves mobiles/alpha et SPEC sont versionnés, sans accès Stitch requis. Voir aussi [le raccordement préparation/séries/Broadcast](UNDERCOVER-PREPARATION-BROADCAST-HANDOFF.md).
 
+Les **36 références APPROVED de consolidation Undercover et Motion TV**, validées humainement le 29 octobre 2026, sont disponibles dans [le dossier de reprise Cloud](undercover-consolidation-motion/README.md) : 24 références UX, 12 fiches Stitch Motion, 4 prototypes et 8 vidéos. Lire le [handoff](undercover-consolidation-motion/HANDOFF.md) avant intégration. La validation visuelle est acquise ; les conséquences backend encore ouvertes restent distinguées.
+
 ```text
 écran actuel → Stitch BEFORE → itération Stitch → validation humaine APPROVED
 → synchronisation locale → Git → Codex Cloud → implémentation de l’écran
