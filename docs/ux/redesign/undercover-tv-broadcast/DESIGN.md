@@ -1,4 +1,4 @@
-> Statut courant : **APPROVED** pour les seuls 28 IDs du registre [APPROVAL.json](../undercover-next/APPROVAL.json). Les mentions AWAITING_APPROVAL dans le corps décrivent l’état historique avant l’accord humain. Cet export documentaire ne lance aucune intégration.
+> Statut courant : **APPROVED** pour les seuls 28 IDs du registre [APPROVAL.json](../undercover-next/ALL-APPROVAL.json). Les mentions AWAITING_APPROVAL dans le corps décrivent l’état historique avant l’accord humain. Cet export documentaire ne lance aucune intégration.
 
 > Reference provenance: this file is a copy of the existing application canon, consulted for continuity. Its historical APPROVED references concern earlier screens only. None of the new Undercover TV Broadcast proposals is approved. Current scope and deliberate TV changes are described in BRIEF.md; status AWAITING_APPROVAL. Source canon: ../../../../docs/ux/redesign/DESIGN.md. Relative links below retain their original repository context.
 

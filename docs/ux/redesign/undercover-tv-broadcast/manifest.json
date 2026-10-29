@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "status": "APPROVED",
   "projectId": "17376000961075708568",
-  "approvalRecord": "../undercover-next/APPROVAL.json",
+  "approvalRecord": "APPROVAL.json",
   "pathBase": "manifest-directory",
   "sourceManifestSha256": "d46643ac44c7c0de8862d59885c6a001a95f72262e73b8e12ed1f8461be39ad4",
   "applicationBaseCommit": "5a7a2f233f6bd10de28f66ace4b155ab8647f5db",
@@ -16,7 +16,7 @@
       "key": "b1",
       "projectId": "17376000961075708568",
       "status": "APPROVED",
-      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "approvalRecord": "APPROVAL.json",
       "role": "Attente légère avant distribution : capsule seule.",
       "files": {
         "approvedHtml": {
@@ -62,7 +62,7 @@
       "key": "b2",
       "projectId": "17376000961075708568",
       "status": "APPROVED",
-      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "approvalRecord": "APPROVAL.json",
       "role": "Joueur courant et tour, sans contenu privé.",
       "files": {
         "approvedHtml": {
@@ -108,7 +108,7 @@
       "key": "b3",
       "projectId": "17376000961075708568",
       "status": "APPROVED",
-      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "approvalRecord": "APPROVAL.json",
       "role": "Deux contenus publics, aucune affectation.",
       "files": {
         "approvedHtml": {
@@ -154,7 +154,7 @@
       "key": "b4",
       "projectId": "17376000961075708568",
       "status": "APPROVED",
-      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "approvalRecord": "APPROVAL.json",
       "role": "Projection explicitement publique des affectations.",
       "files": {
         "approvedHtml": {
@@ -200,7 +200,7 @@
       "key": "b5",
       "projectId": "17376000961075708568",
       "status": "APPROVED",
-      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "approvalRecord": "APPROVAL.json",
       "role": "Participation, sans choix individuels.",
       "files": {
         "approvedHtml": {
@@ -246,7 +246,7 @@
       "key": "b6",
       "projectId": "17376000961075708568",
       "status": "APPROVED",
-      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "approvalRecord": "APPROVAL.json",
       "role": "Camp révélé à la résolution, aucun mot prématuré.",
       "files": {
         "approvedHtml": {
@@ -292,7 +292,7 @@
       "key": "b7",
       "projectId": "17376000961075708568",
       "status": "APPROVED",
-      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "approvalRecord": "APPROVAL.json",
       "role": "Égalité sans nouvelle règle inventée.",
       "files": {
         "approvedHtml": {
@@ -338,7 +338,7 @@
       "key": "b8",
       "projectId": "17376000961075708568",
       "status": "APPROVED",
-      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "approvalRecord": "APPROVAL.json",
       "role": "Après résultat final autorisant camps et mots.",
       "files": {
         "approvedHtml": {
@@ -384,7 +384,7 @@
       "key": "b9",
       "projectId": "17376000961075708568",
       "status": "APPROVED",
-      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "approvalRecord": "APPROVAL.json",
       "role": "Résultat final temporaire et proportionné.",
       "files": {
         "approvedHtml": {
@@ -430,7 +430,7 @@
       "key": "b10",
       "projectId": "17376000961075708568",
       "status": "APPROVED",
-      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "approvalRecord": "APPROVAL.json",
       "role": "Transition visuelle après commande GM, pas de lancement implicite.",
       "files": {
         "approvedHtml": {
@@ -476,7 +476,7 @@
       "key": "b11",
       "projectId": "17376000961075708568",
       "status": "APPROVED",
-      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "approvalRecord": "APPROVAL.json",
       "role": "Focus actif, nom long avec ellipse et numéro stable.",
       "files": {
         "approvedHtml": {
@@ -522,7 +522,7 @@
       "key": "b12",
       "projectId": "17376000961075708568",
       "status": "APPROVED",
-      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "approvalRecord": "APPROVAL.json",
       "role": "Affectations par trois, groupe 1 sur 4.",
       "files": {
         "approvedHtml": {
@@ -568,7 +568,7 @@
       "key": "b13",
       "projectId": "17376000961075708568",
       "status": "APPROVED",
-      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "approvalRecord": "APPROVAL.json",
       "role": "Dernier groupe, noms longs et 12e place.",
       "files": {
         "approvedHtml": {
@@ -614,7 +614,7 @@
       "key": "b14",
       "projectId": "17376000961075708568",
       "status": "APPROVED",
-      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "approvalRecord": "APPROVAL.json",
       "role": "Texte valide sans image, aucune erreur technique publique.",
       "files": {
         "approvedHtml": {
@@ -662,7 +662,7 @@
       "key": "b3-overlay",
       "projectId": "17376000961075708568",
       "status": "APPROVED",
-      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "approvalRecord": "APPROVAL.json",
       "role": "Overlay seul de la projection publique correspondante.",
       "files": {
         "approvedHtml": {
@@ -693,7 +693,7 @@
       "key": "b4-overlay",
       "projectId": "17376000961075708568",
       "status": "APPROVED",
-      "approvalRecord": "../undercover-next/APPROVAL.json",
+      "approvalRecord": "APPROVAL.json",
       "role": "Overlay seul de la projection publique correspondante.",
       "files": {
         "approvedHtml": {
@@ -722,5 +722,9 @@
     "Static visual references only; functional integration remains to be implemented.",
     "Human visual approval is explicit and recorded; no physical OBS/iPhone test is implied.",
     "HTML and PNG exported byte-for-byte; only documentation/manifest paths are portable adaptations."
-  ]
+  ],
+  "lot": "undercover-tv-broadcast",
+  "humanApproved": true,
+  "screenCount": 16,
+  "requiresStitchAuthentication": false
 }

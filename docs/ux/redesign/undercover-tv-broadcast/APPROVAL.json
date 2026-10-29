@@ -1,0 +1,115 @@
+{
+  "status": "APPROVED",
+  "approvalType": "explicit human visual approval",
+  "userMessage": "J'approuve",
+  "recordedAt": "2026-10-29T06:41:02+00:00",
+  "screenCount": 16,
+  "screens": [
+    {
+      "projectId": "17376000961075708568",
+      "screenId": "2926658225915648351",
+      "title": "AFTER — B1 Attente — OBS 1920x1080 — v1",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=2926658225915648351"
+    },
+    {
+      "projectId": "17376000961075708568",
+      "screenId": "14944524881897440628",
+      "title": "AFTER — B2 Discussion — OBS 1920x1080 — v1",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=14944524881897440628"
+    },
+    {
+      "projectId": "17376000961075708568",
+      "screenId": "15069575678936846215",
+      "title": "AFTER — B3 Duo anonyme — OBS 1920x1080 — v1",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=15069575678936846215"
+    },
+    {
+      "projectId": "17376000961075708568",
+      "screenId": "6025148913150011551",
+      "title": "AFTER — B4 Affectations visibles — OBS 1920x1080 — v1",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=6025148913150011551"
+    },
+    {
+      "projectId": "17376000961075708568",
+      "screenId": "1197725242887580661",
+      "title": "AFTER — B5 Vote — OBS 1920x1080 — v1",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=1197725242887580661"
+    },
+    {
+      "projectId": "17376000961075708568",
+      "screenId": "8588339416176039518",
+      "title": "AFTER — B6 Élimination — OBS 1920x1080 — v1",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=8588339416176039518"
+    },
+    {
+      "projectId": "17376000961075708568",
+      "screenId": "5416295497078556769",
+      "title": "AFTER — B7 Égalité — OBS 1920x1080 — v1",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=5416295497078556769"
+    },
+    {
+      "projectId": "17376000961075708568",
+      "screenId": "5659817327027131476",
+      "title": "AFTER — B8 Révélation finale — OBS 1920x1080 — v1",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=5659817327027131476"
+    },
+    {
+      "projectId": "17376000961075708568",
+      "screenId": "11072318426252518079",
+      "title": "AFTER — B9 Victoire — OBS 1920x1080 — v1",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=11072318426252518079"
+    },
+    {
+      "projectId": "17376000961075708568",
+      "screenId": "12222903864227055358",
+      "title": "AFTER — B10 Partie suivante — OBS 1920x1080 — v1",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=12222903864227055358"
+    },
+    {
+      "projectId": "17376000961075708568",
+      "screenId": "821597574017839675",
+      "title": "AFTER — B11 12 joueurs — discussion — OBS 1920x1080 — v1",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=821597574017839675"
+    },
+    {
+      "projectId": "17376000961075708568",
+      "screenId": "16010188935926390018",
+      "title": "AFTER — B12 12 joueurs — groupe 1 — OBS 1920x1080 — v1",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=16010188935926390018"
+    },
+    {
+      "projectId": "17376000961075708568",
+      "screenId": "8433765196767106252",
+      "title": "AFTER — B13 12 joueurs — groupe 4 — OBS 1920x1080 — v1",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=8433765196767106252"
+    },
+    {
+      "projectId": "17376000961075708568",
+      "screenId": "3436903299241750254",
+      "title": "AFTER — B14 Duo sans image — OBS 1920x1080 — v1",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=3436903299241750254"
+    },
+    {
+      "projectId": "17376000961075708568",
+      "screenId": "3519635256591020907",
+      "title": "OVERLAY ONLY — B3 — Transparent OBS 1920x1080 — v1",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=3519635256591020907"
+    },
+    {
+      "projectId": "17376000961075708568",
+      "screenId": "16665675289758535496",
+      "title": "OVERLAY ONLY — B4 — Transparent OBS 1920x1080 — v1",
+      "url": "https://stitch.withgoogle.com/projects/17376000961075708568?node-id=16665675289758535496"
+    }
+  ],
+  "implementationStarted": false,
+  "sourceApplicationModified": false,
+  "functionalSyncPerformed": false,
+  "remoteStitchStatusChanged": false,
+  "scopeNote": "Subset of the already approved 28 final references. No new approval, generation, implementation, merge or deployment.",
+  "humanApproved": true,
+  "approvalScope": "The exact 28 final references approved by the original user message; no new screen approved during Git export.",
+  "lot": "undercover-tv-broadcast",
+  "projectIds": ["17376000961075708568"],
+  "globalApprovalRecord": "../undercover-next/ALL-APPROVAL.json"
+}

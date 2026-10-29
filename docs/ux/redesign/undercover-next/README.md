@@ -2,9 +2,19 @@
 
 **APPROVED : 28 références finales.** L’utilisateur a explicitement approuvé les deux chantiers. La validation humaine est acquise. Cet export fournit les références dans Git ; aucune connexion Stitch, CLI authentifiée, chemin Mac ou nouvelle validation visuelle n’est nécessaire pour commencer l’intégration.
 
+## Répartition des trois lots
+
+- **undercover-next : 6 références** — A1 préparation, A2 contenus/édition, A5 image indisponible, chacun desktop/mobile.
+- **undercover-stream-set : 6 références** — A3 série, A4 réutilisation, A6 série prête, chacun desktop/mobile. L’édition et les médias partagés renvoient au lot Next.
+- **undercover-tv-broadcast : 16 références** — quatorze états de contexte et deux overlays seuls.
+
+Ces trois lots sont une répartition sans duplication des 28 IDs déjà approuvés. Next et Stream Set proviennent du même projet Stitch A, sans créer de troisième projet ou de nouvelles maquettes. Le registre de chaque lot porte `status: APPROVED` et `humanApproved: true`. [ALL-APPROVAL.json](ALL-APPROVAL.json) conserve l’accord global et [APPROVED-REFERENCES.json](APPROVED-REFERENCES.json) indexe les 28 ressources.
+
+[Manifeste du lot Next](manifest.json) · [Approbation du lot Next](APPROVAL.json)
+
 ## Lire en premier
 
-1. [Registre humain exact](APPROVAL.json) et [index des 28 références](manifest.json).
+1. [Registre humain exact](ALL-APPROVAL.json) et [index des 28 références](APPROVED-REFERENCES.json).
 2. [Livraison A](../undercover-stream-set/DELIVERY.md), [manifest A](../undercover-stream-set/manifest.json), [décisions A](../undercover-stream-set/DECISIONS.md).
 3. [Livraison B](../undercover-tv-broadcast/DELIVERY.md), [manifest B](../undercover-tv-broadcast/manifest.json), [brief B](../undercover-tv-broadcast/BRIEF.md).
 4. [Raccordements](RACCORDEMENTS.md) et les 28 SPEC.md désignées par les manifestes.

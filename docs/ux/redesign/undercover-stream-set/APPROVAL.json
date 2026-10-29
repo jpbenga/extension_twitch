@@ -1,0 +1,55 @@
+{
+  "status": "APPROVED",
+  "approvalType": "explicit human visual approval",
+  "userMessage": "J'approuve",
+  "recordedAt": "2026-10-29T06:41:02+00:00",
+  "screenCount": 6,
+  "screens": [
+    {
+      "projectId": "6522040318627629456",
+      "screenId": "14795817732173201235",
+      "title": "PROPOSAL — A3 — Série préparée — Desktop — v3",
+      "url": "https://stitch.withgoogle.com/projects/6522040318627629456?node-id=14795817732173201235"
+    },
+    {
+      "projectId": "6522040318627629456",
+      "screenId": "11696425283968742110",
+      "title": "PROPOSAL — A3 — Série préparée — Mobile — v3",
+      "url": "https://stitch.withgoogle.com/projects/6522040318627629456?node-id=11696425283968742110"
+    },
+    {
+      "projectId": "6522040318627629456",
+      "screenId": "11602921577934756531",
+      "title": "PROPOSAL — A4 — Réutiliser une partie — Desktop — v2",
+      "url": "https://stitch.withgoogle.com/projects/6522040318627629456?node-id=11602921577934756531"
+    },
+    {
+      "projectId": "6522040318627629456",
+      "screenId": "7441701879859976594",
+      "title": "PROPOSAL — A4 — Réutiliser une partie — Mobile — v3",
+      "url": "https://stitch.withgoogle.com/projects/6522040318627629456?node-id=7441701879859976594"
+    },
+    {
+      "projectId": "6522040318627629456",
+      "screenId": "17639353948556659950",
+      "title": "PROPOSAL — A6 — Série prête — Desktop — v2",
+      "url": "https://stitch.withgoogle.com/projects/6522040318627629456?node-id=17639353948556659950"
+    },
+    {
+      "projectId": "6522040318627629456",
+      "screenId": "3387371104757900127",
+      "title": "PROPOSAL — A6 — Série prête — Mobile — v3",
+      "url": "https://stitch.withgoogle.com/projects/6522040318627629456?node-id=3387371104757900127"
+    }
+  ],
+  "implementationStarted": false,
+  "sourceApplicationModified": false,
+  "functionalSyncPerformed": false,
+  "remoteStitchStatusChanged": false,
+  "scopeNote": "Subset of the already approved 28 final references. No new approval, generation, implementation, merge or deployment.",
+  "humanApproved": true,
+  "approvalScope": "The exact 28 final references approved by the original user message; no new screen approved during Git export.",
+  "lot": "undercover-stream-set",
+  "projectIds": ["6522040318627629456"],
+  "globalApprovalRecord": "../undercover-next/ALL-APPROVAL.json"
+}

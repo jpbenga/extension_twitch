@@ -60,9 +60,10 @@ Les URLs ont été résolues avec la CLI ; le domaine a été corrigé vers stit
 
 Maquettes statiques : séries, médias locaux et projections nouvelles restent des propositions fonctionnelles à intégrer après décision humaine. Aucun code React/Next.js, moteur, permission, contrat, synchronisation fonctionnelle, commit ou déploiement modifié. Dépôt applicatif resté propre au commit 5a7a2f233f6bd10de28f66ace4b155ab8647f5db.
 
-[Relecture indépendante](./REVIEW.md) · [Contrôle documentaire](./DOCUMENTATION-CHECK.md) · [Raccordements](./RACCORDEMENTS.md)
+[Relecture indépendante](REVIEW.md) · [Contrôle documentaire](DOCUMENTATION-CHECK.md) · [Raccordements](RACCORDEMENTS.md)
 
-**CHANTIER A : APPROVED**  
+**CHANTIER A : APPROVED**
+
 **CHANTIER B : APPROVED**
 
 ## Approbation humaine

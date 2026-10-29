@@ -2,6 +2,12 @@
   "status": "PASS",
   "approval": "explicit human approval, exact same 28 IDs",
   "screenCount": 28,
+  "lotCounts": {
+    "undercover-next": 6,
+    "undercover-stream-set": 6,
+    "undercover-tv-broadcast": 16
+  },
+  "humanApproved": true,
   "nativePngCount": 28,
   "nativeHtmlScreenCount": 22,
   "responsiveHtmlCount": 12,

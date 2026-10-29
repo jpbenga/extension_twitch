@@ -1,4 +1,4 @@
-> Statut courant : **APPROVED** pour les seuls 28 IDs du registre [APPROVAL.json](APPROVAL.json). Les mentions AWAITING_APPROVAL dans le corps décrivent l’état historique avant l’accord humain. Cet export documentaire ne lance aucune intégration.
+> Statut courant : **APPROVED** pour les seuls 28 IDs du registre [APPROVAL.json](ALL-APPROVAL.json). Les mentions AWAITING_APPROVAL dans le corps décrivent l’état historique avant l’accord humain. Cet export documentaire ne lance aucune intégration.
 
 # Undercover — deux chantiers de design
 

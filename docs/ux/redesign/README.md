@@ -12,7 +12,7 @@ Les 21 références ont été reçues au commit `3c2e704`. Voir le
 
 Les **43 références APPROVED des blocs 5, 6 et 7** sont disponibles dans ce dépôt avec captures natives, HTML, SPEC complètes et rendus de viewport. Voir [le guide de reprise Cloud](BLOCKS-5-6-7.md) et [le manifeste exact](blocks-5-6-7/manifest.json). Leur validation humaine est acquise ; aucun accès Stitch ni nouvelle validation UX n’est nécessaire pour commencer l’intégration depuis ces artefacts.
 
-Les **28 références APPROVED Undercover A/B** sont désormais disponibles dans [le dossier de reprise Cloud](undercover-next/README.md) : séries de stream et Broadcast TV. L’approbation humaine est acquise ; les captures, HTML, preuves mobiles/alpha et SPEC sont versionnés, sans accès Stitch requis.
+Les **28 références APPROVED Undercover A/B** sont désormais disponibles dans [le dossier de reprise Cloud](undercover-next/README.md) : séries de stream et Broadcast TV. L’approbation humaine est acquise ; les captures, HTML, preuves mobiles/alpha et SPEC sont versionnés, sans accès Stitch requis. Voir aussi [le raccordement préparation/séries/Broadcast](UNDERCOVER-PREPARATION-BROADCAST-HANDOFF.md).
 
 ```text
 écran actuel → Stitch BEFORE → itération Stitch → validation humaine APPROVED

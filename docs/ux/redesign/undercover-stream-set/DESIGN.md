@@ -1,4 +1,4 @@
-> Statut courant : **APPROVED** pour les seuls 28 IDs du registre [APPROVAL.json](../undercover-next/APPROVAL.json). Les mentions AWAITING_APPROVAL dans le corps décrivent l’état historique avant l’accord humain. Cet export documentaire ne lance aucune intégration.
+> Statut courant : **APPROVED** pour les seuls 28 IDs du registre [APPROVAL.json](../undercover-next/ALL-APPROVAL.json). Les mentions AWAITING_APPROVAL dans le corps décrivent l’état historique avant l’accord humain. Cet export documentaire ne lance aucune intégration.
 
 # Undercover — Stream Set design proposal
 

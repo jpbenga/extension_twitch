@@ -1,3 +1,5 @@
+> Livraison historique du projet A (12 écrans). Les six références A1/A2/A5 sont maintenant dans Undercover Next ; ce lot Stream Set contient A3/A4/A6. La répartition courante et les chemins portables sont dans [README.md](README.md) et [manifest.json](manifest.json). Aucun ID n’a changé.
+
 # Chantier A — Préparation Undercover / série de stream
 
 **APPROVED** · Validation humaine reçue pour les références finales · Aucune intégration.
