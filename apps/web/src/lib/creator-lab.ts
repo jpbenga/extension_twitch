@@ -14,7 +14,7 @@ import {
   post,
   randomToken,
   readResponse,
-} from "./session-client";
+} from "./session-client.ts";
 const player = z.strictObject({
   id: z.uuid().optional(),
   name: z.string(),

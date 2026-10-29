@@ -1,3 +1,4 @@
+import { openPreparedSalon } from "./undercover-helpers.js";
 import { launchPrepareDemo, openPrepareDemo } from "./undercover-helpers.js";
 import { test, expect, type Page } from "@playwright/test";
 
@@ -94,7 +95,7 @@ test("approved homepage has real preparation, disclosures and three persistent t
   await expect(page).toHaveURL(/\/play\/undercover$/);
   await expect(
     page.getByRole("heading", {
-      name: /Préparer (?:votre |la )partie/,
+      name: /Préparer (?:votre |la |une )partie/,
       exact: true,
     }),
   ).toBeVisible();
@@ -107,12 +108,7 @@ test("inline invitation rejects malformed input and joins a real session through
 }, info) => {
   await page.goto("/play/undercover");
 
-  await page
-    .getByRole("button", {
-      name: "Préparer la partie",
-      exact: true,
-    })
-    .click();
+  await openPreparedSalon(page);
   const invitation = await page
     .getByLabel("Invitation des joueurs", { exact: true })
     .inputValue();

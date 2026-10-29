@@ -1,4 +1,4 @@
-import { commandId } from "./session-client";
+import { commandId } from "./session-client.ts";
 import { z } from "zod";
 import {
   undercoverSettingsSchema,

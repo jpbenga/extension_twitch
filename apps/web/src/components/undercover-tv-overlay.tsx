@@ -108,7 +108,9 @@ export function UndercoverTvOverlay({
     ? play!.outcome!.label
     : publication?.transition
       ? "La prochaine partie attend le Game Master."
-      : undefined;
+      : ballot?.status === "resolved"
+        ? publicBallotResult(play, name)
+        : undefined;
   const position = (id: WidgetId): CSSProperties => {
     const r = layout.widgets[id];
     return {
@@ -121,7 +123,11 @@ export function UndercoverTvOverlay({
   const widget = (id: WidgetId, node: ReactNode, className: string) => (
     <div
       data-player-layout={
-        id === "players" || id === "result" ? layout.players.mode : undefined
+        id === "players" || id === "result"
+          ? id === "result" && layout.players.mode === "vertical"
+            ? "horizontal"
+            : layout.players.mode
+          : undefined
       }
       data-widget={id}
       className={className}
@@ -253,20 +259,18 @@ export function UndercoverTvOverlay({
         widget(
           "players",
           <>
-            {publicContents.map((c, i) => (
+            {publicContents.map((c) => (
               <article className="tv-content-card tv-duo" key={c.id}>
                 <ContentImage content={c} connection={connection} />
                 <span className="tv-shade" />
                 <strong className="tv-word" title={c.label}>
                   {c.label}
                 </strong>
-                {i === 0 && (
-                  <span className="tv-vs" aria-hidden="true">
-                    VS
-                  </span>
-                )}
               </article>
             ))}
+            <span className="tv-vs" aria-hidden="true">
+              VS
+            </span>
           </>,
           "tv-lower tv-duo-group",
         )}
@@ -288,7 +292,12 @@ export function UndercoverTvOverlay({
         widget(
           "result",
           finalMoment && publication?.mode === "final" ? (
-            cards(true)
+            <>
+              <span className="sr-only" role="status">
+                {play?.outcome?.label}
+              </span>
+              {cards(true)}
+            </>
           ) : (
             <div
               className={`tv-event${isFinal && !finalMoment ? " tv-result-compact" : ""}`}

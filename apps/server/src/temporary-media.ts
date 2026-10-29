@@ -127,6 +127,14 @@ export class TemporaryMediaRelay {
     const entry = this.entries.get(`${sessionId}:${contentId}`);
     return entry && entry.expiresAt > this.now() ? entry : undefined;
   }
+  remove(sessionId: string, contentId: string) {
+    const key = `${sessionId}:${contentId}`;
+    const entry = this.entries.get(key);
+    if (entry) {
+      this.bytes -= entry.bytes.length;
+      this.entries.delete(key);
+    }
+  }
   clearSession(id: string) {
     for (const [key, entry] of this.entries)
       if (entry.sessionId === id) {

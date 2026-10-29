@@ -47,7 +47,12 @@ export function decideUndercoverStream(
   if (!stream || state.gameId !== "undercover")
     throw new SessionError("NO_PREPARATION", 409);
   if (action.type === "undercover.publish") {
-    if (action.mode !== "none" && (!run?.play?.dealt || run.play.outcome))
+    if (
+      action.mode !== "none" &&
+      (!run?.play?.dealt ||
+        (run.play.outcome &&
+          !(action.mode === "assignments" && action.page !== undefined)))
+    )
       throw new SessionError("WRONG_PHASE", 409);
     const current = run?.play?.turns?.order[run.play.turns.index];
     const page =
@@ -99,7 +104,16 @@ export function decideUndercoverStream(
   next.transition = true;
   next.revision = stream.revision + 1;
   return recordEvent(
-    { ...state, gameRun, admissionOpen: false, undercoverStream: next },
+    {
+      ...state,
+      gameRun,
+      admissionOpen: false,
+      undercoverStream: next,
+      ...(action.overlayLayout ? { overlayLayout: action.overlayLayout } : {}),
+      ...(action.broadcastTheme
+        ? { broadcastTheme: action.broadcastTheme }
+        : {}),
+    },
     action.type,
     "Le GM a préparé la partie suivante. La distribution reste à lancer.",
     at,

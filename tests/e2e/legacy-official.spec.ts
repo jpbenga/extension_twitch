@@ -57,10 +57,10 @@ const test = base.extend<{ views: (name: string) => Promise<Page> }>({
 async function demo(page: Page) {
   await page.goto("/creator/play");
   await page
-    .getByLabel("Mot des civils", { exact: true })
+    .getByLabel("Nom du contenu A", { exact: true })
     .fill("Mot civil de test");
   await page
-    .getByLabel("Mot des Undercover", { exact: true })
+    .getByLabel("Nom du contenu B", { exact: true })
     .fill("Mot intrus de test");
   await launchPrepareDemo(page);
   await expect(page).toHaveURL(/\/creator\/lab\//);
@@ -114,10 +114,10 @@ test("a personalized official definition keeps its v3 primitives, source lineage
     .fill("Mon conseil secret");
   await section(page, "Distribution et vote");
   await page
-    .getByLabel("Mot des civils", { exact: true })
+    .getByLabel("Nom du contenu A", { exact: true })
     .fill("Mon mot privé");
   await page
-    .getByLabel("Mot des Undercover", { exact: true })
+    .getByLabel("Nom du contenu B", { exact: true })
     .fill("Autre information");
   await page
     .getByLabel("Autoriser un joueur à voter pour lui-même", { exact: true })

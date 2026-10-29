@@ -14,10 +14,10 @@ async function createLab(page: Page, start = true) {
   await page.reload();
   await openUndercoverOptions(page);
   await page
-    .getByLabel("Mot des civils", { exact: true })
+    .getByLabel("Nom du contenu A", { exact: true })
     .fill("Phare confidentiel");
   await page
-    .getByLabel("Mot des Undercover", { exact: true })
+    .getByLabel("Nom du contenu B", { exact: true })
     .fill("Balise confidentielle");
   await openPrepareBroadcast(page);
   await page

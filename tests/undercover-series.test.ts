@@ -8,9 +8,9 @@ import {
   preparationName,
   seriesLibrarySchema,
   validatedPreparation,
-} from "../apps/web/src/lib/undercover-series";
-import { makeSeriesAttempt } from "../apps/web/src/lib/undercover-series-launch";
-import { randomToken } from "../apps/web/src/lib/session-client";
+} from "../apps/web/src/lib/undercover-series.js";
+import { makeSeriesAttempt } from "../apps/web/src/lib/undercover-series-launch.js";
+import { randomToken } from "../apps/web/src/lib/session-client.js";
 
 describe("durable Undercover editorial preparations", () => {
   it("keeps the actual defaults and validates text independently of optional images", () => {

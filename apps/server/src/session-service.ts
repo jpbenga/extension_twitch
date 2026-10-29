@@ -199,6 +199,11 @@ export class SessionService {
             revision: next.undercoverStream.revision + 1,
           },
         };
+      if (next.undercoverStream?.transition && next.gameRun?.play?.dealt)
+        next = {
+          ...next,
+          undercoverStream: { ...next.undercoverStream, transition: false },
+        };
       if (input.command.type === "session.reset") {
         const { undercoverStream: _old, ...base } = next;
         next = base;
@@ -300,6 +305,12 @@ export class SessionService {
   uploadMedia(id: string, token: string, contentId: string, bytes: Buffer) {
     this.assertMediaWrite(id, token, contentId);
     this.media.put(id, contentId, bytes);
+    this.broadcast(id);
+    return this.view(id, hashValue(token));
+  }
+  removeMedia(id: string, token: string, contentId: string) {
+    this.assertMediaWrite(id, token, contentId);
+    this.media.remove(id, contentId);
     this.broadcast(id);
     return this.view(id, hashValue(token));
   }

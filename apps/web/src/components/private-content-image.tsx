@@ -18,7 +18,10 @@ export function PrivateContentImage({
     if (!content?.image) return;
     const controller = new AbortController();
     let objectUrl = "";
+    let loading = false;
     const load = async () => {
+      if (loading || controller.signal.aborted) return;
+      loading = true;
       try {
         const token = sessionStorage.getItem(
           accessKey(sessionId, `player:${participantId}`),
@@ -32,14 +35,19 @@ export function PrivateContentImage({
         if (!r.ok) return;
         const blob = await r.blob();
         if (controller.signal.aborted) return;
+        if (objectUrl) URL.revokeObjectURL(objectUrl);
         objectUrl = URL.createObjectURL(blob);
         setSrc(objectUrl);
       } catch {
         /* Text remains independently available. */
+      } finally {
+        loading = false;
       }
     };
     void load();
+    window.addEventListener("online", load);
     return () => {
+      window.removeEventListener("online", load);
       controller.abort();
       if (objectUrl) URL.revokeObjectURL(objectUrl);
     };

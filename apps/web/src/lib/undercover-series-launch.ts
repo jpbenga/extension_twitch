@@ -6,8 +6,8 @@ import {
   accessTokenSchema,
   sessionAccessSchema,
 } from "@extension-twitch/contracts/sessions";
-import { commandId, post, readResponse } from "./session-client";
-import { prepareLab, saveLab, type CreatorLab } from "./creator-lab";
+import { commandId, post, readResponse } from "./session-client.ts";
+import { prepareLab, saveLab, type CreatorLab } from "./creator-lab.ts";
 import {
   getSeriesImage,
   preparationName,
@@ -15,7 +15,7 @@ import {
   preparationSchema,
   type UndercoverPreparation,
   type UndercoverSeries,
-} from "./undercover-series";
+} from "./undercover-series.ts";
 
 export const seriesAttemptSchema = z.object({
   requestId: z.uuid(),

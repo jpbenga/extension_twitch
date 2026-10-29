@@ -33,8 +33,12 @@ Wi-Fi de confiance. Exemple uniquement : `http://192.168.0.46:3000` si cette adr
 est celle affichée chez vous. Gardez le terminal ouvert, `Ctrl+C` pour arrêter.
 Aucun compte Twitch, secret, paiement ou service externe nécessaire.
 
-**Parcours invité :** Choisir un jeu → Undercover → régler les participants prévus
-et les tours → Préparer la partie → inviter au salon. Aucun joueur fictif n’est ajouté.
+**Séries Undercover :** Choisir un jeu → Undercover → régler une partie →
+Ajouter à la série → Vérifier la série → Ouvrir le salon. Invitez ensuite vos joueurs ;
+la distribution reste une commande GM distincte. Aucun joueur fictif n’est ajouté.
+Les préparations et images facultatives se conservent sur cet appareil.
+[Guide série + iPhone + OBS](docs/TEST-UNDERCOVER-SERIES-TV.md) ·
+[Architecture et limites](docs/UNDERCOVER-SERIES-BROADCAST.md).
 
 **Parcours de test :** Undercover → Tester avec le laboratoire → Lancer une partie
 de démonstration. Sur l’ordinateur, conservez le laboratoire et sélectionnez chaque

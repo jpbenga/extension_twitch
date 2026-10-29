@@ -21,8 +21,7 @@
 .broadcast-tv .tv-event {
   border: 1px solid var(--tv-edge);
   background: var(--tv-surface);
-  box-shadow: 0 0.2cqw 1cqw
-    color-mix(in srgb, var(--broadcast-bg) 30%, transparent);
+  box-shadow: none;
 }
 .broadcast-overlay.broadcast-tv > .tv-header {
   display: flex;
@@ -180,7 +179,7 @@
   gap: 6.770833cqw;
 }
 .broadcast-tv .tv-vs {
-  position: fixed;
+  position: absolute;
   left: 50%;
   transform: translate(-50%, -50%);
   top: 50%;

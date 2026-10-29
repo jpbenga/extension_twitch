@@ -10,6 +10,32 @@ async function openPrepareSection(page: Page, name: string) {
   return false;
 }
 export async function openUndercoverOptions(page: Page) {
+  const edit = page.getByRole("button", {
+    name: "Modifier les contenus",
+    exact: true,
+  });
+  await expect(
+    edit
+      .or(page.getByLabel("Nom du contenu A", { exact: true }))
+      .or(page.locator('[data-prepare-option="words"]'))
+      .or(
+        page
+          .locator("summary")
+          .filter({ hasText: "Mots et options supplémentaires" }),
+      )
+      .first(),
+  ).toBeAttached();
+  if (
+    (await edit.count()) ||
+    (await page.getByLabel("Nom du contenu A", { exact: true }).count())
+  ) {
+    if (await edit.count()) await edit.click();
+    const options = page.locator(".series-editor-settings");
+    if ((await options.getAttribute("open")) === null)
+      await options.locator(":scope > summary").click();
+    await openPrepareSection(page, "roles");
+    return;
+  }
   await expect(
     page
       .locator('[data-prepare-option="words"]')
@@ -33,6 +59,11 @@ export async function openUndercoverOptions(page: Page) {
     await panel.locator(":scope > summary").click();
 }
 export async function openPrepareDemo(page: Page) {
+  const save = page.getByRole("button", {
+    name: "Enregistrer la partie",
+    exact: true,
+  });
+  if (await save.isVisible()) await save.click();
   // A client-side navigation may resolve its click before the destination mounts.
   await expect(
     page
@@ -57,6 +88,12 @@ export async function launchPrepareDemo(page: Page) {
     .click();
 }
 export async function openPrepareBroadcast(page: Page) {
+  const editorOptions = page.locator(".series-editor-settings");
+  if (
+    (await editorOptions.count()) &&
+    (await editorOptions.getAttribute("open")) === null
+  )
+    await editorOptions.locator(":scope > summary").click();
   await expect(
     page
       .locator('[data-prepare-option="broadcast"]')
@@ -134,4 +171,22 @@ export async function openBroadcastHelp(page: Page) {
   });
   if ((await panel.count()) && (await panel.getAttribute("open")) === null)
     await panel.locator(":scope > summary").click();
+}
+
+export async function openPreparedSalon(page: Page) {
+  const save = page.getByRole("button", {
+    name: "Enregistrer la partie",
+    exact: true,
+  });
+  if (await save.isVisible()) await save.click();
+  await page
+    .getByRole("button", { name: "Ajouter à la série", exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: "Vérifier la série", exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: "Ouvrir le salon", exact: true })
+    .click();
+  await expect(page).toHaveURL(/\/sessions\/[^/]+\/gm/);
 }

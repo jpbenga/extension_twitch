@@ -49,6 +49,8 @@ export const lobbyActionSchema = z.discriminatedUnion("type", [
     type: z.literal("undercover.next"),
     settings: undercoverSettingsSchema,
     preparation: undercoverPreparationRefSchema,
+    overlayLayout: undercoverLayoutSchema.optional(),
+    broadcastTheme: themeIdSchema.optional(),
   }),
   z.strictObject({ type: z.literal("participant.ready"), ready: z.boolean() }),
   z.strictObject({ type: z.literal("session.rename"), title: displayName }),

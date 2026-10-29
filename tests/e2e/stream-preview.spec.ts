@@ -49,10 +49,10 @@ async function demo(page: Page, count = 3, long = false) {
     .fill(String(count));
   await openUndercoverOptions(page);
   await page
-    .getByLabel("Mot des civils", { exact: true })
+    .getByLabel("Nom du contenu A", { exact: true })
     .fill(long ? "C".repeat(80) : "SECRET CIVIL");
   await page
-    .getByLabel("Mot des Undercover", { exact: true })
+    .getByLabel("Nom du contenu B", { exact: true })
     .fill(long ? "U".repeat(80) : "SECRET INTRUS");
   await launchPrepareDemo(page);
   await expect(page).toHaveURL(/\/play\/lab\//);

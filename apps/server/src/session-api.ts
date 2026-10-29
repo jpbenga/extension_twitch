@@ -58,7 +58,7 @@ export class SessionApi {
         json(response, gameExamples);
         return;
       }
-      if (method === "POST") {
+      if (method === "POST" || method === "DELETE") {
         const origin = request.headers.origin;
         if (origin && origin !== this.service.publicOrigin)
           throw new SessionError("ORIGIN_DENIED", 403);
@@ -130,6 +130,12 @@ export class SessionApi {
               await readPng(request, UNDERCOVER_IMAGE_MAX_BYTES),
             ),
           );
+          return;
+        }
+        if (method === "DELETE") {
+          const token = credential(request);
+          this.limit(`media:${id}:${hashValue(token)}`, 30);
+          json(response, this.service.removeMedia(id, token, contentId));
           return;
         }
         if (method === "GET") {

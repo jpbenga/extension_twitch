@@ -16,6 +16,7 @@ import {
   validateTemporaryPng,
 } from "../apps/server/src/temporary-media.js";
 import { prepareOfficialSession } from "../apps/server/src/official-games.js";
+import { createUndercoverTvLayout } from "@extension-twitch/contracts/undercover-layout";
 import { undercoverSettingsSchema } from "@extension-twitch/contracts/official-games";
 import {
   undercoverBroadcastSchema,
@@ -419,6 +420,22 @@ describe("Undercover preparation, publication and media over real HTTP/SSE", () 
     expect(image.headers.get("cache-control")).toContain("no-store");
     await accepted({ type: "undercover.publish", mode: "none" });
     expect((await fetch(url)).status).toBe(403);
+    expect(
+      (await fetch(url, { method: "DELETE", headers: auth(players[0]!.token) }))
+        .status,
+    ).toBe(403);
+    expect(
+      (
+        await fetch(url, {
+          method: "DELETE",
+          headers: { ...auth(gmToken), Origin: "https://evil.example" },
+        })
+      ).status,
+    ).toBe(403);
+    expect(
+      (await fetch(url, { method: "DELETE", headers: auth(gmToken) })).status,
+    ).toBe(200);
+    expect((await fetch(url, { headers: auth(gmToken) })).status).toBe(410);
   });
   it("next and replay are different authenticated atomic commands; no early next or automatic future disclosure", async () => {
     await accepted({ type: "game.use-prepared" });
@@ -431,6 +448,8 @@ describe("Undercover preparation, publication and media over real HTTP/SSE", () 
         "undercover-word": "Suivante-B-jamais-avant",
       }),
       preparation,
+      overlayLayout: createUndercoverTvLayout("balanced"),
+      broadcastTheme: "on-air-premium" as const,
     };
     expect((await cmd(next)).status).toBe(409);
     await finish();
@@ -451,6 +470,8 @@ describe("Undercover preparation, publication and media over real HTTP/SSE", () 
     expect(snapshot.game!.play!.dealt).toBe(false);
     expect(snapshot.undercoverPreparation!.id).toBe(preparation.id);
     expect(snapshot.participants).toHaveLength(3);
+    expect(snapshot.broadcastTheme).toBe("on-air-premium");
+    expect(snapshot.overlayLayout?.schemaVersion).toBe(2);
     const retry = await post(`/sessions/${id}/commands`, gmToken, input);
     expect(retry.status).toBe(200);
     expect((await view()).game!.runId).toBe(snapshot.game!.runId);
@@ -462,6 +483,9 @@ describe("Undercover preparation, publication and media over real HTTP/SSE", () 
     expect(JSON.stringify(pub)).not.toMatch(
       /Suivante-A|Suivante-B|Future privée/,
     );
+    gm = await view();
+    await act("deal");
+    expect((await publicView()).undercoverBroadcast?.transition).toBe(false);
     for (const p of players)
       expect(
         (
@@ -506,7 +530,8 @@ describe("Undercover preparation, publication and media over real HTTP/SSE", () 
     ).toBe(200);
   });
   it("preserves the series binding and pinned preparation across restart without persisting binary files", () => {
-    const recovered = new SessionService(store, "http://127.0.0.1:3000");
+    const reopened = new SqliteStore(join(dir, "state.sqlite"));
+    const recovered = new SessionService(reopened, "http://127.0.0.1:3000");
     expect(
       gmSessionSchema.parse(recovered.view(id, hashValue(gmToken)))
         .undercoverPreparation!.id,
@@ -519,5 +544,6 @@ describe("Undercover preparation, publication and media over real HTTP/SSE", () 
       }),
     ).toThrow("SERIES_ALREADY_PREPARED");
     recovered.shutdown();
+    reopened.close();
   });
 });

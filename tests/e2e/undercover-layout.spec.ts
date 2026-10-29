@@ -1,3 +1,4 @@
+import { createUndercoverLayout } from "@extension-twitch/contracts/undercover-layout";
 import {
   launchPrepareDemo,
   openPrepareBroadcast,
@@ -9,6 +10,17 @@ import { openLabAccess, openLabPlayers } from "./undercover-helpers.js";
 import { test, expect, type Page, type BrowserContext } from "@playwright/test";
 import { acceptConfirmation } from "./dialog-helpers.js";
 import { completeClues } from "./turn-helpers.js";
+// These scenarios retain the archived v1 layouts byte-for-byte. Opt-in TV v2 has its own real-game suite.
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(
+    (layout) =>
+      sessionStorage.setItem(
+        "xt:official:undercover:layout",
+        JSON.stringify(layout),
+      ),
+    createUndercoverLayout(),
+  );
+});
 const rendered = (p: Page) =>
   p.getByLabel("Overlay public de l’émission", { exact: true });
 const widget = (p: Page, id: string) =>

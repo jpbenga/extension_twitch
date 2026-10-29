@@ -152,12 +152,21 @@ export function UndercoverSeriesControls({
               confirmLabel: "Préparer la partie suivante",
               presentation: "stitch",
               onConfirm: async () => {
-                const settings = validatedPreparation(next),
-                  position = prep.series.position + 1;
+                let settings;
+                try {
+                  settings = validatedPreparation(next);
+                } catch {
+                  throw new Error(
+                    "Vérifiez les deux noms et les réglages de la prochaine partie dans votre série.",
+                  );
+                }
+                const position = prep.series.position + 1;
                 return (
                   (await send({
                     type: "undercover.next",
                     settings,
+                    overlayLayout: next.overlayLayout,
+                    broadcastTheme: next.broadcastTheme,
                     preparation: {
                       id: next.id,
                       title: preparationName(next).slice(0, 80),
@@ -238,7 +247,7 @@ export function UndercoverSeriesControls({
               Masquer les contenus
             </button>
           </div>
-          {prep.publication === "assignments" && groups > 1 && (
+          {(prep.publication === "assignments" || finished) && groups > 1 && (
             <div className="gm-series-pages" aria-label="Groupes du plateau">
               <button
                 className="secondary-button"

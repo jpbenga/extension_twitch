@@ -1,3 +1,4 @@
+import { openPreparedSalon } from "./undercover-helpers.js";
 import {
   test,
   expect,
@@ -71,12 +72,7 @@ async function setup(page: Page, roundLimit = 10) {
       .getByLabel("Maximum de manches", { exact: true })
       .fill(String(roundLimit));
   }
-  await page
-    .getByRole("button", {
-      name: "Préparer la partie",
-      exact: true,
-    })
-    .click();
+  await openPreparedSalon(page);
   await expect(page.getByTestId("session-connection")).toHaveText(
     "Synchronisé",
   );

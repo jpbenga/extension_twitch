@@ -1,3 +1,4 @@
+import { openPreparedSalon } from "./undercover-helpers.js";
 import { launchPrepareDemo, openPrepareDemo } from "./undercover-helpers.js";
 import { openGmReplay } from "./undercover-helpers.js";
 import {
@@ -51,10 +52,10 @@ async function demo(page: Page) {
   await page.goto("/play/undercover");
   await openUndercoverOptions(page);
   await page
-    .getByLabel("Mot des civils", { exact: true })
+    .getByLabel("Nom du contenu A", { exact: true })
     .fill("Mot civil de test");
   await page
-    .getByLabel("Mot des Undercover", { exact: true })
+    .getByLabel("Nom du contenu B", { exact: true })
     .fill("Mot intrus de test");
   await launchPrepareDemo(page);
   await expect(page).toHaveURL(/\/play\/lab\//);
@@ -350,12 +351,7 @@ test("real invitees join without accounts, see a server refusal for insufficient
   try {
     await page.goto("/play/undercover");
 
-    await page
-      .getByRole("button", {
-        name: "Préparer la partie",
-        exact: true,
-      })
-      .click();
+    await openPreparedSalon(page);
     await expect(page).toHaveURL(/\/sessions\/[^/]+\/gm$/);
     const invitation = await page
       .getByLabel("Invitation des joueurs", { exact: true })

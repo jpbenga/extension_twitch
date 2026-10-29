@@ -175,3 +175,36 @@ ne présente plus les onglets GM ; le mot peut être masqué visuellement et le 
 prioritaire quand il est ouvert. Les fenêtres applicatives restent personnalisées.
 La nouvelle ergonomie et les palettes attendent la validation humaine, distincte du
 workflow de jeu/OBS déjà validé. Voir UX-REDESIGN-DECISIONS.md et TEST-UX-THEMES.md.
+
+
+## Extension approuvée — préparations en série et broadcast TV Undercover
+
+Les 28 références de préparation/séries et de broadcast TV ont reçu une validation
+visuelle humaine explicite. La préparation conserve désormais plusieurs séries
+nommées, leur ordre, les copies indépendantes et les images facultatives dans le
+navigateur de préparation. Elle ne réintroduit pas un éditeur libre de jeux.
+
+« Ajouter à la série » ne crée pas de session. « Ouvrir le salon » ouvre les invitations
+sans joueurs fictifs ni distribution. « Partie suivante » exige un résultat et une
+confirmation GM, conserve les joueurs et attend une nouvelle distribution. « Rejouer »
+conserve la préparation courante. Les règles officielles restent inchangées.
+
+Un relais d’images temporaire, explicitement autorisé pour ce chantier, complète la
+conservation permanente locale : mémoire serveur bornée, expiration, nettoyage et
+contrôle de chaque destinataire. Aucun hébergement permanent de médias, transfert de
+paires futures, URL serveur arbitraire ou donnée binaire SQLite. Le texte reste utilisable
+sans image. Cette exception ciblée remplace les anciennes mentions interdisant tout
+envoi de média ; leurs autres protections restent applicables.
+
+L’overlay TV est opt-in par layout version 2. Les anciens layouts version 1 conservent
+leurs coordonnées et leur rendu. Duo anonyme, affectations explicitement publiées et
+révélation finale utilisent des projections serveur distinctes. Le même renderer
+alimente aperçu/OBS, sans décoration studio incorporée à la source transparente.
+
+La série complète reste sur son appareil ; le choix de la préparation suivante s’y
+fait. Une régie sur iPhone peut piloter les phases et rejouer sans recevoir les médias
+privés des autres joueurs dans une projection publique. Les nouveaux parcours restent
+à valider humainement sur iPhone et OBS, sans remettre en cause la validation passée.
+
+Contrats, limites et choix : [UNDERCOVER-SERIES-BROADCAST.md](UNDERCOVER-SERIES-BROADCAST.md).
+Guide : [TEST-UNDERCOVER-SERIES-TV.md](TEST-UNDERCOVER-SERIES-TV.md).

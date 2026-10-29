@@ -1,3 +1,4 @@
+import { openPreparedSalon } from "./undercover-helpers.js";
 import {
   launchPrepareDemo,
   openPrepareBroadcast,
@@ -201,12 +202,7 @@ test("six experiences run a real invited game with a focused GM, private compani
       fullPage: true,
     });
 
-    await page
-      .getByRole("button", {
-        name: "Préparer la partie",
-        exact: true,
-      })
-      .click();
+    await openPreparedSalon(page);
     await expect(page.locator('[data-experience="salon"]')).toBeVisible();
     await expect(
       page.getByRole("button", { name: "Préparer la partie", exact: true }),

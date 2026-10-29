@@ -22,6 +22,7 @@ export function useUndercoverSeries() {
     void loadSeriesLibrary()
       .then(async (value) => {
         if (active) {
+          persistedRevision.current = value.revision;
           current.current = value;
           setLibrary(value);
         }
@@ -38,6 +39,15 @@ export function useUndercoverSeries() {
       active = false;
     };
   }, []);
+  useEffect(() => {
+    if (!saving && !error) return;
+    const warn = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = "";
+    };
+    window.addEventListener("beforeunload", warn);
+    return () => window.removeEventListener("beforeunload", warn);
+  }, [saving, error]);
   function update(
     change: (previous: SeriesLibrary) => SeriesLibrary,
   ): Promise<void> {
@@ -70,6 +80,7 @@ export function useUndercoverSeries() {
   async function reload() {
     const value = await loadSeriesLibrary();
     failed.current = false;
+    persistedRevision.current = value.revision;
     current.current = value;
     setLibrary(value);
     setError("");
