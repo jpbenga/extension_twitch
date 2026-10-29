@@ -1,3 +1,4 @@
+import { launchPrepareDemo } from "./undercover-helpers.js";
 import {
   creatorAccessSchema,
   studioViewSchema,
@@ -61,12 +62,7 @@ async function demo(page: Page) {
   await page
     .getByLabel("Mot des Undercover", { exact: true })
     .fill("Mot intrus de test");
-  await page
-    .getByRole("button", {
-      name: "Lancer une partie de démonstration",
-      exact: true,
-    })
-    .click();
+  await launchPrepareDemo(page);
   await expect(page).toHaveURL(/\/creator\/lab\//);
   await expect(
     page.getByLabel("Perspective du laboratoire", { exact: true }),

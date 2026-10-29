@@ -1,6 +1,12 @@
 # Design System: accueil Extension Twitch
 
-## Extension validée — salon et compagnon Undercover
+## Extension validée — préparation, salon et compagnon Undercover
+
+Le Bloc 2 reprend ses deux références APPROVED : essentiels à gauche et résumé
+à droite sur ordinateur, une colonne et commande basse sur mobile. Cartes à rayon
+16 px, options repliées, commande citron et mêmes polices locales. Les erreurs et
+la reprise restent visibles ; le laboratoire demeure secondaire. Le plateau B6
+conserve ses outils, avec champs numériques sur le petit aperçu tactile.
 
 Les 21 références APPROVED des blocs 3 et 4 reprennent le même langage. Le salon
 utilise une grille invitation / inscrits sur ordinateur, puis une colonne sur
@@ -20,7 +26,7 @@ mutualisées dans `brand-fonts.css`. Voir le [bilan d'intégration](LOBBY-PLAYER
 Références : les deux accueils APPROVED de ce dossier, puis leurs SPEC fonctionnelles.
 Ambiance jeu de déduction, indigo/aubergine, lilas et bouton citron. Densité équilibrée,
 une action dominante, illustration intégrée à la carte. Cette direction concerne
-l’accueil et les surfaces Lobby/Joueur explicitement approuvées. Elle ne remplace
+l’accueil et les surfaces Préparation/Lobby/Joueur explicitement approuvées. Elle ne remplace
 pas les tokens des régies et de l’émission.
 La décision utilisateur sur les accents prévaut sur une recommandation générique de palette.
 

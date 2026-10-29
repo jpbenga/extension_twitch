@@ -64,19 +64,16 @@ async function setup(page: Page, roundLimit = 10) {
     localStorage.setItem("xt:theme:application", "neon-show"),
   );
   await page.goto("/play/undercover");
-  await page
-    .getByLabel("Comment souhaitez-vous jouer ?", { exact: true })
-    .selectOption("invite");
+
   if (roundLimit !== 10) {
     await openUndercoverOptions(page);
-    await page.getByText("Limite de la partie", { exact: true }).click();
     await page
       .getByLabel("Maximum de manches", { exact: true })
       .fill(String(roundLimit));
   }
   await page
     .getByRole("button", {
-      name: "Créer une partie avec mes invités",
+      name: "Préparer la partie",
       exact: true,
     })
     .click();

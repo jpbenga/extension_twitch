@@ -1,3 +1,4 @@
+import { launchPrepareDemo } from "./undercover-helpers.js";
 import { test, expect } from "@playwright/test";
 
 test("the homepage and official catalog offer only games that really run", async ({
@@ -93,28 +94,23 @@ test("official settings persist, resume is authenticated and the laboratory need
   });
   await page.goto("/play/undercover");
   await expect(
-    page.getByLabel("Tours d’indices avant chaque vote", { exact: true }),
-  ).toHaveValue("2");
+    page.getByRole("radio", { name: "2 tours d’indices", exact: true }),
+  ).toBeChecked();
   await page
-    .getByLabel("Tours d’indices avant chaque vote", { exact: true })
-    .fill("3");
+    .getByRole("radio", { name: "3 tours d’indices", exact: true })
+    .check();
   await page.reload();
   await expect(
-    page.getByLabel("Tours d’indices avant chaque vote", { exact: true }),
-  ).toHaveValue("3");
+    page.getByRole("radio", { name: "3 tours d’indices", exact: true }),
+  ).toBeChecked();
   await page
-    .getByLabel("Tours d’indices avant chaque vote", { exact: true })
-    .fill("2");
+    .getByRole("radio", { name: "2 tours d’indices", exact: true })
+    .check();
   await page.screenshot({
     path: info.outputPath("configuration.png"),
     fullPage: true,
   });
-  await page
-    .getByRole("button", {
-      name: "Lancer une partie de démonstration",
-      exact: true,
-    })
-    .click();
+  await launchPrepareDemo(page);
   await expect(page).toHaveURL(/\/play\/lab\//);
   const labUrl = page.url();
   await expect(page.getByTestId("session-connection")).toHaveText(
@@ -166,22 +162,12 @@ test("lost preparation acknowledgements reuse the same official receipt instead 
       } else await route.continue();
     },
   );
-  await page
-    .getByRole("button", {
-      name: "Lancer une partie de démonstration",
-      exact: true,
-    })
-    .click();
+  await launchPrepareDemo(page);
   await expect(page.locator(".lobby-error[role=alert]")).toContainText(
     "La préparation n’a pas été confirmée",
   );
   await page.reload();
-  await page
-    .getByRole("button", {
-      name: "Lancer une partie de démonstration",
-      exact: true,
-    })
-    .click();
+  await launchPrepareDemo(page);
   await expect(page).toHaveURL(/\/play\/lab\//);
   await expect(page.getByTestId("session-connection")).toHaveText(
     "Synchronisé",
@@ -194,12 +180,7 @@ test("a lab created under its historical URL remains accessible without reopenin
   page,
 }) => {
   await page.goto("/play/undercover");
-  await page
-    .getByRole("button", {
-      name: "Lancer une partie de démonstration",
-      exact: true,
-    })
-    .click();
+  await launchPrepareDemo(page);
   await expect(page).toHaveURL(/\/play\/lab\//);
   const id = page.url().split("/").pop()!;
   await page.goto(`/creator/lab/${id}`);

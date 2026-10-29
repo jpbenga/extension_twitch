@@ -15,6 +15,9 @@ anciennes parties sont conservées. Les comptes et abonnements ne sont pas encor
 [Bilan et commandes de récupération](docs/INTEGRATION-BLOCKS-5-6-7.md) ·
 [Guide iPhone, ordinateur et OBS](docs/TEST-APPROVED-BLOCKS-5-6-7.md).
 
+**Bloc 2 — Préparer Undercover :** [guide de test](docs/TEST-PREPARE-UNDERCOVER.md) ·
+[bilan et captures](docs/ux/redesign/PREPARE-UNDERCOVER-IMPLEMENTATION.md).
+
 ## Lancer et tester
 
 Prérequis : **Node.js 24.x et npm 11.x**, indiqués dans `.nvmrc` et `package.json`.
@@ -30,7 +33,10 @@ Wi-Fi de confiance. Exemple uniquement : `http://192.168.0.46:3000` si cette adr
 est celle affichée chez vous. Gardez le terminal ouvert, `Ctrl+C` pour arrêter.
 Aucun compte Twitch, secret, paiement ou service externe nécessaire.
 
-**Parcours rapide :** Choisir un jeu → Undercover → configurer → Lancer une partie
+**Parcours invité :** Choisir un jeu → Undercover → régler les participants prévus
+et les tours → Préparer la partie → inviter au salon. Aucun joueur fictif n’est ajouté.
+
+**Parcours de test :** Undercover → Tester avec le laboratoire → Lancer une partie
 de démonstration. Sur l’ordinateur, conservez le laboratoire et sélectionnez chaque
 joueur. Copiez le lien privé GM pour l’iPhone ; ouvrez le plateau public séparément.
 [Guide très simple iPhone + ordinateur](docs/TEST-PRODUCT-FOCUS.md), avec résultats attendus,

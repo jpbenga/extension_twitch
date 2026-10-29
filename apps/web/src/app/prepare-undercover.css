@@ -1,0 +1,575 @@
+/* Approved Block 2 only. Public broadcast tokens and layouts remain independent. */
+.prepare-undercover {
+  min-height: 100svh;
+}
+.prepare-undercover .stitch-header {
+  padding: 0 24px;
+}
+.prepare-header-inner {
+  width: 100%;
+  max-width: 1104px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 72px;
+}
+.prepare-undercover .stitch-brand {
+  min-height: 44px;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  color: var(--home-ink);
+  gap: 12px;
+}
+.prepare-brand-mark {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--home-border);
+  border-radius: 12px;
+  background: var(--home-surface);
+  color: var(--home-lilac);
+}
+.prepare-workspace {
+  max-width: 944px;
+  width: 100%;
+  padding: 36px 24px 48px;
+  margin: auto;
+}
+.prepare-back {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--home-muted);
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+.prepare-back a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  color: var(--home-lilac);
+  text-decoration: none;
+}
+.prepare-back a > span:first-child {
+  font-size: 26px;
+  line-height: 1;
+}
+.prepare-intro {
+  margin-bottom: 32px;
+}
+.prepare-undercover .prepare-intro h1 {
+  font-size: 32px;
+  line-height: 1.25;
+  margin: 0 0 8px;
+}
+.prepare-intro p {
+  font-size: 14px;
+}
+.prepare-form {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 32px;
+  align-items: start;
+}
+.prepare-controls {
+  min-width: 0;
+  display: grid;
+  gap: 24px;
+}
+.prepare-essentials,
+.prepare-summary,
+.prepare-options {
+  background: var(--home-surface);
+  border: 1px solid var(--home-border);
+  border-radius: 16px;
+  min-width: 0;
+}
+.prepare-essentials {
+  margin: 0;
+  padding: 24px;
+  display: grid;
+  gap: 24px;
+}
+.prepare-setting {
+  min-width: 0;
+}
+.prepare-setting + .prepare-setting {
+  border-top: 1px solid var(--home-border);
+  padding-top: 24px;
+}
+.prepare-setting-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+  font:
+    600 14px/1.5 "Home Space Grotesk",
+    sans-serif;
+}
+.prepare-setting-title small {
+  font:
+    400 12px/1.5 "Home DM Sans",
+    sans-serif;
+  color: var(--home-muted);
+}
+.prepare-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid var(--home-border);
+  border-radius: 12px;
+  background: var(--home-bg);
+}
+.prepare-stepper button {
+  width: 48px;
+  min-height: 48px;
+  padding: 0;
+  border-radius: 8px;
+  border: 1px solid var(--home-control-border);
+  background: var(--home-raised);
+  color: var(--home-ink);
+  font-size: 26px;
+}
+.prepare-stepper > div {
+  display: grid;
+  justify-items: center;
+  min-width: 0;
+}
+.prepare-undercover .prepare-stepper input {
+  width: 76px;
+  min-height: 44px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  text-align: center;
+  font:
+    700 28px/1 "Home Space Grotesk",
+    sans-serif;
+  appearance: textfield;
+}
+.prepare-stepper input::-webkit-inner-spin-button,
+.prepare-stepper input::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0;
+}
+.prepare-stepper div > span {
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--home-muted);
+}
+.prepare-clues {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+.prepare-segments {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 4px;
+  padding: 4px;
+  background: var(--home-bg);
+  border: 1px solid var(--home-border);
+  border-radius: 12px;
+}
+.prepare-segments label {
+  position: relative;
+  min-width: 0;
+  cursor: pointer;
+}
+.prepare-segments span {
+  display: grid;
+  place-items: center;
+  min-height: 48px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font:
+    600 16px/1.4 "Home Space Grotesk",
+    sans-serif;
+  color: var(--home-muted);
+}
+.prepare-undercover .prepare-segments input {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.prepare-segments input:checked + span {
+  background: var(--home-raised);
+  border-color: var(--home-lilac);
+  color: var(--home-ink);
+}
+.prepare-segments input:focus-visible + span {
+  outline: 3px solid var(--home-lilac);
+  outline-offset: 2px;
+}
+.prepare-segments input:disabled + span {
+  opacity: 0.55;
+  cursor: wait;
+}
+.prepare-mode {
+  padding: 12px 16px;
+  background: var(--home-bg);
+  border: 1px solid var(--home-border);
+  border-radius: 12px;
+}
+.prepare-mode strong {
+  font:
+    600 16px/1.5 "Home Space Grotesk",
+    sans-serif;
+}
+.prepare-mode p {
+  font-size: 12px;
+}
+.prepare-options {
+  overflow: clip;
+}
+.prepare-option + .prepare-option {
+  border-top: 1px solid var(--home-border);
+}
+.prepare-option > summary,
+.prepare-laboratory > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 56px;
+  padding: 14px 20px;
+  cursor: pointer;
+  list-style: none;
+  font-size: 14px;
+}
+.prepare-option > summary::-webkit-details-marker,
+.prepare-laboratory > summary::-webkit-details-marker {
+  display: none;
+}
+.prepare-option > summary svg,
+.prepare-laboratory > summary svg {
+  width: 18px;
+  height: 18px;
+  color: var(--home-muted);
+}
+.prepare-option[open] > summary svg,
+.prepare-laboratory[open] > summary svg {
+  transform: rotate(90deg);
+}
+.prepare-option-body {
+  padding: 4px 20px 20px;
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  font-size: 14px;
+}
+.prepare-option-body label {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+.prepare-option-body small {
+  color: var(--home-muted);
+}
+.prepare-option-body :is(input, select) {
+  font-size: 16px;
+  min-height: 44px;
+  max-width: 100%;
+}
+.prepare-rules > summary {
+  min-height: 44px;
+  cursor: pointer;
+}
+.prepare-laboratory {
+  border: 1px solid var(--home-border);
+  border-radius: 12px;
+}
+.prepare-laboratory > summary {
+  min-height: 48px;
+  padding-block: 10px;
+  color: var(--home-muted);
+  font-size: 13px;
+}
+.prepare-summary {
+  position: sticky;
+  top: 24px;
+  padding: 24px;
+  min-width: 0;
+}
+.prepare-summary-heading > span {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font:
+    600 12px/1.4 "Home Space Grotesk",
+    sans-serif;
+  color: var(--home-lilac);
+}
+.prepare-undercover .prepare-summary h2 {
+  font-size: 22px;
+  margin: 12px 0 28px;
+}
+.prepare-summary dl {
+  margin: 0 0 32px;
+  display: grid;
+  gap: 16px;
+  font-size: 14px;
+}
+.prepare-summary dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+.prepare-summary dt {
+  color: var(--home-muted);
+}
+.prepare-summary dd {
+  margin: 0;
+  text-align: right;
+}
+.prepare-undercover .prepare-submit {
+  width: 100%;
+  min-height: 48px;
+  justify-content: center;
+  font-size: 16px;
+  gap: 12px;
+}
+.prepare-error,
+.prepare-pending {
+  margin: 0 0 20px !important;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--home-surface);
+  border: 1px solid var(--home-control-border);
+}
+.prepare-undercover .prepare-error {
+  color: var(--home-ink);
+  border-color: var(--color-danger);
+}
+.prepare-mobile-label {
+  display: none;
+}
+.prepare-sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.prepare-undercover :is(button, input, select, summary) {
+  scroll-margin-block: 24px;
+}
+.prepare-undercover :disabled {
+  cursor: not-allowed;
+}
+@media (max-width: 767px) {
+  .prepare-undercover .stitch-header {
+    padding-inline: max(16px, env(safe-area-inset-left))
+      max(16px, env(safe-area-inset-right));
+  }
+  .prepare-header-inner {
+    min-height: 64px;
+  }
+  .prepare-undercover .stitch-brand {
+    font-size: 15px;
+    gap: 8px;
+  }
+  .prepare-brand-mark {
+    width: 28px;
+    height: 32px;
+    border: 0;
+    background: transparent;
+    color: var(--home-primary);
+  }
+  .prepare-undercover .theme-control summary {
+    font-size: 13px;
+    padding-inline: 12px;
+  }
+  .prepare-workspace {
+    padding: 12px 16px calc(160px + env(safe-area-inset-bottom));
+  }
+  .prepare-back {
+    margin: 0 0 8px;
+  }
+  .prepare-undercover .prepare-intro h1 {
+    font-size: 24px;
+    margin: 0;
+  }
+  .prepare-intro {
+    margin-bottom: 24px;
+  }
+  .prepare-intro > p {
+    display: none;
+  }
+  .prepare-form {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+  .prepare-controls {
+    gap: 20px;
+  }
+  .prepare-essentials {
+    padding: 16px;
+    gap: 20px;
+  }
+  .prepare-setting + .prepare-setting {
+    padding-top: 20px;
+  }
+  .prepare-setting-title {
+    margin-bottom: 10px;
+  }
+  .prepare-stepper {
+    padding: 6px;
+  }
+  .prepare-segments span {
+    min-height: 44px;
+  }
+  .prepare-mode {
+    padding: 10px 12px;
+  }
+  .prepare-option > summary {
+    min-height: 48px;
+    padding: 12px 16px;
+  }
+  .prepare-option-body {
+    padding-inline: 16px;
+  }
+  .prepare-summary {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: auto;
+    z-index: 20;
+    border: 0;
+    border-top: 1px solid var(--home-border);
+    border-radius: 0;
+    padding: 12px 16px calc(16px + env(safe-area-inset-bottom));
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px 8px;
+    background: var(--home-bg);
+  }
+  .prepare-summary-heading {
+    display: none;
+  }
+  .prepare-summary dl {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 2px 8px;
+    margin: 0;
+    font-size: 12px;
+  }
+  .prepare-summary dl > div {
+    display: block;
+  }
+  .prepare-summary dl > div:last-child::before {
+    content: "·";
+    padding-right: 8px;
+    color: var(--home-lilac);
+  }
+  .prepare-summary dl > div:last-child {
+    display: flex;
+  }
+  .prepare-summary dt,
+  .prepare-summary dl > div:first-child {
+    display: none;
+  }
+  .prepare-summary dd {
+    text-align: left;
+  }
+  .prepare-summary-mode {
+    font-size: 12px;
+    align-self: center;
+    color: var(--home-muted);
+  }
+  .prepare-undercover .prepare-submit {
+    grid-column: 1/-1;
+    font-size: 14px;
+  }
+  .prepare-desktop-label {
+    display: none !important;
+  }
+  .prepare-mobile-label {
+    display: inline;
+  }
+  .prepare-undercover :is(input, select, button, summary) {
+    scroll-margin-bottom: 180px;
+  }
+  .prepare-undercover .layout-workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .prepare-undercover * {
+    scroll-behavior: auto;
+  }
+}
+
+.prepare-undercover .theme-control > summary {
+  border: 1px solid var(--home-border);
+  border-radius: 999px;
+  background: var(--home-surface);
+  padding: 6px 14px;
+}
+.prepare-segments input:checked + span {
+  background: var(--home-badge);
+}
+.prepare-undercover .layout-workspace {
+  grid-template-columns: minmax(0, 1fr);
+}
+.prepare-undercover .prepare-option-body summary {
+  min-height: 44px;
+}
+.prepare-undercover .layout-target button {
+  min-width: 44px;
+  min-height: 44px;
+}
+@media (min-width: 768px) {
+  .prepare-form:has([data-prepare-option="broadcast"][open]) .prepare-controls {
+    display: contents;
+  }
+  .prepare-form:has([data-prepare-option="broadcast"][open])
+    .prepare-essentials {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .prepare-form:has([data-prepare-option="broadcast"][open]) .prepare-summary {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .prepare-form:has([data-prepare-option="broadcast"][open]) .prepare-options {
+    grid-column: 1/-1;
+    grid-row: 2;
+  }
+  .prepare-form:has([data-prepare-option="broadcast"][open])
+    .prepare-laboratory {
+    grid-column: 1/-1;
+    grid-row: 3;
+  }
+}
+@media (max-width: 767px) {
+  .prepare-undercover .layout-handles {
+    display: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .prepare-summary dl,
+  .prepare-summary-mode {
+    font-size: 11px;
+  }
+}
