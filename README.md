@@ -131,7 +131,7 @@ fermés par défaut. Les sessions v1/v2/v3 restent exécutables.
 
 Un seul processus Node et SQLite sont supportés. Toujours pas de compte vérifié,
 récupération par e-mail, expiration automatique des capacités, paywall ou facturation.
-Pas de PWA installable, extension Twitch officielle, minuteur, import de médias ou
+Pas de PWA installable, extension Twitch publiée, minuteur, import de médias ou
 éditeur universel d’overlays. La disposition Undercover est personnalisable. Les assets restent des références validées non téléchargées.
 Les maquettes `/demo`, `/player`, `/overlay` restent fictives, hors navigation principale.
 `/design-system` est réservé au développement. `/lab` et les anciens éditeurs sont
@@ -208,4 +208,19 @@ l’adoption TV non destructive et les animations du renderer commun aperçu/OBS
 Les [opérations de cycle de vie proposées](docs/ux/redesign/UNDERCOVER-LIFECYCLE-CONTRACT-PROPOSAL.md)
 restent à arbitrer : aucune fausse pause ou fin anticipée n’est implémentée.
 Suites dédiées : `npm run test:consolidation` et `npm run test:motion`.
-Le chantier Twitch local reste sur sa branche parallèle.
+La branche QA réunit désormais cette consolidation et Twitch Local Test ; voir [le guide unique de recette](docs/LOCAL-QA-GUIDE.md).
+
+## Twitch Local Test — test natif privé
+
+Une extension native de test en lecture seule réutilise le véritable broadcast.
+Le point de départ sans live est un Panel ; l’Overlay sur la vidéo est un test distinct.
+Première installation Mac : `brew install mkcert`, puis `npm run twitch:cert`.
+Ensuite `npm run twitch:local` lance l’application LAN et la surface HTTPS Twitch.
+Le compte, Configuration Service et l’activation Local Test nécessitent la console
+Twitch ; aucune connexion Twitch fictive n’est intégrée.
+
+[Guide simple et actions humaines](docs/TWITCH-LOCAL-TEST.md) ·
+[Checklist](docs/TWITCH-LOCAL-TEST-CHECKLIST.md) ·
+[Architecture et résultats](docs/TWITCH-LOCAL-TEST-DELIVERY.md).
+`npm run twitch:package` prépare seulement le ZIP d’un futur Hosted Test.
+Aucune Review, Release, publication, tunnel Internet ou diffusion vidéo automatique.

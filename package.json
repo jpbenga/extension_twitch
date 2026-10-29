@@ -14,7 +14,8 @@
     "packages/games/auctions",
     "packages/games/spy",
     "apps/server",
-    "apps/web"
+    "apps/web",
+    "apps/twitch"
   ],
   "scripts": {
     "stitch:sync": "tsx scripts/stitch-sync.ts",
@@ -42,7 +43,12 @@
     "test:ux": "node scripts/test-e2e.mjs --config=playwright.ux.config.ts",
     "test:prepare": "node scripts/test-e2e.mjs --config=playwright.prepare.config.ts",
     "test:consolidation": "node scripts/test-e2e.mjs --config=playwright.consolidation.config.ts",
-    "test:motion": "node scripts/test-e2e.mjs --config=playwright.motion.config.ts --project=desktop"
+    "test:motion": "node scripts/test-e2e.mjs --config=playwright.motion.config.ts --project=desktop",
+    "twitch:build": "npm run build:packages && node scripts/twitch-build.mjs",
+    "twitch:cert": "node scripts/twitch-cert.mjs",
+    "twitch:local": "node scripts/twitch-local.mjs",
+    "twitch:package": "npm run twitch:build && node scripts/twitch-package.mjs",
+    "test:twitch": "node scripts/test-e2e.mjs --config=playwright.twitch.config.ts"
   },
   "devDependencies": {
     "@playwright/test": "1.64.1",
@@ -51,7 +57,8 @@
     "prettier": "3.9.10",
     "tsx": "4.23.15",
     "typescript": "5.9.3",
-    "vitest": "5.0.5"
+    "vitest": "5.0.5",
+    "esbuild": "0.28.2"
   },
   "type": "module"
 }

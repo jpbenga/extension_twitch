@@ -4,7 +4,8 @@ import {
   type ThemeId,
 } from "@extension-twitch/contracts/themes";
 import { useEffect, useRef, useState } from "react";
-import { useSession } from "../lib/use-session";
+import { usePublicSession } from "../lib/use-public-session";
+import { PublicMediaOrigin } from "../lib/public-media-origin";
 import {
   nextPublicCue,
   publicCueDuration,
@@ -17,12 +18,14 @@ export function BroadcastFeed({
   id,
   scene = false,
   onTheme,
+  apiOrigin = "",
 }: {
   id: string;
   scene?: boolean;
   onTheme?: (theme: ThemeId) => void;
+  apiOrigin?: string;
 }) {
-  const session = useSession(id, "public");
+  const session = usePublicSession(id, apiOrigin);
   const cursor = useRef<PublicCursor | null>(null),
     timer = useRef<(() => void) | undefined>(undefined);
   const [cue, setCue] = useState<PublicCue | null>(null);
@@ -64,24 +67,30 @@ export function BroadcastFeed({
   }, [view, session.streamEpoch, session.connection]);
   useEffect(() => () => timer.current?.(), []);
   return (
-    <div
-      className={`broadcast-frame ${scene ? "with-scene" : ""}`}
-      data-testid="broadcast-frame"
-      data-theme={view?.broadcastTheme ?? historicalBroadcastTheme}
-    >
-      {scene && (
-        <div className="broadcast-demo-scene" aria-hidden="true">
-          <span>SCÈNE FICTIVE · AUCUN FLUX TWITCH</span>
-          <div className="demo-presenter" />
-          <div className="demo-desk" />
-        </div>
-      )}
-      <BroadcastOverlay view={view} connection={session.connection} cue={cue} />
-      {session.error && (
-        <p className="broadcast-error" role="alert">
-          {session.error}
-        </p>
-      )}
-    </div>
+    <PublicMediaOrigin value={apiOrigin}>
+      <div
+        className={`broadcast-frame ${scene ? "with-scene" : ""}`}
+        data-testid="broadcast-frame"
+        data-theme={view?.broadcastTheme ?? historicalBroadcastTheme}
+      >
+        {scene && (
+          <div className="broadcast-demo-scene" aria-hidden="true">
+            <span>SCÈNE FICTIVE · AUCUN FLUX TWITCH</span>
+            <div className="demo-presenter" />
+            <div className="demo-desk" />
+          </div>
+        )}
+        <BroadcastOverlay
+          view={view}
+          connection={session.connection}
+          cue={cue}
+        />
+        {session.error && (
+          <p className="broadcast-error" role="alert">
+            {session.error}
+          </p>
+        )}
+      </div>
+    </PublicMediaOrigin>
   );
 }

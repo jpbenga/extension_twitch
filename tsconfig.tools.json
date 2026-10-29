@@ -11,6 +11,7 @@
     "vitest.config.ts",
     "playwright*.config.ts",
     "tests/**/*.ts",
-    "scripts/stitch-sync*.ts"
+    "scripts/stitch-sync*.ts",
+    "scripts/twitch*.ts"
   ]
 }

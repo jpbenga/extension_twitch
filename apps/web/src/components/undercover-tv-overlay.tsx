@@ -1,5 +1,12 @@
 "use client";
-import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
+import {
+  useContext,
+  useEffect,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from "react";
+import { PublicMediaOrigin } from "../lib/public-media-origin";
 import type {
   UndercoverLayout,
   WidgetId,
@@ -20,10 +27,11 @@ function ContentImage({
   connection: string;
 }) {
   const [failed, setFailed] = useState(false);
+  const mediaOrigin = useContext(PublicMediaOrigin);
   useEffect(() => setFailed(false), [content.image?.url, connection]);
   return content.image && !failed ? (
     <img
-      src={content.image.url}
+      src={`${mediaOrigin}${content.image.url}`}
       alt=""
       draggable={false}
       onError={() => setFailed(true)}

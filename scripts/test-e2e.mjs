@@ -47,6 +47,7 @@ const outputSuite =
     "design",
     "legacy",
     "stream",
+    "twitch",
     "stitch-gm",
     "stitch-broadcast",
     "stitch-lab",

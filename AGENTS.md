@@ -360,3 +360,14 @@ Le pont `npm run stitch:sync` est local, en lecture seule, et exige une attestat
 copier les credentials. Le Cloud utilise les artefacts versionnés et SPEC.md, sans
 dépendance à Stitch pour compiler. Ne pas fabriquer un approved.png ou un DESIGN.md
 en l’absence de référence. Aucun écran n’est refondu par la seule mise en place du pont.
+
+## 24. Twitch Local Test — extension native de test en lecture seule
+
+Lire docs/TWITCH-LOCAL-TEST.md et TWITCH-LOCAL-TEST-DELIVERY.md. Le workspace
+apps/twitch réutilise le renderer et les projections publiques ; la passerelle HTTPS
+locale n’autorise jamais les commandes ni les accès privés. Le pointeur Configuration
+Service Twitch ne contient aucun secret ou média futur. Ne pas ajouter de JWT/OAuth
+factice ; les futures commandes Twitch exigeraient une authentification serveur.
+Ne pas confondre Panel, Overlay vidéo, source OBS et Helper de test automatisé.
+Aucune Review, Release, publication ou émission publique par défaut. Les comptes,
+l’installation et les vrais tests Twitch sont des validations humaines distinctes.

@@ -208,3 +208,16 @@ privés des autres joueurs dans une projection publique. Les nouveaux parcours r
 
 Contrats, limites et choix : [UNDERCOVER-SERIES-BROADCAST.md](UNDERCOVER-SERIES-BROADCAST.md).
 Guide : [TEST-UNDERCOVER-SERIES-TV.md](TEST-UNDERCOVER-SERIES-TV.md).
+
+## Extension native de test — Local Test
+
+Le Viewer Twitch de développement peut désormais être construit à partir du même
+broadcast public que l’aperçu/OBS. Le point d’entrée initial est un Panel en Local
+Test pour éviter d’imposer un live vidéo au scénario principal. Les commandes GM
+et joueurs restent dans l’application ; aucun vote Twitch, Bits ou contrôle de jeu
+natif n’est prétendu opérationnel. L’association de session utilise uniquement des
+informations publiques via Configuration Service. Hosted Test est préparé par une
+archive statique sans activation ni hébergement backend automatique. La disponibilité
+réelle dans Twitch et sur mobile reste à vérifier avec les comptes autorisés ; voir
+TWITCH-LOCAL-TEST.md. Aucun changement des règles Undercover ou du cycle de vie
+produit demandé dans l’audit précédent n’est inclus dans ce chantier.
