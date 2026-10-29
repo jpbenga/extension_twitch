@@ -91,7 +91,7 @@ export function useUndercoverSeries() {
     await queue.current;
     if (saved.revision !== persistedRevision.current) {
       setError(
-        "Une autre version est enregistrée. Conservez vos changements dans une nouvelle série avant de recharger.",
+        "Une autre version est enregistrée. Conservez vos changements dans une nouvelle partie avant de recharger.",
       );
       return;
     }

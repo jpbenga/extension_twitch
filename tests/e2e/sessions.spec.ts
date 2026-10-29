@@ -1,15 +1,23 @@
+import { randomBytes, randomUUID } from "node:crypto";
 import { acceptConfirmation } from "./dialog-helpers.js";
 import { expect, test, type BrowserContext, type Page } from "@playwright/test";
 
 async function create(page: Page) {
-  await page.goto("/sessions/new");
-  await page
-    .getByLabel("Nom de l’émission", { exact: true })
-    .fill("Le plateau humain");
-  await page.getByLabel("Votre nom de Game Master").fill("Camille");
-  await page
-    .getByRole("button", { name: "Créer ma session", exact: true })
-    .click();
+  // Compatibility fixture: the obsolete creation entry now redirects to official preparation.
+  // The original sessions API and historical room remain deliberately supported.
+  const token = randomBytes(32).toString("base64url");
+  const result = await page.request.post("/api/server/sessions", {
+    headers: { Authorization: `Bearer ${token}` },
+    data: {
+      requestId: randomUUID(),
+      title: "Le plateau humain",
+      hostName: "Camille",
+      gameId: "undercover",
+    },
+  });
+  expect(result.status()).toBe(201);
+  const { sessionId } = (await result.json()) as { sessionId: string };
+  await page.goto(`/sessions/${sessionId}/gm#access=${token}`);
   await expect(page).toHaveURL(/\/sessions\/[^/]+\/gm$/);
   await expect(page.getByTestId("session-connection")).toHaveText(
     "Synchronisé",

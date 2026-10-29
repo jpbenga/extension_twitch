@@ -209,6 +209,7 @@ describe("Undercover preparation, publication and media over real HTTP/SSE", () 
     const ref = {
       id: randomUUID(),
       title: "Ma paire privée",
+      preferredPublication: "assignments",
       series: {
         id: randomUUID(),
         title: "Mon conducteur privé",
@@ -244,6 +245,15 @@ describe("Undercover preparation, publication and media over real HTTP/SSE", () 
     service.shutdown();
     store.close();
     rmSync(dir, { recursive: true, force: true });
+  });
+  it("keeps the prepared publication preference GM-only and never publishes it automatically", async () => {
+    expect(gm.undercoverPreparation?.preferredPublication).toBe("assignments");
+    const pub = await publicView();
+    expect(JSON.stringify(pub)).not.toContain("preferredPublication");
+    expect(pub.undercoverBroadcast?.mode).toBe("none");
+    await accepted({ type: "game.use-prepared" });
+    await act("deal");
+    expect((await publicView()).undercoverBroadcast?.mode).toBe("none");
   });
   it("pins only current metadata, creates no demo identities itself and prevents a second salon for one series", async () => {
     expect(gm.game).toBeUndefined();

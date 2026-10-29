@@ -11,6 +11,7 @@ import {
   type PublicCursor,
   type PublicCue,
 } from "../lib/public-cues";
+import { scheduleBroadcastMoment } from "../lib/broadcast-motion";
 import { BroadcastOverlay } from "./broadcast-overlay";
 export function BroadcastFeed({
   id,
@@ -23,7 +24,7 @@ export function BroadcastFeed({
 }) {
   const session = useSession(id, "public");
   const cursor = useRef<PublicCursor | null>(null),
-    timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+    timer = useRef<(() => void) | undefined>(undefined);
   const [cue, setCue] = useState<PublicCue | null>(null);
   const view =
     session.view?.audience === "public" && session.view.sessionId === id
@@ -34,7 +35,7 @@ export function BroadcastFeed({
   }, [view?.broadcastTheme, !!view, onTheme]);
   useEffect(() => {
     if (session.connection !== "connected" || !view) {
-      clearTimeout(timer.current);
+      timer.current?.();
       cursor.current = null;
       setCue(null);
       return;
@@ -44,17 +45,24 @@ export function BroadcastFeed({
       view.version <= cursor.current.view.version
     )
       return;
-    clearTimeout(timer.current);
+    timer.current?.();
     const next = nextPublicCue(cursor.current, view, session.streamEpoch);
     cursor.current = next.cursor;
-    setCue(next.cue);
-    if (next.cue)
-      timer.current = setTimeout(
-        () => setCue(null),
-        publicCueDuration(next.cue, view.overlayLayout?.schemaVersion === 2),
+    if (next.cue) {
+      const tv = view.overlayLayout?.schemaVersion === 2;
+      timer.current = scheduleBroadcastMoment(
+        next.cue,
+        publicCueDuration(next.cue, tv, !!view.publicGame?.play?.outcome),
+        tv
+          ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
+            ? 100
+            : 180
+          : 0,
+        setCue,
       );
+    } else setCue(null);
   }, [view, session.streamEpoch, session.connection]);
-  useEffect(() => () => clearTimeout(timer.current), []);
+  useEffect(() => () => timer.current?.(), []);
   return (
     <div
       className={`broadcast-frame ${scene ? "with-scene" : ""}`}

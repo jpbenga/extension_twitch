@@ -1,8 +1,15 @@
 import { expect, type Page } from "@playwright/test";
 /** Open only product disclosures, retaining the old maintenance screens' routes. */
 async function openPrepareSection(page: Page, name: string) {
+  const options = page.locator(".consolidation-options");
+  if ((await options.count()) && (await options.getAttribute("open")) === null)
+    await options.locator(":scope > summary").click();
   const panel = page.locator(`[data-prepare-option="${name}"]`);
   if (await panel.count()) {
+    if ((await panel.evaluate((e) => e.tagName)) === "BUTTON") {
+      await panel.click();
+      return true;
+    }
     if ((await panel.getAttribute("open")) === null)
       await panel.locator(":scope > summary").click();
     return true;
@@ -25,11 +32,29 @@ export async function openUndercoverOptions(page: Page) {
       )
       .first(),
   ).toBeAttached();
+  const current = page.locator("[data-series-view]");
+  if (await current.count()) {
+    if ((await current.getAttribute("data-series-view")) === "edit") {
+      const settings = page.locator(".series-editor-settings");
+      if ((await settings.getAttribute("open")) === null)
+        await settings.locator(":scope > summary").click();
+    }
+    await openPrepareSection(page, "roles");
+    return;
+  }
   if (
     (await edit.count()) ||
     (await page.getByLabel("Nom du contenu A", { exact: true }).count())
   ) {
-    if (await edit.count()) await edit.click();
+    if (await edit.count()) {
+      const options = page.locator(".consolidation-options");
+      if (
+        (await options.count()) &&
+        (await options.getAttribute("open")) === null
+      )
+        await options.locator(":scope > summary").click();
+      await edit.click();
+    }
     const options = page.locator(".series-editor-settings");
     if ((await options.getAttribute("open")) === null)
       await options.locator(":scope > summary").click();
@@ -59,8 +84,16 @@ export async function openUndercoverOptions(page: Page) {
     await panel.locator(":scope > summary").click();
 }
 export async function openPrepareDemo(page: Page) {
+  const current = page.locator("[data-series-view]");
+  if (
+    (await current.count()) &&
+    ["diffusion", "adopt", "layout"].includes(
+      (await current.getAttribute("data-series-view")) ?? "",
+    )
+  )
+    await page.goto("/play/undercover?view=prepare");
   const save = page.getByRole("button", {
-    name: "Enregistrer la partie",
+    name: "Enregistrer la manche",
     exact: true,
   });
   if (await save.isVisible()) await save.click();
@@ -88,33 +121,44 @@ export async function launchPrepareDemo(page: Page) {
     .click();
 }
 export async function openPrepareBroadcast(page: Page) {
-  const editorOptions = page.locator(".series-editor-settings");
+  const current = page.locator("[data-series-view]");
+  const target = new URL(page.url()).searchParams.get("view");
+  if (target === "layout") {
+    await expect(current).toHaveAttribute("data-series-view", "layout");
+    return;
+  }
+  if (target === "diffusion")
+    await expect(current).toHaveAttribute("data-series-view", "diffusion");
+
   if (
-    (await editorOptions.count()) &&
-    (await editorOptions.getAttribute("open")) === null
+    (await current.count()) &&
+    (await current.getAttribute("data-series-view")) === "layout"
   )
-    await editorOptions.locator(":scope > summary").click();
-  await expect(
-    page
-      .locator('[data-prepare-option="broadcast"]')
-      .or(page.getByText("Personnaliser l’overlay", { exact: true }))
-      .first(),
-  ).toBeAttached();
-  const restoredOptions = page.locator(".series-editor-settings");
+    return;
   if (
-    (await restoredOptions.count()) &&
-    (await restoredOptions.getAttribute("open")) === null
+    (await current.count()) &&
+    (await current.getAttribute("data-series-view")) === "edit"
+  ) {
+    const settings = page.locator(".series-editor-settings");
+    if ((await settings.getAttribute("open")) === null)
+      await settings.locator(":scope > summary").click();
+  }
+  if (
+    !(await current.count()) ||
+    (await current.getAttribute("data-series-view")) !== "diffusion"
   )
-    await restoredOptions.locator(":scope > summary").click();
-  await expect(
-    page
-      .locator('[data-prepare-option="broadcast"]')
-      .or(page.getByText("Personnaliser l’overlay", { exact: true }))
-      .first(),
-  ).toBeAttached();
-  if (await openPrepareSection(page, "broadcast")) return;
-  await page.getByText("Personnaliser l’overlay", { exact: true }).click();
+    await openPrepareSection(page, "broadcast");
+  if (await current.count())
+    await expect(
+      page.getByRole("button", { name: "Ajustements avancés", exact: true }),
+    ).toBeVisible();
+  const advanced = page.getByRole("button", {
+    name: "Ajustements avancés",
+    exact: true,
+  });
+  if (await advanced.count()) await advanced.click();
 }
+
 export async function openLabAccess(page: Page) {
   const panel = page.locator("details").filter({
     has: page.locator("summary", {
@@ -163,7 +207,7 @@ export async function openLabTools(page: Page) {
 /** Replay is primary after the result and secondary in the access/settings screen during play. */
 export async function openGmReplay(page: Page) {
   const replay = page.getByRole("button", {
-    name: "Rejouer cette partie",
+    name: "Rejouer cette manche",
     exact: true,
   });
   if (await replay.isVisible()) return;
@@ -187,15 +231,15 @@ export async function openBroadcastHelp(page: Page) {
 
 export async function openPreparedSalon(page: Page) {
   const save = page.getByRole("button", {
-    name: "Enregistrer la partie",
+    name: "Enregistrer la manche",
     exact: true,
   });
   if (await save.isVisible()) await save.click();
   await page
-    .getByRole("button", { name: "Ajouter à la série", exact: true })
+    .getByRole("button", { name: "Ajouter cette manche", exact: true })
     .click();
   await page
-    .getByRole("button", { name: "Vérifier la série", exact: true })
+    .getByRole("button", { name: "Vérifier la partie", exact: true })
     .click();
   await page
     .getByRole("button", { name: "Ouvrir le salon", exact: true })

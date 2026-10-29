@@ -30,7 +30,7 @@ async function fits(page: Page) {
   ).toBe(true);
 }
 const overlay = (p: Page) =>
-  p.getByLabel("Overlay public de l’émission", { exact: true });
+  p.getByRole("region", { name: "Overlay public de l’émission", exact: true });
 
 test("three app themes persist, remain keyboard accessible and never alter the independently pinned OBS theme", async ({
   page,
@@ -68,7 +68,7 @@ test("three app themes persist, remain keyboard accessible and never alter the i
     .click();
   await expect(
     page.getByLabel("Nom du contenu A", { exact: true }),
-  ).toBeHidden();
+  ).toBeVisible();
   await openPrepareDemo(page);
   await page.getByLabel("Joueurs de démonstration", { exact: true }).fill("3");
   await openPrepareBroadcast(page);
@@ -163,7 +163,7 @@ test("three app themes persist, remain keyboard accessible and never alter the i
     await expect(overlay(obs)).toHaveAttribute("data-phase", "discussion");
     await openGmReplay(page);
     await page
-      .getByRole("button", { name: "Rejouer cette partie", exact: true })
+      .getByRole("button", { name: "Rejouer cette manche", exact: true })
       .click();
     await acceptConfirmation(page);
     await expect(overlay(obs)).toHaveAttribute("data-phase", "preparation");
@@ -382,7 +382,7 @@ test("six experiences run a real invited game with a focused GM, private compani
     });
     await openGmReplay(page);
     await page
-      .getByRole("button", { name: "Rejouer cette partie", exact: true })
+      .getByRole("button", { name: "Rejouer cette manche", exact: true })
       .click();
     await acceptConfirmation(page);
     await expect(overlay(obs)).toHaveAttribute("data-phase", "preparation");
@@ -450,7 +450,7 @@ test("a browser without stored preferences has a deterministic default and unava
       .click();
     await expect(
       p.getByRole("heading", {
-        name: /Préparer (?:votre |la |une )partie/,
+        name: "Manche 1",
         exact: true,
       }),
     ).toBeVisible();

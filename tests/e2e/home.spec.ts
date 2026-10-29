@@ -95,7 +95,7 @@ test("approved homepage has real preparation, disclosures and three persistent t
   await expect(page).toHaveURL(/\/play\/undercover$/);
   await expect(
     page.getByRole("heading", {
-      name: /Préparer (?:votre |la |une )partie/,
+      name: "Manche 1",
       exact: true,
     }),
   ).toBeVisible();

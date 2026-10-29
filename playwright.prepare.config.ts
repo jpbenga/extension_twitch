@@ -5,4 +5,5 @@ export default defineConfig({
   testMatch: "**/prepare-undercover.spec.ts",
   timeout: 180_000,
   workers: 1,
+  use: { ...base.use, actionTimeout: 10000 },
 });

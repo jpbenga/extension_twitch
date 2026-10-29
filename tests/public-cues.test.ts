@@ -118,13 +118,13 @@ it("publishes a live TV content moment only once and never replays it on reconne
   };
   const next = nextPublicCue(first.cursor, view, 1);
   expect(next.cue?.kind).toBe("content");
-  expect(publicCueDuration(next.cue!, true)).toBe(8000);
+  expect(publicCueDuration(next.cue!, true)).toBe(2600);
   expect(publicCueDuration(next.cue!, false)).toBe(2600);
   expect(nextPublicCue(next.cursor, view, 1).cue).toBeNull();
   expect(nextPublicCue(next.cursor, view, 2).cue).toBeNull();
   expect(nextPublicCue(null, view, 1).cue).toBeNull();
 });
-it("keeps a next preparation transition separate from disclosure and preserves historical timing", () => {
+it("keeps a next preparation transition separate from disclosure and applies approved TV timing without affecting archived rendering", () => {
   const first = nextPublicCue(null, snapshot(1), 1);
   const view = snapshot(2, "undercover.next");
   view.undercoverBroadcast = {
@@ -135,10 +135,11 @@ it("keeps a next preparation transition separate from disclosure and preserves h
   };
   const next = nextPublicCue(first.cursor, view, 1).cue!;
   expect(next.kind).toBe("next");
-  expect(next.message).toBe("La prochaine partie attend le Game Master.");
-  expect(publicCueDuration(next, true)).toBe(5000);
-  expect(publicCueDuration({ ...next, kind: "result" }, true)).toBe(9000);
+  expect(next.message).toBe("La prochaine manche attend le Game Master.");
+  expect(publicCueDuration(next, true)).toBe(2200);
+  expect(publicCueDuration({ ...next, kind: "result" }, true)).toBe(2400);
   expect(publicCueDuration({ ...next, kind: "result" }, false)).toBe(2600);
+  expect(publicCueDuration({ ...next, kind: "result" }, true, true)).toBe(2800);
   expect(view.undercoverBroadcast).not.toHaveProperty("contents");
 });
 it("does not animate a hidden publication as if it had revealed content", () => {

@@ -657,3 +657,54 @@ body:has(main.gm-studio) .stitch-dialog.tone-neutral .ui-button-primary {
   border-color: var(--home-primary);
   color: var(--home-on-primary);
 }
+
+/* AC9 is a focused secondary menu; the full B5 operational controls remain intact. */
+.gm-party-menu {
+  position: relative;
+  margin-left: auto;
+  width: max-content;
+}
+.gm-party-menu > summary {
+  cursor: pointer;
+  list-style: none;
+  min-width: 48px;
+  min-height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--home-border);
+  border-radius: 8px;
+  font-size: 24px;
+}
+.gm-party-menu > div {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 15;
+  width: min(320px, 80vw);
+  display: grid;
+  gap: 4px;
+  padding: 16px;
+  background: var(--home-surface);
+  border: 1px solid var(--home-border);
+  border-radius: 12px;
+}
+.gm-party-menu a,
+.gm-party-menu button {
+  padding: 12px;
+  min-height: 44px;
+  text-align: left;
+  color: var(--home-lilac);
+  background: transparent;
+  border: 0;
+  font: inherit;
+}
+.gm-party-menu p {
+  font-size: 13px;
+  color: var(--home-muted);
+  line-height: 1.5;
+}
+.gm-prepared-context {
+  color: var(--home-muted);
+  margin-block: 8px 20px;
+  overflow-wrap: anywhere;
+}

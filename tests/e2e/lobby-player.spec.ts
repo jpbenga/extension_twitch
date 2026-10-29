@@ -69,7 +69,7 @@ async function setup(page: Page, roundLimit = 10) {
   if (roundLimit !== 10) {
     await openUndercoverOptions(page);
     await page
-      .getByLabel("Maximum de manches", { exact: true })
+      .getByLabel("Maximum de cycles", { exact: true })
       .fill(String(roundLimit));
   }
   await openPreparedSalon(page);
@@ -363,7 +363,7 @@ test("approved companion: private word, oral turns, confirmed unique vote, elimi
     await expect(observer.locator("body")).not.toContainText(/Phare|Fusée/);
     await page
       .getByRole("button", {
-        name: "Commencer la manche suivante",
+        name: "Commencer un nouveau cycle",
         exact: true,
       })
       .click();
@@ -408,7 +408,7 @@ test("approved companion: private word, oral turns, confirmed unique vote, elimi
     await expect(observer.locator("body")).toContainText("Victoire des civils");
     await expect(observer.locator("body")).toContainText("Phare");
     await page
-      .getByRole("button", { name: "Rejouer cette partie", exact: true })
+      .getByRole("button", { name: "Rejouer cette manche", exact: true })
       .click();
     await acceptConfirmation(page);
     for (const p of players) {
@@ -457,14 +457,14 @@ test("approved tie and draw are real server results and preserve private informa
         ).toBe(true);
         await page
           .getByRole("button", {
-            name: "Commencer la manche suivante",
+            name: "Commencer un nouveau cycle",
             exact: true,
           })
           .click();
       }
     }
     await expect(
-      players[0]!.getByRole("heading", { name: "Partie nulle", exact: true }),
+      players[0]!.getByRole("heading", { name: "Manche nulle", exact: true }),
     ).toBeVisible();
     await snapshot(players[0]!, info, "player-draw-mobile");
     expect(

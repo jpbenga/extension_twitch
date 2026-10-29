@@ -224,7 +224,7 @@ test("a complete real Undercover show shares one public renderer between preview
   });
   await openGmReplay(gm);
   await gm
-    .getByRole("button", { name: "Rejouer cette partie", exact: true })
+    .getByRole("button", { name: "Rejouer cette manche", exact: true })
     .click();
   await acceptConfirmation(gm);
   await expect(overlay(obs)).toHaveAttribute("data-phase", "preparation");

@@ -1,0 +1,685 @@
+{
+  "kind": "actual-application-captures",
+  "browser": "Chromium automation",
+  "referenceCommit": "98f52867bd970e9f1b4b343371926b6883f4e553",
+  "physicalIphoneTest": false,
+  "physicalObsTest": false,
+  "captures": [
+    {
+      "file": "ac1-desktop.png",
+      "width": 1440,
+      "height": 1445,
+      "mode": "RGB",
+      "sha256": "f5baebe7bfd2ab5c40cae38c91683d4a9823352e6d245ff29b24fe8ff74c4172"
+    },
+    {
+      "file": "ac1-mobile-viewport.png",
+      "width": 390,
+      "height": 844,
+      "mode": "RGB",
+      "sha256": "265b78919a5fcafbc5d9897222b1c2ef77d8956a141b9d6a87c94894ab3f085e"
+    },
+    {
+      "file": "ac1-mobile.png",
+      "width": 390,
+      "height": 1988,
+      "mode": "RGB",
+      "sha256": "9f726d3ebb066b58883cb2f679c25ffb2499ef1fe890e43c8b6023c90adc2f2d"
+    },
+    {
+      "file": "ac1-tablet.png",
+      "width": 768,
+      "height": 1402,
+      "mode": "RGB",
+      "sha256": "f0e4f73bb5cbe3eee74a47cbeb81bd3ceb7de85f9dc505f4b68038f05fbf5d86"
+    },
+    {
+      "file": "ac14-desktop.png",
+      "width": 1440,
+      "height": 1347,
+      "mode": "RGB",
+      "sha256": "37922e668fcdae492ecbd5edb2b0099ea9b7dfa281ad49105acdc63ac9944aa4"
+    },
+    {
+      "file": "ac14-mobile-viewport.png",
+      "width": 390,
+      "height": 844,
+      "mode": "RGB",
+      "sha256": "3b71d7959ec93216031c58026fe3886185f9389142538270a4c48d8777056080"
+    },
+    {
+      "file": "ac14-mobile.png",
+      "width": 390,
+      "height": 1574,
+      "mode": "RGB",
+      "sha256": "87d3d78e20e5fa34f0947abed22718aade5f0c6bf4bb8342de2ad1d35353e224"
+    },
+    {
+      "file": "ac14-tablet.png",
+      "width": 768,
+      "height": 1347,
+      "mode": "RGB",
+      "sha256": "8950cb7d73c864439f351027675606c005ce0f6dc87f81bcc1f291a5f019311b"
+    },
+    {
+      "file": "ac2-desktop.png",
+      "width": 1440,
+      "height": 1244,
+      "mode": "RGB",
+      "sha256": "75eefb94b9a5874cda92a8e3260f747a8affb551fff9c7abd4726dbc6a074203"
+    },
+    {
+      "file": "ac2-mobile-viewport.png",
+      "width": 390,
+      "height": 844,
+      "mode": "RGB",
+      "sha256": "4056cdb4ca35aa3e703d95182270b591d974630dc68dab9b29bc370ad257b6be"
+    },
+    {
+      "file": "ac2-mobile.png",
+      "width": 390,
+      "height": 1420,
+      "mode": "RGB",
+      "sha256": "96aaec4ace37e2e6effe5b47a45db0fe13442217fde7fb5cd9ae558a9afd7b4a"
+    },
+    {
+      "file": "ac2-tablet.png",
+      "width": 768,
+      "height": 1244,
+      "mode": "RGB",
+      "sha256": "cbee80d1a1f50c33fa599e8307f85c2b8391d476ea165993a45692dc98b19566"
+    },
+    {
+      "file": "ac3-desktop.png",
+      "width": 1440,
+      "height": 1235,
+      "mode": "RGB",
+      "sha256": "df42467bcb1998214a7da478948180cce1fb65e4efa0ca66d2f44bcbe543ca94"
+    },
+    {
+      "file": "ac3-mobile-viewport.png",
+      "width": 390,
+      "height": 844,
+      "mode": "RGB",
+      "sha256": "23f2ed4e95968c759495003554873657f87849f460ffe8d21ec316a9dc1391d8"
+    },
+    {
+      "file": "ac3-mobile.png",
+      "width": 390,
+      "height": 1655,
+      "mode": "RGB",
+      "sha256": "a92ccc11d3cbd90467a4f1025a5b9ad9af4be75da27465d81be16bbc609f5834"
+    },
+    {
+      "file": "ac3-tablet.png",
+      "width": 768,
+      "height": 1192,
+      "mode": "RGB",
+      "sha256": "57f217d92c47be99cdeeb873f9fb296adb8ddbdbdb8b8dccbb1e6fca0c664da6"
+    },
+    {
+      "file": "ac4-desktop.png",
+      "width": 1440,
+      "height": 1000,
+      "mode": "RGB",
+      "sha256": "6a3deccd83633b39f4679204519b6d38d4873e6b8f6392c95cd2ecf11a7c15f8"
+    },
+    {
+      "file": "ac4-mobile-viewport.png",
+      "width": 390,
+      "height": 844,
+      "mode": "RGB",
+      "sha256": "756e585ba2fa2ee6da481bac0a905735c078059bcc6bb2de383f21721378cd46"
+    },
+    {
+      "file": "ac4-mobile.png",
+      "width": 390,
+      "height": 1350,
+      "mode": "RGB",
+      "sha256": "7834963823f1a78992ea4f4be474589fe54c6ec6994a04cec2f3a3acf8d950ca"
+    },
+    {
+      "file": "ac4-tablet.png",
+      "width": 768,
+      "height": 1033,
+      "mode": "RGB",
+      "sha256": "7b030d90305f295ab62bf8e31cb800a01f8c02bc8e78f4a341714fc238b2e647"
+    },
+    {
+      "file": "ac5-desktop.png",
+      "width": 1440,
+      "height": 1281,
+      "mode": "RGB",
+      "sha256": "8ce2b44d4267831c814fb2335a4b2cc30e87bd2f02a08d6fa877f07a587f2faf"
+    },
+    {
+      "file": "ac5-mobile-viewport.png",
+      "width": 390,
+      "height": 844,
+      "mode": "RGB",
+      "sha256": "396d7c5a958283b93e5f734139492f2985bd21a31f546a1f8415f9cb425bccdc"
+    },
+    {
+      "file": "ac5-mobile.png",
+      "width": 390,
+      "height": 1727,
+      "mode": "RGB",
+      "sha256": "f066edff63eed5850b8efcf62554435076624e834757dc9b6421a6747343ab87"
+    },
+    {
+      "file": "ac5-tablet.png",
+      "width": 768,
+      "height": 1263,
+      "mode": "RGB",
+      "sha256": "9c632f8ecf0a1e29b4ec851d105c30e15a67e5a2a9ff558a21f3b6acdee41f91"
+    },
+    {
+      "file": "ac6-desktop.png",
+      "width": 1440,
+      "height": 1068,
+      "mode": "RGB",
+      "sha256": "d40f3eba2c19cbd6108846be69e82e0c5d8ee4994b37328ed1b1a343effd12a0"
+    },
+    {
+      "file": "ac6-mobile-viewport.png",
+      "width": 390,
+      "height": 844,
+      "mode": "RGB",
+      "sha256": "dae6de4a00ba07d5d561a75187d86ead05027211669c88d046ced93514b3cb9f"
+    },
+    {
+      "file": "ac6-mobile.png",
+      "width": 390,
+      "height": 1045,
+      "mode": "RGB",
+      "sha256": "2539f30a02e58fbee73c36f460d5b2c22092b5770e39501af155fbd9f07d3780"
+    },
+    {
+      "file": "ac6-tablet.png",
+      "width": 768,
+      "height": 1068,
+      "mode": "RGB",
+      "sha256": "c0f95797ff11ef3a08ff6a1ed565559d128aaf59bb113d4814c3dcee16b922e0"
+    },
+    {
+      "file": "ac7-desktop.png",
+      "width": 1440,
+      "height": 1599,
+      "mode": "RGB",
+      "sha256": "55603a5f2a29a7604746233808d0aad35001a660adf37dba0ac585e600a802fd"
+    },
+    {
+      "file": "ac7-legacy-desktop.png",
+      "width": 1440,
+      "height": 1599,
+      "mode": "RGB",
+      "sha256": "a20b66418bd9958a99f4b17c8ddf40ed7d744d53c95c1f56bce2e06f2de82009"
+    },
+    {
+      "file": "ac7-legacy-mobile-viewport.png",
+      "width": 390,
+      "height": 844,
+      "mode": "RGB",
+      "sha256": "f68f18b8cb6cc6f6f890779da31afdba55aa5cecc4ba83f39d2dccefd13e627d"
+    },
+    {
+      "file": "ac7-legacy-mobile.png",
+      "width": 390,
+      "height": 1359,
+      "mode": "RGB",
+      "sha256": "de55ebf7089cbd797fa6e26530bef9dc0dd07ae9b3d4790b685082c5c8797b04"
+    },
+    {
+      "file": "ac7-legacy-tablet.png",
+      "width": 768,
+      "height": 1531,
+      "mode": "RGB",
+      "sha256": "7515c6f2a30df35496e585eb529760b2e615c0ab040a5809a3450e7a55ccf64b"
+    },
+    {
+      "file": "ac7-mobile-viewport.png",
+      "width": 390,
+      "height": 844,
+      "mode": "RGB",
+      "sha256": "c8480340c535aee3bfbe6ac406388c36cc651100373253682633d252b9a4db72"
+    },
+    {
+      "file": "ac7-mobile.png",
+      "width": 390,
+      "height": 1359,
+      "mode": "RGB",
+      "sha256": "34b5c14344d0c658f464a3f83ecb2304f4df6bea733d6ae10b97fdb6823b0776"
+    },
+    {
+      "file": "ac7-tablet.png",
+      "width": 768,
+      "height": 1531,
+      "mode": "RGB",
+      "sha256": "3a99f0a88d9e063016952f1695501c2b12415ded7dd7b8e88497723b73226014"
+    },
+    {
+      "file": "ac8-desktop.png",
+      "width": 1440,
+      "height": 1035,
+      "mode": "RGB",
+      "sha256": "08f73a9c17691699b45199b71ccbbdf0f826e38363b45f4b62a960a91a8ce2bf"
+    },
+    {
+      "file": "ac8-mobile-viewport.png",
+      "width": 390,
+      "height": 844,
+      "mode": "RGB",
+      "sha256": "944031512e4dad222ca98cd50254b3a93c96de7c3b05dc7956d221abf966be00"
+    },
+    {
+      "file": "ac8-mobile.png",
+      "width": 390,
+      "height": 1230,
+      "mode": "RGB",
+      "sha256": "d0187073f4c7fc488b9cfe9308ff5715506f8f0445d84131edd9a05f9f716f7d"
+    },
+    {
+      "file": "ac8-tablet.png",
+      "width": 768,
+      "height": 1024,
+      "mode": "RGB",
+      "sha256": "4ff7870b980d765d8cb6f8dfd7674c7ba8e0548e7a09305bf1672bddf3d9147b"
+    },
+    {
+      "file": "ac9-supported-menu-desktop.png",
+      "width": 1440,
+      "height": 1228,
+      "mode": "RGB",
+      "sha256": "c1c85b989cd6ccc115a18f886e2b349070406ffaf7df34c8980c5daa1e78d8de"
+    },
+    {
+      "file": "ac9-supported-menu-mobile-viewport.png",
+      "width": 390,
+      "height": 844,
+      "mode": "RGB",
+      "sha256": "7f7f4fb8bb9f593196bd7e80d79bfce112510156a103deb5f3acd4c2253f62a5"
+    },
+    {
+      "file": "ac9-supported-menu-mobile.png",
+      "width": 390,
+      "height": 1472,
+      "mode": "RGB",
+      "sha256": "7668bec2863b68ea7eb67d8a04ff47d02485a1f2453d6c5dfd39fe38f0cbfeac"
+    },
+    {
+      "file": "ac9-supported-menu-tablet.png",
+      "width": 768,
+      "height": 1237,
+      "mode": "RGB",
+      "sha256": "ad6bab7d52a915f95197c0bcb5e731a2158c507f16320b60cab85a2b109c45c0"
+    },
+    {
+      "file": "motion-assignments-12-last-normal-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "6851705ad40b64f176d7078808ae9fc37d9df664d5df98e3fae36d5524617ace",
+      "transparentPixels": 1649950,
+      "opaquePixels": 102610,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-assignments-12-last-reduced-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "145b95ddee498e77ff8867b90b3f7aa653d9e597df19c10770934c56d669c323",
+      "transparentPixels": 1649947,
+      "opaquePixels": 102610,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-assignments-12-normal-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "d32b23940f203c5a752f8c03fcddf7a86d44b918348a3236857feefeb185e409",
+      "transparentPixels": 1654823,
+      "opaquePixels": 102643,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-assignments-12-reduced-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "120b500efbccab37a83f2ce0a0139901f32a6c60c108d18f2a137d012b11dc7a",
+      "transparentPixels": 1654821,
+      "opaquePixels": 102081,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-assignments-3-normal-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "543adfd1a2a87045a1a213cdd16ad089ffffaa150be5152aa26aa6d8afb00d77",
+      "transparentPixels": 1679244,
+      "opaquePixels": 100987,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-assignments-3-reduced-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "5d5954a102d0e0a482e0fcd4008945ebf90807b06bd7a2945602d2deeba24591",
+      "transparentPixels": 1679244,
+      "opaquePixels": 100987,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-assignments-6-last-normal-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "07502af1eace6237f69b1cd4ea8a5cd96ac9342053b58a0d2732ff73a882f917",
+      "transparentPixels": 1654903,
+      "opaquePixels": 102046,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-assignments-6-last-reduced-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "7f559729f6bece5db2315a93992cb68daa740c9741a1cc95d89a8751787f7661",
+      "transparentPixels": 1654901,
+      "opaquePixels": 102608,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-assignments-6-normal-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "abc4b4ab2d3e2a18eb5269f43e9249890ed3fd5d049218d9f3ce43fd336d8b5b",
+      "transparentPixels": 1656420,
+      "opaquePixels": 102395,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-assignments-6-reduced-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "7f9e4872ed3340b7aeef792fb19782f97c0669e4ac4e724823496f6d14d4f6cb",
+      "transparentPixels": 1656420,
+      "opaquePixels": 101833,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-duo-12-normal-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "d8bf0060f43e76de9b89b70acbec436e83f1b1a5e5d7b71055b56a633b8bb5c7",
+      "transparentPixels": 1771347,
+      "opaquePixels": 18920,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-duo-12-reduced-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "9d2c6d640cfbe060f460530830fc3a57c88bcc05dafe7f417ce3d0f05bd8c349",
+      "transparentPixels": 1771347,
+      "opaquePixels": 18920,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-duo-3-normal-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "f3d5e6b350739dc24431cde6f7347a936e3127726c68c83ca4592c298e3c981e",
+      "transparentPixels": 1771347,
+      "opaquePixels": 18791,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-duo-3-reduced-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "db7696fa42092ba8a4d4342a6b14bd36178b55d0050668faa028e93cf1d6ca89",
+      "transparentPixels": 1771347,
+      "opaquePixels": 18791,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-duo-6-normal-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "25f9e767767b8d2bbfc5fa5c72d5b6f02cd1c8becd5a82b15a04031d1e62c768",
+      "transparentPixels": 1771347,
+      "opaquePixels": 18777,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-duo-6-reduced-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "3adf2aec0d9a7d70b4bde4e020d0c47cda5def35a896e85ba03c4aad09e298de",
+      "transparentPixels": 1771347,
+      "opaquePixels": 18777,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-final-normal-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "6ecd166a1d18df0790685e007e329e815afc1e0420e00c7aeda0699b0c6262c4",
+      "transparentPixels": 1601484,
+      "opaquePixels": 184564,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-final-reduced-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "ca4af29270f62465cab065ee2d9402538cc63c96ee6dbeb089ed7d5818026cd0",
+      "transparentPixels": 1601484,
+      "opaquePixels": 184564,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-late-result-normal-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "2284833037bf8406887755cf6b2c8d3ce0b379b6c401d242a85a3996ba9eb0cc",
+      "transparentPixels": 1911488,
+      "opaquePixels": 15416,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-late-result-reduced-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "2284833037bf8406887755cf6b2c8d3ce0b379b6c401d242a85a3996ba9eb0cc",
+      "transparentPixels": 1911488,
+      "opaquePixels": 15416,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-vote-12-complete-normal-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "da7213aff2041d8fb1eab840d20e99b6eeb65c79394a8ff090a929d7d06bd843",
+      "transparentPixels": 1831400,
+      "opaquePixels": 24040,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-vote-12-complete-reduced-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "397693da172322594f8902f39d15072610934b55e82a8abd064fba70493651c7",
+      "transparentPixels": 1831400,
+      "opaquePixels": 24040,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-vote-12-zero-normal-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "0d9fe4c26bc01a4ed4a7e06d46d1fa0e2d1fa554065eefe9a7733e617df5304a",
+      "transparentPixels": 1831400,
+      "opaquePixels": 18925,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-vote-12-zero-reduced-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "e23d182910a22ec2c11fb6ff42cf65b898fb39dbfdc0a7e1b06d6743380d5074",
+      "transparentPixels": 1831400,
+      "opaquePixels": 18925,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-vote-3-complete-normal-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "7d995a1932d0302d3d9466346ada104f0e0080e55e5f7d2c355f91eb915559b5",
+      "transparentPixels": 1831400,
+      "opaquePixels": 24574,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-vote-3-complete-reduced-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "097962b499d3855d3215509682f54692cfbce78cc2969ad598dd916d9c3ccd93",
+      "transparentPixels": 1831400,
+      "opaquePixels": 24574,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-vote-3-zero-normal-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "e8fcab36d2435a295cfa9698159ea42febf72260366de59397dc23af7c66e80d",
+      "transparentPixels": 1831400,
+      "opaquePixels": 20093,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-vote-3-zero-reduced-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "e1b02a7049b480590b263f9c9f3c898c61d7988cc1596c37b4ac4c362b4bb8c6",
+      "transparentPixels": 1831400,
+      "opaquePixels": 20093,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-vote-6-complete-normal-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "ebfc84a25eec997462c47cd55c20adaefa6875ed5cf0f58731187f6fb47bf800",
+      "transparentPixels": 1831400,
+      "opaquePixels": 24694,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-vote-6-complete-reduced-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "0ae4097d17071f0ef34cb2d676b377f8a6be6f2a79ab6470c67d814b91745dac",
+      "transparentPixels": 1831400,
+      "opaquePixels": 24694,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-vote-6-zero-normal-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "bf4512f8479e1500d401104f4b017a86a12ec1f803003a1f8e4b828f61d2db29",
+      "transparentPixels": 1831400,
+      "opaquePixels": 20146,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-vote-6-zero-reduced-alpha.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "sha256": "b87e7ace9f3e624e8641b15c8824f09372a3b2d892205067312a89980dac1c02",
+      "transparentPixels": 1831400,
+      "opaquePixels": 20146,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-vote12-twitch390-normal-alpha.png",
+      "width": 390,
+      "height": 220,
+      "mode": "RGBA",
+      "sha256": "45981566d365c834cadb5429c7106402f52b4ae1317578ab4974942594d74a6b",
+      "transparentPixels": 75718,
+      "opaquePixels": 510,
+      "centerAlpha": 0
+    },
+    {
+      "file": "motion-vote12-twitch390-reduced-alpha.png",
+      "width": 390,
+      "height": 220,
+      "mode": "RGBA",
+      "sha256": "1419328e0a0518ff2d6f63a6c3502146a5e806ab7d88537637f016c226d2f169",
+      "transparentPixels": 75718,
+      "opaquePixels": 510,
+      "centerAlpha": 0
+    },
+    {
+      "file": "preview-gm-return-desktop.png",
+      "width": 1440,
+      "height": 1346,
+      "mode": "RGB",
+      "sha256": "63fa1bdfb78efee600121ae9efe700732d711429823c7985e3f349837aaceb65"
+    },
+    {
+      "file": "preview-gm-return-mobile-viewport.png",
+      "width": 390,
+      "height": 844,
+      "mode": "RGB",
+      "sha256": "72d23b779c8abd90b3ab6d05fb7d8b74705aee1a8c360ae076d4f6eea11922e5"
+    },
+    {
+      "file": "preview-gm-return-mobile.png",
+      "width": 390,
+      "height": 844,
+      "mode": "RGB",
+      "sha256": "6c281da6e2cfdaafd9f34e730206567cf58441f68123f8e5b3ee3fa42317b181"
+    },
+    {
+      "file": "preview-gm-return-tablet.png",
+      "width": 768,
+      "height": 1024,
+      "mode": "RGB",
+      "sha256": "078149e665d47c96e0b403de3fe39006615a4f270c0a6232da2388a7156539d3"
+    }
+  ]
+}

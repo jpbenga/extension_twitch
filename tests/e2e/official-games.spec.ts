@@ -141,7 +141,7 @@ test("Undercover plays several real rounds to a final victory, with private card
     if (round)
       await gm
         .getByRole("button", {
-          name: "Commencer la manche suivante",
+          name: "Commencer un nouveau cycle",
           exact: true,
         })
         .click();
@@ -309,7 +309,7 @@ test("ties, a disconnected player's return and GM delegation use the same privat
     .filter({ hasText: /: Undercover$/ })
     .textContent())!.split(" : ")[0]!;
   await gm
-    .getByRole("button", { name: "Commencer la manche suivante", exact: true })
+    .getByRole("button", { name: "Commencer un nouveau cycle", exact: true })
     .click();
   await completeClues(gm);
   await gm
@@ -330,11 +330,11 @@ test("ties, a disconnected player's return and GM delegation use the same privat
     "Victoire des civils",
   );
   await expect(gm.locator("#game .game-phase")).toContainText(
-    "Partie terminée",
+    "Manche terminée",
   );
   await openGmReplay(gm);
   await gm
-    .getByRole("button", { name: "Rejouer cette partie", exact: true })
+    .getByRole("button", { name: "Rejouer cette manche", exact: true })
     .click();
   await acceptConfirmation(gm);
   await expect(one.locator(".personal-card")).toContainText(
@@ -449,7 +449,7 @@ test("real invitees join without accounts, see a server refusal for insufficient
       "Victoire des civils",
     );
     await expect(players[0]!.locator("#game .game-phase")).toContainText(
-      "Partie terminée",
+      "Manche terminée",
     );
   } finally {
     await Promise.all(contexts.map((c) => c.close()));
@@ -689,7 +689,7 @@ test("Jouer separates creation, prepares three isolated players and transfers th
     });
     await openGmReplay(gm);
     await gm
-      .getByRole("button", { name: "Rejouer cette partie", exact: true })
+      .getByRole("button", { name: "Rejouer cette manche", exact: true })
       .click();
     await acceptConfirmation(gm);
     for (const p of players)

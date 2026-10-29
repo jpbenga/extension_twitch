@@ -10,6 +10,12 @@ import { BroadcastFeed } from "./broadcast-feed";
 import { CopyLink } from "./copy-link";
 import { SegmentedControl } from "./ui/primitives";
 import { SpectatorTest } from "./spectator-test";
+import { accessKey } from "../lib/session-client";
+import { readLab } from "../lib/creator-lab";
+import {
+  accessTokenSchema,
+  gmSessionSchema,
+} from "@extension-twitch/contracts/sessions";
 import "../app/brand-fonts.css";
 export function StreamPreview({ id }: { id: string }) {
   const [mode, setMode] = useState("scene"),
@@ -17,12 +23,56 @@ export function StreamPreview({ id }: { id: string }) {
     [broadcastTheme, setBroadcastTheme] = useState<ThemeId>(
       historicalBroadcastTheme,
     );
-  useEffect(() => setOrigin(window.location.origin), []);
+  const [back, setBack] = useState({
+    href: `/sessions/${id}/public`,
+    label: "← Plateau public",
+  });
+  useEffect(() => {
+    setOrigin(window.location.origin);
+    const controller = new AbortController();
+    setBack({ href: `/sessions/${id}/public`, label: "← Plateau public" });
+    void (async () => {
+      try {
+        const token = sessionStorage.getItem(accessKey(id, "gm"));
+        if (!accessTokenSchema.safeParse(token).success) return;
+        const response = await fetch(`/api/server/sessions/${id}/private`, {
+          headers: { Authorization: `Bearer ${token}` },
+          cache: "no-store",
+          signal: controller.signal,
+        });
+        if (!response.ok) return;
+        const gm = gmSessionSchema.safeParse(await response.json());
+        if (
+          !gm.success ||
+          gm.data.sessionId !== id ||
+          controller.signal.aborted
+        )
+          return;
+        let lab: ReturnType<typeof readLab> = null;
+        try {
+          lab = readLab(id);
+        } catch {
+          /* Invalid lab data does not invalidate verified GM access. */
+        }
+        const fromLab =
+          new URLSearchParams(location.search).get("from") === "lab" &&
+          lab?.token === token;
+        setBack(
+          fromLab
+            ? { href: `/play/lab/${id}`, label: "← Retour au laboratoire" }
+            : { href: `/sessions/${id}/gm#board`, label: "← Régie" },
+        );
+      } catch {
+        /* No verified capability: stay in the public context. */
+      }
+    })();
+    return () => controller.abort();
+  }, [id]);
   return (
     <main className="stitch-page broadcast-workbench broadcast-preview-page">
       <div className="broadcast-workbench-inner stream-preview-shell">
-        <Link href={`/play/lab/${id}`} className="broadcast-back-link">
-          ← Retour au laboratoire
+        <Link href={back.href} className="broadcast-back-link">
+          {back.label}
         </Link>
         <header className="broadcast-page-heading">
           <div>

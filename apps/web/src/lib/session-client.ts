@@ -22,13 +22,13 @@ export const accessKey = (id: string, role: string) =>
 
 const messages: Record<string, string> = {
   SERIES_ALREADY_PREPARED:
-    "Cette série possède déjà un salon. Reprenez-le depuis la série.",
+    "Cette partie possède déjà un salon. Reprenez-le depuis votre partie.",
   PARTY_NOT_FINISHED:
-    "Terminez la partie en cours avant de passer à la suivante.",
+    "Terminez la manche en cours avant de passer à la suivante.",
   INVALID_SERIES_ORDER:
-    "La série a changé. Retournez à la série pour choisir la prochaine préparation.",
+    "L’ordre des manches a changé. Retournez à votre partie pour choisir la prochaine préparation.",
   INVALID_PAGE: "Ce groupe de joueurs n’existe pas dans cette partie.",
-  NO_PREPARATION: "Cette partie n’est pas associée à une série préparée.",
+  NO_PREPARATION: "Cette manche n’est pas associée à une partie préparée.",
   IMAGE_TOO_LARGE:
     "Cette image est trop grande. Choisissez une image plus légère ; les textes sont conservés.",
   INVALID_IMAGE:

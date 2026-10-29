@@ -211,7 +211,7 @@ export function SessionLayoutEditor({ id }: { id: string }) {
               </button>
               <a
                 className="secondary-button"
-                href={`/sessions/${id}/stream`}
+                href={`/sessions/${id}/stream?from=gm`}
                 target="_blank"
                 rel="noopener noreferrer"
               >

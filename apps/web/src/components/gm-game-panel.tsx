@@ -1,4 +1,5 @@
 "use client";
+import { undercoverActionLabel } from "../lib/undercover-presentation";
 import { UndercoverSeriesControls } from "./undercover-series-controls";
 
 import { useEffect, useState, type ReactNode, type FormEvent } from "react";
@@ -23,8 +24,8 @@ export function gmHeading(game: GameProjection) {
   const play = game.play!;
   if (play.outcome)
     return {
-      title: "Partie terminée",
-      description: `La manche ${play.round} a scellé l’issue de la partie. Les révélations finales sont maintenant publiques.`,
+      title: "Manche terminée",
+      description: `Le cycle d’élimination ${play.round} a scellé l’issue de cette manche. Les révélations finales sont maintenant publiques.`,
     };
   if (!play.dealt)
     return {
@@ -55,7 +56,7 @@ export function gmHeading(game: GameProjection) {
     };
   return {
     title: "Résultat du vote",
-    description: `Le scrutin de la manche ${play.round} a été dépouillé et révélé publiquement.`,
+    description: `Le scrutin du cycle ${play.round} a été dépouillé et révélé publiquement.`,
   };
 }
 
@@ -267,7 +268,7 @@ export function GmReplay({
       disabled={locked}
       onClick={() =>
         void confirm({
-          title: "Recommencer la partie ?",
+          title: "Recommencer cette manche ?",
           description: "Les votes, éliminations et résultats seront effacés.",
           consequences: [
             "Les joueurs et leurs accès sont conservés. Les mots seront redistribués au prochain démarrage.",
@@ -279,7 +280,7 @@ export function GmReplay({
         })
       }
     >
-      Rejouer cette partie
+      Rejouer cette manche
     </button>
   );
 }
@@ -425,7 +426,7 @@ export function GmGamePanel({
   const heading = gmHeading(game),
     resolved = ballot?.status === "resolved";
   const description = !play.dealt
-    ? "La distribution attribue les mots secrets de façon confidentielle. La discussion de la manche 1 commencera ensuite."
+    ? "La distribution attribue les mots secrets de façon confidentielle. La discussion du premier cycle commencera ensuite."
     : game.phase.id === "discussion"
       ? turns?.complete
         ? "Les tours d’indices sont terminés. Vous pouvez ouvrir les votes."
@@ -482,8 +483,12 @@ export function GmGamePanel({
     >
       <div className="gm-phase-line">
         <p className="game-phase" role="status">
-          {game.phase.id === "result" ? "Résultat du vote" : game.phase.label}
-          {play.round > 0 && <span> · Manche {play.round}</span>}
+          {play.outcome
+            ? "Manche terminée"
+            : game.phase.id === "result"
+              ? "Résultat du vote"
+              : game.phase.label}
+          {play.round > 0 && <span> · Cycle d’élimination {play.round}</span>}
         </p>
         {turns && game.phase.id === "discussion" && (
           <span className="gm-chip">
@@ -614,7 +619,10 @@ export function GmGamePanel({
             {game.actions.map((action) => (
               <ActionForm
                 key={`${game.runId}:${action.id}`}
-                action={action}
+                action={{
+                  ...action,
+                  label: undercoverActionLabel(action.id, action.label),
+                }}
                 runId={game.runId}
                 locked={locked}
                 send={send}

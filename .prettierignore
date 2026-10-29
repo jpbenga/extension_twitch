@@ -14,3 +14,11 @@ docs/ux/redesign/**/approved.html
 docs/ux/redesign/undercover-next/
 docs/ux/redesign/undercover-stream-set/
 docs/ux/redesign/undercover-tv-broadcast/
+
+# Approved consolidation and Motion artifacts are immutable.
+docs/ux/redesign/undercover-consolidation/
+docs/ux/redesign/undercover-tv-motion/
+docs/ux/redesign/undercover-consolidation-motion/
+
+# Imported registry is part of the exact approved documentary commit.
+docs/ux/redesign/SCREENS.md

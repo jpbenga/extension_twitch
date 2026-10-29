@@ -4,6 +4,7 @@ import { z } from "zod";
 export const undercoverPreparationRefSchema = z.strictObject({
   id: z.uuid(),
   title: z.string().trim().min(1).max(80),
+  preferredPublication: z.enum(["none", "duo", "assignments"]).optional(),
   series: z
     .strictObject({
       id: z.uuid(),

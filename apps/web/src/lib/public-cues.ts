@@ -5,6 +5,7 @@ export interface PublicCursor {
 }
 export interface PublicCue {
   id: number;
+  stage?: "exit";
   message: string;
   kind: "phase" | "vote" | "result" | "event" | "content" | "next";
 }
@@ -26,7 +27,7 @@ export function nextPublicCue(
   let message = event.message,
     kind: PublicCue["kind"] = "event";
   if (event.type === "undercover.next") {
-    message = "La prochaine partie attend le Game Master.";
+    message = "La prochaine manche attend le Game Master.";
     kind = "next";
   } else if (event.type === "undercover.publish") {
     message =
@@ -77,13 +78,15 @@ export function publicEventsForRun(view: PublicSessionView) {
 }
 
 /** Longer lower thirds belong only to opt-in TV layouts, not archived overlays. */
-export function publicCueDuration(cue: PublicCue, tv = false) {
+export function publicCueDuration(cue: PublicCue, tv = false, final = false) {
   if (!tv) return 2600;
   return cue.kind === "content"
-    ? 8000
+    ? 2600
     : cue.kind === "result"
-      ? 9000
+      ? final
+        ? 2800
+        : 2400
       : cue.kind === "next"
-        ? 5000
+        ? 2200
         : 2600;
 }

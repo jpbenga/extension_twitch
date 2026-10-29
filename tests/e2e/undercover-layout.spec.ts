@@ -22,7 +22,7 @@ test.beforeEach(async ({ page }) => {
   );
 });
 const rendered = (p: Page) =>
-  p.getByLabel("Overlay public de l’émission", { exact: true });
+  p.getByRole("region", { name: "Overlay public de l’émission", exact: true });
 const widget = (p: Page, id: string) =>
   rendered(p).locator(`[data-widget="${id}"]`);
 async function start(page: Page, count = 3) {
@@ -191,7 +191,7 @@ test("configure a real Undercover game, adjust the shared layout, play to a resu
     ).toBe("rgba(0, 0, 0, 0)");
     await openGmReplay(gm);
     await gm
-      .getByRole("button", { name: "Rejouer cette partie", exact: true })
+      .getByRole("button", { name: "Rejouer cette manche", exact: true })
       .click();
     await acceptConfirmation(gm);
     await expect(rendered(obs)).toHaveAttribute("data-phase", "preparation");

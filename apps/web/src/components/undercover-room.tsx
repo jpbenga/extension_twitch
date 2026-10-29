@@ -174,6 +174,35 @@ export function UndercoverRoom({
       <StitchHeader host />
       <div className="gm-workspace">
         {feedback}
+        <details className="gm-party-menu">
+          <summary aria-label="Options de la partie">⋯</summary>
+          <div>
+            <Link
+              href={
+                gm.undercoverPreparation
+                  ? `/play/undercover?series=${gm.undercoverPreparation.series.id}&view=series`
+                  : "/play/undercover?view=series"
+              }
+            >
+              Retour à ma partie
+            </Link>
+            <button onClick={() => setSettingsOpen(true)}>
+              Accès et réglages
+            </button>
+            <Link href="/">Revenir à l’accueil</Link>
+            <p>
+              Revenir à la préparation ne met pas la partie en pause. Pause et
+              clôture volontaire ne sont pas encore disponibles.
+            </p>
+          </div>
+        </details>
+        {gm.undercoverPreparation && (
+          <p className="gm-prepared-context">
+            {gm.undercoverPreparation.series.title} · Manche{" "}
+            {gm.undercoverPreparation.series.position} sur{" "}
+            {gm.undercoverPreparation.series.total}
+          </p>
+        )}
         <div className="operating-header gm-page-heading">
           <div>
             <span className="eyebrow">
@@ -345,7 +374,7 @@ export function UndercoverRoom({
           <div className="layout-actions">
             <a
               className="secondary-button"
-              href={`/sessions/${view.sessionId}/stream`}
+              href={`/sessions/${view.sessionId}/stream?from=gm`}
               target="_blank"
               rel="noopener noreferrer"
             >

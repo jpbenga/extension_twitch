@@ -40,7 +40,9 @@
     "test:stream": "node scripts/test-e2e.mjs --config=playwright.stream.config.ts",
     "test:layout": "node scripts/test-e2e.mjs --config=playwright.layout.config.ts",
     "test:ux": "node scripts/test-e2e.mjs --config=playwright.ux.config.ts",
-    "test:prepare": "node scripts/test-e2e.mjs --config=playwright.prepare.config.ts"
+    "test:prepare": "node scripts/test-e2e.mjs --config=playwright.prepare.config.ts",
+    "test:consolidation": "node scripts/test-e2e.mjs --config=playwright.consolidation.config.ts",
+    "test:motion": "node scripts/test-e2e.mjs --config=playwright.motion.config.ts --project=desktop"
   },
   "devDependencies": {
     "@playwright/test": "1.64.1",

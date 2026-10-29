@@ -78,7 +78,7 @@ test("the operational room navigates by mobile sections and uses cancel-safe, fo
   await nav(page, "Partie");
   await openGmReplay(page);
   const replay = page.getByRole("button", {
-    name: "Rejouer cette partie",
+    name: "Rejouer cette manche",
     exact: true,
   });
   let writes = 0;
@@ -91,7 +91,7 @@ test("the operational room navigates by mobile sections and uses cancel-safe, fo
   });
   await replay.click();
   const dialog = page.getByRole("dialog", {
-    name: "Recommencer la partie ?",
+    name: "Recommencer cette manche ?",
     exact: true,
   });
   await expect(dialog).toBeVisible();
@@ -196,7 +196,7 @@ test("the shared theme fits a small phone, keeps controls legible and never expo
   expect(await widthFits(page)).toBe(true);
   await openGmReplay(page);
   await page
-    .getByRole("button", { name: "Rejouer cette partie", exact: true })
+    .getByRole("button", { name: "Rejouer cette manche", exact: true })
     .click();
   const dialog = page.getByRole("dialog");
   await expect(dialog).toBeVisible();

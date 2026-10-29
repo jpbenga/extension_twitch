@@ -199,3 +199,13 @@ Les anciens layouts restent intacts. La nouvelle UX attend votre validation huma
 [Guide simple iPhone + ordinateur + OBS](docs/TEST-UX-THEMES.md) ·
 [Diagnostic et décisions](docs/UX-REDESIGN-DECISIONS.md).
 `npm run test:ux` couvre les nouveaux parcours et thèmes sur 320/390/768/1440 pixels.
+
+### Consolidation Undercover et Motion TV
+
+Le [rapport d’intégration](docs/ux/redesign/UNDERCOVER-CONSOLIDATION-MOTION-IMPLEMENTATION.md)
+décrit les contenus A/B prioritaires, le conducteur Partie/Manches, la diffusion simple,
+l’adoption TV non destructive et les animations du renderer commun aperçu/OBS.
+Les [opérations de cycle de vie proposées](docs/ux/redesign/UNDERCOVER-LIFECYCLE-CONTRACT-PROPOSAL.md)
+restent à arbitrer : aucune fausse pause ou fin anticipée n’est implémentée.
+Suites dédiées : `npm run test:consolidation` et `npm run test:motion`.
+Le chantier Twitch local reste sur sa branche parallèle.

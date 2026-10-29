@@ -1,0 +1,113 @@
+{
+  "dateUtc": "2026-10-29T18:59:47.974337+00:00",
+  "base": "d27458974b4c763e2911952b5295b4b0deae893d",
+  "references": "98f52867bd970e9f1b4b343371926b6883f4e553",
+  "node": "v24.19.0",
+  "chromium": "Chromium 154.0.8037.57 built on Debian GNU/Linux 13 (trixie)",
+  "unitIntegrationPassed": 224,
+  "format": "PASS",
+  "strictTypescript": "PASS",
+  "productionBuild": "PASS",
+  "browserCasesPassed": 215,
+  "suites": [
+    {
+      "suite": "Sessions et accueil historique",
+      "command": "npm run test:e2e",
+      "passed": 42,
+      "status": "PASS"
+    },
+    {
+      "suite": "Consolidation AC",
+      "command": "npm run test:consolidation",
+      "passed": 9,
+      "status": "PASS"
+    },
+    {
+      "suite": "Motion normal/réduit 3/6/12",
+      "command": "npm run test:motion",
+      "passed": 6,
+      "status": "PASS"
+    },
+    {
+      "suite": "Préparation et erreurs",
+      "command": "npm run test:prepare",
+      "passed": 20,
+      "status": "PASS"
+    },
+    {
+      "suite": "Conducteur et médias",
+      "command": "node scripts/test-e2e.mjs --config=playwright.series.config.ts --project=desktop --project=tablet --project=mobile --project=small",
+      "passed": 24,
+      "status": "PASS"
+    },
+    {
+      "suite": "Régie B5",
+      "command": "node scripts/test-e2e.mjs --config=playwright.stitch-gm.config.ts",
+      "passed": 6,
+      "status": "PASS"
+    },
+    {
+      "suite": "Lobby et compagnons joueurs",
+      "command": "npm run test:players",
+      "passed": 16,
+      "status": "PASS"
+    },
+    {
+      "suite": "Layouts historiques",
+      "command": "npm run test:layout",
+      "passed": 6,
+      "status": "PASS"
+    },
+    {
+      "suite": "Dialogues et design system",
+      "command": "npm run test:design",
+      "passed": 12,
+      "status": "PASS"
+    },
+    {
+      "suite": "Accueil approuvé",
+      "command": "npm run test:home",
+      "passed": 16,
+      "status": "PASS"
+    },
+    {
+      "suite": "Laboratoire B7",
+      "command": "node scripts/test-e2e.mjs --config=playwright.stitch-lab.config.ts",
+      "passed": 12,
+      "status": "PASS"
+    },
+    {
+      "suite": "TV v2 et médias relayés",
+      "command": "node scripts/test-e2e.mjs --config=playwright.tv.config.ts --project=desktop",
+      "passed": 4,
+      "status": "PASS"
+    },
+    {
+      "suite": "Aperçu, OBS, reconnexion",
+      "command": "npm run test:stream",
+      "passed": 9,
+      "status": "PASS"
+    },
+    {
+      "suite": "Expériences et thèmes",
+      "command": "npm run test:ux",
+      "passed": 12,
+      "status": "PASS"
+    },
+    {
+      "suite": "Gameplay officiel et accès interappareils",
+      "command": "npm run test:games",
+      "passed": 12,
+      "status": "PASS"
+    },
+    {
+      "suite": "Broadcast B6 et conflits",
+      "command": "node scripts/test-e2e.mjs --config=playwright.stitch-broadcast.config.ts",
+      "passed": 9,
+      "status": "PASS"
+    }
+  ],
+  "newPhysicalIphoneTest": false,
+  "newPhysicalObsTest": false,
+  "authenticatedTwitchTest": false
+}

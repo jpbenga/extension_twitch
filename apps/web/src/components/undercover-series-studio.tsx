@@ -1,6 +1,7 @@
 "use client";
 import {
   useEffect,
+  useCallback,
   useRef,
   useState,
   type ReactNode,
@@ -16,10 +17,10 @@ import {
 } from "@extension-twitch/contracts/undercover-layout";
 import { themeIdSchema } from "@extension-twitch/contracts/themes";
 import { HomeIcon } from "./home-icon";
-import { ThemeControl, BroadcastThemeSelect } from "./application-theme";
+import { ThemeControl } from "./application-theme";
 import { NumberInput as SharedNumberInput } from "./creator-fields";
-import { UndercoverLayoutEditor } from "./undercover-layout-editor";
-import { layoutPreparationPreview } from "../lib/layout-preview";
+import { UndercoverDiffusion } from "./undercover-diffusion";
+import { useConfirm } from "./ui/feedback";
 import {
   randomToken,
   RequestFailure,
@@ -69,16 +70,26 @@ function NumberInput(props: ComponentProps<typeof SharedNumberInput>) {
     />
   );
 }
-type Screen = "prepare" | "edit" | "series" | "reuse" | "ready";
+type Screen =
+  | "prepare"
+  | "edit"
+  | "series"
+  | "reuse"
+  | "ready"
+  | "diffusion"
+  | "adopt"
+  | "layout";
 const pendingKey = "xt:official:pending";
 function ImagePreview({
   id,
   label,
   large = false,
+  onAvailability,
 }: {
   id?: string | undefined;
   label: string;
   large?: boolean;
+  onAvailability?: (id: string, unavailable: boolean) => void;
 }) {
   const [url, setUrl] = useState<string | null>(null),
     [missing, setMissing] = useState(false);
@@ -95,15 +106,19 @@ function ImagePreview({
             current = URL.createObjectURL(blob);
             setUrl(current);
           } else setMissing(true);
+          onAvailability?.(id, !blob);
         })
         .catch(() => {
-          if (active) setMissing(true);
+          if (active) {
+            setMissing(true);
+            onAvailability?.(id, true);
+          }
         });
     return () => {
       active = false;
       if (current) URL.revokeObjectURL(current);
     };
-  }, [id]);
+  }, [id, onAvailability]);
   return (
     <div
       className={`series-image ${large ? "is-large" : ""} ${missing ? "is-missing" : ""}`}
@@ -115,6 +130,7 @@ function ImagePreview({
           onError={() => {
             setUrl(null);
             setMissing(true);
+            if (id) onAvailability?.(id, true);
           }}
         />
       ) : (
@@ -138,7 +154,22 @@ function DeviceNote() {
 }
 export function UndercoverSeriesStudio() {
   const router = useRouter(),
-    store = useUndercoverSeries();
+    store = useUndercoverSeries(),
+    confirm = useConfirm();
+  const [diffusionReturn, setDiffusionReturn] = useState<"prepare" | "edit">(
+    "prepare",
+  );
+  const originalDraft = useRef<UndercoverPreparation | null>(null);
+  const [unavailableImages, setUnavailableImages] = useState<
+    Record<string, boolean>
+  >({});
+  const imageAvailability = useCallback(
+    (id: string, value: boolean) =>
+      setUnavailableImages((previous) =>
+        previous[id] === value ? previous : { ...previous, [id]: value },
+      ),
+    [],
+  );
   const [screen, setScreen] = useState<Screen>("prepare"),
     [error, setError] = useState(""),
     [notice, setNotice] = useState("");
@@ -179,10 +210,14 @@ export function UndercoverSeriesStudio() {
         .catch(() => {});
     if (wanted && !existing)
       setNotice(
-        "Retrouvez cette série sur l’appareil où vous l’avez préparée.",
+        "Retrouvez cette partie sur l’appareil où vous l’avez préparée.",
       );
     setScreen(
-      view === "series" ||
+      view === "diffusion" ||
+        view === "adopt" ||
+        view === "layout" ||
+        view === "reuse" ||
+        view === "series" ||
         view === "ready" ||
         view === "prepare" ||
         view === "edit"
@@ -191,7 +226,11 @@ export function UndercoverSeriesStudio() {
           ? "series"
           : "prepare",
     );
-    if (view === "edit") {
+    setDiffusionReturn(q.get("return") === "edit" ? "edit" : "prepare");
+    if (
+      view === "edit" ||
+      ["diffusion", "adopt", "layout"].includes(view ?? "")
+    ) {
       const savedEdit = (existing ?? series)?.preparations.find(
         (p) => p.id === q.get("editing"),
       );
@@ -295,7 +334,7 @@ export function UndercoverSeriesStudio() {
       }
     } catch {
       setError(
-        "Le stockage de cet onglet est indisponible. Autorisez-le avant de lancer une partie.",
+        "Le stockage de cet onglet est indisponible. Autorisez-le avant de lancer une manche.",
       );
     }
   }, [library]);
@@ -331,7 +370,7 @@ export function UndercoverSeriesStudio() {
       history.replaceState(
         null,
         "",
-        `/play/undercover?series=${series.id}&view=${next}${editId ? `&editing=${editId}` : ""}`,
+        `/play/undercover?series=${series.id}&view=${next}${editId ? `&editing=${editId}` : ["diffusion", "adopt", "layout"].includes(next) && editingId ? `&editing=${editingId}` : ""}${["diffusion", "adopt", "layout"].includes(next) ? `&return=${diffusionReturn}` : ""}`,
       );
     window.scrollTo({ top: 0, behavior: "instant" });
   }
@@ -368,8 +407,9 @@ export function UndercoverSeriesStudio() {
       document.activeElement instanceof HTMLButtonElement
         ? document.activeElement
         : null;
+    originalDraft.current = structuredClone(p ?? series.draft);
     setEditingId(p?.id ?? null);
-    setEditorReturn(p ? "series" : "prepare");
+    setEditorReturn(p ? (screen === "ready" ? "ready" : "series") : "prepare");
     if (p) void changeSeries((s) => ({ ...s, draft: structuredClone(p) }));
     go("edit", p?.id);
   }
@@ -386,7 +426,7 @@ export function UndercoverSeriesStudio() {
       if (parent instanceof HTMLDetailsElement) parent.open = true;
     invalid.reportValidity();
     setError(
-      "Vérifiez les nombres : 3 à 12 participants, 1 à 5 tours, 1 à 5 Undercover et 1 à 30 manches.",
+      "Vérifiez les nombres : 3 à 12 participants, 1 à 5 tours, 1 à 5 Undercover et 1 à 30 cycles.",
     );
     return false;
   }
@@ -394,7 +434,7 @@ export function UndercoverSeriesStudio() {
     if (!series || !draft || !validFields()) return;
     if (series.preparations.length >= 100) {
       setError(
-        "Cette série contient déjà 100 parties. Créez une autre série pour continuer.",
+        "Cette partie contient déjà 100 manches. Créez une autre partie pour continuer.",
       );
       return;
     }
@@ -418,10 +458,10 @@ export function UndercoverSeriesStudio() {
         ].slice(0, 500),
       }));
       go("series");
-      setNotice("Partie ajoutée à la série.");
+      setNotice("Manche ajoutée à la partie.");
     } catch {
       setError(
-        "Choisissez deux noms différents et vérifiez les réglages avant d’ajouter la partie.",
+        "Choisissez deux noms différents et vérifiez les réglages avant d’ajouter la manche.",
       );
     }
   }
@@ -488,6 +528,80 @@ export function UndercoverSeriesStudio() {
   function selectedHistory() {
     return library?.history.find((p) => p.id === reuseId) ?? null;
   }
+  function contentCards() {
+    if (!draft) return null;
+    return (
+      <div className="series-editor-grid">
+        {(["a", "b"] as const).map((side) => (
+          <section className="series-card series-editor-card" key={side}>
+            <h2>Contenu {side.toUpperCase()}</h2>
+            <ImagePreview
+              id={draft.contents[side].imageId}
+              label={draft.contents[side].name}
+              large
+              onAvailability={imageAvailability}
+            />
+            <label>
+              Nom du contenu {side.toUpperCase()}
+              <input
+                aria-label={`Nom du contenu ${side.toUpperCase()}`}
+                value={draft.contents[side].name}
+                maxLength={80}
+                disabled={busy}
+                onChange={(e) =>
+                  changeDraft((p) => ({
+                    ...p,
+                    contents: {
+                      ...p.contents,
+                      [side]: {
+                        ...p.contents[side],
+                        name: e.target.value,
+                      },
+                    },
+                  }))
+                }
+              />
+            </label>
+            {draft.contents[side].imageId &&
+              unavailableImages[draft.contents[side].imageId!] && (
+                <p role="status">
+                  Image indisponible sur cet appareil. Le texte reste
+                  disponible.
+                </p>
+              )}
+            <div className="series-image-actions">
+              <label className="stitch-button series-file-button">
+                {draft.contents[side].imageId
+                  ? unavailableImages[draft.contents[side].imageId!]
+                    ? "Reconnecter l’image"
+                    : "Remplacer l’image"
+                  : "Choisir une image"}
+                <input
+                  type="file"
+                  aria-label={`Image du contenu ${side.toUpperCase()}`}
+                  accept="image/png,image/jpeg,image/webp"
+                  disabled={busy}
+                  onChange={(e) => {
+                    void chooseImage(side, e.target.files?.[0]);
+                    e.target.value = "";
+                  }}
+                />
+              </label>
+              {draft.contents[side].imageId && (
+                <button
+                  className="series-text-button"
+                  disabled={busy}
+                  onClick={() => removeImage(side)}
+                >
+                  Retirer l’image {side.toUpperCase()}
+                </button>
+              )}
+            </div>
+          </section>
+        ))}
+      </div>
+    );
+  }
   function secondaryOptions() {
     if (!draft) return null;
     return (
@@ -529,9 +643,9 @@ export function UndercoverSeriesStudio() {
               </p>
             </section>
             <label>
-              Maximum de manches
+              Maximum de cycles
               <NumberInput
-                label="Maximum de manches"
+                label="Maximum de cycles"
                 value={draft.settings["round-limit"]}
                 min={1}
                 max={30}
@@ -545,7 +659,7 @@ export function UndercoverSeriesStudio() {
               />
             </label>
             <details>
-              <summary>Comment se déroule cette partie ?</summary>
+              <summary>Comment se déroule cette manche ?</summary>
               <p>
                 Indices oraux, vote unique sans vote pour soi, égalité sans
                 élimination. Les civils gagnent lorsque tous les Undercover sont
@@ -556,33 +670,16 @@ export function UndercoverSeriesStudio() {
             </details>
           </div>
         </details>
-        <details data-prepare-option="broadcast">
-          <summary>
-            Plateau de diffusion
-            <HomeIcon name="chevron" />
-          </summary>
-          <div className="series-option-body">
-            <p>
-              Les noms de cet aperçu sont des exemples. Aucun joueur n’est créé.
-            </p>
-            <BroadcastThemeSelect
-              value={draft.broadcastTheme}
-              disabled={busy}
-              onChange={(v) =>
-                changeDraft((p) => ({ ...p, broadcastTheme: v }))
-              }
-            />
-            <UndercoverLayoutEditor
-              layout={draft.overlayLayout}
-              onChange={(v) => changeDraft((p) => ({ ...p, overlayLayout: v }))}
-              view={{
-                ...layoutPreparationPreview(draft.count),
-                broadcastTheme: draft.broadcastTheme,
-              }}
-              disabled={busy}
-            />
-          </div>
-        </details>
+        <button
+          className="series-text-button consolidation-advanced-link"
+          data-prepare-option="broadcast"
+          onClick={() => {
+            setDiffusionReturn(screen === "edit" ? "edit" : "prepare");
+            go("diffusion");
+          }}
+        >
+          Diffusion <HomeIcon name="chevron" />
+        </button>
       </div>
     );
   }
@@ -591,7 +688,7 @@ export function UndercoverSeriesStudio() {
     if (!source || !series) return;
     if (series.preparations.length >= 100) {
       setError(
-        "Cette série contient déjà 100 parties. Créez une autre série pour continuer.",
+        "Cette partie contient déjà 100 manches. Créez une autre partie pour continuer.",
       );
       return;
     }
@@ -622,7 +719,7 @@ export function UndercoverSeriesStudio() {
     setNotice("");
     let chosen = quick ? draft : series.preparations[0];
     if (!chosen && !pending) {
-      setError("Ajoutez une partie avant d’ouvrir le salon.");
+      setError("Ajoutez une manche avant d’ouvrir le salon.");
       return;
     }
     if (series.active && !quick && !pending) {
@@ -635,7 +732,7 @@ export function UndercoverSeriesStudio() {
         router.push(`/sessions/${series.active.sessionId}/gm`);
       } catch {
         setError(
-          "L’accès à cette partie ne peut pas être ouvert dans cet onglet.",
+          "L’accès à cette manche ne peut pas être ouvert dans cet onglet.",
         );
       }
       return;
@@ -755,6 +852,33 @@ export function UndercoverSeriesStudio() {
     return (
       <div className="series-bottom">
         {extra}
+        <small className="consolidation-summary">
+          {screen === "prepare"
+            ? `${preparationName(draft!)} · ${draft?.count} participants · ${draft?.settings["clue-rounds"]} tours`
+            : screen === "edit"
+              ? preparationName(draft!)
+              : `${series?.preparations.length ?? 0} ${(series?.preparations.length ?? 0) === 1 ? "manche préparée" : "manches préparées"}`}
+        </small>
+        {screen === "edit" && (
+          <button
+            className="series-text-button"
+            onClick={() => {
+              const original =
+                series?.preparations.find((p) => p.id === editingId) ??
+                originalDraft.current;
+              if (original)
+                void changeSeries((s) => ({
+                  ...s,
+                  draft: structuredClone(original),
+                })).then((ok) => {
+                  if (ok) go(editorReturn);
+                });
+              else go(editorReturn);
+            }}
+          >
+            Annuler
+          </button>
+        )}
         <button
           className="stitch-button stitch-primary"
           disabled={busy || !!store.error}
@@ -807,10 +931,23 @@ export function UndercoverSeriesStudio() {
       <div className={`series-workspace series-screen-${screen}`}>
         <nav className="series-back" aria-label="Retour">
           {screen === "series" ? (
-            <Link href="/play">‹ Undercover</Link>
+            <Link href="/">‹ Accueil</Link>
           ) : (
-            <button className="series-text-button" onClick={() => go("series")}>
-              ‹ {screen === "prepare" ? series.title : "Retour à la série"}
+            <button
+              className="series-text-button"
+              onClick={() => {
+                if (screen === "adopt" || screen === "layout") go("diffusion");
+                else if (screen === "diffusion")
+                  go(diffusionReturn, editingId ?? undefined);
+                else go("series");
+              }}
+            >
+              ‹{" "}
+              {screen === "adopt" || screen === "layout"
+                ? "Diffusion"
+                : screen === "diffusion"
+                  ? "Préparer la manche"
+                  : "Ma partie Undercover"}
             </button>
           )}
         </nav>
@@ -838,7 +975,7 @@ export function UndercoverSeriesStudio() {
                       .catch((e) => setError(e.message))
                   }
                 >
-                  Conserver mes changements dans une nouvelle série
+                  Conserver mes changements dans une nouvelle partie
                 </button>
               </>
             )}
@@ -865,11 +1002,14 @@ export function UndercoverSeriesStudio() {
         {screen === "prepare" && (
           <>
             <div className="series-intro">
-              <h1>Préparer une partie</h1>
-              <p>Quelques réglages, puis ajoutez-la à votre série.</p>
+              <h1>Manche {series.preparations.length + 1}</h1>
+              <p>Deux contenus, puis quelques réglages.</p>
             </div>
             <div className="series-prepare-grid">
               <div className="series-controls">
+                {contentCards()}
+
+                <DeviceNote />
                 <section className="series-card series-essentials">
                   <div className="series-setting">
                     <div className="series-setting-heading">
@@ -944,96 +1084,104 @@ export function UndercoverSeriesStudio() {
                     <span>Classique</span>
                   </div>
                 </section>
-                <section className="series-card series-contents">
-                  <h2>Vos contenus</h2>
-                  <div className="series-content-pair">
-                    {(["a", "b"] as const).map((side) => (
-                      <div key={side}>
-                        <ImagePreview
-                          id={draft.contents[side].imageId}
-                          label={draft.contents[side].name}
-                        />
-                        <div>
-                          <span>Contenu {side.toUpperCase()}</span>
-                          <strong>
-                            {draft.contents[side].name || "À nommer"}
-                          </strong>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                <details className="consolidation-options">
+                  <summary>Options</summary>
+                  {secondaryOptions()}
                   <button className="series-text-button" onClick={() => edit()}>
                     Modifier les contenus
                   </button>
-                  <DeviceNote />
-                </section>
-                {secondaryOptions()}
-                <details className="series-qa" data-prepare-option="laboratory">
-                  <summary>Tester avec le laboratoire</summary>
-                  <div className="series-option-body">
-                    <p>
-                      Un essai indépendant avec de véritables accès joueurs.
-                    </p>
-                    <label>
-                      Joueurs de démonstration
-                      <NumberInput
-                        label="Joueurs de démonstration"
-                        min={3}
-                        max={12}
-                        value={draft.count}
-                        onChange={(v) =>
-                          changeDraft((p) => ({ ...p, count: v }))
-                        }
+                  <details
+                    className="series-qa"
+                    data-prepare-option="laboratory"
+                  >
+                    <summary>Tester avec le laboratoire</summary>
+                    <div className="series-option-body">
+                      <p>
+                        Un essai indépendant avec de véritables accès joueurs.
+                      </p>
+                      <label>
+                        Joueurs de démonstration
+                        <NumberInput
+                          label="Joueurs de démonstration"
+                          min={3}
+                          max={12}
+                          value={draft.count}
+                          onChange={(v) =>
+                            changeDraft((p) => ({ ...p, count: v }))
+                          }
+                          disabled={busy}
+                        />
+                      </label>
+                      <button
+                        className="stitch-button"
                         disabled={busy}
-                      />
-                    </label>
-                    <button
-                      className="stitch-button"
-                      disabled={busy}
-                      onClick={() => void openSalon(true)}
-                    >
-                      Lancer une partie de démonstration
-                    </button>
-                  </div>
+                        onClick={() => void openSalon(true)}
+                      >
+                        Lancer une partie de démonstration
+                      </button>
+                    </div>
+                  </details>
                 </details>
               </div>
-              <aside className="series-card series-summary">
-                <h2>Votre partie</h2>
-                <dl>
-                  <div>
-                    <dt>Participants prévus</dt>
-                    <dd>{draft.count}</dd>
-                  </div>
-                  <div>
-                    <dt>Tours d’indices</dt>
-                    <dd>{draft.settings["clue-rounds"]}</dd>
-                  </div>
-                  <div>
-                    <dt>Mode</dt>
-                    <dd>Classique</dd>
-                  </div>
-                </dl>
-                <p>{preparationName(draft)}</p>
-                {footer("Ajouter à la série", () => void addDraft())}
-              </aside>
+              {footer("Ajouter cette manche", () => void addDraft())}
             </div>
           </>
+        )}
+        {(["diffusion", "adopt", "layout"] as Screen[]).includes(screen) && (
+          <UndercoverDiffusion
+            draft={draft}
+            adopting={screen === "adopt"}
+            advanced={screen === "layout"}
+            busy={busy || store.saving || !!store.error}
+            onChange={changeDraft}
+            onNavigate={(next) => go(next)}
+            onSave={() => {
+              void changeSeries((s) => ({
+                ...s,
+                preparations: editingId
+                  ? s.preparations.map((p) =>
+                      p.id === editingId
+                        ? {
+                            ...p,
+                            overlayLayout: draft.overlayLayout,
+                            previousOverlayLayout: draft.previousOverlayLayout,
+                            preferredPublication: draft.preferredPublication,
+                            broadcastTheme: draft.broadcastTheme,
+                          }
+                        : p,
+                    )
+                  : s.preparations,
+              })).then((ok) => {
+                if (ok) {
+                  go(diffusionReturn, editingId ?? undefined);
+                  setNotice(
+                    "La diffusion a été enregistrée. Aucun contenu n’a été publié.",
+                  );
+                }
+              });
+            }}
+          />
         )}
         {screen === "edit" && (
           <>
             <div className="series-intro">
-              <h1>{preparationName(draft)}</h1>
+              <h1>
+                Modifier la manche{" "}
+                {editingId
+                  ? series.preparations.findIndex((p) => p.id === editingId) + 1
+                  : series.preparations.length + 1}
+              </h1>
               <p>
                 {editingId
-                  ? `Partie ${series.preparations.findIndex((p) => p.id === editingId) + 1} · `
+                  ? `Manche ${series.preparations.findIndex((p) => p.id === editingId) + 1} · `
                   : ""}
                 Modifiez un nom, une image, ou les deux.
               </p>
             </div>
             <label className="series-preparation-title">
-              Nom de la partie (facultatif)
+              Nom de la manche (facultatif)
               <input
-                aria-label="Nom de la partie"
+                aria-label="Nom de la manche"
                 maxLength={80}
                 value={draft.title}
                 disabled={busy}
@@ -1042,67 +1190,9 @@ export function UndercoverSeriesStudio() {
                 }
               />
             </label>
-            <div className="series-editor-grid">
-              {(["a", "b"] as const).map((side) => (
-                <section className="series-card series-editor-card" key={side}>
-                  <h2>Contenu {side.toUpperCase()}</h2>
-                  <label>
-                    Nom du contenu {side.toUpperCase()}
-                    <input
-                      aria-label={`Nom du contenu ${side.toUpperCase()}`}
-                      value={draft.contents[side].name}
-                      maxLength={80}
-                      disabled={busy}
-                      onChange={(e) =>
-                        changeDraft((p) => ({
-                          ...p,
-                          contents: {
-                            ...p.contents,
-                            [side]: {
-                              ...p.contents[side],
-                              name: e.target.value,
-                            },
-                          },
-                        }))
-                      }
-                    />
-                  </label>
-                  <ImagePreview
-                    id={draft.contents[side].imageId}
-                    label={draft.contents[side].name}
-                    large
-                  />
-                  <div className="series-image-actions">
-                    <label className="stitch-button series-file-button">
-                      {draft.contents[side].imageId
-                        ? "Remplacer / reconnecter l’image"
-                        : "Choisir une image"}
-                      <input
-                        type="file"
-                        aria-label={`Image du contenu ${side.toUpperCase()}`}
-                        accept="image/png,image/jpeg,image/webp"
-                        disabled={busy}
-                        onChange={(e) => {
-                          void chooseImage(side, e.target.files?.[0]);
-                          e.target.value = "";
-                        }}
-                      />
-                    </label>
-                    {draft.contents[side].imageId && (
-                      <button
-                        className="series-text-button"
-                        disabled={busy}
-                        onClick={() => removeImage(side)}
-                      >
-                        Retirer l’image {side.toUpperCase()}
-                      </button>
-                    )}
-                  </div>
-                </section>
-              ))}
-            </div>
+            {contentCards()}
             <details className="series-editor-settings">
-              <summary>Réglages de cette partie</summary>
+              <summary>Réglages de cette manche</summary>
               <div className="series-option-body">
                 <label>
                   Participants prévus
@@ -1135,16 +1225,25 @@ export function UndercoverSeriesStudio() {
               </div>
             </details>
             <DeviceNote />
-            {footer("Enregistrer la partie", () => void saveEditor())}
+            {footer("Enregistrer la manche", () => void saveEditor())}
           </>
         )}
         {screen === "series" && (
           <>
-            <div className="series-intro series-title-edit">
-              <label htmlFor="series-title">Nom de la série</label>
+            <div className="series-intro">
+              <h1>Ma partie Undercover</h1>
+              <p>
+                {series.preparations.length}{" "}
+                {series.preparations.length === 1
+                  ? "manche préparée"
+                  : "manches préparées"}
+              </p>
+            </div>
+            <div className="series-title-edit">
+              <label htmlFor="series-title">Nom de la partie</label>
               <input
                 id="series-title"
-                aria-label="Nom de la série"
+                aria-label="Nom de la partie"
                 maxLength={80}
                 value={series.title}
                 onChange={(e) => {
@@ -1154,72 +1253,22 @@ export function UndercoverSeriesStudio() {
               />
               <p>
                 {series.preparations.length}{" "}
-                {series.preparations.length === 1 ? "partie" : "parties"} · À
+                {series.preparations.length === 1 ? "manche" : "manches"} · À
                 votre rythme, dans votre ordre.
               </p>
             </div>
-            <details className="series-switcher">
-              <summary>Mes séries</summary>
-              <div className="series-option-body">
-                <label>
-                  Série à ouvrir
-                  <select
-                    aria-label="Série à ouvrir"
-                    value={series.id}
-                    onChange={(e) =>
-                      void store
-                        .update((l) => ({
-                          ...l,
-                          selectedSeriesId: e.target.value,
-                        }))
-                        .then(() => setUndo(null))
-                        .catch((e) => setError(e.message))
-                    }
-                  >
-                    {library.series.map((s) => (
-                      <option value={s.id} key={s.id}>
-                        {s.title}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-                <button
-                  className="stitch-button"
-                  onClick={() => {
-                    if (library.series.length >= 50) {
-                      setError(
-                        "Cet appareil conserve déjà 50 séries. Réutilisez une série existante.",
-                      );
-                      return;
-                    }
-                    const next = newSeries(
-                      `Nouvelle série ${library.series.length + 1}`,
-                    );
-                    void store
-                      .update((l) => ({
-                        ...l,
-                        selectedSeriesId: next.id,
-                        series: [...l.series, next],
-                      }))
-                      .then(() => go("prepare"))
-                      .catch((e) => setError(e.message));
-                  }}
-                >
-                  Créer une autre série
-                </button>
-              </div>
-            </details>
+
             {series.active && (
               <div className="series-active">
                 <p>
-                  Une partie de cette série a déjà son salon. Vos préparations
+                  Une manche de cette partie a déjà son salon. Vos préparations
                   restent conservées.
                 </p>
                 <button
                   className="stitch-button"
                   onClick={() => void openSalon()}
                 >
-                  Reprendre la partie
+                  Reprendre la régie
                 </button>
               </div>
             )}
@@ -1259,7 +1308,7 @@ export function UndercoverSeriesStudio() {
                       <strong>{preparationName(p)}</strong>
                       <span>
                         {series.active?.preparationId === p.id
-                          ? "Partie actuelle · "
+                          ? "Manche actuelle · "
                           : ""}
                         {missing.includes(p.id)
                           ? "Prête · image à reconnecter"
@@ -1277,7 +1326,7 @@ export function UndercoverSeriesStudio() {
                       </button>
                       <button
                         className="stitch-button series-icon-button"
-                        aria-label={`Monter la partie ${index + 1}`}
+                        aria-label={`Monter la manche ${index + 1}`}
                         disabled={index === 0}
                         onClick={() =>
                           void changeSeries((s) =>
@@ -1289,7 +1338,7 @@ export function UndercoverSeriesStudio() {
                       </button>
                       <button
                         className="stitch-button series-icon-button"
-                        aria-label={`Descendre la partie ${index + 1}`}
+                        aria-label={`Descendre la manche ${index + 1}`}
                         disabled={index === series.preparations.length - 1}
                         onClick={() =>
                           void changeSeries((s) =>
@@ -1301,7 +1350,7 @@ export function UndercoverSeriesStudio() {
                       </button>
                       <details className="series-row-menu">
                         <summary
-                          aria-label={`Options de la partie ${index + 1}`}
+                          aria-label={`Options de la manche ${index + 1}`}
                         >
                           ⋯
                         </summary>
@@ -1310,7 +1359,7 @@ export function UndercoverSeriesStudio() {
                             disabled={series.preparations.length >= 100}
                             title={
                               series.preparations.length >= 100
-                                ? "100 parties maximum par série"
+                                ? "100 manches maximum par partie"
                                 : undefined
                             }
                             onClick={() =>
@@ -1325,13 +1374,26 @@ export function UndercoverSeriesStudio() {
                           </button>
                           <button
                             onClick={() => {
-                              setUndo({ preparation: p, index });
-                              void changeSeries((s) => ({
-                                ...s,
-                                preparations: s.preparations.filter(
-                                  (v) => v.id !== p.id,
-                                ),
-                              }));
+                              void confirm({
+                                title: "Retirer cette manche ?",
+                                description: `Manche ${index + 1} · ${preparationName(p)}`,
+                                consequences: [
+                                  "Elle sera retirée de cette partie préparée.",
+                                ],
+                                confirmLabel: "Retirer la manche",
+                                presentation: "stitch",
+                                tone: "danger",
+                                onConfirm: async () => {
+                                  const ok = await changeSeries((s) => ({
+                                    ...s,
+                                    preparations: s.preparations.filter(
+                                      (v) => v.id !== p.id,
+                                    ),
+                                  }));
+                                  if (ok) setUndo({ preparation: p, index });
+                                  return ok;
+                                },
+                              });
                             }}
                           >
                             Retirer
@@ -1344,7 +1406,7 @@ export function UndercoverSeriesStudio() {
               </ol>
             ) : (
               <div className="series-card series-empty">
-                <h2>Votre première partie</h2>
+                <h2>Votre première manche</h2>
                 <p>
                   Choisissez deux contenus et quelques réglages pour commencer.
                 </p>
@@ -1352,7 +1414,7 @@ export function UndercoverSeriesStudio() {
             )}
             {undo && (
               <p className="series-notice" role="status">
-                Partie retirée.{" "}
+                Manche retirée.{" "}
                 <button
                   className="series-text-button"
                   onClick={() => {
@@ -1380,7 +1442,7 @@ export function UndercoverSeriesStudio() {
                   go("prepare");
                 }}
               >
-                ＋ Ajouter une partie
+                ＋ Ajouter une manche
               </button>
               <button
                 className="series-text-button"
@@ -1394,18 +1456,69 @@ export function UndercoverSeriesStudio() {
                   go("reuse");
                 }}
               >
-                Réutiliser une ancienne partie
+                Réutiliser une ancienne manche
               </button>
             </div>
+            <details className="series-switcher">
+              <summary>Mes parties</summary>
+              <div className="series-option-body">
+                <label>
+                  Partie à ouvrir
+                  <select
+                    aria-label="Partie à ouvrir"
+                    value={series.id}
+                    onChange={(e) =>
+                      void store
+                        .update((l) => ({
+                          ...l,
+                          selectedSeriesId: e.target.value,
+                        }))
+                        .then(() => setUndo(null))
+                        .catch((e) => setError(e.message))
+                    }
+                  >
+                    {library.series.map((s) => (
+                      <option value={s.id} key={s.id}>
+                        {s.title}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <button
+                  className="stitch-button"
+                  onClick={() => {
+                    if (library.series.length >= 50) {
+                      setError(
+                        "Cet appareil conserve déjà 50 parties. Réutilisez une partie existante.",
+                      );
+                      return;
+                    }
+                    const next = newSeries(
+                      `Nouvelle partie ${library.series.length + 1}`,
+                    );
+                    void store
+                      .update((l) => ({
+                        ...l,
+                        selectedSeriesId: next.id,
+                        series: [...l.series, next],
+                      }))
+                      .then(() => go("prepare"))
+                      .catch((e) => setError(e.message));
+                  }}
+                >
+                  Créer une autre partie
+                </button>
+              </div>
+            </details>
             <DeviceNote />
             {series.preparations.length > 0 &&
-              footer("Vérifier la série", () => go("ready"))}
+              footer("Vérifier la partie", () => go("ready"))}
           </>
         )}
         {screen === "reuse" && (
           <>
             <div className="series-intro">
-              <h1>Reprendre une ancienne partie</h1>
+              <h1>Réutiliser une manche</h1>
               <p>Retrouvez une paire. Gardez ce qui vous plaît.</p>
             </div>
             <div className="series-reuse-grid">
@@ -1440,14 +1553,14 @@ export function UndercoverSeriesStudio() {
                   ))}
                 {!library.history.length && (
                   <p>
-                    Les parties que vous préparez apparaîtront ici. Leur
+                    Les manches que vous préparez apparaîtront ici. Leur
                     réutilisation créera une copie indépendante.
                   </p>
                 )}
               </section>
               {source && (
                 <section className="series-card series-reuse-editor">
-                  <h2>Une copie pour votre série</h2>
+                  <h2>Une copie pour votre partie</h2>
                   <p>Modifiez seulement ce dont vous avez besoin.</p>
                   <div className="series-reuse-fields">
                     {(["a", "b"] as const).map((side) => (
@@ -1472,9 +1585,9 @@ export function UndercoverSeriesStudio() {
                       </label>
                     ))}
                   </div>
-                  <p>La partie d’origine reste intacte.</p>
+                  <p>La manche d’origine reste intacte.</p>
                   <DeviceNote />
-                  {footer("Ajouter cette partie", () => void reuse())}
+                  {footer("Ajouter cette manche", () => void reuse())}
                 </section>
               )}
             </div>
@@ -1483,73 +1596,66 @@ export function UndercoverSeriesStudio() {
         {screen === "ready" && (
           <>
             <div className="series-intro">
-              <h1>Votre série est prête</h1>
+              <h1>Vérifier la partie</h1>
               <p>Un dernier regard, puis place aux invitations.</p>
             </div>
-            <section className="series-card series-ready">
-              <h2>{series.title}</h2>
-              <strong className="series-ready-count">
-                {series.preparations.length}{" "}
-                {series.preparations.length === 1
-                  ? "partie prête"
-                  : "parties prêtes"}
-              </strong>
-              {first && (
-                <p>
-                  {first.count} participants prévus ·{" "}
-                  {first.settings["clue-rounds"]} tours d’indices · Classique
-                </p>
-              )}
-              <div className="series-readiness">
-                <p>
-                  ✓ {series.preparations.length - missing.length}{" "}
-                  {series.preparations.length - missing.length === 1
-                    ? "partie disponible"
-                    : "parties disponibles"}
-                  {missing.length > 0 && (
-                    <>
-                      <br />
-                      {missing.length}{" "}
-                      {missing.length === 1
-                        ? "image à reconnecter"
-                        : "parties avec image à reconnecter"}{" "}
-                      · facultatif
-                    </>
-                  )}
-                </p>
-                {missing.length > 0 && (
-                  <button
-                    className="series-text-button"
-                    onClick={() =>
-                      edit(
-                        series.preparations.find((p) => missing.includes(p.id)),
-                      )
-                    }
-                  >
-                    Reconnecter l’image
-                  </button>
-                )}
-              </div>
-              <h3>Votre programme</h3>
+            <section className="series-ready">
+              <p>
+                {series.title} · {series.preparations.length} manches préparées
+              </p>
               <ol>
                 {series.preparations.map((p, index) => (
                   <li key={p.id}>
                     <span>{index + 1}</span>
-                    <div>
-                      <strong>{preparationName(p)}</strong>
-                      <small>Prête</small>
+                    <div className="series-ready-pair">
+                      <div className="series-thumbs">
+                        {(["a", "b"] as const).map((side) => (
+                          <ImagePreview
+                            key={side}
+                            id={p.contents[side].imageId}
+                            label={p.contents[side].name}
+                          />
+                        ))}
+                      </div>
+                      <div>
+                        <strong>{preparationName(p)}</strong>
+                        <small>
+                          Prête ·{" "}
+                          {missing.includes(p.id)
+                            ? "Image à reconnecter"
+                            : !p.contents.a.imageId && !p.contents.b.imageId
+                              ? "Sans image"
+                              : "Images disponibles"}
+                        </small>
+                      </div>
+                      <button
+                        className="series-text-button"
+                        onClick={() => edit(p)}
+                      >
+                        {missing.includes(p.id)
+                          ? "Reconnecter l’image"
+                          : "Modifier"}
+                      </button>
                     </div>
                   </li>
                 ))}
               </ol>
-              <DeviceNote />
+              {missing.length > 0 && (
+                <p className="series-readiness">
+                  Image à reconnecter · facultatif. La partie reste utilisable
+                  avec les textes.
+                </p>
+              )}
             </section>
-            <p className="series-before-lobby">
-              Vous inviterez ensuite vos joueurs. Les mots seront distribués
-              plus tard.
-            </p>
+            <div className="series-before-lobby">
+              <h2>Avant d’inviter vos joueurs</h2>
+              <p>
+                L’ouverture du salon ne distribue aucun contenu et ne démarre
+                pas la manche.
+              </p>
+            </div>
             {footer(
-              series.active ? "Reprendre la partie" : "Ouvrir le salon",
+              series.active ? "Reprendre la régie" : "Ouvrir le salon",
               () => void openSalon(),
             )}
           </>

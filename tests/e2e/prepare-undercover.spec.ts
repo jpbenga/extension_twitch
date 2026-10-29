@@ -3,10 +3,11 @@ import {
   openPreparedSalon,
   openPrepareDemo,
   launchPrepareDemo,
+  openPrepareBroadcast,
 } from "./undercover-helpers.js";
 const alert = (p: Page) => p.locator("main [role=alert]");
 const add = (p: Page) =>
-  p.getByRole("button", { name: "Ajouter à la série", exact: true });
+  p.getByRole("button", { name: "Ajouter cette manche", exact: true });
 async function start(page: Page) {
   await page.addInitScript(() =>
     localStorage.setItem("xt:theme:application", "neon-show"),
@@ -15,6 +16,14 @@ async function start(page: Page) {
   await expect(add(page)).toBeEnabled();
 }
 async function options(page: Page, key: string) {
+  if (key === "broadcast") {
+    await openPrepareBroadcast(page);
+    return;
+  }
+  const outer = page.locator(".consolidation-options");
+  await expect(outer).toBeAttached();
+  if ((await outer.count()) && (await outer.getAttribute("open")) === null)
+    await outer.locator(":scope > summary").click();
   const d = page.locator(`[data-prepare-option="${key}"]`);
   if ((await d.getAttribute("open")) === null)
     await d.locator(":scope > summary").click();
@@ -22,7 +31,7 @@ async function options(page: Page, key: string) {
 async function ready(page: Page) {
   await add(page).click();
   await page
-    .getByRole("button", { name: "Vérifier la série", exact: true })
+    .getByRole("button", { name: "Vérifier la partie", exact: true })
     .click();
 }
 async function fit(page: Page) {
@@ -97,7 +106,7 @@ test("preparation remains bounded, touch and keyboard accessible, remembers opti
     .check();
   await options(page, "roles");
   await page.getByLabel("Nombre d’Undercover", { exact: true }).fill("2");
-  await page.getByLabel("Maximum de manches", { exact: true }).fill("12");
+  await page.getByLabel("Maximum de cycles", { exact: true }).fill("12");
   await options(page, "broadcast");
   await page
     .getByLabel("Thème de l’émission", { exact: true })
@@ -110,6 +119,7 @@ test("preparation remains bounded, touch and keyboard accessible, remembers opti
     "Enregistré sur cet appareil",
   );
   await page.reload();
+  await page.goto("/play/undercover?view=prepare");
   await expect(count).toHaveValue("6");
   await expect(
     page.getByRole("radio", { name: "3 tours d’indices", exact: true }),
@@ -123,7 +133,7 @@ test("preparation remains bounded, touch and keyboard accessible, remembers opti
     page.getByLabel("Nombre d’Undercover", { exact: true }),
   ).toHaveValue("2");
   await expect(
-    page.getByLabel("Maximum de manches", { exact: true }),
+    page.getByLabel("Maximum de cycles", { exact: true }),
   ).toHaveValue("12");
   await options(page, "broadcast");
   await expect(
@@ -141,13 +151,18 @@ test("preparation remains bounded, touch and keyboard accessible, remembers opti
     .selectOption("broadcast-studio");
   await page.keyboard.press("Escape");
   await expect(
-    page.getByLabel("Overlay public de l’émission", { exact: true }),
+    page.getByRole("region", {
+      name: "Overlay public de l’émission",
+      exact: true,
+    }),
   ).toHaveAttribute("data-theme", "on-air-premium");
   await fit(page);
   expect(writes).toEqual([]);
   if (info.project.name === "mobile") {
     await page.setViewportSize({ width: 390, height: 500 });
-    const field = page.getByLabel("Maximum de manches", { exact: true });
+    await page.goto("/play/undercover?view=prepare");
+    await options(page, "roles");
+    const field = page.getByLabel("Maximum de cycles", { exact: true });
     await field.focus();
     await field.scrollIntoViewIfNeeded();
     const r = (await field.boundingBox())!,
@@ -207,18 +222,24 @@ test("invalid names and role ratio stay editable, a definite refusal clears its 
   page.on("request", (r) => {
     if (r.url().endsWith("/official-games/undercover/sessions")) writes++;
   });
+  const secondary = page.locator(".consolidation-options");
+  if (
+    (await secondary.count()) &&
+    (await secondary.getAttribute("open")) === null
+  )
+    await secondary.locator(":scope > summary").click();
   await page
     .getByRole("button", { name: "Modifier les contenus", exact: true })
     .click();
   await page.getByLabel("Nom du contenu B", { exact: true }).fill("PHARE");
   await page
-    .getByRole("button", { name: "Enregistrer la partie", exact: true })
+    .getByRole("button", { name: "Enregistrer la manche", exact: true })
     .click();
   await expect(alert(page)).toContainText("deux noms différents");
   expect(writes).toBe(0);
   await page.getByLabel("Nom du contenu B", { exact: true }).fill("Fusée");
   await page
-    .getByRole("button", { name: "Enregistrer la partie", exact: true })
+    .getByRole("button", { name: "Enregistrer la manche", exact: true })
     .click();
   await options(page, "roles");
   await page.getByLabel("Nombre d’Undercover", { exact: true }).fill("2");
@@ -227,6 +248,7 @@ test("invalid names and role ratio stay editable, a definite refusal clears its 
   await launchPrepareDemo(page);
   await expect(alert(page)).toContainText("moins d’Undercover");
   expect(writes).toBe(0);
+  await options(page, "roles");
   await page.getByLabel("Nombre d’Undercover", { exact: true }).fill("1");
   await ready(page);
   await page.route("**/api/server/official-games/undercover/sessions", (r) =>
@@ -278,14 +300,14 @@ test("uncertain response retains exactly its identity through reload, changed lo
   });
   await expect(resume).toBeEnabled();
   await page
-    .getByRole("button", { name: "‹ Retour à la série", exact: true })
+    .getByRole("button", { name: "‹ Ma partie Undercover", exact: true })
     .click();
   await page.getByRole("button", { name: "Modifier", exact: true }).click();
   await page
     .getByLabel("Nom du contenu A", { exact: true })
     .fill("Modification après coup");
   await page
-    .getByRole("button", { name: "Enregistrer la partie", exact: true })
+    .getByRole("button", { name: "Enregistrer la manche", exact: true })
     .click();
   await resume.click();
   await expect(alert(page)).toContainText("restaurés");
@@ -321,7 +343,7 @@ test("unavailable tab storage prevents an untracked session while durable local 
   await expect(alert(page)).toContainText("Autorisez le stockage");
   expect(writes).toBe(0);
   await page
-    .getByRole("button", { name: "‹ Retour à la série", exact: true })
+    .getByRole("button", { name: "‹ Ma partie Undercover", exact: true })
     .click();
   await expect(page.locator(".series-runlist>li")).toHaveCount(1);
 });

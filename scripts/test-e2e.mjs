@@ -34,6 +34,10 @@ if (
 // Keep each suite’s screenshots and traces independent, including the approved Stitch blocks.
 const outputSuite =
   [
+    "consolidation",
+    "motion",
+    "series",
+    "tv",
     "prepare",
     "players",
     "home",

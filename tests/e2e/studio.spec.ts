@@ -76,18 +76,14 @@ test("overlay is a public, noninteractive 16:9 demo for all three games", async 
   ).toBe("rgba(0, 0, 0, 0)");
 });
 
-test("player preview clearly identifies its limitations", async ({ page }) => {
+test("historical player entry leads to the real invitation flow", async ({
+  page,
+}) => {
   await page.goto("/player");
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "Bienvenue sur le plateau.",
-  );
+  await expect(page).toHaveURL(/\/join$/);
   await expect(
-    page.getByText(/Aucune information secrète distribuée/),
+    page.getByRole("button", { name: "Ouvrir l’invitation", exact: true }),
   ).toBeVisible();
-  await page.getByRole("link", { name: "Retour à la régie" }).click();
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "À vous de jouer.",
-  );
 });
 
 test("server disconnection is reported and reconnection recovers", async ({

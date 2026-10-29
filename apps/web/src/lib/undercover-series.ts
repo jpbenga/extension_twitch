@@ -31,6 +31,8 @@ export const preparationSchema = z.strictObject({
   count: z.number().int().min(3).max(12),
   settings: editableSettings,
   overlayLayout: undercoverLayoutSchema,
+  previousOverlayLayout: undercoverLayoutSchema.optional(),
+  preferredPublication: z.enum(["none", "duo", "assignments"]).optional(),
   broadcastTheme: themeIdSchema,
   contents: z.strictObject({ a: content, b: content }),
   updatedAt: z.string(),
@@ -62,12 +64,12 @@ export const seriesLibrarySchema = z.strictObject({
 });
 export type SeriesLibrary = z.infer<typeof seriesLibrarySchema>;
 export const deviceImagesNotice =
-  "Préparez et lancez cette série depuis le même appareil pour conserver vos images.";
+  "Préparez et lancez cette partie depuis le même appareil pour conserver vos images.";
 export class SeriesStorageError extends Error {
   constructor(readonly kind: "unavailable" | "conflict" | "quota") {
     super(
       kind === "conflict"
-        ? "Cette série a été modifiée dans un autre onglet. Vos changements sont conservés ici."
+        ? "Cette partie a été modifiée dans un autre onglet. Vos changements sont conservés ici."
         : kind === "quota"
           ? "Cet appareil ne peut plus conserver cette image. Vos textes restent disponibles."
           : "Vos préparations ne peuvent pas être enregistrées sur cet appareil. Gardez cette page ouverte et réessayez.",
@@ -111,12 +113,18 @@ export function copyPreparation(
     count: p.count,
     settings: structuredClone(p.settings),
     overlayLayout: structuredClone(p.overlayLayout),
+    ...(p.previousOverlayLayout
+      ? { previousOverlayLayout: structuredClone(p.previousOverlayLayout) }
+      : {}),
+    ...(p.preferredPublication
+      ? { preferredPublication: p.preferredPublication }
+      : {}),
     broadcastTheme: p.broadcastTheme,
     contents: structuredClone(p.contents),
     updatedAt: new Date().toISOString(),
   };
 }
-export function newSeries(title = "Ma série Undercover"): UndercoverSeries {
+export function newSeries(title = "Ma partie Undercover"): UndercoverSeries {
   return {
     id: commandId(),
     title,

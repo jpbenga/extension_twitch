@@ -137,12 +137,13 @@ function CompanionGame({
   const result = ballot?.status === "resolved";
   const showingWord =
     play.dealt && wordVisible && !voting && !result && !outcome && me?.active;
+  const phaseLabel = play.outcome ? "Manche terminée" : game.phase.label;
   const phase =
     play.turns && game.phase.id === "discussion"
-      ? `Manche ${play.round} · Tour d’indices ${play.turns.round} sur ${play.turns.total}`
+      ? `Cycle ${play.round} · Tour d’indices ${play.turns.round} sur ${play.turns.total}`
       : play.round
-        ? `Manche ${play.round} · ${game.phase.label}`
-        : game.phase.label;
+        ? `Cycle ${play.round} · ${phaseLabel}`
+        : phaseLabel;
   const personalCard = !outcome && (
     <section
       className={`personal-card stitch-card stitch-secret ${showingWord ? "stitch-secret-full" : "stitch-secret-compact"}`}
@@ -215,7 +216,7 @@ function CompanionGame({
       }
     >
       <p className="game-phase stitch-phase" role="status">
-        <span className="sr-only">{game.phase.label} · </span>
+        <span className="sr-only">{phaseLabel} · </span>
         {phase}
       </p>
       <div className="stitch-player-main">
@@ -295,7 +296,7 @@ function CompanionGame({
         >
           <p>
             {play.roster.filter((p) => p.active).length} joueurs actifs ·{" "}
-            {game.phase.label}
+            {phaseLabel}
           </p>
           <ul className="stitch-roster">
             {play.roster.map((p) => (
@@ -501,7 +502,7 @@ function RoundResult({
         <span className="stitch-pill">Camp révélé : {eliminated.role}</span>
       )}
       <p>{ballot.tied ? "Personne n’est éliminé." : "La partie continue."}</p>
-      <p>Le Game Master lancera la prochaine manche.</p>
+      <p>Le Game Master lancera le prochain cycle avec la même paire.</p>
     </div>
   );
 }
@@ -532,12 +533,12 @@ function FinalResult({
       </span>
       <h1>
         {draw
-          ? "Partie nulle"
+          ? "Manche nulle"
           : me?.role
             ? won
               ? "Vous avez gagné !"
               : "Vous avez perdu"
-            : "Partie terminée"}
+            : "Manche terminée"}
       </h1>
       <h2 className={draw ? "stitch-draw-reason" : undefined}>
         {outcome.label}

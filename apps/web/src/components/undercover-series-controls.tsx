@@ -93,7 +93,7 @@ export function UndercoverSeriesControls({
         if (live) {
           setLoaded(true);
           setMessage(
-            "Vos préparations restent conservées. Ouvrez la série pour vérifier leur disponibilité.",
+            "Vos préparations restent conservées. Ouvrez la partie pour vérifier leur disponibilité.",
           );
         }
       }
@@ -128,14 +128,14 @@ export function UndercoverSeriesControls({
       ...(page !== undefined ? { page } : {}),
     });
   return (
-    <section className="gm-series-controls" aria-label="Série et diffusion">
+    <section className="gm-series-controls" aria-label="Partie et diffusion">
       <div className="gm-series-line">
         <span>
-          {prep.series.title} · Partie {prep.series.position} /{" "}
+          {prep.series.title} · Manche {prep.series.position} /{" "}
           {prep.series.total}
         </span>
         <Link href={`/play/undercover?series=${prep.series.id}&view=series`}>
-          Retour à la série
+          Retour à ma partie
         </Link>
       </div>
       {finished && next && (
@@ -144,12 +144,12 @@ export function UndercoverSeriesControls({
           disabled={locked}
           onClick={() =>
             void confirm({
-              title: "Passer à la partie suivante ?",
+              title: "Passer à la manche suivante ?",
               description: `${preparationName(next)} sera préparée avec les mêmes joueurs.`,
               consequences: [
                 "Les accès joueurs sont conservés. Aucun mot ne sera distribué avant votre prochaine commande.",
               ],
-              confirmLabel: "Préparer la partie suivante",
+              confirmLabel: "Préparer la manche suivante",
               presentation: "stitch",
               onConfirm: async () => {
                 let settings;
@@ -157,7 +157,7 @@ export function UndercoverSeriesControls({
                   settings = validatedPreparation(next);
                 } catch {
                   throw new Error(
-                    "Vérifiez les deux noms et les réglages de la prochaine partie dans votre série.",
+                    "Vérifiez les deux noms et les réglages de la prochaine manche dans votre partie.",
                   );
                 }
                 const position = prep.series.position + 1;
@@ -170,6 +170,9 @@ export function UndercoverSeriesControls({
                     preparation: {
                       id: next.id,
                       title: preparationName(next).slice(0, 80),
+                      ...(next.preferredPublication
+                        ? { preferredPublication: next.preferredPublication }
+                        : {}),
                       series: {
                         id: prep.series.id,
                         title: series?.title ?? prep.series.title,
@@ -186,7 +189,7 @@ export function UndercoverSeriesControls({
             })
           }
         >
-          Partie suivante
+          Manche suivante
         </button>
       )}
       {finished &&
@@ -206,6 +209,15 @@ export function UndercoverSeriesControls({
           <span>Afficher ›</span>
         </summary>
         <div className="gm-disclosure-body">
+          <p className="gm-footnote">
+            Mode préparé :{" "}
+            {prep.preferredPublication === "assignments"
+              ? "Affectations visibles"
+              : prep.preferredPublication === "none"
+                ? "Ne rien afficher"
+                : "Duo anonyme"}
+            . Aucune publication automatique.
+          </p>
           <p>
             Choisissez ce que le public peut voir. Les votes individuels restent
             privés.

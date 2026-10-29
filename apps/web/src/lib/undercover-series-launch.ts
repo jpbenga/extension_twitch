@@ -30,6 +30,7 @@ export const seriesAttemptSchema = z.object({
     .strictObject({
       id: z.uuid(),
       title: z.string().min(1).max(80),
+      preferredPublication: z.enum(["none", "duo", "assignments"]).optional(),
       series: z.strictObject({
         id: z.uuid(),
         title: z.string().min(1).max(80),
@@ -58,6 +59,9 @@ export function makeSeriesAttempt(
     preparation: {
       id: p.id,
       title: preparationName(p).slice(0, 80),
+      ...(p.preferredPublication
+        ? { preferredPublication: p.preferredPublication }
+        : {}),
       series: {
         id: series.id,
         title: series.title,

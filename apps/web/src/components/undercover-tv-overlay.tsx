@@ -98,7 +98,10 @@ export function UndercoverTvOverlay({
   const pages = Math.max(1, Math.ceil(ordered.length / 3));
   const page = Math.min(pages - 1, requestedPage);
   const visiblePlayers = ordered.slice(page * 3, page * 3 + 3);
-  const contentMoment = cue?.kind === "content" && !isVote && !isFinal;
+  const contentMoment =
+    !isVote &&
+    !isFinal &&
+    (publication?.mode === "assignments" || cue?.kind === "content");
   const finalMoment =
     isFinal && (cue?.kind === "result" || cue?.kind === "content");
   const nextMoment = cue?.kind === "next";
@@ -107,7 +110,7 @@ export function UndercoverTvOverlay({
   const compactLabel = isFinal
     ? play!.outcome!.label
     : publication?.transition
-      ? "La prochaine partie attend le Game Master."
+      ? "La prochaine manche attend le Game Master."
       : ballot?.status === "resolved"
         ? publicBallotResult(play, name)
         : undefined;
@@ -122,6 +125,17 @@ export function UndercoverTvOverlay({
   };
   const widget = (id: WidgetId, node: ReactNode, className: string) => (
     <div
+      key={
+        id === "phase"
+          ? `${id}:${phase}:${play?.turns?.round}`
+          : id === "players"
+            ? `${id}:${speaker}:${play?.turns?.round}:${publication?.revision}:${page}`
+            : id === "result"
+              ? `${id}:${cue?.id ?? "durable"}:${page}`
+              : id
+      }
+      data-motion-stage={cue?.stage ?? "hold"}
+      data-motion-key={id}
       data-player-layout={
         id === "players" || id === "result"
           ? id === "result" && layout.players.mode === "vertical"
@@ -158,6 +172,7 @@ export function UndercoverTvOverlay({
               }
               className={`tv-content-card tv-assignment${final ? " tv-final-card" : ""}`}
               data-player={p.id}
+              data-card-index={visiblePlayers.findIndex((v) => v.id === p.id)}
               data-active={roster.find((r) => r.id === p.id)?.active ?? true}
               key={p.id}
             >
@@ -191,6 +206,8 @@ export function UndercoverTvOverlay({
       data-theme={view.broadcastTheme ?? historicalBroadcastTheme}
       data-renderer="broadcast-v1"
       data-layout-version="2"
+      data-motion={cue ? "event" : "stable"}
+      data-motion-kind={cue?.kind ?? "none"}
       data-connection={connection}
       data-version={view.version}
       data-phase={game?.phase.id ?? "lobby"}
@@ -275,7 +292,7 @@ export function UndercoverTvOverlay({
               VS
             </span>
           </>,
-          "tv-lower tv-duo-group",
+          "tv-lower tv-duo-group tv-transient",
         )}
       {contentMoment &&
         publication?.mode === "assignments" &&
@@ -283,11 +300,23 @@ export function UndercoverTvOverlay({
       {isVote &&
         widget(
           "vote",
-          <div className="tv-event">
-            <p>Le vote est ouvert</p>
+          <div
+            className="tv-event tv-vote-counter"
+            data-total={ballot!.eligible.length}
+          >
+            <p>
+              {ballot!.complete ? "Tous les votes reçus" : "Le vote est ouvert"}
+            </p>
             <strong data-testid="broadcast-votes">
               {ballot!.voted.length} / {ballot!.eligible.length} votes reçus
             </strong>
+            <span className="tv-vote-progress" aria-hidden="true">
+              <span
+                style={{
+                  transform: `scaleX(${ballot!.eligible.length ? ballot!.voted.length / ballot!.eligible.length : 0})`,
+                }}
+              />
+            </span>
           </div>,
           "tv-lower tv-vote",
         )}
@@ -308,12 +337,12 @@ export function UndercoverTvOverlay({
             >
               {nextMoment ? (
                 <>
-                  <p>Partie suivante</p>
+                  <p>Manche suivante</p>
                   <strong>Le Game Master prépare la suite.</strong>
                 </>
               ) : isFinal ? (
                 <>
-                  <p>{finalMoment ? "Partie terminée" : "Résultat final"}</p>
+                  <p>{finalMoment ? "Manche terminée" : "Résultat final"}</p>
                   <strong className="tv-positive">{compactLabel}</strong>
                 </>
               ) : (
@@ -330,7 +359,7 @@ export function UndercoverTvOverlay({
               )}
             </div>
           ),
-          `tv-lower tv-result${finalMoment ? " tv-final-group" : ""}`,
+          `tv-lower tv-result${finalMoment ? " tv-final-group" : ""}${resolvedMoment || nextMoment || finalMoment ? " tv-transient" : ""}`,
         )}
       {!(
         resolvedMoment ||

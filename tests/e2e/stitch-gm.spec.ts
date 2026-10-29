@@ -121,7 +121,7 @@ async function shot(page: Page, info: TestInfo, state: string) {
   if (!dialogOpen) {
     for (const action of await page
       .getByRole("button", {
-        name: /^(Distribuer les mots et commencer|Confirmer l’indice et passer au suivant|Ouvrir les votes|Commencer la manche suivante|Rejouer cette partie|Renommer la session)$/,
+        name: /^(Distribuer les mots et commencer|Confirmer l’indice et passer au suivant|Ouvrir les votes|Commencer un nouveau cycle|Rejouer cette manche|Renommer la session)$/,
       })
       .all())
       await expect(action).toBeEnabled();
@@ -213,7 +213,7 @@ test("approved GM views execute two rounds, public results, final victory and re
     await expect(detail.locator('input[type="password"]')).toHaveCount(1);
     await shot(page, info, "settings");
     await detail
-      .getByRole("button", { name: "Rejouer cette partie", exact: true })
+      .getByRole("button", { name: "Rejouer cette manche", exact: true })
       .click();
     await expect(page.getByRole("dialog")).toContainText(
       "Les joueurs et leurs accès sont conservés",
@@ -317,11 +317,13 @@ test("approved GM views execute two rounds, public results, final victory and re
     await shot(page, info, "vote-result");
     await page
       .getByRole("button", {
-        name: "Commencer la manche suivante",
+        name: "Commencer un nouveau cycle",
         exact: true,
       })
       .click();
-    await expect(page.locator("#game .game-phase")).toContainText("Manche 2");
+    await expect(page.locator("#game .game-phase")).toContainText(
+      "Cycle d’élimination 2",
+    );
     await expect(page.locator("#game .turn-progress")).toHaveAttribute(
       "data-count",
       "3",
@@ -342,12 +344,12 @@ test("approved GM views execute two rounds, public results, final victory and re
     await shot(page, info, "final");
     await expect(
       page.getByRole("button", {
-        name: "Commencer la manche suivante",
+        name: "Commencer un nouveau cycle",
         exact: true,
       }),
     ).toHaveCount(0);
     await page
-      .getByRole("button", { name: "Rejouer cette partie", exact: true })
+      .getByRole("button", { name: "Rejouer cette manche", exact: true })
       .click();
     await acceptConfirmation(page);
     await expect(page.locator("#game")).toHaveAttribute(
@@ -402,7 +404,7 @@ test("GM preserves a tied round, reaches a server draw and revokes players only 
     await shot(page, info, "tie");
     await page
       .getByRole("button", {
-        name: "Commencer la manche suivante",
+        name: "Commencer un nouveau cycle",
         exact: true,
       })
       .click();

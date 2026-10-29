@@ -335,30 +335,6 @@
   overflow: hidden;
   clip-path: inset(50%);
 }
-@media (prefers-reduced-motion: no-preference) {
-  .broadcast-tv .tv-lower > * {
-    animation: tv-reveal 180ms ease-out both;
-  }
-  @keyframes tv-reveal {
-    from {
-      opacity: 0;
-      transform: translateY(0.5cqw);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .broadcast-tv *,
-  .broadcast-tv *::before,
-  .broadcast-tv *::after {
-    animation: none !important;
-    transition: none !important;
-  }
-}
-
 .broadcast-tv .tv-assignment-group[data-player-layout="vertical"],
 .broadcast-tv .tv-final-group[data-player-layout="vertical"] {
   flex-direction: column;
@@ -375,4 +351,195 @@
   clip-path: none;
   font-size: 1.2cqw;
   color: var(--tv-accent);
+}
+
+/* Approved Motion: animation durations are separate from event hold times. */
+.broadcast-tv {
+  --duration-tv: 240ms;
+  --duration-reduced: 100ms;
+}
+.broadcast-tv .tv-vote-counter {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.broadcast-tv .tv-vote-counter strong {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.broadcast-tv .tv-vote-counter[data-total="12"] strong {
+  font-size: 3.333333cqw;
+}
+.broadcast-tv .tv-vote-progress {
+  position: absolute;
+  inset: auto 0 0;
+  height: 0.3125cqw;
+  background: var(--tv-edge);
+}
+.broadcast-tv .tv-vote-progress > span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--tv-accent);
+  transform-origin: left;
+  transition: transform var(--duration-fast) var(--ease-ui);
+}
+.broadcast-tv[data-motion="event"] .tv-phase > strong,
+.broadcast-tv[data-motion="event"] .tv-phase > .tv-turn {
+  animation: tv-badge-in var(--duration-enter) var(--ease-ui) both;
+}
+.broadcast-tv[data-motion="event"] .tv-speaker {
+  animation: tv-rise-in var(--duration-enter) var(--ease-ui) both;
+  position: relative;
+}
+.broadcast-tv[data-motion="event"] .tv-speaker::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 1.4cqw color-mix(in srgb, var(--tv-accent) 50%, transparent);
+  pointer-events: none;
+  opacity: 0;
+  animation: tv-activation var(--duration-tv) var(--ease-ui) both;
+}
+.broadcast-tv[data-motion="event"] .tv-content-card {
+  animation: tv-rise-in var(--duration-tv) var(--ease-ui) both;
+}
+.broadcast-tv[data-motion="event"] .tv-content-card[data-card-index="1"] {
+  animation-delay: 40ms;
+}
+.broadcast-tv[data-motion="event"] .tv-content-card[data-card-index="2"] {
+  animation-delay: 80ms;
+}
+.broadcast-tv[data-motion="event"] .tv-duo:first-of-type {
+  animation-name: tv-duo-a;
+}
+.broadcast-tv[data-motion="event"] .tv-duo:nth-of-type(2) {
+  animation-name: tv-duo-b;
+  animation-delay: 40ms;
+}
+.broadcast-tv[data-motion="event"] .tv-vs {
+  animation: tv-fade-in var(--duration-enter) var(--ease-ui) 80ms both;
+}
+.broadcast-tv[data-motion="event"] .tv-result > .tv-event,
+.broadcast-tv[data-motion="event"][data-motion-kind="phase"]
+  .tv-vote
+  > .tv-event {
+  animation: tv-rise-in var(--duration-enter) var(--ease-ui) both;
+}
+.broadcast-tv[data-motion="event"] [data-motion-stage="exit"].tv-transient > * {
+  animation: tv-lower-out var(--duration-enter) var(--ease-ui) both;
+}
+.broadcast-tv[data-motion="event"]
+  [data-motion-stage="exit"].tv-transient
+  .tv-vs {
+  animation-name: tv-fade-out;
+}
+.broadcast-tv[data-motion="stable"] *,
+.broadcast-tv[data-motion="stable"] *::after {
+  animation: none !important;
+}
+@keyframes tv-badge-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.208333cqw);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes tv-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.520833cqw);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes tv-duo-a {
+  from {
+    opacity: 0;
+    transform: translateX(-0.9375cqw);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes tv-duo-b {
+  from {
+    opacity: 0;
+    transform: translateX(0.9375cqw);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes tv-activation {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  45% {
+    opacity: 0.55;
+  }
+}
+@keyframes tv-lower-out {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(0.520833cqw);
+  }
+}
+@keyframes tv-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes tv-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .broadcast-tv[data-motion="event"] .tv-phase > strong,
+  .broadcast-tv[data-motion="event"] .tv-phase > .tv-turn,
+  .broadcast-tv[data-motion="event"] .tv-speaker,
+  .broadcast-tv[data-motion="event"] .tv-content-card,
+  .broadcast-tv[data-motion="event"] .tv-vs,
+  .broadcast-tv[data-motion="event"] .tv-result > .tv-event,
+  .broadcast-tv[data-motion="event"][data-motion-kind="phase"]
+    .tv-vote
+    > .tv-event {
+    animation: tv-fade-in var(--duration-reduced) linear both !important;
+  }
+  .broadcast-tv[data-motion="event"]
+    [data-motion-stage="exit"].tv-transient
+    > * {
+    animation: tv-fade-out var(--duration-reduced) linear both !important;
+  }
+  .broadcast-tv .tv-speaker::after {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+  .broadcast-tv .tv-vote-progress > span {
+    transition: none !important;
+  }
 }

@@ -251,7 +251,7 @@ export function CreatorLaboratory({
               />
               <a
                 className="secondary-button"
-                href={`/sessions/${id}/stream`}
+                href={`/sessions/${id}/stream?from=lab`}
                 target="_blank"
                 rel="noopener noreferrer"
               >

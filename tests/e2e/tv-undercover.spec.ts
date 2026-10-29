@@ -398,7 +398,11 @@ test("TV twelve-player grouping keeps stable places and readable long names with
   await page.emulateMedia({ reducedMotion: "reduce" });
   await expect(root(page).locator(".tv-assignment").first()).toHaveCSS(
     "animation-name",
-    "none",
+    "tv-fade-in",
+  );
+  await expect(root(page).locator(".tv-assignment").first()).toHaveCSS(
+    "animation-duration",
+    "0.1s",
   );
   await page.setViewportSize({ width: 390, height: 220 });
   await capture(page, info, "b13-twitch390-alpha");

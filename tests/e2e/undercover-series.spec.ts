@@ -1,3 +1,4 @@
+import { acceptConfirmation } from "./dialog-helpers.js";
 import { test, expect, type Page, type TestInfo } from "@playwright/test";
 async function start(page: Page) {
   await page.addInitScript(() =>
@@ -5,7 +6,7 @@ async function start(page: Page) {
   );
   await page.goto("/play/undercover");
   await expect(
-    page.getByRole("heading", { name: "Préparer une partie", exact: true }),
+    page.getByRole("heading", { name: "Manche 1", exact: true }),
   ).toBeVisible();
 }
 async function picture(page: Page, color: string) {
@@ -27,6 +28,12 @@ async function picture(page: Page, color: string) {
   );
 }
 async function editContents(page: Page, a: string, b: string, images = false) {
+  const secondary = page.locator(".consolidation-options");
+  if (
+    (await secondary.count()) &&
+    (await secondary.getAttribute("open")) === null
+  )
+    await secondary.locator(":scope > summary").click();
   await page
     .getByRole("button", { name: "Modifier les contenus", exact: true })
     .click();
@@ -78,10 +85,10 @@ async function shot(page: Page, info: TestInfo, name: string) {
 async function add(page: Page, a: string, b: string, images = false) {
   await editContents(page, a, b, images);
   await page
-    .getByRole("button", { name: "Enregistrer la partie", exact: true })
+    .getByRole("button", { name: "Enregistrer la manche", exact: true })
     .click();
   await page
-    .getByRole("button", { name: "Ajouter à la série", exact: true })
+    .getByRole("button", { name: "Ajouter cette manche", exact: true })
     .click();
   await expect(page.locator(".series-runlist>li").last()).toContainText(
     `${a} / ${b}`,
@@ -124,19 +131,19 @@ test("real local series persist names, ordered independent copies and reused con
   await expect(page.locator(".series-editor-grid img")).toHaveCount(2);
   await shot(page, info, "a2");
   await page
-    .getByRole("button", { name: "Enregistrer la partie", exact: true })
+    .getByRole("button", { name: "Enregistrer la manche", exact: true })
     .click();
   await page
-    .getByRole("button", { name: "Ajouter à la série", exact: true })
+    .getByRole("button", { name: "Ajouter cette manche", exact: true })
     .click();
   await page
-    .getByLabel("Nom de la série", { exact: true })
+    .getByLabel("Nom de la partie", { exact: true })
     .fill("Mon émission de test");
   await page
-    .getByRole("button", { name: "＋ Ajouter une partie", exact: true })
+    .getByRole("button", { name: "＋ Ajouter une manche", exact: true })
     .click();
   await add(page, "Désert", "Forêt");
-  await page.getByLabel("Options de la partie 1", { exact: true }).click();
+  await page.getByLabel("Options de la manche 1", { exact: true }).click();
   await page
     .locator(".series-row-menu[open]")
     .getByRole("button", { name: "Dupliquer", exact: true })
@@ -152,29 +159,30 @@ test("real local series persist names, ordered independent copies and reused con
     .getByRole("button", { name: "Retirer l’image A", exact: true })
     .click();
   await page
-    .getByRole("button", { name: "Enregistrer la partie", exact: true })
+    .getByRole("button", { name: "Enregistrer la manche", exact: true })
     .click();
   await expect(page.locator(".series-runlist>li").first()).toContainText(
     "Océan / Rivière",
   );
-  await page.getByLabel("Descendre la partie 2", { exact: true }).click();
+  await page.getByLabel("Descendre la manche 2", { exact: true }).click();
   await expect(page.locator(".series-row-title>strong")).toHaveText([
     "Océan / Rivière",
     "Désert / Forêt",
     "Glacier / Rivière",
   ]);
   await expect(
-    page.getByLabel("Monter la partie 1", { exact: true }),
+    page.getByLabel("Monter la manche 1", { exact: true }),
   ).toBeDisabled();
   await expect(
-    page.getByLabel("Descendre la partie 3", { exact: true }),
+    page.getByLabel("Descendre la manche 3", { exact: true }),
   ).toBeDisabled();
   await shot(page, info, "a3");
-  await page.getByLabel("Options de la partie 2", { exact: true }).click();
+  await page.getByLabel("Options de la manche 2", { exact: true }).click();
   await page
     .locator(".series-row-menu[open]")
     .getByRole("button", { name: "Retirer", exact: true })
     .click();
+  await acceptConfirmation(page);
   await expect(page.locator(".series-runlist>li")).toHaveCount(2);
   await page
     .getByRole("button", { name: "Annuler le retrait", exact: true })
@@ -182,7 +190,7 @@ test("real local series persist names, ordered independent copies and reused con
   await expect(page.locator(".series-runlist>li")).toHaveCount(3);
   await page
     .getByRole("button", {
-      name: "Réutiliser une ancienne partie",
+      name: "Réutiliser une ancienne manche",
       exact: true,
     })
     .click();
@@ -195,7 +203,7 @@ test("real local series persist names, ordered independent copies and reused con
   await page.getByLabel("Copie du contenu A", { exact: true }).fill("Mangrove");
   await shot(page, info, "a4");
   await page
-    .getByRole("button", { name: "Ajouter cette partie", exact: true })
+    .getByRole("button", { name: "Ajouter cette manche", exact: true })
     .click();
   await expect(page.locator(".series-runlist>li")).toHaveCount(4);
   await expect(page.locator(".series-runlist>li").first()).toContainText(
@@ -209,7 +217,7 @@ test("real local series persist names, ordered independent copies and reused con
   const reopened = await context.newPage();
   await reopened.goto(url);
   await expect(
-    reopened.getByLabel("Nom de la série", { exact: true }),
+    reopened.getByLabel("Nom de la partie", { exact: true }),
   ).toHaveValue("Mon émission de test");
   await expect(reopened.locator(".series-runlist>li")).toHaveCount(4);
   expect(JSON.stringify(await library(reopened))).toContain("Mangrove");
@@ -248,13 +256,13 @@ test("missing optional images preserve text, reconnect independently and open on
   ).toHaveValue("Phare");
   await shot(page, info, "a5");
   await page
-    .getByRole("button", { name: "Enregistrer la partie", exact: true })
+    .getByRole("button", { name: "Enregistrer la manche", exact: true })
     .click();
   await page
-    .getByRole("button", { name: "Vérifier la série", exact: true })
+    .getByRole("button", { name: "Vérifier la partie", exact: true })
     .click();
   await expect(
-    page.getByRole("heading", { name: "Votre série est prête", exact: true }),
+    page.getByRole("heading", { name: "Vérifier la partie", exact: true }),
   ).toBeVisible();
   await expect(page.locator(".series-readiness")).toContainText("facultatif");
   await shot(page, info, "a6");
@@ -273,15 +281,15 @@ test("missing optional images preserve text, reconnect independently and open on
   });
   await expect(page.locator(".series-editor-grid img")).toHaveCount(2);
   await page
-    .getByRole("button", { name: "Enregistrer la partie", exact: true })
+    .getByRole("button", { name: "Enregistrer la manche", exact: true })
     .click();
   const afterReconnect = (await library(page)) as typeof beforeReconnect;
   expect(afterReconnect.series[0]!.preparations[0]!.contents.b.imageId).toBe(
     untouchedB,
   );
-  await page
-    .getByRole("button", { name: "Vérifier la série", exact: true })
-    .click();
+  await expect(
+    page.getByRole("heading", { name: "Vérifier la partie", exact: true }),
+  ).toBeVisible();
   let creates = 0;
   page.on("request", (r) => {
     if (
@@ -315,7 +323,7 @@ test("missing optional images preserve text, reconnect independently and open on
   expect(creates).toBe(1);
   await page.goto("/play/undercover?view=series");
   await page
-    .getByRole("button", { name: "Reprendre la partie", exact: true })
+    .getByRole("button", { name: "Reprendre la régie", exact: true })
     .click();
   await expect(page).toHaveURL(/\/sessions\/[^/]+\/gm/);
   expect(creates).toBe(1);
@@ -330,7 +338,7 @@ test("invalid names and rejected images keep their independent editable text and
   });
   await editContents(page, "Même nom", "Même nom");
   await page
-    .getByRole("button", { name: "Enregistrer la partie", exact: true })
+    .getByRole("button", { name: "Enregistrer la manche", exact: true })
     .click();
   await expect(page.locator("main [role=alert]")).toContainText(
     "deux noms différents",
@@ -348,10 +356,10 @@ test("invalid names and rejected images keep their independent editable text and
     page.getByLabel("Nom du contenu A", { exact: true }),
   ).toHaveValue("Même nom");
   await page
-    .getByRole("button", { name: "Enregistrer la partie", exact: true })
+    .getByRole("button", { name: "Enregistrer la manche", exact: true })
     .click();
   await expect(
-    page.getByRole("heading", { name: "Préparer une partie", exact: true }),
+    page.getByRole("heading", { name: "Manche 1", exact: true }),
   ).toBeVisible();
   expect(posts).toBe(0);
 });
@@ -378,7 +386,7 @@ test("concurrent tabs preserve their edits and can keep a separate series withou
   ).toHaveValue("6");
   await other
     .getByRole("button", {
-      name: "Conserver mes changements dans une nouvelle série",
+      name: "Conserver mes changements dans une nouvelle partie",
       exact: true,
     })
     .click();
@@ -400,11 +408,11 @@ test("the real series connects an invited game, isolated private media, public p
   await start(page);
   await add(page, "Phare", "Balise", true);
   await page
-    .getByRole("button", { name: "＋ Ajouter une partie", exact: true })
+    .getByRole("button", { name: "＋ Ajouter une manche", exact: true })
     .click();
   await add(page, "Jardin", "Prairie", true);
   await page
-    .getByRole("button", { name: "Vérifier la série", exact: true })
+    .getByRole("button", { name: "Vérifier la partie", exact: true })
     .click();
   await page
     .getByRole("button", { name: "Ouvrir le salon", exact: true })
@@ -543,12 +551,12 @@ test("the real series connects an invited game, isolated private media, public p
       .click();
     await acceptConfirmation(page);
     await expect(
-      page.getByRole("button", { name: "Partie suivante", exact: true }),
+      page.getByRole("button", { name: "Manche suivante", exact: true }),
     ).toBeVisible();
     await expect(obs.locator(".tv-final-card")).toHaveCount(3);
     const original = await read();
     await page
-      .getByRole("button", { name: "Partie suivante", exact: true })
+      .getByRole("button", { name: "Manche suivante", exact: true })
       .click();
     await acceptConfirmation(page);
     await expect(
@@ -568,7 +576,7 @@ test("the real series connects an invited game, isolated private media, public p
     );
     await openGmReplay(page);
     await page
-      .getByRole("button", { name: "Rejouer cette partie", exact: true })
+      .getByRole("button", { name: "Rejouer cette manche", exact: true })
       .click();
     await acceptConfirmation(page);
     const replay = await read();
@@ -606,17 +614,17 @@ test("eighty-character content names keep the preparation and its mobile confirm
     )
     .toBe(true);
   const save = page.getByRole("button", {
-    name: "Enregistrer la partie",
+    name: "Enregistrer la manche",
     exact: true,
   });
   await expect(save).toBeEnabled();
   if (info.project.name === "mobile") await shot(page, info, "a2-long-names");
   await save.click();
   await expect(
-    page.getByRole("heading", { name: "Préparer une partie", exact: true }),
+    page.getByRole("heading", { name: "Manche 1", exact: true }),
   ).toBeVisible();
   await page
-    .getByRole("button", { name: "Ajouter à la série", exact: true })
+    .getByRole("button", { name: "Ajouter cette manche", exact: true })
     .click();
   await expect(page.locator(".series-runlist>li")).toHaveCount(1);
   expect(
