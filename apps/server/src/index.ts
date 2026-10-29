@@ -2,12 +2,17 @@ import { createApp } from "./app.js";
 import { readConfiguration } from "./config.js";
 import { SqliteStore } from "./sqlite-store.js";
 import { SessionService } from "./session-service.js";
+import { localQaBrowserOrigins } from "./local-browser-origins.js";
 
 const configuration = readConfiguration(process.env);
 const store = new SqliteStore(configuration.databasePath);
 const server = createApp(
   new SessionService(store, configuration.publicOrigin),
   {
+    additionalMutationOrigins: localQaBrowserOrigins(
+      configuration.publicOrigin,
+      process.env,
+    ),
     legacyTools:
       process.env.NODE_ENV !== "production" &&
       process.env.LEGACY_STUDIO_ENABLED === "1",

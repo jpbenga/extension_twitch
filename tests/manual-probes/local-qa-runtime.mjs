@@ -233,6 +233,79 @@ try {
   p.on("pageerror", (e) =>
     console.log("Browser error:", e.message.slice(0, 200)),
   );
+  // Reproduce the actual browser Origin header: GET-only localhost probes cannot catch this regression.
+  await p.goto(`${desktop}/play/undercover`);
+  await p.getByLabel("Nom du contenu A", { exact: true }).fill("Alias local A");
+  await p.getByLabel("Nom du contenu B", { exact: true }).fill("Alias local B");
+  const localImage = Buffer.from(
+    await p.evaluate(() => {
+      const c = document.createElement("canvas");
+      c.width = 24;
+      c.height = 24;
+      c.getContext("2d").fillRect(0, 0, 24, 24);
+      return c.toDataURL().split(",")[1];
+    }),
+    "base64",
+  );
+  await p.getByLabel("Image du contenu A", { exact: true }).setInputFiles({
+    name: "neutral.png",
+    mimeType: "image/png",
+    buffer: localImage,
+  });
+  await p
+    .getByRole("button", { name: "Ajouter cette manche", exact: true })
+    .click();
+  await p
+    .getByRole("button", { name: "Vérifier la partie", exact: true })
+    .click();
+  await p.getByRole("button", { name: "Ouvrir le salon", exact: true }).click();
+  await p.waitForURL(/\/sessions\/[^/]+\/gm$/);
+  assert.equal(new URL(p.url()).origin, desktop);
+  const localView = await p.evaluate(async () => {
+    const sessionId = location.pathname.split("/")[2];
+    const r = await fetch(`/api/server/sessions/${sessionId}/private`, {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem(`xt:access:${sessionId}:gm`)}`,
+      },
+    });
+    return r.json();
+  });
+  assert(localView.publicUrl.startsWith(lan));
+  assert.equal(localView.participants.length, 0);
+  assert.equal(localView.game, undefined);
+  assert(localView.undercoverPreparation.contents.a.image);
+  const mediaStatus = await p.evaluate(async (url) => {
+    const sessionId = location.pathname.split("/")[2];
+    return (
+      await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem(`xt:access:${sessionId}:gm`)}`,
+        },
+      })
+    ).status;
+  }, localView.undercoverPreparation.contents.a.image.url);
+  assert.equal(mediaStatus, 200);
+  await p.goto(`${desktop}/play/undercover?view=series`);
+  await p
+    .getByRole("button", { name: "Modifier", exact: true })
+    .first()
+    .click();
+  assert.equal(
+    await p.getByLabel("Nom du contenu A", { exact: true }).inputValue(),
+    "Alias local A",
+  );
+  assert.equal(
+    await p.getByLabel("Nom du contenu B", { exact: true }).inputValue(),
+    "Alias local B",
+  );
+  assert.equal(
+    await p
+      .getByRole("button", { name: "Retirer l’image A", exact: true })
+      .count(),
+    1,
+  );
+  records.checks.localhostBrowserCanOpenSalonWithCanonicalLanOrigin = true;
+  records.checks.localhostPreparationAndImagePreserved = true;
   const response = await p.goto(
     `${lan}/sessions/${id}/player/${actors[0].participantId}#access=${actors[0].token}`,
   );
@@ -353,6 +426,21 @@ try {
   await waitReady(`${lan}/api/server/health`);
   assert.equal((await read()).game.runId, runId);
   records.checks.sqliteRestartAndPrivateCapability = true;
+  const twitchLocalCreate = await fetch(
+    `${desktop}/api/server/official-games/undercover/sessions`,
+    {
+      method: "POST",
+      headers: {
+        Origin: desktop,
+        Authorization: `Bearer ${randomBytes(32).toString("base64url")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ requestId: randomUUID(), settings: {} }),
+    },
+  );
+  assert.equal(twitchLocalCreate.status, 201);
+  records.checks.localhostMutationUnderTwitchLauncher = true;
+
   for (const path of [
     "/",
     "/panel.html",

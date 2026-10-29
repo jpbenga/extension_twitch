@@ -265,7 +265,8 @@
     "unitIntegrationTestFiles": 28,
     "strictTypeScript": "PASS",
     "format": "PASS",
-    "buildWebServerPackagesAndTwitch": "PASS"
+    "buildWebServerPackagesAndTwitch": "PASS",
+    "testedCommit": "be648208c1ea1767ba25bb734695f9cacb18bb6f"
   },
   "certificateProbe": {
     "command": "PATH=/tmp/xt-qa-tools:$PATH CAROOT=/tmp/xt-qa-ca TRUST_STORES=none npm run twitch:cert",
@@ -296,5 +297,22 @@
     ],
     "sha256": "7a7f924da78ed599441d457015ff8fe32ec5a220422a05ebd99a4c897be293b5",
     "uploaded": false
+  },
+  "browserResultsCommit": "be648208c1ea1767ba25bb734695f9cacb18bb6f",
+  "followupOriginFix": {
+    "scope": "Local launcher localhost mutations with canonical LAN URLs; no game/data migration",
+    "globalCheck": {
+      "command": "npm run check",
+      "exitCode": 0,
+      "unitIntegrationTestsPassed": 241,
+      "unitIntegrationTestFiles": 29,
+      "newOriginRegressionTests": 12,
+      "strictTypeScript": "PASS",
+      "buildWebServerPackagesAndTwitch": "PASS"
+    },
+    "realBrowserAndLaunchers": "PASS; localhost preparation/image -> salon; local edits preserved; LAN SSE; HTTPS Twitch; localhost mutation under both launchers",
+    "evidence": "runtime-verification.json",
+    "browser225AndCapturedPngs": "Historical converged delivery be64820, not rerun in full for this follow-up",
+    "report": "../../LOCAL-QA-ORIGIN-FIX.md"
   }
 }

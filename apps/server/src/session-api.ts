@@ -29,6 +29,7 @@ export class SessionApi {
   constructor(
     private readonly service: SessionService,
     private readonly legacyTools = false,
+    private readonly additionalMutationOrigins: readonly string[] = [],
   ) {
     this.creator = new CreatorApi(new CreatorService(service.store, service));
   }
@@ -60,7 +61,11 @@ export class SessionApi {
       }
       if (method === "POST" || method === "DELETE") {
         const origin = request.headers.origin;
-        if (origin && origin !== this.service.publicOrigin)
+        if (
+          origin &&
+          origin !== this.service.publicOrigin &&
+          !this.additionalMutationOrigins.includes(origin)
+        )
           throw new SessionError("ORIGIN_DENIED", 403);
         this.limit(`network:${request.socket.remoteAddress ?? "local"}`, 240);
       }

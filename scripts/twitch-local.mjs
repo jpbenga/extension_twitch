@@ -131,6 +131,7 @@ try {
     env: {
       ...process.env,
       SERVER_HOST: "127.0.0.1",
+      LOCAL_QA_LOOPBACK_ORIGINS: "1",
       SERVER_PORT: String(serverPort),
       SERVER_ORIGIN: `http://127.0.0.1:${serverPort}`,
       WEB_HOST: "0.0.0.0",

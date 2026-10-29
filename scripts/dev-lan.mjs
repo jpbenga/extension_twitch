@@ -89,6 +89,7 @@ const child = spawn(
       PUBLIC_ORIGIN: origin.origin,
       WEB_HOST: "0.0.0.0",
       SERVER_HOST: "127.0.0.1",
+      LOCAL_QA_LOOPBACK_ORIGINS: "1",
       SERVER_PORT: String(serverPort),
       SERVER_ORIGIN: `http://127.0.0.1:${serverPort}`,
       PORT: origin.port || "80",

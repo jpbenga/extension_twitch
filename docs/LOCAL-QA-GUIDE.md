@@ -25,6 +25,8 @@ Gardez ce terminal ouvert. Attendez **Ready**. Le terminal affiche les adresses 
 - Si un port est occupé, arrêtez l’ancien serveur. Le lanceur ne tue pas une autre application et ne change pas de port silencieusement.
 - Si plusieurs adresses sont affichées, utilisez celle du Wi-Fi. L’option `PUBLIC_ORIGIN=http://ADRESSE_WIFI:3000 npm run dev:lan` permet de la choisir explicitement.
 
+**Adresse à ouvrir :** `0.0.0.0` affiché par Next.js signifie « écouter sur le réseau » ; ce n’est pas l’adresse à utiliser dans le navigateur. Utilisez `localhost` sur Mac ou l’adresse LAN affichée. Les lanceurs locaux acceptent les commandes depuis les deux adresses ; les invitations pointent toujours vers le LAN. Si vos préparations existent déjà sous `localhost`, gardez cette adresse pour les retrouver après mise à jour, sans vider le stockage. Le téléphone utilise l’adresse LAN et le lien privé GM.
+
 Ces serveurs sont destinés au réseau local de confiance, pas à une ouverture de ports Internet. En Cloud, l’IP privée de l’environnement n’est pas l’IP de votre Mac ; ce guide vise le lancement local ci-dessus.
 
 ## 2. Qui ouvre quoi ?

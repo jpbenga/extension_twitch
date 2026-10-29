@@ -28,3 +28,5 @@ Ces points sont à noter pendant la recette ; ils ne sont pas corrigés par une 
 Un premier workflow OBS réel et des explorations iPhone antérieures ont reçu des retours humains positifs ou motivé des corrections. Cette validation passée est conservée ; elle ne vaut pas validation globale de la branche QA actuelle.
 
 Contrôle Cloud : le proxy du navigateur interdit l’adresse IP LAN privée (« Domain forbidden »). Les pages/API/SSE et images sur cette IP sont vérifiées par un client HTTP interne ; les parcours Chromium utilisent loopback. Cette restriction de l’environnement Cloud ne constitue pas un test du Wi-Fi du Mac ni une validation iPhone.
+
+Correction après le premier essai de recette : le refus `ORIGIN_DENIED` depuis `localhost` alors que le lanceur utilise une adresse LAN est corrigé. Les deux lanceurs autorisent explicitement localhost/127.0.0.1 au seul port web sélectionné, uniquement en développement avec API sur loopback. La production garde sa politique stricte. Voir [le diagnostic et les vérifications](LOCAL-QA-ORIGIN-FIX.md).

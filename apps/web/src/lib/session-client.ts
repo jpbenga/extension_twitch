@@ -89,7 +89,7 @@ const messages: Record<string, string> = {
   INVALID_ROLE: "Ce rôle ne peut pas être attribué à ce joueur.",
   FORBIDDEN: "Cette action n’est pas autorisée pour votre accès.",
   ORIGIN_DENIED:
-    "L’adresse réseau ne correspond pas à PUBLIC_ORIGIN. Relancez avec npm run dev:lan ou consultez le guide iPhone.",
+    "Cette adresse n’est pas autorisée par le serveur. Utilisez l’adresse LAN affichée au lancement. Si vous utilisez déjà cette adresse, arrêtez puis relancez npm run dev:lan.",
   ADMISSION_CLOSED:
     "Le GM a fermé les invitations. Demandez-lui de les rouvrir.",
   INVITATION_NOT_FOUND:

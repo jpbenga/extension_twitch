@@ -92,3 +92,7 @@ Les fichiers APPROVED ne sont pas modifiés. Pas de refonte : la revue visuelle 
 Les cases du guide/checklist restent vierges. L’iPhone physique, Safari, OBS réel et Twitch authentifié ne sont pas testés par cette exécution Cloud. La validation OBS humaine passée est conservée sans être généralisée à cette branche.
 
 Pause/reprise réelle, fin anticipée, clôture volontaire et abandon restent **NOT_IMPLEMENTED_PENDING_PRODUCT_DECISION** ; [proposition de contrat conservée](ux/redesign/UNDERCOVER-LIFECYCLE-CONTRACT-PROPOSAL.md). Enchères et Qui est l’espion restent À venir. Le conducteur et les images futures restent locaux au navigateur de préparation ; les prochaines manches se lancent depuis cet appareil.
+
+## Correctif après le premier retour de recette
+
+Le refus d’ouverture de salon depuis localhost a été reproduit et corrigé après la livraison `be64820`. Voir [LOCAL-QA-ORIGIN-FIX.md](LOCAL-QA-ORIGIN-FIX.md) : 241 tests au contrôle global, dont 12 nouveaux, et probe réel navigateur/lanceurs. Les résultats 225 parcours et les captures ci-dessus restent ceux de la livraison de convergence ; ils ne sont pas présentés comme une nouvelle exécution intégrale du correctif. Aucune donnée du testeur n’est modifiée.

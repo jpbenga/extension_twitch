@@ -8,10 +8,17 @@ import type { SessionService } from "./session-service.js";
 
 export function createApp(
   service?: SessionService,
-  options: { legacyTools?: boolean } = {},
+  options: {
+    legacyTools?: boolean;
+    additionalMutationOrigins?: readonly string[];
+  } = {},
 ) {
   const sessions = service
-    ? new SessionApi(service, options.legacyTools)
+    ? new SessionApi(
+        service,
+        options.legacyTools,
+        options.additionalMutationOrigins,
+      )
     : null;
   return createServer((request, response) => {
     response.setHeader("Cache-Control", "no-store");
