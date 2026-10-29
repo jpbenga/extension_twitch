@@ -247,3 +247,20 @@ SQLite et explicitement projeté au public. Le défaut historique est détermini
 aucun endpoint de préférence locale ne modifie une partie active. La préférence
 ApplicationTheme est locale au navigateur. Le renderer scope ses tokens selon le
 thème serveur, y compris dans l’éditeur de layout. Aucune migration SQL destructrice.
+
+## Extension native — Local Test en lecture seule
+
+Le workspace `apps/twitch` produit les entrées statiques Panel/Mobile/Video Overlay
+et Config/Live Config. Elles chargent le Helper Twitch officiel, attendent son
+autorisation et utilisent Configuration Service pour conserver uniquement un
+pointeur public vers la session et son origine HTTPS. Le même BroadcastFeed/Overlay
+que l’aperçu et OBS consomme les projections publiques et les images autorisées.
+La passerelle HTTPS locale n’autorise que les lectures publiques ; elle ne relaie
+aucun Cookie/Authorization, mutation, accès GM/joueur ou route arbitraire.
+
+Ce Viewer ne nécessite pas d’EBS privilégié, de JWT vérifié par notre serveur ou de
+secret d’extension : aucune commande Twitch n’est exécutée. Un tel besoin imposerait
+une nouvelle frontière authentifiée, non simulée ici. Le type Panel est le point
+d’entrée sans live ; la vérification d’un Overlay sur la vidéo est séparée. Voir
+[TWITCH-LOCAL-TEST.md](TWITCH-LOCAL-TEST.md) et le bilan associé pour les limites de
+Local Test, du mobile, du Hosted Test et de l’environnement Cloud.
