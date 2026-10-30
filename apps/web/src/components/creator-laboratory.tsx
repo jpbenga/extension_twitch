@@ -255,7 +255,7 @@ export function CreatorLaboratory({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Aperçu de l’émission ↗
+                Répétition avant direct ↗
               </a>
             </div>
             <label className="creator-check lab-compare-control">

@@ -38,7 +38,7 @@ Ces serveurs sont destinés au réseau local de confiance, pas à une ouverture 
 | Mac, onglets neufs 1, 2, 3         | Même invitation, trois noms différents  | Trois identités distinctes. Ne pas dupliquer un onglet joueur connecté.                                      |
 | Smartphone, onglet neuf facultatif | Invitation ou lien privé d’un joueur    | Interface joueur tactile. Ne pas rejoindre à nouveau sous un nom déjà utilisé pour récupérer un accès perdu. |
 | Mac, onglet public                 | Lien du plateau public                  | Aucune information privée.                                                                                   |
-| Mac, aperçu / OBS                  | Liens fournis par Plateau               | Même renderer et mêmes données publiques, avec ou sans scène fictive.                                        |
+| Mac, répétition / OBS              | Liens fournis par Plateau               | Même renderer et mêmes données publiques, avec scène de contrôle, caméra locale ou fond transparent.         |
 
 Le lien GM est confidentiel. Une invitation permet de rejoindre ; elle ne permet pas d’animer. Un lien public ne donne pas de droits de joueur ou de GM.
 
@@ -104,12 +104,12 @@ Le test rapide porte sur le **brouillon courant**, sans rattachement au conducte
 
 Remplacez `<id>` par la session en cours en utilisant ses liens, sans recopier un accès privé dans Twitch ou OBS.
 
-| Surface                  | Fonction           | À observer                                                                                                                                      |
-| ------------------------ | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/sessions/<id>/public`  | Plateau spectateur | Informations publiques seulement, synchronisation sans recharger.                                                                               |
-| `/sessions/<id>/stream`  | Aperçu d’émission  | Scène fictive facultative, même overlay, retour vers la régie pour un accès GM ; vers le laboratoire seulement avec son accès QA correspondant. |
-| `/sessions/<id>/obs`     | Source OBS         | Fond réellement transparent, canevas 1920 × 1080, aucun bouton GM/joueur.                                                                       |
-| `/sessions/<id>/overlay` | Éditeur avancé GM  | Sept blocs, quatre dispositions, placement/taille, sauvegarde réelle et conflits. Ce n’est pas une URL spectateur.                              |
+| Surface                  | Fonction           | À observer                                                                                                         |
+| ------------------------ | ------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| `/sessions/<id>/public`  | Plateau spectateur | Informations publiques seulement, synchronisation sans recharger.                                                  |
+| `/sessions/<id>/stream`  | Répétition         | Scène de contrôle, caméra locale facultative ou overlay seul ; même projection publique, sans aucun live.          |
+| `/sessions/<id>/obs`     | Source OBS         | Fond réellement transparent, canevas 1920 × 1080, aucun bouton GM/joueur.                                          |
+| `/sessions/<id>/overlay` | Éditeur avancé GM  | Sept blocs, quatre dispositions, placement/taille, sauvegarde réelle et conflits. Ce n’est pas une URL spectateur. |
 
 Dans OBS, ajoutez une **Source navigateur**, collez l’URL publique `/obs`, largeur **1920**, hauteur **1080**. Placez une source Couleur/Image en dessous pour constater la transparence. Gardez l’application ouverte sur Mac ; la partie réelle alimente OBS. Aucun compte Twitch ou live n’est requis. Le premier workflow OBS a déjà été validé par l’utilisateur ; les changements de cette branche demandent un nouvel essai réel.
 

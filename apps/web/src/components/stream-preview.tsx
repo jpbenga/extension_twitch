@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
   officialThemes,
@@ -27,6 +27,12 @@ export function StreamPreview({ id }: { id: string }) {
     href: `/sessions/${id}/public`,
     label: "← Plateau public",
   });
+  const camera = useRef<MediaStream | null>(null),
+    cameraVideo = useRef<HTMLVideoElement | null>(null),
+    cameraRequest = useRef(0);
+  const [cameraActive, setCameraActive] = useState(false),
+    [cameraBusy, setCameraBusy] = useState(false),
+    [cameraError, setCameraError] = useState("");
   useEffect(() => {
     setOrigin(window.location.origin);
     const controller = new AbortController();
@@ -68,6 +74,55 @@ export function StreamPreview({ id }: { id: string }) {
     })();
     return () => controller.abort();
   }, [id]);
+  useEffect(() => {
+    if (cameraVideo.current) cameraVideo.current.srcObject = camera.current;
+  }, [cameraActive, mode]);
+  useEffect(
+    () => () => {
+      cameraRequest.current += 1;
+      camera.current?.getTracks().forEach((track) => track.stop());
+    },
+    [],
+  );
+  const stopCamera = () => {
+    cameraRequest.current += 1;
+    camera.current?.getTracks().forEach((track) => track.stop());
+    camera.current = null;
+    setCameraActive(false);
+    setCameraBusy(false);
+  };
+  const changeMode = (next: string) => {
+    if (next !== "camera") stopCamera();
+    setCameraError("");
+    setMode(next);
+  };
+  const startCamera = async () => {
+    stopCamera();
+    const request = ++cameraRequest.current;
+    setCameraBusy(true);
+    setCameraError("");
+    try {
+      if (!navigator.mediaDevices?.getUserMedia)
+        throw new Error("Camera API unavailable");
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: false,
+      });
+      if (request !== cameraRequest.current) {
+        stream.getTracks().forEach((track) => track.stop());
+        return;
+      }
+      camera.current = stream;
+      setCameraActive(true);
+    } catch {
+      if (request === cameraRequest.current)
+        setCameraError(
+          "La caméra n’est pas disponible ici. Autorisez-la dans Chrome et ouvrez cette répétition depuis localhost sur le Mac.",
+        );
+    } finally {
+      if (request === cameraRequest.current) setCameraBusy(false);
+    }
+  };
   return (
     <main className="stitch-page broadcast-workbench broadcast-preview-page">
       <div className="broadcast-workbench-inner stream-preview-shell">
@@ -76,34 +131,89 @@ export function StreamPreview({ id }: { id: string }) {
         </Link>
         <header className="broadcast-page-heading">
           <div>
-            <h1>Aperçu de l’émission</h1>
-            <p>Scène fictive · aucun flux Twitch</p>
+            <h1>Répétition avant direct</h1>
+            <p>Vraie partie synchronisée · aucun flux Twitch</p>
           </div>
           <small>
             Thème public :{" "}
             {officialThemes.find((theme) => theme.id === broadcastTheme)?.name}
           </small>
         </header>
+        <p className="broadcast-rehearsal-intro">
+          Gardez cette page ouverte à côté de la régie. Les passages, votes et
+          résultats acceptés par le serveur apparaissent ici automatiquement,
+          sans diffusion vers Twitch.
+        </p>
         <SegmentedControl
-          label="Fond de la prévisualisation"
+          label="Décor de la répétition"
           value={mode}
-          onChange={setMode}
+          onChange={changeMode}
           options={[
-            { value: "scene", label: "Scène fictive" },
+            { value: "scene", label: "Scène de contrôle" },
+            { value: "camera", label: "Ma caméra" },
             { value: "transparent", label: "Overlay seul" },
           ]}
         />
         <div
-          className={`broadcast-preview-canvas ${mode === "transparent" ? "broadcast-checker" : ""}`}
+          className={`broadcast-preview-canvas ${mode === "transparent" ? "broadcast-checker" : ""} ${mode === "camera" ? "is-camera" : ""}`}
         >
-          <BroadcastFeed
-            id={id}
-            scene={mode === "scene"}
-            onTheme={setBroadcastTheme}
-          />
+          {mode === "camera" ? (
+            <div className="broadcast-camera-stage">
+              <video
+                ref={cameraVideo}
+                className="broadcast-camera-video"
+                aria-label="Aperçu local de ma caméra"
+                autoPlay
+                muted
+                playsInline
+              />
+              <div className="broadcast-camera-overlay">
+                <BroadcastFeed id={id} onTheme={setBroadcastTheme} />
+              </div>
+              {!cameraActive && (
+                <div className="broadcast-camera-permission">
+                  <strong>Caméra locale désactivée</strong>
+                  <p>
+                    L’image reste sur ce Mac et n’est envoyée ni au serveur ni à
+                    Twitch.
+                  </p>
+                  <button
+                    type="button"
+                    className="primary-button"
+                    disabled={cameraBusy}
+                    onClick={() => void startCamera()}
+                  >
+                    {cameraBusy
+                      ? "Autorisation en cours…"
+                      : "Activer ma caméra"}
+                  </button>
+                  {cameraError && <p role="alert">{cameraError}</p>}
+                </div>
+              )}
+            </div>
+          ) : (
+            <BroadcastFeed
+              id={id}
+              scene={mode === "scene"}
+              onTheme={setBroadcastTheme}
+            />
+          )}
         </div>
+        {mode === "camera" && cameraActive && (
+          <div className="broadcast-camera-controls" role="status">
+            <span>Caméra active uniquement dans cette répétition.</span>
+            <button
+              type="button"
+              className="secondary-button"
+              onClick={stopCamera}
+            >
+              Désactiver la caméra
+            </button>
+          </div>
+        )}
         <p className="broadcast-caption">
-          Miniature 16:9 · même plateau public que la source OBS.
+          Cadre 16:9 · même projection publique que la source OBS et l’extension
+          Twitch.
         </p>
         <details className="stream-tools">
           <summary>Utiliser ce plateau dans OBS</summary>

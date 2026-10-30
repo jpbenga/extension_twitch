@@ -16,14 +16,23 @@ l’Overlay Twitch et la source OBS lisent tous la même projection publique.
 
 ## Parcours recommandé avant un vrai direct
 
-1. Lancez la régie et ouvrez une vraie partie.
-2. Dans OBS, créez une scène et ajoutez **Périphérique de capture vidéo** pour la
+1. Lancez la régie et ouvrez une vraie partie. Dans **Plateau**, ouvrez
+   **Répétition avant direct** dans un deuxième onglet.
+2. Choisissez **Scène de contrôle** pour vérifier le cadrage, **Ma caméra** pour
+   superposer la vraie projection publique à votre webcam, ou **Overlay seul** pour
+   contrôler la transparence. Chrome demande l’autorisation de la caméra ; cette
+   image reste dans le navigateur et n’est envoyée ni au serveur ni à Twitch. Sur le
+   Mac, utilisez `http://localhost:3000` pour que Chrome autorise cette caméra locale.
+3. Gardez la régie et la répétition côte à côte. Distribuez, confirmez chaque passage,
+   ouvrez les votes et révélez le résultat. La répétition doit passer automatiquement
+   de **Synchronisé** aux nouveaux états sans rechargement.
+4. Dans OBS, créez ensuite une scène et ajoutez **Périphérique de capture vidéo** pour la
    webcam, puis la source audio voulue.
-3. Ajoutez une **Source navigateur** au-dessus de la webcam. Collez le lien `/obs`
+5. Ajoutez une **Source navigateur** au-dessus de la webcam. Collez le lien `/obs`
    fourni par l’onglet Plateau de la régie. Utilisez 1920 × 1080.
-4. Bougez la partie depuis la régie. L’aperçu OBS doit montrer immédiatement la
+6. Bougez la partie depuis la régie. L’aperçu OBS doit montrer immédiatement la
    caméra et les changements publics du plateau, sans envoyer de live.
-5. Quand cette composition est correcte, connectez OBS à Twitch et choisissez
+7. Quand cette composition est correcte, connectez OBS à Twitch et choisissez
    **Démarrer le streaming**. Cette action crée un véritable direct Twitch.
 
 Cette composition OBS est visible dans l’enregistrement et la VOD. Pour tester à la

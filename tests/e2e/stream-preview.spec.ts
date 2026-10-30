@@ -19,7 +19,7 @@ const test = base.extend<{
   open: (
     href: string,
     phone?: boolean,
-    before?: (page: Page) => void,
+    before?: (page: Page) => void | Promise<void>,
   ) => Promise<Page>;
 }>({
   open: async ({ browser, page }, use) => {
@@ -33,7 +33,7 @@ const test = base.extend<{
         });
         contexts.push(context);
         const next = await context.newPage();
-        before?.(next);
+        await before?.(next);
         await next.goto(href);
         return next;
       });
@@ -122,11 +122,12 @@ test("a complete real Undercover show shares one public renderer between preview
     players.push(p);
   }
   const privateRequests: string[] = [];
-  const observe = (client: Page) =>
+  const observe = (client: Page) => {
     client.on("request", (r) => {
       if (r.url().includes("/private") || r.url().includes("/commands"))
         privateRequests.push(r.url());
     });
+  };
   const preview = await open(`/sessions/${id}/stream`, false, observe),
     obs = await open(`/sessions/${id}/obs`, false, observe);
   await synced(preview);
@@ -340,7 +341,20 @@ test("spectator testing is honestly read-only, the comparison is public and the 
   open,
 }, info) => {
   const id = await demo(page, 12, true);
-  const preview = await open(`/sessions/${id}/stream`);
+  const preview = await open(
+    `/sessions/${id}/stream`,
+    false,
+    async (previewPage) => {
+      await previewPage.addInitScript(() => {
+        Object.defineProperty(navigator, "mediaDevices", {
+          configurable: true,
+          value: {
+            getUserMedia: async () => new MediaStream(),
+          },
+        });
+      });
+    },
+  );
   await synced(preview);
   await openBroadcastHelp(preview);
   await expect(
@@ -386,8 +400,19 @@ test("spectator testing is honestly read-only, the comparison is public and the 
       fullPage: true,
     });
   }
+  await preview.getByRole("button", { name: "Ma caméra", exact: true }).click();
   await preview
-    .getByRole("button", { name: "Scène fictive", exact: true })
+    .getByRole("button", { name: "Activer ma caméra", exact: true })
+    .click();
+  await expect(preview.locator(".broadcast-camera-controls")).toContainText(
+    "Caméra active uniquement",
+  );
+  await expect(preview.getByLabel("Aperçu local de ma caméra")).toBeVisible();
+  await preview
+    .getByRole("button", { name: "Désactiver la caméra", exact: true })
+    .click();
+  await preview
+    .getByRole("button", { name: "Scène de contrôle", exact: true })
     .click();
   await preview.screenshot({
     path: info.outputPath("emission-douze-joueurs.png"),

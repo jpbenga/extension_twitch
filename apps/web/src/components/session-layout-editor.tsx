@@ -215,7 +215,7 @@ export function SessionLayoutEditor({ id }: { id: string }) {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Aperçu de l’émission ↗
+                Répétition avant direct ↗
               </a>
               <a
                 className="text-link"

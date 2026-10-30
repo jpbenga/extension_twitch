@@ -378,7 +378,7 @@ export function UndercoverRoom({
               target="_blank"
               rel="noopener noreferrer"
             >
-              Aperçu de l’émission ↗
+              Répétition avant direct ↗
             </a>
             <Link
               className="text-link"
