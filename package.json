@@ -47,6 +47,7 @@
     "twitch:build": "npm run build:packages && node scripts/twitch-build.mjs",
     "twitch:cert": "node scripts/twitch-cert.mjs",
     "twitch:local": "node scripts/twitch-local.mjs",
+    "twitch:hosted": "node scripts/twitch-hosted.mjs",
     "twitch:package": "npm run twitch:build && node scripts/twitch-package.mjs",
     "test:twitch": "node scripts/test-e2e.mjs --config=playwright.twitch.config.ts"
   },

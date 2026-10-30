@@ -8,6 +8,10 @@ Cette livraison prépare **Local Test**, sans Review, Release, publication ni é
 
 **Commencez par le type Panel.** Il permet de tester la surface d’extension sous le lecteur de la chaîne, sans faire du live vidéo le prérequis du scénario. Il ne superpose pas l’habillage à une vidéo. L’entrée Video Overlay utilise le même renderer, mais sa présence au-dessus du lecteur Twitch peut nécessiter une chaîne en direct : ce test est séparé et n’est pas déclenché ici.
 
+Pour voir la webcam et l’habillage dans une même image, suivez le
+[guide Hosted Test, OBS, caméra et overlay](TWITCH-HOSTED-WORKFLOW.md). La webcam
+vient d’OBS ; l’extension ne démarre jamais elle-même un flux vidéo.
+
 Les exemples officiels Twitch documentent cette distinction. L’affichage effectif d’une extension non publiée sur votre compte, et particulièrement dans l’application mobile Twitch, reste à vérifier humainement. Aucun compte Twitch n’a été utilisé depuis le Cloud.
 
 ## Première configuration sur votre Mac
@@ -166,9 +170,9 @@ Le GM et les joueurs sur iPhone n’ont pas besoin d’un certificat Twitch : il
 
 Une réussite dans Safari ne prouve pas une réussite dans le WebView de l’application Twitch. Si Local Test mobile n’est pas proposé ou n’accepte pas cette connexion, cochez **non disponible**, gardez le GM/joueurs mobiles, et prévoyez Hosted Test mobile. Ne désactivez pas TLS et n’exposez pas le développement sur Internet pour contourner cette limitation.
 
-## Hosted Test — deuxième jalon, non activé
+## Hosted Test — assets hébergés et relais temporaire
 
-Le dépôt prépare les assets statiques, pas un déploiement :
+Le dépôt prépare les assets statiques :
 
 ```bash
 npm run twitch:package
@@ -185,7 +189,12 @@ Passage manuel futur :
 5. Téléverser l’archive dans la section Files/Assets de la version, puis choisir **Hosted Test**, jamais Review ou Release.
 6. Configurer l’association avec l’origine de test réellement accessible et le lien public de la session ; installer/activer pour les comptes de test et reprendre la checklist.
 
-Le frontend peut être hébergé chez Twitch sans que le relais et le jeu le soient. Un Hosted Test interappareils distant exige un hébergement HTTPS de test protégé et une configuration d’exploitation supplémentaire, non livrés ici. Aucune commande de ce dépôt n’ouvre un tunnel public ni un port Internet.
+Le frontend peut être hébergé chez Twitch sans que le relais et le jeu le soient. Pour
+une recette ponctuelle, `npm run twitch:hosted` lance le serveur local et un Quick
+Tunnel Cloudflare dans le même terminal. Ce tunnel public temporaire n’expose que la
+passerelle en lecture seule et change d’URL après chaque redémarrage ; suivez le
+[guide Hosted Test](TWITCH-HOSTED-WORKFLOW.md). Une exploitation durable exige une
+origine HTTPS stable et une configuration distincte.
 
 ## Dépannage rapide
 

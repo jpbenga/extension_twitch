@@ -227,6 +227,11 @@ Ensuite `npm run twitch:local` lance l’application LAN et la surface HTTPS Twi
 Le compte, Configuration Service et l’activation Local Test nécessitent la console
 Twitch ; aucune connexion Twitch fictive n’est intégrée.
 
+Pour un Hosted Test avec relais temporaire, `npm run twitch:hosted` lance dans un
+seul terminal l’application et le tunnel HTTPS, puis imprime les valeurs à recopier.
+Le parcours caméra, OBS, Panneau et Overlay vidéo est détaillé dans
+[le guide Hosted Test et diffusion](docs/TWITCH-HOSTED-WORKFLOW.md).
+
 [Guide simple et actions humaines](docs/TWITCH-LOCAL-TEST.md) ·
 [Checklist](docs/TWITCH-LOCAL-TEST-CHECKLIST.md) ·
 [Architecture et résultats](docs/TWITCH-LOCAL-TEST-DELIVERY.md).

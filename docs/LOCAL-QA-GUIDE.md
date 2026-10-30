@@ -143,6 +143,11 @@ Puis :
 npm run twitch:local
 ```
 
+Pour le Hosted Test avec un relais Cloudflare temporaire, utilisez plutôt
+`npm run twitch:hosted` : une seule commande conserve l’application et le tunnel dans
+le même terminal et imprime la nouvelle URL. Voir le
+[guide Hosted Test, OBS, caméra et overlay](TWITCH-HOSTED-WORKFLOW.md).
+
 Ouvrez `https://localhost:8443/` sur Mac : la page de diagnostic doit fonctionner sans erreur TLS. `panel.html`, `mobile.html`, `video_overlay.html` et `config.html` sont les entrées de l’extension. **Ouvertes directement hors Twitch, elles attendent le Helper / l’autorisation : c’est attendu.** Aucun faux Helper n’est installé dans l’application.
 
 Pour le vrai test Twitch, suivez les étapes de [configuration du Local Test](TWITCH-LOCAL-TEST.md#actions-humaines-twitch-requises) : compte de test, type Panel, Testing Base URI affichée, Configuration Service, installation privée et association du lien **public** de la session. Le serveur public HTTPS est l’origine imprimée par le lanceur. Aucun OAuth/secret/stream key n’est requis par notre viewer en lecture seule.
