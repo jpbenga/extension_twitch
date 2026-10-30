@@ -6,6 +6,7 @@ import {
   type PublicSessionView,
 } from "@extension-twitch/contracts/sessions";
 import { parseSse } from "./session-client";
+import { localNetworkRequest } from "./local-network-request";
 
 /** Read-only transport shared by OBS and the native Twitch viewer. No private storage or credential. */
 export function usePublicSession(id: string, apiOrigin = "") {
@@ -30,11 +31,11 @@ export function usePublicSession(id: string, apiOrigin = "") {
           watchdog = setTimeout(() => current?.abort(), 15000);
           const response = await fetch(
             `${apiOrigin}/api/server/sessions/${id}/public/events`,
-            {
+            localNetworkRequest(apiOrigin, {
               signal: current.signal,
               credentials: apiOrigin ? "omit" : "same-origin",
               cache: "no-store",
-            },
+            }),
           );
           clearTimeout(watchdog);
           if ([401, 403, 404].includes(response.status)) {

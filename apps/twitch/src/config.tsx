@@ -5,6 +5,7 @@ import {
   sessionFromPublicInput,
   viewerConfigurationSchema,
 } from "./configuration";
+import { localNetworkRequest } from "../../web/src/lib/local-network-request";
 import "../../web/src/app/tokens.css";
 import "./twitch.css";
 
@@ -80,7 +81,10 @@ function Config() {
             });
             const response = await fetch(
               `${c.apiOrigin}/api/server/sessions/${c.sessionId}/public`,
-              { credentials: "omit", cache: "no-store" },
+              localNetworkRequest(c.apiOrigin, {
+                credentials: "omit",
+                cache: "no-store",
+              }),
             );
             if (!response.ok)
               throw new Error(

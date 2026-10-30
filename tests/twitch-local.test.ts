@@ -27,6 +27,7 @@ import {
   sessionFromPublicInput,
   viewerConfigurationSchema,
 } from "../apps/twitch/src/configuration.js";
+import { localNetworkRequest } from "../apps/web/src/lib/local-network-request.js";
 
 describe("native Twitch viewer configuration", () => {
   const id = randomUUID();
@@ -72,6 +73,21 @@ describe("native Twitch viewer configuration", () => {
         gmToken: "forbidden",
       }).success,
     ).toBe(false);
+  });
+  it("marks only loopback and private relay reads for Chromium local network access", () => {
+    expect(
+      localNetworkRequest("https://localhost:8443", { cache: "no-store" }),
+    ).toMatchObject({ cache: "no-store", targetAddressSpace: "local" });
+    expect(
+      localNetworkRequest("https://192.168.0.46:8443", {
+        credentials: "omit",
+      }),
+    ).toMatchObject({ credentials: "omit", targetAddressSpace: "private" });
+    expect(
+      localNetworkRequest("https://preview.example.com", {
+        cache: "no-store",
+      }),
+    ).toEqual({ cache: "no-store" });
   });
 });
 describe("HTTPS public-only Twitch gateway with the actual game backend", () => {
