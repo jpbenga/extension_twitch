@@ -72,6 +72,7 @@ async function native(
   info: TestInfo,
   configuration: unknown,
   helper = true,
+  echoConfigurationChanges = true,
 ) {
   // This exemption is scoped to the generated test-only certificate/context, never the developer launcher.
   const context = await browser.newContext({
@@ -85,7 +86,7 @@ async function native(
           body: `
     // Automated boundary fixture; this file is never shipped in the extension.
     let callback=()=>{};
-    const configuration={broadcaster:${configuration === null ? "undefined" : JSON.stringify({ version: "1", content: JSON.stringify(configuration) })},onChanged(cb){callback=cb;queueMicrotask(cb)},set(segment,version,content){configuration.broadcaster={version,content};queueMicrotask(callback)}};
+    const configuration={broadcaster:${configuration === null ? "undefined" : JSON.stringify({ version: "1", content: JSON.stringify(configuration) })},onChanged(cb){callback=cb;queueMicrotask(cb)},set(segment,version,content){if(${echoConfigurationChanges}){configuration.broadcaster={version,content};queueMicrotask(callback)}}};
     window.Twitch={ext:{configuration,onAuthorized(cb){queueMicrotask(()=>cb({channelId:"123",clientId:"fixture"}))}}};
   `,
         })
@@ -226,6 +227,26 @@ test("configuration rejects private links and persists only a public pointer thr
     "Partie associée au plateau Twitch.",
   );
   await screenshot(n.page, info, "config-automated-helper-fixture");
+  await n.context.close();
+});
+test("configuration does not report a false failure when Twitch does not echo set", async ({
+  browser,
+  request,
+}, info) => {
+  const f = await fixture(request, 3),
+    n = await native(browser, info, null, true, false);
+  await n.page.goto(`${origin}/config.html`);
+  await n.page.getByLabel("Serveur public HTTPS").fill(origin);
+  await n.page.getByLabel("Lien public du plateau").fill(f.id);
+  await n.page
+    .getByRole("button", { name: "Associer cette partie", exact: true })
+    .click();
+  await expect(n.page.getByRole("status")).toHaveText(
+    "Association transmise à Twitch. Fermez puis rouvrez cette fenêtre pour vérifier l’enregistrement.",
+  );
+  await expect(
+    n.page.getByRole("button", { name: "Associer cette partie", exact: true }),
+  ).toBeEnabled();
   await n.context.close();
 });
 test("real Undercover commands update native viewer, images, elimination, victory, reconnect, next preparation and replay", async ({

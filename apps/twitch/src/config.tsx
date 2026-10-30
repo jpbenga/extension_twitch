@@ -17,7 +17,6 @@ function Config() {
     [message, setMessage] = useState("");
   const pending = useRef<string | null>(null),
     inFlight = useRef(false);
-  const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   useEffect(() => {
     const ext = helper();
     let disposed = false;
@@ -45,7 +44,8 @@ function Config() {
             pending.current = null;
             inFlight.current = false;
             setBusy(false);
-            clearTimeout(timer.current);
+          } else if (!pending.current) {
+            setMessage("Partie associée au plateau Twitch.");
           }
         }
       } catch {
@@ -56,7 +56,6 @@ function Config() {
     });
     return () => {
       disposed = true;
-      clearTimeout(timer.current);
     };
   }, []);
   return (
@@ -99,16 +98,21 @@ function Config() {
               throw new Error("Choisissez une partie Undercover.");
             const content = JSON.stringify(c);
             pending.current = content;
-            helper()!.configuration.set("broadcaster", "1", content);
-            // A helper call alone is not a confirmation of persistence.
-            timer.current = setTimeout(() => {
+            setMessage(
+              "Association transmise à Twitch. Fermez puis rouvrez cette fenêtre pour vérifier l’enregistrement.",
+            );
+            const ext = helper()!;
+            ext.configuration.set("broadcaster", "1", content);
+            inFlight.current = false;
+            setBusy(false);
+            // Twitch's Helper has no acknowledgement callback for set(). Some
+            // authenticated Hosted Test views do not echo the change through
+            // onChanged. A value already loaded from Configuration Service is
+            // still an authoritative confirmation for an identical pointer.
+            if (ext.configuration.broadcaster?.content === content) {
               pending.current = null;
-              inFlight.current = false;
-              setBusy(false);
-              setMessage(
-                "Twitch n’a pas confirmé l’enregistrement. Vérifiez Configuration Service et les droits du diffuseur, puis réessayez.",
-              );
-            }, 10000);
+              setMessage("Partie associée au plateau Twitch.");
+            }
           } catch (error) {
             pending.current = null;
             inFlight.current = false;

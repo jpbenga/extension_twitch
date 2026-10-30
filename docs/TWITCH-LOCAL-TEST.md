@@ -96,7 +96,7 @@ Ces actions nécessitent votre compte. Le dépôt ne les effectue pas et ne supp
 4. Ouvrez la page **Configurer** de l’extension depuis Twitch.
 5. Dans **Serveur public HTTPS**, conservez `https://localhost:8443` pour le test sur le Mac.
 6. Collez le lien public dans **Lien public du plateau** et touchez **Associer cette partie**.
-7. Attendez **Partie associée au plateau Twitch**. Si Twitch ne confirme pas, vérifiez Configuration Service, le compte diffuseur et les droits de configuration ; une simple tentative n’est pas annoncée comme enregistrée.
+7. Si le Helper renvoie immédiatement la nouvelle valeur, la page affiche **Partie associée au plateau Twitch**. Sinon elle indique que l’association a été transmise : fermez puis rouvrez la configuration. Les champs rechargés et le message **Partie associée au plateau Twitch** confirment alors la valeur conservée par Configuration Service.
 8. Ouvrez votre chaîne avec le compte de test autorisé et trouvez le Panel. Il doit afficher la préparation de cette session. Si votre compte/version Twitch n’affiche pas le Panel hors ligne, constatez cette limite dans la checklist ; ne lancez pas de live par défaut. La prévisualisation de la console peut aider au diagnostic sans remplacer le test sur la chaîne.
 
 L’association contient seulement l’identifiant public de la session et l’origine HTTPS du relais. Aucune capacité GM/joueur, affectation privée ou préparation future n’est envoyée à Twitch. Vous ne devenez pas joueur parce que vous regardez ce Panel.
@@ -196,7 +196,7 @@ Le frontend peut être hébergé chez Twitch sans que le relais et le jeu le soi
 | Helper indisponible             | Ouvrir depuis Twitch, pas directement comme une page autonome.                                                   |
 | Pas d’autorisation Twitch       | Compte de test, installation, activation et état Local Test.                                                     |
 | Partie non associée             | Configurer l’extension depuis Twitch, activer Configuration Service.                                             |
-| Association non confirmée       | Droits du diffuseur, Configuration Service, erreurs de réseau Twitch ; aucune réussite fictive.                  |
+| Association seulement transmise | Fermer puis rouvrir la configuration ; les champs rechargés confirment la valeur conservée par Twitch.           |
 | Plateau inaccessible            | Serveur local actif, certificat reconnu, origine correcte et session existante.                                  |
 | Pas de Panel sur la chaîne      | Type Panel activé, emplacement actif et compte autorisé ; noter une éventuelle restriction Twitch hors ligne.    |
 | Pas de grandes cartes           | Duo/affectations non publiés ou apparition temporaire terminée ; le centre dégagé est volontaire.                |
