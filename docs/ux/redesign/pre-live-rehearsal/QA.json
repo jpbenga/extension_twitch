@@ -1,0 +1,39 @@
+{
+  "status": "PASS_WITH_STITCH_THUMBNAIL_CACHE_NOTE",
+  "independentReview": "SHIP",
+  "applicationCodeChanged": false,
+  "backendChanged": false,
+  "gitPublished": true,
+  "sourceReference": {
+    "repository": "repository root",
+    "commit": "496763aafcb1f9d2e505cb9171725b35ca553540",
+    "statusAtFinalCheck": ["?? .DS_Store"],
+    "applicationFilesChangedByThisWork": []
+  },
+  "screensCaptured": 12,
+  "prototypeRoutes": 16,
+  "branchSupportRoutes": [
+    "live-lobby-handoff",
+    "rehearsal-lobby-handoff",
+    "rehearsal-discussion-no-camera-desktop",
+    "rehearsal-vote-no-camera-desktop"
+  ],
+  "viewports": {
+    "desktop": "1440x1000",
+    "mobile": "390x844"
+  },
+  "checks": {
+    "singleDominantAction": true,
+    "noHorizontalScrollInLocalPrototype": true,
+    "mobileTouchTargetsAtLeast48px": true,
+    "cameraOptionalAndNonBlocking": true,
+    "cameraFreeContinuationTraversable": true,
+    "realPlayLobbyContextSeparated": true,
+    "rehearsalLobbyContextSeparated": true,
+    "preparedPartyPreserved": true,
+    "twitchOptionalForRehearsal": true,
+    "developerConceptsHiddenInLocalPrototype": true,
+    "fakeStartLiveAbsent": true
+  },
+  "note": "Stitch HTML received targeted cleanup edits after generation. Its visual thumbnails may remain cached on the pre-edit capture; local controlled captures are authoritative for this validation round."
+}

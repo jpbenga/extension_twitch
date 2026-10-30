@@ -1,0 +1,13 @@
+{
+  "status": "APPROVED",
+  "humanApproved": true,
+  "approvalType": "explicit human visual approval",
+  "userMessage": "OK, je valide, donc cette capture d'écran me plaît bien, donc je valide ça.",
+  "recordedAt": "2026-10-30T19:13:25+01:00",
+  "projectId": "6533527202779027418",
+  "screenCount": 12,
+  "approvalScope": "The exact twelve Stitch references listed in manifest.json, the local controlled captures, the interactive prototype, storyboard and handoff. The four prototype support routes are behavioral references and do not add Stitch deliverables.",
+  "implementationStarted": false,
+  "sourceApplicationModified": false,
+  "gitPublished": true
+}

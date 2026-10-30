@@ -1,0 +1,154 @@
+{
+  "feature": "pre-live-rehearsal",
+  "product": "Extension Twitch Studio",
+  "game": "Undercover",
+  "status": "APPROVED",
+  "humanApproved": true,
+  "stitch": {
+    "projectId": "6533527202779027418",
+    "projectTitle": "Extension Twitch — Répétition avant direct",
+    "projectUrl": "https://stitch.withgoogle.com/projects/6533527202779027418",
+    "designSystemId": "assets/b9f07f754df540d79cd9ad05bab68017",
+    "designSystemName": "Nocturne Broadcast"
+  },
+  "prototypeSupportRoutes": [
+    {
+      "localRoute": "prototype.html?screen=live-lobby-handoff",
+      "role": "Frontière vers le salon de vraie partie ; ne lance jamais la répétition."
+    },
+    {
+      "localRoute": "prototype.html?screen=rehearsal-lobby-handoff",
+      "role": "Frontière vers le salon de répétition avec vrais joueurs."
+    },
+    {
+      "localRoute": "prototype.html?screen=rehearsal-discussion-no-camera-desktop",
+      "role": "Continuation interne de la répétition lorsque la caméra reste désactivée."
+    },
+    {
+      "localRoute": "prototype.html?screen=rehearsal-vote-no-camera-desktop",
+      "role": "Vote interne de la répétition sans caméra."
+    }
+  ],
+  "screens": [
+    {
+      "order": 1,
+      "screenId": "5abada67acfc4493866939eafb5eb3ca",
+      "title": "AFTER — Pre-live rehearsal — Party ready — Desktop — v1",
+      "device": "desktop",
+      "role": "Raccordement depuis la série préparée ; introduit l’action Tester avant le direct.",
+      "stitchUrl": "https://stitch.withgoogle.com/projects/6533527202779027418?node-id=5abada67acfc4493866939eafb5eb3ca",
+      "localRoute": "prototype.html?screen=partie-ready-desktop",
+      "localCapture": "screens/partie-ready-desktop.png"
+    },
+    {
+      "order": 2,
+      "screenId": "043d67a780e34c44ab78d9dabda3c4ae",
+      "title": "AFTER — Pre-live rehearsal — Party ready — Mobile — v1",
+      "device": "mobile",
+      "role": "Déclinaison mobile du raccordement depuis la série prête.",
+      "stitchUrl": "https://stitch.withgoogle.com/projects/6533527202779027418?node-id=043d67a780e34c44ab78d9dabda3c4ae",
+      "localRoute": "prototype.html?screen=partie-ready-mobile",
+      "localCapture": "screens/partie-ready-mobile.png"
+    },
+    {
+      "order": 3,
+      "screenId": "f1d9b63a06bb48219ad7207643028e1f",
+      "title": "AFTER — Pre-live rehearsal — Mode choice — Desktop — v1",
+      "device": "desktop",
+      "role": "Choix entre test rapide et répétition avec de vrais joueurs.",
+      "stitchUrl": "https://stitch.withgoogle.com/projects/6533527202779027418?node-id=f1d9b63a06bb48219ad7207643028e1f",
+      "localRoute": "prototype.html?screen=mode-choice-desktop",
+      "localCapture": "screens/mode-choice-desktop.png"
+    },
+    {
+      "order": 4,
+      "screenId": "04428e92cc8e453b9d4cc788081c33df",
+      "title": "AFTER — Pre-live rehearsal — Mode choice — Mobile — v1",
+      "device": "mobile",
+      "role": "Choix du mode de répétition à une main.",
+      "stitchUrl": "https://stitch.withgoogle.com/projects/6533527202779027418?node-id=04428e92cc8e453b9d4cc788081c33df",
+      "localRoute": "prototype.html?screen=mode-choice-mobile",
+      "localCapture": "screens/mode-choice-mobile.png"
+    },
+    {
+      "order": 5,
+      "screenId": "3c0b9478b40444129468005b220ab4c9",
+      "title": "AFTER — Pre-live rehearsal — Camera inactive — Desktop — v1",
+      "device": "desktop",
+      "role": "Entrée dans la scène centrale ; activation de caméra facultative.",
+      "stitchUrl": "https://stitch.withgoogle.com/projects/6533527202779027418?node-id=3c0b9478b40444129468005b220ab4c9",
+      "localRoute": "prototype.html?screen=rehearsal-camera-off-desktop",
+      "localCapture": "screens/rehearsal-camera-off-desktop.png"
+    },
+    {
+      "order": 6,
+      "screenId": "4559658614a943c3871bbc6aa9fd9c03",
+      "title": "AFTER — Pre-live rehearsal — Discussion — Desktop — v1",
+      "device": "desktop",
+      "role": "Caméra, habillage public réel, duo anonyme et synchronisation avec la régie.",
+      "stitchUrl": "https://stitch.withgoogle.com/projects/6533527202779027418?node-id=4559658614a943c3871bbc6aa9fd9c03",
+      "localRoute": "prototype.html?screen=rehearsal-discussion-desktop",
+      "localCapture": "screens/rehearsal-discussion-desktop.png"
+    },
+    {
+      "order": 7,
+      "screenId": "39bebe0bdf3846578e67cc0f3d02e28d",
+      "title": "AFTER — Pre-live rehearsal — Vote — Desktop — v1",
+      "device": "desktop",
+      "role": "Vérifie un état dynamique différent avec le vote public temporaire.",
+      "stitchUrl": "https://stitch.withgoogle.com/projects/6533527202779027418?node-id=39bebe0bdf3846578e67cc0f3d02e28d",
+      "localRoute": "prototype.html?screen=rehearsal-vote-desktop",
+      "localCapture": "screens/rehearsal-vote-desktop.png"
+    },
+    {
+      "order": 8,
+      "screenId": "aac0853116c14aaca7262ef74ea59349",
+      "title": "AFTER — Pre-live rehearsal — Camera unavailable — Desktop — v1",
+      "device": "desktop",
+      "role": "Échec caméra non bloquant avec continuation sans caméra.",
+      "stitchUrl": "https://stitch.withgoogle.com/projects/6533527202779027418?node-id=aac0853116c14aaca7262ef74ea59349",
+      "localRoute": "prototype.html?screen=rehearsal-issue-desktop",
+      "localCapture": "screens/rehearsal-issue-desktop.png"
+    },
+    {
+      "order": 9,
+      "screenId": "f71e3e9b620449babb04060b1d328a78",
+      "title": "AFTER — Pre-live rehearsal — Complete — Desktop — v1",
+      "device": "desktop",
+      "role": "Synthèse de fin et retour à la partie originale intacte.",
+      "stitchUrl": "https://stitch.withgoogle.com/projects/6533527202779027418?node-id=f71e3e9b620449babb04060b1d328a78",
+      "localRoute": "prototype.html?screen=rehearsal-complete-desktop",
+      "localCapture": "screens/rehearsal-complete-desktop.png"
+    },
+    {
+      "order": 10,
+      "screenId": "587de1d1b37b47f89bb51532072f5828",
+      "title": "AFTER — Pre-live rehearsal — Complete — Mobile — v1",
+      "device": "mobile",
+      "role": "Synthèse mobile avec retour immédiat à la partie.",
+      "stitchUrl": "https://stitch.withgoogle.com/projects/6533527202779027418?node-id=587de1d1b37b47f89bb51532072f5828",
+      "localRoute": "prototype.html?screen=rehearsal-complete-mobile",
+      "localCapture": "screens/rehearsal-complete-mobile.png"
+    },
+    {
+      "order": 11,
+      "screenId": "340ddc6675fc4e4680a724ed475fcf1a",
+      "title": "AFTER — Twitch onboarding — Disconnected — Mobile — v1",
+      "device": "mobile",
+      "role": "Onboarding streamer Twitch séparé, sans configuration développeur.",
+      "stitchUrl": "https://stitch.withgoogle.com/projects/6533527202779027418?node-id=340ddc6675fc4e4680a724ed475fcf1a",
+      "localRoute": "prototype.html?screen=twitch-disconnected-mobile",
+      "localCapture": "screens/twitch-disconnected-mobile.png"
+    },
+    {
+      "order": 12,
+      "screenId": "abc27291e9d24fb5b9d7d53fd0e8ba34",
+      "title": "AFTER — Twitch onboarding — Connected — Mobile — v1",
+      "device": "mobile",
+      "role": "État streamer Twitch connecté, sans lancer le direct.",
+      "stitchUrl": "https://stitch.withgoogle.com/projects/6533527202779027418?node-id=abc27291e9d24fb5b9d7d53fd0e8ba34",
+      "localRoute": "prototype.html?screen=twitch-connected-mobile",
+      "localCapture": "screens/twitch-connected-mobile.png"
+    }
+  ]
+}

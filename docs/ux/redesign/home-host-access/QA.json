@@ -1,0 +1,101 @@
+[
+  {
+    "device": "desktop",
+    "state": "live",
+    "overflow": false,
+    "resume": "Ouvrir la régie"
+  },
+  {
+    "device": "desktop",
+    "state": "empty",
+    "overflow": false,
+    "resume": ""
+  },
+  {
+    "device": "desktop",
+    "state": "draft",
+    "overflow": false,
+    "resume": "Continuer la préparation"
+  },
+  {
+    "device": "desktop",
+    "state": "lobby",
+    "overflow": false,
+    "resume": "Ouvrir le salon"
+  },
+  {
+    "device": "desktop",
+    "themeSelectionCloses": true,
+    "sameThemeCloses": true,
+    "focusReturned": true,
+    "themeApplied": true,
+    "outsideDismiss": true,
+    "escapeDismiss": true
+  },
+  {
+    "device": "mobile",
+    "state": "live",
+    "overflow": false,
+    "resume": "Ouvrir la régie"
+  },
+  {
+    "device": "mobile",
+    "state": "empty",
+    "overflow": false,
+    "resume": ""
+  },
+  {
+    "device": "mobile",
+    "state": "draft",
+    "overflow": false,
+    "resume": "Continuer la préparation"
+  },
+  {
+    "device": "mobile",
+    "state": "lobby",
+    "overflow": false,
+    "resume": "Ouvrir le salon"
+  },
+  {
+    "device": "mobile",
+    "themeSelectionCloses": true,
+    "sameThemeCloses": true,
+    "focusReturned": true,
+    "themeApplied": true,
+    "outsideDismiss": true,
+    "escapeDismiss": true
+  },
+  {
+    "device": "user",
+    "state": "live",
+    "overflow": false,
+    "resume": "Ouvrir la régie"
+  },
+  {
+    "device": "user",
+    "state": "empty",
+    "overflow": false,
+    "resume": ""
+  },
+  {
+    "device": "user",
+    "state": "draft",
+    "overflow": false,
+    "resume": "Continuer la préparation"
+  },
+  {
+    "device": "user",
+    "state": "lobby",
+    "overflow": false,
+    "resume": "Ouvrir le salon"
+  },
+  {
+    "device": "user",
+    "themeSelectionCloses": true,
+    "sameThemeCloses": true,
+    "focusReturned": true,
+    "themeApplied": true,
+    "outsideDismiss": true,
+    "escapeDismiss": true
+  }
+]
