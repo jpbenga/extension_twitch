@@ -77,7 +77,7 @@ describe("native Twitch viewer configuration", () => {
   it("marks only loopback and private relay reads for Chromium local network access", () => {
     expect(
       localNetworkRequest("https://localhost:8443", { cache: "no-store" }),
-    ).toMatchObject({ cache: "no-store", targetAddressSpace: "local" });
+    ).toMatchObject({ cache: "no-store", targetAddressSpace: "loopback" });
     expect(
       localNetworkRequest("https://192.168.0.46:8443", {
         credentials: "omit",

@@ -1,4 +1,4 @@
-type LocalTargetAddressSpace = "local" | "private";
+type LocalTargetAddressSpace = "loopback" | "local" | "private";
 
 function targetAddressSpace(origin: string): LocalTargetAddressSpace | null {
   if (!origin) return null;
@@ -14,7 +14,7 @@ function targetAddressSpace(origin: string): LocalTargetAddressSpace | null {
     hostname === "127.0.0.1" ||
     hostname === "::1"
   )
-    return "local";
+    return "loopback";
   const octets = hostname.split(".").map(Number);
   if (
     octets.length === 4 &&
