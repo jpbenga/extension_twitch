@@ -166,6 +166,9 @@ export function UndercoverRoom({
       />
     );
   if (!gm) return null;
+  const publicOrigin = new URL(gm.publicUrl).origin;
+  const studioUrl = `${publicOrigin}/sessions/${view.sessionId}/studio`;
+  const rehearsalUrl = `${studioUrl}/rehearsal?state=discussion&chat=1`;
   return (
     <main
       className="session-shell experience-shell gm-studio"
@@ -366,31 +369,64 @@ export function UndercoverRoom({
           )}
         </section>
         <section className="experience-pane gm-board" hidden={pane !== "board"}>
-          <h2>Le plateau public</h2>
-          <p className="lobby-hint">
-            Même rendu que dans OBS, informations publiques uniquement.
-          </p>
-          <BroadcastFeed id={view.sessionId} />
-          <div className="layout-actions">
-            <a
-              className="secondary-button"
-              href={`/sessions/${view.sessionId}/stream?from=gm`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Aperçu de l’émission ↗
-            </a>
-            <Link
-              className="text-link"
-              href={`/sessions/${view.sessionId}/overlay`}
-            >
-              Personnaliser l’overlay
-            </Link>
+          <div className="gm-studio-access">
+            <span className="gm-kicker">PLATEAU · PRÊT POUR LE DIRECT</span>
+            <h2>Retour Studio</h2>
+            <p>
+              À afficher sur le téléviseur visible du plateau. Cette sortie ne
+              reçoit aucun secret avant la révélation.
+            </p>
+            <div className="layout-actions">
+              <a
+                className="primary-button"
+                href={studioUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Ouvrir le Retour Studio ↗
+              </a>
+              <a
+                className="secondary-button"
+                href={rehearsalUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Répétition avant direct ↗
+              </a>
+            </div>
+            <CopyLink label="Lien du Retour Studio" value={studioUrl} />
+            <p className="lobby-hint">
+              La répétition utilise uniquement des fixtures isolées et n’écrit
+              jamais dans cette session.
+            </p>
           </div>
-          <CopyLink
-            label="Source OBS transparente"
-            value={`${new URL(gm.publicUrl).origin}/sessions/${view.sessionId}/obs`}
-          />
+          <details className="operation-secondary">
+            <summary>Ajustements avancés et sortie Twitch / OBS</summary>
+            <p className="lobby-hint">
+              Composition publique indépendante du Retour Studio.
+            </p>
+            <BroadcastFeed id={view.sessionId} />
+            <div className="layout-actions">
+              <a
+                className="secondary-button"
+                href={`/sessions/${view.sessionId}/stream?from=gm`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Aperçu de l’émission ↗
+              </a>
+              <Link
+                className="text-link"
+                href={`/sessions/${view.sessionId}/overlay`}
+              >
+                Personnaliser l’overlay
+              </Link>
+            </div>
+            <CopyLink
+              label="Source OBS transparente"
+              value={`${publicOrigin}/sessions/${view.sessionId}/obs`}
+            />
+          </details>
         </section>
         {gm.game?.play && gm.game.definitionId === "undercover" && (
           <div

@@ -5,11 +5,13 @@ import { useEffect, useRef, useState } from "react";
 import {
   accessTokenSchema,
   lobbyCommandSchema,
-  sessionStreamEventSchema,
-  sessionViewSchema,
+  sessionProjectionStreamEventSchema,
+  sessionStreamViewSchema,
   type LobbyAction,
   type LobbyCommand,
+  type SessionStreamView,
   type SessionView,
+  type StudioSessionView,
 } from "@extension-twitch/contracts/sessions";
 import {
   accessKey,
@@ -20,7 +22,10 @@ import {
   RequestFailure,
 } from "./session-client";
 
-export type SessionAudience = "gm" | "public" | `player:${string}`;
+export type SessionAudience = "gm" | "public" | "studio" | `player:${string}`;
+type AudienceView<A extends SessionAudience> = A extends "studio"
+  ? StudioSessionView
+  : SessionView;
 type Connection = "loading" | "connected" | "reconnecting" | "denied";
 
 function pause(ms: number, signal: AbortSignal) {
@@ -36,12 +41,12 @@ function pause(ms: number, signal: AbortSignal) {
   });
 }
 
-export function useSession(id: string, audience: SessionAudience) {
+export function useSession<A extends SessionAudience>(id: string, audience: A) {
   const notify = useToast();
   const key = accessKey(id, audience);
   const [token, setToken] = useState<string | null | undefined>(undefined);
   const [accessRevision, setAccessRevision] = useState(0);
-  const [view, setView] = useState<SessionView | null>(null);
+  const [view, setView] = useState<SessionStreamView | null>(null);
   const [streamEpoch, setStreamEpoch] = useState(0);
   const [connection, setConnection] = useState<Connection>("loading");
   const [error, setError] = useState("");
@@ -52,10 +57,11 @@ export function useSession(id: string, audience: SessionAudience) {
   const inFlight = useRef(false);
 
   const accept = (input: unknown) => {
-    const next = sessionViewSchema.parse(input);
+    const next = sessionStreamViewSchema.parse(input);
     if (
       next.sessionId !== id ||
       (audience === "public" && next.audience !== "public") ||
+      (audience === "studio" && next.audience !== "studio") ||
       (audience === "gm" && next.audience !== "gm") ||
       (audience.startsWith("player:") &&
         (next.audience !== "player" ||
@@ -90,7 +96,7 @@ export function useSession(id: string, audience: SessionAudience) {
             "",
             window.location.pathname + window.location.search,
           );
-        if (audience === "public") {
+        if (audience === "public" || audience === "studio") {
           setToken(null);
           setAccessRevision((value) => value + 1);
           return;
@@ -128,7 +134,7 @@ export function useSession(id: string, audience: SessionAudience) {
   useEffect(() => {
     if (token === undefined) return;
     const lifecycle = new AbortController();
-    const path = `/api/server/sessions/${id}/${audience === "public" ? "public" : "private"}/events`;
+    const path = `/api/server/sessions/${id}/${audience === "public" ? "public" : audience === "studio" ? "studio" : "private"}/events`;
     let current: AbortController | null = null;
     async function connect() {
       let delay = 500;
@@ -161,7 +167,7 @@ export function useSession(id: string, audience: SessionAudience) {
             const parsed = parseSse(buffer);
             buffer = parsed.remaining;
             for (const data of parsed.messages) {
-              const event = sessionStreamEventSchema.parse(
+              const event = sessionProjectionStreamEventSchema.parse(
                 JSON.parse(data) as unknown,
               );
               if (event.type === "access.revoked")
@@ -263,7 +269,7 @@ export function useSession(id: string, audience: SessionAudience) {
   }
 
   return {
-    view,
+    view: view as AudienceView<A> | null,
     token,
     connection,
     streamEpoch,

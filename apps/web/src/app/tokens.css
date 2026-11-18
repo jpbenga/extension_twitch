@@ -175,6 +175,20 @@
   --home-shadow: 0 12px 32px -8px #05051180;
   --home-ambient: #4f319c;
 }
+
+/* Approved Undercover Studio Return palette. Kept independent from OBS themes. */
+.studio-return {
+  --studio-bg: #0c0c1f;
+  --studio-video: #111126;
+  --studio-panel: #1a1a2d;
+  --studio-raised: #28283c;
+  --studio-text: #e2e0fb;
+  --studio-muted: #b7a8d4;
+  --studio-lilac: #cebdff;
+  --studio-positive: #c8f323;
+  --studio-border: #7e7199;
+  --studio-live: #20c9b4;
+}
 [data-theme="broadcast-studio"] .gm-studio,
 [data-theme="broadcast-studio"] .stitch-page,
 [data-theme="broadcast-studio"] .stitch-dialog,

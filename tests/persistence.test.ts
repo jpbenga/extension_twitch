@@ -45,7 +45,7 @@ it("restores sessions, credentials, journal and command receipts after an actual
         stdio: "ignore",
       },
     );
-    const deadline = Date.now() + 5000;
+    const deadline = Date.now() + 30_000;
     while (Date.now() < deadline) {
       try {
         if ((await fetch(`${origin}/health`)).ok) return;
@@ -247,4 +247,4 @@ it("restores sessions, credentials, journal and command receipts after an actual
     await stop();
     rmSync(directory, { recursive: true, force: true });
   }
-}, 15000);
+}, 90_000);

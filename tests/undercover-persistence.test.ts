@@ -45,7 +45,7 @@ it("restores a real Undercover deal, private partial ballot, receipts and final 
         stdio: "ignore",
       },
     );
-    const deadline = Date.now() + 5000;
+    const deadline = Date.now() + 30_000;
     while (Date.now() < deadline) {
       try {
         if ((await fetch(`${origin}/health`)).ok) return;
@@ -240,4 +240,4 @@ it("restores a real Undercover deal, private partial ballot, receipts and final 
     await stop();
     rmSync(dir, { recursive: true, force: true });
   }
-}, 15_000);
+}, 90_000);

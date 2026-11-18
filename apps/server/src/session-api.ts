@@ -155,14 +155,15 @@ export class SessionApi {
         throw new SessionError("NOT_FOUND", 404);
       }
       const session =
-        /^\/sessions\/([^/]+)\/(public|private|commands)(\/events)?$/.exec(
+        /^\/sessions\/([^/]+)\/(public|studio|private|commands)(\/events)?$/.exec(
           path,
         );
       if (!session || !sessionIdSchema.safeParse(session[1]).success)
         throw new SessionError("NOT_FOUND", 404);
       const id = session[1]!;
       const access = session[2];
-      const token = access === "public" ? null : credential(request);
+      const token =
+        access === "public" || access === "studio" ? null : credential(request);
       if (
         method === "POST" &&
         access === "commands" &&
@@ -181,25 +182,42 @@ export class SessionApi {
       if (!session[3]) {
         json(
           response,
-          this.service.view(id, token === null ? null : hashValue(token)),
+          this.service.view(
+            id,
+            token === null ? null : hashValue(token),
+            access === "studio"
+              ? "studio"
+              : access === "public"
+                ? "public"
+                : "private",
+          ),
         );
         return;
       }
       this.limit(`streams:${request.socket.remoteAddress ?? "local"}`, 300);
       request.setTimeout(0);
-      const unsubscribe = this.service.subscribe(id, token, (message) => {
-        if (response.destroyed || response.writableEnded) return;
-        if (!response.headersSent)
-          response.writeHead(200, {
-            "Content-Type": "text/event-stream",
-            "Cache-Control": "no-store, no-transform",
-            "X-Accel-Buffering": "no",
-            Connection: "keep-alive",
-          });
-        if (!response.write(`data: ${JSON.stringify(message)}\n\n`))
-          response.destroy();
-        if (message.type === "access.revoked") response.end();
-      });
+      const unsubscribe = this.service.subscribe(
+        id,
+        token,
+        access === "studio"
+          ? "studio"
+          : access === "public"
+            ? "public"
+            : "private",
+        (message) => {
+          if (response.destroyed || response.writableEnded) return;
+          if (!response.headersSent)
+            response.writeHead(200, {
+              "Content-Type": "text/event-stream",
+              "Cache-Control": "no-store, no-transform",
+              "X-Accel-Buffering": "no",
+              Connection: "keep-alive",
+            });
+          if (!response.write(`data: ${JSON.stringify(message)}\n\n`))
+            response.destroy();
+          if (message.type === "access.revoked") response.end();
+        },
+      );
       const heartbeat = setInterval(() => {
         if (!response.write(": heartbeat\n\n")) response.destroy();
       }, 10_000);

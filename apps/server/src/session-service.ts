@@ -17,11 +17,14 @@ import {
   recordEvent,
   SessionError,
   type PreparedGame,
+  type LobbyState,
 } from "@extension-twitch/engine";
 import {
   sessionViewSchema,
+  studioSessionSchema,
   type LobbyCommand,
-  type SessionView,
+  type SessionStreamView,
+  type StudioSessionView,
   type createSessionSchema,
   type joinSessionSchema,
 } from "@extension-twitch/contracts/sessions";
@@ -33,9 +36,11 @@ export const hashValue = (value: string) =>
 const invitation = () => randomBytes(9).toString("base64url");
 const fingerprint = (value: unknown) => hashValue(JSON.stringify(value));
 type StreamMessage =
-  { type: "session.snapshot"; view: SessionView } | { type: "access.revoked" };
+  | { type: "session.snapshot"; view: SessionStreamView }
+  | { type: "access.revoked" };
 interface Subscription {
   hash: string | null;
+  audience: "public" | "studio" | "private";
   playerId: string | null;
   send: (message: StreamMessage) => void;
 }
@@ -228,7 +233,11 @@ export class SessionService {
     return this.view(id, hash);
   }
 
-  view(id: string, hash: string | null): SessionView {
+  view(
+    id: string,
+    hash: string | null,
+    audience: "public" | "studio" | "private" = hash ? "private" : "public",
+  ): SessionStreamView {
     const actor = hash === null ? null : this.store.authorize(id, hash);
     const state = this.store.load(id);
     const connected = new Set(
@@ -243,6 +252,10 @@ export class SessionService {
         ? { undercoverBroadcast: projections.publicView }
         : {}),
     };
+    if (audience === "studio")
+      return studioSessionSchema.parse(
+        projectStudioSession(state, connected, projections.publicView),
+      );
     if (actor?.role === "gm")
       return sessionViewSchema.parse({
         ...publicView,
@@ -321,9 +334,14 @@ export class SessionService {
     if (!entry) throw new SessionError("MEDIA_EXPIRED", 410);
     return entry.bytes;
   }
-  subscribe(id: string, token: string | null, send: Subscription["send"]) {
+  subscribe(
+    id: string,
+    token: string | null,
+    audience: Subscription["audience"],
+    send: Subscription["send"],
+  ) {
     const hash = token === null ? null : hashValue(token);
-    const initial = this.view(id, hash);
+    const initial = this.view(id, hash, audience);
     const group = this.streams.get(id) ?? new Set<Subscription>();
     const total = [...this.streams.values()].reduce(
       (count, streams) => count + streams.size,
@@ -333,6 +351,7 @@ export class SessionService {
       throw new SessionError("TOO_MANY_CONNECTIONS", 429);
     const subscription: Subscription = {
       hash,
+      audience,
       playerId: initial.audience === "player" ? initial.participantId : null,
       send,
     };
@@ -362,10 +381,107 @@ export class SessionService {
     for (const subscription of group)
       subscription.send({
         type: "session.snapshot",
-        view: this.view(id, subscription.hash),
+        view: this.view(id, subscription.hash, subscription.audience),
       });
     if (group.size === 0) this.streams.delete(id);
   }
+}
+
+function projectStudioSession(
+  state: LobbyState,
+  connected: ReadonlySet<string>,
+  publication?: ReturnType<typeof projectUndercoverStream>["publicView"],
+): StudioSessionView {
+  const projected = state.gameRun
+    ? projectGame(state.gameRun, null)
+    : undefined;
+  const play = projected?.play;
+  const active = new Set(play?.roster.filter((p) => p.active).map((p) => p.id));
+  const outcome = play?.outcome;
+  const reveal =
+    outcome && publication?.mode === "final"
+      ? state.participants.flatMap((participant) => {
+          const roleId = state.gameRun?.assignments[participant.id];
+          const role = state.gameRun?.definition.roles.find(
+            (candidate) => candidate.id === roleId,
+          )?.label;
+          const word =
+            state.gameRun?.participantValues[participant.id]?.["secret-word"];
+          const assignment = publication.assignments.find(
+            (candidate) => candidate.participantId === participant.id,
+          );
+          const content = assignment
+            ? publication.contents.find(
+                (candidate) => candidate.id === assignment.contentId,
+              )
+            : publication.contents.find(
+                (candidate) => candidate.label === word,
+              );
+          return role && content
+            ? [
+                {
+                  participantId: participant.id,
+                  name: participant.name,
+                  role,
+                  content,
+                },
+              ]
+            : [];
+        })
+      : undefined;
+  return {
+    audience: "studio",
+    sessionId: state.id,
+    title: state.title,
+    gameId: state.gameId,
+    version: state.version,
+    participants: state.participants.map((participant) => ({
+      id: participant.id,
+      name: participant.name,
+      active: play?.dealt ? active.has(participant.id) : true,
+      connected: connected.has(participant.id),
+    })),
+    ...(projected
+      ? {
+          studioGame: {
+            title: projected.title,
+            phase: projected.phase,
+            round: play?.round ?? 0,
+            dealt: play?.dealt ?? false,
+            ...(play?.turns
+              ? {
+                  turns: {
+                    round: play.turns.round,
+                    total: play.turns.total,
+                    ...(play.turns.current
+                      ? { current: play.turns.current }
+                      : {}),
+                    completed: play.turns.completed.length,
+                    totalPassages: play.turns.order.length,
+                    complete: play.turns.complete,
+                  },
+                }
+              : {}),
+            ...(play?.ballot
+              ? {
+                  ballot: {
+                    status: play.ballot.status,
+                    received: play.ballot.voted.length,
+                    total: play.ballot.eligible.length,
+                    tied: play.ballot.tied,
+                    ...(play.ballot.eliminated
+                      ? { eliminated: play.ballot.eliminated }
+                      : {}),
+                    complete: play.ballot.complete,
+                  },
+                }
+              : {}),
+            ...(outcome ? { outcome } : {}),
+            ...(reveal?.length ? { reveal } : {}),
+          },
+        }
+      : {}),
+  };
 }
 
 /** Read-only guidance for the lobby. Installation still runs the engine's full validation. */

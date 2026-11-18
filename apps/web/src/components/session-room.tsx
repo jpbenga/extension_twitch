@@ -26,7 +26,7 @@ export function SessionRoom({
   audience,
 }: {
   id: string;
-  audience: SessionAudience;
+  audience: Exclude<SessionAudience, "studio">;
 }) {
   const legacyTools = useLegacyTools();
   const session = useSession(id, audience),

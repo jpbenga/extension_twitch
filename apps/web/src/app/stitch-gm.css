@@ -173,6 +173,21 @@
   font-size: 14px;
   line-height: 1.65;
 }
+.gm-studio-access {
+  display: grid;
+  gap: 14px;
+  padding: clamp(20px, 3vw, 36px);
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  background: var(--color-surface);
+}
+.gm-studio-access h2,
+.gm-studio-access p {
+  margin: 0;
+}
+.gm-studio-access .layout-actions {
+  justify-content: flex-start;
+}
 .gm-card-heading {
   display: flex;
   flex-wrap: wrap;

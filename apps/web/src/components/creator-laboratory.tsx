@@ -102,7 +102,7 @@ export function CreatorLaboratory({
     }
   }
   const person = lab?.players.find((p) => `player:${p.id}` === role),
-    audience = role as SessionAudience;
+    audience = role as Exclude<SessionAudience, "studio">;
   if (["play"].includes(context))
     return (
       <OfficialLaboratory
@@ -452,7 +452,7 @@ function LabView({
   onPrepared,
 }: {
   id: string;
-  audience: SessionAudience;
+  audience: Exclude<SessionAudience, "studio">;
   lab: CreatorLab;
   onPrepared: () => void;
 }) {

@@ -189,7 +189,7 @@ describe("closed official product API, preserving the legacy engine and data", (
       (await post(`/sessions/${id}/commands`, command, playerToken)).status,
     ).toBe(401);
     const publicViews: unknown[] = [];
-    const unsub = service.subscribe(id, null, (m) => {
+    const unsub = service.subscribe(id, null, "public", (m) => {
       if (m.type === "session.snapshot") publicViews.push(m.view);
     });
     try {

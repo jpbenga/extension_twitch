@@ -158,6 +158,71 @@ export const publicSessionSchema = z.strictObject({
   ...viewFields,
   audience: z.literal("public"),
 });
+const studioPlayerSchema = z.strictObject({
+  id: z.uuid(),
+  name: displayName,
+  active: z.boolean(),
+  connected: z.boolean(),
+});
+const studioRevealCardSchema = z.strictObject({
+  participantId: z.uuid(),
+  name: displayName,
+  role: z.string().min(1).max(80),
+  content: undercoverContentSchema,
+});
+const studioGameSchema = z
+  .strictObject({
+    title: z.string().min(1).max(80),
+    phase: z.strictObject({
+      id: identifierSchema,
+      label: z.string().min(1).max(80),
+      description: z.string().max(240).optional(),
+    }),
+    round: z.number().int().min(0).max(30),
+    dealt: z.boolean(),
+    turns: z
+      .strictObject({
+        round: z.number().int().min(1).max(5),
+        total: z.number().int().min(1).max(5),
+        current: z.uuid().optional(),
+        completed: z.number().int().nonnegative().max(12),
+        totalPassages: z.number().int().positive().max(12),
+        complete: z.boolean(),
+      })
+      .optional(),
+    ballot: z
+      .strictObject({
+        status: z.enum(["open", "resolved"]),
+        received: z.number().int().nonnegative().max(12),
+        total: z.number().int().nonnegative().max(12),
+        tied: z.boolean(),
+        eliminated: z.uuid().optional(),
+        complete: z.boolean(),
+      })
+      .optional(),
+    outcome: z
+      .strictObject({ id: identifierSchema, label: z.string().min(1).max(80) })
+      .optional(),
+    reveal: z.array(studioRevealCardSchema).max(12).optional(),
+  })
+  .superRefine((game, context) => {
+    if (game.reveal && !game.outcome)
+      context.addIssue({
+        code: "custom",
+        message: "Studio reveal requires a public server outcome",
+      });
+  });
+/** Deliberately smaller than the Broadcast projection: no values, roles, events,
+ * settings, individual voters or GM fields can be serialized before reveal. */
+export const studioSessionSchema = z.strictObject({
+  audience: z.literal("studio"),
+  sessionId: sessionIdSchema,
+  title: displayName,
+  gameId: gameIdSchema,
+  version: z.number().int().positive(),
+  participants: z.array(studioPlayerSchema).max(32),
+  studioGame: studioGameSchema.optional(),
+});
 export const gmSessionSchema = z.strictObject({
   ...viewFields,
   audience: z.literal("gm"),
@@ -189,13 +254,28 @@ export const sessionViewSchema = z.discriminatedUnion("audience", [
   gmSessionSchema,
   playerSessionSchema,
 ]);
+export const sessionStreamViewSchema = z.discriminatedUnion("audience", [
+  publicSessionSchema,
+  studioSessionSchema,
+  gmSessionSchema,
+  playerSessionSchema,
+]);
 export type PublicSessionView = z.infer<typeof publicSessionSchema>;
+export type StudioSessionView = z.infer<typeof studioSessionSchema>;
 export type SessionView = z.infer<typeof sessionViewSchema>;
+export type SessionStreamView = z.infer<typeof sessionStreamViewSchema>;
 export type GmSessionView = z.infer<typeof gmSessionSchema>;
 export const sessionStreamEventSchema = z.discriminatedUnion("type", [
   z.strictObject({
     type: z.literal("session.snapshot"),
     view: sessionViewSchema,
+  }),
+  z.strictObject({ type: z.literal("access.revoked") }),
+]);
+export const sessionProjectionStreamEventSchema = z.discriminatedUnion("type", [
+  z.strictObject({
+    type: z.literal("session.snapshot"),
+    view: sessionStreamViewSchema,
   }),
   z.strictObject({ type: z.literal("access.revoked") }),
 ]);
