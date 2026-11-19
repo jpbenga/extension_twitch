@@ -278,7 +278,7 @@ export function StudioReturnCanvas({
         <aside className="studio-chat" aria-label="Chat Twitch">
           <header>
             <span>CHAT TWITCH</span>
-            <strong>{rehearsal ? "RÉPÉTITION" : "EN DIRECT"}</strong>
+            <strong>{rehearsal ? "RÉPÉTITION" : "CHAÎNE TWITCH"}</strong>
             <button
               className="studio-chat-close"
               onClick={() => setChatVisible(false)}

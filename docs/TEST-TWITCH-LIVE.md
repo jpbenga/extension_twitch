@@ -33,6 +33,11 @@ projecteur d’une scène propre destinée aux joueurs, ou **Utiliser la caméra
 essai direct. Cette sélection reste locale au navigateur et n’est jamais envoyée au
 serveur.
 
+Le chat d’une chaîne Twitch reste accessible lorsque la chaîne est hors ligne. Envoyer
+un message de test ne démarre aucun live vidéo ; le message est néanmoins public dans
+le chat de la chaîne. Le live ne commence qu’après l’action explicite **Démarrer le
+streaming** dans OBS.
+
 ## 2. Préparer OBS sans risque de fuite
 
 1. Créez une scène **LIVE TWITCH — PUBLIC**.
