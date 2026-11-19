@@ -57,7 +57,7 @@ test("approved homepage has real preparation, disclosures and three persistent t
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "Votre prochaine partie commence ici.",
   );
-  await expect(prepare(page)).toHaveAttribute("href", "/play/undercover");
+  await expect(prepare(page)).toHaveAttribute("href", "/play/undercover?new=1");
   await expect(
     page.getByRole("link", { name: "Reprendre ma partie", exact: true }),
   ).toHaveCount(0);
@@ -92,7 +92,9 @@ test("approved homepage has real preparation, disclosures and three persistent t
   expect(writes).toEqual([]);
   expect(errors).toEqual([]);
   await prepare(page).click();
-  await expect(page).toHaveURL(/\/play\/undercover$/);
+  await expect(page).toHaveURL(
+    /\/play\/undercover\?series=[a-f0-9-]+&view=prepare$/,
+  );
   await expect(
     page.getByRole("heading", {
       name: "Manche 1",

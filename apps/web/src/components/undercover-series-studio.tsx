@@ -201,6 +201,40 @@ export function UndercoverSeriesStudio() {
     if (!library || booted.current) return;
     booted.current = true;
     const q = new URLSearchParams(location.search);
+    const wantsNewSeries = q.get("new") === "1";
+    if (wantsNewSeries) {
+      sessionStorage.removeItem(pendingKey);
+      const pristineFirstSeries =
+        library.revision === 1 &&
+        library.series.length === 1 &&
+        library.series[0]?.preparations.length === 0 &&
+        !library.series[0]?.active &&
+        !library.series[0]?.pending;
+      const next = pristineFirstSeries
+        ? library.series[0]!
+        : newSeries(`Nouvelle partie ${library.series.length + 1}`);
+      setScreen("prepare");
+      history.replaceState(
+        null,
+        "",
+        `/play/undercover?series=${next.id}&view=prepare`,
+      );
+      if (!pristineFirstSeries)
+        void store
+          .update((l) => ({
+            ...l,
+            selectedSeriesId: next.id,
+            series: [...l.series, next],
+          }))
+          .catch((e) =>
+            setError(
+              e instanceof Error
+                ? e.message
+                : "La nouvelle partie ne peut pas être préparée.",
+            ),
+          );
+      return;
+    }
     const wanted = q.get("series");
     const existing = library.series.find((s) => s.id === wanted);
     const view = q.get("view");

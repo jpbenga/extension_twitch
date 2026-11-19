@@ -73,6 +73,47 @@ async function privateView(page: Page) {
     ).json();
   });
 }
+test("preparing from home starts a new series while an explicit series URL resumes it", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page
+    .getByRole("link", {
+      name: "Préparer une partie Undercover",
+      exact: true,
+    })
+    .click();
+  await expect(page).toHaveURL(
+    /\/play\/undercover\?series=[a-f0-9-]+&view=prepare$/,
+  );
+  const firstSeries = new URL(page.url()).searchParams.get("series");
+  expect(firstSeries).toBeTruthy();
+  await add(page).click();
+  await expect(
+    page.getByText("1 manche préparée", { exact: true }),
+  ).toBeVisible();
+
+  await page.goto("/");
+  await page
+    .getByRole("link", {
+      name: "Préparer une partie Undercover",
+      exact: true,
+    })
+    .click();
+  const secondSeries = new URL(page.url()).searchParams.get("series");
+  expect(secondSeries).toBeTruthy();
+  expect(secondSeries).not.toBe(firstSeries);
+  await expect(
+    page.getByRole("heading", { name: "Manche 1", exact: true }),
+  ).toBeVisible();
+
+  await page.reload();
+  expect(new URL(page.url()).searchParams.get("series")).toBe(secondSeries);
+  await page.goto(`/play/undercover?series=${firstSeries}&view=series`);
+  await expect(
+    page.getByText("1 manche préparée", { exact: true }),
+  ).toBeVisible();
+});
 test("preparation remains bounded, touch and keyboard accessible, remembers options and keeps broadcast appearance independent", async ({
   page,
 }, info) => {

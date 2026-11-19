@@ -26,7 +26,7 @@ export function OfficialCatalog({
           </details>
         </div>
         <Link
-          href="/play/undercover"
+          href="/play/undercover?new=1"
           className={secondary ? "secondary-button" : "primary-button"}
           aria-label="Jouer à Undercover"
         >

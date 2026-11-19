@@ -117,7 +117,7 @@ export function OfficialLaboratory({
         </Link>
         <div className="lab-stitch-header-actions">
           <ThemeControl icon={<HomeIcon name="palette" />} />
-          <Link href="/play/undercover" className="lab-stitch-new">
+          <Link href="/play/undercover?new=1" className="lab-stitch-new">
             Nouveau test depuis Undercover
           </Link>
         </div>

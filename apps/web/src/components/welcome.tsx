@@ -85,7 +85,7 @@ export function Welcome() {
                       ? "home-button home-button-secondary"
                       : "home-button home-button-primary"
                   }
-                  href="/play/undercover"
+                  href="/play/undercover?new=1"
                   aria-label="Préparer une partie Undercover"
                 >
                   Préparer une partie <HomeIcon name="arrow" />
