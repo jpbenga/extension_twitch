@@ -713,7 +713,7 @@ export function UndercoverSeriesStudio() {
       setError("Choisissez deux noms différents avant d’ajouter la copie.");
     }
   }
-  async function openSalon(quick = false) {
+  async function openSalon(quick = false, replaceActive = false) {
     if (!series || !draft || flight.current || !validFields()) return;
     setError("");
     setNotice("");
@@ -722,7 +722,7 @@ export function UndercoverSeriesStudio() {
       setError("Ajoutez une manche avant d’ouvrir le salon.");
       return;
     }
-    if (series.active && !quick && !pending) {
+    if (series.active && !quick && !pending && !replaceActive) {
       try {
         sessionStorage.setItem(
           accessKey(series.active.sessionId, "gm"),
@@ -740,11 +740,15 @@ export function UndercoverSeriesStudio() {
     flight.current = true;
     setBusy(true);
     try {
-      let attempt =
-        pending ??
-        (series.pending ? seriesAttemptSchema.parse(series.pending) : null);
+      let attempt = replaceActive
+        ? null
+        : (pending ??
+          (series.pending ? seriesAttemptSchema.parse(series.pending) : null));
       if (!attempt) {
-        const token = quick ? randomToken() : (series.token ?? randomToken());
+        const token =
+          quick || replaceActive
+            ? randomToken()
+            : (series.token ?? randomToken());
         attempt = makeSeriesAttempt(series, chosen!, 0, token);
         if (quick) {
           attempt = { ...attempt, mode: "quick" };
@@ -768,7 +772,11 @@ export function UndercoverSeriesStudio() {
         )
           return;
       }
-      if (pending && pending.mode !== (quick ? "quick" : "invite"))
+      if (
+        !replaceActive &&
+        pending &&
+        pending.mode !== (quick ? "quick" : "invite")
+      )
         quick = pending.mode === "quick";
       if (attempt.snapshot) {
         const frozen = attempt.snapshot;
@@ -1261,15 +1269,42 @@ export function UndercoverSeriesStudio() {
             {series.active && (
               <div className="series-active">
                 <p>
-                  Une manche de cette partie a déjà son salon. Vos préparations
-                  restent conservées.
+                  Une manche de cette partie a déjà son salon. Reprenez-la si
+                  vous avez encore son accès privé, ou créez un nouveau salon
+                  avec les mêmes préparations.
                 </p>
-                <button
-                  className="stitch-button"
-                  onClick={() => void openSalon()}
-                >
-                  Reprendre la régie
-                </button>
+                <div className="series-active-actions">
+                  <button
+                    className="stitch-button"
+                    onClick={() => void openSalon()}
+                  >
+                    Reprendre la régie
+                  </button>
+                  <button
+                    className="series-text-button"
+                    onClick={() =>
+                      void confirm({
+                        title: "Créer un nouveau salon ?",
+                        description:
+                          "Utilisez cette option si l’accès privé de l’ancien salon est perdu.",
+                        consequences: [
+                          "Les manches préparées et leurs réglages seront conservés.",
+                          "Un nouveau lien GM et une nouvelle invitation joueurs seront créés.",
+                          "L’ancien salon ne sera ni modifié ni supprimé.",
+                        ],
+                        confirmLabel: "Créer le nouveau salon",
+                        presentation: "stitch",
+                        tone: "warning",
+                        onConfirm: async () => {
+                          await openSalon(false, true);
+                          return true;
+                        },
+                      })
+                    }
+                  >
+                    Créer un nouveau salon avec ces manches
+                  </button>
+                </div>
               </div>
             )}
             {series.preparations.length ? (

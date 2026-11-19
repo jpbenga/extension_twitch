@@ -596,6 +596,12 @@
 .series-active p {
   margin: 0 0 12px;
 }
+.series-active-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
 .series-empty {
   padding: 32px;
 }
