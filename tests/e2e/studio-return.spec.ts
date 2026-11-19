@@ -29,6 +29,28 @@ test("real Studio output stays independent from OBS and reveals only after the s
   await expect(page.locator("body")).not.toContainText(/Phare|Balise|Civil/);
   await shot(page, "discussion-video-integrale-1920x1080");
 
+  const twitchReturn = await browser.newPage({
+    viewport: { width: 1920, height: 1080 },
+  });
+  await twitchReturn.route("https://www.twitch.tv/embed/**", (route) =>
+    route.fulfill({
+      contentType: "text/html",
+      body: "<!doctype html><title>Chat Twitch de test</title>",
+    }),
+  );
+  await twitchReturn.goto(
+    `/sessions/${fixture.id}/studio?twitchChannel=twitchdev&chat=1`,
+  );
+  const twitchFrame = twitchReturn.locator(".studio-chat-frame");
+  await expect(twitchFrame).toHaveAttribute(
+    "src",
+    /twitch\.tv\/embed\/twitchdev\/chat\?parent=127\.0\.0\.1&darkpopout=true/,
+  );
+  await expect(twitchReturn.locator("body")).not.toContainText(
+    /Phare|Balise|Civil/,
+  );
+  await twitchReturn.close();
+
   await page.getByRole("button", { name: "Afficher le chat" }).click();
   await expect(page.getByLabel("Chat Twitch")).toContainText(
     "Chat momentanément indisponible",
@@ -92,6 +114,11 @@ test("real Studio output stays independent from OBS and reveals only after the s
   await expect(
     page.getByRole("link", { name: "Répétition avant direct ↗" }),
   ).toBeVisible();
+  await page.getByLabel("Chaîne Twitch du live test").fill("TwitchDev");
+  await page.getByLabel("Vidéo + vrai chat Twitch latéral").check();
+  await expect(
+    page.getByRole("link", { name: "Ouvrir le Retour Studio ↗" }),
+  ).toHaveAttribute("href", /twitchChannel=twitchdev&chat=1$/);
   await shot(page, "acces-gm-retour-studio-1920x1080");
 });
 

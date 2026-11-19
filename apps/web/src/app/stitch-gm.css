@@ -188,6 +188,65 @@
 .gm-studio-access .layout-actions {
   justify-content: flex-start;
 }
+.gm-twitch-return-config {
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface-secondary);
+}
+.gm-twitch-return-config > label,
+.gm-twitch-return-config legend {
+  color: var(--color-text-primary);
+  font-weight: 650;
+}
+.gm-twitch-channel-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+}
+.gm-twitch-channel-row span {
+  color: var(--color-text-secondary);
+}
+.gm-twitch-channel-row input {
+  min-width: 0;
+  min-height: var(--control-height);
+  padding: 0 14px;
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-control);
+  border-radius: var(--radius-sm);
+  background: var(--color-input);
+}
+.gm-twitch-return-config fieldset {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.gm-twitch-return-config fieldset label {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  width: fit-content;
+  color: var(--color-text-secondary);
+}
+.gm-twitch-return-config input[type="radio"] {
+  flex: 0 0 auto;
+  width: 20px;
+  min-height: 20px;
+  height: 20px;
+  margin: 0;
+}
+.gm-twitch-return-config .field-error {
+  color: var(--color-danger);
+}
+.gm-twitch-links {
+  gap: 18px;
+}
 .gm-card-heading {
   display: flex;
   flex-wrap: wrap;

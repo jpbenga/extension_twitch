@@ -1,7 +1,8 @@
 "use client";
 
 import type { StudioSessionView } from "@extension-twitch/contracts/sessions";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { twitchChatEmbedUrl } from "@extension-twitch/contracts/twitch";
 import "../app/studio-return.css";
 
 export interface StudioChatMessage {
@@ -25,6 +26,7 @@ export function StudioReturnCanvas({
   rehearsal = false,
   initialChat = false,
   chatMessages = [],
+  twitchChannel = "",
 }: {
   view: StudioSessionView | null;
   connection: string;
@@ -32,6 +34,7 @@ export function StudioReturnCanvas({
   rehearsal?: boolean;
   initialChat?: boolean;
   chatMessages?: StudioChatMessage[];
+  twitchChannel?: string;
 }) {
   const [chatVisible, setChatVisible] = useState(initialChat);
   const [page, setPage] = useState(0);
@@ -191,7 +194,9 @@ export function StudioReturnCanvas({
             <span>CHAT TWITCH</span>
             <strong>{rehearsal ? "RÉPÉTITION" : "EN DIRECT"}</strong>
           </header>
-          {chatMessages.length ? (
+          {!rehearsal && twitchChannel ? (
+            <TwitchChatEmbed channel={twitchChannel} />
+          ) : chatMessages.length ? (
             <ol>
               {chatMessages.map((message) => (
                 <li key={message.id}>
@@ -232,5 +237,25 @@ export function StudioReturnCanvas({
         </div>
       )}
     </main>
+  );
+}
+
+function TwitchChatEmbed({ channel }: { channel: string }) {
+  const [parent, setParent] = useState("");
+  useEffect(() => setParent(window.location.hostname), []);
+  const source = twitchChatEmbedUrl(channel, parent);
+  if (!source)
+    return (
+      <div className="studio-chat-empty">
+        <strong>Connexion au chat Twitch…</strong>
+      </div>
+    );
+  return (
+    <iframe
+      className="studio-chat-frame"
+      title={`Chat Twitch de ${channel}`}
+      src={source}
+      sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-modals"
+    />
   );
 }

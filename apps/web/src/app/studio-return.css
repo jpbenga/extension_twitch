@@ -204,6 +204,13 @@
 .studio-chat-empty strong {
   color: var(--studio-text);
 }
+.studio-chat-frame {
+  display: block;
+  width: 100%;
+  height: calc(100% - 74px);
+  border: 0;
+  background: var(--studio-bg);
+}
 .studio-chat-toggle {
   position: absolute;
   right: 2vw;

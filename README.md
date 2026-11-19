@@ -166,6 +166,11 @@ Les spectateurs restent en lecture seule : aucune interaction native Twitch n’
 [Architecture et bilan](docs/STREAM-PREVIEW.md). Le premier workflow OBS a été validé par l’utilisateur ; les nouveaux layouts et
 les autres appareils restent à vérifier. Les ouvertures tardives ne rejouent pas les effets passés.
 
+Pour la validation V1 sur une vraie chaîne, suivez le
+[guide Retour Studio + live Twitch](docs/TEST-TWITCH-LIVE.md). La régie peut générer
+un lien Retour Studio avec le vrai chat de la chaîne, sans modifier la source OBS
+publique envoyée aux spectateurs.
+
 ## Jalon 7 — Undercover, disposition personnalisable
 
 Depuis Préparer Undercover, ouvrez **Personnaliser l’overlay** : quatre dispositions,

@@ -39,6 +39,10 @@
     "./undercover-stream": {
       "types": "./dist/undercover-stream.d.ts",
       "import": "./dist/undercover-stream.js"
+    },
+    "./twitch": {
+      "types": "./dist/twitch.d.ts",
+      "import": "./dist/twitch.js"
     }
   },
   "scripts": {

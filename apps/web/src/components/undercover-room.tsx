@@ -17,6 +17,10 @@ import { UndercoverCompanion } from "./undercover-companion";
 import { supportsUndercoverCompanion } from "../lib/undercover-companion";
 import { StitchHeader } from "./stitch-frame";
 import {
+  normalizeTwitchChannel,
+  twitchChannelUrl,
+} from "@extension-twitch/contracts/twitch";
+import {
   GmGamePanel,
   GmRoster,
   GmDisclosure,
@@ -48,7 +52,11 @@ export function UndercoverRoom({
     gm = view.audience === "gm" ? view : null;
   const [pane, setPane] = useState("game"),
     [rename, setRename] = useState(""),
-    [settingsOpen, setSettingsOpen] = useState(false);
+    [settingsOpen, setSettingsOpen] = useState(false),
+    [twitchChannelInput, setTwitchChannelInput] = useState(""),
+    [studioPresentation, setStudioPresentation] = useState<"video" | "chat">(
+      "video",
+    );
   const playing = !!view.publicGame,
     play = view.publicGame?.play,
     locked = busy || retryAvailable || connection !== "connected";
@@ -62,6 +70,19 @@ export function UndercoverRoom({
     window.addEventListener("hashchange", sync);
     return () => window.removeEventListener("hashchange", sync);
   }, []);
+  useEffect(() => {
+    if (!gm) return;
+    try {
+      const saved = JSON.parse(
+        localStorage.getItem(`xt:twitch-return:${gm.sessionId}`) ?? "{}",
+      ) as { channel?: unknown; presentation?: unknown };
+      if (typeof saved.channel === "string")
+        setTwitchChannelInput(saved.channel);
+      if (saved.presentation === "chat") setStudioPresentation("chat");
+    } catch {
+      /* The direct Studio link remains available without local preferences. */
+    }
+  }, [gm?.sessionId]);
   const label =
     connection === "connected"
       ? "Synchronisé"
@@ -166,9 +187,26 @@ export function UndercoverRoom({
       />
     );
   if (!gm) return null;
+  const gmSessionId = gm.sessionId;
   const publicOrigin = new URL(gm.publicUrl).origin;
   const studioUrl = `${publicOrigin}/sessions/${view.sessionId}/studio`;
+  const twitchChannel = normalizeTwitchChannel(twitchChannelInput);
+  const studioParameters = new URLSearchParams();
+  if (twitchChannel) studioParameters.set("twitchChannel", twitchChannel);
+  if (twitchChannel && studioPresentation === "chat")
+    studioParameters.set("chat", "1");
+  const configuredStudioUrl = `${studioUrl}${studioParameters.size ? `?${studioParameters}` : ""}`;
   const rehearsalUrl = `${studioUrl}/rehearsal?state=discussion&chat=1`;
+  function saveTwitchReturn(channel: string, presentation: "video" | "chat") {
+    try {
+      localStorage.setItem(
+        `xt:twitch-return:${gmSessionId}`,
+        JSON.stringify({ channel, presentation }),
+      );
+    } catch {
+      /* The configured URL still works in this tab. */
+    }
+  }
   return (
     <main
       className="session-shell experience-shell gm-studio"
@@ -376,10 +414,67 @@ export function UndercoverRoom({
               À afficher sur le téléviseur visible du plateau. Cette sortie ne
               reçoit aucun secret avant la révélation.
             </p>
+            <div className="gm-twitch-return-config">
+              <label htmlFor="twitch-return-channel">
+                Chaîne Twitch du live test
+              </label>
+              <div className="gm-twitch-channel-row">
+                <span aria-hidden="true">twitch.tv/</span>
+                <input
+                  id="twitch-return-channel"
+                  value={twitchChannelInput}
+                  onChange={(event) => {
+                    const channel = event.target.value;
+                    setTwitchChannelInput(channel);
+                    saveTwitchReturn(channel, studioPresentation);
+                  }}
+                  placeholder="nom_de_chaine"
+                  autoComplete="off"
+                  spellCheck={false}
+                />
+              </div>
+              {twitchChannelInput && !twitchChannel && (
+                <p className="field-error" role="alert">
+                  Utilisez uniquement le nom de chaîne, sans URL ni espace.
+                </p>
+              )}
+              <fieldset>
+                <legend>Présentation du Retour Studio</legend>
+                <label>
+                  <input
+                    type="radio"
+                    name="studio-presentation"
+                    checked={studioPresentation === "video"}
+                    onChange={() => {
+                      setStudioPresentation("video");
+                      saveTwitchReturn(twitchChannelInput, "video");
+                    }}
+                  />
+                  Vidéo dominante, chat masqué
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="studio-presentation"
+                    checked={studioPresentation === "chat"}
+                    disabled={!twitchChannel}
+                    onChange={() => {
+                      setStudioPresentation("chat");
+                      saveTwitchReturn(twitchChannelInput, "chat");
+                    }}
+                  />
+                  Vidéo + vrai chat Twitch latéral
+                </label>
+              </fieldset>
+              <p className="lobby-hint">
+                Ce réglage modifie uniquement le lien du moniteur plateau. La
+                source OBS publique reste inchangée.
+              </p>
+            </div>
             <div className="layout-actions">
               <a
                 className="primary-button"
-                href={studioUrl}
+                href={configuredStudioUrl}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -394,7 +489,30 @@ export function UndercoverRoom({
                 Répétition avant direct ↗
               </a>
             </div>
-            <CopyLink label="Lien du Retour Studio" value={studioUrl} />
+            <CopyLink
+              label="Lien du Retour Studio configuré"
+              value={configuredStudioUrl}
+            />
+            {twitchChannel && (
+              <div className="layout-actions gm-twitch-links">
+                <a
+                  className="text-link"
+                  href={twitchChannelUrl(twitchChannel)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Voir la chaîne Twitch ↗
+                </a>
+                <a
+                  className="text-link"
+                  href="https://inspector.twitch.tv"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Ouvrir Twitch Inspector ↗
+                </a>
+              </div>
+            )}
             <p className="lobby-hint">
               La répétition utilise uniquement des fixtures isolées et n’écrit
               jamais dans cette session.
