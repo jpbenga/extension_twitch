@@ -18,14 +18,20 @@ URL. Choisissez ensuite :
 - **Vidéo dominante, chat masqué** ; ou
 - **Vidéo + vrai chat Twitch latéral**.
 
-Ouvrez ou copiez le **Lien du Retour Studio configuré**. Le nom de chaîne et le choix
-de présentation sont portés uniquement par ce lien ; ils ne modifient ni la session de
-jeu ni la composition OBS.
+Ouvrez ou copiez le **Lien du Retour Studio configuré**. En développement LAN, la
+régie génère automatiquement un lien `localhost` pour cette surface locale, tandis que
+les invitations joueurs gardent l’adresse Wi-Fi. Le nom de chaîne et le choix de
+présentation ne modifient ni la session de jeu ni la composition OBS.
 
 Le chat est l’embed officiel Twitch. En production, Twitch exige un domaine HTTPS et
-le paramètre `parent`. Pour un essai sur le même Mac, utilisez `localhost` plutôt que
-l’adresse réseau. Les cookies tiers ou les protections du navigateur peuvent demander
-une connexion Twitch dans la fenêtre intégrée.
+le paramètre `parent`. Le lancement `npm run dev:lan` rend aussi le Retour Studio
+accessible sur `localhost`, sans réécriture manuelle. Les cookies tiers ou les
+protections du navigateur peuvent demander une connexion Twitch dans la fenêtre intégrée.
+
+Dans le Retour Studio, choisissez **Afficher une fenêtre OBS** pour sélectionner le
+projecteur d’une scène propre destinée aux joueurs, ou **Utiliser la caméra** pour un
+essai direct. Cette sélection reste locale au navigateur et n’est jamais envoyée au
+serveur.
 
 ## 2. Préparer OBS sans risque de fuite
 

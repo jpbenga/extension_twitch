@@ -1,7 +1,7 @@
 "use client";
 
 import type { StudioSessionView } from "@extension-twitch/contracts/sessions";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { twitchChatEmbedUrl } from "@extension-twitch/contracts/twitch";
 import "../app/studio-return.css";
 
@@ -38,6 +38,9 @@ export function StudioReturnCanvas({
 }) {
   const [chatVisible, setChatVisible] = useState(initialChat);
   const [page, setPage] = useState(0);
+  const [videoStream, setVideoStream] = useState<MediaStream | null>(null);
+  const [videoError, setVideoError] = useState("");
+  const videoRef = useRef<HTMLVideoElement>(null);
   const game = view?.studioGame;
   const reveal = game?.outcome ? (game.reveal ?? []) : [];
   const pageSize = reveal.length === 6 ? 6 : 3;
@@ -88,6 +91,51 @@ export function StudioReturnCanvas({
             : "La partie va commencer";
   const showChat = chatVisible && state !== "reveal";
 
+  useEffect(() => {
+    if (videoRef.current) videoRef.current.srcObject = videoStream;
+    return () => {
+      if (videoRef.current) videoRef.current.srcObject = null;
+    };
+  }, [videoStream]);
+
+  useEffect(
+    () => () => videoStream?.getTracks().forEach((track) => track.stop()),
+    [videoStream],
+  );
+
+  async function selectVideoSource(source: "display" | "camera") {
+    setVideoError("");
+    try {
+      const media = navigator.mediaDevices;
+      const stream =
+        source === "display"
+          ? await media?.getDisplayMedia?.({ video: true, audio: false })
+          : await media?.getUserMedia?.({
+              video: { aspectRatio: 16 / 9 },
+              audio: false,
+            });
+      if (!stream) throw new Error("unsupported");
+      videoStream?.getTracks().forEach((track) => track.stop());
+      const [track] = stream.getVideoTracks();
+      track?.addEventListener("ended", () => setVideoStream(null), {
+        once: true,
+      });
+      setVideoStream(stream);
+    } catch (failure) {
+      if (
+        failure instanceof DOMException &&
+        (failure.name === "NotAllowedError" || failure.name === "AbortError")
+      )
+        setVideoError(
+          "Sélection annulée. Choisissez une source pour afficher le retour vidéo.",
+        );
+      else
+        setVideoError(
+          "Cette source vidéo n’est pas disponible. Ouvrez le Retour Studio sur localhost avec un navigateur compatible.",
+        );
+    }
+  }
+
   return (
     <main
       className={`studio-return ${showChat ? "studio-with-chat" : "studio-full-video"}`}
@@ -97,10 +145,48 @@ export function StudioReturnCanvas({
       data-version={view?.version ?? 0}
     >
       <div className="studio-video" aria-label="Zone du retour caméra">
-        <div className="studio-video-neutral">
-          <span>RETOUR CAMÉRA</span>
-          <small>Aucune source vidéo navigateur configurée</small>
-        </div>
+        {videoStream ? (
+          <div className="studio-video-active">
+            <video
+              ref={videoRef}
+              className="studio-video-feed"
+              autoPlay
+              muted
+              playsInline
+              aria-label="Retour vidéo sélectionné"
+            />
+            <button
+              className="studio-video-change"
+              onClick={() => {
+                videoStream.getTracks().forEach((track) => track.stop());
+                setVideoStream(null);
+              }}
+            >
+              Changer la source vidéo
+            </button>
+          </div>
+        ) : (
+          <div className="studio-video-neutral">
+            <span>RETOUR VIDÉO</span>
+            <small>
+              Affichez le projecteur d’une scène OBS propre ou la caméra du
+              plateau.
+            </small>
+            <div className="studio-video-actions">
+              <button onClick={() => void selectVideoSource("display")}>
+                Afficher une fenêtre OBS
+              </button>
+              <button onClick={() => void selectVideoSource("camera")}>
+                Utiliser la caméra
+              </button>
+            </div>
+            {videoError && (
+              <p className="studio-video-error" role="alert">
+                {videoError}
+              </p>
+            )}
+          </div>
+        )}
       </div>
       <header className="studio-topbar">
         <div className="studio-brand">

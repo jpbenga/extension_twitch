@@ -196,6 +196,14 @@
   border-radius: 12px;
   background: var(--color-surface-secondary);
 }
+.gm-local-return-note {
+  max-width: 72ch;
+  padding: 12px 14px;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-secondary);
+}
 .gm-twitch-return-config > label,
 .gm-twitch-return-config legend {
   color: var(--color-text-primary);

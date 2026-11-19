@@ -62,6 +62,78 @@
 .studio-video-neutral small {
   font-size: clamp(0.8rem, 0.85vw, 1.15rem);
 }
+.studio-video-active,
+.studio-video-feed {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.studio-video-active {
+  position: relative;
+}
+.studio-video-feed {
+  object-fit: cover;
+  background: var(--studio-video);
+}
+.studio-video-change {
+  position: absolute;
+  z-index: 3;
+  right: 1.7vw;
+  bottom: 6.5vh;
+  min-height: 44px;
+  padding: 0.7rem 1rem;
+  color: var(--studio-text);
+  border: 1px solid rgb(206 189 255 / 50%);
+  border-radius: 8px;
+  background: rgb(12 12 31 / 88%);
+  font: inherit;
+  cursor: pointer;
+}
+.studio-with-chat .studio-video-change {
+  right: 1.7vw;
+}
+.studio-full-video .studio-video-change {
+  bottom: 12.5vh;
+}
+.studio-video-change:hover,
+.studio-video-change:focus-visible {
+  border-color: var(--studio-live);
+}
+.studio-video-change:focus-visible {
+  outline: 3px solid rgb(32 201 180 / 40%);
+  outline-offset: 3px;
+}
+.studio-video-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 0.75rem;
+}
+.studio-video-actions button {
+  min-height: 44px;
+  padding: 0.7rem 1rem;
+  color: var(--studio-text);
+  border: 1px solid rgb(206 189 255 / 50%);
+  border-radius: 8px;
+  background: rgb(26 26 45 / 88%);
+  font: inherit;
+  cursor: pointer;
+}
+.studio-video-actions button:hover,
+.studio-video-actions button:focus-visible {
+  border-color: var(--studio-live);
+}
+.studio-video-actions button:focus-visible {
+  outline: 3px solid rgb(32 201 180 / 40%);
+  outline-offset: 3px;
+}
+.studio-video-error {
+  max-width: 52ch;
+  margin: 0.5rem auto 0;
+  color: var(--studio-text);
+  font-size: clamp(0.78rem, 0.8vw, 1rem);
+}
 .studio-topbar {
   position: absolute;
   z-index: 2;

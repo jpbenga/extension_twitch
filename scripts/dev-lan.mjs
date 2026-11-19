@@ -55,7 +55,9 @@ const child = spawn(
     env: {
       ...process.env,
       PUBLIC_ORIGIN: origin.origin,
-      WEB_HOST: origin.hostname,
+      // Listen on loopback as well as Wi-Fi: invitations use PUBLIC_ORIGIN,
+      // while the production Mac opens Twitch/capture surfaces on localhost.
+      WEB_HOST: "0.0.0.0",
       PORT: origin.port || "80",
     },
   },

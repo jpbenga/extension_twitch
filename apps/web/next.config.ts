@@ -27,6 +27,7 @@ const config: NextConfig = {
   agentRules: false,
   allowedDevOrigins: [
     "127.0.0.1",
+    "localhost",
     ...(process.env.PUBLIC_ORIGIN
       ? [new URL(process.env.PUBLIC_ORIGIN).hostname]
       : []),

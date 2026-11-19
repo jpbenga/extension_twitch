@@ -20,6 +20,7 @@ import {
   normalizeTwitchChannel,
   twitchChannelUrl,
 } from "@extension-twitch/contracts/twitch";
+import { studioReturnOrigin } from "../lib/studio-return-url";
 import {
   GmGamePanel,
   GmRoster,
@@ -56,7 +57,8 @@ export function UndercoverRoom({
     [twitchChannelInput, setTwitchChannelInput] = useState(""),
     [studioPresentation, setStudioPresentation] = useState<"video" | "chat">(
       "video",
-    );
+    ),
+    [browserOrigin, setBrowserOrigin] = useState("");
   const playing = !!view.publicGame,
     play = view.publicGame?.play,
     locked = busy || retryAvailable || connection !== "connected";
@@ -83,6 +85,7 @@ export function UndercoverRoom({
       /* The direct Studio link remains available without local preferences. */
     }
   }, [gm?.sessionId]);
+  useEffect(() => setBrowserOrigin(window.location.origin), []);
   const label =
     connection === "connected"
       ? "Synchronisé"
@@ -189,7 +192,8 @@ export function UndercoverRoom({
   if (!gm) return null;
   const gmSessionId = gm.sessionId;
   const publicOrigin = new URL(gm.publicUrl).origin;
-  const studioUrl = `${publicOrigin}/sessions/${view.sessionId}/studio`;
+  const returnOrigin = studioReturnOrigin(publicOrigin, browserOrigin);
+  const studioUrl = `${returnOrigin}/sessions/${view.sessionId}/studio`;
   const twitchChannel = normalizeTwitchChannel(twitchChannelInput);
   const studioParameters = new URLSearchParams();
   if (twitchChannel) studioParameters.set("twitchChannel", twitchChannel);
@@ -414,6 +418,13 @@ export function UndercoverRoom({
               À afficher sur le téléviseur visible du plateau. Cette sortie ne
               reçoit aucun secret avant la révélation.
             </p>
+            {returnOrigin !== publicOrigin && (
+              <p className="gm-local-return-note">
+                Le Retour Studio s’ouvrira localement sur ce Mac pour autoriser
+                le chat Twitch et le choix d’une source vidéo. Les invitations
+                joueurs restent sur l’adresse Wi-Fi.
+              </p>
+            )}
             <div className="gm-twitch-return-config">
               <label htmlFor="twitch-return-channel">
                 Chaîne Twitch du live test

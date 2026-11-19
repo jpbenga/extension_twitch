@@ -19,6 +19,23 @@ test("real Studio output stays independent from OBS and reveals only after the s
   browser,
 }) => {
   const fixture = await officialTvFixture(request, 3);
+  await page.addInitScript(() => {
+    const display = document.createElement("canvas");
+    display.width = 1920;
+    display.height = 1080;
+    const context = display.getContext("2d");
+    if (context) {
+      context.fillStyle = "#12152f";
+      context.fillRect(0, 0, display.width, display.height);
+    }
+    Object.defineProperty(navigator, "mediaDevices", {
+      configurable: true,
+      value: {
+        getDisplayMedia: async () => display.captureStream(),
+        getUserMedia: async () => display.captureStream(),
+      },
+    });
+  });
   await page.goto(`/sessions/${fixture.id}/studio`);
   await fixture.action("deal");
   await expect(page.locator(".studio-sync")).toContainText("Synchronisé");
@@ -27,6 +44,11 @@ test("real Studio output stays independent from OBS and reveals only after the s
     "discussion",
   );
   await expect(page.locator("body")).not.toContainText(/Phare|Balise|Civil/);
+  await page.getByRole("button", { name: "Afficher une fenêtre OBS" }).click();
+  await expect(page.getByLabel("Retour vidéo sélectionné")).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "Changer la source vidéo" }),
+  ).toBeVisible();
   await shot(page, "discussion-video-integrale-1920x1080");
 
   const twitchReturn = await browser.newPage({
