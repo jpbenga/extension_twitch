@@ -279,6 +279,12 @@ export function StudioReturnCanvas({
           <header>
             <span>CHAT TWITCH</span>
             <strong>{rehearsal ? "RÉPÉTITION" : "EN DIRECT"}</strong>
+            <button
+              className="studio-chat-close"
+              onClick={() => setChatVisible(false)}
+            >
+              Masquer
+            </button>
           </header>
           {!rehearsal && twitchChannel ? (
             <TwitchChatEmbed channel={twitchChannel} />
@@ -299,12 +305,12 @@ export function StudioReturnCanvas({
           )}
         </aside>
       )}
-      {state !== "reveal" && (
+      {state !== "reveal" && !showChat && (
         <button
           className="studio-chat-toggle"
           onClick={() => setChatVisible((visible) => !visible)}
         >
-          {showChat ? "Masquer le chat" : "Afficher le chat"}
+          Afficher le chat
         </button>
       )}
       <footer>

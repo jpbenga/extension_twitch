@@ -77,6 +77,7 @@ test("real Studio output stays independent from OBS and reveals only after the s
   await expect(page.getByLabel("Chat Twitch")).toContainText(
     "Chat momentanément indisponible",
   );
+  await expect(page.getByRole("button", { name: "Masquer" })).toBeVisible();
   await shot(page, "discussion-chat-lateral-1920x1080");
 
   const obs = await browser.newPage({
