@@ -9,6 +9,9 @@ describe("studio return origin", () => {
         "http://192.168.0.46:3000",
       ),
     ).toBe("http://localhost:3000");
+    expect(
+      studioReturnOrigin("http://192.168.0.46:3000", "http://localhost:3000"),
+    ).toBe("http://localhost:3000");
   });
 
   it("keeps hosted HTTPS and unrelated browser origins canonical", () => {
