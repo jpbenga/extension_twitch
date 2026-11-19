@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { canonicalApplicationUrl } from "../apps/web/src/lib/canonical-origin";
+import { canonicalApplicationUrl } from "../apps/web/src/lib/canonical-origin.js";
 
 describe("canonical application origin", () => {
   it("moves product workflows from localhost to the configured LAN origin", () => {

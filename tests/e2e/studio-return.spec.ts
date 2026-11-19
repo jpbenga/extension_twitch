@@ -142,6 +142,15 @@ test("real Studio output stays independent from OBS and reveals only after the s
   await expect(
     page.getByRole("link", { name: "Ouvrir le Retour Studio ↗" }),
   ).toHaveAttribute("href", /twitchChannel=twitchdev&chat=1$/);
+  await page
+    .getByText("Ajustements avancés et sortie Twitch / OBS", { exact: true })
+    .click();
+  await expect(
+    page.getByRole("heading", { name: "Ce que verront vos spectateurs" }),
+  ).toBeVisible();
+  await expect(
+    page.locator(".gm-program-monitor .broadcast-frame"),
+  ).toBeVisible();
   await shot(page, "acces-gm-retour-studio-1920x1080");
 });
 

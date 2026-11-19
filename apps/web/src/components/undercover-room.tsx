@@ -531,10 +531,34 @@ export function UndercoverRoom({
           </div>
           <details className="operation-secondary">
             <summary>Ajustements avancés et sortie Twitch / OBS</summary>
-            <p className="lobby-hint">
-              Composition publique indépendante du Retour Studio.
-            </p>
-            <BroadcastFeed id={view.sessionId} />
+            <section
+              className="gm-program-preview"
+              aria-labelledby="gm-program-preview-title"
+            >
+              <header>
+                <div>
+                  <span className="gm-program-status">
+                    <i aria-hidden="true" /> APERÇU PROGRAMME
+                  </span>
+                  <h3 id="gm-program-preview-title">
+                    Ce que verront vos spectateurs
+                  </h3>
+                </div>
+                <span className="gm-program-format">16:9 · 1920 × 1080</span>
+              </header>
+              <div className="gm-program-monitor">
+                <div className="gm-program-monitor-bar">
+                  <span>PROGRAMME TWITCH / OBS</span>
+                  <span>SCÈNE SIMULÉE</span>
+                </div>
+                <BroadcastFeed id={view.sessionId} scene />
+              </div>
+              <p>
+                Le fond caméra est simulé uniquement dans cet aperçu. L’overlay
+                affiché par-dessus est le véritable rendu public synchronisé
+                avec la source OBS transparente.
+              </p>
+            </section>
             <div className="layout-actions">
               <a
                 className="secondary-button"

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { studioReturnOrigin } from "../apps/web/src/lib/studio-return-url";
+import { studioReturnOrigin } from "../apps/web/src/lib/studio-return-url.js";
 
 describe("studio return origin", () => {
   it("uses localhost for a LAN test opened from its canonical Wi-Fi origin", () => {
