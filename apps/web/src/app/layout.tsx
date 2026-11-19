@@ -9,6 +9,7 @@ import "./experience.css";
 import { ApplicationTheme } from "../components/application-theme";
 import { LegacyToolsContext } from "../components/legacy-tools";
 import { FeedbackProvider } from "../components/ui/feedback";
+import { CanonicalOrigin } from "../components/canonical-origin";
 
 export const dynamic = "force-dynamic";
 
@@ -32,6 +33,9 @@ export default function RootLayout({
   return (
     <html lang="fr" data-scroll-behavior="smooth" data-theme="broadcast-studio">
       <body>
+        <CanonicalOrigin
+          publicOrigin={process.env.PUBLIC_ORIGIN ?? "http://127.0.0.1:3000"}
+        />
         <LegacyToolsContext
           value={
             process.env.NODE_ENV !== "production" &&
