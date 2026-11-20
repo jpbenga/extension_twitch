@@ -10,7 +10,7 @@ import {
   type CSSProperties,
 } from "react";
 import { twitchChatEmbedUrl } from "@extension-twitch/contracts/twitch";
-import { UndercoverTvMask } from "./undercover-tv-overlay.js";
+import { UndercoverTvMask } from "./undercover-tv-mask.tsx";
 import "../app/broadcast-tv.css";
 import "../app/studio-return.css";
 

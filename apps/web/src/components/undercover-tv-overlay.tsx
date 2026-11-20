@@ -7,8 +7,9 @@ import type {
 import type { UndercoverContent } from "@extension-twitch/contracts/undercover-stream";
 import type { PublicSessionView } from "@extension-twitch/contracts/sessions";
 import { historicalBroadcastTheme } from "@extension-twitch/contracts/themes";
-import type { PublicCue } from "../lib/public-cues.js";
-import { publicBallotResult } from "../lib/broadcast-presentation.js";
+import type { PublicCue } from "../lib/public-cues";
+import { publicBallotResult } from "../lib/broadcast-presentation";
+import { UndercoverTvMask } from "./undercover-tv-mask";
 import "../app/broadcast-tv.css";
 
 /** Images are only URLs already granted by a public server projection. */
@@ -29,22 +30,6 @@ function ContentImage({
       onError={() => setFailed(true)}
     />
   ) : null;
-}
-export function UndercoverTvMask() {
-  return (
-    <span className="tv-mask" aria-hidden="true">
-      <svg viewBox="0 0 44 38" fill="none">
-        <path
-          d="M3 6L13 12Q22 4 31 12L41 6L37 25Q22 42 7 25Z"
-          fill="currentColor"
-        />
-        <path
-          d="M10 17L19 20L15 25L10 23ZM34 17L25 20L29 25L34 23Z"
-          className="tv-mask-eyes"
-        />
-      </svg>
-    </span>
-  );
 }
 /** The TV layout consumes only the public projection, never a GM or player state. */
 export function UndercoverTvOverlay({
