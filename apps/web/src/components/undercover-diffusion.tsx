@@ -29,7 +29,7 @@ export function UndercoverDiffusion({
 }) {
   const [preview, setPreview] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null);
-  const mode = draft.preferredPublication ?? "duo";
+  const mode = draft.preferredPublication ?? "assignments";
   const example = {
     ...layoutPreparationPreview(draft.count),
     broadcastTheme: draft.broadcastTheme,
@@ -235,14 +235,14 @@ export function UndercoverDiffusion({
             {mode === "duo"
               ? "Après publication, les deux contenus sont visibles, sans les affectations des joueurs."
               : mode === "assignments"
-                ? "Les associations sont visibles uniquement après votre confirmation dans la régie."
+                ? "Les associations deviennent visibles au lancement de la manche."
                 : "Les contenus restent masqués jusqu’à une commande explicite du Game Master."}
           </p>
           <details>
             <summary>Comprendre les modes publics</summary>
             <p>
-              Ce choix prépare votre préférence pour la régie. Il ne distribue
-              pas les mots et ne publie rien automatiquement. Les votes
+              Ce choix s’applique après la distribution lancée par le Game
+              Master. Avant cela, aucun contenu n’est public. Les votes
               individuels restent privés.
             </p>
           </details>

@@ -85,6 +85,7 @@ export function newPreparation(
     count: 4,
     settings,
     overlayLayout: createUndercoverTvLayout(),
+    preferredPublication: "assignments",
     broadcastTheme: applicationDefaultTheme,
     contents: {
       a: { name: settings["civil-word"] },

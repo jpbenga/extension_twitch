@@ -7,8 +7,8 @@ import type {
 import type { UndercoverContent } from "@extension-twitch/contracts/undercover-stream";
 import type { PublicSessionView } from "@extension-twitch/contracts/sessions";
 import { historicalBroadcastTheme } from "@extension-twitch/contracts/themes";
-import type { PublicCue } from "../lib/public-cues";
-import { publicBallotResult } from "../lib/broadcast-presentation";
+import type { PublicCue } from "../lib/public-cues.js";
+import { publicBallotResult } from "../lib/broadcast-presentation.js";
 import "../app/broadcast-tv.css";
 
 /** Images are only URLs already granted by a public server projection. */
@@ -30,7 +30,7 @@ function ContentImage({
     />
   ) : null;
 }
-function Mask() {
+export function UndercoverTvMask() {
   return (
     <span className="tv-mask" aria-hidden="true">
       <svg viewBox="0 0 44 38" fill="none">
@@ -174,6 +174,7 @@ export function UndercoverTvOverlay({
               data-player={p.id}
               data-card-index={visiblePlayers.findIndex((v) => v.id === p.id)}
               data-active={roster.find((r) => r.id === p.id)?.active ?? true}
+              data-current={speaker === p.id}
               key={p.id}
             >
               {item && <ContentImage content={item} connection={connection} />}
@@ -185,6 +186,9 @@ export function UndercoverTvOverlay({
                 <strong className="tv-word" title={item.label}>
                   {item.label}
                 </strong>
+              )}
+              {speaker === p.id && !final && (
+                <span className="tv-speaking">À son tour</span>
               )}
               {final && role && <span className="tv-camp">{role}</span>}
             </article>
@@ -216,7 +220,7 @@ export function UndercoverTvOverlay({
       {widget(
         "header",
         <>
-          <Mask />
+          <UndercoverTvMask />
           <h2>UNDERCOVER</h2>
         </>,
         "tv-header tv-pill",

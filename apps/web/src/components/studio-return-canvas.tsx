@@ -1,8 +1,17 @@
 "use client";
 
 import type { StudioSessionView } from "@extension-twitch/contracts/sessions";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { createUndercoverTvLayout } from "@extension-twitch/contracts/undercover-layout";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+} from "react";
 import { twitchChatEmbedUrl } from "@extension-twitch/contracts/twitch";
+import { UndercoverTvMask } from "./undercover-tv-overlay.js";
+import "../app/broadcast-tv.css";
 import "../app/studio-return.css";
 
 export interface StudioChatMessage {
@@ -90,6 +99,26 @@ export function StudioReturnCanvas({
             ? `La discussion reprend · ${active} joueurs encore en jeu`
             : "La partie va commencer";
   const showChat = chatVisible && state !== "reveal";
+  const studioLayout = createUndercoverTvLayout();
+  const position = (
+    id: "header" | "phase" | "round" | "players" | "vote" | "result",
+  ): CSSProperties => {
+    const rect = studioLayout.widgets[id];
+    return {
+      left: `${rect.x / 19.2}%`,
+      top: `${rect.y / 10.8}%`,
+      width: `${rect.width / 19.2}%`,
+      height: `${rect.height / 10.8}%`,
+    };
+  };
+  const speaker =
+    state === "discussion" && game?.turns?.current
+      ? game.turns.current
+      : undefined;
+  const speakerSlot = speaker
+    ? (view?.participants.findIndex((player) => player.id === speaker) ?? -1) +
+      1
+    : 0;
 
   useEffect(() => {
     if (videoRef.current) videoRef.current.srcObject = videoStream;
@@ -188,40 +217,77 @@ export function StudioReturnCanvas({
           </div>
         )}
       </div>
-      <header className="studio-topbar">
-        <div className="studio-brand">
-          <span className="studio-mask" aria-hidden="true">
-            ◒
-          </span>
-          <strong>UNDERCOVER</strong>
+      <section
+        className="studio-safe-overlay broadcast-overlay broadcast-tv"
+        aria-label="Informations partagées avec le plateau"
+        data-connection={connection}
+      >
+        <div
+          className="tv-header tv-pill"
+          data-widget="header"
+          style={position("header")}
+        >
+          <UndercoverTvMask />
+          <h2>UNDERCOVER</h2>
         </div>
-        <div className="studio-phase">
+        <div
+          className="tv-phase tv-pill"
+          data-widget="phase"
+          style={position("phase")}
+        >
           <strong>{phase}</strong>
           {game?.turns && (
-            <span>
-              TOUR {game.turns.round}/{game.turns.total}
+            <span className="tv-turn">
+              Tour {game.turns.round}/{game.turns.total}
             </span>
           )}
         </div>
-        <div className="studio-status">
-          <span>{view?.participants.length ?? 0} JOUEURS</span>
-          <span className={`studio-sync ${connection}`}>
-            <i /> {connectionLabel(connection)}
-          </span>
+        <div
+          className="tv-round tv-pill"
+          data-widget="round"
+          style={position("round")}
+        >
+          <span>{view?.participants.length ?? 0} joueurs</span>
+          <span className="tv-connection">{connectionLabel(connection)}</span>
         </div>
-      </header>
-
-      {state !== "reveal" && (
-        <section className="studio-lower" aria-live="polite">
-          <span>
-            {state === "discussion" ? "JOUEUR ACTIF" : "ÉTAT DU PLATEAU"}
-          </span>
-          {state === "discussion" && game?.turns?.current && (
-            <h1>{name(game.turns.current)}</h1>
-          )}
-          <p>{instruction}</p>
-        </section>
-      )}
+        {state !== "reveal" && (
+          <div
+            className={`tv-lower${state === "discussion" ? " tv-speaker-group" : ""}`}
+            data-widget={
+              state === "vote"
+                ? "vote"
+                : state === "result"
+                  ? "result"
+                  : "players"
+            }
+            style={
+              state === "vote"
+                ? position("vote")
+                : state === "result"
+                  ? position("result")
+                  : position("players")
+            }
+            aria-live="polite"
+          >
+            {speaker ? (
+              <div className="tv-event tv-speaker">
+                <span className="tv-speaker-number">{speakerSlot}</span>
+                <div>
+                  <p>Au tour de</p>
+                  <strong title={name(speaker)}>{name(speaker)}</strong>
+                </div>
+              </div>
+            ) : (
+              <div
+                className={`tv-event${state === "vote" ? " tv-vote-counter" : ""}`}
+              >
+                <p>{state === "vote" ? "Le vote est ouvert" : phase}</p>
+                <strong>{instruction}</strong>
+              </div>
+            )}
+          </div>
+        )}
+      </section>
 
       {state === "reveal" && (
         <section

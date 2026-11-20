@@ -203,6 +203,24 @@ export function UndercoverSeriesControls({
           {message}
         </p>
       )}
+      {canPublish && prep.publication !== "assignments" && (
+        <div className="gm-publication-ready" role="status">
+          <div>
+            <strong>Les cartes ne sont pas encore visibles dans OBS.</strong>
+            <p className="gm-footnote">
+              Publiez les trois affectations pour les spectateurs sans les
+              envoyer au Retour Studio.
+            </p>
+          </div>
+          <button
+            className="primary-button"
+            disabled={locked}
+            onClick={() => void publish("assignments")}
+          >
+            Afficher les affectations dans OBS
+          </button>
+        </div>
+      )}
       <details className="gm-disclosure gm-content-publication">
         <summary>
           <span>Contenus sur le plateau</span>
@@ -216,7 +234,7 @@ export function UndercoverSeriesControls({
               : prep.preferredPublication === "none"
                 ? "Ne rien afficher"
                 : "Duo anonyme"}
-            . Aucune publication automatique.
+            . Ce mode s’applique après la distribution.
           </p>
           <p>
             Choisissez ce que le public peut voir. Les votes individuels restent

@@ -203,6 +203,11 @@
 .broadcast-tv .tv-assignment {
   flex: 1 1 0;
 }
+.broadcast-tv .tv-assignment[data-current="true"] {
+  border-color: var(--tv-accent);
+  box-shadow: 0 0.35cqw 1.15cqw
+    color-mix(in srgb, var(--tv-accent) 34%, transparent);
+}
 .broadcast-tv .tv-player {
   position: absolute;
   top: 0.46875cqw;
@@ -219,6 +224,25 @@
 }
 .broadcast-tv .tv-assignment:not(:has(img)) .tv-word {
   margin-top: 3cqw;
+}
+.broadcast-tv .tv-speaking {
+  position: absolute;
+  right: 0.625cqw;
+  bottom: 0.625cqw;
+  z-index: 2;
+  padding: 0.260417cqw 0.625cqw;
+  border-radius: 5.2cqw;
+  color: var(--broadcast-bg);
+  background: var(--tv-accent);
+  font-size: 1.354167cqw;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.broadcast-tv .tv-assignment:has(.tv-speaking) .tv-word {
+  padding-right: 7.5cqw;
 }
 .broadcast-tv .tv-event {
   min-width: 0;

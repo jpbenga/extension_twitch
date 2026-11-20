@@ -33,6 +33,22 @@
 .gm-series-controls .gm-series-next {
   width: 100%;
 }
+.gm-publication-ready {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px;
+  border: 1px solid var(--color-border-control);
+  border-radius: 12px;
+  background: var(--color-surface-secondary);
+}
+.gm-publication-ready strong {
+  color: var(--color-text-primary);
+}
+.gm-publication-ready .gm-footnote {
+  margin: 4px 0 0;
+}
 @media (max-width: 600px) {
   .gm-series-buttons {
     display: grid;
@@ -47,5 +63,9 @@
   }
   .gm-series-controls button {
     width: 100%;
+  }
+  .gm-publication-ready {
+    align-items: stretch;
+    flex-direction: column;
   }
 }

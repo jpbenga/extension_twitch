@@ -26,7 +26,7 @@ export function makeUndercoverStream(
       a: { id: randomUUID(), label: settings["civil-word"] },
       b: { id: randomUUID(), label: settings["undercover-word"] },
     },
-    publication: "none",
+    publication: preparation.preferredPublication ?? "assignments",
     page: 0,
     revision: 0,
     transition: false,

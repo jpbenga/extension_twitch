@@ -66,7 +66,12 @@ async function fixture(request: APIRequestContext, count = 3, limit = 10) {
     position: 1,
     total: 2,
   };
-  const prep = { id: randomUUID(), title: "Première paire", series };
+  const prep = {
+    id: randomUUID(),
+    title: "Première paire",
+    preferredPublication: "none" as const,
+    series,
+  };
   const created = await request.post(
     "/api/server/official-games/undercover/sessions",
     {
@@ -288,6 +293,10 @@ test("TV renderer uses real public HTTP/SSE from preparation to publication, mis
   });
   await f.command({ type: "undercover.publish", mode: "assignments" });
   await expect(root(page).locator(".tv-assignment")).toHaveCount(3);
+  await expect(
+    root(page).locator('.tv-assignment[data-current="true"]'),
+  ).toHaveCount(1);
+  await expect(root(page).locator(".tv-speaking")).toHaveText("À son tour");
   await expect(root(page).locator(".tv-player")).toHaveText(
     f.players.map((p, i) => `#${i + 1} ${p.name}`),
   );

@@ -29,6 +29,20 @@
   inset: 0;
   background: transparent;
 }
+.studio-safe-overlay {
+  --broadcast-bg: var(--studio-bg);
+  --broadcast-ink: var(--studio-text);
+  --broadcast-highlight: var(--studio-positive);
+  --broadcast-tv-accent: var(--studio-live);
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  container-type: inline-size;
+  pointer-events: none;
+}
+.studio-with-chat .studio-safe-overlay {
+  right: 23.5vw;
+}
 .studio-with-chat .studio-video {
   right: 23.5vw;
 }

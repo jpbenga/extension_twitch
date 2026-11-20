@@ -126,6 +126,8 @@ describe("Undercover studio return projection", () => {
     const html = renderToStaticMarkup(
       createElement(StudioReturnCanvas, { view, connection: "connected" }),
     );
+    expect(html).toContain("broadcast-tv");
+    expect(html).toContain("tv-speaker");
     expect(html).not.toMatch(
       /undercoverBroadcast|assignments|secret-word|data-role|voted|myVote|tallies/,
     );

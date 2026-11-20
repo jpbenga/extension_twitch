@@ -246,14 +246,14 @@ describe("Undercover preparation, publication and media over real HTTP/SSE", () 
     store.close();
     rmSync(dir, { recursive: true, force: true });
   });
-  it("keeps the prepared publication preference GM-only and never publishes it automatically", async () => {
+  it("keeps the prepared preference GM-only and applies it only after the deal", async () => {
     expect(gm.undercoverPreparation?.preferredPublication).toBe("assignments");
     const pub = await publicView();
     expect(JSON.stringify(pub)).not.toContain("preferredPublication");
     expect(pub.undercoverBroadcast?.mode).toBe("none");
     await accepted({ type: "game.use-prepared" });
     await act("deal");
-    expect((await publicView()).undercoverBroadcast?.mode).toBe("none");
+    expect((await publicView()).undercoverBroadcast?.mode).toBe("assignments");
   });
   it("pins only current metadata, creates no demo identities itself and prevents a second salon for one series", async () => {
     expect(gm.game).toBeUndefined();
@@ -293,6 +293,7 @@ describe("Undercover preparation, publication and media over real HTTP/SSE", () 
     await accepted({ type: "game.use-prepared" });
     expect(gm.game!.play!.dealt).toBe(false);
     await act("deal");
+    await accepted({ type: "undercover.publish", mode: "none" });
     for (const p of players) {
       const raw = await (
         await fetch(`${origin}/sessions/${id}/private`, {
